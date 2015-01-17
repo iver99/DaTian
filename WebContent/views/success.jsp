@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-hello ${name }!,success
+hello ${username}!,success password-${password }
 </body>
 </html>

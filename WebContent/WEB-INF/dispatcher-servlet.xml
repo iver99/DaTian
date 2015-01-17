@@ -20,9 +20,9 @@
 	<context:component-scan base-package="cn.edu.bjtu.service.impl"></context:component-scan>
 	
 	<!-- 对静态资源的处理 -->
-	<mvc:resources location="/images/" mapping="/images/**"/>
-	<mvc:resources location="/css/" mapping="/css/**"/>
-	<mvc:resources location="/js/" mapping="/js/**"/>
+	<mvc:resources location="/views/images/" mapping="/images/**"/>
+	<mvc:resources location="/views/css/" mapping="/css/**"/>
+	<mvc:resources location="/views/js/" mapping="/js/**"/>
 	<mvc:resources location="/views/" mapping="/views/**"/>
 	
 	<!-- 下面是视图解析器 -->
@@ -31,5 +31,44 @@
 		<property name="prefix" value="/views/"></property><!-- 视图都在views文件夹下 -->
 		<property name="suffix" value=".jsp"></property>
 	</bean>	
+	
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/webdemo"></property>
+		<property name="user" value="root"></property>
+		<property name="password" value="123456"></property>
+		<property name="initialPoolSize" value="1"></property>
+		<property name="maxIdleTime" value="20"></property>
+		<property name="maxPoolSize" value="50"></property>
+		<property name="minPoolSize" value="1"></property>
+	</bean>
+
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mappingResources">
+			<list>
+				<value>User.hbm.xml</value>
+				
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLInnoDBDialect
+				</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+
+
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<constructor-arg ref="sessionFactory" />
+	</bean>
+	<!-- <bean id="pageBean" class="cn.edu.bjtu.util.PageBean"> <con-arg> </bean> -->
+	<bean id="splitPage" class="cn.edu.bjtu.util.SplitPage"></bean>
 		
 </beans>

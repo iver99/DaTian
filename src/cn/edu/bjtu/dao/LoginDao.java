@@ -1,6 +1,7 @@
-package cn.edu.bjtu.service;
+package cn.edu.bjtu.dao;
 
-public interface LoginService {
-	
+public interface LoginDao {
 	public boolean checkLogin(String username,String password);
+	
+
 }

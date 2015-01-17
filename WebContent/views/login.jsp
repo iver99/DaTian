@@ -4,19 +4,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>大田集团供应链资源管理平台</title>
-<META HTTP-EQUIV="imagetoolbar" CONTENT="no">
+<title>大田集团供应链资源管理平台-用户登录</title>
+<META HTTP-EQUIV="imagetoolbar" CONTENT="no" />
 <link rel="shortcut icon" href="/images/fav.ico" type="image/x-icon" />
 <link rel="icon" href="/images/fav.ico" type="image/x-icon" />
 <link rel="bookmark" href="/images/fav.ico" type="image/x-icon" />
-<link type="text/css" rel="stylesheet" href="css/index.css">
+<link type="text/css" rel="stylesheet" href="css/index.css" />
 <script type="text/javascript" src="js/jquery.min.1.7.2.js"></script>
 <script type="text/javascript" src="js/top_search.js"></script>
 <script type="text/javascript" src="js/main_nav.js"></script>
-<script type="text/javascript" src="js/citylist.js"></script>
-<script type="text/javascript" src="js/cityquery.js"></script>
-<script type="text/javascript" src="js/popup.js"></script>
 <script type="text/javascript" src="js/backtop.js"></script>
+<script type="text/javascript" src="js/popup.js"></script>
 <script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
 <script type="text/javascript"> 
 	$(function() {
@@ -52,7 +50,7 @@
 	<table width="100%" border="0" cellpadding="0" cellspacing="0">
 		<tr>
 			<td width="3%" class="td_top1a">&nbsp;</td>
-			<td width="220" class="td_top1b">您好！请&nbsp;<a href="views/login.jsp" hidefocus="true">登录</a>&nbsp;或&nbsp;<a href="register.htm" hidefocus="true">注册</a></td>
+			<td width="220" class="td_top1b">您好！请&nbsp;<a href="login.htm" hidefocus="true">登录</a>&nbsp;或&nbsp;<a href="register.htm" hidefocus="true">注册</a></td>
 			<td class="td_top1a"><span class="span_top1a">&nbsp;&nbsp;&nbsp;&nbsp;北京&nbsp;<a href="city.htm" hidefocus="true">[更换]</a></span></td>
 			<td class="td_top1a" width="90">
             	<div id="topinfo">
@@ -65,7 +63,7 @@
                                         <a href="mgmt_d_order_s.htm" class="a_top1" hidefocus="true">我的订单</a>
                                         <a href="mgmt_r_line.htm" class="a_top1" hidefocus="true">我的资源</a>
                                         <a href="mgmt_a_info.htm" class="a_top1" hidefocus="true">帐户信息</a>
-                                        <a href="login.jsp" class="a_top1" hidefocus="true">安全退出</a>
+                                        <a href="login.htm" class="a_top1" hidefocus="true">安全退出</a>
                                     </div>
                                 </div>
                             </div>
@@ -73,10 +71,9 @@
                     </ul>
                 </div>
             </td>
-			<td width="3%" class="td_top1a"><a href="mgmt_m.htm" hidefocus="true"><img src="images/btn_config1.png" /></a></td>
+			<td width="3%" class="td_top1a">&nbsp;</td>
 		</tr>
 	</table>
-    
     <table width="100%" border="0" cellpadding="0" cellspacing="0">
 		<tr>
             <td width="3%" height="110">&nbsp;</td>
@@ -369,94 +366,40 @@
     </table>
 </div>
 
-<div id="div_index_1">
-	<div class="div_index_1a"></div>
-	<div class="div_index_1b">
-    	<ul>
-        	<li class="li_index_1a">安全 &#8226; 优质 &#8226; 放心</li>
-        	<li class="li_index_1b">注册就送保险</li>
-        	<li class="li_index_1c">海量资源</li>
-        	<li class="li_index_1d">单票500公斤起更享85折优惠</li>
-        	<li class="li_index_1e"><a href="javascript:;" class="a_index_1" hidefocus="true">我要发货&#8250;</a></li>
-        </ul>
-    </div>
-</div>
-
-<div id="div_index_2">
-    <ul class="ul_index_2">
-        <li class="li_index_2a">线路查询</li>
-        <li class="li_index_2b" id="cityselector">
-            <input id="city1" type="text" value="" class="input_city2" />
-            &nbsp;&nbsp;&nbsp;&nbsp;—&nbsp;&nbsp;&nbsp;&nbsp;
-            <input id="city2" type="text" value="" class="input_city2" />
-            <input type="button" id="btn1" value="查询" class="btn_index_2" hidefocus="true" />
-        </li>
-        <li class="li_index_2c">
-            <a href="javascript:;" class="a_index_2c" hidefocus="true">北京</a>
-            <a href="javascript:;" class="a_index_2c" hidefocus="true">天津</a>
-            <a href="javascript:;" class="a_index_2c" hidefocus="true">上海</a>
-            <a href="javascript:;" class="a_index_2c" hidefocus="true">广州</a>
-            <a href="javascript:;" class="a_index_2c" hidefocus="true">深圳</a>
-            <a href="javascript:;" class="a_index_2c" hidefocus="true">武汉</a>
-            <a href="javascript:;" class="a_index_2c" hidefocus="true">南京</a>
-            <a href="javascript:;" class="a_index_2c" hidefocus="true">沈阳</a>
-            <a href="javascript:;" class="a_index_2c" hidefocus="true">西安</a>
-            <a href="javascript:;" class="a_index_2c" hidefocus="true">长沙</a>
-            <a href="javascript:;" class="a_index_2c" hidefocus="true">大连</a>
-            <a href="javascript:;" class="a_index_2c" hidefocus="true">成都</a>
-        </li>
-        <li class="li_index_2d">
-            <a href="javascript:;" class="a_index_2d" hidefocus="true">北京-上海</a>
-            <a href="javascript:;" class="a_index_2d" hidefocus="true">北京-天津</a>
-            <a href="javascript:;" class="a_index_2d" hidefocus="true">西安-上海</a>
-            <a href="javascript:;" class="a_index_2d" hidefocus="true">沈阳-广州</a>
-            <a href="javascript:;" class="a_index_2d" hidefocus="true">上海-武汉</a>
-            <a href="javascript:;" class="a_index_2d" hidefocus="true">北京-广州</a>
-        </li>
-    </ul>
-</div>
-
-<div id="div_index_3">
-	<div id="div_index_3_1">
-        <ul class="ul_index_3">
-            <li class="li_index_3_1a">我有货，我想找线路</li>
-            <li class="li_index_3_1b">全国范围内千条线路</li>
-            <li class="li_index_3_1c"><a href="javascript:;" class="a_index_3" hidefocus="true">找线路</a></li>
-            <li><img src="images/illust_3_2a.png" /></li>
-        </ul>
+<div id="main_frame">
+	<div class="div_login_left">
+    	<div class="div_login_sub1">
+        	登录
+        </div>
+    	<div class="div_login_sub2">
+			<div class="div_login_sub2a">
+            	<div class="div_login_sub2as">
+            		<form action="login" name="loginForm" method="post">
+                    <input name="username" type="text" class="input_login1" placeholder="帐户" />
+                    <input name="password" type="password" class="input_login1" placeholder="密码" />   
+                    
+				</div>
+            </div>
+			<div class="div_login_sub2b">
+            	<input type="button" id="btn2" value="登&nbsp;录" class="submit_login" hidefocus="true" onclick="document.forms.loginForm.submit();" />          
+            </div>
+            </form> 
+        </div>
+    	<div class="div_login_sub3">
+        	<input type="checkbox" />&nbsp;自动登录&nbsp;&nbsp;|&nbsp;&nbsp;忘记密码
+        </div>
 	</div>
-	<div id="div_index_3_2">
-        <ul class="ul_index_3">
-            <li class="li_index_3_2a"><img src="images/illust_3_2b.png" /></li>
-            <li class="li_index_3_2b">我有货，我想找车辆</li>
-            <li class="li_index_3_2c">全国范围内千条线路</li>
-            <li class="li_index_3_2d"><a href="javascript:;" class="a_index_3" hidefocus="true">找车辆</a></li>
-        </ul>
-	</div>
-	<div id="div_index_3_3">
-        <ul class="ul_index_3">
-            <li class="li_index_3_3a">我有货，我想找仓库</li>
-            <li class="li_index_3_3b">全国范围内千条线路</li>
-            <li class="li_index_3_3c"><a href="javascript:;" class="a_index_3" hidefocus="true">找仓库</a></li>
-            <li class="li_index_3_3d"><img src="images/illust_3_2c.png" /></li>
-        </ul>
+	<div class="div_login_right">
+    	<div class="div_login_sub1">
+        	加入我们
+        </div>
+    	<div class="div_login_sub4">
+        	现在可以简单、快速的成为会员！<br />
+            加入会员后可以享受我们提供的快捷服务！<br />
+            <input type="button" id="btn2" value="注册" class="submit_login1" hidefocus="true" onclick="window.location.href='register.htm'" />
+        </div>
 	</div>
 </div>
-
-<div id="div_index_4">
-        <ul class="ul_index_4_1">
-            <li>更多帮助</li>
-        </ul>
-        <ul class="ul_index_4_2">
-            <li class="li_index_4_2a"><a href="javascript:;" class="a_index_4_2" hidefocus="true">新手教学</a></li>
-            <li class="li_index_4_2b"><a href="javascript:;" class="a_index_4_2" hidefocus="true">托运步骤详解</a></li>
-            <li class="li_index_4_2c"><a href="javascript:;" class="a_index_4_2" hidefocus="true">注册事项</a></li>
-            <li class="li_index_4_2d"><a href="javascript:;" class="a_index_4_2" hidefocus="true">加入资源</a></li>
-        </ul>
-</div>
-
-
-
 
 <div id="popup1" style="display:none;">
     <table border="0" cellpadding="0" cellspacing="0">
@@ -481,12 +424,9 @@
     </table>
 </div>
 
-<div id="footer_frame" style="margin-top:0;">
+<div id="footer_frame">
 	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="footer.htm"></iframe>
 </div>
 
-<!-- test git2 -->
-<!-- test git2 -->
-你好
 </body>
 </html>
