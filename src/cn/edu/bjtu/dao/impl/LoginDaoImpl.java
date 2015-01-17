@@ -33,7 +33,7 @@ public class LoginDaoImpl implements LoginDao {
 		Transaction tx = sess.beginTransaction();
 		List list=null;
 		
-		//下面的hql语句有点问题，大家先别看,我改好了再给大家
+		//下面的hql语句有点问题，大家先别看,我改好了再给大家看
 		
 		
 		
