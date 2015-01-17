@@ -9,22 +9,23 @@ import org.springframework.web.servlet.ModelAndView;
 import cn.edu.bjtu.service.LoginService;
 
 @Controller
-@RequestMapping(value="/views")
+@RequestMapping(value = "/views")
 public class LoginController {
-	
+
 	@Autowired
 	LoginService loginService;
-	
-	
-	@RequestMapping(value="/login",method = RequestMethod.POST)
-	public ModelAndView loginAction(String username,String password)
-	{
-		ModelAndView mv=new ModelAndView();
-		mv.addObject("username",username);
-		mv.addObject("password",password);
-		mv.setViewName("success");
-		
+
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public ModelAndView loginAction(String username, String password) {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("username", username);
+		mv.addObject("password", password);
+		boolean flag = loginService.checkLogin(username, password);
+		if (flag = true)
+			mv.setViewName("success");
+		else
+			mv.setViewName("fail");
 		return mv;
-		
+
 	}
 }
