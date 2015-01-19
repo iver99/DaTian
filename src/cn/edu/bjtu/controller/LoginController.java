@@ -20,8 +20,10 @@ public class LoginController {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("username", username);
 		mv.addObject("password", password);
+		
 		boolean flag = loginService.checkLogin(username, password);
-		if (flag = true)
+		System.out.println(flag);
+		if (flag == true)
 			mv.setViewName("success");
 		else
 			mv.setViewName("fail");

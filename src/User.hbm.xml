@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2015-1-17 20:41:12 by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated 2015-1-19 22:48:08 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="cn.edu.bjtu.vo.User" table="user">
-        <id name="id" type="java.lang.Integer" column="id">
-          <!--   <column name="id" /> -->
+    <class name="cn.edu.bjtu.vo.User" table="user" catalog="datian">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
             <generator class="identity" />
         </id>
         <property name="userId" type="java.lang.Integer">
             <column name="userId" />
         </property>
-        <property name="username" type="java.lang.String">
+        <property name="username" type="string">
             <column name="username" />
         </property>
-        <property name="password" type="java.lang.String">
+        <property name="password" type="string">
             <column name="password" />
         </property>
     </class>

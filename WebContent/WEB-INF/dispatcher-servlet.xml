@@ -50,7 +50,7 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="mappingResources">
 			<list>
-				<value>cn/edu/bjtu/vo/User.hbm.xml</value>
+				<value>User.hbm.xml</value>
 				
 			</list>
 		</property>

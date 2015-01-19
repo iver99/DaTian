@@ -33,18 +33,16 @@ public class LoginDaoImpl implements LoginDao {
 		Transaction tx = sess.beginTransaction();
 		List list=null;
 		
-		//下面的hql语句有点问题，大家先别看,我改好了再给大家看
-		
-		
-		
-		/*Query query = sess
-				.createQuery("from User u where u.username=? and u.password=?");
+		Query query = sess.createQuery("from User u where u.username=? and u.password=?");
+				
+				
 		query.setString(0, username);
 		query.setString(1, password);
 
 		list = query.list();
-		tx.commit();*/
-		if (list != null) {
+		tx.commit();
+		
+		if (list.size()>0) {
 				User user=(User)list.get(0);
 				if(user.getUsername().equals(username)&& user.getPassword().equals(password))
 					return true;
