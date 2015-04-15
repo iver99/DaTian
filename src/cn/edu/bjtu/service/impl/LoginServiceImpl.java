@@ -13,7 +13,7 @@ public class LoginServiceImpl implements LoginService{
 	private LoginDao loginDao;
 	
 	@Override
-	public boolean checkLogin(String username, String password) {
+	public String checkLogin(String username, String password) {
 		// TODO Auto-generated method stub
 		
 		/*这里进行一些逻辑处理*/

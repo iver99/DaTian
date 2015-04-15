@@ -1,4 +1,4 @@
-<!--
+
 $(function(){
 	$('.search_input').focus(function(){
 		var keyval=$('.search_input').val();
@@ -31,4 +31,3 @@ $(function(){
 	})
 	$('.key_ul li').hover(function(){$(this).addClass('on');},function(){$(this).removeClass('on');})
 })
--->

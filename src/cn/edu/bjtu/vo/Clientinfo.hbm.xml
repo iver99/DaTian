@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-1-31 22:44:34 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="cn.edu.bjtu.vo.Clientinfo" table="clientinfo" catalog="datian">
+        <id name="id" type="string">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="realName" type="string">
+            <column name="realName" />
+        </property>
+       
+        <property name="sex" type="string">
+            <column name="sex" />
+        </property>
+        
+        <property name="idcard" type="string">
+            <column name="IDCard" />
+        </property>
+        
+        <property name="createDate" type="date">
+            <column name="createDate" length="10" />
+        </property>
+       
+        <property name="remarks" type="string">
+            <column name="remarks" />
+        </property>
+        <property name="IDPicture" type="string">
+            <column name="IDPicture" />
+        </property>
+        <property name="carrierId" type="string">
+            <column name="carrierId" />
+        </property>
+        
+        <property name="phone" type="string">
+            <column name="phone" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" />
+        </property>
+        <property name="headIcon" type="string">
+            <column name="headIcon" />
+        </property>
+    </class>
+</hibernate-mapping>

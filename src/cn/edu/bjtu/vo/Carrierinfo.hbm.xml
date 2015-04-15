@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-1-31 22:44:34 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="cn.edu.bjtu.vo.Carrierinfo" table="carrierinfo" catalog="datian">
+        <id name="id" type="string">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="companyName" type="string">
+            <column name="companyName" />
+        </property>
+         <property name="companyAccount" type="string">
+            <column name="companyAccount" />
+        </property>
+        <property name="phone" type="string">
+            <column name="phone" />
+        </property>
+        <property name="resourceRate" type="string">
+            <column name="resourceRate" />
+        </property>
+        <property name="creditRate" type="java.lang.Integer">
+            <column name="creditRate" />
+        </property>
+        <property name="depositCondition" type="java.lang.Integer">
+            <column name="depositCondition" />
+        </property>
+        <property name="invoiceKind" type="string">
+            <column name="invoiceKind" />
+        </property>
+        <property name="companyAddr" type="string">
+            <column name="companyAddr" />
+        </property>
+        <property name="companyScale" type="string">
+            <column name="companyScale" />
+        </property>
+        <property name="serviceIndustry" type="string">
+            <column name="serviceIndustry" />
+        </property>
+        <property name="companyType" type="string">
+            <column name="companyType" />
+        </property>
+        <property name="relDate" type="timestamp">
+            <column name="relDate" length="19" />
+        </property>
+        <property name="remarks" type="string">
+            <column name="remarks" />
+        </property>
+        <property name="line" type="string">
+            <column name="line" />
+        </property>
+        <property name="city" type="string">
+            <column name="city" />
+        </property>
+        <property name="warehouse" type="string">
+            <column name="warehouse" />
+        </property>
+    </class>
+</hibernate-mapping>

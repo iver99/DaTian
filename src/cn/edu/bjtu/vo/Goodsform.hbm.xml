@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-2-14 15:14:57 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="cn.edu.bjtu.vo.Goodsform" table="goodsform" catalog="datian">
+        <id name="id" type="string">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="name" type="string">
+            <column name="name" />
+        </property>
+        <property name="type" type="string">
+            <column name="type" />
+        </property>
+        <property name="transportType" type="string">
+            <column name="transportType" />
+        </property>
+        <property name="weight" type="java.lang.Float">
+            <column name="weight" precision="10" scale="0" />
+        </property>
+        <property name="volume" type="java.lang.Float">
+            <column name="volume" precision="10" scale="0" />
+        </property>
+        <property name="startPlace" type="string">
+            <column name="startPlace" />
+        </property>
+        <property name="endPlace" type="string">
+            <column name="endPlace" />
+        </property>
+        <property name="relDate" type="date">
+            <column name="relDate" length="10" />
+        </property>
+        <property name="limitDate" type="date">
+            <column name="limitDate" length="10" />
+        </property>
+        <property name="declaredValue" type="string">
+            <column name="declaredValue" />
+        </property>
+        <property name="transportReq" type="string">
+            <column name="transportReq" />
+        </property>
+        <property name="damageReq" type="string">
+            <column name="damageReq" />
+        </property>
+        <property name="vipservice" type="string">
+            <column name="VIPService" />
+        </property>
+        <property name="oriented" type="string">
+            <column name="oriented" />
+        </property>
+        <property name="feedbackQuantity" type="java.lang.Integer">
+            <column name="feedbackQuantity" />
+        </property>
+        <property name="invoice" type="string">
+            <column name="invoice" />
+        </property>
+        <property name="relatedMaterial" type="string">
+            <column name="relatedMaterial" />
+        </property>
+        <property name="clientId" type="string">
+            <column name="clientId" />
+        </property>
+        <property name="remarks" type="string">
+            <column name="remarks" />
+        </property>
+        <property name="state" type="string">
+            <column name="state" />
+        </property>
+    </class>
+</hibernate-mapping>

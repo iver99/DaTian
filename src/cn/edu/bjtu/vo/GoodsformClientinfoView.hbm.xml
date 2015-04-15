@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-1-31 22:44:34 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="cn.edu.bjtu.vo.GoodsformClientinfoView" table="goodsform_clientinfo_view" catalog="datian">
+        <id name="id" type="string">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="name" type="string">
+            <column name="name" />
+        </property>
+        <property name="transportType" type="string">
+            <column name="transportType" />
+        </property>
+        <property name="weight" type="java.lang.Float">
+            <column name="weight" precision="10" scale="0" />
+        </property>
+        <property name="startPlace" type="string">
+            <column name="startPlace" />
+        </property>
+        <property name="endPlace" type="string">
+            <column name="endPlace" />
+        </property>
+        <property name="relDate" type="date">
+            <column name="relDate" length="10" />
+        </property>
+        <property name="limitDate" type="date">
+            <column name="limitDate" length="10" />
+        </property>
+        <property name="clientId" type="string">
+            <column name="clientId" />
+        </property>
+        <property name="remarks" type="string">
+            <column name="remarks" />
+        </property>
+        <property name="volume" type="java.lang.Float">
+            <column name="volume" precision="10" scale="0" />
+        </property>
+        <property name="declaredValue" type="string">
+            <column name="declaredValue" />
+        </property>
+        <property name="realName" type="string">
+            <column name="realName" />
+        </property>
+        <property name="account" type="string">
+            <column name="account" />
+        </property>
+        <property name="sex" type="string">
+            <column name="sex" />
+        </property>
+        <property name="address" type="string">
+            <column name="address" />
+        </property>
+        <property name="idcard" type="string">
+            <column name="IDCard" />
+        </property>
+        <property name="companyName" type="string">
+            <column name="companyName" />
+        </property>
+        <property name="clientBusiness" type="string">
+            <column name="clientBusiness" />
+        </property>
+        <property name="createDate" type="date">
+            <column name="createDate" length="10" />
+        </property>
+        <property name="phone" type="string">
+            <column name="phone" />
+        </property>
+        <property name="relatedMaterial" type="string">
+            <column name="relatedMaterial" />
+        </property>
+        <property name="carrierId" type="string">
+            <column name="carrierId" />
+        </property>
+    </class>
+</hibernate-mapping>

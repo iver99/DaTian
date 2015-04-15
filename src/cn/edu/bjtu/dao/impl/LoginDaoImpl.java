@@ -4,58 +4,41 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import cn.edu.bjtu.dao.LoginDao;
-import cn.edu.bjtu.vo.User;
+import cn.edu.bjtu.vo.Userinfo;
 
 @Repository
 public class LoginDaoImpl implements LoginDao {
 
-	@Resource
-	private HibernateTemplate ht;
-	@Resource
-	private SessionFactory sf;
+	
 
-	/*
-	 * @Resource private User user;
-	 */
+	@Resource
+	HibernateTemplate ht;
+	@Resource
+	Userinfo userinfo;
 
 	@Override
-	public boolean checkLogin(String username, String password) {
+	public String checkLogin(String username, String password) {
 		// TODO Auto-generated method stub
-		Session sess = sf.openSession();
-		Transaction tx = sess.beginTransaction();
+		//需要修改 
+		//userinfo=(Userinfo)ht.find("from Userinfo where username='"+username+"' and password='"+password+"'");
 		List list=null;
-		
-		Query query = sess.createQuery("from User u where u.username=? and u.password=?");
-				
-				
-		query.setString(0, username);
-		query.setString(1, password);
-
-		list = query.list();
-		tx.commit();
-		
-		if (list.size()>0) {
-				User user=(User)list.get(0);
-				if(user.getUsername().equals(username)&& user.getPassword().equals(password))
-					return true;
-				else
-					return false;
-				
-		} else {
-			return false;
+		list=ht.find("from Userinfo where username='"+username+"' and password='"+password+"'");
+		if(list.size()>0)
+			userinfo=(Userinfo)list.get(0);
+		if(userinfo!= null)
+		{
+			return userinfo.getId();
 		}
-
-		/*System.out.println("login执行到Dao");
-		
-		return false;*/
+		else
+			return "";
 	}
+	
+
+	
+	
 
 }

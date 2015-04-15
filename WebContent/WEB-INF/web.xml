@@ -7,8 +7,6 @@
 	<welcome-file-list>
 		<welcome-file>views/index.jsp</welcome-file>
 	</welcome-file-list>
-
-	<!-- 指明所有请求(包括静态资源)交给spring框架处理 -->
 	<servlet>
 		<servlet-name>dispatcher</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -18,8 +16,6 @@
 		<servlet-name>dispatcher</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-
-	<!-- 此监听器负责加载spring的一系列配置文件 -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
@@ -27,10 +23,56 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 			/WEB-INF/dispatcher-servlet.xml
-			/WEB-INF/dao.xml
-			/WEB-INF/security.xml
-			/WEB-INF/service.xml
 		</param-value>
 	</context-param>
+	<!-- 字符集过滤器 -->
+	<filter>
+		<filter-name>characterFilter</filter-name>
+		<filter-class>cn.edu.bjtu.util.CharacterFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>characterFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
+	<!-- 登录验证过滤器 -->
+	<filter>
+		<filter-name>LoginFilter</filter-name>
+		<filter-class>cn.edu.bjtu.util.LoginValidationFilter</filter-class>
+		<init-param>
+			<param-name>redirectURL</param-name>
+			<param-value>loginForm</param-value><!--需要手动配置 -->
+		</init-param>
+		<init-param>
+			<param-name>checkSessionKey</param-name>
+			<param-value>username</param-value><!--需要手动配置 -->
+		</init-param>
+		<init-param>
+			<param-name>notCheckURLList</param-name>
+			<param-value>/index.jsp;/loginForm;/</param-value><!--需要手动配置 -->
+		</init-param>
+
+	</filter>
+	<filter-mapping>
+		<filter-name>LoginFilter</filter-name>
+		<url-pattern>/myinfo</url-pattern>
+		<!-- <url-pattern>/myinfo</url-pattern> -->
+	</filter-mapping>
+	<!-- sql注入过滤器 -->
+	<filter>
+		<filter-name>SQLFilter</filter-name>
+		<filter-class>cn.edu.bjtu.util.SQLFilter</filter-class>
+		<!-- <init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param> -->
+	</filter>
+	<filter-mapping>
+		<filter-name>SQLFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 </web-app>

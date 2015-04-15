@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-1-31 22:44:34 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="cn.edu.bjtu.vo.SubAccount" table="subaccount"
+		catalog="datian">
+		<id name="id" type="string">
+			<column name="id" />
+			<generator class="assigned" />
+		</id>
+		<property name="username" type="string">
+			<column name="username" />
+		</property>
+		<property name="password" type="string">
+			<column name="password" />
+		</property>
+		<property name="phone" type="string">
+			<column name="phone" />
+		</property>
+		<!-- <property name="privilege" type="string"> <column name="privilege" 
+			/> </property> -->
+		<!-- <property name="userKind" type="int"> <column name="userKind" /> </property> -->
+		<!-- <property name="hostAccount" type="string"> <column name="hostAccount" 
+			/> </property> -->
+		<property name="status" type="string">
+			<column name="status" />
+		</property>
+		<!-- <property name="subAccountStatus" type="string"> <column name="subAccountStatus" 
+			/> </property> -->
+		<property name="email" type="string">
+			<column name="email" />
+		</property>
+		<property name="hostAccountId" type="string">
+			<column name="hostAccountId" />
+		</property>
+		<property name="hostAccountName" type="string">
+			<column name="hostAccountName" />
+		</property>
+		<property name="resourceManamement" type="string">
+			<column name="resourceManagement" />
+		</property>
+		<property name="transactionManagement" type="string">
+			<column name="transactionManagement" />
+		</property>
+		<property name="schemaManagement" type="string">
+			<column name="schemaManagement" />
+		</property>
+		<property name="statisticsManagement" type="string">
+			<column name="statisticsManagement" />
+		</property>
+
+	</class>
+</hibernate-mapping>

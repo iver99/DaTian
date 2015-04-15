@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-1-31 22:44:34 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="cn.edu.bjtu.vo.Warehouse" table="warehouse" catalog="datian">
+        <id name="id" type="string">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="name" type="string">
+            <column name="name" />
+        </property>
+        <property name="city" type="string">
+            <column name="city" />
+        </property>
+        <property name="address" type="string">
+            <column name="address" />
+        </property>
+        <property name="type" type="string">
+            <column name="type" />
+        </property>
+        <property name="kind" type="string">
+            <column name="kind" />
+        </property>
+        <property name="houseArea" type="java.lang.Float">
+            <column name="houseArea" precision="10" scale="0" />
+        </property>
+        <property name="yardArea" type="java.lang.Float">
+            <column name="yardArea" precision="10" scale="0" />
+        </property>
+        <property name="height" type="java.lang.Float">
+            <column name="height" precision="10" scale="0" />
+        </property>
+        <property name="fireRate" type="string">
+            <column name="fireRate" />
+        </property>
+        <property name="storageForm" type="string">
+            <column name="storageForm" />
+        </property>
+        <property name="fireSecurity" type="string">
+            <column name="fireSecurity" />
+        </property>
+        <property name="environment" type="string">
+            <column name="environment" />
+        </property>
+        <property name="serviceContent" type="string">
+            <column name="serviceContent" />
+        </property>
+        <property name="contact" type="string">
+            <column name="contact" />
+        </property>
+        <property name="phone" type="string">
+            <column name="phone" />
+        </property>
+        <property name="detailPrice" type="string">
+            <column name="detailPrice" />
+        </property>
+        <property name="remarks" type="string">
+            <column name="remarks" />
+        </property>
+        <property name="carrierId" type="string">
+            <column name="carrierId" />
+        </property>
+        <property name="relDate" type="date">
+            <column name="relDate" length="10" />
+        </property>
+    </class>
+</hibernate-mapping>

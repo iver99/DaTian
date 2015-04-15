@@ -13,9 +13,9 @@ layer.id="layer";
 layer.style.width=layer.style.height="100%";
 layer.style.position= !isIE6 ? "fixed" : "absolute";
 layer.style.top=layer.style.left=0;
-layer.style.backgroundColor="#999";
+layer.style.backgroundColor="#111";
 layer.style.zIndex="9998";
-layer.style.opacity="0.5";
+layer.style.opacity="0.3";
 document.body.appendChild(layer);
 /*var sel=document.getElementsByTagName("select");
 for(var i=0;i<sel.length;i++){        
@@ -31,7 +31,7 @@ function newbox_iestyle(){
 newbox.style.marginTop = document.documentElement.scrollTop - newbox.offsetHeight / 2 + "px";
 newbox.style.marginLeft = document.documentElement.scrollLeft - newbox.offsetWidth / 2 + "px";
 }
-if(isIE){layer.style.filter ="alpha(opacity=50)";}
+if(isIE){layer.style.filter ="alpha(opacity=30)";}
 if(isIE6){  
 layer_iestyle()
 newbox_iestyle();
@@ -48,11 +48,11 @@ for (var i=0;i<sel.length;i++) {
 	sel[i].style.visibility="visible";
 	}
 ****/
+
 document.getElementById("close").onclick=function(){newbox.style.display="none";layer.style.display="none";}
 
 document.getElementById("close2").onclick=function(){newbox.style.display="none";layer.style.display="none";}
 
-document.getElementById("close2a").onclick=function(){document.getElementById('location1').value='北京市顺义区天竺空港工业区天柱中路16号';newbox.style.display="none";layer.style.display="none";}
-
-
+//document.getElementById("close2a").onclick=function(){document.getElementById('location1').value='北京市顺义区天竺空港工业区天柱中路16号';newbox.style.display="none";layer.style.display="none";}
+document.getElementById("close2a").onclick=function(){document.getElementById("location1").value = document.getElementById("searchloc").value;newbox.style.display="none";layer.style.display="none";}
 }
