@@ -37,7 +37,7 @@
 		<property name="hostAccountName" type="string">
 			<column name="hostAccountName" />
 		</property>
-		<property name="resourceManamement" type="string">
+		<property name="resourceManagement" type="string">
 			<column name="resourceManagement" />
 		</property>
 		<property name="transactionManagement" type="string">

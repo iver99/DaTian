@@ -23,7 +23,7 @@ public class OrderDaoImpl implements OrderDao {
 
 	@Override
 	/**
-	 * 返回所有城市信息
+	 * 
 	 */
 	public List getAllSendOrderInfo(String userId) {
 		// TODO Auto-generated method stub
@@ -126,6 +126,19 @@ public class OrderDaoImpl implements OrderDao {
 		// TODO Auto-generated method stub
 		Orderform order=ht.get(Orderform.class, orderId);
 		order.setState("待评价");
+		
+		return baseDao.update(order);
+	}
+	
+	@Override
+	/**
+	 * 取消订单操作
+	 */
+	public boolean cancel(String cancelReason, String orderId) {
+		// TODO Auto-generated method stub
+		Orderform order=ht.get(Orderform.class, orderId);
+		order.setCancelReason(cancelReason);
+		order.setState("已取消");
 		
 		return baseDao.update(order);
 	}

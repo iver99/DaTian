@@ -24,4 +24,6 @@ public interface OrderDao {
 	public Orderform getOrderInfo(String orderId);
 	
 	public boolean confirmCargo(String orderId);
+	
+	public boolean cancel(String cancelReason,String orderId);
 }

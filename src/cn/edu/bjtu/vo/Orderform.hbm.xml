@@ -77,8 +77,8 @@
         <!-- <property name="freight" type="java.lang.Float">
             <column name="freight" precision="10" scale="0" />
         </property> -->
-        <property name="contractNum" type="string">
-            <column name="contractNum" />
+        <property name="contractId" type="string">
+            <column name="contractId" />
         </property>
         
         <property name="resourceType" type="string">

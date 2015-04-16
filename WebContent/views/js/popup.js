@@ -53,6 +53,6 @@ document.getElementById("close").onclick=function(){newbox.style.display="none";
 
 document.getElementById("close2").onclick=function(){newbox.style.display="none";layer.style.display="none";}
 
-//document.getElementById("close2a").onclick=function(){document.getElementById('location1').value='北京市顺义区天竺空港工业区天柱中路16号';newbox.style.display="none";layer.style.display="none";}
-document.getElementById("close2a").onclick=function(){document.getElementById("location1").value = document.getElementById("searchloc").value;newbox.style.display="none";layer.style.display="none";}
+document.getElementById("close2a").onclick=function(){document.getElementById('location1').value='北京市顺义区天竺空港工业区天柱中路16号';newbox.style.display="none";layer.style.display="none";}
+
 }

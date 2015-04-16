@@ -53,7 +53,7 @@ function mgmt_nav_switch5b() {
 
 
 
-/*城市配送网络维护-显示辖区*/
+/*城市配送网络信息-显示辖区*/
 function check_sub()
 {
 	if(document.getElementById('subs').checked == true) {
@@ -66,7 +66,7 @@ function check_sub()
 
 
 
-/*城市配送网络维护-增值服务*/
+/*城市配送网络信息-增值服务*/
 function change1() {
 	if (document.getElementById('valueadd').selectedIndex == 1 )
 	{
@@ -93,7 +93,7 @@ function change2() {
 
 
 
-/*车辆维护-定位方式*/
+/*车辆信息-定位方式*/
 function change_pos() {
 	if (document.getElementById('pos').selectedIndex == 1 )
 	{
@@ -109,7 +109,7 @@ function change_pos() {
 
 
 
-/*车辆维护-入市许可证*/
+/*车辆信息-入市许可证*/
 function change_cert() {
 	if (document.getElementById('city_cert').selectedIndex == 1 )
 	{
@@ -123,19 +123,7 @@ function change_cert() {
 
 
 
-
-/*我的结算-详情显示*/
-function balance_switch1a() {
-	document.getElementById('balance_detail_1a').style.display = "inline";
-	document.getElementById('balance_detail_1b').style.display = "block";
-}
-function balance_switch1b() {
-	document.getElementById('balance_detail_1a').style.display = "none";
-	document.getElementById('balance_detail_1b').style.display = "none";
-}
-
-
-
+/*
 //方案需求申请页面：点击radio进行内容切换
 function content_switch1() {
 	document.getElementById('content1').style.display="block";
@@ -152,3 +140,6 @@ function content_switch3() {
 	document.getElementById('content2').style.display="none";
 	document.getElementById('content3').style.display="block";
 	}
+*/
+
+

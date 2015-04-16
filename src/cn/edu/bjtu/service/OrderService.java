@@ -11,7 +11,7 @@ public interface OrderService {
 	public List getAllRecieveOrderInfo(String userId);
 	public OrderCarrierView getSendOrderDetail(String id);
 	public Orderform getRecieveOrderDetail(String id);
-	/*public boolean insertOrder(String goodsName,
+	public boolean insertOrder(String goodsName,
 			String contactWaybill,
 			String deliveryAddr,
 			String recieverAddr,
@@ -24,8 +24,8 @@ public interface OrderService {
 			float expectedPrice,
 			float insurance,
 			float freight,
-			String contractNum,
-			String remarks);*/
+			String contractId,
+			String remarks);
 	public List getOrderIdByOrderNum(String orderNum);
 	
 	public OrderCarrierView getOrderByOrderId(String orderId);
@@ -39,4 +39,14 @@ public interface OrderService {
 	public Orderform getOrderInfo(String orderId);
 	
 	public boolean confirmCargo(String orderId);
+	
+	public boolean cancel(String cancelReason, String orderId);
+	
+	public boolean updateOrder(String orderid, String clientName,
+			String hasCarrierContract, String contractId, 
+			String goodsName,float goodsWeight,float goodsVolume,
+			float declaredPrice,float insurance, float expectedPrice,
+			String deliveryName,String deliveryPhone,String deliveryAddr,
+			String recieverName,String recieverPhone,String recieverAddr,
+			String remarks);
 }

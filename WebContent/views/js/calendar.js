@@ -1,13 +1,13 @@
-
+<!--
 var cal;
 var isFocus=false; //是否为焦点
 function SelectDate(obj,strFormat)
 {
     var date = new Date();
-    var by = date.getFullYear()-20;  //最小值 → 50 年前
-    var ey = date.getFullYear()+2;  //最大值 → 50 年后
+    var by = date.getFullYear()-1;  //最小值 → X年前
+    var ey = date.getFullYear()+2;  //最大值 → X年后
     //cal = new Calendar(by, ey,1,strFormat);    //初始化英文版，0 为中文版
-    cal = (cal==null) ? new Calendar(by, ey, 0) : cal;    //不用每次都初始化 2006-12-03 修正
+    cal = (cal==null) ? new Calendar(by, ey, 0) : cal;    //不用每次都初始化
     cal.dateFormatStyle = strFormat;
     cal.show(obj);
 }
@@ -49,8 +49,8 @@ Date.prototype.format = function(style) {
 };
 
 function Calendar(beginYear, endYear, lang, dateFormatStyle) {
-  this.beginYear = 2013;
-  this.endYear = 2030;
+  this.beginYear = 2015;
+  this.endYear = 2020;
   this.lang = 0;            //0(中文) | 1(英文)
   this.dateFormatStyle = "yyyy-MM-dd";
 

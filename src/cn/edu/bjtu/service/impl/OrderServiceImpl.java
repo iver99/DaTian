@@ -1,5 +1,6 @@
 package cn.edu.bjtu.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -54,11 +55,11 @@ public class OrderServiceImpl implements OrderService{
 		return orderDao.getRecieveOrderDetail(id);
 	}
 	
-	/*@Override
+	@Override
 	public boolean insertOrder(String goodsName, String contactWaybill, String deliveryAddr,
 			String recieverAddr, String deliveryName, String deliveryPhone, String recieverName,
 			String recieverPhone, float goodsWeight, float goodsVolume, float expectedPrice,
-			float insurance, float freight, String contractNum, String remarks) {
+			float insurance, float freight, String contractId, String remarks) {
 		// TODO Auto-generated method stub
 		System.out.println("insertOrder");
 		orderform.setId(IdCreator.createlineTransportId());
@@ -75,12 +76,12 @@ public class OrderServiceImpl implements OrderService{
 		orderform.setExpectedPrice(expectedPrice);
 		orderform.setInsurance(insurance);
 		//orderform.setFreight(freight);
-		orderform.setContractNum(contractNum);
+		orderform.setContractId(contractId);
 		orderform.setRemarks(remarks);
 		
 		return baseDao.save(orderform);//±£¥Ê µÃÂ
 		
-	}*/
+	}
 
 	@Override
 	public List getOrderIdByOrderNum(String orderNum) {
@@ -126,8 +127,39 @@ public class OrderServiceImpl implements OrderService{
 		// TODO Auto-generated method stub
 		return orderDao.confirmCargo(orderId);
 	}
+	@Override
+	public boolean cancel(String cancelReason, String orderId) {
+		// TODO Auto-generated method stub
+		return orderDao.cancel(cancelReason, orderId);
+	}
 	
+	@Override
+	public boolean updateOrder(String orderid, String clientName,
+			String hasCarrierContract, String contractId, 
+			String goodsName,float goodsWeight,float goodsVolume,
+			float declaredPrice,float insurance, float expectedPrice,
+			String deliveryName,String deliveryPhone,String deliveryAddr,
+			String recieverName,String recieverPhone,String recieverAddr,
+			String remarks){
+	orderform = getOrderInfo(orderid);
+	orderform.setClientName(clientName);
+	orderform.setHasCarrierContract(hasCarrierContract);
+	orderform.setContractId(contractId);
+	orderform.setGoodsName(goodsName);
+	orderform.setGoodsWeight(goodsWeight);
+	orderform.setGoodsVolume(goodsVolume);
+	orderform.setDeclaredPrice(declaredPrice);
+	orderform.setInsurance(insurance);
+	orderform.setExpectedPrice(expectedPrice);
+	orderform.setDeliveryName(deliveryName);
+	orderform.setDeliveryPhone(deliveryPhone);
+	orderform.setDeliveryAddr(deliveryAddr);
+	orderform.setRecieverName(recieverName);
+	orderform.setRecieverPhone(recieverPhone);
+	orderform.setRecieverAddr(recieverAddr);
+	orderform.setRemarks(remarks);
+	return baseDao.update(orderform);
 	
-	
+	}
 	
 }

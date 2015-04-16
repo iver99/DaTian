@@ -1,7 +1,7 @@
 var count = 3; /*从id为city4开始动态增加*/
 
 
-////车辆维护页面用
+////车辆信息页面用
 function addcity() {
 count += 1;
 var dymcity = document.getElementById("dym_citylist");

@@ -36,7 +36,7 @@ public class OrderCarrierView implements java.io.Serializable {
 	private String carrierName;
 	private String carrierAccount;
 	//private String clientName;
-	private String contractNum;
+	private String contractId;
 	
 	private String resourceType;
 	private String acceptPicture;
@@ -334,14 +334,14 @@ public class OrderCarrierView implements java.io.Serializable {
 		this.carrierAccount = carrierAccount;
 	}
 
-
-
-	public String getContractNum() {
-		return this.contractNum;
+	public String getContractId() {
+		return contractId;
 	}
 
-	public void setContractNum(String contractNum) {
-		this.contractNum = contractNum;
+	public void setContractId(String contractId) {
+		this.contractId = contractId;
 	}
+
+
 
 }

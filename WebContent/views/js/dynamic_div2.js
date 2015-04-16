@@ -7,24 +7,6 @@ var dymcity = document.getElementById("dym_itemlist");
 
 var div = document.createElement("div");
 
-	var inputTxt = document.createElement("input");  //section-输入框
-		inputTxt.type = 'text';
-		inputTxt.value = '';
-		inputTxt.id = 'city'+count;
-		inputTxt.className = 'input_mgmt2';
-		inputTxt.placeholder = '运单号';
-
-	var inputTxt1a = document.createElement("span");  //section-输入框
-		inputTxt1a.className = 'span_mgmt_dynamic1';
-		inputTxt1a.innerHTML = '--';
-
-/*	var inputTxt2 = document.createElement("input");  //section-输入框
-		inputTxt2.type = 'text';
-		inputTxt2.value = '';
-		inputTxt2.id = 'city'+count;
-		inputTxt2.className = 'input_mgmt2';
-		inputTxt2.placeholder = '车牌号';
-*/
 	var inputTxt2 = document.createElement("select");  //section-输入框
 		inputTxt2.options[0] = new Option("选择车牌号", "");
 		inputTxt2.options[1] = new Option("京AB0001", "a");
@@ -59,8 +41,6 @@ var div = document.createElement("div");
 		}
 
 //页面显示内容的控制
-div.appendChild(inputTxt);
-div.appendChild(inputTxt1a);
 div.appendChild(inputTxt2);
 div.appendChild(inputTxt2a);
 div.appendChild(inputTxt3);

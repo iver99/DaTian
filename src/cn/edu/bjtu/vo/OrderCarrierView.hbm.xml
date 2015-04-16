@@ -83,8 +83,8 @@
         <property name="carrierAccount" type="string">
             <column name="carrierAccount" />
         </property>
-        <property name="contractNum" type="string">
-            <column name="contractNum" />
+        <property name="contractId" type="string">
+            <column name="contractId" />
         </property>
         
         <property name="resourceType" type="string">

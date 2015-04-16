@@ -14,8 +14,8 @@
 <script type="text/javascript" src="js/top_search.js"></script>
 <script type="text/javascript" src="js/main_nav.js"></script>
 <script type="text/javascript" src="js/mgmt.js"></script>
-<script type="text/javascript" src="js/rating.js"></script>
-<script type="text/javascript" src="js/jquery.raty.min.js"></script>
+<script type="text/javascript" src="js/rating.js"></script><!-- 评价 -->
+<script type="text/javascript" src="js/jquery.raty.min.js"></script><!-- 评价 --><!-- 无文件 -->
 <script type="text/javascript" src="js/backtop.js"></script>
 <script type="text/javascript" src="js/popup.js"></script>
 <script type="text/javascript" src="js/jquery.placeholder.min.js"></script>

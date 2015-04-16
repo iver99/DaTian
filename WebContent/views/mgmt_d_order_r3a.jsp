@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-    
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>我收到的订单</title>
@@ -374,148 +372,96 @@
 </div>
 			</td>
 			<td class="td_leftnav_top">
-            	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right2">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right2a">
                     <tr>
                         <td>
-                        	<span class="span_mgmt_right2_text1">我收到的订单</span>
-                            <div class="div_mgmt_s1">
-                            	<input type="text" class="input_mgmt1" style="width:200px;" value="订单内容..." />
-                                <input type="button" id="btn1" value="查询" class="btn_mgmt3" hidefocus="true" />
-                            </div>
-                        </td>
-                	</tr>
-            	</table>
-				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
-					<tr>
-                        <td width="20" height="40" class="td_mgmt_right3_head">&nbsp;</td>
-                        <td width="100" class="td_mgmt_right3_head">订单编号</td>
-                        <td width="60" class="td_mgmt_right3_head">类别</td>
-                        <td class="td_mgmt_right3_head">名称</td>
-                        <td width="120" class="td_mgmt_right3_head">提交人</td>
-                        <td width="88" class="td_mgmt_right3_head">订单运费(元)</td>
-                        <td width="88" class="td_mgmt_right3_head">最终运费(元)</td>
-                        <td width="80" class="td_mgmt_right3_head">提交时间</td>
-                        <td width="60" class="td_mgmt_right3_head">状态</td>
-                        <td width="80" class="td_mgmt_right3_head">操作</td>
-					</tr>
-					
-				 	<%-- <c:forEach var="orderinfo" items="${receiveOrderList }"> --%>
-				 	<c:forEach var="orderinfo" items="${receiveOrderList }">
-                    <tr>
-                        <td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
-                        <td class="td_mgmt_right3_td1"><a href="getOrderDetail?orderid=${orderinfo.id }" hidefocus="true">${orderinfo.orderNum }</a></td>
-                        <td class="td_mgmt_right3_td1">线路(未实现)</td>
-                        <td class="td_mgmt_right3_td1"><a href="resource_detail1.htm" class="link1" hidefocus="true">北京→上海(未实现)</a></td>
-                        <td class="td_mgmt_right3_td1"><a href="javascript:;" class="link1" hidefocus="true">北京大田(未实现)</a></td>
-                        <td class="td_mgmt_right3_td1">${orderinfo.expectedPrice }</td>
-                        <td class="td_mgmt_right3_td1">${orderinfo.actualPrice}</td>
-                        <td class="td_mgmt_right3_td1">${orderinfo.submitTime }<br />
-                            </td>
-                            <c:choose>
-                        <c:when test="${orderinfo.state == '待受理' }">
-                        <td class="td_mgmt_right3_td2">待受理</td>
-                        <td class="td_mgmt_right3_td3">
-                            <div id="handlebox" style="z-index:204;">
-                                <ul class="quickmenu">
-                                    <li class="menuitem">
-                                        <div class="menu">
-                                            <a href="acceptOrderForm?orderid=${orderinfo.id }" class="menuhd" hidefocus="true">受理</a>
-                                            <div class="menubd">
-                                                <div class="menubdpanel">
-                                                    <a href="getOrderCancelOrder?orderid=${orderinfo.id }" class="a_top3" hidefocus="true">取消</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                        </c:when>
-                        
-                        <c:when test="${orderinfo.state == '待收货' }">
-                        <td class="td_mgmt_right3_td2">待收货</td>
-                        <td class="td_mgmt_right3_td3">
-                            <div id="handlebox" style="z-index:202;">
-                                <ul class="quickmenu">
-                                    <li class="menuitem">
-                                        <div class="menu">
-                                            <a href="getSignBillForm?orderid=${orderinfo.id }" class="menuhd" hidefocus="true">签单上传</a>
-                                            <div class="menubd">
-                                                <div class="menubdpanel">
-                                                    <a href="getOrderDetailWaitToReceive?orderid=${orderinfo.id }" class="a_top3" hidefocus="true">查看</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                        </c:when>
-                        
-                        <c:when test="${orderinfo.state == '待确认' }">
-                        <td class="td_mgmt_right3_td2">待确认</td>
-                        <td class="td_mgmt_right3_td3">
-                            <div id="handlebox" style="z-index:201;">
-                                <ul class="quickmenu">
-                                    <li class="menuitem">
-                                        <div class="menu">
-                                            <a href="getOrderWaitToConfirmUpdate?orderid=${orderinfo.id }" class="menuhd" hidefocus="true">更新</a>
-                                            <div class="menubd">
-                                                <div class="menubdpanel">
-                                                    <a href="getOrderDetailWaitToConfirm?orderid=${orderinfo.id }" class="a_top3" hidefocus="true">查看</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                        </c:when>
-                        
-                        <c:when test="${orderinfo.state == '待评价' }">
-                        <td class="td_mgmt_right3_td2">待评价</td>
-                        <td class="td_mgmt_right3_td3"><a href="getOrderDetailWaitToConfirm?orderid=${orderinfo.id }" hidefocus="true">查看</a></td>
-                        </c:when>
-                        
-                        <c:when test="${orderinfo.state == '已完成' }">
-                        <td class="td_mgmt_right3_td1">已完成</td>
-                        <td class="td_mgmt_right3_td3"><a href="getOrderDetailFinish?orderid=${orderinfo.id }" hidefocus="true">查看</a></td>
-                        </c:when>
-                        
-                        <c:when test="${orderinfo.state == '已取消' }">
-                        <td class="td_mgmt_right3_td1">已取消</td>
-                        <td class="td_mgmt_right3_td3"><a href="getOrderDetailCancel?orderid=${orderinfo.id }" hidefocus="true">查看</a></td>
-                        </c:when>
-                        
-                        </c:choose>
-                    </tr>
-                    </c:forEach>
-                    </table>
-				<table border="0" cellpadding="0" cellspacing="0" class="table_recordnumber">
-                    <tr>
-	                    <td>
-                            每页
-                            <select>
-                                <option value="" selected="selected">10</option>
-                                <option value="a">20</option>
-                                <option value="b">50</option>
-                            </select>
-                            条记录
+                            <span class="span_mgmt_right2_text1">我收到的订单</span>
+                            <span class="span_mgmt_right2_text2"><a href="javascript:history.go(-1);" hidefocus="true"><img src="images/btn_back1.png" class="span_mgmt_right2_pic1" title="返回" /></a></span>
                         </td>
                     </tr>
-				</table>
-                <table border="0" cellpadding="0" cellspacing="0" class="table_pagenumber">
+                </table>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
                     <tr>
-                        <td width="45" class="td_pagenumber">首页</td>
-                        <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">上页</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">1</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">2</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">3</a></td>
-                        <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">下页</a></td>
-                        <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">末页</a></td>
+                        <td class="td_mgmt_right3_td1a">
+                        	<div class="span_mgmt_right3_text4">基本信息</div>      	          
+                            <table width="90%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td width="120" height="40" class="td_mgmt_right3_td1b">订单编号：</td>
+                                    <td>${orderInfo.orderNum }</td>
+                                </tr>
+                                <tr>
+                                    <td height="40" class="td_mgmt_right3_td1b">承运方：</td>
+                                    <td>${orderInfo.carrierName }</td>
+                                </tr>
+                                <tr>
+                                    <td height="40" class="td_mgmt_right3_td1b">承运方合同：</td>
+                                    <td>${orderInfo.hasCarrierContract }</td>
+                                </tr>
+                                <tr>
+                                    <td height="40" class="td_mgmt_right3_td1b">资源分类：</td>
+									<td>${orderInfo.resourceType }</td>
+                                </tr>
+                                <tr>
+                                    <td height="40" class="td_mgmt_right3_td1b">资源名称：</td>
+									<td>（未实现）</td>
+                                </tr>
+                            </table>
+                        	<div class="span_mgmt_right3_text4">货物信息</div>      	          
+                            <table width="90%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td width="120" height="40" class="td_mgmt_right3_td1b">货物名称：</td>
+                                    <td>${orderInfo.goodsName }</td>
+                                </tr>
+                                <tr>
+                                    <td height="40" class="td_mgmt_right3_td1b">货物重量：</td>
+                                    <td>${orderInfo.goodsWeight } (公斤)</td>
+                                </tr>
+                                <tr>
+                                    <td height="40" class="td_mgmt_right3_td1b">货物体积：</td>
+                                    <td>${orderInfo.goodsVolume } (立方米)</td>
+                                </tr>
+                                <tr>
+                                    <td height="40" class="td_mgmt_right3_td1b">货物声明价值：</td>
+                                    <td>${orderInfo.declaredPrice } (元)</td>
+                                </tr>
+                                <tr>
+                                    <td height="40" class="td_mgmt_right3_td1b">保险费：</td>
+                                    <td>${orderInfo.insurance } (元)</td>
+                                </tr>
+                                <tr>
+                                    <td height="40" class="td_mgmt_right3_td1b">运费：</td>
+                                    <td>${orderInfo.expectedPrice } (元)</td>
+                                </tr>
+                            </table>
+                        	<div class="span_mgmt_right3_text4">地址信息</div>      	          
+                            <table width="90%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td width="120" height="40" class="td_mgmt_right3_td1b">发货人信息：</td>
+                                    <td>${orderInfo.deliveryName }  /  ${orderInfo.deliveryPhone }  /  ${orderInfo.deliveryAddr }</td>
+                                </tr>
+                                <tr>
+                                    <td height="40" class="td_mgmt_right3_td1b">收货人信息：</td>
+                                    <td>${orderInfo.recieverName }  /  ${orderInfo.recieverPhone }  /  ${orderInfo.recieverAddr }</td>
+                                </tr>
+                            </table>
+                        	<div class="span_mgmt_right3_text4">备汪信息</div>      	          
+                            <table width="90%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td width="120" height="40" class="td_mgmt_right3_td1b">备注：</td>
+                                    <td>${orderInfo.remarks }</td>
+                                </tr>
+                            </table>
+                        	<div class="span_mgmt_right3_text4">订单取消原因</div>      	          
+                            <table width="90%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td width="120" height="40" class="td_mgmt_right3_td1f">原因：</td>
+                                    <td class="td_mgmt_right3_td1g">${orderInfo.cancelReason }</td>
+                                </tr>
+                            </table>
+                        </td>
                     </tr>
-				</table>
-			</td>
+                </table>
+             </td>
 		</tr>
     </table>
 </div>
@@ -526,29 +472,6 @@
             <td width="510"><div class="div_popup_title1">留言</div></td>
             <td>
                 <div id="close" style="cursor:pointer;"><img src="images/btn_cancel1.png" title="关闭本窗口" /></div>
-            </td>
-        </tr>
-    </table>
-    <table border="0" cellpadding="0" cellspacing="0">
-        <tr>
-            <td width="540">
-            	<textarea class="textarea_popup1" placeholder="请输入内容..."></textarea>
-            </td>
-        </tr>
-        <tr>
-            <td class="td_popup1">
-                <input type="button" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" />
-            </td>
-        </tr>
-    </table>
-</div>
-
-<div id="popup2" style="display:none;">
-    <table border="0" cellpadding="0" cellspacing="0">
-        <tr>
-            <td width="510"><div class="div_popup_title1">取消订单的原因</div></td>
-            <td>
-                <div id="close2" style="cursor:pointer;"><img src="images/btn_cancel1.png" title="关闭本窗口" /></div>
             </td>
         </tr>
     </table>

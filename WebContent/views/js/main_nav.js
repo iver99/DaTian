@@ -28,6 +28,8 @@
 })(jQuery);
 
 
+
+/*资源列表的关注切换*/
 function hide(obj) {
 	if(obj.className) {
 		if(obj.className=="a_main_list_handle_icon1a") {
@@ -38,3 +40,42 @@ function hide(obj) {
 		}
     }
 }
+
+
+/*资源详细页的关注切换*/
+function hidefav(obj) {
+	if(obj.className) {
+		if(obj.className=="input_detail1") {
+			obj.className="input_detail3";
+			document.getElementById('btnfav').value="已关注";
+		}
+		else {
+			obj.className="input_detail1";
+			document.getElementById('btnfav').value="关注";
+		}
+    }
+}
+
+
+/*关注维护页中的复选框全选*/
+function selectall() {
+	var box1 = document.getElementsByName("f1");
+	if (document.getElementById('f1_all').checked)
+		{ for (var i=0; i<box1.length; i++)
+			{
+				box1[i].checked = true;
+			}
+		} 
+	else
+		{
+			for (var i=0; i<box1.length; i++)
+			{
+				box1[i].checked = false;
+				box1[i].disabled = false;
+			} 
+		}
+ }
+
+
+
+

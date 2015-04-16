@@ -36,7 +36,7 @@ public class Orderform implements java.io.Serializable {
 	private Float goodsWeight;
 	private Float goodsVolume;
 	//private Float freight;
-	private String contractNum;
+	private String contractId;
 	
 	private String resourceType;
 	private String acceptPicture;
@@ -330,12 +330,16 @@ public class Orderform implements java.io.Serializable {
 	}
 
 
-	public String getContractNum() {
-		return this.contractNum;
+	public String getContractId() {
+		return contractId;
 	}
 
-	public void setContractNum(String contractNum) {
-		this.contractNum = contractNum;
+
+	public void setContractId(String contractId) {
+		this.contractId = contractId;
 	}
+
+
+	
 
 }

@@ -24,10 +24,16 @@
 		$('input, textarea').placeholder(); 
 	});
 </script>
+<script type="text/javascript">
+var orderid=123;
+function cancel(id){
+	
+    showid('popup2');
+}
+</script>
 </head>
 
 <body>
-
 <div id="backtop_item">
     <div class="qqserver">
         <div class="qqserver_fold">
@@ -401,7 +407,7 @@
 					<c:forEach var="orderinfo" items="${orderList }">
 					<tr>
                         <td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
-                        <td class="td_mgmt_right3_td1"><a href="mgmt_d_order_s4.htm" hidefocus="true">${orderinfo.orderNum }</a></td>
+                        <td class="td_mgmt_right3_td1"><a href="orderDetail?orderid=${orderinfo.id }" hidefocus="true">${orderinfo.orderNum }</a></td>
                         <td class="td_mgmt_right3_td1">线路(资源类型，数据库未实现)</td>
                         <td class="td_mgmt_right3_td1"><a href="resource_detail1.htm" class="link1" hidefocus="true">北京→上海(未实现)</a></td>
                         <td class="td_mgmt_right3_td1"><a href="javascript:;" class="link1" hidefocus="true">${orderinfo.carrierName }</a></td>
@@ -417,10 +423,10 @@
                                 <ul class="quickmenu">
                                     <li class="menuitem">
                                         <div class="menu">
-                                            <a href="mgmt_d_order_s3.htm" class="menuhd" hidefocus="true">更新</a>
+                                            <a href="updateOrder?orderid=${orderinfo.id }" class="menuhd" hidefocus="true">更新</a>
                                             <div class="menubd">
                                                 <div class="menubdpanel">
-                                                    <a href="javascript:;" class="a_top3" onclick="showid('popup2');" hidefocus="true">取消</a>
+                                                    <a href="cancelOrder?orderid=${orderinfo.id }" class="a_top3" hidefocus="true">取消</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -432,7 +438,7 @@
                         
                         <c:when test="${orderinfo.state == '待收货' }">
                         <td class="td_mgmt_right3_td2">待收货</td>
-                        <td class="td_mgmt_right3_td3"><a href="mgmt_d_order_s6.htm" hidefocus="true">查看</a></td>
+                        <td class="td_mgmt_right3_td3"><a href="orderDetailWaitToReceive?orderid=${orderinfo.id }" hidefocus="true">查看</a></td>
                         </c:when>
                         
                         <c:when test="${orderinfo.state == '待确认' }">
@@ -445,7 +451,7 @@
                                             <a href="getConfirmForm?orderid=${orderinfo.id }" class="menuhd" hidefocus="true">收货确认</a>
                                             <div class="menubd">
                                                 <div class="menubdpanel">
-                                                    <a href="mgmt_d_order_s6.htm" class="a_top3" hidefocus="true">查看</a>
+                                                    <a href="orderDetailWaitToReceive?orderid=${orderinfo.id }" class="a_top3" hidefocus="true">查看</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -465,7 +471,7 @@
                                             <a href="getCommentForm?orderid=${orderinfo.id }" class="menuhd" hidefocus="true">评价</a>
                                             <div class="menubd">
                                                 <div class="menubdpanel">
-                                                    <a href="mgmt_d_order_s6b.htm" class="a_top3" hidefocus="true">查看</a>
+                                                    <a href="orderDetailComment?orderid=${orderinfo.id }" class="a_top3" hidefocus="true">查看</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -477,12 +483,12 @@
                         
                         <c:when test="${orderinfo.state == '已完成' }">
                         <td class="td_mgmt_right3_td1">已完成</td>
-                        <td class="td_mgmt_right3_td3"><a href="mgmt_d_order_s6a.htm" hidefocus="true">查看</a></td>
+                        <td class="td_mgmt_right3_td3"><a href="orderDetailFinish?orderid=${orderinfo.id }" hidefocus="true">查看</a></td>
                         </c:when>
                         
                         <c:when test="${orderinfo.state == '已取消' }">
                          <td class="td_mgmt_right3_td1">已取消</td>
-                        <td class="td_mgmt_right3_td3"><a href="mgmt_d_order_s4a.htm" hidefocus="true">查看</a></td>
+                        <td class="td_mgmt_right3_td3"><a href="orderDetailAlreadyCancel?orderid=${orderinfo.id }" hidefocus="true">查看</a></td>
                         </c:when>
                         </c:choose>
                     </tr>
@@ -554,20 +560,21 @@
     <table border="0" cellpadding="0" cellspacing="0">
         <tr>
             <td width="540">
-            	<textarea class="textarea_popup1" placeholder="请输入内容..."></textarea>
+            	<textarea name="explainReason" class="textarea_popup1" placeholder="请输入内容..."></textarea>
             </td>
         </tr>
         <tr>
             <td class="td_popup1">
-                <input type="button" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" />
+                <input type="button" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" />
             </td>
         </tr>
-    </table>
+     </table>
+    
 </div>
 
 <div id="footer_frame">
 	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="footer.htm"></iframe>
 </div>
-
 </body>
+
 </html>
