@@ -1,5 +1,6 @@
 package cn.edu.bjtu.dao.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import cn.edu.bjtu.dao.BaseDao;
 import cn.edu.bjtu.dao.OrderDao;
+import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.vo.OrderCarrierView;
 import cn.edu.bjtu.vo.Orderform;
 
@@ -143,7 +145,56 @@ public class OrderDaoImpl implements OrderDao {
 		return baseDao.update(order);
 	}
 	
-	
+	@Override
+	/**
+	 * 承运方更新待确认订单
+	 */
+	public boolean DoGetOrderWaitToConfirmUpdate(String orderId,float actualPrice,String explainReason) {
+		// TODO Auto-generated method stub
+		Orderform order = (Orderform) ht.get(Orderform.class, orderId);
+		order.setActualPrice(actualPrice);
+		order.setExplainReason(explainReason);
+		return baseDao.update(order);
+	}
+
+	@Override
+	public boolean createNewOrder(String userId, String hasCarrierContract,
+			String remarks, String goodsName, float goodsVolume,
+			float goodsWeight, float expectedPrice, float declaredPrice,
+			float insurance, String contractId, String deliveryName,
+			String deliveryPhone, String deliveryAddr, String receiverName,
+			String receiverPhone, String receiverAddr,String carrierId) {
+		// TODO Auto-generated method stub
+		Orderform order=new Orderform();
+		order.setClientId(userId);
+		order.setHasCarrierContract(hasCarrierContract);
+		order.setRemarks(remarks);
+		order.setGoodsName(goodsName);
+		order.setGoodsVolume(goodsVolume);
+		order.setGoodsWeight(goodsWeight);
+		order.setExpectedPrice(expectedPrice);
+		order.setDeclaredPrice(declaredPrice);
+		order.setInsurance(insurance);
+		order.setContractId(contractId);
+		order.setDeliveryAddr(deliveryAddr);
+		order.setDeliveryName(deliveryName);
+		order.setDeliveryPhone(deliveryPhone);
+		order.setRecieverAddr(receiverAddr);
+		order.setRecieverName(receiverName);
+		order.setRecieverPhone(receiverPhone);
+		
+		order.setSubmitTime(new Date());
+		order.setId(IdCreator.createOrderId());
+		order.setOrderNum(IdCreator.createOrderNum());
+		order.setCarrierId(carrierId);
+		//order.setClientName(clientName);
+		//order.setResourceType(resourceType);
+		order.setState("待受理");//订单状态
+		
+		return baseDao.save(order);
+		
+	}
 	
 
+	
 }

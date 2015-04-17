@@ -44,9 +44,7 @@ public class OrderController {
 	public ModelAndView getAllSendOrderInfo(HttpServletRequest request,
 			HttpServletResponse response) {
 		// 从session获取用户Id
-		// System.out.println("进入收到订单控制器");
 		String userId = (String) request.getSession().getAttribute("userId");
-		// System.out.println("userId+"+userId);
 		List orderList = orderService.getAllSendOrderInfo(userId);
 		System.out.println("orderList+" + orderList);
 		mv.addObject("orderList", orderList);
@@ -208,7 +206,6 @@ public class OrderController {
 		// System.out.println("签单上传+orderid+" + orderid);
 		mv.addObject("expectedPrice", expectedMoney);
 		mv.addObject("orderId", orderid);
-		mv.setViewName("mgmt_d_order_r6");
 		return mv;
 	}
 
@@ -346,9 +343,8 @@ public class OrderController {
 			HttpServletRequest request, HttpServletResponse response
 
 	) {
-		System.out.println("进入order更新控制器");
+		//System.out.println("进入order更新控制器");
 		String carrierId = (String) request.getSession().getAttribute("userId");
-		// String carrierId = "C-0002";// 删除
 		// 字符串拆解
 		String[] de = delivery.split("/");
 		String[] re = reciever.split("/");
@@ -393,6 +389,21 @@ public class OrderController {
 		return mv;
 	}
 
+	@RequestMapping(value = "getOrderCancelOrder")
+	/**
+	 * 取消订单
+	 * 
+	 * @param orderid
+	 * @return
+	 */
+	public ModelAndView getOrderCancelOrder(HttpServletRequest request,
+			HttpServletResponse response, String orderid) {
+		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);// 需要重构，返回一条信息
+		mv.addObject("orderInfo", orderInfo);
+		mv.setViewName("mgmt_d_order_r7");
+		return mv;
+	}
+
 	@RequestMapping(value = "doCancel", method = RequestMethod.POST)
 	/**
 	 * 取消订单
@@ -407,6 +418,31 @@ public class OrderController {
 		if (flag == true)
 			try {
 				response.sendRedirect("sendorderinfo");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				// logging
+			}
+		else
+			System.out.println("取消失败");// logging
+
+		return mv;
+	}
+
+	@RequestMapping(value = "getOrderDoCancel", method = RequestMethod.POST)
+	/**
+	 * 取消订单
+	 * 
+	 * @param orderid
+	 * @return
+	 */
+	public ModelAndView getOrderDoCancel(HttpServletRequest request,
+			HttpServletResponse response, @RequestParam String cancelReason,
+			String orderid) {
+		boolean flag = orderService.cancel(cancelReason, orderid);
+		if (flag == true)
+			try {
+				response.sendRedirect("recieveorderinfo");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -568,13 +604,46 @@ public class OrderController {
 		return mv;
 	}
 
+	@RequestMapping("getOrderWaitToConfirmUpdate")
+	public ModelAndView getOrderWaitToConfirmUpdate(String orderid) {
+
+		// 需要再页面上显示合同规定运费和预期运费,实际运费,原因
+		// 上传图片未实现
+
+		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);// 需要重构，返回一条信息
+		mv.addObject("orderInfo", orderInfo);
+		mv.setViewName("mgmt_d_order_r6a");
+		return mv;
+	}
+
+	@RequestMapping("DoGetOrderWaitToConfirmUpdate")
+	public ModelAndView DoGetOrderWaitToConfirmUpdate(String orderid,
+			float actualPrice, String explainReason,
+			HttpServletRequest request, HttpServletResponse response) {
+		// System.out.println("actualPrice+"+actualPrice);
+		// System.out.println("explainReason+"+explainReason);
+		boolean flag = orderService.DoGetOrderWaitToConfirmUpdate(orderid,
+				actualPrice, explainReason);
+		try {
+			if (flag == true)
+				response.sendRedirect("recieveorderinfo");
+			else
+				System.out.println("待确认失败");// logging...
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return mv;
+	}
+
 	@RequestMapping("getneworderform")
 	/**
 	 * 获取创建订单表单
 	 * @return
 	 */
-	public ModelAndView getNewOrderForm() {
+	public ModelAndView getNewOrderForm(String carrierid) {
 		// 需要取出承运方公司名称
+		mv.addObject("carrierId", carrierid);
 		mv.setViewName("mgmt_d_order_s2");
 		return mv;
 	}
@@ -598,20 +667,32 @@ public class OrderController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView createNewOrder(String clientName,
+	public ModelAndView createNewOrder(String carrierid, String clientName,
 			String hasCarrierContract, String senderInfo, String receiverInfo,
-			String remarks, String goodsName, String goodsWeight,
-			String goodsVolume, float declaredPrice, float expectedPrice,
-			float insurance, String contractId, HttpServletRequest request,
+			String remarks, String goodsName, float goodsWeight,
+			float goodsVolume, float declaredPrice, float expectedPrice,
+			float insurance, String contractId,HttpServletRequest request,
 			HttpServletResponse response) {
 		// 页面有许多字段没有传入
+		//clientName参数里有，但是没有使用
 		String userId = (String) request.getSession().getAttribute("userId");
-
-		/*boolean flag = orderService.createNewOrder(userId, hasCarrierContract,
+		System.out.println("carrierId+"+carrierid);
+		boolean flag = orderService.createNewOrder(userId, hasCarrierContract,
 				senderInfo, receiverInfo, remarks, goodsName, goodsVolume,
-				goodsVolume, expectedPrice, insurance,declaredPrice,contractId);
-*/
-		mv.setViewName("mgmt_d_order_s");
+				goodsWeight, expectedPrice, declaredPrice, insurance,
+				contractId,carrierid);
+		if (flag == true){
+			//mv.setViewName("mgmt_d_order_s");
+			try {
+				response.sendRedirect("sendorderinfo");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				System.out.println("redirecting");
+				System.out.println("新增订单出错");//logging
+				e.printStackTrace();
+			}
+		}
 		return mv;
 	}
+
 }

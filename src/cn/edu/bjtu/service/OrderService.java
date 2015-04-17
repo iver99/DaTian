@@ -49,4 +49,11 @@ public interface OrderService {
 			String deliveryName,String deliveryPhone,String deliveryAddr,
 			String recieverName,String recieverPhone,String recieverAddr,
 			String remarks);
+	public boolean DoGetOrderWaitToConfirmUpdate(String orderId,float actualPrice,String explainReason);
+	
+	public boolean createNewOrder(String userId,String hasCarrierContract,String senderInfo,String receiverInfo,
+			String remarks,String goodsName,float goodsVolume,float goodsWeight,float expectedPrice,
+			float declaredPrice,float insurance,String contractId,String carrierId);
+	
+	
 }

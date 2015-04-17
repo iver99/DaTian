@@ -26,4 +26,15 @@ public interface OrderDao {
 	public boolean confirmCargo(String orderId);
 	
 	public boolean cancel(String cancelReason,String orderId);
+	
+	public boolean DoGetOrderWaitToConfirmUpdate(String orderId,float actualPrice,String explainReason);
+
+	public boolean createNewOrder(String userId,String hasCarrierContract,String remarks,
+			String goodsName,float goodsVolume,float goodsWeight,float expectedPrice,
+			float declaredPrice,float insurance,String contractId,String deliveryName,
+			String deliveryPhone,String deliveryAddr,String receiverName,String receiverPhone,
+			String receiverAddr,String carrierId);
+	
+	
+	
 }

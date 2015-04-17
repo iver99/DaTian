@@ -104,6 +104,10 @@ public class IdCreator {
 		return "CO"+(int)(Math.random()*100000000);
 	}
 	
+	public static String createOrderNum()
+	{
+		return "y"+(int)(Math.random()*100000000);
+	}
 	
 
 }

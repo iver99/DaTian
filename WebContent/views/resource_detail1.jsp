@@ -73,9 +73,12 @@
             
                 <br />
                 联系电话：${carrierInfo.phone }
-            
+            	
                 <hr class="hr_1" />
-                <input type="button" id="btn2" value="关注" class="input_detail1" hidefocus="true" onclick="window.location.href='mgmt_d_focus.htm'" /><input type="button" id="btn2" value="提交订单" class="input_detail2" hidefocus="true" onclick="window.location.href='mgmt_d_order_s2.htm'" />
+                <input type="button" id="btn2" value="关注" class="input_detail1" hidefocus="true" onclick="window.location.href='mgmt_d_focus.htm'" />
+                
+                <input type="button" id="btn2" value="提交订单" class="input_detail2" hidefocus="true" onclick="window.location.href='getneworderform?carrierid=${linetransportInfo.carrierId}'" />
+            
             </td>
 		</tr>
 		</tbody>
