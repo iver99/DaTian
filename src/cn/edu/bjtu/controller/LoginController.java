@@ -1,4 +1,4 @@
-package cn.edu.bjtu.controller;
+ package cn.edu.bjtu.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
