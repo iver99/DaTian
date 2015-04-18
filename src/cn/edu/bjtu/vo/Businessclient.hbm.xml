@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-3-3 13:57:51 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="cn.edu.bjtu.vo.Businessclient" table="businessclient" catalog="datian">
+        <id name="id" type="string">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="clientName" type="string">
+            <column name="clientName" />
+        </property>
+         <property name="relDate" type="java.util.Date">
+            <column name="relDate" />
+        </property>
+         <property name="account" type="string">
+            <column name="account" />
+        </property>
+        <property name="clientBusiness" type="string">
+            <column name="clientBusiness" />
+        </property>
+        <property name="contact" type="string">
+            <column name="contact" />
+        </property>
+        <property name="phone" type="string">
+            <column name="phone" />
+        </property>
+        <property name="relatedMaterial" type="string">
+            <column name="relatedMaterial" />
+        </property>
+        <property name="remarks" type="string">
+            <column name="remarks" />
+        </property>
+        <property name="carrierId" type="string">
+            <column name="carrierId" />
+        </property>
+    </class>
+</hibernate-mapping>

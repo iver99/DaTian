@@ -42,5 +42,9 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+<<<<<<< HEAD
 
+=======
+/build
+>>>>>>> haochendong
 *.class

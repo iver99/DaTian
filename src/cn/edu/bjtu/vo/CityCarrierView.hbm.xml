@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-2-11 11:57:51 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="cn.edu.bjtu.vo.CityCarrierView" table="city_carrier_view">
+        <id name="id" type="string">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="cityName" type="string">
+            <column name="cityName" />
+        </property>
+         <property name="name" type="string">
+            <column name="name" />
+        </property>
+        <property name="refPrice" type="java.lang.Float">
+            <column name="refPrice" precision="10" scale="0" />
+        </property>
+        <property name="relDate" type="date">
+            <column name="relDate" length="10" />
+        </property>
+        <property name="carrierId" type="string">
+            <column name="carrierId" />
+        </property>
+        <property name="VIPService" type="string">
+            <column name="VIPService" />
+        </property>
+        <property name="detailPrice" type="string">
+            <column name="detailPrice" />
+        </property>
+        <property name="remarks" type="string">
+            <column name="remarks" />
+        </property>
+        <property name="companyName" type="string">
+			<column name="companyName" />
+		</property>
+		<property name="creditRate" type="string">
+			<column name="creditRate" />
+		</property>
+    </class>
+  
+</hibernate-mapping>

@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-2-22 16:45:18 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="cn.edu.bjtu.vo.CarCarrierView" table="car_carrier_view"
+		catalog="datian">
+		<id name="id" type="string">
+			<column name="id" />
+			<generator class="assigned" />
+		</id>
+
+		<property name="carLength" type="string">
+			<column name="carLength" />
+		</property>
+		<property name="carNum" type="string">
+			<column name="carNum" />
+		</property>
+		<property name="carTeam" type="string">
+			<column name="carTeam" />
+		</property>
+		<property name="carUse" type="string">
+			<column name="carUse" />
+		</property>
+		<property name="carLocation" type="string">
+			<column name="carLocation" />
+		</property>
+		<property name="relDate" type="date">
+			<column name="relDate" length="10" />
+		</property>
+		<property name="carType" type="string">
+			<column name="carType" />
+		</property>
+		<property name="linetransportId" type="string">
+			<column name="linetransportId" />
+		</property>
+		<property name="locLongitude" type="java.lang.Double">
+			<column name="locLongitude" precision="12" scale="8" />
+		</property>
+		<property name="locLatitude" type="java.lang.Double">
+			<column name="locLatitude" precision="12" scale="8" />
+		</property>
+		<property name="locationType" type="string">
+			<column name="locationType" />
+		</property>
+		<property name="carBrand" type="string">
+			<column name="carBrand" />
+		</property>
+		<property name="storage" type="string">
+			<column name="storage" />
+		</property>
+		<property name="carrierId" type="string">
+			<column name="carrierId" />
+		</property>
+		<property name="carWeight" type="string">
+			<column name="carWeight" />
+		</property>
+		<property name="carState" type="string">
+			<column name="carState" />
+		</property>
+		<property name="driverId" type="string">
+			<column name="driverId" />
+		</property>
+		<property name="purchaseTime" type="date">
+			<column name="purchaseTime" length="10" />
+		</property>
+		<property name="companyName" type="string">
+			<column name="companyName" />
+		</property>
+		<property name="carBase" type="string">
+			<column name="carBase" />
+		</property>
+	</class>
+</hibernate-mapping>

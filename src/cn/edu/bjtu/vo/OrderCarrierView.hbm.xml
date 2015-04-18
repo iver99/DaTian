@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-1-31 22:44:34 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="cn.edu.bjtu.vo.OrderCarrierView" table="order_carrier_view" catalog="datian">
+        <id name="id" type="string">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="orderNum" type="string">
+            <column name="orderNum" />
+        </property>
+        <property name="goodsName" type="string">
+            <column name="goodsName" />
+        </property>
+        <property name="carrierId" type="string">
+            <column name="carrierId" />
+        </property>
+        <!-- <property name="contactWaybill" type="string">
+            <column name="contactWaybill" />
+        </property> -->
+        <property name="expectedPrice" type="java.lang.Float">
+            <column name="expectedPrice" precision="10" scale="0" />
+        </property>
+        <property name="actualPrice" type="java.lang.Float">
+            <column name="actualPrice" precision="10" scale="0" />
+        </property>
+        <property name="submitTime" type="timestamp">
+            <column name="submitTime" length="19" />
+        </property>
+        <property name="state" type="string">
+            <column name="state" />
+        </property>
+        <property name="deliveryAddr" type="string">
+            <column name="deliveryAddr" />
+        </property>
+        <property name="deliveryName" type="string">
+            <column name="deliveryName" />
+        </property>
+        <property name="deliveryPhone" type="string">
+            <column name="deliveryPhone" />
+        </property>
+        <property name="recieverAddr" type="string">
+            <column name="recieverAddr" />
+        </property>
+        <property name="recieverName" type="string">
+            <column name="recieverName" />
+        </property>
+        <property name="recieverPhone" type="string">
+            <column name="recieverPhone" />
+        </property>
+        <property name="warehouseId" type="string">
+            <column name="warehouseId" />
+        </property>
+        <property name="citylineId" type="string">
+            <column name="citylineId" />
+        </property>
+        <property name="linetransportId" type="string">
+            <column name="linetransportId" />
+        </property>
+        <property name="remarks" type="string">
+            <column name="remarks" />
+        </property>
+        <property name="insurance" type="java.lang.Float">
+            <column name="insurance" precision="10" scale="0" />
+        </property>
+        <property name="clientId" type="string">
+            <column name="clientId" />
+        </property>
+        <property name="goodsWeight" type="java.lang.Float">
+            <column name="goodsWeight" precision="10" scale="0" />
+        </property>
+        <property name="goodsVolume" type="java.lang.Float">
+            <column name="goodsVolume" precision="10" scale="0" />
+        </property>
+        <!-- <property name="freight" type="java.lang.Float">
+            <column name="freight" precision="10" scale="0" />
+        </property> -->
+        <property name="carrierName" type="string">
+            <column name="carrierName" />
+        </property>
+        <property name="carrierAccount" type="string">
+            <column name="carrierAccount" />
+        </property>
+        <property name="contractId" type="string">
+            <column name="contractId" />
+        </property>
+        
+        <property name="resourceType" type="string">
+            <column name="resourceType" />
+        </property>
+        <property name="acceptPicture" type="string">
+            <column name="acceptPicture" />
+        </property>
+        <property name="explainReason" type="string">
+            <column name="explainReason" />
+        </property>
+        <property name="carNum" type="string">
+            <column name="carNum" />
+        </property>
+        
+        <property name="driver" type="string">
+            <column name="driver" />
+        </property>
+        <property name="commentId" type="string">
+            <column name="commentId" />
+        </property>
+        
+        <property name="declaredPrice" type="float">
+            <column name="declaredPrice" />
+        </property>
+        <property name="hasCarrierContract" type="string">
+            <column name="hasCarrierContract" />
+        </property>
+        <property name="clientName" type="string">
+            <column name="clientName" />
+        </property>
+        <property name="cancelReason" type="string">
+            <column name="cancelReason" />
+        </property> 
+    </class>
+</hibernate-mapping>
