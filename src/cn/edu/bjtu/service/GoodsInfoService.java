@@ -26,5 +26,7 @@ public interface GoodsInfoService {
 			String invoice,
 			String relatedMaterial,
 			String remarks);
+	
+	public boolean commitResponse(String goodsId,String remarks,String userId);
 
 }

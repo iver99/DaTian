@@ -1,11 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>帐户信息</title>
+<title>我的反馈</title>
 <META HTTP-EQUIV="imagetoolbar" CONTENT="no">
 <link rel="shortcut icon" href="/images/fav.ico" type="image/x-icon" />
 <link rel="icon" href="/images/fav.ico" type="image/x-icon" />
@@ -323,7 +322,7 @@
 </div>
 
 <div id="main_frame">
-	<a href="mgmt.htm" hidefocus="true" class="a_text_main_title1">我的信息</a>&nbsp;&gt;&nbsp;我的帐户
+	<a href="mgmt.htm" hidefocus="true" class="a_text_main_title1">我的信息</a>&nbsp;&gt;&nbsp;我的交易
     <table width="100%" border="0" cellpadding="0" cellspacing="0">
 		<tr>
 			<td width="230" class="td_leftnav_top">
@@ -331,7 +330,7 @@
                     <span class="text_mgmt_leftnav1"><span id="mgmt_nav_switch1a" class="span_mgmt_nav1" title="收起" onclick="mgmt_nav_switch1a();"></span><span id="mgmt_nav_switch1b" class="span_mgmt_nav2" title="展开" onclick="mgmt_nav_switch1b();"></span>我的交易</span>
                     <div id="mgmt_nav1">
                         <a href="mgmt_d_focus.htm" class="a_mgmt_leftnav" hidefocus="true">我的关注</a>
-                        <a href="mgmt_d_response.htm" class="a_mgmt_leftnav" hidefocus="true">我的反馈</a>
+                        <a href="mgmt_d_response.htm" class="a_mgmt_leftnav1" hidefocus="true">我的反馈</a>
                         <a href="mgmt_d_order_s.htm" class="a_mgmt_leftnav" hidefocus="true">我提交的订单</a>
                         <a href="mgmt_d_order_r.htm" class="a_mgmt_leftnav" hidefocus="true">我收到的订单</a>
                         <a href="mgmt_d_settle_s.htm" class="a_mgmt_leftnav" hidefocus="true">我的结算</a>
@@ -366,103 +365,52 @@
                     <span class="text_mgmt_leftnav1"><span id="mgmt_nav_switch5a" class="span_mgmt_nav1" title="收起" onclick="mgmt_nav_switch5a();"></span><span id="mgmt_nav_switch5b" class="span_mgmt_nav2" title="展开" onclick="mgmt_nav_switch5b();"></span>我的帐户</span>
                     <div id="mgmt_nav5">
                         <a href="mgmt_a_info.htm" class="a_mgmt_leftnav" hidefocus="true">帐户信息</a>
-                        <a href="mgmt_a_subaccount.htm" class="a_mgmt_leftnav1" hidefocus="true">附属帐户</a>
+                        <a href="mgmt_a_subaccount.htm" class="a_mgmt_leftnav" hidefocus="true">附属帐户</a>
                         <a href="mgmt_a_address.htm" class="a_mgmt_leftnav" hidefocus="true">常用地址</a>
                         <a href="mgmt_a_security.htm" class="a_mgmt_leftnav" hidefocus="true">安全设置</a>
                     </div>
-                </div>
+</div>
 			</td>
-            <td class="td_leftnav_top">
-            
-             <form action="findbyaccountname" method="post">	          
-             
-				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right2">
-					<tr>
-                    	<td>
-                        	<span class="span_mgmt_right2_text1">附属帐户</span>
-                            <span class="span_mgmt_right2_text2"><a href="addsubaccount" hidefocus="true"><img src="images/btn_add1.png" class="span_mgmt_right2_pic1" title="添加" /></a></span>
-                            <div class="div_mgmt_s1">
-                            	<input name="username" type="text" class="input_mgmt1" style="width:200px;" value="账户名称" />
-                                <input type="submit" id="btn1" value="查询" class="btn_mgmt3" hidefocus="true" />
-                            </div>
-                        </td>
-                	</tr>
-            	</table>
-            	</form>
-            	
-            	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
-					<tr>
-                        <td width="20" height="40" class="td_mgmt_right3_head">&nbsp;</td>
-                        <td class="td_mgmt_right3_head">帐户名称</td>
-                        <td width="80" class="td_mgmt_right3_head">创建时间</td>
-                        <td width="60" class="td_mgmt_right3_head">状态</td>
-                        <td width="80" class="td_mgmt_right3_head">操作</td>
-					</tr>
-					<c:forEach var="subAccount" items="${subAccountList }">
-				
-                    
+			<td class="td_leftnav_top">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right2a">
                     <tr>
-                        <td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
-                        <td class="td_mgmt_right3_td1">${subAccount.hostAccountName }-${subAccount.username }</td>
-                        <td class="td_mgmt_right3_td1">${subAccount.relDate }</td>
-                        <td class="td_mgmt_right3_td2">${subAccount.status }</td>
-                        <td class="td_mgmt_right3_td3">
-                            <div id="handlebox" style="z-index:203;">
-                                <ul class="quickmenu">
-                                    <li class="menuitem">
-                                        <div class="menu">
-                                            <a href="subaccountdetail?id=${subAccount.id }" class="menuhd" hidefocus="true">查看</a>
-                                            <div class="menubd">
-                                                <div class="menubdpanel">
-                                                    <a href="updatesubaccount?id=${subAccount.id }" class="a_top3" hidefocus="true">更新</a>
-                                                    
-                                                   <c:choose>
-                                                    <c:when test="${subAccount.status == '正常' }">
-                       								<a href="changestatus?id=${subAccount.id }" class="a_top3" hidefocus="true">停用</a>
-                                                   </c:when>
-                        							<c:when test="${subAccount.status == '已停用' }">
-                       								<a href="changestatus?id=${subAccount.id }" class="a_top3" hidefocus="true">启用</a>
-                                                    </c:when>	
-                                                    </c:choose>
-                                                    		
-                      								<a href="deletesubaccount?id=${subAccount.id }" class="a_top3" hidefocus="true">删除</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
+                        <td>
+                            <span class="span_mgmt_right2_text1">添加反馈信息</span>
+                            <span class="span_mgmt_right2_text2"><a href="javascript:history.go(-1);" hidefocus="true"><img src="images/btn_back1.png" class="span_mgmt_right2_pic1" title="返回" /></a></span>
                         </td>
-                        
-                	
                     </tr>
-                    </c:forEach>
                 </table>
-				<table border="0" cellpadding="0" cellspacing="0" class="table_recordnumber">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
                     <tr>
-	                    <td>
-                            每页
-                            <select>
-                                <option value="" selected="selected">10</option>
-                                <option value="a">20</option>
-                                <option value="b">50</option>
-                            </select>
-                            条记录
+                        <td class="td_mgmt_right3_td1a">
+                            <div class="span_mgmt_right3_text1" style="float:none;">具体内容：</div>   
+                            <form action="commitresponse?goodsid=${goodsId }" method="post">	          
+                            <table width="90%" border="0" cellspacing="0" cellpadding="0">
+								<tr>
+									<td width="120" height="40" class="td_mgmt_right3_td1b">材料：</td>
+									<td>
+                                    	<div style="position:relative;">
+                                        	<input id="apply_attachment1" type="text" class="input_attachment1" style="width:230px;" value="" /><input id="upload_btn3" type="button" value="添加" class="input_attachment_btn1" style="width:60px; margin-left:10px;" />
+      <input id="upload_btn4" type="file" onchange="document.getElementById('apply_attachment1').value=/[^\\]+\.\w+$/.exec(this.value)[0]" class="input_attachment_btn1_hidden" style="width:300px;" hidefocus="true" />
+                                        </div>
+                                    </td>
+								</tr>
+								<tr>
+									<td height="40" class="td_mgmt_right3_td1b">备注：</td>
+									<td>
+                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="remarks"></textarea>
+                                    </td>
+								</tr>
+                                <tr>
+                                    <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
+                                    <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="window.location.href='mgmt_d_response.htm'" /><input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
+                                </tr>
+                            </table>
+                            </form>
                         </td>
                     </tr>
-				</table>
-                <table border="0" cellpadding="0" cellspacing="0" class="table_pagenumber">
-                    <tr>
-                        <td width="45" class="td_pagenumber">首页</td>
-                        <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">上页</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">1</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">2</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">3</a></td>
-                        <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">下页</a></td>
-                        <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">末页</a></td>
-                    </tr>
-				</table>
-			</td>
+                </table>
+             </td>
 		</tr>
     </table>
 </div>

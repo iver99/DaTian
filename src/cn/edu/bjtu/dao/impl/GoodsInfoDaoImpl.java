@@ -7,9 +7,11 @@ import javax.annotation.Resource;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
+import cn.edu.bjtu.dao.BaseDao;
 import cn.edu.bjtu.dao.GoodsInfoDao;
 import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.vo.GoodsClientView;
+import cn.edu.bjtu.vo.Goodsform;
 
 @Repository
 public class GoodsInfoDaoImpl implements GoodsInfoDao{
@@ -18,6 +20,9 @@ public class GoodsInfoDaoImpl implements GoodsInfoDao{
 	private HibernateTemplate ht;
 	@Resource
 	private HQLTool hqltool;
+	
+	@Resource
+	private BaseDao baseDao;
 	
 	@Override
 	/**
@@ -50,4 +55,18 @@ public class GoodsInfoDaoImpl implements GoodsInfoDao{
 
 		return hqltool.getQueryList(hql, page, pageSize);//Dao层分页函数提取到此方法
 	}
+
+	@Override
+	/**
+	 * 提交反馈Dao
+	 */
+	public boolean commitResponse(String goodsId, String remarks, String userId) {
+		// TODO Auto-generated method stub
+		Goodsform goods=ht.get(Goodsform.class, goodsId);
+		goods.setRemarks(remarks);
+		goods.setCarrierId(userId);
+		
+		return baseDao.update(goods);
+	}
+	
 }

@@ -32,6 +32,16 @@ public class Goodsform implements java.io.Serializable {
 	private String clientId;
 	private String remarks;
 	private String state;
+	
+	private String carrierId;
+
+	public String getCarrierId() {
+		return carrierId;
+	}
+
+	public void setCarrierId(String carrierId) {
+		this.carrierId = carrierId;
+	}
 
 	public String getState() {
 		return state;
@@ -46,39 +56,6 @@ public class Goodsform implements java.io.Serializable {
 
 	public Goodsform(String id) {
 		this.id = id;
-	}
-
-	
-
-	public Goodsform(String id, String name, String type, String transportType,
-			Float weight, Float volume, String startPlace, String endPlace,
-			Date relDate, Date limitDate, String declaredValue,
-			String transportReq, String damageReq, String vipservice,
-			String oriented, int feedbackQuantity, String invoice,
-			String relatedMaterial, String clientId, String remarks,
-			String state) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.type = type;
-		this.transportType = transportType;
-		this.weight = weight;
-		this.volume = volume;
-		this.startPlace = startPlace;
-		this.endPlace = endPlace;
-		this.relDate = relDate;
-		this.limitDate = limitDate;
-		this.declaredValue = declaredValue;
-		this.transportReq = transportReq;
-		this.damageReq = damageReq;
-		this.vipservice = vipservice;
-		this.oriented = oriented;
-		this.feedbackQuantity = feedbackQuantity;
-		this.invoice = invoice;
-		this.relatedMaterial = relatedMaterial;
-		this.clientId = clientId;
-		this.remarks = remarks;
-		this.state = state;
 	}
 
 	public String getType() {

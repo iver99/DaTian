@@ -73,7 +73,7 @@
                 <br />
                 联系电话：${goodsformInfo.phone }
                 <hr class="hr_1" />
-                <input type="button" id="btn2" value="提交反馈" class="input_detail1" hidefocus="true" onclick="window.location.href='mgmt_d_response2.htm'" />
+                <input type="button" id="btn2" value="提交反馈" class="input_detail1" hidefocus="true" onclick="window.location.href='getresponseform?goodsid=${goodsformInfo.id}'" />
             </td>
 		</tr>
     </table>
@@ -118,7 +118,8 @@
         </tr>
         <tr>
             <td class="td_popup1">
-                <input type="button" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" />
+                <input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" />
+                <input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" />
             </td>
         </tr>
     </table>

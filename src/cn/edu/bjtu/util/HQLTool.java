@@ -58,6 +58,16 @@ public class HQLTool {
 		return list;
 	}
 	
+	public List getQueryListSubAccount(String sql)
+	{
+		Session session = ht.getSessionFactory().openSession();
+		Query query = session.createQuery(sql); // ¥¥Ω®hql”Ôæ‰
+		List list = query.list();
+		session.close();
+		
+		return list;
+	}
+	
 	public static String spellHql2(String hql,String[] paramList,String[] valueList)
 	{
 		HQL_POJO hqlobj=new HQL_POJO();
