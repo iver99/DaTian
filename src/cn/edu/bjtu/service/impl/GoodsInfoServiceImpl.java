@@ -98,4 +98,12 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 		// TODO Auto-generated method stub
 		return goodsinfoDao.commitResponse(goodsId,remarks,userId);
 	}
+
+	@Override
+	public List getAllResponse(String userId) {
+		// TODO Auto-generated method stub
+		return goodsinfoDao.getAllResponse(userId);
+	}
+	
+	
 }

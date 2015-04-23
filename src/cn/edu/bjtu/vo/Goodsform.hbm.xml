@@ -20,9 +20,9 @@
         <property name="weight" type="java.lang.Float">
             <column name="weight" precision="10" scale="0" />
         </property>
-        <property name="volume" type="java.lang.Float">
+       <!--  <property name="volume" type="java.lang.Float">
             <column name="volume" precision="10" scale="0" />
-        </property>
+        </property> -->
         <property name="startPlace" type="string">
             <column name="startPlace" />
         </property>
@@ -35,9 +35,9 @@
         <property name="limitDate" type="date">
             <column name="limitDate" length="10" />
         </property>
-        <property name="declaredValue" type="string">
+        <!-- <property name="declaredValue" type="string">
             <column name="declaredValue" />
-        </property>
+        </property> -->
         <property name="transportReq" type="string">
             <column name="transportReq" />
         </property>

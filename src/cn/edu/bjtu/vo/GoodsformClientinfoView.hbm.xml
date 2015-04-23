@@ -35,12 +35,12 @@
         <property name="remarks" type="string">
             <column name="remarks" />
         </property>
-        <property name="volume" type="java.lang.Float">
+        <!-- <property name="volume" type="java.lang.Float">
             <column name="volume" precision="10" scale="0" />
-        </property>
-        <property name="declaredValue" type="string">
+        </property> -->
+        <!-- <property name="declaredValue" type="string">
             <column name="declaredValue" />
-        </property>
+        </property> -->
         <property name="realName" type="string">
             <column name="realName" />
         </property>

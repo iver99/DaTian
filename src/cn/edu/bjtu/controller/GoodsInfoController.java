@@ -1,5 +1,6 @@
 package cn.edu.bjtu.controller;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
@@ -25,6 +26,12 @@ public class GoodsInfoController {
 	ModelAndView mv = new ModelAndView();
 
 	@RequestMapping("/goodsform")
+	/**
+	 * 资源栏货物
+	 * @param flag
+	 * @param request
+	 * @return
+	 */
 	public ModelAndView getAllGoodsInfo(@RequestParam int flag,
 			HttpServletRequest request) {
 		int Display = 10;// 默认的每页大小
@@ -43,22 +50,20 @@ public class GoodsInfoController {
 			mv.addObject("goodsformInfo", goodsInfoList);
 			mv.setViewName("resource_list6");// 点击资源栏城市配送显示所有信息
 		}
-		/*
-		 * else if (flag == 1) { // 这里用session取id // String
-		 * carrierId=request.getSession().getAttribute("carrierId"); String
-		 * carrierId = "C-0002";// 删除 List goodformList =
-		 * goodformService.getCompanyGoodform(carrierId);
-		 * mv.addObject("goodformList", goodformList);
-		 * mv.setViewName("mgmt_r_cargo");// 点击左边城市配送显示所有信息 }
-		 */
+		
 		return mv;
 	}
 
 	@RequestMapping("/goodsdetail")
+	/**
+	 * 资源栏货物详情
+	 * @param id
+	 * @return
+	 */
 	public ModelAndView getAllGoodsDetail(@RequestParam String id) {
 		System.out.println(id);
 		GoodsClientView goodsformInfo = goodsInfoService.getAllGoodsDetail(id);
-		System.out.println(goodsformInfo);
+		//System.out.println(goodsformInfo);
 		mv.addObject("goodsformInfo", goodsformInfo);
 		mv.setViewName("resource_detail6");
 
@@ -67,7 +72,7 @@ public class GoodsInfoController {
 
 	@RequestMapping("goodsformselected")
 	/**
-	 *  * 获取满足条件的干线
+	 *  * 获取满足条件的货物
 	 * @param startPlace
 	 * @param endPlace
 	 * @param transportType
@@ -90,7 +95,7 @@ public class GoodsInfoController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// System.out.println("已经进入控制器");
+		
 
 		List goodsInfoList = goodsInfoService.getSelectedGoodsInfo(startPlace,
 				endPlace, transportType, Display, PageNow);
@@ -131,6 +136,24 @@ public class GoodsInfoController {
 		// mv.setViewName("mgmt_r_line");
 		return mv;
 	}
+	@RequestMapping("getallresponse")
+	/**
+	 * 获取所有反馈
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ModelAndView getAllResponse(HttpServletRequest request,HttpServletResponse response)
+	{
+		System.out.println("进入反馈控制器");
+		String userId=(String)request.getSession().getAttribute("userId");
+		
+		List responseList=goodsInfoService.getAllResponse(userId);
+		
+		mv.addObject("responseList", responseList);
+		mv.setViewName("mgmt_d_response");
+		return mv;
+	}
 
 	@RequestMapping("getresponseform")
 	/**
@@ -156,12 +179,20 @@ public class GoodsInfoController {
 			HttpServletRequest request, HttpServletResponse response) {
 
 		String userId = (String) request.getSession().getAttribute("userId");
-		System.out.println("进入创建反馈 控制器+goodsid+" + goodsid);
+		//System.out.println("进入创建反馈 控制器+goodsid+" + goodsid);
 
 		boolean flag = goodsInfoService
 				.commitResponse(goodsid, remarks, userId);
 		if (flag == true)
-			mv.setViewName("mgmt_d_response");
+		{
+			try {
+				response.sendRedirect("getallresponse");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+			
 		return mv;
 	}
 

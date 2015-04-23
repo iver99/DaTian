@@ -16,12 +16,12 @@ public class Goodsform implements java.io.Serializable {
 	private String type;
 	private String transportType;
 	private Float weight;
-	private Float volume;
+	//private Float volume;
 	private String startPlace;
 	private String endPlace;
 	private Date relDate;
 	private Date limitDate;
-	private String declaredValue;
+	//private String declaredValue;
 	private String transportReq;
 	private String damageReq;
 	private String vipservice;
@@ -98,14 +98,14 @@ public class Goodsform implements java.io.Serializable {
 		this.weight = weight;
 	}
 
-	public Float getVolume() {
+	/*public Float getVolume() {
 		return this.volume;
 	}
 
 	public void setVolume(Float volume) {
 		this.volume = volume;
 	}
-
+*/
 	public String getStartPlace() {
 		return this.startPlace;
 	}
@@ -138,13 +138,13 @@ public class Goodsform implements java.io.Serializable {
 		this.limitDate = limitDate;
 	}
 
-	public String getDeclaredValue() {
+	/*public String getDeclaredValue() {
 		return this.declaredValue;
 	}
 
 	public void setDeclaredValue(String declaredValue) {
 		this.declaredValue = declaredValue;
-	}
+	}*/
 
 	public String getTransportReq() {
 		return this.transportReq;

@@ -28,5 +28,7 @@ public interface GoodsInfoService {
 			String remarks);
 	
 	public boolean commitResponse(String goodsId,String remarks,String userId);
+	
+	public List getAllResponse(String userId);
 
 }

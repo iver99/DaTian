@@ -12,4 +12,6 @@ public interface GoodsInfoDao {
 	public GoodsClientView getAllGoodsDetail(String id);
 	
 	public boolean commitResponse(String goodsId,String remarks,String userId);
+	
+	public List getAllResponse(String userId);
 }

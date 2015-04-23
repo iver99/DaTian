@@ -65,8 +65,17 @@ public class GoodsInfoDaoImpl implements GoodsInfoDao{
 		Goodsform goods=ht.get(Goodsform.class, goodsId);
 		goods.setRemarks(remarks);
 		goods.setCarrierId(userId);
-		
+		// ÐÞ¸Ä×´Ì¬
+		goods.setState("´ýÈ·ÈÏ");
 		return baseDao.update(goods);
 	}
+
+	@Override
+	public List getAllResponse(String userId) {
+		// TODO Auto-generated method stub
+		return ht.find("from Goodsform where clientId='"+userId+"'");
+	}
+	
+	
 	
 }
