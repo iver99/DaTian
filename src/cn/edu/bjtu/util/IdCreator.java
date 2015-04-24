@@ -109,5 +109,14 @@ public class IdCreator {
 		return "y"+(int)(Math.random()*100000000);
 	}
 	
+	/**
+	 * ·µ»Ø×ÓÕË»§id
+	 * @return
+	 */
+	public static String createSubAccountId(){
+		return "SA"+(int)(Math.random()*100000000);
+	}
+	
+
 
 }

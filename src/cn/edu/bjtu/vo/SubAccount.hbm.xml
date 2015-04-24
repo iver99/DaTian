@@ -49,6 +49,11 @@
 		<property name="statisticsManagement" type="string">
 			<column name="statisticsManagement" />
 		</property>
-
+		<property name="relDate" type="date">
+            <column name="relDate" length="10" />
+        </property>
+        <property name="remarks" type="string">
+			<column name="remarks" />
+		</property>
 	</class>
 </hibernate-mapping>

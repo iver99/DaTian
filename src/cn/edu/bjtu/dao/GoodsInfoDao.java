@@ -10,4 +10,10 @@ public interface GoodsInfoDao {
 	public List getSelectedGoodsInfo(String hql,int Display,int PageNow);
 	
 	public GoodsClientView getAllGoodsDetail(String id);
+	
+	public boolean commitResponse(String goodsId,String remarks,String userId);
+	
+	public List getAllResponse(String carrierId);
+	
+	public List getUserGoodsInfo(String clientId);
 }

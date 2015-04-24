@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>帐户信息</title>
@@ -370,97 +369,60 @@
                         <a href="mgmt_a_address.htm" class="a_mgmt_leftnav" hidefocus="true">常用地址</a>
                         <a href="mgmt_a_security.htm" class="a_mgmt_leftnav" hidefocus="true">安全设置</a>
                     </div>
-                </div>
+</div>
 			</td>
             <td class="td_leftnav_top">
-            
-             <form action="findbyaccountname" method="post">	          
-             
-				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right2">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right2a">
 					<tr>
                     	<td>
-                        	<span class="span_mgmt_right2_text1">附属帐户</span>
-                            <span class="span_mgmt_right2_text2"><a href="addsubaccount" hidefocus="true"><img src="images/btn_add1.png" class="span_mgmt_right2_pic1" title="添加" /></a></span>
-                            <div class="div_mgmt_s1">
-                            	<input name="username" type="text" class="input_mgmt1" style="width:200px;" value="账户名称" />
-                                <input type="submit" id="btn1" value="查询" class="btn_mgmt3" hidefocus="true" />
-                            </div>
+                        	<span class="span_mgmt_right2_text1">创建附属帐户</span>
+                            <span class="span_mgmt_right2_text2"><a href="javascript:history.go(-1);" hidefocus="true"><img src="images/btn_back1.png" class="span_mgmt_right2_pic1" title="返回" /></a></span>
                         </td>
                 	</tr>
             	</table>
-            	</form>
-            	
-            	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
 					<tr>
-                        <td width="20" height="40" class="td_mgmt_right3_head">&nbsp;</td>
-                        <td class="td_mgmt_right3_head">帐户名称</td>
-                        <td width="80" class="td_mgmt_right3_head">创建时间</td>
-                        <td width="60" class="td_mgmt_right3_head">状态</td>
-                        <td width="80" class="td_mgmt_right3_head">操作</td>
+						<td class="td_mgmt_right3_td1a"> 
+                            <br />   	          
+							<form action="insertsubaccount" method="post">
+							<table width="90%" border="0" cellspacing="0" cellpadding="0">
+								<tr>
+									<td width="120" height="40" class="td_mgmt_right3_td1b">帐户名称：</td>
+									<td><input type="text" class="input_mgmt1" style="width:100px;" value="${username } " readonly="readonly" />&nbsp;-&nbsp;<input type="text" class="input_mgmt1" style="width:180px;" value="" name="username"/>&nbsp;&nbsp;<a href="javascript:;" hidefocus="true">检查用户名</a></td>
+								</tr>
+								<tr>
+									<td height="40" class="td_mgmt_right3_td1b">初始密码：</td>
+									<td><input type="password" class="input_mgmt1" style="width:300px;" value="" name="password"/></td>
+								</tr>
+								<tr>
+									<td height="40" class="td_mgmt_right3_td1b">权限：</td>
+									<td>
+                                        <input type="checkbox" id="checkbox" name="resourceManagement"/>
+                                        资源管理&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" id="checkbox2" name="transactionManagement"/>
+                                        交易管理&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" id="checkbox3" name="schemaManagement"/>
+                                        方案管理&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" id="checkbox4" name="statisticsManagement"/>
+                                        统计分析
+                                    </td>
+								</tr>
+								<tr>
+									<td height="40" class="td_mgmt_right3_td1b">备注：</td>
+									<td>
+                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="remarks"></textarea>
+                                    </td>
+								</tr>
+								<tr>
+									<td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
+									<td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="window.location.href='mgmt_a_subaccount.htm'" /><input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
+								</tr>
+							</table>
+						</form>
+							
+
+						</td>
 					</tr>
-					<c:forEach var="subAccount" items="${subAccountList }">
-				
-                    
-                    <tr>
-                        <td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
-                        <td class="td_mgmt_right3_td1">${subAccount.hostAccountName }-${subAccount.username }</td>
-                        <td class="td_mgmt_right3_td1">${subAccount.relDate }</td>
-                        <td class="td_mgmt_right3_td2">${subAccount.status }</td>
-                        <td class="td_mgmt_right3_td3">
-                            <div id="handlebox" style="z-index:203;">
-                                <ul class="quickmenu">
-                                    <li class="menuitem">
-                                        <div class="menu">
-                                            <a href="subaccountdetail?id=${subAccount.id }" class="menuhd" hidefocus="true">查看</a>
-                                            <div class="menubd">
-                                                <div class="menubdpanel">
-                                                    <a href="updatesubaccount?id=${subAccount.id }" class="a_top3" hidefocus="true">更新</a>
-                                                    
-                                                   <c:choose>
-                                                    <c:when test="${subAccount.status == '正常' }">
-                       								<a href="changestatus?id=${subAccount.id }" class="a_top3" hidefocus="true">停用</a>
-                                                   </c:when>
-                        							<c:when test="${subAccount.status == '已停用' }">
-                       								<a href="changestatus?id=${subAccount.id }" class="a_top3" hidefocus="true">启用</a>
-                                                    </c:when>	
-                                                    </c:choose>
-                                                    		
-                      								<a href="deletesubaccount?id=${subAccount.id }" class="a_top3" hidefocus="true">删除</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                        
-                	
-                    </tr>
-                    </c:forEach>
-                </table>
-				<table border="0" cellpadding="0" cellspacing="0" class="table_recordnumber">
-                    <tr>
-	                    <td>
-                            每页
-                            <select>
-                                <option value="" selected="selected">10</option>
-                                <option value="a">20</option>
-                                <option value="b">50</option>
-                            </select>
-                            条记录
-                        </td>
-                    </tr>
-				</table>
-                <table border="0" cellpadding="0" cellspacing="0" class="table_pagenumber">
-                    <tr>
-                        <td width="45" class="td_pagenumber">首页</td>
-                        <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">上页</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">1</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">2</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">3</a></td>
-                        <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">下页</a></td>
-                        <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">末页</a></td>
-                    </tr>
 				</table>
 			</td>
 		</tr>

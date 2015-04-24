@@ -77,6 +77,8 @@
 				<value>cn/edu/bjtu/vo/Feedbackform.hbm.xml</value>
 				<value>cn/edu/bjtu/vo/OrderCarrierView.hbm.xml</value>
 				<value>cn/edu/bjtu/vo/SubAccount.hbm.xml</value> 
+				<value>cn/edu/bjtu/vo/Response.hbm.xml</value>
+				<value>cn/edu/bjtu/vo/Address.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

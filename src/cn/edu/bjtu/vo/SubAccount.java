@@ -1,9 +1,15 @@
 package cn.edu.bjtu.vo;
+
+import java.util.Date;
+
+import org.springframework.stereotype.Component;
+
 /**
  * 
  * @author RussWest0
  *
  */
+@Component
 public class SubAccount {
 	
 	private String id;
@@ -18,6 +24,23 @@ public class SubAccount {
 	private String  transactionManagement;
 	private String  schemaManagement;
 	private String statisticsManagement;
+	private Date relDate;
+	private String remarks;
+	
+	public String getRemarks() {
+		return remarks;
+	}
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+	
+	public Date getRelDate() {
+		return this.relDate;
+	}
+
+	public void setRelDate(Date relDate) {
+		this.relDate = relDate;
+	}
 	public String getId() {
 		return id;
 	}

@@ -92,4 +92,25 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 		return baseDao.save(goodsform);//±£¥Ê µÃÂ
 		
 	}
+
+	@Override
+	public boolean commitResponse(String goodsId, String remarks, String userId) {
+		// TODO Auto-generated method stub
+		return goodsinfoDao.commitResponse(goodsId,remarks,userId);
+	}
+
+	@Override
+	public List getAllResponse(String userId) {
+		// TODO Auto-generated method stub
+		return goodsinfoDao.getAllResponse(userId);
+	}
+
+	@Override
+	public List getUserGoodsInfo(String userId) {
+		// TODO Auto-generated method stub
+		
+		return goodsinfoDao.getUserGoodsInfo(userId);
+	}
+	
+	
 }
