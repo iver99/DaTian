@@ -1,6 +1,7 @@
 package cn.edu.bjtu.controller;
 
-import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -24,7 +25,7 @@ public class TestController {
 	@RequestMapping("test")
 	public ModelAndView test()
 	{	
-		System.out.println("进入test控制器");
+		System.out.println("进入test控制器，，，，，");
 		ModelAndView mv=new ModelAndView();
 		//BaseDaoImpl dao=new BaseDaoImpl();
 		List list=ht.find("select count(*) from Carinfo");
@@ -32,6 +33,13 @@ public class TestController {
 		mv.setViewName("success");
 		return mv;
 		
+	}
+	
+	public static void main(String [] args) throws IOException
+	{
+		File file=new File("datian.txt");
+		file.createNewFile();
+		System.out.println(file.getAbsolutePath());
 	}
 	
 	/*public static void main(String [] args)

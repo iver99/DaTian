@@ -117,6 +117,12 @@ public class IdCreator {
 		return "SA"+(int)(Math.random()*100000000);
 	}
 	
-
+	/**
+	 * 返回常用地址id
+	 * @return
+	 */
+	public static String createAddressId(){
+		return "Add"+(int)(Math.random()*100000000);
+	}
 
 }
