@@ -178,11 +178,11 @@ public class GoodsInfoController {
 	public ModelAndView commitResponse(String goodsid, String remarks,
 			HttpServletRequest request, HttpServletResponse response) {
 
-		String userId = (String) request.getSession().getAttribute("userId");
+		String carrierId = (String) request.getSession().getAttribute("userId");
 		//System.out.println("进入创建反馈 控制器+goodsid+" + goodsid);
 
 		boolean flag = goodsInfoService
-				.commitResponse(goodsid, remarks, userId);
+				.commitResponse(goodsid, remarks, carrierId);
 		if (flag == true)
 		{
 			try {
@@ -196,4 +196,13 @@ public class GoodsInfoController {
 		return mv;
 	}
 
+	@RequestMapping("goodsinfo")
+	public ModelAndView getGoodsInfo(HttpServletRequest request,HttpServletResponse response)
+	{
+		String clientId=(String)request.getSession().getAttribute("userId");
+		List goodsList=goodsInfoService.getUserGoodsInfo(clientId);
+		mv.addObject("goodsList", goodsList);
+		mv.setViewName("mgmt_r_cargo");
+		return mv;
+	}
 }
