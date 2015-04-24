@@ -104,6 +104,13 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 		// TODO Auto-generated method stub
 		return goodsinfoDao.getAllResponse(userId);
 	}
+
+	@Override
+	public List getUserGoodsInfo(String userId) {
+		// TODO Auto-generated method stub
+		
+		return goodsinfoDao.getUserGoodsInfo(userId);
+	}
 	
 	
 }

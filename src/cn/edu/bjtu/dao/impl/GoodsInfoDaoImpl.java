@@ -71,9 +71,15 @@ public class GoodsInfoDaoImpl implements GoodsInfoDao{
 	}
 
 	@Override
-	public List getAllResponse(String userId) {
+	public List getAllResponse(String carrierId) {
 		// TODO Auto-generated method stub
-		return ht.find("from Goodsform where clientId='"+userId+"'");
+		return ht.find("from Goodsform where clientId='"+carrierId+"'");
+	}
+
+	@Override
+	public List getUserGoodsInfo(String clientId) {
+		// TODO Auto-generated method stub
+		return ht.find("from Goodsform where clientId='"+clientId+"'");
 	}
 	
 	
