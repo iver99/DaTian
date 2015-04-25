@@ -57,6 +57,8 @@ public class CommonController {
 		}
 		else if (flag == 8)
 			mv.setViewName("mgmt_d_complain2");//Í¶Ëß 
+		else if (flag == 9)
+			mv.setViewName("mgmt_r_cargo2");//»õÎï 
 		return mv;
 	}
 	

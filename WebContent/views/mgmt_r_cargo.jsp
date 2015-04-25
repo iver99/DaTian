@@ -5,7 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>供应链资源管理平台-货物信息</title>
+<title>货物信息</title>
 <META HTTP-EQUIV="imagetoolbar" CONTENT="no">
 <link rel="shortcut icon" href="/images/fav.ico" type="image/x-icon" />
 <link rel="icon" href="/images/fav.ico" type="image/x-icon" />
@@ -136,7 +136,7 @@
 						<tr>
 							<td><span class="span_mgmt_right2_text1">货物信息</span> <span
 								class="span_mgmt_right2_text2"><a
-									href="mgmt_r_cargo2.htm" hidefocus="true"><img
+									href="insert?flag=9" hidefocus="true"><img
 										src="images/btn_add1.png" class="span_mgmt_right2_pic1"
 										title="添加" /></a></span></td>
 						</tr>
@@ -160,7 +160,7 @@
 									<td class="td_main_list_content"></td>
 									<td class="td_main_list_content">${goodsinfo.id }</td>
 									<td class="td_main_list_content"><a
-										href="companyDetail?id=${goodsinfo.name }" hidefocus="true">${goodsinfo.name }</a>
+										href="mygoodsdetail?id=${goodsinfo.id }&flag=1" hidefocus="true">${goodsinfo.name }</a>
 									</td>
 									<td class="td_main_list_content">${goodsinfo.relDate }</td>
 									<td class="td_main_list_content">${goodsinfo.limitDate }</td>
@@ -178,8 +178,8 @@
 															hidefocus="true">查看反馈</a>
 														<div class="menubd">
 															<div class="menubdpanel">
-																<a href="mgmt_r_cargo3.htm" class="a_top3"
-																	hidefocus="true">更新</a> <a href="javascript:;"
+																<a href="mygoodsdetail?id=${goodsinfo.id }&flag=2" class="a_top3"
+																	hidefocus="true">更新</a> <a href="deletegoods?id=${goodsinfo.id }"
 																	class="a_top3" hidefocus="true">删除</a>
 															</div>
 														</div>
@@ -197,7 +197,7 @@
 									
 									<c:when test="${goodsinfo.state=='已取消' }">
 										<td class="td_mgmt_right3_td1">已取消</td>
-                        <td class="td_mgmt_right3_td3"><a href="javascript:;" hidefocus="true">查看</a></td>
+                        <td class="td_mgmt_right3_td3"><a href="mygoodsdetail?id=${goodsinfo.id }&flag=1" hidefocus="true">查看</a></td>
 									</c:when>
 									</c:choose>
 								</tr>

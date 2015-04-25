@@ -469,12 +469,28 @@
                         	<div class="span_mgmt_right3_text4">地址信息</div>      	          
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
-                                    <td width="120" height="40" class="td_mgmt_right3_td1b">发货人信息：</td>
-                                    <td>${orderInfo.deliveryName }  /  ${orderInfo.deliveryPhone }  /  ${orderInfo.deliveryAddr }</td>
+                                    <td width="120" height="40" class="td_mgmt_right3_td1b">发货人信息&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                    <td width="250">&nbsp;</td>
+                                    <td width="100" class="td_mgmt_right3_td1b">收货人信息&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                    <td>&nbsp;</td>
                                 </tr>
                                 <tr>
-                                    <td height="40" class="td_mgmt_right3_td1b">收货人信息：</td>
-                                    <td>${orderInfo.recieverName }  /  ${orderInfo.recieverPhone }  /  ${orderInfo.recieverAddr }</td>
+                                    <td height="40" class="td_mgmt_right3_td1b">姓名：</td>
+                                    <td>${orderInfo.deliveryName }</td>
+                                    <td class="td_mgmt_right3_td1b">姓名：</td>
+                                    <td>${orderInfo.recieverName }</td>
+                                </tr>
+                                <tr>
+                                    <td height="40" class="td_mgmt_right3_td1b">地址：</td>
+                                    <td>${orderInfo.deliveryAddr }</td>
+                                    <td class="td_mgmt_right3_td1b">地址：</td>
+                                    <td>${orderInfo.recieverAddr }</td>
+                                </tr>
+                                <tr>
+                                    <td height="40" class="td_mgmt_right3_td1b">电话：</td>
+                                    <td>${orderInfo.deliveryPhone }</td>
+                                    <td class="td_mgmt_right3_td1b">电话：</td>
+                                    <td>${orderInfo.recieverPhone }</td>
                                 </tr>
                             </table>
                         	<div class="span_mgmt_right3_text4">备汪信息</div>      	          

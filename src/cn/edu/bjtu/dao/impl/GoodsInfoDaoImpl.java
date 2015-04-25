@@ -39,10 +39,19 @@ public class GoodsInfoDaoImpl implements GoodsInfoDao{
 		
 	}
 	
+	@Override
 	public GoodsClientView getAllGoodsDetail(String id) {
 		// TODO Auto-generated method stub
 		
 		return ht.get(GoodsClientView.class,id);
+		
+	}
+	
+	@Override
+	public Goodsform getMyGoodsDetail(String id) {
+		// TODO Auto-generated method stub
+		
+		return ht.get(Goodsform.class,id);
 		
 	}
 	
@@ -64,7 +73,7 @@ public class GoodsInfoDaoImpl implements GoodsInfoDao{
 		// TODO Auto-generated method stub
 		Goodsform goods=ht.get(Goodsform.class, goodsId);
 		goods.setRemarks(remarks);
-		goods.setCarrierId(userId);
+		//goods.setCarrierId(userId);
 		// ÐÞ¸Ä×´Ì¬
 		goods.setState("´ýÈ·ÈÏ");
 		return baseDao.update(goods);
@@ -82,6 +91,11 @@ public class GoodsInfoDaoImpl implements GoodsInfoDao{
 		return ht.find("from Goodsform where clientId='"+clientId+"'");
 	}
 	
-	
+	@Override
+	public boolean deleteGoods(String id){
+		
+		Goodsform goodsform = ht.get(Goodsform.class, id);
+		return baseDao.delete(goodsform);
+	}
 	
 }

@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.GoodsInfoService;
 import cn.edu.bjtu.vo.GoodsClientView;
+import cn.edu.bjtu.vo.Goodsform;
 
 @Controller
 public class GoodsInfoController {
@@ -49,6 +50,12 @@ public class GoodsInfoController {
 
 			mv.addObject("goodsformInfo", goodsInfoList);
 			mv.setViewName("resource_list6");// 点击资源栏城市配送显示所有信息
+		}
+		else if (flag == 1) {
+			String clientId=(String)request.getSession().getAttribute("userId");
+			List goodsList=goodsInfoService.getUserGoodsInfo(clientId);
+			mv.addObject("goodsList", goodsList);
+			mv.setViewName("mgmt_r_cargo");
 		}
 		
 		return mv;
@@ -120,20 +127,30 @@ public class GoodsInfoController {
 			@RequestParam String transportType,
 			@RequestParam String transportReq, @RequestParam String startPlace,
 			@RequestParam String endPlace, @RequestParam String damageReq,
-			@RequestParam String vipservice, @RequestParam String service,
-			@RequestParam String oriented, @RequestParam String user,
+			@RequestParam String VIPService,
+			@RequestParam(required=false) String VIPServiceDetail,
+			@RequestParam String oriented,
+			@RequestParam(required=false) String orientedUser,
 			@RequestParam String limitDate, @RequestParam String invoice,
-			@RequestParam String relatedMaterial, @RequestParam String remarks) {
-		// System.out.println("进入货物控制器");
+			@RequestParam(required=false) String relatedMaterial,
+			@RequestParam String remarks,
+			HttpServletRequest request,HttpServletResponse response){
+		System.out.println("进入货物控制器");
+		
+		String clientId=(String)request.getSession().getAttribute("userId");
+		
 		boolean flag = goodsInfoService.insertGoods(name, type, weight,
 				transportType, transportReq, startPlace, endPlace, damageReq,
-				vipservice, oriented, limitDate, invoice, relatedMaterial,
-				remarks);
+				VIPService, oriented, limitDate, invoice, remarks, clientId);
 		if (flag == true)
-			mv.setViewName("mgmt_r_line");
-		else
-			mv.setViewName("fail");
-		// mv.setViewName("mgmt_r_line");
+		{
+			try {
+				response.sendRedirect("goodsform?flag=1");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		return mv;
 	}
 	@RequestMapping("getallresponse")
@@ -196,13 +213,84 @@ public class GoodsInfoController {
 		return mv;
 	}
 
-	@RequestMapping("goodsinfo")
-	public ModelAndView getGoodsInfo(HttpServletRequest request,HttpServletResponse response)
+	@RequestMapping("mygoodsdetail")
+	public ModelAndView myGoodsDetail(@RequestParam String id,@RequestParam int flag,
+			HttpServletRequest request,HttpServletResponse response)
 	{
 		String clientId=(String)request.getSession().getAttribute("userId");
-		List goodsList=goodsInfoService.getUserGoodsInfo(clientId);
-		mv.addObject("goodsList", goodsList);
-		mv.setViewName("mgmt_r_cargo");
+		GoodsClientView goodsformInfo = goodsInfoService.getAllGoodsDetail(id);
+		//System.out.println(goodsformInfo);
+		mv.addObject("goodsdetail", goodsformInfo);
+		
+		if(flag==1){
+			mv.setViewName("mgmt_r_cargo4");
+		}
+		
+		else if(flag==2){
+			mv.setViewName("mgmt_r_cargo3");
+		}
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "updategoods", method = RequestMethod.POST)
+	public ModelAndView updateGoods(@RequestParam String id, @RequestParam String name,
+			@RequestParam String type, @RequestParam float weight,
+			@RequestParam String transportType,
+			@RequestParam String transportReq, @RequestParam String startPlace,
+			@RequestParam String endPlace, @RequestParam String damageReq,
+			@RequestParam String VIPService,
+			@RequestParam(required=false) String VIPServiceDetail,
+			@RequestParam String oriented,
+			@RequestParam(required=false) String orientedUser,
+			@RequestParam String limitDate, @RequestParam String invoice,
+			@RequestParam(required=false) String relatedMaterial,
+			@RequestParam String remarks,
+			HttpServletRequest request,HttpServletResponse response){
+		System.out.println("进入货物控制器");
+		
+		String clientId=(String)request.getSession().getAttribute("userId");
+		
+		boolean flag = goodsInfoService.updateGoods(id, name, type, weight,
+				transportType, transportReq, startPlace, endPlace, damageReq,
+				VIPService, oriented, limitDate, invoice, remarks, clientId);
+		if (flag == true)
+		{
+			try {
+				response.sendRedirect("goodsform?flag=1");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return mv;
+	}
+	
+	@RequestMapping("deletegoods")
+	/**
+	 * 删除用户
+	 * @param id
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ModelAndView deleteGoods(
+			@RequestParam String id,
+			HttpServletRequest request,HttpServletResponse response){
+		
+		boolean flag = goodsInfoService.deleteGoods(id);
+		try {
+			if (flag == true)
+				response.sendRedirect("goodsform?flag=1");
+			else
+				System.out.println("删除失败");// 应记录日志
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			// 此处应记录日志
+			e.printStackTrace();
+
+		}
+		
 		return mv;
 	}
 }
