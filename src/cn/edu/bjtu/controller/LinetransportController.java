@@ -1,5 +1,6 @@
 package cn.edu.bjtu.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
@@ -8,15 +9,17 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.service.LinetransportService;
+import cn.edu.bjtu.util.UploadPath;
+import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Linetransport;
 
@@ -161,24 +164,33 @@ public class LinetransportController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView insertLine(@RequestParam String lineName,
+	public ModelAndView insertLine(@RequestParam(required=false) MultipartFile file,//new add
+			@RequestParam String lineName,
 			@RequestParam String startPlace, @RequestParam String endPlace,
 			@RequestParam int onWayTime,
 			@RequestParam String type,
 			@RequestParam float refPrice,// 缺少详细报价参数
 			@RequestParam String remarks, HttpServletRequest request,
 			HttpServletResponse response) {
-
-		// 此处获取session里的carrierid，下面方法增加一个参数
 		String carrierId=(String)request.getSession().getAttribute("userId");
-		// String carrierId = "C-0002";// 删除
+		//////////////////////////////////////////////////////////////////////////
+		//上传文件
+		String path=UploadPath.getLinetransportPath();//不同的地方取不同的上传路径
+        String fileName = file.getOriginalFilename();
+        fileName=carrierId+"-"+fileName;//文件名
+        File targetFile = new File(path, fileName);  
+        try {   //保存  
+            file.transferTo(targetFile);  
+        } catch (Exception e) {  
+            e.printStackTrace();  
+        }
+        ////////////////////////////////////////////////////////////////////
+		
 		boolean flag = linetransportService.insertLine(lineName, startPlace,
 				endPlace, onWayTime, type, refPrice, remarks, carrierId);
 		if (flag == true) {
-			// mv.setViewName("mgmt_r_line");
 			try {
 				response.sendRedirect("linetransport?flag=1");// 重定向，显示最新的结果
-				// return "redirect:/ toList ";
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				// 此处应该记录日志
