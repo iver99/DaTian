@@ -31,27 +31,29 @@ import cn.edu.bjtu.vo.Linetransport;
  */
 public class LinetransportController {
 
-	/*@Resource
-	HibernateTemplate ht;
-*/
+	/*
+	 * @Resource HibernateTemplate ht;
+	 */
 	@RequestMapping("/linetransport")
 	/**
 	 * 返回所有干线信息
 	 * @return
 	 */
 	public ModelAndView getAllLinetransport(@RequestParam int flag,
-			@RequestParam(required=false) Integer Display,@RequestParam(required=false) Integer PageNow,
+			@RequestParam(required = false) Integer Display,
+			@RequestParam(required = false) Integer PageNow,
 			HttpServletRequest request) {
-		 if(Display== null)
-			 Display=10;//默认的每页大小
-		 if(PageNow== null)
-			 PageNow=1;//默认的当前页面
-		
+		if (Display == null)
+			Display = 10;// 默认的每页大小
+		if (PageNow == null)
+			PageNow = 1;// 默认的当前页面
+
 		if (flag == 0) {
-			List linetransportList = linetransportService.getAllLinetransport(Display,PageNow);
-			int count = linetransportService.getTotalRows("All", "All",
-					"All", "All","All");// 获取总记录数,不需要where子句，所以参数都是All
-			//System.out.println("count+"+count);
+			List linetransportList = linetransportService.getAllLinetransport(
+					Display, PageNow);
+			int count = linetransportService.getTotalRows("All", "All", "All",
+					"All", "All");// 获取总记录数,不需要where子句，所以参数都是All
+			// System.out.println("count+"+count);
 			int pageNum = (int) Math.ceil(count * 1.0 / Display);// 页数
 			mv.addObject("count", count);
 			mv.addObject("pageNum", pageNum);
@@ -59,19 +61,20 @@ public class LinetransportController {
 			mv.addObject("linetransportList", linetransportList);
 			mv.setViewName("resource_list");
 		} else if (flag == 1) {
-			 //这里从session取出id，查询指定的line
-			 String	 carrierId=(String)request.getSession().getAttribute("userId");
-			 
-			List linetransportList = linetransportService
-					.getCompanyLine(carrierId,Display,PageNow);//新增两个参数
-			//System.out.println("linetransportsize+"+linetransportList.size());
-			int count=linetransportService.getCompanyTotalRows(carrierId);//新增的访法
-			//System.out.println("count+"+count);
+			// 这里从session取出id，查询指定的line
+			String carrierId = (String) request.getSession().getAttribute(
+					"userId");
+
+			List linetransportList = linetransportService.getCompanyLine(
+					carrierId, Display, PageNow);// 新增两个参数
+			// System.out.println("linetransportsize+"+linetransportList.size());
+			int count = linetransportService.getCompanyTotalRows(carrierId);// 新增的访法
+			// System.out.println("count+"+count);
 			int pageNum = (int) Math.ceil(count * 1.0 / Display);// 页数
 			mv.addObject("count", count);
 			mv.addObject("pageNum", pageNum);
 			mv.addObject("pageNow", PageNow);
-			
+
 			mv.addObject("linetransportList", linetransportList);
 			mv.setViewName("mgmt_r_line");
 		}
@@ -105,7 +108,9 @@ public class LinetransportController {
 		}
 		return mv;
 	}
-	@RequestMapping(value={"linetransportselected","searchResourceselected"})//同时拦截两种请求
+
+	@RequestMapping(value = { "linetransportselected", "searchResourceselected" })
+	// 同时拦截两种请求
 	/**              
 	 * 返回干线符合筛选的条件的信息
 	 * @param startPlace
@@ -130,7 +135,7 @@ public class LinetransportController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//System.out.println("已经进入linetransport控制器");
+		// System.out.println("已经进入linetransport控制器");
 
 		List linetransportList = linetransportService.getSelectedLine(
 				startPlace, endPlace, type, startPlace1, refPrice, Display,
@@ -139,8 +144,8 @@ public class LinetransportController {
 				type, startPlace1, refPrice);// 获取总记录数
 
 		int pageNum = (int) Math.ceil(count * 1.0 / Display);// 页数
-		//System.out.println("总记录数+"+count);
-		//System.out.println("页数+"+pageNum);
+		// System.out.println("总记录数+"+count);
+		// System.out.println("页数+"+pageNum);
 		mv.addObject("linetransportList", linetransportList);
 		mv.addObject("count", count);
 		mv.addObject("pageNum", pageNum);
@@ -164,30 +169,39 @@ public class LinetransportController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView insertLine(@RequestParam(required=false) MultipartFile file,//new add
-			@RequestParam String lineName,
-			@RequestParam String startPlace, @RequestParam String endPlace,
-			@RequestParam int onWayTime,
+	public ModelAndView insertLine(
+			@RequestParam(required = false) MultipartFile file,// new add
+			@RequestParam String lineName, @RequestParam String startPlace,
+			@RequestParam String endPlace, @RequestParam int onWayTime,
 			@RequestParam String type,
 			@RequestParam float refPrice,// 缺少详细报价参数
 			@RequestParam String remarks, HttpServletRequest request,
 			HttpServletResponse response) {
-		String carrierId=(String)request.getSession().getAttribute("userId");
-		//////////////////////////////////////////////////////////////////////////
-		//上传文件
-		String path=UploadPath.getLinetransportPath();//不同的地方取不同的上传路径
-        String fileName = file.getOriginalFilename();
-        fileName=carrierId+"-"+fileName;//文件名
-        File targetFile = new File(path, fileName);  
-        try {   //保存  
-            file.transferTo(targetFile);  
-        } catch (Exception e) {  
-            e.printStackTrace();  
-        }
-        ////////////////////////////////////////////////////////////////////
-		
+		String carrierId = (String) request.getSession().getAttribute("userId");
+		// ////////////////////////////////////////////////////////////////////////
+
+		String path = null;
+		String fileName = null;
+		System.out.println("file+"+file+"filename"+file.getOriginalFilename());//不上传文件还是会显示有值
+		if (file != null)// 有上传文件的情况
+		{
+			path = UploadPath.getLinetransportPath();// 不同的地方取不同的上传路径
+			fileName = file.getOriginalFilename();
+			fileName = carrierId + "_" + fileName;// 文件名
+			File targetFile = new File(path, fileName);
+			try { // 保存 文件
+				file.transferTo(targetFile);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			System.out.println("path+fileName+" + path + "-" + fileName);
+			// //////////////////////////////////////////////////////////////////
+		} 
+		//没有上传文件的情况path 和 filenName默认为null
 		boolean flag = linetransportService.insertLine(lineName, startPlace,
-				endPlace, onWayTime, type, refPrice, remarks, carrierId);
+				endPlace, onWayTime, type, refPrice, remarks, carrierId, path,
+				fileName);
+		// 修改此方法,增加两个参数
 		if (flag == true) {
 			try {
 				response.sendRedirect("linetransport?flag=1");// 重定向，显示最新的结果
@@ -227,7 +241,7 @@ public class LinetransportController {
 			HttpServletResponse response) {
 
 		// 此处获取session里的carrierid，下面方法增加一个参数
-		String carrierId=(String)request.getSession().getAttribute("userId");
+		String carrierId = (String) request.getSession().getAttribute("userId");
 		// String carrierId = "C-0002";// 删除
 		boolean flag = linetransportService.updateLine(id, lineName,
 				startPlace, endPlace, onWayTime, type, refPrice, remarks,
@@ -247,20 +261,13 @@ public class LinetransportController {
 		return mv;
 
 	}
-	
+
 	@RequestMapping(value = "linetransportdelete", method = RequestMethod.GET)
 	/**
 	 * 删除干线
 	 */
-	public ModelAndView deleteLine(
-			@RequestParam String id,// GET方式传入，在action中
-			HttpServletRequest request,
-			HttpServletResponse response) {
-		System.out.println("进入删除line控制器");
-		System.out.println(id);
-		// 此处获取session里的carrierid，下面方法增加一个参数
-		//String carrierId=(String)request.getSession().getAttribute("userId");
-		// String carrierId = "C-0002";// 删除
+	public ModelAndView deleteLine(@RequestParam String id,// GET方式传入，在action中
+			HttpServletRequest request, HttpServletResponse response) {
 		boolean flag = linetransportService.deleteLine(id);
 		if (flag == true) {
 			// mv.setViewName("mgmt_r_line");

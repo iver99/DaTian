@@ -15,7 +15,7 @@ public interface LinetransportService {
 
 	public boolean insertLine(String lineName, String startPlace,
 			String endPlace, int onWayTime, String type, float refPrice,
-			String remarks, String carrierId);
+			String remarks, String carrierId,String path,String fileName);
 
 	public List getCompanyLine(String carrierId,int Display,int PageNow);
 
@@ -31,4 +31,5 @@ public interface LinetransportService {
 	public int getCompanyTotalRows(String carrierId);
 	
 	public boolean deleteLine(String id);
+	
 }

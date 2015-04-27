@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-1-31 22:44:34 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="cn.edu.bjtu.vo.Carteam" table="Carteam" catalog="datian">
+        <id name="id" type="string">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="teamName" type="string">
+            <column name="teamName" />
+        </property>
+        <property name="chief" type="string">
+            <column name="chief" />
+        </property>
+        <property name="phone" type="string">
+            <column name="phone" />
+        </property>
+        <property name="carNum" type="string">
+            <column name="carNum" />
+        </property>
+        <property name="relDate" type="date">
+            <column name="relDate" />
+        </property>
+        <property name="remarks" type="string">
+            <column name="remarks" />
+        </property>
+    </class>
+</hibernate-mapping>

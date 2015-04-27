@@ -85,6 +85,8 @@ public class LinetransportDaoImpl implements LinetransportDao {
 			count = ((Number) list.get(0)).intValue();
 		return count;
 	}
+
+	
 	
 
 }

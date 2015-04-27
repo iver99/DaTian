@@ -28,9 +28,13 @@ public class UploadPath {
 		}
 		else//linux系统
 		{
-			return "/usr/local/tomcat7/webapps/DaTian";
+			//如果文件夹不存在情况没有处理
+			String path= "/usr/local/tomcat7/webapps/DaTian/uploadFile/linetransport";
+			return path;
 		}
 	}
+	
+	
 
 	/*
 	 * public static void main(String [] args) { File file=new File("");
