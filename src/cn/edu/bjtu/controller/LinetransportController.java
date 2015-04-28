@@ -183,7 +183,7 @@ public class LinetransportController {
 		String path = null;
 		String fileName = null;
 		System.out.println("file+"+file+"filename"+file.getOriginalFilename());//不上传文件还是会显示有值
-		if (file != null)// 有上传文件的情况
+		if (file.getSize() != 0)// 有上传文件的情况
 		{
 			path = UploadPath.getLinetransportPath();// 不同的地方取不同的上传路径
 			fileName = file.getOriginalFilename();
@@ -194,7 +194,7 @@ public class LinetransportController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			System.out.println("path+fileName+" + path + "-" + fileName);
+			//System.out.println("path+fileName+" + path + "-" + fileName);
 			// //////////////////////////////////////////////////////////////////
 		} 
 		//没有上传文件的情况path 和 filenName默认为null

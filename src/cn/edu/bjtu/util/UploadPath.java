@@ -26,10 +26,12 @@ public class UploadPath {
 			file.mkdirs();//以防文件夹不存在
 			return path;
 		}
-		else//linux系统
+		else//linux系统 (未测试)
 		{
 			//如果文件夹不存在情况没有处理
 			String path= "/usr/local/tomcat7/webapps/DaTian/uploadFile/linetransport";
+			file=new File(path);
+			file.mkdirs();
 			return path;
 		}
 	}
