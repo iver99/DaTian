@@ -19,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.service.LinetransportService;
 import cn.edu.bjtu.util.UploadPath;
-import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Linetransport;
 
@@ -182,7 +181,7 @@ public class LinetransportController {
 
 		String path = null;
 		String fileName = null;
-		System.out.println("file+"+file+"filename"+file.getOriginalFilename());//不上传文件还是会显示有值
+		//System.out.println("file+"+file+"filename"+file.getOriginalFilename());//不上传文件还是会显示有值
 		if (file.getSize() != 0)// 有上传文件的情况
 		{
 			path = UploadPath.getLinetransportPath();// 不同的地方取不同的上传路径
@@ -231,7 +230,7 @@ public class LinetransportController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView updateLine(
+	public ModelAndView updateLine(@RequestParam MultipartFile file,
 			@RequestParam String id,// GET方式传入，在action中
 			@RequestParam String lineName, @RequestParam String startPlace,
 			@RequestParam String endPlace, @RequestParam int onWayTime,
@@ -239,15 +238,32 @@ public class LinetransportController {
 			@RequestParam float refPrice,// 缺少详细报价参数
 			@RequestParam String remarks, HttpServletRequest request,
 			HttpServletResponse response) {
-
-		// 此处获取session里的carrierid，下面方法增加一个参数
 		String carrierId = (String) request.getSession().getAttribute("userId");
-		// String carrierId = "C-0002";// 删除
+		//////////////////////////////////////////////
+		String path = null;
+		String fileName = null;
+		//System.out.println("file+"+file+"filename"+file.getOriginalFilename());//不上传文件还是会显示有值
+		if (file.getSize() != 0)// 有上传文件的情况
+		{
+			path = UploadPath.getLinetransportPath();// 不同的地方取不同的上传路径
+			fileName = file.getOriginalFilename();
+			fileName = carrierId + "_" + fileName;// 文件名
+			File targetFile = new File(path, fileName);
+			try { // 保存 文件
+				file.transferTo(targetFile);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			//System.out.println("path+fileName+" + path + "-" + fileName);
+		} 
+		//没有上传文件的情况path 和 filenName默认为null
+		
+		//////////////////////////////////////////////
+		
 		boolean flag = linetransportService.updateLine(id, lineName,
 				startPlace, endPlace, onWayTime, type, refPrice, remarks,
-				carrierId);
+				carrierId,path,fileName);//change
 		if (flag == true) {
-			// mv.setViewName("mgmt_r_line");
 			try {
 				response.sendRedirect("linetransport?flag=1");// 重定向，显示最新的结果
 			} catch (IOException e) {

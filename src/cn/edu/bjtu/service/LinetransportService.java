@@ -23,7 +23,7 @@ public interface LinetransportService {
 
 	public boolean updateLine(String id, String lineName, String startPlace,
 			String endPlace, int onWayTime, String type, float refPrice,
-			String remarks, String carrierId);
+			String remarks, String carrierId,String path,String fileName);
 	
 	public int getTotalRows(String startPlace, String endPlace,
 			String type, String startPlace1, String refPrice);

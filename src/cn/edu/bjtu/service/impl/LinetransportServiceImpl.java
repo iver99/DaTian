@@ -264,7 +264,7 @@ public class LinetransportServiceImpl implements LinetransportService {
 	 */
 	public boolean updateLine(String id, String lineName, String startPlace,
 			String endPlace, int onWayTime, String type, float refPrice,
-			String remarks, String carrierId) {
+			String remarks, String carrierId, String path, String fileName) {
 		// TODO Auto-generated method stub
 
 		linetransport = getLinetransportInfo(id);// 根据id查找到干线信息
@@ -276,6 +276,12 @@ public class LinetransportServiceImpl implements LinetransportService {
 		linetransport.setRefPrice(refPrice);
 		linetransport.setRemarks(remarks);
 		linetransport.setRelDate(new Date());
+		// 保存文件路径
+		if (path != null && fileName != null) {
+			String fileLocation = path + "//" + fileName;
+			linetransport.setDetailPrice(fileLocation);
+		}
+
 		return baseDao.update(linetransport);
 
 	}
