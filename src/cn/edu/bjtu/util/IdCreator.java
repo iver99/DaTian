@@ -124,5 +124,13 @@ public class IdCreator {
 	public static String createAddressId(){
 		return "Add"+(int)(Math.random()*100000000);
 	}
+	
+	/**
+	 * 返回车队信息的id
+	 * @return
+	 */
+	public static String createCarteamId(){
+		return "CT"+(int)(Math.random()*100000000);
+	}
 
 }

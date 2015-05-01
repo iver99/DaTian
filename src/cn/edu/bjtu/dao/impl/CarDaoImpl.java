@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import cn.edu.bjtu.dao.CarDao;
 import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.vo.Carinfo;
+import cn.edu.bjtu.vo.Carteam;
 import cn.edu.bjtu.vo.Driverinfo;
 
 @Repository
@@ -105,4 +106,21 @@ public class CarDaoImpl implements CarDao{
 		return hqltool.getQueryList(hql, page, pageSize);//Dao层分页函数提取到此方法
 	}
 	
+	@Override
+	/**
+	 * 返回车队信息
+	 */
+	public List getCarteam(String carrierId) {
+		// TODO Auto-generated method stub
+		return ht.find("from Carteam where carrierId='"+carrierId+"'");
+	}
+	
+	@Override
+	/**
+	 * 返回具体车队信息
+	 */
+	public Carteam getCarteamInfo(String id) {
+		// TODO Auto-generated method stub
+		return ht.get(Carteam.class,id);
+	}
 }

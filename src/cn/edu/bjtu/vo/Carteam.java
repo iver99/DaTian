@@ -9,11 +9,12 @@ public class Carteam {
 
 	private String id;
 	private String teamName;
-	private String carNum;
+	private String carCount;
 	private String chief;
 	private String phone;
 	private Date relDate;
-	private String remarks;
+	private String explaination;
+	private String carrierId;
 	public String getId() {
 		return id;
 	}
@@ -26,11 +27,11 @@ public class Carteam {
 	public void setTeamName(String teamName) {
 		this.teamName = teamName;
 	}
-	public String getCarNum() {
-		return carNum;
+	public String getCarCount() {
+		return carCount;
 	}
-	public void setCarNum(String carNum) {
-		this.carNum = carNum;
+	public void setCarCount(String carCount) {
+		this.carCount = carCount;
 	}
 	public String getChief() {
 		return chief;
@@ -50,10 +51,16 @@ public class Carteam {
 	public void setRelDate(Date relDate) {
 		this.relDate = relDate;
 	}
-	public String getRemarks() {
-		return remarks;
+	public String getExplaination() {
+		return explaination;
 	}
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
+	public void setExplaination(String explaination) {
+		this.explaination = explaination;
+	}
+	public String getCarrierId() {
+		return carrierId;
+	}
+	public void setCarrierId(String carrierId) {
+		this.carrierId = carrierId;
 	}
 }

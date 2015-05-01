@@ -17,14 +17,17 @@
         <property name="phone" type="string">
             <column name="phone" />
         </property>
-        <property name="carNum" type="string">
-            <column name="carNum" />
+        <property name="carCount" type="string">
+            <column name="carCount" />
         </property>
         <property name="relDate" type="date">
             <column name="relDate" />
         </property>
-        <property name="remarks" type="string">
-            <column name="remarks" />
+        <property name="explaination" type="string">
+            <column name="explaination" />
+        </property>
+        <property name="carrierId" type="string">
+            <column name="carrierId" />
         </property>
     </class>
 </hibernate-mapping>

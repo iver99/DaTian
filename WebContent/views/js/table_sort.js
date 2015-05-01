@@ -1,4 +1,4 @@
-<!--
+
 $(document).ready(function() {
 
     $("#list").tablesorter({
@@ -120,4 +120,3 @@ $(document).ready(function() {
         });
 
 });
--->

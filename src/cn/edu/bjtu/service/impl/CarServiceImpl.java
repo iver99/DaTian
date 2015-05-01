@@ -15,6 +15,7 @@ import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.util.ParseDate;
 import cn.edu.bjtu.vo.Carinfo;
+import cn.edu.bjtu.vo.Carteam;
 import cn.edu.bjtu.vo.Driverinfo;
 
 @Service("carServiceImpl")
@@ -32,6 +33,8 @@ public class CarServiceImpl implements CarService{
 	CarService carService;
 	@Resource
 	Driverinfo driverinfo;
+	@Resource
+	Carteam carteam;
 	//List driverNameList=new ArrayList();
 	@Resource
 	HQLTool hqltool;
@@ -287,4 +290,52 @@ public class CarServiceImpl implements CarService{
 		return baseDao.delete(driverinfo);
 	}
 	
+	@Override
+	public List getCarteam(String carrierId) {
+		// TODO Auto-generated method stub
+		return carDao.getCarteam(carrierId);
+	}
+	
+	@Override
+	public Carteam getCarteamInfo(String id) {
+		// TODO Auto-generated method stub
+		return carDao.getCarteamInfo(id);
+	}
+	@Override
+	public boolean insertCarteam(String teamName,String carCount,String chief,String phone,
+			String explaination,String carrierId){
+		System.out.println("insertcarteam "+IdCreator.createCarteamId()+teamName+carCount+carrierId+chief+phone+explaination+new Date());//null
+		carteam.setId(IdCreator.createCarteamId());
+		carteam.setTeamName(teamName);
+		carteam.setCarCount(carCount);
+		carteam.setCarrierId(carrierId);
+		carteam.setChief(chief);
+		carteam.setPhone(phone);
+		carteam.setExplaination(explaination);		
+		carteam.setRelDate(new Date());
+		//return true;
+		return baseDao.save(carteam);//保存实体
+	}
+	@Override
+	/**
+	 * 删除
+	 * @param id
+	 * @return
+	 */
+	public boolean deleteCarteam(String id){
+		carteam=getCarteamInfo(id);//根据id查找到车辆信息
+		return baseDao.delete(carteam);
+	}
+	@Override
+	public boolean updateCarteam(String id, String teamName,String carCount,String chief,String phone,
+			String explaination){
+		carteam=getCarteamInfo(id);//根据id查找到车辆信息
+		carteam.setTeamName(teamName);
+		carteam.setCarCount(carCount);
+		carteam.setChief(chief);
+		carteam.setPhone(phone);
+		carteam.setExplaination(explaination);		
+		//return true;
+		return baseDao.update(carteam);//保存实体
+	}
 }

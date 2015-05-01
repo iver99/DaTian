@@ -1,4 +1,4 @@
-<!--
+
 var cal;
 var isFocus=false; //是否为焦点
 function SelectDate(obj,strFormat)

@@ -1,4 +1,4 @@
-<!--控制整体效果-->
+
 var labelFromcity = new Array();
 labelFromcity ['热门'] = new Array(41,0,1,2,3,4,5,6,7,8,9,10,11,12,13);
 labelFromcity ['A-F'] = new Array(0,3,4,5,6,28,29);
