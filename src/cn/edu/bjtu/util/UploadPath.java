@@ -21,7 +21,7 @@ public class UploadPath {
 	public static String getLinetransportPath() {
 		// return sep+Base_Directory+sep+"linetransport";
 		if (isWindows()) {//windows系统
-			String path = "D://uploadFile//linetransport";
+			String path = "D://uploadFile//linetransport";//上传到D盘
 			file = new File(path);
 			file.mkdirs();//以防文件夹不存在
 			return path;
@@ -31,7 +31,7 @@ public class UploadPath {
 			//如果文件夹不存在情况没有处理
 			String path= "/usr/local/tomcat7/webapps/DaTian/uploadFile/linetransport";
 			file=new File(path);
-			file.mkdirs();
+			file.mkdirs();//防止文件夹不存在
 			return path;
 		}
 	}
