@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>供应链资源管理平台-资源-配送网络</title>
+<title>资源-配送网络</title>
 <META HTTP-EQUIV="imagetoolbar" CONTENT="no">
 	<link rel="shortcut icon" href="/images/fav.ico" type="image/x-icon" />
 	<link rel="icon" href="/images/fav.ico" type="image/x-icon" />
@@ -187,7 +187,7 @@
 										href="citylinedetail?citylineId=${cityline.id }&carrierId=${cityline.carrierId }&flag=0"
 										hidefocus="true">${cityline.name }</a> <br /> <a
 										href="companyDetail?id=${cityline.carrierId }"
-										hidefocus="true"> ${cityline.companyName } <img
+										style="color:#717071;"  hidefocus="true"> ${cityline.companyName } <img
 											src="images/btn_level1a.png" /></a></td>
 									<td class="td_main_list_content">${cityline.refPrice }</td>
 									<td class="td_main_list_content">${cityline.VIPService }</td>

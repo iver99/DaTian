@@ -1,5 +1,9 @@
 package cn.edu.bjtu.service.impl;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -25,6 +29,8 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 	BaseDao baseDao;
 	@Resource
 	HQLTool hqltool;
+	@Resource
+	GoodsClientView goodsClientView;
 	
 	@Override
 	public List getAllGoodsInfo(int Display,int PageNow) {
@@ -68,27 +74,38 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 	}
 	
 	@Override
+	public Goodsform getMyGoodsDetail(String id) {
+		// TODO Auto-generated method stub
+		return goodsinfoDao.getMyGoodsDetail(id);
+	}
+	
+	//@SuppressWarnings("deprecation")
+	@Override
 	public boolean insertGoods(String name, String type, float weight,
 		String transportType, String transportReq, String startPlace, String endPlace,
-		String damageReq, String vipservice, String oriented, String limitDate,
-		String invoice, String relatedMaterial, String remarks) {
+		String damageReq, String VIPService, String oriented, String limitDate,
+		String invoice, String remarks,String clientId) {
 		// TODO Auto-generated method stub
 		System.out.println("insertGoods");
-		goodsform.setId(IdCreator.createlineTransportId());
+		
+		goodsform.setId(IdCreator.createGoodsId());
 		goodsform.setName(name);
 		goodsform.setType(type);
+		goodsform.setWeight(weight);
 		goodsform.setTransportType(transportType);
 		goodsform.setTransportReq(transportReq);
 		goodsform.setStartPlace(startPlace);
 		goodsform.setEndPlace(endPlace);
 		goodsform.setDamageReq(damageReq);
-		goodsform.setVipservice(vipservice);
+		goodsform.setVipservice(VIPService);
 		goodsform.setOriented(oriented);
-		//goodsform.setLimitDate(limitDate);
+		goodsform.setLimitDate(stringToDate(limitDate));
 		goodsform.setInvoice(invoice);
-		goodsform.setRelatedMaterial(relatedMaterial);
 		goodsform.setRemarks(remarks);
 		
+		goodsform.setRelDate(new Date());
+		goodsform.setState("待确认");
+		goodsform.setClientId(clientId);
 		return baseDao.save(goodsform);//保存实体
 		
 	}
@@ -112,5 +129,51 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 		return goodsinfoDao.getUserGoodsInfo(userId);
 	}
 	
+	 public static Date stringToDate(String str) {  
+	        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");  
+	        Date date = null;  
+	        try {  
+	            // Fri Feb 24 00:00:00 CST 2012  
+	            date = format.parse(str);   
+	        } catch (ParseException e) {  
+	            e.printStackTrace();  
+	        }  
+	        // 2012-02-24  
+	        date = java.sql.Date.valueOf(str);  
+	                                              
+	        return date;  
+	} 
 	
+	 @Override
+		public boolean updateGoods(String id, String name, String type, float weight,
+			String transportType, String transportReq, String startPlace, String endPlace,
+			String damageReq, String VIPService, String oriented, String limitDate,
+			String invoice, String remarks,String clientId) {
+			// TODO Auto-generated method stub
+			System.out.println("updateGoods");
+			goodsform = getMyGoodsDetail(id);
+
+			goodsform.setName(name);
+			goodsform.setType(type);
+			goodsform.setWeight(weight);
+			goodsform.setTransportType(transportType);
+			goodsform.setTransportReq(transportReq);
+			goodsform.setStartPlace(startPlace);
+			goodsform.setEndPlace(endPlace);
+			goodsform.setDamageReq(damageReq);
+			goodsform.setVipservice(VIPService);
+			goodsform.setOriented(oriented);
+			goodsform.setLimitDate(stringToDate(limitDate));
+			goodsform.setInvoice(invoice);
+			goodsform.setRemarks(remarks);
+			
+			return baseDao.update(goodsform);//保存实体
+			
+		}
+	 
+	 @Override
+	 public boolean deleteGoods(String id){
+		 return goodsinfoDao.deleteGoods(id);
+	 }
+	 
 }

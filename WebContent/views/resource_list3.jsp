@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>大田集团供应链资源管理平台-资源-车辆</title>
+<title>资源-车辆</title>
 <META HTTP-EQUIV="imagetoolbar" CONTENT="no">
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -269,7 +269,7 @@
 										href="cardetail?carId=${car.id }&carrierId=${car.carrierId}&linetransportId=${car.linetransportId }&flag=0"
 										hidefocus="true">${car.carNum }<!-- <img src="images/btn_level1a.png" /> --></a>
 										<br /> <a href="companyDetail?id=${car.carrierId }"
-										hidefocus="true">${car.companyName }<img
+										style="color:#717071;" hidefocus="true">${car.companyName }<img
 											src="images/btn_level1a.png" /></a></td>
 
 									<td class="td_main_list_content">${car.carUse }</td>

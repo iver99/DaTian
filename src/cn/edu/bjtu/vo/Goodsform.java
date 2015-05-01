@@ -33,7 +33,7 @@ public class Goodsform implements java.io.Serializable {
 	private String remarks;
 	private String state;
 	
-	private String carrierId;
+	/*private String carrierId;
 
 	public String getCarrierId() {
 		return carrierId;
@@ -41,7 +41,7 @@ public class Goodsform implements java.io.Serializable {
 
 	public void setCarrierId(String carrierId) {
 		this.carrierId = carrierId;
-	}
+	}*/
 
 	public String getState() {
 		return state;

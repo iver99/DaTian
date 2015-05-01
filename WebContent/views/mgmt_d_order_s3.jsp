@@ -481,12 +481,40 @@
                             <div class="span_mgmt_right3_text4" style="float:none;">地址信息</div>      	          
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
-                                    <td width="120" height="40" class="td_mgmt_right3_td1b">发货人信息：</td>
-                                    <td><input name="delivery" type="text" class="input_mgmt1" style="width:400px;" value="${orderInfo.deliveryName }/${orderInfo.deliveryPhone }/${orderInfo.deliveryAddr }" /><a href="javascript:;" onclick="showid('popup2');" hidefocus="true">&nbsp;<img src="images/btn_address.png" title="校验" /></a></td>
+                                    <td width="120" height="40" class="td_mgmt_right3_td1b">
+                                    	发货人信息
+                                        <a href="javascript:;" onclick="showid('popup2');" hidefocus="true"><img src="images/btn_address.png" title="查询" /></a>
+                                    </td>
+                                    <td width="250">&nbsp;</td>
+                                    <td width="100" class="td_mgmt_right3_td1b">
+                                    	收货人信息
+                                        <a href="javascript:;" onclick="showid('popup2');" hidefocus="true"><img src="images/btn_address.png" title="查询" /></a>
+                                    </td>
+                                    <td>&nbsp;</td>
                                 </tr>
                                 <tr>
-                                    <td height="40" class="td_mgmt_right3_td1b">收货人信息：</td>
-                                    <td><input name="reciever" type="text" class="input_mgmt1" style="width:400px;" value="${orderInfo.recieverName }/${orderInfo.recieverPhone }/${orderInfo.recieverAddr }" /><a href="javascript:;" onclick="showid('popup2');" hidefocus="true">&nbsp;<img src="images/btn_address.png" title="校验" /></a></td>
+                                    <td height="40" class="td_mgmt_right3_td1b">姓名：</td>
+                                    <td><input type="text" class="input_mgmt1" style="width:200px;" value="${orderInfo.deliveryName }" name="deliveryName"/></td>
+                                    <td class="td_mgmt_right3_td1b">姓名：</td>
+                                    <td><input type="text" class="input_mgmt1" style="width:200px;" value="${orderInfo.recieverName }" name="recieverName"/></td>
+                                </tr>
+                                <tr>
+                                    <td height="40" class="td_mgmt_right3_td1b">地址：</td>
+                                    <td><textarea class="textarea_rating1" name="deliveryAddr">${orderInfo.deliveryAddr }</textarea></td>
+                                    <td class="td_mgmt_right3_td1b">地址：</td>
+                                    <td><textarea class="textarea_rating1" name="recieverAddr">${orderInfo.recieverAddr }</textarea></td>
+                                </tr>
+                                <tr>
+                                    <td height="40" class="td_mgmt_right3_td1b">电话：</td>
+                                    <td><input type="text" class="input_mgmt1" style="width:200px;" value="${orderInfo.deliveryPhone }" name="deliveryPhone"/></td>
+                                    <td class="td_mgmt_right3_td1b">电话：</td>
+                                    <td><input type="text" class="input_mgmt1" style="width:200px;" value="${orderInfo.recieverPhone }" name="recieverPhone"/></td>
+                                </tr>
+                                <tr>
+                                    <td height="20" class="td_mgmt_right3_td1b">&nbsp;</td>
+                                    <td><input type="checkbox" />&nbsp;加入常用发货地址(未实现)</td>
+                                    <td class="td_mgmt_right3_td1b">&nbsp;</td>
+                                    <td><input type="checkbox" />&nbsp;加入常用收货地址(未实现)</td>
                                 </tr>
                             </table>
                             <div class="span_mgmt_right3_text4" style="float:none;">备注信息</div>      	          

@@ -69,8 +69,8 @@
             <column name="state" />
         </property>
         
-        <property name="carrierId" type="string">
+      <!--   <property name="carrierId" type="string">
             <column name="carrierId" />
-        </property>
+        </property> -->
     </class>
 </hibernate-mapping>

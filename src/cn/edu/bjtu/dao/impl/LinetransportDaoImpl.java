@@ -50,10 +50,6 @@ public class LinetransportDaoImpl implements LinetransportDao {
 	 */
 	public List getCompanyLine(String carrierId, int display, int pageNow) {
 		// TODO Auto-generated method stub
-		/*
-		 * return ht.find("from Linetransport as s where s.carrierId='" +
-		 * carrierId + "'");
-		 */
 		int page = pageNow;
 		int pageSize = display;
 		String hql = "from Linetransport as s where s.carrierId='" + carrierId
@@ -85,6 +81,8 @@ public class LinetransportDaoImpl implements LinetransportDao {
 			count = ((Number) list.get(0)).intValue();
 		return count;
 	}
+
+	
 	
 
 }

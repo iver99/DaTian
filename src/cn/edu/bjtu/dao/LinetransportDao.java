@@ -16,6 +16,5 @@ public interface LinetransportDao {
 	
 	public int getCompanyTotalRows(String carrierId);
 	
-	//public int getTotalRows(String hql);
 	
 }

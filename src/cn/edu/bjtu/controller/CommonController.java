@@ -57,6 +57,10 @@ public class CommonController {
 		}
 		else if (flag == 8)
 			mv.setViewName("mgmt_d_complain2");//投诉 
+		else if (flag == 9)
+			mv.setViewName("mgmt_r_cargo2");//货物 
+		else if (flag == 10)
+			mv.setViewName("mgmt_r_car_fleet2");//车队
 		return mv;
 	}
 	

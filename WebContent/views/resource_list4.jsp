@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>大田集团供应链资源管理平台-资源-仓库</title>
+<title>资源-仓库</title>
 <META HTTP-EQUIV="imagetoolbar" CONTENT="no">
 <link rel="shortcut icon" href="/images/fav.ico" type="image/x-icon" />
 <link rel="icon" href="/images/fav.ico" type="image/x-icon" />
@@ -215,7 +215,7 @@
 										href="warehousedetail?warehouseId=${warehouse.id }&carrierId=${warehouse.carrierId}&flag=0"
 										hidefocus="true">${warehouse.name }</a> <br /> <a
 										href="companyDetail?id=${warehouse.carrierId }"
-										hidefocus="true"> ${warehouse.companyName }<img
+										style="color:#717071;" hidefocus="true"> ${warehouse.companyName }<img
 											src="images/btn_level1a.png" /></a></td>
 									<td class="td_main_list_content">${warehouse.fireRate }</td>
 									<td class="td_main_list_content">${warehouse.type }</td>

@@ -98,12 +98,12 @@ $(document).ready(function(){
 		//div.click();
 		var locateurl = "";
 		if(location.pathname.indexOf("selected")>0){//判断是否需要再加selected
-			locateurl = "http://localhost:8080" + location.pathname+"?";
+			locateurl = "http://localhost:8585" + location.pathname+"?";
 			//alert(locateurl);
 		}
 		else
 			//alert(location.pathname.indexOf("selected"));
-			locateurl = "http://localhost:8080" + location.pathname + "selected?";//重组url前缀
+			locateurl = "http://localhost:8585" + location.pathname + "selected?";//重组url前缀
 			//alert(locateurl);
 		
 		if(document.getElementById("city1") != null)//判断某页面是否存在id为city1的控件

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>供应链资源管理平台-城市配送网络信息</title>
+<title>城市配送网络信息</title>
 <!-- 左边点击城市配送-有更新和删除操作的页面 -->
 <META HTTP-EQUIV="imagetoolbar" CONTENT="no">
 <link rel="shortcut icon" href="/images/fav.ico" type="image/x-icon" />

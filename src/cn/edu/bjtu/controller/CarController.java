@@ -2,7 +2,6 @@ package cn.edu.bjtu.controller;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -20,6 +19,7 @@ import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.service.LinetransportService;
 import cn.edu.bjtu.vo.Carinfo;
 import cn.edu.bjtu.vo.Carrierinfo;
+import cn.edu.bjtu.vo.Carteam;
 import cn.edu.bjtu.vo.Driverinfo;
 import cn.edu.bjtu.vo.Linetransport;
 
@@ -499,5 +499,126 @@ public class CarController {
 			mv.setViewName("fail");
 		return mv;
 
+	}
+	
+	@RequestMapping("carteam")
+	/**
+	 * 获取车队列表
+	 * @return
+	 */
+	public ModelAndView getCarteam(HttpServletRequest request, HttpServletResponse response) {
+		// 从session里取出id查询
+			// 这里用session取id
+			String carrierId=(String)request.getSession().getAttribute("userId");
+			// String carrierId = "C-0002";// 删除
+			List carteamList = carService.getCarteam(carrierId);
+			mv.addObject("carteamList", carteamList);
+			mv.setViewName("mgmt_r_car_fleet");
+
+		return mv;
+	}
+	
+	@RequestMapping(value = "/carteamdetail", method = RequestMethod.GET)
+	/**
+	 * 获取特定的车队信息
+	 * @param
+	 * @return
+	 */
+	public ModelAndView getCarteamDetail(@RequestParam String id,
+			@RequestParam("flag") int flag, HttpServletRequest request) {
+		Carteam carteaminfo = carService.getCarteamInfo(id);// 车队信息
+		mv.addObject("carteaminfo", carteaminfo);
+		System.out.println("进入getCarteamDetail控制器 "+id);
+		if (flag == 1)// 对应车队信息查看
+		{
+			mv.setViewName("mgmt_r_car_fleet4");
+		} else if (flag == 2)// 对应车队信息更新
+		{
+			mv.setViewName("mgmt_r_car_fleet3");
+		}
+		return mv;
+	}
+	
+	@RequestMapping(value = "insertcarteam", method = RequestMethod.POST)
+	/**
+	 */
+	public ModelAndView insertCarteam(@RequestParam String teamName, @RequestParam String carCount,
+			@RequestParam String chief, @RequestParam String phone,
+			@RequestParam String explaination, HttpServletRequest request,
+			HttpServletResponse response) {
+		System.out.println("进入控制器");
+		String carrierId=(String)request.getSession().getAttribute("userId");
+		boolean flag = carService.insertCarteam(teamName, carCount, chief, phone,
+				explaination, carrierId);
+		//boolean flag=true;
+		System.out.println("flag+" + flag);
+		if (flag == true) {
+			// mv.setViewName("mgmt_r_line");
+			try {
+				response.sendRedirect("carteam");// 重定向，显示最新的结果
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				// 此处应该记录日志
+				System.out.println("添加后重定向失败");
+				e.printStackTrace();
+			}
+		} else
+			mv.setViewName("fail");
+		return mv;
+	}
+	
+	@RequestMapping(value = "deletecarteam", method = RequestMethod.GET)
+	/**
+	 * 删除
+	 */
+	public ModelAndView deleteCarteam(
+			@RequestParam String id,// GET方式传入，在action中
+			HttpServletRequest request,
+			HttpServletResponse response) {
+		System.out.println("进入删除控制器");
+		
+		boolean flag = carService.deleteCarteam(id);
+		if (flag == true) {
+			// mv.setViewName("mgmt_r_line");
+			try {
+				response.sendRedirect("carteam");// 重定向，显示最新的结果
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				// 此处应该记录日志
+				System.out.println("删除后重定向失败");
+				e.printStackTrace();
+			}
+		} else
+			mv.setViewName("fail");
+		return mv;
+
+	}
+	
+	@RequestMapping(value = "updatecarteam", method = RequestMethod.POST)
+	/**
+	 */
+	public ModelAndView updateCarteam(@RequestParam String id,
+			@RequestParam String teamName, @RequestParam String carCount,
+			@RequestParam String chief, @RequestParam String phone,
+			@RequestParam String explaination, HttpServletRequest request,
+			HttpServletResponse response) {
+		System.out.println("进入控制器");
+		boolean flag = carService.updateCarteam(id,teamName, carCount, chief, phone,
+				explaination);
+		//boolean flag=true;
+		System.out.println("flag+" + flag);
+		if (flag == true) {
+			// mv.setViewName("mgmt_r_line");
+			try {
+				response.sendRedirect("carteam");// 重定向，显示最新的结果
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				// 此处应该记录日志
+				System.out.println("更新后重定向失败");
+				e.printStackTrace();
+			}
+		} else
+			mv.setViewName("fail");
+		return mv;
 	}
 }

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>供应链资源管理平台-我的信息</title>
+<title>我的信息</title>
 <META HTTP-EQUIV="imagetoolbar" CONTENT="no">
 <link rel="shortcut icon" href="/images/fav.ico" type="image/x-icon" />
 <link rel="icon" href="/images/fav.ico" type="image/x-icon" />
@@ -75,7 +75,7 @@
                         <a href="warehouse?flag=1" class="a_mgmt_leftnav" hidefocus="true">仓库信息</a>
 						<a href="driver?flag=1" class="a_mgmt_leftnav" hidefocus="true">司机信息</a>
                         <a href="client" class="a_mgmt_leftnav" hidefocus="true">客户信息</a>
-                        <a href="goodsinfo" class="a_mgmt_leftnav" hidefocus="true">货物信息</a>
+                        <a href="goodsform?flag=1" class="a_mgmt_leftnav" hidefocus="true">货物信息</a>
                         <a href="contract" class="a_mgmt_leftnav" hidefocus="true">合同信息</a>
                     </div>
                     <hr class="hr_2" />
@@ -96,7 +96,7 @@
                     <div id="mgmt_nav5" class="div_mgmt_show1">
                         <a href="accountinfo" class="a_mgmt_leftnav" hidefocus="true">帐户信息</a>
                         <a href="getsubaccount" class="a_mgmt_leftnav" hidefocus="true">附属帐户</a>
-                        <a href="mgmt_a_address.htm" class="a_mgmt_leftnav" hidefocus="true">常用地址</a>
+                        <a href="getaddress" class="a_mgmt_leftnav" hidefocus="true">常用地址</a>
                         <a href="mgmt_a_security.htm" class="a_mgmt_leftnav" hidefocus="true">安全设置</a>
                     </div>
 </div>

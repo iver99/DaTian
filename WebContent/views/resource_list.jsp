@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>供应链资源管理平台-资源-运输线路</title>
+<title>资源-运输线路</title>
 <META HTTP-EQUIV="imagetoolbar" CONTENT="no">
 	<link rel="shortcut icon" href="/images/fav.ico" type="image/x-icon" />
 	<link rel="icon" href="/images/fav.ico" type="image/x-icon" />
@@ -187,9 +187,10 @@
 									<td class="td_main_list_content"><a
 										href="linetransportdetail?linetransportid=${linetransport.id }&carrierId=${linetransport.carrierId}&linetransportId=${linetransport.id }&flag=0"
 										hidefocus="true">${linetransport.startPlace }→${linetransport.endPlace }</a>
-										<br /> <a href="companyDetail?id=${linetransport.carrierId }"
-										hidefocus="true">${linetransport.companyName }<img
-											src="images/btn_level1a.png" /></a></td>
+										<br />
+										 <a style="color:#717071;" href="companyDetail?id=${linetransport.carrierId }" hidefocus="true">${linetransport.companyName }<img
+											src="images/btn_level1a.png" /></a>
+								</td>
 									<td class="td_main_list_content">${linetransport.refPrice }</td>
 									<td class="td_main_list_content">${linetransport.type }</td>
 									<td class="td_main_list_content">${linetransport.onWayTime }</td>

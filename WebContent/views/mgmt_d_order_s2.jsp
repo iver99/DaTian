@@ -391,9 +391,9 @@
 									<td>
 										<select style="width:120px;" name="clientName">
 											<option value="" selected="selected">请选择</option>
-                                            <option value="a">ABC商贸公司</option>
-                                            <option value="b">X公司</option>
-                                            <option value="c">DEF公司</option>
+                                            <option value="ABC商贸公司">ABC商贸公司</option>
+                                            <option value="X公司">X公司</option>
+                                            <option value="DEF公司">DEF公司</option>
                                         </select>
 									</td>
                                 </tr>
@@ -402,8 +402,8 @@
                                     <td>
                                         <select id="psource" style="width:120px;" onchange="change2();">
                                             <option value="" selected="selected">请选择</option>
-                                            <option value="A">有</option>
-                                            <option value="B">无</option>
+                                            <option value="有">有</option>
+                                            <option value="无">无</option>
                                         </select>
                                         <div id="p_detail" style="display:none;">
                                             <input type="text" class="input_mgmt1" style="width:176px;" placeholder="请输入客户运单号..." />
@@ -419,15 +419,15 @@
                                     <td>
                                         <select id="city_cert" style="width:120px;" onchange="change_cert();" name="hasCarrierContract">
                                             <option value="" selected="selected">请选择</option>
-                                            <option value="A">有</option>
-                                            <option value="B">无</option>
+                                            <option value="有">有</option>
+                                            <option value="无">无</option>
                                         </select>
                                         <div id="c_detail" style="display:none;">
                                             <select style="width:93px;" name="contractId">
                                                 <option value="" selected="selected">请选择</option>
-                                                <option value="a">C0001</option>
-                                                <option value="b">C0002</option>
-                                                <option value="c">C0003</option>
+                                                <option value="C0001">C0001</option>
+                                                <option value="C0002">C0002</option>
+                                                <option value="C0003">C0003</option>
                                             </select>
                                         </div>
                                     </td>
@@ -476,12 +476,40 @@
                             <div class="span_mgmt_right3_text4">地址信息</div>      	          
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
-                                    <td width="120" height="40" class="td_mgmt_right3_td1b">发货人信息：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:400px;" value="李刚  /  13720099880  /  天津市西市大街12号" name="senderInfo"/><a href="javascript:;" onclick="showid('popup2');" hidefocus="true">&nbsp;<img src="images/btn_address.png" title="查询" /></a></td>
+                                    <td width="120" height="40" class="td_mgmt_right3_td1b">
+                                    	发货人信息
+                                        <a href="javascript:;" onclick="showid('popup2');" hidefocus="true"><img src="images/btn_address.png" title="查询" /></a>
+                                    </td>
+                                    <td width="250">&nbsp;</td>
+                                    <td width="100" class="td_mgmt_right3_td1b">
+                                    	收货人信息
+                                        <a href="javascript:;" onclick="showid('popup2');" hidefocus="true"><img src="images/btn_address.png" title="查询" /></a>
+                                    </td>
+                                    <td>&nbsp;</td>
                                 </tr>
                                 <tr>
-                                    <td height="40" class="td_mgmt_right3_td1b">收货人信息：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:400px;" name="receiverInfo"/><a href="javascript:;" onclick="showid('popup2');" hidefocus="true">&nbsp;<img src="images/btn_address.png" title="查询" /></a></td>
+                                    <td height="40" class="td_mgmt_right3_td1b">姓名：</td>
+                                    <td><input type="text" class="input_mgmt1" style="width:200px;" name="deliveryName"/></td>
+                                    <td class="td_mgmt_right3_td1b">姓名：</td>
+                                    <td><input type="text" class="input_mgmt1" style="width:200px;" name="recieverName"/></td>
+                                </tr>
+                                <tr>
+                                    <td height="40" class="td_mgmt_right3_td1b">地址：</td>
+                                    <td><textarea class="textarea_rating1" name="deliveryAddr"></textarea></td>
+                                    <td class="td_mgmt_right3_td1b">地址：</td>
+                                    <td><textarea class="textarea_rating1" name="recieverAddr"></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td height="40" class="td_mgmt_right3_td1b">电话：</td>
+                                    <td><input type="text" class="input_mgmt1" style="width:200px;" name="deliveryPhone"/></td>
+                                    <td class="td_mgmt_right3_td1b">电话：</td>
+                                    <td><input type="text" class="input_mgmt1" style="width:200px;" name="recieverPhone"/></td>
+                                </tr>
+                                <tr>
+                                    <td height="20" class="td_mgmt_right3_td1b">&nbsp;</td>
+                                    <td><input type="checkbox" />&nbsp;加入常用发货地址(未实现)</td>
+                                    <td class="td_mgmt_right3_td1b">&nbsp;</td>
+                                    <td><input type="checkbox" />&nbsp;加入常用收货地址(未实现)</td>
                                 </tr>
                             </table>
                             <div class="span_mgmt_right3_text4">备注信息</div>      	          

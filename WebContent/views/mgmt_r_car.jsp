@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>供应链资源管理平台-车辆信息</title>
+<title>车辆信息</title>
 <META HTTP-EQUIV="imagetoolbar" CONTENT="no">
 <link rel="shortcut icon" href="/images/fav.ico" type="image/x-icon" />
 <link rel="icon" href="/images/fav.ico" type="image/x-icon" />
@@ -69,7 +69,7 @@
             	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right2">
                     <tr>
                     	<td>
-                        	<span class="span_mgmt_right2_text1">车辆信息&nbsp;&nbsp;/&nbsp;&nbsp;<a href="mgmt_r_car_fleet.htm" hidefocus="true">车队信息</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a href="http://gps.dtw.com.cn:89/gpsonline" target="_blank" hidefocus="true">车队管理</a></span>
+                        	<span class="span_mgmt_right2_text1">车辆信息&nbsp;&nbsp;/&nbsp;&nbsp;<a href="carteam" hidefocus="true">车队信息</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a href="http://gps.dtw.com.cn:89/gpsonline" target="_blank" hidefocus="true">车队管理</a></span>
                             <span class="span_mgmt_right2_text2"><a href="insert?flag=3" hidefocus="true"><img src="images/btn_add1.png" class="span_mgmt_right2_pic1" title="添加" /></a></span>
                         </td>
                 	</tr>

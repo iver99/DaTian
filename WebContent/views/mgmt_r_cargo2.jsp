@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>供应链资源管理平台-货物信息</title>
+<title>货物信息</title>
 <META HTTP-EQUIV="imagetoolbar" CONTENT="no">
 <link rel="shortcut icon" href="/images/fav.ico" type="image/x-icon" />
 <link rel="icon" href="/images/fav.ico" type="image/x-icon" />
@@ -126,9 +126,9 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">类型：</td>
                                     <td>
-                                        <input name="type" type="radio" value="a" hidefocus="true" />医药&nbsp;&nbsp;&nbsp;
-                                        <input type="radio" name="type" value="b" hidefocus="true" onclick="content_switch2();" />电子仪器&nbsp;&nbsp;&nbsp;
-                                        <input type="radio" name="type" value="c" hidefocus="true" onclick="content_switch3();" />服装
+                                        <input type="radio" name="type" checked="checked" value="医药" hidefocus="true" />医药&nbsp;&nbsp;&nbsp;
+                                        <input type="radio" name="type" value="电子仪器" hidefocus="true" onclick="content_switch2();" />电子仪器&nbsp;&nbsp;&nbsp;
+                                        <input type="radio" name="type" value="服装" hidefocus="true" onclick="content_switch3();" />服装
                                     </td>
                                 </tr>
                                 <tr>
@@ -139,8 +139,8 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">运输类型：</td>
                                     <td>
-                                        <input type="radio" name="transportType" value="a" checked="checked" hidefocus="true" />整车&nbsp;&nbsp;&nbsp;
-                                        <input type="radio" name="transportType" value="b" hidefocus="true" />零担
+                                        <input type="radio" name="transportType" value="整车" checked="checked" hidefocus="true" />整车&nbsp;&nbsp;&nbsp;
+                                        <input type="radio" name="transportType" value="零担" hidefocus="true" />零担
                                     </td>
                                 </tr>
                                 <tr>
@@ -165,13 +165,13 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">增值服务：</td>
                                     <td>
-                                        <select id="city_cert" style="width:110px;" name="vipservice" onchange="change_cert();">
+                                        <select id="city_cert" style="width:110px;" name="VIPService" onchange="change_cert();">
                                             <option value="" selected="selected">请选择</option>
-                                            <option value="A">需要</option>
-                                            <option value="B">不需要</option>
+                                            <option value="需要">需要</option>
+                                            <option value="不需要">不需要</option>
                                         </select>
                                         <div id="c_detail" style="display:none;">
-                                            <input type="text" class="input_mgmt1" style="width:186px;" name="service" placeholder="请输入内容..." />
+                                            <input type="text" name="VIPServiceDetail" class="input_mgmt1" style="width:186px;" placeholder="请输入内容..." />
                                         </div>
                                     </td>
                                 </tr>
@@ -180,15 +180,15 @@
                                     <td>
                                         <select id="valueadd" style="width:110px;" name="oriented" onchange="change1();">
                                             <option value="" selected="selected">请选择</option>
-                                            <option value="A">用户</option>
-                                            <option value="B">平台</option>
+                                            <option value="用户">用户</option>
+                                            <option value="平台">平台</option>
                                         </select>
                                         <div id="v_detail" style="display:none;">
                                             <select style="width:93px;" name="user">
-                                                <option value="" selected="selected">请选择</option>
-                                                <option value="a">全体用户</option>
-                                                <option value="b">承运方</option>
-                                                <option value="c">大田分公司</option>
+                                                <option name="orienteUser" value="" selected="selected">请选择</option>
+                                                <option value="全体用户">全体用户</option>
+                                                <option value="承运方">承运方</option>
+                                                <option value="大田分公司">大田分公司</option>
                                             </select>
                                         </div>
                                     </td>
@@ -202,8 +202,8 @@
                                     <td>
                                         <select style="width:110px;" name="invoice">
                                             <option value="" selected="selected">请选择</option>
-                                            <option value="A">需要</option>
-                                            <option value="B">不需要</option>
+                                            <option value="需要">需要</option>
+                                            <option value="不需要">不需要</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -225,8 +225,8 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
                                     <td>
-                                    	<input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="window.location.href='www.baidu.com'" />
-                                    	<input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" />
+                                    	<input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" />
+                                    	<input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" />
                                     </td>
                                 </tr>
                             </table>

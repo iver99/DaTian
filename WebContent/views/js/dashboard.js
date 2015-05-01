@@ -1,4 +1,4 @@
-<!--
+
       window.onload = function()
 	  {
         var d1 = new JustGage ({
@@ -24,4 +24,3 @@
 			]    
         });
       };
--->
