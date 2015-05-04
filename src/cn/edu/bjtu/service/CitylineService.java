@@ -13,8 +13,11 @@ public interface CitylineService {
 	
 	public Cityline getCitylineInfo(String citylineid);
 	public List getCompanyCityline(String carrierId);
-	public boolean insertCityLine(String name,String cityName,String VIPService,float refPrice,String remarks,String carrierId, String VIPDetail);
-	public boolean updateLine(String id, String citylineName, String cityName, String VIPService, String VIPServiceText,
-			float refPrice, String remarks, String carrierId);
+	public boolean insertCityLine(String name,String cityName,String VIPService,
+			float refPrice,String remarks,String carrierId, String VIPDetail,
+			String path,String fileName);
+	public boolean updateLine(String id, String citylineName, String cityName, String VIPService,
+			String VIPServiceText,float refPrice, String remarks, String carrierId,
+			String path,String fileName);
 	public boolean deleteCityline(String id);
 }

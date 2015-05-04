@@ -1,5 +1,6 @@
 package cn.edu.bjtu.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
@@ -12,10 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.CitylineService;
 import cn.edu.bjtu.service.CompanyService;
+import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Cityline;
 
@@ -150,7 +153,8 @@ public class CitylineController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView insertCityLine(@RequestParam String name,
+	public ModelAndView insertCityLine(@RequestParam MultipartFile file, 
+			@RequestParam String name,
 			@RequestParam String cityName, @RequestParam String VIPService,
 			@RequestParam float refPrice, @RequestParam String remarks,
 			@RequestParam(required = false) String VIPDetail,
@@ -160,7 +164,29 @@ public class CitylineController {
 		/*boolean flag = linetransportService.insertLine(lineName, startPlace,
 				endPlace, onWayTime, type, refPrice, remarks, carrierId);*/
 		System.out.println("vipdetail+"+VIPDetail);
-		boolean flag=citylineService.insertCityLine(name, cityName, VIPService, refPrice, remarks, carrierId, VIPDetail);
+		
+		// ////////////////////////////////////////////////////////////////////////
+
+		String path = null;
+		String fileName = null;
+		// System.out.println("file+"+file+"filename"+file.getOriginalFilename());//不上传文件还是会显示有值
+		if (file.getSize() != 0)// 有上传文件的情况
+		{
+			path = UploadPath.getCitylinePath();// 不同的地方取不同的上传路径
+			fileName = file.getOriginalFilename();
+			fileName = carrierId + "_" + fileName;// 文件名
+			File targetFile = new File(path, fileName);
+			try { // 保存 文件
+				file.transferTo(targetFile);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// System.out.println("path+fileName+" + path + "-" + fileName);
+			// //////////////////////////////////////////////////////////////////
+		}
+		
+		boolean flag=citylineService.insertCityLine(name, cityName, VIPService,
+				refPrice, remarks, carrierId, VIPDetail, path, fileName);
 		if (flag == true) {
 			// mv.setViewName("mgmt_r_line");
 			try {
@@ -189,7 +215,7 @@ public class CitylineController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView updateCityline(
+	public ModelAndView updateCityline(@RequestParam MultipartFile file,
 			@RequestParam String id,// GET方式传入，在action中
 			@RequestParam String citylineName, @RequestParam String cityName,
 			@RequestParam String VIPService,
@@ -201,8 +227,32 @@ public class CitylineController {
 		// 此处获取session里的carrierid，下面方法增加一个参数
 		String carrierId=(String)request.getSession().getAttribute("userId");
 		// String carrierId = "C-0002";// 删除
+		
+		//////////////////////////////////////////////
+		String path = null;
+		String fileName = null;
+		//System.out.println("file+"+file+"filename"+file.getOriginalFilename());//不上传文件还是会显示有值
+		if (file.getSize() != 0)// 有上传文件的情况
+		{
+			path = UploadPath.getCitylinePath();// 不同的地方取不同的上传路径
+			fileName = file.getOriginalFilename();
+			fileName = carrierId + "_" + fileName;// 文件名
+			File targetFile = new File(path, fileName);
+			try { // 保存 文件
+				file.transferTo(targetFile);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			//System.out.println("path+fileName+" + path + "-" + fileName);
+		} 
+		//没有上传文件的情况path 和 filenName默认为null
+		
+		//////////////////////////////////////////////
+		
+		
 		boolean flag = citylineService.updateLine(id, citylineName, 
-				cityName, VIPService, VIPServiceText, refPrice, remarks, carrierId);
+				cityName, VIPService, VIPServiceText, refPrice, remarks, carrierId,
+				path, fileName);
 		if (flag == true) {
 			
 			try {

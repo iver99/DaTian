@@ -1,5 +1,6 @@
 package cn.edu.bjtu.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
@@ -12,9 +13,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.GoodsInfoService;
+import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.GoodsClientView;
 import cn.edu.bjtu.vo.Goodsform;
 
@@ -50,14 +53,14 @@ public class GoodsInfoController {
 
 			mv.addObject("goodsformInfo", goodsInfoList);
 			mv.setViewName("resource_list6");// 点击资源栏城市配送显示所有信息
-		}
-		else if (flag == 1) {
-			String clientId=(String)request.getSession().getAttribute("userId");
-			List goodsList=goodsInfoService.getUserGoodsInfo(clientId);
+		} else if (flag == 1) {
+			String clientId = (String) request.getSession().getAttribute(
+					"userId");
+			List goodsList = goodsInfoService.getUserGoodsInfo(clientId);
 			mv.addObject("goodsList", goodsList);
 			mv.setViewName("mgmt_r_cargo");
 		}
-		
+
 		return mv;
 	}
 
@@ -70,7 +73,7 @@ public class GoodsInfoController {
 	public ModelAndView getAllGoodsDetail(@RequestParam String id) {
 		System.out.println(id);
 		GoodsClientView goodsformInfo = goodsInfoService.getAllGoodsDetail(id);
-		//System.out.println(goodsformInfo);
+		// System.out.println(goodsformInfo);
 		mv.addObject("goodsformInfo", goodsformInfo);
 		mv.setViewName("resource_detail6");
 
@@ -102,7 +105,6 @@ public class GoodsInfoController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 
 		List goodsInfoList = goodsInfoService.getSelectedGoodsInfo(startPlace,
 				endPlace, transportType, Display, PageNow);
@@ -122,28 +124,48 @@ public class GoodsInfoController {
 	}
 
 	@RequestMapping(value = "insertGoods", method = RequestMethod.POST)
-	public ModelAndView insertGoods(@RequestParam String name,
-			@RequestParam String type, @RequestParam float weight,
-			@RequestParam String transportType,
+	public ModelAndView insertGoods(@RequestParam MultipartFile file,
+			@RequestParam String name, @RequestParam String type,
+			@RequestParam float weight, @RequestParam String transportType,
 			@RequestParam String transportReq, @RequestParam String startPlace,
 			@RequestParam String endPlace, @RequestParam String damageReq,
 			@RequestParam String VIPService,
-			@RequestParam(required=false) String VIPServiceDetail,
+			@RequestParam(required = false) String VIPServiceDetail,
 			@RequestParam String oriented,
-			@RequestParam(required=false) String orientedUser,
+			@RequestParam(required = false) String orientedUser,
 			@RequestParam String limitDate, @RequestParam String invoice,
-			@RequestParam(required=false) String relatedMaterial,
-			@RequestParam String remarks,
-			HttpServletRequest request,HttpServletResponse response){
+			@RequestParam(required = false) String relatedMaterial,
+			@RequestParam String remarks, HttpServletRequest request,
+			HttpServletResponse response) {
 		System.out.println("进入货物控制器");
-		
-		String clientId=(String)request.getSession().getAttribute("userId");
-		
+
+		String clientId = (String) request.getSession().getAttribute("userId");
+		// ////////////////////////////////////////////
+		String path = null;
+		String fileName = null;
+		// System.out.println("file+"+file+"filename"+file.getOriginalFilename());//不上传文件还是会显示有值
+		if (file.getSize() != 0)// 有上传文件的情况
+		{
+			path = UploadPath.getGoodsPath();// 不同的地方取不同的上传路径
+			fileName = file.getOriginalFilename();
+			fileName = clientId + "_" + fileName;// 文件名
+			File targetFile = new File(path, fileName);
+			try { // 保存 文件
+				file.transferTo(targetFile);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// System.out.println("path+fileName+" + path + "-" + fileName);
+		}
+		// 没有上传文件的情况path 和 filenName默认为null
+
+		// ////////////////////////////////////////////
+
 		boolean flag = goodsInfoService.insertGoods(name, type, weight,
 				transportType, transportReq, startPlace, endPlace, damageReq,
-				VIPService, oriented, limitDate, invoice, remarks, clientId);
-		if (flag == true)
-		{
+				VIPService, oriented, limitDate, invoice, remarks, clientId,
+				path, fileName);
+		if (flag == true) {
 			try {
 				response.sendRedirect("goodsform?flag=1");
 			} catch (IOException e) {
@@ -153,6 +175,7 @@ public class GoodsInfoController {
 		}
 		return mv;
 	}
+
 	@RequestMapping("getallresponse")
 	/**
 	 * 获取所有反馈
@@ -160,13 +183,13 @@ public class GoodsInfoController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView getAllResponse(HttpServletRequest request,HttpServletResponse response)
-	{
+	public ModelAndView getAllResponse(HttpServletRequest request,
+			HttpServletResponse response) {
 		System.out.println("进入反馈控制器");
-		String userId=(String)request.getSession().getAttribute("userId");
-		
-		List responseList=goodsInfoService.getAllResponse(userId);
-		
+		String userId = (String) request.getSession().getAttribute("userId");
+
+		List responseList = goodsInfoService.getAllResponse(userId);
+
 		mv.addObject("responseList", responseList);
 		mv.setViewName("mgmt_d_response");
 		return mv;
@@ -196,12 +219,11 @@ public class GoodsInfoController {
 			HttpServletRequest request, HttpServletResponse response) {
 
 		String carrierId = (String) request.getSession().getAttribute("userId");
-		//System.out.println("进入创建反馈 控制器+goodsid+" + goodsid);
+		// System.out.println("进入创建反馈 控制器+goodsid+" + goodsid);
 
-		boolean flag = goodsInfoService
-				.commitResponse(goodsid, remarks, carrierId);
-		if (flag == true)
-		{
+		boolean flag = goodsInfoService.commitResponse(goodsid, remarks,
+				carrierId);
+		if (flag == true) {
 			try {
 				response.sendRedirect("getallresponse");
 			} catch (IOException e) {
@@ -209,53 +231,74 @@ public class GoodsInfoController {
 				e.printStackTrace();
 			}
 		}
-			
+
 		return mv;
 	}
 
 	@RequestMapping("mygoodsdetail")
-	public ModelAndView myGoodsDetail(@RequestParam String id,@RequestParam int flag,
-			HttpServletRequest request,HttpServletResponse response)
-	{
-		String clientId=(String)request.getSession().getAttribute("userId");
+	public ModelAndView myGoodsDetail(@RequestParam String id,
+			@RequestParam int flag, HttpServletRequest request,
+			HttpServletResponse response) {
+		String clientId = (String) request.getSession().getAttribute("userId");
 		GoodsClientView goodsformInfo = goodsInfoService.getAllGoodsDetail(id);
-		//System.out.println(goodsformInfo);
+		// System.out.println(goodsformInfo);
 		mv.addObject("goodsdetail", goodsformInfo);
-		
-		if(flag==1){
+
+		if (flag == 1) {
 			mv.setViewName("mgmt_r_cargo4");
 		}
-		
-		else if(flag==2){
+
+		else if (flag == 2) {
 			mv.setViewName("mgmt_r_cargo3");
 		}
-		
+
 		return mv;
 	}
-	
+
 	@RequestMapping(value = "updategoods", method = RequestMethod.POST)
-	public ModelAndView updateGoods(@RequestParam String id, @RequestParam String name,
-			@RequestParam String type, @RequestParam float weight,
-			@RequestParam String transportType,
+	public ModelAndView updateGoods(@RequestParam MultipartFile file,
+			@RequestParam String id,
+			@RequestParam String name, @RequestParam String type,
+			@RequestParam float weight, @RequestParam String transportType,
 			@RequestParam String transportReq, @RequestParam String startPlace,
 			@RequestParam String endPlace, @RequestParam String damageReq,
 			@RequestParam String VIPService,
-			@RequestParam(required=false) String VIPServiceDetail,
+			@RequestParam(required = false) String VIPServiceDetail,
 			@RequestParam String oriented,
-			@RequestParam(required=false) String orientedUser,
+			@RequestParam(required = false) String orientedUser,
 			@RequestParam String limitDate, @RequestParam String invoice,
-			@RequestParam(required=false) String relatedMaterial,
-			@RequestParam String remarks,
-			HttpServletRequest request,HttpServletResponse response){
+			@RequestParam(required = false) String relatedMaterial,
+			@RequestParam String remarks, HttpServletRequest request,
+			HttpServletResponse response) {
 		System.out.println("进入货物控制器");
-		
-		String clientId=(String)request.getSession().getAttribute("userId");
+
+		String clientId = (String) request.getSession().getAttribute("userId");
+
+		String path = null;
+		String fileName = null;
+		// System.out.println("file+"+file+"filename"+file.getOriginalFilename());//不上传文件还是会显示有值
+		if (file.getSize() != 0)// 有上传文件的情况
+		{
+			path = UploadPath.getGoodsPath();// 不同的地方取不同的上传路径
+			fileName = file.getOriginalFilename();
+			fileName = clientId + "_" + fileName;// 文件名
+			File targetFile = new File(path, fileName);
+			try { // 保存 文件
+				file.transferTo(targetFile);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// System.out.println("path+fileName+" + path + "-" + fileName);
+		}
+		// 没有上传文件的情况path 和 filenName默认为null
+
+		// ////////////////////////////////////////////
 		
 		boolean flag = goodsInfoService.updateGoods(id, name, type, weight,
 				transportType, transportReq, startPlace, endPlace, damageReq,
-				VIPService, oriented, limitDate, invoice, remarks, clientId);
-		if (flag == true)
-		{
+				VIPService, oriented, limitDate, invoice, remarks, clientId,
+				path, fileName);
+		if (flag == true) {
 			try {
 				response.sendRedirect("goodsform?flag=1");
 			} catch (IOException e) {
@@ -265,7 +308,7 @@ public class GoodsInfoController {
 		}
 		return mv;
 	}
-	
+
 	@RequestMapping("deletegoods")
 	/**
 	 * 删除用户
@@ -274,10 +317,9 @@ public class GoodsInfoController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView deleteGoods(
-			@RequestParam String id,
-			HttpServletRequest request,HttpServletResponse response){
-		
+	public ModelAndView deleteGoods(@RequestParam String id,
+			HttpServletRequest request, HttpServletResponse response) {
+
 		boolean flag = goodsInfoService.deleteGoods(id);
 		try {
 			if (flag == true)
@@ -290,7 +332,7 @@ public class GoodsInfoController {
 			e.printStackTrace();
 
 		}
-		
+
 		return mv;
 	}
 }

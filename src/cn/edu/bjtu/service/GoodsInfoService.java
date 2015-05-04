@@ -27,7 +27,9 @@ public interface GoodsInfoService {
 			String limitDate,
 			String invoice,
 			String remarks,
-			String clientId);
+			String clientId,
+			String path,
+			String fileName);
 	
 	public boolean updateGoods(String id, String name,
 			String type,
@@ -42,7 +44,9 @@ public interface GoodsInfoService {
 			String limitDate,
 			String invoice,
 			String remarks,
-			String clientId);
+			String clientId,
+			String path,
+			String fileName);
 	
 	public boolean commitResponse(String goodsId,String remarks,String userId);
 	

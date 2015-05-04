@@ -63,7 +63,7 @@ public class ClientServiceImpl implements ClientService{
 	 */
 	public boolean insertClient(String account, String clientName,
 			String clientBusiness, String contact, String phone,
-			String remarks, String carrierId) {
+			String remarks, String carrierId,String path,String fileName) {
 		// TODO Auto-generated method stub
 		businessClient.setAccount(account);
 		businessClient.setCarrierId(carrierId);
@@ -75,6 +75,11 @@ public class ClientServiceImpl implements ClientService{
 		businessClient.setRelDate(new Date());
 		businessClient.setRemarks(remarks);
 		
+		// 保存文件路径
+		if(path!=null && fileName!=null) {
+			String fileLocation = path + "//" + fileName;
+			businessClient.setRelatedMaterial(fileLocation);
+		}
 		return baseDao.save(businessClient);//保存实体
 	}
 	
@@ -84,7 +89,7 @@ public class ClientServiceImpl implements ClientService{
 	 */
 	public boolean updateClient(String id, String account, String clientName,
 			String clientBusiness, String contact, String phone,
-			String remarks, String carrierId) {
+			String remarks, String carrierId,String path,String fileName) {
 		// TODO Auto-generated method stub
 		businessClient=getBusinessclientInfo(id);//根据id查找到客户信息
 		businessClient.setAccount(account);
@@ -94,8 +99,13 @@ public class ClientServiceImpl implements ClientService{
 		businessClient.setPhone(phone);
 		businessClient.setRelDate(new Date());
 		businessClient.setRemarks(remarks);
-
 		businessClient.setCarrierId(carrierId);
+		
+		// 保存文件路径
+		if(path!=null && fileName!=null) {
+			String fileLocation = path + "//" + fileName;
+			businessClient.setRelatedMaterial(fileLocation);
+		}
 		return baseDao.update(businessClient);//保存实体
 	}
 	@Override

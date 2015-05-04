@@ -226,7 +226,8 @@ public class CitylineServiceImpl implements CitylineService {
 	 * 新增城市配送
 	 */
 	public boolean insertCityLine(String name, String cityName,
-			String VIPService, float refPrice, String remarks, String carrierId, String VIPDetail) {
+			String VIPService, float refPrice, String remarks, String carrierId, String VIPDetail,
+			String path, String fileName) {
 		// TODO Auto-generated method stub
 		cityline.setId(IdCreator.createCityLineId());
 		cityline.setName(name);
@@ -239,6 +240,11 @@ public class CitylineServiceImpl implements CitylineService {
 		if(VIPDetail != ""){
 			cityline.setVIPDetail(VIPDetail);
 		}
+		// 保存文件路径
+		if (path != null && fileName != null) {
+			String fileLocation = path + "//" + fileName;
+			cityline.setDetailPrice(fileLocation);
+		}
 		return baseDao.save(cityline);
 	}
 
@@ -248,7 +254,7 @@ public class CitylineServiceImpl implements CitylineService {
 	 */
 	public boolean updateLine(String id, String citylineName, String cityName,
 			String VIPService, String VIPServiceText, float refPrice,
-			String remarks, String carrierId) {
+			String remarks, String carrierId,String path,String fileName) {
 		// TODO Auto-generated method stub
 
 		cityline = getCitylineInfo(id);// 根据id查找到城市配送信息
@@ -259,6 +265,12 @@ public class CitylineServiceImpl implements CitylineService {
 		cityline.setRefPrice(refPrice);
 		cityline.setRemarks(remarks);
 		cityline.setRelDate(new Date());
+		
+		// 保存文件路径
+		if (path != null && fileName != null) {
+			String fileLocation = path + "//" + fileName;
+			cityline.setDetailPrice(fileLocation);
+		}
 		return baseDao.update(cityline);
 
 	}

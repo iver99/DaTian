@@ -14,9 +14,11 @@ public interface WarehouseService {
 	public List getCompanyWarehouse(String carrierId);
 	public boolean insertWarehouse(String name,String city,String address,String type,String kind,
 			float houseArea,float yardArea,float height,String fireRate,String storageForm,
-			String fireSecurity,String environment,String serviceContent,String contact,String phone,String remarks,String carrierId);
+			String fireSecurity,String environment,String serviceContent,String contact,
+			String phone,String remarks,String carrierId,String path,String fileName);
 	public boolean updateWarehouse(String id, String name,String city,String address,String type,String kind,
 			float houseArea,float yardArea,float height,String fireRate,String storageForm,
-			String fireSecurity,String environment,String serviceContent,String contact,String phone,String remarks,String carrierId);
+			String fireSecurity,String environment,String serviceContent,
+			String contact,String phone,String remarks,String carrierId,String path,String fileName);
 	public boolean deleteWarehouse(String id);
 }

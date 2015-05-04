@@ -230,7 +230,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 			String type, String kind, float houseArea, float yardArea,
 			float height, String fireRate, String storageForm,
 			String fireSecurity, String environment, String serviceContent,
-			String contact, String phone, String remarks, String carrierId) {
+			String contact, String phone, String remarks, String carrierId,String path,String fileName) {
 		// TODO Auto-generated method stub
 		warehouse.setAddress(address);
 		warehouse.setCarrierId(carrierId);
@@ -252,6 +252,12 @@ public class WarehouseServiceImpl implements WarehouseService {
 		warehouse.setStorageForm(storageForm);
 		warehouse.setType(type);
 		warehouse.setYardArea(yardArea);
+		
+		// 保存文件路径
+		if (path != null && fileName != null) {
+			String fileLocation = path + "//" + fileName;
+			warehouse.setDetailPrice(fileLocation);
+		}
 		return baseDao.save(warehouse);// 保存实体
 	}
 
@@ -260,7 +266,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 			String address, String type, String kind, float houseArea,
 			float yardArea, float height, String fireRate, String storageForm,
 			String fireSecurity, String environment, String serviceContent,
-			String contact, String phone, String remarks, String carrierId) {
+			String contact, String phone, String remarks, String carrierId,String path,String fileName) {
 		// TODO Auto-generated method stub
 
 		warehouse = getWarehouseInfo(id);// 根据id查找到仓库信息
@@ -282,7 +288,11 @@ public class WarehouseServiceImpl implements WarehouseService {
 		warehouse.setRelDate(new Date());
 		warehouse.setRemarks(remarks);
 		warehouse.setCarrierId(carrierId);
-
+		// 保存文件路径
+		if (path != null && fileName != null) {
+			String fileLocation = path + "//" + fileName;
+			warehouse.setDetailPrice(fileLocation);
+		}
 		return baseDao.update(warehouse);// 保存实体
 	}
 	public boolean deleteWarehouse(String id){

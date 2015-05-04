@@ -55,7 +55,7 @@ public class ContractServiceImpl implements ContractService{
 	public boolean insertContract(String id,String name, String caculateType,
 			String carrierAccount, String startDate, String endDate,
 			String contact, String phone, String remarks, String carrierId,
-			String monthlyStatementDays) {
+			String monthlyStatementDays, String path, String fileName) {
 		// TODO Auto-generated method stub
 		contract.setCaculateType(caculateType);
 		contract.setCarrierAccount(carrierAccount);
@@ -70,7 +70,11 @@ public class ContractServiceImpl implements ContractService{
 		if(monthlyStatementDays != ""){
 			contract.setMonthlyStatementDays(monthlyStatementDays);
 		}
-		
+		// 保存文件路径
+		if (path != null && fileName != null) {
+			String fileLocation = path + "//" + fileName;
+			contract.setRelatedMaterial(fileLocation);
+		}
 		return baseDao.save(contract);//保存实体
 		
 	}

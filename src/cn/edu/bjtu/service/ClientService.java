@@ -16,9 +16,9 @@ public interface ClientService {
 	public Clientinfo getClientInfo(String clientId);
 	public Businessclient getBusinessclientInfo(String clientId);
 	public boolean insertClient(String account,String clientName,String clientBusiness,
-			String contact,String phone,String remarks,String carrierId);
+			String contact,String phone,String remarks,String carrierId,String path,String fileName);
 	public boolean updateClient(String id, String account,String clientName,String clientBusiness,
-			String contact,String phone,String remarks,String carrierId);
+			String contact,String phone,String remarks,String carrierId,String path,String fileName);
 	public boolean deleteClient(String id);
 	public String getBasicUserInfo(String userId);
 	public boolean checkHeadIcon(String userId);

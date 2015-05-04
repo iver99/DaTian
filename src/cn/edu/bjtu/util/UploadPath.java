@@ -36,13 +36,95 @@ public class UploadPath {
 		}
 	}
 	
+	public static String getCitylinePath() {
+		if (isWindows()) {//windows系统
+			String path = "D://uploadFile//cityline";//上传到D盘
+			file = new File(path);
+			file.mkdirs();//以防文件夹不存在
+			return path;
+		}
+		else//linux系统 (未测试)
+		{
+			//如果文件夹不存在情况没有处理
+			String path= "/usr/local/tomcat7/webapps/DaTian/uploadFile/cityline";
+			file=new File(path);
+			file.mkdirs();//防止文件夹不存在
+			return path;
+		}
+	}
 	
+	public static String getGoodsPath() {
+		if (isWindows()) {//windows系统
+			String path = "D://uploadFile//goods";//上传到D盘
+			file = new File(path);
+			file.mkdirs();//以防文件夹不存在
+			return path;
+		}
+		else//linux系统 (未测试)
+		{
+			//如果文件夹不存在情况没有处理
+			String path= "/usr/local/tomcat7/webapps/DaTian/uploadFile/goods";
+			file=new File(path);
+			file.mkdirs();//防止文件夹不存在
+			return path;
+		}
+	}
+	
+	public static String getWarehousePath() {
+		if (isWindows()) {//windows系统
+			String path = "D://uploadFile//warehouse";//上传到D盘
+			file = new File(path);
+			file.mkdirs();//以防文件夹不存在
+			return path;
+		}
+		else//linux系统 (未测试)
+		{
+			//如果文件夹不存在情况没有处理
+			String path= "/usr/local/tomcat7/webapps/DaTian/uploadFile/warehouse";
+			file=new File(path);
+			file.mkdirs();//防止文件夹不存在
+			return path;
+		}
+	}
 
+	public static String getClientPath() {
+		if (isWindows()) {//windows系统
+			String path = "D://uploadFile//client";//上传到D盘
+			file = new File(path);
+			file.mkdirs();//以防文件夹不存在
+			return path;
+		}
+		else//linux系统 (未测试)
+		{
+			//如果文件夹不存在情况没有处理
+			String path= "/usr/local/tomcat7/webapps/DaTian/uploadFile/client";
+			file=new File(path);
+			file.mkdirs();//防止文件夹不存在
+			return path;
+		}
+	}
+	
+	public static String getContactPath() {
+		if (isWindows()) {//windows系统
+			String path = "D://uploadFile//client";//上传到D盘
+			file = new File(path);
+			file.mkdirs();//以防文件夹不存在
+			return path;
+		}
+		else//linux系统 (未测试)
+		{
+			//如果文件夹不存在情况没有处理
+			String path= "/usr/local/tomcat7/webapps/DaTian/uploadFile/client";
+			file=new File(path);
+			file.mkdirs();//防止文件夹不存在
+			return path;
+		}
+	}
 	/*
 	 * public static void main(String [] args) { File file=new File("");
 	 * System.out.println("path+"+file.getAbsolutePath()); }
 	 */
-
+	
 	// 判断当前系统
 	public static boolean isWindows() {
 		boolean flag = false;

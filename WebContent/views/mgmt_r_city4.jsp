@@ -78,7 +78,6 @@
                         <td class="td_mgmt_right3_td1a"> 
                             <br />   	          
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
-                               <c:forEach var="citylineInfo" items="${citylineInfoList }">
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">网络名称：</td>
                                     <td>${citylineInfo.cityName }城市配送</td>
@@ -107,7 +106,6 @@
                                     <td height="40" class="td_mgmt_right3_td1b">补充信息：</td>
                                     <td>${citylineInfo.remarks }</td>
                                 </tr>
-                                </c:forEach>
                             </table>
                         </td>
                     </tr>

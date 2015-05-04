@@ -84,7 +84,8 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 	public boolean insertGoods(String name, String type, float weight,
 		String transportType, String transportReq, String startPlace, String endPlace,
 		String damageReq, String VIPService, String oriented, String limitDate,
-		String invoice, String remarks,String clientId) {
+		String invoice, String remarks,String clientId,String path,
+		String fileName) {
 		// TODO Auto-generated method stub
 		System.out.println("insertGoods");
 		
@@ -106,6 +107,12 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 		goodsform.setRelDate(new Date());
 		goodsform.setState("待确认");
 		goodsform.setClientId(clientId);
+		
+		// 保存文件路径
+		if (path != null && fileName != null) {
+			String fileLocation = path + "//" + fileName;
+			goodsform.setRelatedMaterial(fileLocation);
+		}
 		return baseDao.save(goodsform);//保存实体
 		
 	}
@@ -148,7 +155,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 		public boolean updateGoods(String id, String name, String type, float weight,
 			String transportType, String transportReq, String startPlace, String endPlace,
 			String damageReq, String VIPService, String oriented, String limitDate,
-			String invoice, String remarks,String clientId) {
+			String invoice, String remarks,String clientId,String path, String fileName) {
 			// TODO Auto-generated method stub
 			System.out.println("updateGoods");
 			goodsform = getMyGoodsDetail(id);
@@ -166,7 +173,11 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 			goodsform.setLimitDate(stringToDate(limitDate));
 			goodsform.setInvoice(invoice);
 			goodsform.setRemarks(remarks);
-			
+			// 保存文件路径
+			if (path != null && fileName != null) {
+				String fileLocation = path + "//" + fileName;
+				goodsform.setRelatedMaterial(fileLocation);
+			}
 			return baseDao.update(goodsform);//保存实体
 			
 		}
