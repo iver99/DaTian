@@ -1,5 +1,9 @@
 package cn.edu.bjtu.dao;
 
-public interface SettlementDao {
+import java.util.List;
 
+public interface SettlementDao {
+	
+	public List getUserOrder(String userId);
+	
 }

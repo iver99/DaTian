@@ -1,5 +1,8 @@
 package cn.edu.bjtu.service;
 
-public interface SettlementService {
+import java.util.List;
 
+public interface SettlementService {
+	
+	public List getUserOrder(String userId);
 }

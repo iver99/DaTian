@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -400,58 +401,32 @@
                         <td width="60" class="td_mgmt_right3_head">状态</td>
                         <td width="90" class="td_mgmt_right3_head">操作</td>
                     </tr>
+                    <c:forEach var="order" items="${orderList }">
                     <tr>
                         <td height="60" class="td_mgmt_right3_td1d"><input type="checkbox" name="f1" id="f1a" /></td>
-                        <td class="td_mgmt_right3_td1"><a href="mgmt_d_order_s6a.htm" hidefocus="true">Y001001001</a></td>
-                        <td class="td_mgmt_right3_td1"><a href="javascript:;" class="link1" hidefocus="true">ABC商贸公司</a></td>
-                        <td class="td_mgmt_right3_td1"><a href="javascript:;" class="link1" hidefocus="true">北京畅通达物流</a></td>
-                        <td class="td_mgmt_right3_td1"><a href="mgmt_r_contact_s4.htm" class="link1">H201406001</a></td>
-                        <td class="td_mgmt_right3_td1">2014-02-21<br />
-                            10:44:28</td>
-                        <td class="td_mgmt_right3_td1">18000.00</td>
-                        <td class="td_mgmt_right3_td1">18000.00</td>
-                        <td class="td_mgmt_right3_td2">未生成</td>
-                        <td class="td_mgmt_right3_td3"><a href="javascript:;" hidefocus="true">生成对账单</a></td>
+                        <td class="td_mgmt_right3_td1"><a href="mgmt_d_order_s6a.htm" hidefocus="true">${order.orderNum }</a></td>
+                        <td class="td_mgmt_right3_td1"><a href="javascript:;" class="link1" hidefocus="true">${order.clientName }</a></td>
+                        <td class="td_mgmt_right3_td1"><a href="javascript:;" class="link1" hidefocus="true">${order.companyName }</a></td>
+                        <td class="td_mgmt_right3_td1"><a href="mgmt_r_contact_s4.htm" class="link1">${order.contractId }</a></td>
+                        <td class="td_mgmt_right3_td1">${order.submitTime }</td>
+                        <td class="td_mgmt_right3_td1">${order.expectedPrice }</td>
+                        <td class="td_mgmt_right3_td1">${order.actualPrice }</td>
+                        <%-- <td class="td_mgmt_right3_td2">${order.settlementState }</td> --%>
+                        <c:choose>
+                        	<c:when test="${order.settlementState =='已生成'}">
+                        	<td class="td_mgmt_right3_td1">${order.settlementState }</td>
+                        		<td class="td_mgmt_right3_td3"><a href="mgmt_d_settle_s2.htm" hidefocus="true">查看记录</a></td>
+                        	</c:when>
+                        	<c:otherwise>
+                        	 	<td class="td_mgmt_right3_td2">${order.settlementState }</td>
+                        		<td class="td_mgmt_right3_td3"><a href="javascript:;" hidefocus="true">生成对账单</a></td>
+                        	</c:otherwise>
+                        	
+                        </c:choose>
+                        
                     </tr>
-                    <tr>
-                        <td height="60" class="td_mgmt_right3_td1d"><input type="checkbox" name="f1" id="f1b" /></td>
-                        <td class="td_mgmt_right3_td1"><a href="javascript:;" hidefocus="true">Y001001002</a></td>
-                        <td class="td_mgmt_right3_td1"><a href="javascript:;" class="link1" hidefocus="true">ABC商贸公司</a></td>
-                        <td class="td_mgmt_right3_td1"><a href="javascript:;" class="link1" hidefocus="true">北京畅通达物流</a></td>
-                        <td class="td_mgmt_right3_td1"><a href="mgmt_r_contact_s4.htm" class="link1">H201406002</a></td>
-                        <td class="td_mgmt_right3_td1">2014-02-21<br />
-                            10:44:28</td>
-                        <td class="td_mgmt_right3_td1">8800.00</td>
-                        <td class="td_mgmt_right3_td1">8300.00</td>
-                        <td class="td_mgmt_right3_td2">未生成</td>
-                        <td class="td_mgmt_right3_td3"><a href="javascript:;" hidefocus="true">生成对账单</a></td>
-                    </tr>
-                    <tr>
-                        <td height="60" class="td_mgmt_right3_td1d"><input type="checkbox" name="f1" id="f1c" /></td>
-                        <td class="td_mgmt_right3_td1"><a href="javascript:;" hidefocus="true">Y001001003</a></td>
-                        <td class="td_mgmt_right3_td1"><a href="javascript:;" class="link1" hidefocus="true">ABC商贸公司</a></td>
-                        <td class="td_mgmt_right3_td1"><a href="javascript:;" class="link1" hidefocus="true">北京畅通达物流</a></td>
-                        <td class="td_mgmt_right3_td1"><a href="mgmt_r_contact_s4.htm" class="link1">H201406003</a></td>
-                        <td class="td_mgmt_right3_td1">2014-02-21<br />
-                            10:44:28</td>
-                        <td class="td_mgmt_right3_td1">480.22</td>
-                        <td class="td_mgmt_right3_td1">480.22</td>
-                        <td class="td_mgmt_right3_td1">已生成</td>
-                        <td class="td_mgmt_right3_td3"><a href="mgmt_d_settle_s2.htm" hidefocus="true">查看记录</a></td>
-                    </tr>
-                    <tr>
-                        <td height="60" class="td_mgmt_right3_td1d"><input type="checkbox" name="f1" id="f1d" /></td>
-                        <td class="td_mgmt_right3_td1"><a href="javascript:;" hidefocus="true">Y001001004</a></td>
-                        <td class="td_mgmt_right3_td1"><a href="javascript:;" class="link1" hidefocus="true">ABC商贸公司</a></td>
-                        <td class="td_mgmt_right3_td1"><a href="javascript:;" class="link1" hidefocus="true">北京畅通达物流</a></td>
-                        <td class="td_mgmt_right3_td1">无</td>
-                        <td class="td_mgmt_right3_td1">2014-02-21<br />
-                            10:44:28</td>
-                        <td class="td_mgmt_right3_td1">480.22</td>
-                        <td class="td_mgmt_right3_td1">480.22</td>
-                        <td class="td_mgmt_right3_td1">已生成</td>
-                        <td class="td_mgmt_right3_td3"><a href="mgmt_d_settle_s2.htm" hidefocus="true">查看记录</a></td>
-                    </tr>
+                    </c:forEach>
+                   
                 </table>
 				<table border="0" cellpadding="0" cellspacing="0" class="table_recordnumber">
                     <tr>
