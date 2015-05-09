@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-2-14 15:14:57 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="cn.edu.bjtu.vo.SettlementCarrierView" table="settlement_carrier_view" catalog="datian">
+    	<!-- orderNum作主键 -->
+         <id name="orderNum" type="string">
+            <column name="orderNum" />
+            <generator class="assigned" />
+        </id> 
+        <property name="submitTime" type="timestamp">
+            <column name="submitTime" length="19" />
+        </property>
+        <property name="carrierId" type="string">
+            <column name="carrierId" />
+        </property>
+        <property name="clientName" type="string">
+            <column name="clientName" />
+        </property>
+        <property name="contractId" type="string">
+            <column name="contractId" />
+        </property>
+        <property name="settlementState" type="string">
+            <column name="settlementState" />
+        </property>
+        <property name="actualPrice" type="float">
+            <column name="actualPrice" />
+        </property>
+        <property name="expectedPrice" type="float">
+            <column name="expectedPrice" />
+        </property>
+        <!-- <property name="carrierId" type="string">
+            <column name="carrierId" />
+        </property> -->
+        <property name="id" type="string">
+            <column name="id" />
+        </property>
+        <property name="companyName" type="string">
+            <column name="companyName" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

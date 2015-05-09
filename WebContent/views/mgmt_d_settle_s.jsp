@@ -1,12 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-    
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>我提交的订单</title>
+<title>我的结算</title>
 <META HTTP-EQUIV="imagetoolbar" CONTENT="no">
 <link rel="shortcut icon" href="/images/fav.ico" type="image/x-icon" />
 <link rel="icon" href="/images/fav.ico" type="image/x-icon" />
@@ -16,24 +14,13 @@
 <script type="text/javascript" src="js/top_search.js"></script>
 <script type="text/javascript" src="js/main_nav.js"></script>
 <script type="text/javascript" src="js/mgmt.js"></script>
+<script type="text/javascript" src="js/calendar.js"></script>
 <script type="text/javascript" src="js/backtop.js"></script>
 <script type="text/javascript" src="js/popup.js"></script>
-<script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
-<script type="text/javascript"> 
-	$(function() {
-		$('input, textarea').placeholder(); 
-	});
-</script>
-<script type="text/javascript">
-var orderid=123;
-function cancel(id){
-	
-    showid('popup2');
-}
-</script>
 </head>
 
 <body>
+
 <div id="backtop_item">
     <div class="qqserver">
         <div class="qqserver_fold">
@@ -335,17 +322,19 @@ function cancel(id){
 		<tr>
 			<td width="230" class="td_leftnav_top">
                 <div id="main_frame_left">
-                    <span class="text_mgmt_leftnav1"><span id="mgmt_nav_switch1a" class="span_mgmt_nav1" title="收起" onclick="mgmt_nav_switch1a();"></span><span id="mgmt_nav_switch1b" class="span_mgmt_nav2" title="展开" onclick="mgmt_nav_switch1b();"></span>我的交易</span>
+                    <span id="mgmt_nav_switch1a" class="span_mgmt_nav1" title="收起" onclick="mgmt_nav_switch1a();">我的交易</span>
+                    <span id="mgmt_nav_switch1b" class="span_mgmt_nav2" title="展开" onclick="mgmt_nav_switch1b();">我的交易</span>
                     <div id="mgmt_nav1">
                         <a href="mgmt_d_focus.htm" class="a_mgmt_leftnav" hidefocus="true">我的关注</a>
                         <a href="mgmt_d_response.htm" class="a_mgmt_leftnav" hidefocus="true">我的反馈</a>
-                        <a href="mgmt_d_order_s.htm" class="a_mgmt_leftnav1" hidefocus="true">我提交的订单</a>
+                        <a href="mgmt_d_order_s.htm" class="a_mgmt_leftnav" hidefocus="true">我提交的订单</a>
                         <a href="mgmt_d_order_r.htm" class="a_mgmt_leftnav" hidefocus="true">我收到的订单</a>
-                        <a href="mgmt_d_settle_s.htm" class="a_mgmt_leftnav" hidefocus="true">我的结算</a>
+                        <a href="mgmt_d_settle_s.htm" class="a_mgmt_leftnav1" hidefocus="true">我的结算</a>
                         <a href="mgmt_d_complain.htm" class="a_mgmt_leftnav" hidefocus="true">我的投诉</a>
                     </div>
                     <hr class="hr_2" />
-                    <span class="text_mgmt_leftnav1"><span id="mgmt_nav_switch2a" class="span_mgmt_nav1" title="收起" onclick="mgmt_nav_switch2a();"></span><span id="mgmt_nav_switch2b" class="span_mgmt_nav2" title="展开" onclick="mgmt_nav_switch2b();"></span>我的资源</span>
+                    <span id="mgmt_nav_switch2a" class="span_mgmt_nav1" title="收起" onclick="mgmt_nav_switch2a();">我的资源</span>
+                    <span id="mgmt_nav_switch2b" class="span_mgmt_nav2" title="展开" onclick="mgmt_nav_switch2b();">我的资源</span>
                     <div id="mgmt_nav2">
                         <a href="mgmt_r_line.htm" class="a_mgmt_leftnav" hidefocus="true">干线运输线路信息</a>
                         <a href="mgmt_r_city.htm" class="a_mgmt_leftnav" hidefocus="true">城市配送网络信息</a>
@@ -357,20 +346,23 @@ function cancel(id){
                         <a href="mgmt_r_contact_s.htm" class="a_mgmt_leftnav" hidefocus="true">合同信息</a>
                     </div>
                     <hr class="hr_2" />
-                    <span class="text_mgmt_leftnav1"><span id="mgmt_nav_switch3a" class="span_mgmt_nav1" title="收起" onclick="mgmt_nav_switch3a();"></span><span id="mgmt_nav_switch3b" class="span_mgmt_nav2" title="展开" onclick="mgmt_nav_switch3b();"></span>我的方案</span>
+                    <span id="mgmt_nav_switch3a" class="span_mgmt_nav1" title="收起" onclick="mgmt_nav_switch3a();">我的方案</span>
+                    <span id="mgmt_nav_switch3b" class="span_mgmt_nav2" title="展开" onclick="mgmt_nav_switch3b();">我的方案</span>
                     <div id="mgmt_nav3">
                         <a href="mgmt_p_template.htm" class="a_mgmt_leftnav" hidefocus="true">方案模板信息</a>
                         <a href="mgmt_p_appraise.htm" class="a_mgmt_leftnav" hidefocus="true">方案报价评估</a>
                     </div>
                     <hr class="hr_2" />
-                    <span class="text_mgmt_leftnav1"><span id="mgmt_nav_switch4a" class="span_mgmt_nav1" title="收起" onclick="mgmt_nav_switch4a();"></span><span id="mgmt_nav_switch4b" class="span_mgmt_nav2" title="展开" onclick="mgmt_nav_switch4b();"></span>统计分析</span>
+                    <span id="mgmt_nav_switch4a" class="span_mgmt_nav1" title="收起" onclick="mgmt_nav_switch4a();">统计分析</span>
+                    <span id="mgmt_nav_switch4b" class="span_mgmt_nav2" title="展开" onclick="mgmt_nav_switch4b();">统计分析</span>
                     <div id="mgmt_nav4">
                         <a href="mgmt_s_opr.htm" class="a_mgmt_leftnav" hidefocus="true">运营指标</a>
                         <a href="mgmt_s_veh.htm" class="a_mgmt_leftnav" hidefocus="true">车辆指标</a>
                         <a href="mgmt_s_fin.htm" class="a_mgmt_leftnav" hidefocus="true">财务指标</a>
                     </div>
                     <hr class="hr_2" />
-                    <span class="text_mgmt_leftnav1"><span id="mgmt_nav_switch5a" class="span_mgmt_nav1" title="收起" onclick="mgmt_nav_switch5a();"></span><span id="mgmt_nav_switch5b" class="span_mgmt_nav2" title="展开" onclick="mgmt_nav_switch5b();"></span>我的帐户</span>
+                    <span id="mgmt_nav_switch5a" class="span_mgmt_nav1" title="收起" onclick="mgmt_nav_switch5a();">我的帐户</span>
+                    <span id="mgmt_nav_switch5b" class="span_mgmt_nav2" title="展开" onclick="mgmt_nav_switch5b();">我的帐户</span>
                     <div id="mgmt_nav5">
                         <a href="mgmt_a_info.htm" class="a_mgmt_leftnav" hidefocus="true">帐户信息</a>
                         <a href="mgmt_a_subaccount.htm" class="a_mgmt_leftnav" hidefocus="true">附属帐户</a>
@@ -382,119 +374,84 @@ function cancel(id){
 			<td class="td_leftnav_top">
             	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right2">
                     <tr>
-                        <td>
-                        	<span class="span_mgmt_right2_text1">我提交的订单</span>
+                    	<td>
+                        	<span class="span_mgmt_right2_text1">我的结算(需求方)</span>
+                            <span class="span_mgmt_right2_text2"><a href="javascript:;" hidefocus="true" class="a_btn_mgmt4">批量生成对账单</a></span>
                             <div class="div_mgmt_s1">
-                            	<input type="text" class="input_mgmt1" style="width:200px;" value="订单内容..." />
+                                <input type="text" class="input_date1" onclick="SelectDate(this,'yyyy-MM-dd')" value="开始时间" readonly="readonly" title="点击选择" />
+                                &nbsp;&nbsp;至&nbsp;&nbsp;
+                                <input type="text" class="input_date1" onclick="SelectDate(this,'yyyy-MM-dd')" value="结束时间" readonly="readonly" title="点击选择" />
+                                &nbsp;&nbsp;<input type="text" class="input_mgmt1" style="width:180px;" placeholder="承运方名称或承运方合同编号..." />
                                 <input type="button" id="btn1" value="查询" class="btn_mgmt3" hidefocus="true" />
                             </div>
                         </td>
                 	</tr>
             	</table>
-				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
-					<tr>
-                        <td width="20" height="40" class="td_mgmt_right3_head">&nbsp;</td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
+                    <tr>
+                        <td width="30" height="40" class="td_mgmt_right3_head1"><input type="checkbox" id="f1_all" onClick="selectall();" /></td>
                         <td width="100" class="td_mgmt_right3_head">订单编号</td>
-                        <td width="60" class="td_mgmt_right3_head">类别</td>
-                        <td class="td_mgmt_right3_head">名称</td>
-                        <td width="120" class="td_mgmt_right3_head">承运方</td>
+                        <td class="td_mgmt_right3_head">客户名称</td>
+                        <td class="td_mgmt_right3_head">承运方</td>
+                        <td width="100" class="td_mgmt_right3_head">承运方合同编号</td>
+                        <td width="80" class="td_mgmt_right3_head">订单完成时间</td>
                         <td width="88" class="td_mgmt_right3_head">订单运费(元)</td>
                         <td width="88" class="td_mgmt_right3_head">最终运费(元)</td>
-                        <td width="80" class="td_mgmt_right3_head">提交时间</td>
                         <td width="60" class="td_mgmt_right3_head">状态</td>
-                        <td width="80" class="td_mgmt_right3_head">操作</td>
-					</tr>
-					<c:forEach var="orderinfo" items="${orderList }">
-					<tr>
-                        <td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
-                        <td class="td_mgmt_right3_td1"><a href="orderDetail?orderid=${orderinfo.id }" hidefocus="true">${orderinfo.orderNum }</a></td>
-                        <td class="td_mgmt_right3_td1">线路</td>
-                        <td class="td_mgmt_right3_td1"><a href="resource_detail1.htm" class="link1" hidefocus="true">北京→上海</a></td>
-                        <td class="td_mgmt_right3_td1"><a href="javascript:;" class="link1" hidefocus="true">${orderinfo.carrierName }</a></td>
-                        <td class="td_mgmt_right3_td1">${orderinfo.expectedPrice }</td>
-                        <td class="td_mgmt_right3_td1">${orderinfo.actualPrice }</td>
-                        <td class="td_mgmt_right3_td1">${orderinfo.submitTime }<br />
-                            </td>
-                        <c:choose>
-                        <c:when test="${orderinfo.state == '待受理' }">
-                        <td class="td_mgmt_right3_td2">待受理</td>
-                        <td class="td_mgmt_right3_td3">
-                            <div id="handlebox" style="z-index:204;">
-                                <ul class="quickmenu">
-                                    <li class="menuitem">
-                                        <div class="menu">
-                                            <a href="updateOrder?orderid=${orderinfo.id }" class="menuhd" hidefocus="true">更新</a>
-                                            <div class="menubd">
-                                                <div class="menubdpanel">
-                                                    <a href="cancelOrder?orderid=${orderinfo.id }" class="a_top3" hidefocus="true">取消</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                        </c:when>
-                        
-                        <c:when test="${orderinfo.state == '待收货' }">
-                        <td class="td_mgmt_right3_td2">待收货</td>
-                        <td class="td_mgmt_right3_td3"><a href="orderDetailWaitToReceive?orderid=${orderinfo.id }" hidefocus="true">查看</a></td>
-                        </c:when>
-                        
-                        <c:when test="${orderinfo.state == '待确认' }">
-                        <td class="td_mgmt_right3_td2">待确认</td>
-                        <td class="td_mgmt_right3_td3">
-                            <div id="handlebox" style="z-index:202;">
-                                <ul class="quickmenu">
-                                    <li class="menuitem">
-                                        <div class="menu">
-                                            <a href="getConfirmForm?orderid=${orderinfo.id }" class="menuhd" hidefocus="true">收货确认</a>
-                                            <div class="menubd">
-                                                <div class="menubdpanel">
-                                                    <a href="orderDetailWaitToReceive?orderid=${orderinfo.id }" class="a_top3" hidefocus="true">查看</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                        </c:when>
-                        
-                        <c:when test="${orderinfo.state == '待评价' }">
-                        <td class="td_mgmt_right3_td2">待评价</td>
-                        <td class="td_mgmt_right3_td3">
-                            <div id="handlebox" style="z-index:201;">
-                                <ul class="quickmenu">
-                                    <li class="menuitem">
-                                        <div class="menu">
-                                            <a href="getCommentForm?orderid=${orderinfo.id }" class="menuhd" hidefocus="true">评价</a>
-                                            <div class="menubd">
-                                                <div class="menubdpanel">
-                                                    <a href="orderDetailComment?orderid=${orderinfo.id }" class="a_top3" hidefocus="true">查看</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                        </c:when>
-                        
-                        <c:when test="${orderinfo.state == '已完成' }">
-                        <td class="td_mgmt_right3_td1">已完成</td>
-                        <td class="td_mgmt_right3_td3"><a href="orderDetailFinish?orderid=${orderinfo.id }" hidefocus="true">查看</a></td>
-                        </c:when>
-                        
-                        <c:when test="${orderinfo.state == '已取消' }">
-                         <td class="td_mgmt_right3_td1">已取消</td>
-                        <td class="td_mgmt_right3_td3"><a href="orderDetailAlreadyCancel?orderid=${orderinfo.id }" hidefocus="true">查看</a></td>
-                        </c:when>
-                        </c:choose>
+                        <td width="90" class="td_mgmt_right3_head">操作</td>
                     </tr>
-					</c:forEach>
-					
-                   
+                    <tr>
+                        <td height="60" class="td_mgmt_right3_td1d"><input type="checkbox" name="f1" id="f1a" /></td>
+                        <td class="td_mgmt_right3_td1"><a href="mgmt_d_order_s6a.htm" hidefocus="true">Y001001001</a></td>
+                        <td class="td_mgmt_right3_td1"><a href="javascript:;" class="link1" hidefocus="true">ABC商贸公司</a></td>
+                        <td class="td_mgmt_right3_td1"><a href="javascript:;" class="link1" hidefocus="true">北京畅通达物流</a></td>
+                        <td class="td_mgmt_right3_td1"><a href="mgmt_r_contact_s4.htm" class="link1">H201406001</a></td>
+                        <td class="td_mgmt_right3_td1">2014-02-21<br />
+                            10:44:28</td>
+                        <td class="td_mgmt_right3_td1">18000.00</td>
+                        <td class="td_mgmt_right3_td1">18000.00</td>
+                        <td class="td_mgmt_right3_td2">未生成</td>
+                        <td class="td_mgmt_right3_td3"><a href="javascript:;" hidefocus="true">生成对账单</a></td>
+                    </tr>
+                    <tr>
+                        <td height="60" class="td_mgmt_right3_td1d"><input type="checkbox" name="f1" id="f1b" /></td>
+                        <td class="td_mgmt_right3_td1"><a href="javascript:;" hidefocus="true">Y001001002</a></td>
+                        <td class="td_mgmt_right3_td1"><a href="javascript:;" class="link1" hidefocus="true">ABC商贸公司</a></td>
+                        <td class="td_mgmt_right3_td1"><a href="javascript:;" class="link1" hidefocus="true">北京畅通达物流</a></td>
+                        <td class="td_mgmt_right3_td1"><a href="mgmt_r_contact_s4.htm" class="link1">H201406002</a></td>
+                        <td class="td_mgmt_right3_td1">2014-02-21<br />
+                            10:44:28</td>
+                        <td class="td_mgmt_right3_td1">8800.00</td>
+                        <td class="td_mgmt_right3_td1">8300.00</td>
+                        <td class="td_mgmt_right3_td2">未生成</td>
+                        <td class="td_mgmt_right3_td3"><a href="javascript:;" hidefocus="true">生成对账单</a></td>
+                    </tr>
+                    <tr>
+                        <td height="60" class="td_mgmt_right3_td1d"><input type="checkbox" name="f1" id="f1c" /></td>
+                        <td class="td_mgmt_right3_td1"><a href="javascript:;" hidefocus="true">Y001001003</a></td>
+                        <td class="td_mgmt_right3_td1"><a href="javascript:;" class="link1" hidefocus="true">ABC商贸公司</a></td>
+                        <td class="td_mgmt_right3_td1"><a href="javascript:;" class="link1" hidefocus="true">北京畅通达物流</a></td>
+                        <td class="td_mgmt_right3_td1"><a href="mgmt_r_contact_s4.htm" class="link1">H201406003</a></td>
+                        <td class="td_mgmt_right3_td1">2014-02-21<br />
+                            10:44:28</td>
+                        <td class="td_mgmt_right3_td1">480.22</td>
+                        <td class="td_mgmt_right3_td1">480.22</td>
+                        <td class="td_mgmt_right3_td1">已生成</td>
+                        <td class="td_mgmt_right3_td3"><a href="mgmt_d_settle_s2.htm" hidefocus="true">查看记录</a></td>
+                    </tr>
+                    <tr>
+                        <td height="60" class="td_mgmt_right3_td1d"><input type="checkbox" name="f1" id="f1d" /></td>
+                        <td class="td_mgmt_right3_td1"><a href="javascript:;" hidefocus="true">Y001001004</a></td>
+                        <td class="td_mgmt_right3_td1"><a href="javascript:;" class="link1" hidefocus="true">ABC商贸公司</a></td>
+                        <td class="td_mgmt_right3_td1"><a href="javascript:;" class="link1" hidefocus="true">北京畅通达物流</a></td>
+                        <td class="td_mgmt_right3_td1">无</td>
+                        <td class="td_mgmt_right3_td1">2014-02-21<br />
+                            10:44:28</td>
+                        <td class="td_mgmt_right3_td1">480.22</td>
+                        <td class="td_mgmt_right3_td1">480.22</td>
+                        <td class="td_mgmt_right3_td1">已生成</td>
+                        <td class="td_mgmt_right3_td3"><a href="mgmt_d_settle_s2.htm" hidefocus="true">查看记录</a></td>
+                    </tr>
                 </table>
 				<table border="0" cellpadding="0" cellspacing="0" class="table_recordnumber">
                     <tr>
@@ -512,14 +469,14 @@ function cancel(id){
                 <table border="0" cellpadding="0" cellspacing="0" class="table_pagenumber">
                     <tr>
                         <td width="45" class="td_pagenumber">首页</td>
-                        <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">上页</a></td>
+                        <td width="45" class="td_pagenumber"><a href="mgmt_d_settle_r.htm" class="a_pagenumber" hidefocus="true">上页</a></td>
                         <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">1</a></td>
                         <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">2</a></td>
                         <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">3</a></td>
                         <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">下页</a></td>
                         <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">末页</a></td>
                     </tr>
-				</table>
+                </table>
 			</td>
 		</tr>
     </table>
@@ -548,33 +505,9 @@ function cancel(id){
     </table>
 </div>
 
-<div id="popup2" style="display:none;">
-    <table border="0" cellpadding="0" cellspacing="0">
-        <tr>
-            <td width="510"><div class="div_popup_title1">取消订单的原因</div></td>
-            <td>
-                <div id="close2" style="cursor:pointer;"><img src="images/btn_cancel1.png" title="关闭本窗口" /></div>
-            </td>
-        </tr>
-    </table>
-    <table border="0" cellpadding="0" cellspacing="0">
-        <tr>
-            <td width="540">
-            	<textarea name="explainReason" class="textarea_popup1" placeholder="请输入内容..."></textarea>
-            </td>
-        </tr>
-        <tr>
-            <td class="td_popup1">
-                <input type="button" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" />
-            </td>
-        </tr>
-     </table>
-    
-</div>
-
 <div id="footer_frame">
 	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="footer.htm"></iframe>
 </div>
-</body>
 
+</body>
 </html>
