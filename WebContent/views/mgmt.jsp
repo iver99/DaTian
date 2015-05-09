@@ -63,7 +63,7 @@
                         <a href="getallresponse" class="a_mgmt_leftnav" hidefocus="true">我的反馈</a>
                         <a href="sendorderinfo" class="a_mgmt_leftnav" hidefocus="true">我提交的订单</a>
                         <a href="recieveorderinfo" class="a_mgmt_leftnav" hidefocus="true">我收到的订单</a>
-                        <a href="mgmt_d_settle_s.htm" class="a_mgmt_leftnav" hidefocus="true">我的结算</a>
+                        <a href="mysettlement" class="a_mgmt_leftnav" hidefocus="true">我的结算</a>
                         <a href="mycomplaint" class="a_mgmt_leftnav" hidefocus="true">我的投诉</a>
                     </div>
                     <hr class="hr_2" />

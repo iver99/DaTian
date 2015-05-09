@@ -1,5 +1,6 @@
 package cn.edu.bjtu.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -11,9 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.ClientService;
+import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Businessclient;
 
 @Controller
@@ -77,7 +80,7 @@ public class ClientController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView insertClient(@RequestParam String account,
+	public ModelAndView insertClient(@RequestParam MultipartFile file,@RequestParam String account,
 			@RequestParam String clientName,
 			@RequestParam String clientBusiness, @RequestParam String contact,
 			@RequestParam String phone, @RequestParam String remarks,
@@ -86,8 +89,29 @@ public class ClientController {
 		String carrierId = (String) request.getSession().getAttribute("userId");
 		// String carrierId = "C-0002";// 删除
 
+		String path = null;
+		String fileName = null;
+		// System.out.println("file+"+file+"filename"+file.getOriginalFilename());//不上传文件还是会显示有值
+		if (file.getSize() != 0)// 有上传文件的情况
+		{
+			path = UploadPath.getClientPath();// 不同的地方取不同的上传路径
+			fileName = file.getOriginalFilename();
+			fileName = carrierId + "_" + fileName;// 文件名
+			File targetFile = new File(path, fileName);
+			try { // 保存 文件
+				file.transferTo(targetFile);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// System.out.println("path+fileName+" + path + "-" + fileName);
+		}
+		// 没有上传文件的情况path 和 filenName默认为null
+
+		// ////////////////////////////////////////////
+	
+		
 		boolean flag = clientService.insertClient(account, clientName,
-				clientBusiness, contact, phone, remarks, carrierId);
+				clientBusiness, contact, phone, remarks, carrierId,path,fileName);
 		System.out.println("flag+" + flag);
 		if (flag == true) {
 			try {
@@ -122,7 +146,7 @@ public class ClientController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView updateClient(
+	public ModelAndView updateClient(@RequestParam MultipartFile file,
 			@RequestParam String id,// GET方式传入，在action中
 			@RequestParam String account, @RequestParam String clientName,
 			@RequestParam String clientBusiness, @RequestParam String contact,
@@ -132,8 +156,29 @@ public class ClientController {
 		String carrierId = (String) request.getSession().getAttribute("userId");
 		// String carrierId = "C-0002";// 删除
 
+		String path = null;
+		String fileName = null;
+		// System.out.println("file+"+file+"filename"+file.getOriginalFilename());//不上传文件还是会显示有值
+		if (file.getSize() != 0)// 有上传文件的情况
+		{
+			path = UploadPath.getClientPath();// 不同的地方取不同的上传路径
+			fileName = file.getOriginalFilename();
+			fileName = carrierId + "_" + fileName;// 文件名
+			File targetFile = new File(path, fileName);
+			try { // 保存 文件
+				file.transferTo(targetFile);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// System.out.println("path+fileName+" + path + "-" + fileName);
+		}
+		// 没有上传文件的情况path 和 filenName默认为null
+
+		// ////////////////////////////////////////////
+	
+		
 		boolean flag = clientService.updateClient(id, account, clientName,
-				clientBusiness, contact, phone, remarks, carrierId);
+				clientBusiness, contact, phone, remarks, carrierId,path,fileName);
 		System.out.println("flag+" + flag);
 		if (flag == true) {
 			try {

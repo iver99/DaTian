@@ -1,5 +1,6 @@
 package cn.edu.bjtu.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
@@ -12,10 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.service.ContractService;
+import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Contract;
 
@@ -98,7 +101,7 @@ public class ContractController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView insertContract(@RequestParam String id,
+	public ModelAndView insertContract(@RequestParam MultipartFile file,@RequestParam String id,
 			@RequestParam String name, @RequestParam String caculateType,
 			@RequestParam String carrierAccount,
 			@RequestParam String startDate, @RequestParam String endDate,
@@ -109,9 +112,29 @@ public class ContractController {
 		String carrierId=(String)request.getSession().getAttribute("userId");
 		//String carrierId = "C-0002";// 删除
 
+		String path = null;
+		String fileName = null;
+		// System.out.println("file+"+file+"filename"+file.getOriginalFilename());//不上传文件还是会显示有值
+		if (file.getSize() != 0)// 有上传文件的情况
+		{
+			path = UploadPath.getContactPath();// 不同的地方取不同的上传路径
+			fileName = file.getOriginalFilename();
+			fileName = carrierId + "_" + fileName;// 文件名
+			File targetFile = new File(path, fileName);
+			try { // 保存 文件
+				file.transferTo(targetFile);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// System.out.println("path+fileName+" + path + "-" + fileName);
+		}
+		// 没有上传文件的情况path 和 filenName默认为null
+
+		// ////////////////////////////////////////////
+	
 		boolean flag = contractService.insertContract(id, name, caculateType,
 				carrierAccount, startDate, endDate, contact, phone, remarks,
-				carrierId, monthlyStatementDays);
+				carrierId, monthlyStatementDays, path, fileName);
 		if (flag == true) {
 			try {
 				response.sendRedirect("contract");// 重定向，显示最新的结果

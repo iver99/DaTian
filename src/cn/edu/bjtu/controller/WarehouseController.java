@@ -1,5 +1,6 @@
 package cn.edu.bjtu.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
@@ -12,10 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.service.WarehouseService;
+import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Warehouse;
 
@@ -156,7 +159,8 @@ public class WarehouseController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView insertWarehouse(@RequestParam String name,
+	public ModelAndView insertWarehouse(@RequestParam MultipartFile file,
+			@RequestParam String name,
 			@RequestParam String contact, @RequestParam String address,
 			@RequestParam String city, @RequestParam String type,
 			@RequestParam float houseArea, @RequestParam float yardArea,
@@ -170,11 +174,32 @@ public class WarehouseController {
 		// String
 		String carrierId=(String)request.getSession().getAttribute("userId");
 		//String carrierId = "C-0002";// 删除
+		
+		String path = null;
+		String fileName = null;
+		// System.out.println("file+"+file+"filename"+file.getOriginalFilename());//不上传文件还是会显示有值
+		if (file.getSize() != 0)// 有上传文件的情况
+		{
+			path = UploadPath.getWarehousePath();// 不同的地方取不同的上传路径
+			fileName = file.getOriginalFilename();
+			fileName = carrierId + "_" + fileName;// 文件名
+			File targetFile = new File(path, fileName);
+			try { // 保存 文件
+				file.transferTo(targetFile);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// System.out.println("path+fileName+" + path + "-" + fileName);
+		}
+		// 没有上传文件的情况path 和 filenName默认为null
+
+		// ////////////////////////////////////////////
+		
 		System.out.println("进入插入仓库控制器");
 		boolean flag = warehouseService.insertWarehouse(name, city, address,
 				type, kind, houseArea, yardArea, height, fireRate, storageForm,
 				fireSecurity, environment, serviceContent, contact, phone,
-				remarks, carrierId);
+				remarks, carrierId, path, fileName);
 		if (flag == true) {
 			try {
 				response.sendRedirect("warehouse?flag=1");// 重定向，显示最新的结果
@@ -213,7 +238,7 @@ public class WarehouseController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView updateWarehouse(
+	public ModelAndView updateWarehouse(@RequestParam MultipartFile file,
 			@RequestParam String id,// GET方式传入，在action中
 			@RequestParam String name,
 			@RequestParam String city,
@@ -229,7 +254,7 @@ public class WarehouseController {
 			@RequestParam String environment,
 			@RequestParam String serviceContent,
 			@RequestParam String contact,
-			@RequestParam String phone,//缺少详细报价参数
+			@RequestParam String phone,
 			@RequestParam String remarks, HttpServletRequest request,
 			HttpServletResponse response) {
 
@@ -237,9 +262,31 @@ public class WarehouseController {
 		// String
 		String carrierId=(String)request.getSession().getAttribute("userId");
 		//String carrierId = "C-0002";// 删除
+
+		String path = null;
+		String fileName = null;
+		// System.out.println("file+"+file+"filename"+file.getOriginalFilename());//不上传文件还是会显示有值
+		if (file.getSize() != 0)// 有上传文件的情况
+		{
+			path = UploadPath.getWarehousePath();// 不同的地方取不同的上传路径
+			fileName = file.getOriginalFilename();
+			fileName = carrierId + "_" + fileName;// 文件名
+			File targetFile = new File(path, fileName);
+			try { // 保存 文件
+				file.transferTo(targetFile);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// System.out.println("path+fileName+" + path + "-" + fileName);
+		}
+		// 没有上传文件的情况path 和 filenName默认为null
+
+		// ////////////////////////////////////////////
+	
+		
 		boolean flag = warehouseService.updateWarehouse(id, name, city, address, type,
 				kind, houseArea, yardArea, height, fireRate, storageForm, fireSecurity,
-				environment, serviceContent, contact, phone, remarks, carrierId);
+				environment, serviceContent, contact, phone, remarks, carrierId, path, fileName);
 		if (flag == true) {
 			
 			try {

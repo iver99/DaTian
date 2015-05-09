@@ -113,5 +113,8 @@
         <property name="cancelReason" type="string">
             <column name="cancelReason" />
         </property> 
+        <property name="settlementState" type="string">
+            <column name="settlementState" />
+        </property> 
     </class>
 </hibernate-mapping>

@@ -50,6 +50,19 @@ public class Orderform implements java.io.Serializable {
 	private String clientName;
 	//private String carrierName;
 	private String cancelReason;
+	
+	private String settlementState;
+	
+
+	public String getSettlementState() {
+		return settlementState;
+	}
+
+
+	public void setSettlementState(String settlementState) {
+		this.settlementState = settlementState;
+	}
+
 
 	public Orderform() {
 	}
