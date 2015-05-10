@@ -338,22 +338,24 @@ public class OrderController {
 			@RequestParam String contractId, @RequestParam String goodsName,
 			@RequestParam float goodsWeight, @RequestParam float goodsVolume,
 			@RequestParam float declaredPrice, @RequestParam float insurance,
-			@RequestParam float expectedPrice, @RequestParam String delivery,
-			@RequestParam String reciever, @RequestParam String remarks,
+			@RequestParam float expectedPrice, @RequestParam String deliveryName,
+			@RequestParam String recieverName, @RequestParam String deliveryPhone,
+			@RequestParam String recieverPhone, @RequestParam String deliveryAddr,
+			@RequestParam String recieverAddr, @RequestParam String remarks,
 			HttpServletRequest request, HttpServletResponse response
 
 	) {
 		//System.out.println("进入order更新控制器");
 		String carrierId = (String) request.getSession().getAttribute("userId");
 		// 字符串拆解
-		String[] de = delivery.split("/");
+		/*String[] de = delivery.split("/");
 		String[] re = reciever.split("/");
 		String deliveryName = de[0];
 		String deliveryPhone = de[1];
 		String deliveryAddr = de[2];
 		String recieverName = re[0];
 		String recieverPhone = re[1];
-		String recieverAddr = re[2];
+		String recieverAddr = re[2];*/
 		boolean flag = orderService.updateOrder(orderid, clientName,
 				hasCarrierContract, contractId, goodsName, goodsWeight,
 				goodsVolume, declaredPrice, insurance, expectedPrice,

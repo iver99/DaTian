@@ -84,7 +84,7 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">客户名称：</td>
-                                    <td>${clientInfo.companyName }</td>
+                                    <td>${clientInfo.clientName }</td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">所属行业：</td>
@@ -92,7 +92,7 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">联系人：</td>
-                                    <td>${clientInfo.realName }</td>
+                                    <td>${clientInfo.contact }</td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">手机号：</td>
