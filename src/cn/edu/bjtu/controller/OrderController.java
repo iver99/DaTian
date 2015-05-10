@@ -252,8 +252,8 @@ public class OrderController {
 		// 跳到确认收货页面
 		// 需要规定费用，实际费用，说明
 		Orderform order = orderService.getOrderInfo(orderid);
-		float expectedPrice = order.getExpectedPrice();
-		float actualPrice = order.getActualPrice();
+		Float expectedPrice = order.getExpectedPrice();
+		Float actualPrice = order.getActualPrice();
 		String explianReason = order.getExplainReason();
 		mv.addObject("orderId", orderid);
 		mv.addObject("expectedPrice", expectedPrice);
