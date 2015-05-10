@@ -5,8 +5,8 @@
 <hibernate-mapping>
     <class name="cn.edu.bjtu.vo.SettlementCarrierView" table="settlement_carrier_view" catalog="datian">
     	<!-- orderNum作主键 -->
-         <id name="orderNum" type="string">
-            <column name="orderNum" />
+         <id name="id" type="string">
+            <column name="id" />
             <generator class="assigned" />
         </id> 
         <property name="submitTime" type="timestamp">
@@ -30,11 +30,11 @@
         <property name="expectedPrice" type="float">
             <column name="expectedPrice" />
         </property>
-        <!-- <property name="carrierId" type="string">
-            <column name="carrierId" />
-        </property> -->
-        <property name="id" type="string">
-            <column name="id" />
+         <property name="carrierId2" type="string">
+            <column name="carrierId2" />
+        </property> 
+        <property name="orderNum" type="string">
+            <column name="orderNum" />
         </property>
         <property name="companyName" type="string">
             <column name="companyName" />

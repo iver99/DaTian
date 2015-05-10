@@ -23,7 +23,7 @@
         <property name="expectedPrice" type="java.lang.Float">
             <column name="expectedPrice" precision="10" scale="0" />
         </property>
-        <property name="actualPrice" type="java.lang.Float">
+        <property name="actualPrice" type="java.lang.Float" not-null="false">
             <column name="actualPrice" precision="10" scale="0" />
         </property>
         <property name="submitTime" type="timestamp">

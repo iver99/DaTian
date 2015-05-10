@@ -338,24 +338,25 @@ public class OrderController {
 			@RequestParam String contractId, @RequestParam String goodsName,
 			@RequestParam float goodsWeight, @RequestParam float goodsVolume,
 			@RequestParam float declaredPrice, @RequestParam float insurance,
-			@RequestParam float expectedPrice, @RequestParam String deliveryName,
-			@RequestParam String recieverName, @RequestParam String deliveryPhone,
-			@RequestParam String recieverPhone, @RequestParam String deliveryAddr,
+			@RequestParam float expectedPrice,
+			@RequestParam String deliveryName,
+			@RequestParam String recieverName,
+			@RequestParam String deliveryPhone,
+			@RequestParam String recieverPhone,
+			@RequestParam String deliveryAddr,
 			@RequestParam String recieverAddr, @RequestParam String remarks,
 			HttpServletRequest request, HttpServletResponse response
 
 	) {
-		//System.out.println("进入order更新控制器");
+		// System.out.println("进入order更新控制器");
 		String carrierId = (String) request.getSession().getAttribute("userId");
 		// 字符串拆解
-		/*String[] de = delivery.split("/");
-		String[] re = reciever.split("/");
-		String deliveryName = de[0];
-		String deliveryPhone = de[1];
-		String deliveryAddr = de[2];
-		String recieverName = re[0];
-		String recieverPhone = re[1];
-		String recieverAddr = re[2];*/
+		/*
+		 * String[] de = delivery.split("/"); String[] re = reciever.split("/");
+		 * String deliveryName = de[0]; String deliveryPhone = de[1]; String
+		 * deliveryAddr = de[2]; String recieverName = re[0]; String
+		 * recieverPhone = re[1]; String recieverAddr = re[2];
+		 */
 		boolean flag = orderService.updateOrder(orderid, clientName,
 				hasCarrierContract, contractId, goodsName, goodsWeight,
 				goodsVolume, declaredPrice, insurance, expectedPrice,
@@ -670,27 +671,33 @@ public class OrderController {
 	 * @return
 	 */
 	public ModelAndView createNewOrder(String carrierid, String clientName,
-			String hasCarrierContract, String senderInfo, String receiverInfo,
-			String remarks, String goodsName, float goodsWeight,
-			float goodsVolume, float declaredPrice, float expectedPrice,
-			float insurance, String contractId,HttpServletRequest request,
+			String hasCarrierContract, @RequestParam String deliveryName,
+			@RequestParam String recieverName,
+			@RequestParam String deliveryPhone,
+			@RequestParam String recieverPhone,
+			@RequestParam String deliveryAddr,
+			@RequestParam String recieverAddr, String remarks,
+			String goodsName, float goodsWeight, float goodsVolume,
+			float declaredPrice, float expectedPrice, float insurance,
+			String contractId, HttpServletRequest request,
 			HttpServletResponse response) {
 		// 页面有许多字段没有传入
-		//clientName参数里有，但是没有使用
+		// clientName参数里有，但是没有使用
 		String userId = (String) request.getSession().getAttribute("userId");
-		System.out.println("carrierId+"+carrierid);
+		System.out.println("carrierId+" + carrierid);
 		boolean flag = orderService.createNewOrder(userId, hasCarrierContract,
-				senderInfo, receiverInfo, remarks, goodsName, goodsVolume,
+				deliveryName, recieverName, deliveryPhone, recieverPhone,
+				deliveryAddr, recieverAddr, remarks, goodsName, goodsVolume,
 				goodsWeight, expectedPrice, declaredPrice, insurance,
-				contractId,carrierid);
-		if (flag == true){
-			//mv.setViewName("mgmt_d_order_s");
+				contractId, carrierid);
+		if (flag == true) {
+			// mv.setViewName("mgmt_d_order_s");
 			try {
 				response.sendRedirect("sendorderinfo");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				System.out.println("redirecting");
-				System.out.println("新增订单出错");//logging
+				System.out.println("新增订单出错");// logging
 				e.printStackTrace();
 			}
 		}
