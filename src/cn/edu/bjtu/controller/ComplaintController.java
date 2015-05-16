@@ -96,4 +96,88 @@ public class ComplaintController {
 			mv.setViewName("fail");
 		return mv;
 	}
+	
+	@RequestMapping("/allcomplaint")
+	public ModelAndView getAllUserComplaint(HttpServletRequest request,HttpServletResponse response)
+	{	
+		System.out.println("进入投诉控制器");
+		/*String userId=(String)request.getSession().getAttribute("userId");
+		System.out.println("userid="+userId);
+		*/
+		List allCompliantList=complaintService.getAllUserCompliant();
+		System.out.println("listsize+"+allCompliantList.size());
+		mv.addObject("allCompliantList", allCompliantList);
+		mv.setViewName("mgmt_m_complain");
+		return mv;
+	}
+	
+	@RequestMapping("/getcomplaintdetail")
+	public ModelAndView getComplaintDetail(
+			@RequestParam String id,@RequestParam String orderid,@RequestParam int flag,
+			HttpServletRequest request,HttpServletResponse response)
+	{	
+		System.out.println("进入投诉控制器");
+		/*String userId=(String)request.getSession().getAttribute("userId");
+		System.out.println("userid="+userId);
+		*/
+		Complaintform complaintInfo = complaintService.getComplaintInfo(id);
+		mv.addObject("complaintInfo", complaintInfo);
+		OrderCarrierView orderInfo = orderService.getSendOrderDetail(orderid);
+		mv.addObject("orderinfo", orderInfo);
+		if(flag==0){
+
+			mv.setViewName("mgmt_m_complain2");
+		}
+		else if(flag==1){
+
+			mv.setViewName("mgmt_m_complain3");
+		}
+		return mv;
+	}
+	
+	@RequestMapping("/doacceptcomplaint")
+	public ModelAndView doAcceptComplaint(
+			@RequestParam String id, @RequestParam String feedback,
+			HttpServletRequest request,HttpServletResponse response)
+	{	
+		System.out.println("进入投诉控制器");
+		/*String userId=(String)request.getSession().getAttribute("userId");
+		System.out.println("userid="+userId);
+		*/
+		
+		boolean flag = complaintService.doAcceptComplaint(id, feedback);
+		if (flag == true) {
+			try {
+				response.sendRedirect("allcomplaint");// 重定向，显示最新的结果
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				// 此处应该记录日志
+				System.out.println("complaint受理后重定向失败");
+				e.printStackTrace();
+			}
+		} else
+			mv.setViewName("fail");
+		return mv;
+	}
+	
+	@RequestMapping("findbycomplainttheme")
+	/**
+	 * 子账户的查询功能
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ModelAndView findByComplaintTheme(
+			@RequestParam String theme,
+			HttpServletRequest request,HttpServletResponse response){
+		
+		//String userId=(String)request.getSession().getAttribute("userId");
+
+		List complaintList = complaintService.getFindComplaint(theme);
+		System.out.println("complaintList+" + complaintList);
+		System.out.println("listsize+"+complaintList.size());
+		mv.addObject("allCompliantList", complaintList);
+		mv.setViewName("mgmt_m_complain");
+		return mv;
+	}
 }

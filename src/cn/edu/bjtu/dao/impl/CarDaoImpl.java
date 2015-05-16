@@ -81,6 +81,15 @@ public class CarDaoImpl implements CarDao{
 	}
 
 	@Override
+	/**
+	 * 获取某公司的所有司机信息 
+	 */
+	public List getAllDriver(String carrierId) {
+		// TODO Auto-generated method stub
+		return ht.find("from Driverinfo where carrierId='"+carrierId+"'");
+	}
+	
+	@Override
 	public String getDriverIdByName(String driverName) {
 		// TODO Auto-generated method stub
 		return "";

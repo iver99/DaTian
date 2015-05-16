@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-1-31 22:44:34 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="cn.edu.bjtu.vo.ComplaintClientView" table="complaint_client_view" catalog="datian">
+        <id name="id" type="string">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="type" type="string">
+            <column name="type" />
+        </property>
+        <property name="theme" type="string">
+            <column name="theme" />
+        </property>
+        <property name="content" type="string">
+            <column name="content" />
+        </property>
+        <property name="relDate" type="date">
+            <column name="relDate" length="10" />
+        </property>
+        <property name="state" type="string">
+            <column name="state" />
+        </property>
+        <property name="orderId" type="string">
+            <column name="orderId" />
+        </property>
+        <property name="relatedMaterial" type="string">
+            <column name="relatedMaterial" />
+        </property>
+        <property name="feedback" type="string">
+            <column name="feedback" />
+        </property>
+        <property name="clientId" type="string">
+            <column name="clientId" />
+        </property>
+        <property name="carrierId" type="string">
+            <column name="carrierId" />
+        </property>
+        <property name="realName" type="string">
+            <column name="realName" />
+        </property>
+    </class>
+</hibernate-mapping>

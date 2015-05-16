@@ -205,10 +205,11 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">司机姓名：</td>
                                     <td>
-                                        <select style="width:120px;" name="driverName">
+                                        <select style="width:120px;" name="driverId">
                                             <option value="" selected="selected">请选择</option>
-                                            <option value="王强">王强</option>
-                                            <option value="丁力">丁力</option>
+                                            <c:forEach var="driverList" items="${driverList }">
+                                            <option value="${driverList.id }">${driverList.driverName }</option>
+                                            </c:forEach>
                                         </select>
                                     </td>
                                 </tr>

@@ -36,6 +36,12 @@ public class ComplaintServiceImpl implements ComplaintService{
 	}
 
 	@Override
+	public List getAllUserCompliant(){
+		
+		return complaintDao.getAllUserCompliant();
+	}
+	
+	@Override
 	public Complaintform getComplaintInfo(String id) {
 		
 		return complaintDao.getComplaintInfo(id);
@@ -80,5 +86,26 @@ public class ComplaintServiceImpl implements ComplaintService{
 		}
 		return baseDao.save(complaintform);
 	
+	}
+	
+	@Override
+	public boolean doAcceptComplaint(String id, String feedback){
+		
+		complaintform = getComplaintInfo(id);
+		complaintform.setFeedback(feedback);
+		complaintform.setState("已受理");
+		return baseDao.update(complaintform);
+	}
+	
+	@Override
+	public List getFindComplaint(String theme){
+		String sql="from ComplaintClientView ";
+		System.out.println("theme="+theme);
+		
+		if(theme.equals("投诉主题")){
+			//查找时不考虑投诉主题
+		}
+		else sql+="where theme like '%"+theme+"%' ";
+		return complaintDao.getFindComplaint(sql);
 	}
 }

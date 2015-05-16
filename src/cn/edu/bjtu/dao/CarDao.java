@@ -14,6 +14,7 @@ public interface CarDao {
 	public Driverinfo getDriverInfo(String driverId);
 	public List getCompanyCar(String carrierId);
 	public List getAllDriverName(String carrierId);
+	public List getAllDriver(String carrierId);
 	public String getDriverIdByName(String driverName);
 	public List getCompanyDriver(String carrier);
 	public List getSelectedCar(String hql,int Display,int PageNow);

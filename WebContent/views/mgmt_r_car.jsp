@@ -122,7 +122,7 @@
                                 <ul class="quickmenu">
                                     <li class="menuitem">
                                         <div class="menu">
-                                            <a href="cardetail?carId=${car.id }&carrierId=0&linetransportId=${car.linetransportId}&flag=2" class="menuhd" hidefocus="true">更新</a>
+                                            <a href="cardetail?carId=${car.id }&carrierId=${car.carrierId }&linetransportId=${car.linetransportId}&flag=2" class="menuhd" hidefocus="true">更新</a>
                                             <div class="menubd">
                                                 <div class="menubdpanel">
                                                     <a href="cardelete?id=${car.id }" class="a_top3" hidefocus="true">删除</a>

@@ -135,13 +135,19 @@ public class CarServiceImpl implements CarService{
 	}
 
 	@Override
+	public List getAllDriver(String carrierId) {
+		// TODO Auto-generated method stub
+		return carDao.getAllDriver(carrierId);
+	}
+	
+	@Override
 	/**
 	 * 增加车辆
 	 */
 	public boolean insertCar(String carNum, String carTeam,
 			String locationType, String carBase, String carBrand,String carType,
 			String carUse, double carLength, double carWidth, double carHeight,
-			double carWeight, String driverName,String purchaseTime, String storage,
+			double carWeight, String driverId,String purchaseTime, String storage,
 			String startPlace, String endPlace, String carrierId) {
 		// TODO Auto-generated method stub
 		carinfo.setCarBase(carBase);
@@ -158,7 +164,7 @@ public class CarServiceImpl implements CarService{
 		carinfo.setCarWeight(carWeight);
 		carinfo.setCarWidth(carWidth);
 		
-		String driverId=carService.getDriverIdByName(driverName);//未实现
+		//String driverId=carService.getDriverIdByName(driverName);//未实现
 		carinfo.setDriverId(driverId);
 		
 		String linetransportId=linetransportService.getLinetransportIdByCity(startPlace,endPlace);//未实现n
@@ -220,7 +226,7 @@ public class CarServiceImpl implements CarService{
 			String GPSText, String carType, String carBase, String carBrand, String carUse,
 			double carLength, double carWidth, double carHeight, double carWeight, String carPurTime,
 			String storage,
-			String driverName,//缺少参数
+			String driverId,
 			String startPlace,//缺少参数
 			String endPlace,//缺少参数
 			String stopPlace,//缺少参数
@@ -241,6 +247,7 @@ public class CarServiceImpl implements CarService{
 		carinfo.setCarWeight(carWeight);
 		//carinfo.setPurchaseTime(carPurTime);
 		carinfo.setStorage(storage);
+		carinfo.setDriverId(driverId);
 		
 		System.out.println("set over");//null
 		return baseDao.update(carinfo);

@@ -60,9 +60,11 @@ public class CarController {
 			// 这里用session取id
 			 String carrierId=(String)request.getSession().getAttribute("userId");
 			//String carrierId = "C-0002";// 删除
-			List carList = carService.getCompanyCar(carrierId);
-			mv.addObject("carList", carList);
-			mv.setViewName("mgmt_r_car");// 后台还没实现
+			 List carList = carService.getCompanyCar(carrierId);
+			 mv.addObject("carList", carList);
+			 List driverList = carService.getAllDriverName(carrierId);
+			 mv.addObject("driverList", driverList);
+			 mv.setViewName("mgmt_r_car");// 后台还没实现
 		}
 		return mv;
 	}
@@ -101,11 +103,11 @@ public class CarController {
 			// 需要司机信息
 			Driverinfo driverinfo = carService.getDriverByCarId(carId);
 			mv.addObject("driverInfo", driverinfo);
+			List driverList = carService.getAllDriver(carrierId);
+			mv.addObject("driverList", driverList);
 			// 此处要查出本公司所有司机的姓名以供选择
 			// String carrierId=(String)request.getSession().getAttribute("carrierId");
 			// carrierId = "C-0002";// 删除
-			List driverNameList = carService.getAllDriverName(carrierId);
-			mv.addObject("driverNameList", driverNameList);
 			mv.setViewName("mgmt_r_car3");
 		}
 		return mv;
@@ -241,7 +243,7 @@ public class CarController {
 			@RequestParam String carBrand, @RequestParam String carUse,
 			@RequestParam double carLength, @RequestParam double carWidth,
 			@RequestParam double carHeight, @RequestParam double carWeight,
-			@RequestParam String driverName, @RequestParam String purchaseTime,
+			@RequestParam String driverId, @RequestParam String purchaseTime,
 			@RequestParam String storage, @RequestParam String startPlace,
 			@RequestParam String endPlace, HttpServletRequest request,
 			HttpServletResponse response) {
@@ -254,7 +256,7 @@ public class CarController {
 		 */
 		boolean flag = carService.insertCar(carNum, carTeam, locationType,
 				carBase, carBrand, carType, carUse, carLength, carWidth,
-				carHeight, carWeight, driverName, purchaseTime, storage,
+				carHeight, carWeight, driverId, purchaseTime, storage,
 				startPlace, endPlace, carrierId);
 		System.out.println("flag+" + flag);
 		if (flag == true) {
@@ -359,7 +361,7 @@ public class CarController {
 			@RequestParam double carWeight,
 			@RequestParam String carPurTime,
 			@RequestParam String storage,
-			@RequestParam String driverName,
+			@RequestParam String driverId,
 			@RequestParam String startPlace,
 			@RequestParam String endPlace,
 			@RequestParam String stopPlace,
@@ -373,7 +375,7 @@ public class CarController {
 		
 		boolean flag = carService.updateCar(id, carNum, carTeam, locType, 
 				 GPSText, carType, carBase, carBrand, carUse, carLength, carWidth,
-				 carHeight,carWeight, carPurTime, storage, driverName, startPlace,
+				 carHeight,carWeight, carPurTime, storage, driverId, startPlace,
 				 endPlace, stopPlace, carrierId);
 		
 		System.out.println("out updateCar");//null
