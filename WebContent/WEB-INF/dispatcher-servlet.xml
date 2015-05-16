@@ -26,6 +26,7 @@
 	<mvc:resources location="/views/js/" mapping="/js/**"/>
 	<mvc:resources location="/views/" mapping="/views/**"/>
 	<mvc:resources location="/" mapping="/**"/>
+	<mvc:resources location="/views/" mapping="*.htm"/>
 
 	<!-- 下面是视图解析器 -->
 	<bean id="viewResolver"

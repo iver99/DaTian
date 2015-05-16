@@ -1,7 +1,9 @@
 package cn.edu.bjtu.dao;
 
+import cn.edu.bjtu.vo.Userinfo;
+
 public interface LoginDao {
-	public String checkLogin(String username,String password);
+	public Userinfo checkLogin(String username,String password);
 	
 
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.LoginService;
+import cn.edu.bjtu.vo.Userinfo;
 
 @Controller
 /* @RequestMapping(value = "/views") */
@@ -24,12 +25,13 @@ public class LoginController {
 	
 		mv.addObject("username", username);
 		mv.addObject("password", password);
-		String userId = loginService.checkLogin(username, password);
-		System.out.println(userId);
-		if (userId !=null) {//¥Ê»Îsession
+		Userinfo userinfo = loginService.checkLogin(username, password);
+		//System.out.println(userId);
+		if (userinfo!=null) {//¥Ê»Îsession
 			mv.setViewName("index");
-			request.getSession().setAttribute("username", username);
-			request.getSession().setAttribute("userId",userId);
+			request.getSession().setAttribute("username", userinfo.getUsername());
+			request.getSession().setAttribute("userId",userinfo.getId());
+			request.getSession().setAttribute("email",userinfo.getEmail());
 		}
 
 		else

@@ -12,17 +12,31 @@ import org.springframework.stereotype.Component;
  */
 public class SettlementCarrierView {
 	
+	private String id;//¶©µ¥id
 	private String orderNum;
 	private String clientName;
 	private String contractId;
 	private Date submitTime;
 	private String settlementState;
-	private float actualPrice;
-	private float expectedPrice;
+	private Float actualPrice;
+	private Float expectedPrice;
 	private String carrierId;
 	
-	private String id;
+	private String carrierId2;
 	private String companyName;
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getCarrierId2() {
+		return carrierId2;
+	}
+	public void setCarrierId2(String carrierId2) {
+		this.carrierId2 = carrierId2;
+	}
 	public String getOrderNum() {
 		return orderNum;
 	}
@@ -53,16 +67,17 @@ public class SettlementCarrierView {
 	public void setSettlementState(String settlementState) {
 		this.settlementState = settlementState;
 	}
-	public float getActualPrice() {
+	public Float getActualPrice() {
 		return actualPrice;
 	}
-	public void setActualPrice(float actualPrice) {
+	public void setActualPrice(Float actualPrice) {
 		this.actualPrice = actualPrice;
 	}
-	public float getExpectedPrice() {
+	public Float getExpectedPrice() {
 		return expectedPrice;
 	}
-	public void setExpectedPrice(float expectedPrice) {
+
+	public void setExpectedPrice(Float expectedPrice) {
 		this.expectedPrice = expectedPrice;
 	}
 	public String getCarrierId() {
@@ -71,12 +86,7 @@ public class SettlementCarrierView {
 	public void setCarrierId(String carrierId) {
 		this.carrierId = carrierId;
 	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
+	
 	public String getCompanyName() {
 		return companyName;
 	}

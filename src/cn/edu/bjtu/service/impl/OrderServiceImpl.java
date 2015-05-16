@@ -172,25 +172,27 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public boolean createNewOrder(String userId, String hasCarrierContract,
-			String senderInfo, String receiverInfo, String remarks,
-			String goodsName, float goodsVolume, float goodsWeight,
-			float expectedPrice, float declaredPrice, float insurance,
-			String contractId,String carrierId) {
+			String deliveryName, String receiverName, String deliveryPhone,
+			String receiverPhone, String deliveryAddr, String receiverAddr,
+			String remarks, String goodsName, float goodsVolume,
+			float goodsWeight, float expectedPrice, float declaredPrice,
+			float insurance, String contractId, String carrierId) {
 		// TODO Auto-generated method stub
 		// ½âÎö×Ö·û´®
-		String[] se = senderInfo.split("/");
+		/*String[] se = senderInfo.split("/");
 		String[] re = receiverInfo.split("/");
 		String deliveryName = se[0];
 		String deliveryPhone = se[1];
 		String deliveryAddr = se[2];
 		String receiverName = re[0];
 		String receiverPhone = re[1];
-		String receiverAddr = re[2];
+		String receiverAddr = re[2];*/
 
-		return orderDao.createNewOrder(userId, hasCarrierContract, remarks, goodsName,
-				goodsVolume, goodsWeight, expectedPrice, declaredPrice,
-				insurance, contractId, deliveryName, deliveryPhone,
-				deliveryAddr, receiverName, receiverPhone, receiverAddr,carrierId);
+		return orderDao.createNewOrder(userId, hasCarrierContract, remarks,
+				goodsName, goodsVolume, goodsWeight, expectedPrice,
+				declaredPrice, insurance, contractId, deliveryName,
+				deliveryPhone, deliveryAddr, receiverName, receiverPhone,
+				receiverAddr, carrierId);
 
 	}
 

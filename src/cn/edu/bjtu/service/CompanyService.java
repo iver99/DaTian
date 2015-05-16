@@ -13,5 +13,7 @@ public interface CompanyService {
 			String creditRate, String business);
 	
 	public Carrierinfo getCarrierInfo(String id);
-
+	public List getLinetransportByCarrierId(String id);
+	public List getCitylineByCarrierId(String id);
+	public List getwarehouseByCarrierId(String id);
 }

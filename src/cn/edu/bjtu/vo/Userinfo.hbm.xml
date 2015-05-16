@@ -35,5 +35,35 @@
         <property name="email" type="string">
             <column name="email" />
         </property>
+        
+        <property name="emailStatus" type="string">
+            <column name="emailStatus" />
+        </property>
+        <property name="phoneStatus" type="string">
+            <column name="phoneStatus" />
+        </property>
+        <property name="securityQuestionStatus" type="string">
+            <column name="securityQuestionStatus" />
+        </property>
+        
+        <property name="securityQuestionOne" type="string">
+            <column name="securityQuestionOne" />
+        </property>
+        <property name="securityQuestionThree" type="string">
+            <column name="securityQuestionThree" />
+        </property>
+        <property name="securityQuestionTwo" type="string">
+            <column name="securityQuestionTwo" />
+        </property>
+        
+       <property name="securityAnswerOne" type="string">
+            <column name="securityAnswerOne" />
+        </property>
+        <property name="securityAnswerTwo" type="string">
+            <column name="securityAnswerTwo" />
+        </property>
+        <property name="securityAnswerThree" type="string">
+            <column name="securityAnswerThree" />
+        </property>
     </class>
 </hibernate-mapping>

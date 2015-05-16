@@ -10,4 +10,8 @@ public interface CompanyDao {
 	public List getSelectedCompany(String hql,int Display,int PageNow);
 	
 	public Carrierinfo getCarrierInfo(String id);
+	
+	public List getLinetransportByCarrierId(String id);
+	public List getCitylineByCarrierId(String id);
+	public List getwarehouseByCarrierId(String id);
 }

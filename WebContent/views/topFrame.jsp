@@ -26,10 +26,10 @@
                                 <a href="myinfo" class="menuhd" hidefocus="true">我的信息</a> 
                                 <div class="menubd">
                                     <div class="menubdpanel">
-                                        <a href="mgmt_d_order_s.htm" class="a_top1" hidefocus="true">我的订单</a>
-                                        <a href="mgmt_r_line.htm" class="a_top1" hidefocus="true">我的资源</a>
-                                        <a href="mgmt_a_info.htm" class="a_top1" hidefocus="true">帐户信息</a>
-                                        <a href="login.htm" class="a_top1" hidefocus="true">安全退出</a>
+                                        <a href="sendorderinfo" class="a_top1" hidefocus="true">我的订单</a>
+                                        <a href="linetransport?flag=1&Display=10&PageNow=1" class="a_top1" hidefocus="true">我的资源</a>
+                                        <a href="accountinfo" class="a_top1" hidefocus="true">帐户信息</a>
+                                        <a href="logout" class="a_top1" hidefocus="true">安全退出</a>
                                     </div>
                                 </div>
                             </div>

@@ -47,7 +47,13 @@ public class BaseDaoImpl implements BaseDao {
 		ht.update(obj);
 		return true;
 	}
-	
+
+	/*@Override
+	public boolean find(Object obj) {
+		// TODO Auto-generated method stub
+		return ht;
+	}
+	*/
 	
 
 }

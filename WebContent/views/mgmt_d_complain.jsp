@@ -62,18 +62,17 @@
 							id="mgmt_nav_switch1b" class="span_mgmt_nav2" title="展开"
 							onclick="mgmt_nav_switch1b();"></span>我的交易</span>
 						<div id="mgmt_nav1">
-							<a href="mgmt_d_focus.htm" class="a_mgmt_leftnav"
-								hidefocus="true">我的关注</a> <a href="mgmt_d_response.htm"
-								class="a_mgmt_leftnav" hidefocus="true">我的反馈</a> <a
-								href="mgmt_d_order_s.htm" class="a_mgmt_leftnav"
-								hidefocus="true">我提交的订单</a> <a href="mgmt_d_order_r.htm"
-								class="a_mgmt_leftnav" hidefocus="true">我收到的订单</a> <a
-								href="mgmt_d_settle_s.htm" class="a_mgmt_leftnav"
-								hidefocus="true">我的结算</a> <a href="mgmt_d_complain.htm"
-								class="a_mgmt_leftnav1" hidefocus="true">我的投诉</a>
+						<a href="mgmt_d_focus.htm" class="a_mgmt_leftnav" hidefocus="true">我的关注</a>
+                        <a href="getallresponse" class="a_mgmt_leftnav" hidefocus="true">我的反馈</a>
+                        <a href="sendorderinfo" class="a_mgmt_leftnav" hidefocus="true">我提交的订单</a>
+                        <a href="recieveorderinfo" class="a_mgmt_leftnav" hidefocus="true">我收到的订单</a>
+                        <a href="mysettlement" class="a_mgmt_leftnav" hidefocus="true">我的结算</a>
+                        <a href="mycomplaint" class="a_mgmt_leftnav1" hidefocus="true">我的投诉</a>
 						</div>
-
-						<%@ include file="mytransaction_leftnav.jsp"%>
+					<%@ include  file="mysource_leftnav_myresource.jsp"%>
+                    <%@ include  file="mysource_leftnav_myplan.jsp"%>
+                    <%@ include  file="mysource_leftnav_myanalysis.jsp"%>
+                    <%@ include  file="mysource_leftnav_myaccount.jsp"%>
 					</div>
 				</td>
 			<td class="td_leftnav_top">
