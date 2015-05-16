@@ -93,6 +93,8 @@
                     <tr>
                         <td class="td_mgmt_right3_td1a"> 
                             <br />
+                            <c var="goodsdetail" items="${linetransportInfo }">
+				
                             <form action="updateLine?id=${linetransportInfo.id }" method="post" enctype="multipart/form-data">	          
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
@@ -114,12 +116,20 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">运输类型：</td>
-                                    <td>
-                                        <input name="type" type="checkbox" id="checkbox" checked="checked" />
-                                        整车&nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox" name="type" id="checkbox" />
-                                        零担
+                                    <c:choose>
+                                    <c:when test="${linetransportInfo.type == '整车' }">
+                       				<td>
+                                        <input name="type" type="radio" value="整车" checked="checked" hidefocus="true" />整车&nbsp;&nbsp;&nbsp;
+                                        <input name="type" type="radio" value="零担" hidefocus="true" />零担
                                     </td>
+                                    </c:when>
+                                     <c:when test="${linetransportInfo.type == '零担' }">
+                       				<td>
+                                        <input name="type" type="radio" value="整车" hidefocus="true" />整车&nbsp;&nbsp;&nbsp;
+                                        <input name="type" type="radio" value="零担" checked="checked" hidefocus="true" />零担
+                                    </td>
+                                    </c:when>
+                                    </c:choose>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">参考价：</td>
@@ -143,7 +153,7 @@
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">补充信息：</td>
 									<td>
-                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="remarks"></textarea>
+                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="remarks">${linetransportInfo.remarks }</textarea>
                                     </td>
 								</tr>
                                 <tr>
@@ -152,6 +162,7 @@
                                 </tr>
 							</table>
 							</form>
+							</c>
                         </td>
                     </tr>
                 </table>

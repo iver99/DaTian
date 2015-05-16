@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.vo.Carrierinfo;
+import cn.edu.bjtu.vo.Linetransport;
 /**
  * 公司相关控制器
  * @author RussWest0
@@ -65,7 +66,16 @@ public class CompanyController {
 		System.out.println("id+"+id);
 		Carrierinfo carrierinfo=companyService.getCarrierInfo(id);
 		System.out.println("tele+"+carrierinfo.getPhone());//null
+		
+		//公司相关的干线信息，城市配送信息以及仓库信息
+		List linetransportList = companyService.getLinetransportByCarrierId(id);
+		List citylineList = companyService.getCitylineByCarrierId(id);
+		List warehouseList = companyService.getwarehouseByCarrierId(id);
+		
 		mv.addObject("carrierinfo", carrierinfo);
+		mv.addObject("linetransportList", linetransportList);
+		mv.addObject("citylineList", citylineList);
+		mv.addObject("warehouseList", warehouseList);
 		mv.setViewName("resource_detail5");
 		return mv;
 	}

@@ -164,5 +164,20 @@ public class CompanyServiceImpl implements CompanyService{
 		//System.out.println("hql+"+sql);
 		return hqltool.getTotalRows(sql);//这里的HQLTool实例千万不能自己new出来，用@Resource
 	}
-
+	
+	@Override
+	public List getLinetransportByCarrierId(String id){
+		return companyDao.getLinetransportByCarrierId(id);
+	}
+	
+	@Override
+	public List getCitylineByCarrierId(String id){
+		return companyDao.getCitylineByCarrierId(id);
+	}
+	
+	@Override
+	public List getwarehouseByCarrierId(String id){
+		return companyDao.getwarehouseByCarrierId(id);
+	}
+	
 }

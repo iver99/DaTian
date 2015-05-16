@@ -67,7 +67,20 @@ public class CompanyDaoImpl implements CompanyDao{
 		return ht.get(Carrierinfo.class, id);
 	}
 	
+	@Override
+	public List getLinetransportByCarrierId(String id){
+		return ht.find("from Linetransport as s where s.carrierId='" + id+ "'");
+	}
 	
+	@Override
+	public List getCitylineByCarrierId(String id){
+		return ht.find("from Cityline as s where s.carrierId='" + id+ "'");
+	}
+	
+	@Override
+	public List getwarehouseByCarrierId(String id){
+		return ht.find("from Warehouse as s where s.carrierId='" + id+ "'");
+	}
 	
 	
 	

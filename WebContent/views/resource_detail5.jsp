@@ -100,36 +100,16 @@
                                     <td width="120">参考报价(元/kg)</td>
                                     <td width="120">运输类型</td>
                                 </tr>
+                                <c:forEach var="linetransportList" items="${linetransportList }">
+                        
                                 <tr>
-                                    <td height="25"><a href="resource_detail1.htm" hidefocus="true">北京→上海</a></td>
-                                    <td>12</td>
-                                    <td>3.00</td>
-                                    <td>整车</td>
+                                    <td height="25"><a href="linetransportdetail?linetransportid=${linetransportList.id }&carrierId=${linetransportList.carrierId}&flag=0" hidefocus="true">${linetransportList.startPlace }→${linetransportList.endPlace }</a></td>
+                                    <td>${linetransportList.onWayTime }</td>
+                                    <td>${linetransportList.refPrice }</td>
+                                    <td>${linetransportList.type }</td>
                                 </tr>
-                                <tr>
-                                    <td height="25"><a href="javascript:;" hidefocus="true">北京→上海</a></td>
-                                    <td>12</td>
-                                    <td>3.00</td>
-                                    <td>整车</td>
-                                </tr>
-                                <tr>
-                                    <td height="25"><a href="javascript:;" hidefocus="true">北京→上</a>海</td>
-                                    <td>12</td>
-                                    <td>3.00</td>
-                                    <td>整车</td>
-                                </tr>
-                                <tr>
-                                    <td height="25"><a href="javascript:;" hidefocus="true">北京→上海</a></td>
-                                    <td>12</td>
-                                    <td>3.00</td>
-                                    <td>整车</td>
-                                </tr>
-                                <tr>
-                                    <td height="25"><a href="javascript:;" hidefocus="true">北京→上海</a></td>
-                                    <td>12</td>
-                                    <td>3.00</td>
-                                    <td>整车</td>
-                                </tr>
+                                
+                            </c:forEach>
                             </table>
                             <table border="0" cellpadding="0" cellspacing="0" class="table_pagenumber">
                                 <tr>
@@ -150,31 +130,14 @@
                                     <td width="120">参考报价(元/kg)</td>
                                     <td width="120">增值服务</td>
                                 </tr>
+                        <c:forEach var="citylineList" items="${citylineList }">
                                 <tr>
-                                    <td height="25">北京城市配送</td>
-                                    <td>1.50</td>
-                                    <td>有</td>
+                                    <td height="25">${citylineList.name }</td>
+                                    <td>${citylineList.refPrice }</td>
+                                    <td>${citylineList.VIPService }</td>
                                 </tr>
-                                <tr>
-                                    <td height="25">上海城市配送</td>
-                                    <td>1.50</td>
-                                    <td>有</td>
-                                </tr>
-                                <tr>
-                                    <td height="25">上海城市配送</td>
-                                    <td>1.50</td>
-                                    <td>有</td>
-                                </tr>
-                                <tr>
-                                    <td height="25">上海城市配送</td>
-                                    <td>1.50</td>
-                                    <td>有</td>
-                                </tr>
-                                <tr>
-                                    <td height="25">上海城市配送</td>
-                                    <td>1.50</td>
-                                    <td>有</td>
-                                </tr>
+                          
+                            </c:forEach>      
                             </table>
                             <table border="0" cellpadding="0" cellspacing="0" class="table_pagenumber">
                                 <tr>
@@ -196,36 +159,15 @@
                                     <td width="120">仓库类型</td>
                                     <td width="120">仓库面积(平方米)</td>
                                 </tr>
+                        <c:forEach var="warehouseList" items="${warehouseList }">
                                 <tr>
-                                    <td height="25">1号库</td>
-                                    <td>北京</td>
-                                    <td>保税</td>
-                                    <td>40000</td>
+                                    <td height="25">${warehouseList.name }</td>
+                                    <td>${warehouseList.city }</td>
+                                    <td>${warehouseList.type }</td>
+                                    <td>${warehouseList.houseArea }</td>
                                 </tr>
-                                <tr>
-                                    <td height="25">2号库</td>
-                                    <td>北京</td>
-                                    <td>非保税</td>
-                                    <td>80000</td>
-                                </tr>
-                                <tr>
-                                    <td height="25">2号库</td>
-                                    <td>北京</td>
-                                    <td>非保税</td>
-                                    <td>80000</td>
-                                </tr>
-                                <tr>
-                                    <td height="25">2号库</td>
-                                    <td>北京</td>
-                                    <td>非保税</td>
-                                    <td>80000</td>
-                                </tr>
-                                <tr>
-                                    <td height="25">2号库</td>
-                                    <td>北京</td>
-                                    <td>非保税</td>
-                                    <td>80000</td>
-                                </tr>
+                             
+                            </c:forEach>   
                             </table>
                             <table border="0" cellpadding="0" cellspacing="0" class="table_pagenumber">
                                 <tr>
