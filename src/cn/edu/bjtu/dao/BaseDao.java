@@ -12,4 +12,7 @@ public interface BaseDao {
 	
 	public boolean update(Object obj);
 	
+	
+	/*public boolean find(Object obj);*/
+	
 }

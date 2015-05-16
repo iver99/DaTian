@@ -21,7 +21,7 @@ public class LoginDaoImpl implements LoginDao {
 	Userinfo userinfo;
 
 	@Override
-	public String checkLogin(String username, String password) {
+	public Userinfo checkLogin(String username, String password) {
 		// TODO Auto-generated method stub
 		//ÐèÒªÐÞ¸Ä 
 		//userinfo=(Userinfo)ht.find("from Userinfo where username='"+username+"' and password='"+password+"'");
@@ -31,10 +31,10 @@ public class LoginDaoImpl implements LoginDao {
 			userinfo=(Userinfo)list.get(0);
 		if(userinfo!= null)
 		{
-			return userinfo.getId();
+			return userinfo;
 		}
 		else
-			return "";
+			return null;
 	}
 	
 

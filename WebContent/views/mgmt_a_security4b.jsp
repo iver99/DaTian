@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -377,75 +376,38 @@
                     </div>
                 </div>
 			</td>
-			<td class="td_leftnav_top">
-            	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right2">
-                    <tr>
+            <td class="td_leftnav_top">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right2a">
+					<tr>
                     	<td>
-                        	<span class="span_mgmt_right2_text1">安全设置&nbsp;&nbsp;${msg }</span>
+                        	<span class="span_mgmt_right2_text1">绑定邮箱</span>
+                            <span class="span_mgmt_right2_text2"><a href="javascript:history.go(-1);" hidefocus="true"><img src="images/btn_back1.png" class="span_mgmt_right2_pic1" title="返回" /></a></span>
                         </td>
                 	</tr>
-				</table>
-            	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
+            	</table>
+            	<form action="changebindemail" method="post">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
 					<tr>
-                        <td width="20" height="40" class="td_mgmt_right3_head1">&nbsp;</td>
-                        <td width="160" class="td_mgmt_right3_head">类别</td>
-                        <td class="td_mgmt_right3_head">说明</td>
-                        <td width="120" class="td_mgmt_right3_head">状态</td>
-                        <td width="80" class="td_mgmt_right3_head">操作</td>
+						<td class="td_mgmt_right3_td1a"> 
+						<br />   	          
+							<table width="90%" border="0" cellspacing="0" cellpadding="0">
+								<tr>
+									<td width="120" height="40" class="td_mgmt_right3_td1b">原邮箱地址：</td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" value="${email }" readonly="readonly" /></td>
+								</tr>
+								<tr>
+									<td width="120" height="40" class="td_mgmt_right3_td1b">新邮箱地址：</td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" name="newEmail"/></td>
+								</tr>
+								<tr>
+									<td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
+									<td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
+								</tr>
+							</table>
+						</td>
 					</tr>
-					<tr>
-                        <td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
-                        <td class="td_mgmt_right3_td1">登录密码</td>
-                        <td class="td_mgmt_right3_td3">安全性高的密码可以使帐号更安全，建议您定期更换。</td>
-                        <td class="td_mgmt_right3_td4"><img src="images/btn_hint1.png" />&nbsp;已设置</td>
-                        <td class="td_mgmt_right3_td3"><a href="getchangepasswordpage" hidefocus="true">修改</a></td>
-                    </tr>
-					<tr>
-                        <td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
-                        <td class="td_mgmt_right3_td1">手机绑定</td>
-                        <td class="td_mgmt_right3_td3">找回登录密码的方式之一。也可用于移动端设备的登录。</td>
-                        <td class="td_mgmt_right3_td4"><img src="images/btn_hint1.png" />&nbsp;已绑定</td>
-                        <td class="td_mgmt_right3_td3"><a href="#" hidefocus="true">更换</a></td>
-                    </tr>
-					<tr>
-					    <td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
-					    <td class="td_mgmt_right3_td1">邮箱绑定</td>
-					    <td class="td_mgmt_right3_td3">找回登录密码的方式之一。</td>
-					    <c:choose>
-					    	<c:when test="${userinfo.emailStatus == '已绑定' }">
-					    		 <td class="td_mgmt_right3_td4"><img src="images/btn_hint1.png" />&nbsp;已绑定</td>
-					   			 <td class="td_mgmt_right3_td3"><a href="getchangebindemailpage" hidefocus="true">更换</a></td>
-					    	</c:when>
-					   	<c:otherwise>
-					    	 <td class="td_mgmt_right3_td5"><img src="images/btn_hint2.png" />&nbsp;未绑定</td>
-					    	<td class="td_mgmt_right3_td3"><a href="getbindemailpage" hidefocus="true">绑定</a></td>
-					    </c:otherwise>
-					    </c:choose>
-				    </tr>
-					<!-- <tr>
-					    <td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
-					    <td class="td_mgmt_right3_td1">邮箱绑定</td>
-					    <td class="td_mgmt_right3_td3">找回登录密码的方式之一。</td>
-					   
-				    </tr> -->
-					<tr>
-                        <td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
-                        <td class="td_mgmt_right3_td1">密保问题</td>
-                        <td class="td_mgmt_right3_td3">找回登录密码的方式之一，通过设置容易记住且不易被他人获取的问题及答案，更有效保障您的密码安全。</td>
-                         <c:choose>
-					    	<c:when test="${userinfo.securityQuestionStatus == '已设置' }">
-					    		<td class="td_mgmt_right3_td4"><img src="images/btn_hint1.png" />&nbsp;已设置</td>
-                        		<td class="td_mgmt_right3_td3"><a href="mgmt_a_security5a.htm" hidefocus="true">修改</a></td>
-					    	</c:when>
-					   	<c:otherwise>
-					    	  <td class="td_mgmt_right3_td5"><img src="images/btn_hint2.png" />&nbsp;未设置</td>
-                        <td class="td_mgmt_right3_td3"><a href="mgmt_a_security5.htm" hidefocus="true">设置</a></td>
-					    </c:otherwise>
-					    </c:choose>
-                       
-					</tr>
-					
 				</table>
+				</form>
 			</td>
 		</tr>
     </table>

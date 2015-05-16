@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import cn.edu.bjtu.dao.LoginDao;
 import cn.edu.bjtu.service.LoginService;
+import cn.edu.bjtu.vo.Userinfo;
 @Service
 public class LoginServiceImpl implements LoginService{	
 	
@@ -13,7 +14,7 @@ public class LoginServiceImpl implements LoginService{
 	private LoginDao loginDao;
 	
 	@Override
-	public String checkLogin(String username, String password) {
+	public Userinfo checkLogin(String username, String password) {
 		// TODO Auto-generated method stub
 		
 		/*这里进行一些逻辑处理*/

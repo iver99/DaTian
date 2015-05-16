@@ -20,6 +20,18 @@ public class Userinfo implements java.io.Serializable {
 	private String subAccountStatus;
 	private String email;
 	
+	private String phoneStatus;
+	private String emailStatus;
+	private String securityQuestionStatus;
+	
+	private String securityQuestionOne;
+	private String securityAnswerOne;
+	private String securityQuestionTwo;
+	private String securityAnswerTwo;
+	private String securityQuestionThree;
+	private String securityAnswerThree;
+	
+	
 	public Userinfo() {
 	}
 
@@ -29,22 +41,76 @@ public class Userinfo implements java.io.Serializable {
 
 	
 
-	
-	
-	public Userinfo(String id, String username, String password, String phone,
-			String privilege, int userKind, String hostAccount, String status,
-			String subAccountStatus, String email) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.password = password;
-		this.phone = phone;
-		this.privilege = privilege;
-		this.userKind = userKind;
-		this.hostAccount = hostAccount;
-		this.status = status;
-		this.subAccountStatus = subAccountStatus;
-		this.email = email;
+	public String getPhoneStatus() {
+		return phoneStatus;
+	}
+
+	public void setPhoneStatus(String phoneStatus) {
+		this.phoneStatus = phoneStatus;
+	}
+
+	public String getEmailStatus() {
+		return emailStatus;
+	}
+
+	public void setEmailStatus(String emailStatus) {
+		this.emailStatus = emailStatus;
+	}
+
+	public String getSecurityQuestionStatus() {
+		return securityQuestionStatus;
+	}
+
+	public void setSecurityQuestionStatus(String securityQuestionStatus) {
+		this.securityQuestionStatus = securityQuestionStatus;
+	}
+
+	public String getSecurityQuestionOne() {
+		return securityQuestionOne;
+	}
+
+	public void setSecurityQuestionOne(String securityQuestionOne) {
+		this.securityQuestionOne = securityQuestionOne;
+	}
+
+	public String getSecurityAnswerOne() {
+		return securityAnswerOne;
+	}
+
+	public void setSecurityAnswerOne(String securityAnswerOne) {
+		this.securityAnswerOne = securityAnswerOne;
+	}
+
+	public String getSecurityQuestionTwo() {
+		return securityQuestionTwo;
+	}
+
+	public void setSecurityQuestionTwo(String securityQuestionTwo) {
+		this.securityQuestionTwo = securityQuestionTwo;
+	}
+
+	public String getSecurityAnswerTwo() {
+		return securityAnswerTwo;
+	}
+
+	public void setSecurityAnswerTwo(String securityAnswerTwo) {
+		this.securityAnswerTwo = securityAnswerTwo;
+	}
+
+	public String getSecurityQuestionThree() {
+		return securityQuestionThree;
+	}
+
+	public void setSecurityQuestionThree(String securityQuestionThree) {
+		this.securityQuestionThree = securityQuestionThree;
+	}
+
+	public String getSecurityAnswerThree() {
+		return securityAnswerThree;
+	}
+
+	public void setSecurityAnswerThree(String securityAnswerThree) {
+		this.securityAnswerThree = securityAnswerThree;
 	}
 
 	public int getUserKind() {

@@ -1,6 +1,8 @@
 package cn.edu.bjtu.service;
 
+import cn.edu.bjtu.vo.Userinfo;
+
 public interface LoginService {
 	
-	public String checkLogin(String username,String password);
+	public Userinfo checkLogin(String username,String password);
 }
