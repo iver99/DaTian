@@ -20,22 +20,25 @@ public class LoginController {
 	ModelAndView mv = new ModelAndView();
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ModelAndView loginAction(String username, String password,
+	public ModelAndView loginAction(String username, String password,int userkind,
 			HttpServletRequest request) {
 	
 		mv.addObject("username", username);
 		mv.addObject("password", password);
-		Userinfo userinfo = loginService.checkLogin(username, password);
-		//System.out.println(userId);
+		Userinfo userinfo = loginService.checkLogin(username, password,userkind);
 		if (userinfo!=null) {//存入session
 			mv.setViewName("mgmt");
 			request.getSession().setAttribute("username", userinfo.getUsername());
 			request.getSession().setAttribute("userId",userinfo.getId());
 			request.getSession().setAttribute("email",userinfo.getEmail());
+			request.getSession().setAttribute("email",userinfo.getUserKind());//用户类型
 		}
 
-		else
+		else{
+			String msg="登录出错，请重新登录!";
+			mv.addObject("msg", msg);
 			mv.setViewName("login");
+		}
 		return mv;
 
 	}

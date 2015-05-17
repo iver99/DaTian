@@ -5,7 +5,7 @@ package cn.edu.bjtu.service;
  *
  */
 public interface RegisterService {
-	public String register(String username,String password,String phone);
+	public String register(String username,String password,String phone,int userKind);
 	
 	//public boolean registerInfo(String userId);
 }

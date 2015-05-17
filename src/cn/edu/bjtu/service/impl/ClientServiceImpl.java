@@ -122,9 +122,9 @@ public class ClientServiceImpl implements ClientService{
 		return clientDao.getBasicUserInfo(userId);
 	}
 	@Override
-	public boolean checkHeadIcon(String userId) {
+	public boolean checkHeadIcon(String userId,int userKind) {
 		// TODO Auto-generated method stub
-		return clientDao.checkHeadIcon(userId);
+		return clientDao.checkHeadIcon(userId,userKind);
 	}
 	@Override
 	public String getStatus(String userId) {

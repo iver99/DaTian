@@ -84,6 +84,15 @@ public class CommonController {
 	{
 		return "register";
 	}
-	/*@RequestMapping("userdetailinfo")
-	public String getdetail*/
+	
+	@RequestMapping("homepage")
+	/**
+	 * »Øµ½Ê×Ò³
+	 * @return
+	 */
+	public String gotoHomePage()
+	{
+		System.out.println("home-controller");
+		return "index";
+	}
 }

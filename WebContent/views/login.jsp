@@ -51,12 +51,12 @@
 <%@ include  file="topFrame.jsp"%>
 
 <div id="main_frame">
+<form action="login" name="loginForm" method="post">
 	<div class="div_login_left">
     	<div class="div_login_sub1">
-        	登录
+        	登录&nbsp;&nbsp;${msg }
         </div>
     	<div class="div_login_sub2">
-    	<form action="login" name="loginForm" method="post">
 			<div class="div_login_sub2a">
             	<div class="div_login_sub2as">
             		
@@ -68,12 +68,18 @@
 			<div class="div_login_sub2b">
             	<input type="submit" id="btn2" value="登&nbsp;录" class="submit_login" hidefocus="true" onclick="document.forms.loginForm.submit();" />          
             </div>
-           	</form>
+           	
         </div>
+       			<br/>
+       	 <div class="div_login_sub3">
+        	<input type="radio" name="userkind" value="1" checked="checked"/>&nbsp;个人用户&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="userkind" value="2"/>企业用户
+        </div>
+        	<br/>
     	<div class="div_login_sub3">
         	<input type="checkbox" />&nbsp;自动登录&nbsp;&nbsp;|&nbsp;&nbsp;忘记密码
         </div>
 	</div>
+	</form>
 	<div class="div_login_right">
     	<div class="div_login_sub1">
         	加入我们

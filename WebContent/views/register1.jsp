@@ -55,8 +55,8 @@
     <table border="0" cellspacing="0" cellpadding="0" class="table_register1">
         <tr>
             <td class="td_register1">
-               <%=session.getAttribute("username") %>，您好！您已成功注册成为会员，<a href="index.jsp" class="a_register" hidefocus="true">开始浏览！</a><br />
-                您也可以<a href="userdetail" class="a_register" hidefocus="true">完善帐户信息</a>，以便获得更多服务！<br />
+               <%=session.getAttribute("username") %>，您好！您已成功注册成为会员，<a href="homepage" class="a_register" hidefocus="true">开始浏览！</a><br />
+                您也可以<a href="accountinfo" class="a_register" hidefocus="true">完善帐户信息</a>，以便获得更多服务！<br />
                 您在使用过程中有任何意见或建议时，可随时与我们沟通。<br />
                 谢谢！
             </td>

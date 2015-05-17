@@ -14,13 +14,13 @@ public class LoginServiceImpl implements LoginService{
 	private LoginDao loginDao;
 	
 	@Override
-	public Userinfo checkLogin(String username, String password) {
+	public Userinfo checkLogin(String username, String password,int userKind) {
 		// TODO Auto-generated method stub
 		
 		/*这里进行一些逻辑处理*/
 		
 		
-		return loginDao.checkLogin(username, password); 
+		return loginDao.checkLogin(username, password,userKind); 
 	}
 
 }

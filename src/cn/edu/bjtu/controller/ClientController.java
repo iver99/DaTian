@@ -234,7 +234,8 @@ public class ClientController {
 		// 此方法内可能需要判断用户种类,因为企业用户和个人用户的验证页面不一样
 		// 当前下考虑个人用户，企业用户先不考虑，（数据库没有表)
 		String userId = (String) request.getSession().getAttribute("userId");
-		boolean flag = clientService.checkHeadIcon(userId);
+		int userKind=(Integer)request.getSession().getAttribute("userKind");
+		boolean flag = clientService.checkHeadIcon(userId,userKind);
 		/*
 		 * String status1="未设置"; if(flag==true) status1="已设置";
 		 */

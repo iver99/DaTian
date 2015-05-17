@@ -44,7 +44,7 @@
     <table width="100%" border="0" cellpadding="0" cellspacing="0">
 		<tr>
             <td width="3%" height="110">&nbsp;</td>
-            <td width="220" class="td_top2a"><a href="/" hidefocus="true"><img src="images/logo.png" /></a></td>
+            <td width="220" class="td_top2a"><a href="homepage" hidefocus="true"><img src="images/logo.png" /></a></td>
             <td>
                 <div class="key">
                     <span class="mkey">线路</span>

@@ -15,7 +15,7 @@ public interface ClientDao {
 	public Clientinfo getClientInfo(String clientId);
 	public Businessclient getBusinessclientInfo(String clientId);
 	public String getBasicUserInfo(String userId);
-	public boolean checkHeadIcon(String userId);
+	public boolean checkHeadIcon(String userId,int userKind );
 	public String getStatus(String userId);
 	public boolean validateUser(String userId,String realName,String phone,String IDCard,String sex);
 
