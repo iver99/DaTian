@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+	pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>投诉管理</title>
+<title>用户验证</title>
 <META HTTP-EQUIV="imagetoolbar" CONTENT="no">
 <link rel="shortcut icon" href="/images/fav.ico" type="image/x-icon" />
 <link rel="icon" href="/images/fav.ico" type="image/x-icon" />
@@ -49,16 +49,17 @@
 </div>
 
 <%@ include  file="topFrame.jsp"%>
+
 <div id="main_frame">
-	<a href="allcomplaint" hidefocus="true" class="a_text_main_title1">后台管理</a>&nbsp;&gt;&nbsp;客户服务
+	<a href="mgmt_m.htm" hidefocus="true" class="a_text_main_title1">后台管理</a>&nbsp;&gt;&nbsp;客户服务
     <table width="100%" border="0" cellpadding="0" cellspacing="0">
 		<tr>
 			<td width="230" class="td_leftnav_top">
                 <div id="main_frame_left">
                     <span class="text_mgmt_leftnav1"><span id="mgmt_nav_switch1a" class="span_mgmt_nav1" title="收起" onclick="mgmt_nav_switch1a();"></span><span id="mgmt_nav_switch1b" class="span_mgmt_nav2" title="展开" onclick="mgmt_nav_switch1b();"></span>客户服务</span>
                     <div id="mgmt_nav1">
-                        <a href="mgmt_m_complain.htm" class="a_mgmt_leftnav1" hidefocus="true">投诉管理</a>
-                        <a href="mgmt_m_register.htm" class="a_mgmt_leftnav" hidefocus="true">用户验证</a>
+                        <a href="mgmt_m_complain.htm" class="a_mgmt_leftnav" hidefocus="true">投诉管理</a>
+                        <a href="mgmt_m_register.htm" class="a_mgmt_leftnav1" hidefocus="true">用户验证</a>
                     </div>
                     <hr class="hr_2" />
                     <span class="text_mgmt_leftnav1"><span id="mgmt_nav_switch2a" class="span_mgmt_nav1" title="收起" onclick="mgmt_nav_switch2a();"></span><span id="mgmt_nav_switch2b" class="span_mgmt_nav2" title="展开" onclick="mgmt_nav_switch2b();"></span>平台运营</span>
@@ -72,7 +73,7 @@
 				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right2a">
 					<tr>
                     	<td>
-                        	<span class="span_mgmt_right2_text1">投诉管理</span>
+                        	<span class="span_mgmt_right2_text1">认证信息</span>
                             <span class="span_mgmt_right2_text2"><a href="javascript:history.go(-1);" hidefocus="true"><img src="images/btn_back1.png" class="span_mgmt_right2_pic1" title="返回" /></a></span>
                         </td>
                 	</tr>
@@ -80,41 +81,44 @@
 				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
 					<tr>
 						<td class="td_mgmt_right3_td1a"> 
-						<br />   
-						<form action="doacceptcomplaint?id=${complaintInfo.id }" method="post">	          
+							<br />   	          
 							<table width="90%" border="0" cellspacing="0" cellpadding="0">
 								<tr>
-									<td width="120" height="40" class="td_mgmt_right3_td1b">类型：</td>
-									<td>${complaintInfo.type }</td>
+									<td width="120" height="40" class="td_mgmt_right3_td1b">用户名：</td>
+									<td><%=request.getSession().getAttribute("username") %></td>
 								</tr>
 								<tr>
-									<td height="40" class="td_mgmt_right3_td1b">主题：</td>
-									<td>${complaintInfo.theme }</td>
+									<td height="40" class="td_mgmt_right3_td1b">姓名：</td>
+									<td>${clientinfo.realName }</td>
 								</tr>
 								<tr>
-									<td height="40" class="td_mgmt_right3_td1b">内容：</td>
-									<td>${complaintInfo.content }</td>
+									<td height="40" class="td_mgmt_right3_td1b">性别：</td>
+									<td>${clientinfo.sex }</td>
 								</tr>
 								<tr>
-									<td height="40" class="td_mgmt_right3_td1b">订单编号：</td>
-									<td><a href="javascript:;" hidefocus="true">${orderinfo.orderNum }</a></td>
+									<td height="40" class="td_mgmt_right3_td1b">身份证号码：</td>
+									<td>${clientinfo.idcard }</td>
 								</tr>
-                                <tr>
-                                    <td height="40" class="td_mgmt_right3_td1b">相关材料：</td>
+								<tr>
+									<td height="40" class="td_mgmt_right3_td1b">联系电话：</td>
+									<td>${clientinfo.phone }</td>
+								</tr>
+								<tr>
+									<td height="40" class="td_mgmt_right3_td1b">身份证扫描件：</td>
                                     <td><a href="javascript:;" hidefocus="true"><img src="images/btn_filetype2.png" /></a></td>
-                                </tr>
-								<tr>
+								</tr>
+								<!-- <tr>
 									<td height="40" class="td_mgmt_right3_td1b">反馈：</td>
 									<td>
-                                    	<textarea name="feedback" class="textarea_rating" placeholder="请输入内容...">${complaintInfo.feedback }</textarea>
+                                    	<textarea class="textarea_rating" placeholder="请输入内容..."></textarea>
                                     </td>
-								</tr>
+								</tr> -->
 								<tr>
-									<td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
-									<td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
+									<td width="120" height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
+									<td><input type="button" id="btn1" value="通过" class="btn_mgmt1" hidefocus="true" onclick="window.location.href='authenticdetail?clientId=${clientinfo.id }&flag=3'" />
+									    <input type="button" id="btn1" value="拒绝" class="btn_mgmt2" hidefocus="true" onclick="window.location.href='authenticdetail?clientId=${clientinfo.id }&flag=4'"/></td>
 								</tr>
 							</table>
-							</form>
 						</td>
 					</tr>
 				</table>
@@ -147,7 +151,7 @@
 </div>
 
 <div id="footer_frame">
-	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="views/footer.jsp"></iframe>
+	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="footer.htm"></iframe>
 </div>
 
 </body>

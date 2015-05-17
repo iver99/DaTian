@@ -70,7 +70,7 @@
                 	<tr>
                     	<td class="td_mgmt_index1">
                         	<div class="div_mgmt_index1">
-                                <span class="span_mgmt_right1_text1">李强，欢迎您！<br /><img src="images/btn_level1a.png" /></span>
+                                <span class="span_mgmt_right1_text1"><%=request.getSession().getAttribute("username") %>，欢迎您！<br /><img src="images/btn_level1a.png" /></span>
                             </div>
                         	<div class="div_mgmt_index2">
                                 <div class="div_mgmt_index2a">

@@ -37,7 +37,7 @@
                     </ul>
                 </div>
             </td>
-			<td width="3%" class="td_top1a"><a href="mgmt_m.htm" hidefocus="true"><img src="images/btn_config1.png" /></a></td>
+			<td width="3%" class="td_top1a"><a href="allcomplaint" hidefocus="true"><img src="images/btn_config1.png" /></a></td>
 		</tr>
 	</table>
     <form action="searchResource" method="post">

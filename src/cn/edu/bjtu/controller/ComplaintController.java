@@ -100,7 +100,6 @@ public class ComplaintController {
 	@RequestMapping("/allcomplaint")
 	public ModelAndView getAllUserComplaint(HttpServletRequest request,HttpServletResponse response)
 	{	
-		System.out.println("进入投诉控制器");
 		/*String userId=(String)request.getSession().getAttribute("userId");
 		System.out.println("userid="+userId);
 		*/
@@ -116,7 +115,6 @@ public class ComplaintController {
 			@RequestParam String id,@RequestParam String orderid,@RequestParam int flag,
 			HttpServletRequest request,HttpServletResponse response)
 	{	
-		System.out.println("进入投诉控制器");
 		/*String userId=(String)request.getSession().getAttribute("userId");
 		System.out.println("userid="+userId);
 		*/

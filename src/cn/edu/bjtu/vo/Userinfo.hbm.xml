@@ -65,5 +65,8 @@
         <property name="securityAnswerThree" type="string">
             <column name="securityAnswerThree" />
         </property>
+        <property name="validateTime" type="date">
+            <column name="validateTime" />
+        </property>
     </class>
 </hibernate-mapping>
