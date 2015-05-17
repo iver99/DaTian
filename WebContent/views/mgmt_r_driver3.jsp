@@ -91,7 +91,7 @@
                     <tr>
                         <td class="td_mgmt_right3_td1a"> 
                             <br />   	          
-                              <form action="updateDriver?id=${driver.id }" method="post">	          
+                              <form action="updateDriver?id=${driver.id }" method="post" name="insertDriver" enctype="multipart/form-data">      
                           
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
@@ -101,7 +101,7 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">性别：</td>
                                     <td>
-                                    	<select style="width:120px;" name="sex"><!-- 性别不是数据库的东西 -->
+                                    	<select style="width:120px;" name="sex">
                                             <option value="" selected="selected">请选择</option>
                                             <option value="男" >男</option>
                                             <option value="女">女</option>
@@ -119,9 +119,9 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">驾驶证等级：</td>
                                     <td>
-                                        <select style="width:120px;" name="licenceRate"><!-- 这个也不是数据库的东西 -->
-                                            <option value="">请选择</option>
-                                            <option value="A" selected="selected">A</option>
+                                        <select style="width:120px;" name="licenceRate">
+                                            <option value="" selected="selected">请选择</option>
+                                            <option value="A">A</option>
                                             <option value="B">B</option>
                                             <option value="C">C</option>
                                         </select>
@@ -134,6 +134,20 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">联系电话：</td>
                                     <td><input type="text" class="input_mgmt1" style="width:300px;" value="${driver.phone }" name="phone"/></td>
+                                </tr>
+                                <tr>
+									<td height="40" class="td_mgmt_right3_td1b">证件扫描件：</td>
+									<td>
+                                    	<div style="position:relative;">
+                                        	<input id="apply_attachment1" type="text" class="input_attachment1" style="width:230px;" value="" />
+                                        	<input id="upload_btn3" type="button" value="添加" class="input_attachment_btn1" style="width:60px; margin-left:10px;" />
+     										<input id="upload_btn4" type="file" name="file" onchange="document.getElementById('apply_attachment1').value=/[^\\]+\.\w+$/.exec(this.value)[0]" class="input_attachment_btn1_hidden" style="width:300px;" hidefocus="true" />
+                                        </div>
+                                    </td>
+								</tr>
+                                <tr>
+                                    <td height="20" class="td_mgmt_right3_td1b"></td>
+                                    <td>（包括司机本人的身份证、驾驶证）</td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>

@@ -35,7 +35,7 @@ public interface CarService {
 
 	public boolean insertDriver(String name, String sex, String licenceRate,
 			String phone, String IDCard, String licenceNum, String licenceTime,
-			String carrierId);
+			String carrierId,String path,String fileName);
 	
 	public List getCompanyDriver(String carrierId);
 
@@ -46,7 +46,7 @@ public interface CarService {
 			String stopPlace,String carrierId);
 	
 	public boolean updateDriver(String id, String name, String sex,String IDCard, String licenceNum,
-			String licenceRate, String licenceTime,	String phone, String carrierId);
+			String licenceRate, String licenceTime,	String phone, String carrierId,String path,String fileName);
 	
 	public boolean deleteCar(String id);
 	public boolean deleteDriver(String id);

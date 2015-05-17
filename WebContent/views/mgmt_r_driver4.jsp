@@ -120,6 +120,10 @@
                                 <td height="40" class="td_mgmt_right3_td1b">联系电话：</td>
                                 <td>${driver.phone }</td>
                             </tr>
+                            <tr>
+                                <td height="40" class="td_mgmt_right3_td1b">证件扫描件：</td>
+                                <td><a href="downloadidscans?id=${driver.id }" hidefocus="true"><img src="images/btn_filetype2.png" /></a></td>
+                            </tr>
                         </table>
                     </td>
                     </tr>

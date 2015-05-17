@@ -1,7 +1,9 @@
 package cn.edu.bjtu.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
@@ -20,6 +22,7 @@ import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.service.WarehouseService;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carrierinfo;
+import cn.edu.bjtu.vo.Driverinfo;
 import cn.edu.bjtu.vo.Warehouse;
 
 @Controller
@@ -332,4 +335,47 @@ public class WarehouseController {
 		return mv;
 
 	}
+	
+	@RequestMapping(value = "downloadwarehousedetailprice", method = RequestMethod.GET)
+	/**
+	 * 删除
+	 */
+	public ModelAndView downloadWarehouseDetailPrice(@RequestParam String id,// GET方式传入，在action中
+			HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("进入删除控制器");
+		System.out.println(id);
+		// 此处获取session里的carrierid，下面方法增加一个参数
+		// String carrierId=(String)request.getSession().getAttribute("userId");
+		// String carrierId = "C-0002";// 删除
+		Warehouse warehouseInfo = warehouseService
+				.getWarehouseInfo(id);
+		try {
+			String file = warehouseInfo.getDetailPrice();
+			/*File tempFile =new File(file.trim());  	          
+	        String fileName = tempFile.getName();  			*/
+			InputStream is = new FileInputStream(file);
+			response.reset(); // 必要地清除response中的缓存信息
+			response.setHeader("Content-Disposition", "attachment; filename="
+					+ file);
+			//response.setContentType("application/vnd.ms-excel");// 根据个人需要,这个是下载文件的类型
+			javax.servlet.ServletOutputStream out = response.getOutputStream();
+			byte[] content = new byte[1024];
+			int length = 0;
+			while ((length = is.read(content)) != -1) {
+				out.write(content, 0, length);
+			}
+			out.write(content);
+			out.flush();
+			out.close();
+		} catch (Exception e) {
+			System.out.println("重定向失败");
+			e.printStackTrace();
+		}
+
+		//response.setHeader("Content-disposition", "attachment;filename="+ citylineInfo.getDetailPrice());
+		return mv;
+
+	}
+	
+	
 }

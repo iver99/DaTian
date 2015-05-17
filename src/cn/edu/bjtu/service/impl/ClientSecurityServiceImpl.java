@@ -50,6 +50,28 @@ public class ClientSecurityServiceImpl implements ClientSecurityService{
 		return false;
 	}
 
+	@Override
+	public boolean setSecurityQuestion(String q1, String q2, String q3,
+			String a1, String a2, String a3, String uId) {
+		// TODO Auto-generated method stub
+		if(q1.equals("请选择") || q2.equals("请选择") || q3.equals("请选择"))
+			return false;
+		if(a1.trim().equals("") || a2.trim().equals("")|| a3.trim().equals(""))
+			return false;
+		
+		return clientSecurityDao.setSecurityQuestion(q1,q2,q3,a1,a2,a3,uId);
+	}
+
+	
+	@Override
+	public boolean checkAnswer(String a1, String a2, String a3,String uId) {
+		// TODO Auto-generated method stub
+		if(a1.trim().equals("") || a2.trim().equals("") || a3.trim().equals(""))
+			return false;
+		
+		return clientSecurityDao.checkAnswer(a1,a2,a3,uId);
+	}
+
 	/**
 	 * 检查email格式(未实现)
 	 * @param email
