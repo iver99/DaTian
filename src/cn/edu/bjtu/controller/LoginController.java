@@ -14,11 +14,11 @@ import cn.edu.bjtu.service.LoginService;
 import cn.edu.bjtu.vo.Userinfo;
 
 @Controller
-/* @RequestMapping(value = "/views") */
 public class LoginController {
 	@Autowired
 	LoginService loginService;
 	ModelAndView mv = new ModelAndView();
+	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ModelAndView loginAction(String username, String password,
 			HttpServletRequest request) {
@@ -28,7 +28,7 @@ public class LoginController {
 		Userinfo userinfo = loginService.checkLogin(username, password);
 		//System.out.println(userId);
 		if (userinfo!=null) {//¥Ê»Îsession
-			mv.setViewName("index");
+			mv.setViewName("mgmt");
 			request.getSession().setAttribute("username", userinfo.getUsername());
 			request.getSession().setAttribute("userId",userinfo.getId());
 			request.getSession().setAttribute("email",userinfo.getEmail());
