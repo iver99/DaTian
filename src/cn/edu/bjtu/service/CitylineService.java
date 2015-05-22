@@ -17,7 +17,7 @@ public interface CitylineService {
 			float refPrice,String remarks,String carrierId, String VIPDetail,
 			String path,String fileName);
 	public boolean updateLine(String id, String citylineName, String cityName, String VIPService,
-			String VIPServiceText,float refPrice, String remarks, String carrierId,
+			String VIPDetail,float refPrice, String remarks, String carrierId,
 			String path,String fileName);
 	public boolean deleteCityline(String id);
 }

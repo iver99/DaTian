@@ -381,7 +381,7 @@ public class CarController {
 			@RequestParam String carNum,
 			@RequestParam String carTeam,
 			@RequestParam String locType,
-			@RequestParam String GPSText,// 缺少参数
+			@RequestParam String terminalId,// 缺少参数
 			@RequestParam String carType, @RequestParam String carBase,
 			@RequestParam String carBrand, @RequestParam String carUse,
 			@RequestParam double carLength, @RequestParam double carWidth,
@@ -397,7 +397,7 @@ public class CarController {
 		System.out.println("in controller");// null
 
 		boolean flag = carService.updateCar(id, carNum, carTeam, locType,
-				GPSText, carType, carBase, carBrand, carUse, carLength,
+				terminalId, carType, carBase, carBrand, carUse, carLength,
 				carWidth, carHeight, carWeight, carPurTime, storage, driverId,
 				startPlace, endPlace, stopPlace, carrierId);
 

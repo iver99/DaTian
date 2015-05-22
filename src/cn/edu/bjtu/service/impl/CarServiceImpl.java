@@ -1,5 +1,8 @@
 package cn.edu.bjtu.service.impl;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +13,7 @@ import org.springframework.stereotype.Service;
 import cn.edu.bjtu.dao.BaseDao;
 import cn.edu.bjtu.dao.CarDao;
 import cn.edu.bjtu.service.CarService;
+import cn.edu.bjtu.service.GoodsInfoService;
 import cn.edu.bjtu.service.LinetransportService;
 import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.util.IdCreator;
@@ -38,7 +42,8 @@ public class CarServiceImpl implements CarService {
 	// List driverNameList=new ArrayList();
 	@Resource
 	HQLTool hqltool;
-
+	
+	
 	@Override
 	/**
 	 * 返回所有车辆
@@ -176,7 +181,7 @@ public class CarServiceImpl implements CarService {
 		carinfo.setId(IdCreator.createCarId());
 		// carinfo.setLinetransportId(linetransportId);
 		carinfo.setLocationType(locationType);
-		carinfo.setPurchaseTime(ParseDate.parseDate(purchaseTime));
+		carinfo.setPurchaseTime(stringToDate(purchaseTime));
 		carinfo.setRelDate(new Date());
 		carinfo.setStorage(storage);
 		// carinfo.setTerminalId(terminalId);
@@ -206,7 +211,7 @@ public class CarServiceImpl implements CarService {
 		driverinfo.setIDCard(IDCard);
 		driverinfo.setLicenceNum(licenceNum);
 		driverinfo.setLicenceRate(licenceRate);
-		driverinfo.setLicenceTime(ParseDate.parseDate(licenceTime));// 这里还有问题
+		driverinfo.setLicenceTime(stringToDate(licenceTime));
 		driverinfo.setPhone(phone);
 		driverinfo.setRelDate(new Date());
 		driverinfo.setSex(sex);
@@ -232,7 +237,7 @@ public class CarServiceImpl implements CarService {
 	 * 更新车辆信息
 	 */
 	public boolean updateCar(String id, String carNum, String carTeam,
-			String locType, String GPSText, String carType, String carBase,
+			String locType, String terminalId, String carType, String carBase,
 			String carBrand, String carUse, double carLength, double carWidth,
 			double carHeight, double carWeight, String carPurTime,
 			String storage, String driverId, String startPlace,// 缺少参数
@@ -242,7 +247,7 @@ public class CarServiceImpl implements CarService {
 		// TODO Auto-generated method stub
 		System.out.println("in updateCar");// null
 		carinfo = getCarInfo(id);// 根据id查找到车辆信息
-
+		carinfo.setTerminalId(terminalId);
 		carinfo.setCarTeam(carTeam);
 		carinfo.setLocationType(locType);
 		carinfo.setCarType(carType);
@@ -253,15 +258,31 @@ public class CarServiceImpl implements CarService {
 		carinfo.setCarWidth(carWidth);
 		carinfo.setCarHeight(carHeight);
 		carinfo.setCarWeight(carWeight);
-		// carinfo.setPurchaseTime(carPurTime);
+		carinfo.setPurchaseTime(stringToDate(carPurTime));
 		carinfo.setStorage(storage);
 		carinfo.setDriverId(driverId);
-
+		carinfo.setStopPlace(stopPlace);
+		
 		System.out.println("set over");// null
 		return baseDao.update(carinfo);
 
 	}
 
+	public static Date stringToDate(String str) {  
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");  
+        Date date = null;  
+        try {  
+            // Fri Feb 24 00:00:00 CST 2012  
+            date = format.parse(str);   
+        } catch (ParseException e) {  
+            e.printStackTrace();  
+        }  
+        // 2012-02-24  
+        date = java.sql.Date.valueOf(str);  
+                                              
+        return date;  
+} 
+	
 	@Override
 	/**
 	 * 更新司机
@@ -279,6 +300,7 @@ public class CarServiceImpl implements CarService {
 		driverinfo.setIDCard(IDCard);
 		driverinfo.setLicenceNum(licenceNum);
 		driverinfo.setLicenceRate(licenceRate);
+		driverinfo.setLicenceTime(stringToDate(licenceTime));
 		driverinfo.setPhone(phone);
 		driverinfo.setRelDate(new Date());
 		// 保存文件路径

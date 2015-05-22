@@ -67,6 +67,7 @@ public class ContractServiceImpl implements ContractService{
 		contract.setPhone(phone);
 		contract.setRemarks(remarks);
 		contract.setId(id);
+		contract.setState("´ýÈ·ÈÏ");
 		if(monthlyStatementDays != ""){
 			contract.setMonthlyStatementDays(monthlyStatementDays);
 		}

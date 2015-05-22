@@ -225,10 +225,7 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">经停城市：</td>
-                                    <td>
-                                        <input id="city3" type="text" value="" class="input_city1" name="stopStation"/>
-                                        <img src="images/btn_add2.png" hidefocus="true" style="cursor:pointer;" title="添加" onclick="addcity();" />
-                                    </td>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${carInfo.stopPlace }" name="stopPlace"/>
                                 </tr>
                                 <tr>
                                     <td height="1"></td>

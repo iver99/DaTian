@@ -228,7 +228,7 @@ public class CitylineController {
 			@RequestParam String citylineName,
 			@RequestParam String cityName,
 			@RequestParam String VIPService,
-			@RequestParam String VIPServiceText,// 缺少详细增值服务参数
+			@RequestParam String VIPDetail,// 缺少详细增值服务参数
 			@RequestParam float refPrice, @RequestParam String remarks,
 			HttpServletRequest request, HttpServletResponse response) {
 
@@ -258,7 +258,7 @@ public class CitylineController {
 		// ////////////////////////////////////////////
 
 		boolean flag = citylineService.updateLine(id, citylineName, cityName,
-				VIPService, VIPServiceText, refPrice, remarks, carrierId, path,
+				VIPService, VIPDetail, refPrice, remarks, carrierId, path,
 				fileName);
 		if (flag == true) {
 

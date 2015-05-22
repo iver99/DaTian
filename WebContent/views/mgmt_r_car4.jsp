@@ -150,7 +150,7 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">经停城市：</td>
-                                    <td>石家庄、郑州（数据库没有）</td>
+                                    <td>${carInfo.stopPlace }</td>
                                 </tr>
                             </table>
                         </td>

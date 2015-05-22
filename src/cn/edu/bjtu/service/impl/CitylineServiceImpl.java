@@ -253,7 +253,7 @@ public class CitylineServiceImpl implements CitylineService {
 	 * 更新城市配送
 	 */
 	public boolean updateLine(String id, String citylineName, String cityName,
-			String VIPService, String VIPServiceText, float refPrice,
+			String VIPService, String VIPDetail, float refPrice,
 			String remarks, String carrierId,String path,String fileName) {
 		// TODO Auto-generated method stub
 
@@ -262,6 +262,7 @@ public class CitylineServiceImpl implements CitylineService {
 		cityline.setName(citylineName);
 		cityline.setCityName(cityName);
 		cityline.setVIPService(VIPService);
+		cityline.setVIPDetail(VIPDetail);
 		cityline.setRefPrice(refPrice);
 		cityline.setRemarks(remarks);
 		cityline.setRelDate(new Date());

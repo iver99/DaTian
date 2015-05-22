@@ -1,6 +1,8 @@
 package cn.edu.bjtu.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -13,7 +15,6 @@ import cn.edu.bjtu.vo.Userinfo;
 @Repository
 public class LoginDaoImpl implements LoginDao {
 
-	
 
 	@Resource
 	HibernateTemplate ht;
@@ -26,7 +27,8 @@ public class LoginDaoImpl implements LoginDao {
 		//ÐèÒªÐÞ¸Ä 
 		//userinfo=(Userinfo)ht.find("from Userinfo where username='"+username+"' and password='"+password+"'");
 		List list=null;
-		list=ht.find("from Userinfo where username='"+username+"' and password='"+password+"'"+" and userKind="+userKind);
+		String hql="from Userinfo where username='"+username+"' and password='"+password+"'"+" and userKind="+userKind;
+		list=ht.find(hql);
 		if(list.size()>0){
 			userinfo=(Userinfo)list.get(0);
 			return userinfo;

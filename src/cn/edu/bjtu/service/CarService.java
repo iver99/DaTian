@@ -40,7 +40,7 @@ public interface CarService {
 	public List getCompanyDriver(String carrierId);
 
 	public boolean updateCar(String id, String carNum, String carTeam, String locType, 
-			String GPSText, String carType, String carBase, String carBrand, String carUse,
+			String terminalId, String carType, String carBase, String carBrand, String carUse,
 			double carLength, double carWidth, double carHeight, double carWeight, String carPurTime,
 			String storage,String driverId, String startPlace,String endPlace,
 			String stopPlace,String carrierId);

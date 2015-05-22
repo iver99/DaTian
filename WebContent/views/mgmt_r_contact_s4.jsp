@@ -114,7 +114,7 @@
                             </tr>
                             <tr>
                                 <td height="40" class="td_mgmt_right3_td1b">结算方式：</td>
-                                <td>月结 (30天)(未实现)</td>
+                                <td>${contract.caculateType } ${contract.monthlyStatementDays }</td>
                             </tr>
                             <tr>
                                 <td height="40" class="td_mgmt_right3_td1b">联系人：</td>
