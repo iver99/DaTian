@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.BaseDao;
 import cn.edu.bjtu.service.RegisterService;
@@ -13,6 +14,7 @@ import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Clientinfo;
 import cn.edu.bjtu.vo.Userinfo;
 @Service("registerServiceImpl")
+@Transactional
 /**
  * 
  * @author RussWest0

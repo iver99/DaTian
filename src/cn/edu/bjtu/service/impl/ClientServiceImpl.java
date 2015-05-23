@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.apache.catalina.User;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.BaseDao;
 import cn.edu.bjtu.dao.ClientDao;
@@ -23,6 +24,7 @@ import cn.edu.bjtu.vo.Userinfo;
  *
  */
 @Service
+@Transactional
 public class ClientServiceImpl implements ClientService{
 
 	@Resource
@@ -80,7 +82,8 @@ public class ClientServiceImpl implements ClientService{
 			String fileLocation = path + "//" + fileName;
 			businessClient.setRelatedMaterial(fileLocation);
 		}
-		return baseDao.save(businessClient);//保存实体
+		baseDao.save(businessClient);//保存实体
+		return true;
 	}
 	
 	@Override
@@ -106,7 +109,8 @@ public class ClientServiceImpl implements ClientService{
 			String fileLocation = path + "//" + fileName;
 			businessClient.setRelatedMaterial(fileLocation);
 		}
-		return baseDao.update(businessClient);//保存实体
+		baseDao.update(businessClient);//保存实体
+		return true;
 	}
 	@Override
 	/**
@@ -114,7 +118,8 @@ public class ClientServiceImpl implements ClientService{
 	 */
 	public boolean deleteClient(String id){
 		businessClient=getBusinessclientInfo(id);//根据id查找到客户信息
-		return baseDao.delete(businessClient);
+		baseDao.delete(businessClient);
+		return true;
 	}
 	@Override
 	public String getBasicUserInfo(String userId) {

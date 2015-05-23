@@ -234,15 +234,15 @@ public class ClientController {
 		// 此方法内可能需要判断用户种类,因为企业用户和个人用户的验证页面不一样
 		// 当前下考虑个人用户，企业用户先不考虑，（数据库没有表)
 		String userId = (String) request.getSession().getAttribute("userId");
+		if(userId==null)//未登录
+		{
+			mv.setViewName("login");
+			return mv;
+		}
 		int userKind=(Integer)request.getSession().getAttribute("userKind");
 		boolean flag = clientService.checkHeadIcon(userId,userKind);
-		/*
-		 * String status1="未设置"; if(flag==true) status1="已设置";
-		 */
 		// 个人用户
-		System.out.println("头像设置+" + flag);
 		String status = clientService.getStatus(userId);
-
 		mv.addObject("status", status);
 		mv.addObject("headCheck", flag);
 		mv.setViewName("mgmt_a_info");
@@ -258,11 +258,9 @@ public class ClientController {
 	 */
 	public ModelAndView getBasicUserInfo(HttpServletRequest request,
 			HttpServletResponse response) {
-		System.out.println("进入基本信息");
 		String userId = (String) request.getSession().getAttribute("userId");
 
 		String email = clientService.getBasicUserInfo(userId);
-		System.out.println("email+" + email);
 		mv.addObject("email", email);
 		mv.setViewName("mgmt_a_info2");
 		return mv;

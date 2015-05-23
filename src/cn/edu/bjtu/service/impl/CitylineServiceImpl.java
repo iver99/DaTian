@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.BaseDao;
 import cn.edu.bjtu.dao.CitylineDao;
@@ -13,7 +14,7 @@ import cn.edu.bjtu.service.CitylineService;
 import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.vo.Cityline;
-
+@Transactional
 @Repository
 /**
  * 城市配送服务层实现
@@ -245,7 +246,8 @@ public class CitylineServiceImpl implements CitylineService {
 			String fileLocation = path + "//" + fileName;
 			cityline.setDetailPrice(fileLocation);
 		}
-		return baseDao.save(cityline);
+		baseDao.save(cityline);
+		return true;
 	}
 
 	@Override
@@ -272,8 +274,8 @@ public class CitylineServiceImpl implements CitylineService {
 			String fileLocation = path + "//" + fileName;
 			cityline.setDetailPrice(fileLocation);
 		}
-		return baseDao.update(cityline);
-
+		baseDao.update(cityline);
+		return true;
 	}
 	
 	@Override
@@ -282,6 +284,7 @@ public class CitylineServiceImpl implements CitylineService {
 	 */
 	public boolean deleteCityline(String id) {
 		cityline = getCitylineInfo(id);// 根据id查找到城市配送信息
-		return baseDao.delete(cityline);
+		baseDao.delete(cityline);
+		return true;
 	}
 }

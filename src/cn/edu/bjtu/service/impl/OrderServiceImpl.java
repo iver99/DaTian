@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.BaseDao;
 import cn.edu.bjtu.dao.OrderDao;
@@ -20,6 +21,7 @@ import cn.edu.bjtu.vo.Orderform;
  * @author RussWest0
  *
  */
+@Transactional
 @Repository
 public class OrderServiceImpl implements OrderService {
 
@@ -79,7 +81,8 @@ public class OrderServiceImpl implements OrderService {
 		orderform.setContractId(contractId);
 		orderform.setRemarks(remarks);
 
-		return baseDao.save(orderform);// 保存实体
+		baseDao.save(orderform);// 保存实体
+		return true;
 
 	}
 
@@ -159,7 +162,8 @@ public class OrderServiceImpl implements OrderService {
 		orderform.setRecieverPhone(recieverPhone);
 		orderform.setRecieverAddr(recieverAddr);
 		orderform.setRemarks(remarks);
-		return baseDao.update(orderform);
+		baseDao.update(orderform);
+		return true;
 
 	}
 

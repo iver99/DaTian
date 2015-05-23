@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.BaseDao;
 import cn.edu.bjtu.dao.ComplaintDao;
@@ -18,6 +19,7 @@ import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.vo.Complaintform;
 
 @Service("complaintServiceImpl")
+@Transactional
 public class ComplaintServiceImpl implements ComplaintService{
 
 	@Resource
@@ -84,7 +86,8 @@ public class ComplaintServiceImpl implements ComplaintService{
 						get(0).toString());
 			}
 		}
-		return baseDao.save(complaintform);
+		baseDao.save(complaintform);
+		return true;
 	
 	}
 	
@@ -94,13 +97,13 @@ public class ComplaintServiceImpl implements ComplaintService{
 		complaintform = getComplaintInfo(id);
 		complaintform.setFeedback(feedback);
 		complaintform.setState("已受理");
-		return baseDao.update(complaintform);
+		baseDao.update(complaintform);
+		return false;
 	}
 	
 	@Override
 	public List getFindComplaint(String theme){
 		String sql="from ComplaintClientView ";
-		System.out.println("theme="+theme);
 		
 		if(theme.equals("投诉主题")){
 			//查找时不考虑投诉主题

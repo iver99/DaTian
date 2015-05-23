@@ -39,7 +39,8 @@ public class ClientSecurityDaoImpl implements ClientSecurityDao {
 		// TODO Auto-generated method stub
 		Userinfo user = ht.get(Userinfo.class, userId);
 		user.setPassword(newPassword);
-		return baseDao.update(user);
+		baseDao.update(user);
+		return true;
 	}
 
 	@Override
@@ -54,7 +55,9 @@ public class ClientSecurityDaoImpl implements ClientSecurityDao {
 		Clientinfo clientinfo = ht.get(Clientinfo.class, userId);
 		clientinfo.setEmail(email);
 
-		return baseDao.update(user) && baseDao.update(clientinfo);
+		baseDao.update(user);
+		baseDao.update(clientinfo);
+		return true;
 	}
 
 	@Override
@@ -80,7 +83,9 @@ public class ClientSecurityDaoImpl implements ClientSecurityDao {
 
 		clientinfo.setEmail(newEmail);
 
-		return baseDao.update(userinfo) && baseDao.update(clientinfo);
+		baseDao.update(userinfo);
+		baseDao.update(clientinfo);
+		return true;
 
 	}
 
@@ -99,7 +104,8 @@ public class ClientSecurityDaoImpl implements ClientSecurityDao {
 
 		userinfo.setSecurityQuestionStatus("“—…Ë÷√");
 
-		return baseDao.update(userinfo);
+		baseDao.update(userinfo);
+		return true;
 	}
 
 	@Override

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.CompanyDao;
 import cn.edu.bjtu.service.CompanyService;
@@ -17,6 +18,7 @@ import cn.edu.bjtu.vo.Carrierinfo;
  *
  */
 @Repository
+@Transactional
 public class CompanyServiceImpl implements CompanyService{
 	
 	@Resource

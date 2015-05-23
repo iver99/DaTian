@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.BaseDao;
 import cn.edu.bjtu.dao.ContractDao;
@@ -12,7 +13,7 @@ import cn.edu.bjtu.service.ContractService;
 import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.util.ParseDate;
 import cn.edu.bjtu.vo.Contract;
-
+@Transactional
 @Service("contractServiceImpl")
 /**
  * 合同服务层实现 
@@ -76,7 +77,8 @@ public class ContractServiceImpl implements ContractService{
 			String fileLocation = path + "//" + fileName;
 			contract.setRelatedMaterial(fileLocation);
 		}
-		return baseDao.save(contract);//保存实体
+		baseDao.save(contract);//保存实体
+		return false;
 		
 	}
 	@Override

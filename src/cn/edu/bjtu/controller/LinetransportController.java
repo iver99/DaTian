@@ -64,21 +64,21 @@ public class LinetransportController {
 			mv.setViewName("resource_list");
 		} else if (flag == 1) {
 			// 这里从session取出id，查询指定的line
-			String carrierId = (String) request.getSession().getAttribute(
+			String userId = (String) request.getSession().getAttribute(
 					"userId");
 
 			List linetransportList = linetransportService.getCompanyLine(
-					carrierId, Display, PageNow);// 新增两个参数
-			// System.out.println("linetransportsize+"+linetransportList.size());
-			int count = linetransportService.getCompanyTotalRows(carrierId);// 新增的访法
-			// System.out.println("count+"+count);
-			int pageNum = (int) Math.ceil(count * 1.0 / Display);// 页数
-			mv.addObject("count", count);
-			mv.addObject("pageNum", pageNum);
-			mv.addObject("pageNow", PageNow);
+					userId, Display, PageNow);// 新增两个参数
 
 			mv.addObject("linetransportList", linetransportList);
-			mv.setViewName("mgmt_r_line");
+			if(userId !=null)
+			{
+				mv.setViewName("mgmt_r_line");
+			}else
+			{
+				mv.setViewName("login");
+			}
+			
 		}
 		return mv;
 	}

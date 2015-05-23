@@ -115,16 +115,16 @@ public class ClientDaoImpl implements ClientDao {
 		clientInfo.setIdcard(IDCard);
 		clientInfo.setSex(sex);
 		
-		boolean flag= baseDao.update(clientInfo);
+		baseDao.update(clientInfo);
 		//修改个人信息状态
-		if(flag== true)
-		{
+		//if(flag== true)
+	//	{
 			Userinfo userInfo=ht.get(Userinfo.class, userId);
 			userInfo.setStatus("已审核");
 			baseDao.update(userInfo);
-		}
+	//}
 		
-		return flag;
+		return true;
 	}
 	
 

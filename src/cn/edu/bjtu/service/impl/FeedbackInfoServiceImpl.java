@@ -5,10 +5,11 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.FeedbackInfoDao;
 import cn.edu.bjtu.service.FeedbackInfoService;
-
+@Transactional
 @Repository
 public class FeedbackInfoServiceImpl implements FeedbackInfoService{
 	

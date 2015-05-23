@@ -87,7 +87,7 @@
     	<div class="div_login_sub4">
         	现在可以简单、快速的成为会员！<br />
             加入会员后可以享受我们提供的快捷服务！<br />
-            <input type="button" id="btn2" value="注册" class="submit_login1" hidefocus="true" onclick="window.location.href='register.htm'" />
+            <input type="button" id="btn2" value="注册" class="submit_login1" hidefocus="true" onclick="window.location.href='registerForm'" />
         </div>
 	</div>
 </div>

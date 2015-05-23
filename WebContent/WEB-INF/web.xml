@@ -80,4 +80,14 @@
 	<session-config>
 		<session-timeout>30</session-timeout>
 	</session-config>
+	<!-- 配置错误页面  -->
+	<error-page>
+		<error-code>404</error-code>
+		<location>/views/404.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/views/500.jsp</location>
+	</error-page>
+
 </web-app>

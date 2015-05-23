@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.SearchDao;
 import cn.edu.bjtu.service.SearchService;
@@ -14,7 +15,8 @@ import cn.edu.bjtu.service.SearchService;
  * @author RussWest0
  *
  */
-@Service("searchServiceImpl")
+@Transactional
+@Service
 public class SearchServiceImpl implements SearchService{
 
 	@Resource 

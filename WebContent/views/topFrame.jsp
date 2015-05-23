@@ -29,7 +29,6 @@
                                         <a href="sendorderinfo" class="a_top1" hidefocus="true">我的订单</a>
                                         <a href="linetransport?flag=1&Display=10&PageNow=1" class="a_top1" hidefocus="true">我的资源</a>
                                         <a href="accountinfo" class="a_top1" hidefocus="true">帐户信息</a>
-                                        <a href="logout" class="a_top1" hidefocus="true">安全退出</a>
                                     </div>
                                 </div>
                             </div>

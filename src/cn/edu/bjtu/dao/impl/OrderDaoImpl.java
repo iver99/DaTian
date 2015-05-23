@@ -81,7 +81,8 @@ public class OrderDaoImpl implements OrderDao {
 		//System.out.println("orderEntity+" + order);
 		order.setState("待收货");// 修改状态
 
-		return baseDao.update(order);
+		baseDao.update(order);
+		return true;
 
 	}
 
@@ -108,7 +109,8 @@ public class OrderDaoImpl implements OrderDao {
 		order.setState("待确认");//修改 订单状态
 		order.setActualPrice(actualPrice);
 		order.setExplainReason(explainReason);
-		return baseDao.update(order);
+		baseDao.update(order);
+		return true;
 	}
 
 	@Override
@@ -129,7 +131,8 @@ public class OrderDaoImpl implements OrderDao {
 		Orderform order=ht.get(Orderform.class, orderId);
 		order.setState("待评价");
 		
-		return baseDao.update(order);
+		baseDao.update(order);
+		return true;
 	}
 	
 	@Override
@@ -142,7 +145,8 @@ public class OrderDaoImpl implements OrderDao {
 		order.setCancelReason(cancelReason);
 		order.setState("已取消");
 		
-		return baseDao.update(order);
+		baseDao.update(order);
+		return true;
 	}
 	
 	@Override
@@ -154,7 +158,8 @@ public class OrderDaoImpl implements OrderDao {
 		Orderform order = (Orderform) ht.get(Orderform.class, orderId);
 		order.setActualPrice(actualPrice);
 		order.setExplainReason(explainReason);
-		return baseDao.update(order);
+		baseDao.update(order);
+		return true;
 	}
 
 	@Override
@@ -191,7 +196,8 @@ public class OrderDaoImpl implements OrderDao {
 		//order.setResourceType(resourceType);
 		order.setState("待受理");//订单状态
 		
-		return baseDao.save(order);
+		baseDao.save(order);
+		return true;
 		
 	}
 	

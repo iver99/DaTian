@@ -1,22 +1,19 @@
 package cn.edu.bjtu.service.impl;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.AuthenticationDao;
 import cn.edu.bjtu.dao.BaseDao;
 import cn.edu.bjtu.service.AuthenticationService;
 import cn.edu.bjtu.util.HQLTool;
-import cn.edu.bjtu.util.HQL_POJO;
-import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.vo.Clientinfo;
-import cn.edu.bjtu.vo.Goodsform;
 import cn.edu.bjtu.vo.Userinfo;
-
+@Transactional
 @Service("authenticationServiceImpl")
 public class AuthenticationServiceImpl implements AuthenticationService{
 	
@@ -72,6 +69,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 			// TODO Auto-generated method stub
 		userinfo = getMyUserDetail(clientId);
 		userinfo.setStatus(status);
-		return baseDao.update(userinfo);//保存实体
+		 baseDao.update(userinfo);//保存实体
+		 return true;
 	}
 }

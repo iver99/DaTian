@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.AddressDao;
 import cn.edu.bjtu.dao.BaseDao;
@@ -14,7 +15,7 @@ import cn.edu.bjtu.service.AddressService;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.vo.Address;
 
-
+@Transactional
 @Service("AddressServiceImpl")
 /**
  * 子账户服务层实现 
@@ -67,7 +68,8 @@ public class AddressServiceImpl implements AddressService{
 		address.setPhone(phone);
 		address.setRelDate(new Date());
 		address.setClientId(clientId);
-		return baseDao.save(address);
+		 baseDao.save(address);
+		 return true;
 	}
 	
 	@Override
@@ -78,7 +80,8 @@ public class AddressServiceImpl implements AddressService{
 		address.setAddress(paramaddress);
 		address.setName(name);
 		address.setPhone(phone);
-		return baseDao.update(address);
+		baseDao.update(address);
+		return true;
 	}
 	
 }

@@ -9,6 +9,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.BaseDao;
 import cn.edu.bjtu.dao.CarDao;
@@ -21,7 +22,7 @@ import cn.edu.bjtu.util.ParseDate;
 import cn.edu.bjtu.vo.Carinfo;
 import cn.edu.bjtu.vo.Carteam;
 import cn.edu.bjtu.vo.Driverinfo;
-
+@Transactional
 @Service("carServiceImpl")
 public class CarServiceImpl implements CarService {
 
@@ -186,7 +187,8 @@ public class CarServiceImpl implements CarService {
 		carinfo.setStorage(storage);
 		// carinfo.setTerminalId(terminalId);
 
-		return baseDao.save(carinfo);
+		baseDao.save(carinfo);
+		return true;
 	}
 
 	@Override
@@ -220,7 +222,8 @@ public class CarServiceImpl implements CarService {
 			String fileLocation = path + "//" + fileName;
 			driverinfo.setIdscans(fileLocation);
 		}
-		return baseDao.save(driverinfo);// 保存实体
+		baseDao.save(driverinfo);// 保存实体
+		return true;
 	}
 
 	@Override
@@ -264,7 +267,8 @@ public class CarServiceImpl implements CarService {
 		carinfo.setStopPlace(stopPlace);
 		
 		System.out.println("set over");// null
-		return baseDao.update(carinfo);
+		baseDao.update(carinfo);
+		return true;
 
 	}
 
@@ -308,7 +312,8 @@ public class CarServiceImpl implements CarService {
 			String fileLocation = path + "//" + fileName;
 			driverinfo.setIdscans(fileLocation);
 		}
-		return baseDao.update(driverinfo);// 保存实体
+		baseDao.update(driverinfo);// 保存实体
+		return true;
 	}
 
 	@Override
@@ -320,7 +325,8 @@ public class CarServiceImpl implements CarService {
 	public boolean deleteCar(String id) {
 		carinfo = getCarInfo(id);// 根据id查找到车辆信息
 
-		return baseDao.delete(carinfo);
+		baseDao.delete(carinfo);
+		return true;
 	}
 
 	@Override
@@ -331,7 +337,8 @@ public class CarServiceImpl implements CarService {
 	 */
 	public boolean deleteDriver(String id) {
 		driverinfo = getDriverInfo(id);// 根据id查找到车辆信息
-		return baseDao.delete(driverinfo);
+		baseDao.delete(driverinfo);
+		return true;
 	}
 
 	@Override
@@ -361,7 +368,8 @@ public class CarServiceImpl implements CarService {
 		carteam.setExplaination(explaination);
 		carteam.setRelDate(new Date());
 		// return true;
-		return baseDao.save(carteam);// 保存实体
+		baseDao.save(carteam);// 保存实体
+		return true;
 	}
 
 	@Override
@@ -372,7 +380,8 @@ public class CarServiceImpl implements CarService {
 	 */
 	public boolean deleteCarteam(String id) {
 		carteam = getCarteamInfo(id);// 根据id查找到车辆信息
-		return baseDao.delete(carteam);
+		baseDao.delete(carteam);
+		return true;
 	}
 
 	@Override
@@ -385,6 +394,7 @@ public class CarServiceImpl implements CarService {
 		carteam.setPhone(phone);
 		carteam.setExplaination(explaination);
 		// return true;
-		return baseDao.update(carteam);// 保存实体
+		baseDao.update(carteam);// 保存实体
+		return true;
 	}
 }

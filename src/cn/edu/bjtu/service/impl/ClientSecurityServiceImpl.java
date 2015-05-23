@@ -2,11 +2,13 @@ package cn.edu.bjtu.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.ClientSecurityDao;
 import cn.edu.bjtu.service.ClientSecurityService;
 import cn.edu.bjtu.vo.Userinfo;
 @Service
+@Transactional
 public class ClientSecurityServiceImpl implements ClientSecurityService{
 
 	
