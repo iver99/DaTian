@@ -172,12 +172,12 @@
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">增值服务：</td>
                                     <td>
                                         <select id="valueadd" style="width:120px;" onchange="change1();" name="VIPService">
-                                        <option value="">请选择</option>
+                                        <option value="" selected="selected">请选择</option>
                                         <option value="有">有</option>
-                                        <option value="无" selected="selected">无</option>
+                                        <option value="无">无</option>
                                         </select>
                                         <div id="v_detail" style="display:none;">
-                                        <input type="text" class="input_mgmt1" style="width:176px;" placeholder="请输入增值服务内容..." name="VIPServiceText"/>
+                                        <input type="text" class="input_mgmt1" style="width:176px;" value="${citylineInfo.VIPDetail }" name="VIPDetail"/>
                                         </div>
                                     </td>
                                 </tr>
@@ -202,7 +202,7 @@
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">补充信息：</td>
 									<td>
-                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="remarks"></textarea>
+                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="remarks">${citylineInfo.remarks }</textarea>
                                     </td>
 								</tr>
                                 <tr>
@@ -244,7 +244,7 @@
 </div>
 
 <div id="footer_frame">
-	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="footer.htm"></iframe>
+	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="views/footer.jsp"></iframe>
 </div>
 
 </body>

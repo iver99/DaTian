@@ -21,7 +21,7 @@ public interface ClientService {
 			String contact,String phone,String remarks,String carrierId,String path,String fileName);
 	public boolean deleteClient(String id);
 	public String getBasicUserInfo(String userId);
-	public boolean checkHeadIcon(String userId);
+	public boolean checkHeadIcon(String userId,int userKind);
 	
 	public String getStatus(String userId);
 	

@@ -3,15 +3,14 @@ package cn.edu.bjtu.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import cn.edu.bjtu.service.impl.SearchServiceImpl;
+import cn.edu.bjtu.service.SearchService;
 
 /**
  * ËÑË÷¿ØÖÆÆ÷
@@ -22,8 +21,8 @@ import cn.edu.bjtu.service.impl.SearchServiceImpl;
 @Controller
 public class SearchController {
 
-	@Resource(name = "searchServiceImpl")
-	SearchServiceImpl searchServiceImpl;
+	@Autowired
+	SearchService searchServiceImpl;
 	ModelAndView mv = new ModelAndView();
 
 	@RequestMapping(value = "searchResource", method = RequestMethod.POST)

@@ -7,5 +7,7 @@ import cn.edu.bjtu.vo.Complaintform;
 public interface ComplaintDao {
 	
 	public List getUserCompliant(String userId);
-	public Complaintform getComplaintInfo(String id) ;
+	public List getAllUserCompliant();
+	public Complaintform getComplaintInfo(String id);
+	public List getFindComplaint(String sql);
 }

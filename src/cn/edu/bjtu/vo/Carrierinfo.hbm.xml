@@ -56,5 +56,14 @@
         <property name="warehouse" type="string">
             <column name="warehouse" />
         </property>
+        <property name="companyContact" type="string">
+            <column name="companyContact" />
+        </property>
+        <property name="status" type="string">
+            <column name="status" />
+        </property>
+         <property name="headIcon" type="string">
+            <column name="headIcon" />
+        </property>
     </class>
 </hibernate-mapping>

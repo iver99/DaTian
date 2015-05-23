@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.BaseDao;
 import cn.edu.bjtu.dao.SubAccountDao;
@@ -14,6 +15,7 @@ import cn.edu.bjtu.vo.SubAccount;
 
 
 @Repository
+
 /**
  * 子账户dao层实现
  *
@@ -57,13 +59,16 @@ public class SubAccountDaoImpl implements SubAccountDao{
 			subAccount.setStatus("已停用");// 修改状态
 		}
 
-		return baseDao.update(subAccount);
+		//return baseDao.update(subAccount);
+		baseDao.save(subAccount);
+		return true;
 	}
 	
 	@Override
 	public boolean deleteSubAccount(String id){
 		
 		SubAccount subAccount = ht.get(SubAccount.class, id);
-		return baseDao.delete(subAccount);
+		 baseDao.delete(subAccount);
+		 return true;
 	}
 }

@@ -70,19 +70,28 @@ public class ClientDaoImpl implements ClientDao {
 	/**
 	 * 检查是否设置头像
 	 */
-	public boolean checkHeadIcon(String userId) {
+	public boolean checkHeadIcon(String userId,int userKind) {
 		// TODO Auto-generated method stub
 		// System.out.println("userId"+userId);
-		List list = ht.find("select headIcon from Clientinfo where id='"
-				+ userId + "'");
-		if (list != null) {
-			// System.out.println("list+"+list);
-			if (list.get(0) != null)
+		
+		if(userKind == 1)//个人用户 
+		{
+			List list = ht.find("select headIcon from Clientinfo where id='"
+					+ userId + "'");
+			if (list != null) {
+				// System.out.println("list+"+list);
 				return true;
-			else
+			} else
 				return false;
-		} else
-			return false;
+		}else//企业用户
+		{
+			List list= ht.find("select headIcon from Carrierinfo where id='"+userId+"'");
+			if(list !=null)
+				return true;
+			else 
+				return false;
+		}
+		
 	}
 
 	@Override
@@ -106,16 +115,16 @@ public class ClientDaoImpl implements ClientDao {
 		clientInfo.setIdcard(IDCard);
 		clientInfo.setSex(sex);
 		
-		boolean flag= baseDao.update(clientInfo);
+		baseDao.update(clientInfo);
 		//修改个人信息状态
-		if(flag== true)
-		{
+		//if(flag== true)
+	//	{
 			Userinfo userInfo=ht.get(Userinfo.class, userId);
 			userInfo.setStatus("已审核");
 			baseDao.update(userInfo);
-		}
+	//}
 		
-		return flag;
+		return true;
 	}
 	
 

@@ -1,7 +1,9 @@
 package cn.edu.bjtu.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
@@ -20,6 +22,7 @@ import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.service.LinetransportService;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carrierinfo;
+import cn.edu.bjtu.vo.Driverinfo;
 import cn.edu.bjtu.vo.Linetransport;
 
 @Controller
@@ -61,21 +64,21 @@ public class LinetransportController {
 			mv.setViewName("resource_list");
 		} else if (flag == 1) {
 			// 这里从session取出id，查询指定的line
-			String carrierId = (String) request.getSession().getAttribute(
+			String userId = (String) request.getSession().getAttribute(
 					"userId");
 
 			List linetransportList = linetransportService.getCompanyLine(
-					carrierId, Display, PageNow);// 新增两个参数
-			// System.out.println("linetransportsize+"+linetransportList.size());
-			int count = linetransportService.getCompanyTotalRows(carrierId);// 新增的访法
-			// System.out.println("count+"+count);
-			int pageNum = (int) Math.ceil(count * 1.0 / Display);// 页数
-			mv.addObject("count", count);
-			mv.addObject("pageNum", pageNum);
-			mv.addObject("pageNow", PageNow);
+					userId, Display, PageNow);// 新增两个参数
 
 			mv.addObject("linetransportList", linetransportList);
-			mv.setViewName("mgmt_r_line");
+			if(userId !=null)
+			{
+				mv.setViewName("mgmt_r_line");
+			}else
+			{
+				mv.setViewName("login");
+			}
+			
 		}
 		return mv;
 	}
@@ -301,6 +304,47 @@ public class LinetransportController {
 
 	}
 
+	@RequestMapping(value = "downloadlinedetailprice", method = RequestMethod.GET)
+	/**
+	 * 删除
+	 */
+	public ModelAndView downloadLineDetailPrice(@RequestParam String id,// GET方式传入，在action中
+			HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("进入删除控制器");
+		System.out.println(id);
+		// 此处获取session里的carrierid，下面方法增加一个参数
+		// String carrierId=(String)request.getSession().getAttribute("userId");
+		// String carrierId = "C-0002";// 删除
+		Linetransport linetransportInfo = linetransportService.getLinetransportInfo(id);
+		try {
+			String file = linetransportInfo.getDetailPrice();
+			/*File tempFile =new File(file.trim());  	          
+	        String fileName = tempFile.getName();  			*/
+			InputStream is = new FileInputStream(file);
+			response.reset(); // 必要地清除response中的缓存信息
+			response.setHeader("Content-Disposition", "attachment; filename="
+					+ file);
+			//response.setContentType("application/vnd.ms-excel");// 根据个人需要,这个是下载文件的类型
+			javax.servlet.ServletOutputStream out = response.getOutputStream();
+			byte[] content = new byte[1024];
+			int length = 0;
+			while ((length = is.read(content)) != -1) {
+				out.write(content, 0, length);
+			}
+			out.write(content);
+			out.flush();
+			out.close();
+		} catch (Exception e) {
+			System.out.println("重定向失败");
+			e.printStackTrace();
+		}
+
+		//response.setHeader("Content-disposition", "attachment;filename="+ citylineInfo.getDetailPrice());
+		return mv;
+
+	}
+	
+	
 	@Resource
 	LinetransportService linetransportService;
 	@Resource

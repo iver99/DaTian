@@ -24,6 +24,7 @@ public class Driverinfo implements java.io.Serializable {
 	private String carrierId;
 	private String remarks;
 	private String carId;
+	private String idscans;
 
 	public Driverinfo() {
 	}
@@ -36,7 +37,7 @@ public class Driverinfo implements java.io.Serializable {
 	public Driverinfo(String id, String driverName, String sex, Integer age,
 			String licenceRate, String phone, Date relDate, String iDCard,
 			String licenceNum, Date licenceTime, String carrierId,
-			String remarks, String carId) {
+			String remarks, String carId, String idscans) {
 		super();
 		this.id = id;
 		this.driverName = driverName;
@@ -51,8 +52,17 @@ public class Driverinfo implements java.io.Serializable {
 		this.carrierId = carrierId;
 		this.remarks = remarks;
 		this.carId = carId;
+		this.idscans= idscans;
 	}
 
+	public String getIdscans() {
+		return idscans;
+	}
+
+	public void setIdscans(String idscans) {
+		this.idscans = idscans;
+	}
+	
 	public String getCarId() {
 		return carId;
 	}

@@ -44,5 +44,8 @@
         <property name="carId" type="string">
             <column name="carId" />
         </property>
+        <property name="idscans" type="string">
+            <column name="idscans" />
+        </property>
     </class>
 </hibernate-mapping>

@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.BaseDao;
 import cn.edu.bjtu.dao.SubAccountDao;
@@ -16,7 +17,7 @@ import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.vo.SubAccount;
 
 
-
+@Transactional
 @Service("subAccountServiceImpl")
 /**
  * 子账户服务层实现 
@@ -128,7 +129,8 @@ public class SubAccountServiceImpl implements SubAccountService{
 		subAccount.setRelDate(new Date());
 		subAccount.setStatus("正常");
 		
-		return baseDao.save(subAccount);
+		baseDao.save(subAccount);
+		return true;
 	}
 	
 	@Override
@@ -167,7 +169,8 @@ public class SubAccountServiceImpl implements SubAccountService{
 		subAccount.setStatisticsManagement(statisticsManagement);
 		subAccount.setRemarks(remarks);
 		
-		return baseDao.update(subAccount);
+		 baseDao.update(subAccount);
+		 return true;
 	}
 	
 }

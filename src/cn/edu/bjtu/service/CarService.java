@@ -23,11 +23,11 @@ public interface CarService {
 	public Driverinfo getDriverByCarId(String carId);
 
 	public List getAllDriverName(String carrierId);
-
+	public List getAllDriver(String carrierId);
 	public boolean insertCar(String carNum, String carTeam,
 			String locationType, String carBase, String carBrand,
 			String carType, String carUse, double carLength, double carWidth,
-			double carHeight, double carWeight, String driverName,
+			double carHeight, double carWeight, String driverId,
 			String purchaseTime, String storage, String startPlace,
 			String endPlace, String carrierId);
 
@@ -35,18 +35,18 @@ public interface CarService {
 
 	public boolean insertDriver(String name, String sex, String licenceRate,
 			String phone, String IDCard, String licenceNum, String licenceTime,
-			String carrierId);
+			String carrierId,String path,String fileName);
 	
 	public List getCompanyDriver(String carrierId);
 
 	public boolean updateCar(String id, String carNum, String carTeam, String locType, 
-			String GPSText, String carType, String carBase, String carBrand, String carUse,
+			String terminalId, String carType, String carBase, String carBrand, String carUse,
 			double carLength, double carWidth, double carHeight, double carWeight, String carPurTime,
-			String storage,String driverName, String startPlace,String endPlace,
+			String storage,String driverId, String startPlace,String endPlace,
 			String stopPlace,String carrierId);
 	
 	public boolean updateDriver(String id, String name, String sex,String IDCard, String licenceNum,
-			String licenceRate, String licenceTime,	String phone, String carrierId);
+			String licenceRate, String licenceTime,	String phone, String carrierId,String path,String fileName);
 	
 	public boolean deleteCar(String id);
 	public boolean deleteDriver(String id);

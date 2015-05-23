@@ -9,6 +9,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.BaseDao;
 import cn.edu.bjtu.dao.GoodsInfoDao;
@@ -17,7 +18,7 @@ import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.vo.GoodsClientView;
 import cn.edu.bjtu.vo.Goodsform;
-
+@Transactional
 @Repository
 public class GoodsInfoServiceImpl implements GoodsInfoService{
 	
@@ -113,7 +114,8 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 			String fileLocation = path + "//" + fileName;
 			goodsform.setRelatedMaterial(fileLocation);
 		}
-		return baseDao.save(goodsform);//保存实体
+		baseDao.save(goodsform);//保存实体
+		return false;
 		
 	}
 
@@ -178,7 +180,8 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 				String fileLocation = path + "//" + fileName;
 				goodsform.setRelatedMaterial(fileLocation);
 			}
-			return baseDao.update(goodsform);//保存实体
+			baseDao.update(goodsform);//保存实体
+			return false;
 			
 		}
 	 

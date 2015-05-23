@@ -24,21 +24,22 @@ public class RegisterController {
 	RegisterService registerServiceImpl;
 	@RequestMapping("/register")
 	public ModelAndView register(String username, String phone,/*String validationKey,*/
-			String password, String passwordRepeat, HttpServletRequest request,HttpServletResponse response) {
+			String password, String passwordRepeat,int userkind, HttpServletRequest request,HttpServletResponse response) {
 		
-		//System.out.println("username"+username);
+		System.out.println("userkind+"+userkind);
 		//验证码未实现 
-		String usreId=registerServiceImpl.register(username, password, phone);
-		request.getSession().setAttribute("userId", usreId);
+		String userId=registerServiceImpl.register(username, password, phone,userkind);
+		request.getSession().setAttribute("userId", userId);
 		request.getSession().setAttribute("username", username);
+		request.getSession().setAttribute("userKind", userkind);
 		
 		mv.setViewName("register1");
 		return mv;
 	}
-	@RequestMapping("userdetail")
+	/*@RequestMapping("userdetail")
 	public ModelAndView userValidation()
 	{
 		//未实现
 		return mv;
-	}
+	}*/
 }

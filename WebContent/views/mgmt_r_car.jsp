@@ -122,7 +122,7 @@
                                 <ul class="quickmenu">
                                     <li class="menuitem">
                                         <div class="menu">
-                                            <a href="cardetail?carId=${car.id }&carrierId=0&linetransportId=${car.linetransportId}&flag=2" class="menuhd" hidefocus="true">更新</a>
+                                            <a href="cardetail?carId=${car.id }&carrierId=${car.carrierId }&linetransportId=${car.linetransportId}&flag=2" class="menuhd" hidefocus="true">更新</a>
                                             <div class="menubd">
                                                 <div class="menubdpanel">
                                                     <a href="cardelete?id=${car.id }" class="a_top3" hidefocus="true">删除</a>
@@ -194,7 +194,7 @@
 </div>
 
 <div id="footer_frame">
-	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="footer.htm"></iframe>
+	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="views/footer.jsp"></iframe>
 </div>
 
 </body>

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.BaseDao;
 import cn.edu.bjtu.dao.LinetransportDao;
@@ -15,6 +16,7 @@ import cn.edu.bjtu.util.HQL_POJO;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.vo.Linetransport;
 
+@Transactional
 @Service
 /**
  * 
@@ -232,7 +234,8 @@ public class LinetransportServiceImpl implements LinetransportService {
 			String fileLocation = path + "//" + fileName;
 			linetransport.setDetailPrice(fileLocation);
 		}
-		return baseDao.save(linetransport);// 保存实体
+		baseDao.save(linetransport);// 保存实体
+		return false;
 
 	}
 
@@ -282,7 +285,8 @@ public class LinetransportServiceImpl implements LinetransportService {
 			linetransport.setDetailPrice(fileLocation);
 		}
 
-		return baseDao.update(linetransport);
+		baseDao.update(linetransport);
+		return false;
 
 	}
 
@@ -295,7 +299,9 @@ public class LinetransportServiceImpl implements LinetransportService {
 
 		System.out.println(linetransport);
 		System.out.println(id);
-		return baseDao.delete(linetransport);
+		baseDao.delete(linetransport);
+		
+		return false;
 	}
 
 }

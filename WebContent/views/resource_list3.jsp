@@ -443,7 +443,7 @@
 	<div id="footer_frame">
 		<iframe allowtransparency="true" width="100%" frameborder="0"
 			hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0"
-			src="footer.htm"></iframe>
+			src="views/footer.jsp"></iframe>
 	</div>
 </body>
 <script type="text/javascript">

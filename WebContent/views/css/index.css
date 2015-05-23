@@ -1060,59 +1060,49 @@ a.a_pagenumber:hover {
  /******左导航伸缩切换******/
 .span_mgmt_nav1 {
 	display:inline-block;
-	font-size:16px;
-	font-weight:bold;
-	width:96%;
-	height:50px;
-	line-height:50px;
-	margin-left:4px;
-	padding-left:16px;
-	background:url(../images/btn_toggle1.png) no-repeat left center;
+	width:15px;
+	height:15px;
+	background:url(../images/btn_toggle1.png) no-repeat center left;
 	cursor:pointer;
 	}
 .span_mgmt_nav1a {
 	display:inline-block;
-	font-size:16px;
-	font-weight:bold;
-	width:96%;
-	height:50px;
-	line-height:50px;
-	margin-left:4px;
-	padding-left:16px;
-	background:url(../images/btn_toggle1.png) no-repeat left center;
+	width:15px;
+	height:15px;
+	background:url(../images/btn_toggle1.png) no-repeat center left;
 	cursor:pointer;
 	display:none;
 	}
 .span_mgmt_nav2 {
 	display:inline-block;
-	font-size:16px;
-	font-weight:bold;
-	width:96%;
-	height:50px;
-	line-height:50px;
-	margin-left:4px;
-	padding-left:16px;
-	background:url(../images/btn_toggle2.png) no-repeat left center;
+	width:15px;
+	height:15px;
+	background:url(../images/btn_toggle2.png) no-repeat center left;
 	cursor:pointer;
 	display:none;
 	}
 .span_mgmt_nav2a {
 	display:inline-block;
-	font-size:16px;
-	font-weight:bold;
-	width:96%;
-	height:50px;
-	line-height:50px;
-	margin-left:4px;
-	padding-left:16px;
-	background:url(../images/btn_toggle2.png) no-repeat left center;
+	width:15px;
+	height:15px;
+	background:url(../images/btn_toggle2.png) no-repeat center left;
 	cursor:pointer;
 	}
 .div_mgmt_show1 {
 	display:none;
 	}
+
  /******左导航伸缩切换结束******/
 
+.text_mgmt_leftnav1 {
+	display:block;
+	font-size:16px;
+	font-weight:bold;
+	width:96%;
+	height:50px;
+	line-height:50px;
+	margin-left:2%;
+	}
 a.a_mgmt_leftnav {
 	display:block;
 	font-size:14px;
@@ -1650,23 +1640,10 @@ a.a_top3:hover {
 	font-size:14.7px;
 	}
 .textarea_rating {
-	border:1px solid #ddd;
 	width:298px;
 	height:60px;
 	padding:4px;
 	margin-top:8px;
-	}
-.textarea_rating1 {
-	border:1px solid #ddd;
-	width:200px;
-	height:50px;
-	padding:3px;
-	}
-.textarea_rating2 {
-	border:1px solid #ddd;
-	width:298px;
-	height:60px;
-	padding:4px;
 	}
  /**评价结束**/
 

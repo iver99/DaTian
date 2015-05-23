@@ -74,5 +74,8 @@
         <property name="carrierId" type="string">
             <column name="carrierId" />
         </property>
+         <property name="stopPlace" type="string">
+            <column name="stopPlace" />
+        </property>
     </class>
 </hibernate-mapping>

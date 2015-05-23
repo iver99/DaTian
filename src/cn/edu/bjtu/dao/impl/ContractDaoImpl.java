@@ -54,7 +54,8 @@ public class ContractDaoImpl implements ContractDao{
 		contract=ht.get(Contract.class, contractId);
 		contract.setState("ÒÑÖÕÖ¹");//¸üĞÂ×´Ì¬
 		contract.setReason(reason);
-		return baseDao.update(contract);		
+		baseDao.update(contract);		
+		return true;
 	}
 	
 	

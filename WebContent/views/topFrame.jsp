@@ -29,7 +29,6 @@
                                         <a href="sendorderinfo" class="a_top1" hidefocus="true">我的订单</a>
                                         <a href="linetransport?flag=1&Display=10&PageNow=1" class="a_top1" hidefocus="true">我的资源</a>
                                         <a href="accountinfo" class="a_top1" hidefocus="true">帐户信息</a>
-                                        <a href="logout" class="a_top1" hidefocus="true">安全退出</a>
                                     </div>
                                 </div>
                             </div>
@@ -37,14 +36,14 @@
                     </ul>
                 </div>
             </td>
-			<td width="3%" class="td_top1a"><a href="mgmt_m.htm" hidefocus="true"><img src="images/btn_config1.png" /></a></td>
+			<td width="3%" class="td_top1a"><a href="allcomplaint" hidefocus="true"><img src="images/btn_config1.png" /></a></td>
 		</tr>
 	</table>
     <form action="searchResource" method="post">
     <table width="100%" border="0" cellpadding="0" cellspacing="0">
 		<tr>
             <td width="3%" height="110">&nbsp;</td>
-            <td width="220" class="td_top2a"><a href="/" hidefocus="true"><img src="images/logo.png" /></a></td>
+            <td width="220" class="td_top2a"><a href="homepage" hidefocus="true"><img src="images/logo.png" /></a></td>
             <td>
                 <div class="key">
                     <span class="mkey">线路</span>

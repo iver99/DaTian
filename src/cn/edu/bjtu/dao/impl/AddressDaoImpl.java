@@ -40,6 +40,7 @@ public class AddressDaoImpl implements AddressDao{
 	public boolean deleteAddress(String id){
 		
 		Address address = ht.get(Address.class, id);
-		return baseDao.delete(address);
+		baseDao.delete(address);
+		return true;
 	}
 }

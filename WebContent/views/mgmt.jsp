@@ -70,7 +70,7 @@
                 	<tr>
                     	<td class="td_mgmt_index1">
                         	<div class="div_mgmt_index1">
-                                <span class="span_mgmt_right1_text1">李强，欢迎您！<br /><img src="images/btn_level1a.png" /></span>
+                                <span class="span_mgmt_right1_text1"><%=request.getSession().getAttribute("username") %>，欢迎您！<br /><img src="images/btn_level1a.png" /></span>
                             </div>
                         	<div class="div_mgmt_index2">
                                 <div class="div_mgmt_index2a">
@@ -164,7 +164,7 @@
 </div>
 
 <div id="footer_frame">
-	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="footer.htm"></iframe>
+	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="views/footer.jsp"></iframe>
 </div>
 
 </body>

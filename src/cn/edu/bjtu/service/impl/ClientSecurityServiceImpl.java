@@ -2,11 +2,13 @@ package cn.edu.bjtu.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.ClientSecurityDao;
 import cn.edu.bjtu.service.ClientSecurityService;
 import cn.edu.bjtu.vo.Userinfo;
 @Service
+@Transactional
 public class ClientSecurityServiceImpl implements ClientSecurityService{
 
 	
@@ -48,6 +50,28 @@ public class ClientSecurityServiceImpl implements ClientSecurityService{
 		if(checkEmail(newEmail))
 			return clientSecurityDao.changeBindEmail(newEmail,userId);
 		return false;
+	}
+
+	@Override
+	public boolean setSecurityQuestion(String q1, String q2, String q3,
+			String a1, String a2, String a3, String uId) {
+		// TODO Auto-generated method stub
+		if(q1.equals("«Î—°‘Ò") || q2.equals("«Î—°‘Ò") || q3.equals("«Î—°‘Ò"))
+			return false;
+		if(a1.trim().equals("") || a2.trim().equals("")|| a3.trim().equals(""))
+			return false;
+		
+		return clientSecurityDao.setSecurityQuestion(q1,q2,q3,a1,a2,a3,uId);
+	}
+
+	
+	@Override
+	public boolean checkAnswer(String a1, String a2, String a3,String uId) {
+		// TODO Auto-generated method stub
+		if(a1.trim().equals("") || a2.trim().equals("") || a3.trim().equals(""))
+			return false;
+		
+		return clientSecurityDao.checkAnswer(a1,a2,a3,uId);
 	}
 
 	/**

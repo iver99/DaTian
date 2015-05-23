@@ -1,7 +1,9 @@
 package cn.edu.bjtu.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import cn.edu.bjtu.service.ClientService;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Businessclient;
+import cn.edu.bjtu.vo.Driverinfo;
 
 @Controller
 /**
@@ -231,14 +234,15 @@ public class ClientController {
 		// 此方法内可能需要判断用户种类,因为企业用户和个人用户的验证页面不一样
 		// 当前下考虑个人用户，企业用户先不考虑，（数据库没有表)
 		String userId = (String) request.getSession().getAttribute("userId");
-		boolean flag = clientService.checkHeadIcon(userId);
-		/*
-		 * String status1="未设置"; if(flag==true) status1="已设置";
-		 */
+		if(userId==null)//未登录
+		{
+			mv.setViewName("login");
+			return mv;
+		}
+		int userKind=(Integer)request.getSession().getAttribute("userKind");
+		boolean flag = clientService.checkHeadIcon(userId,userKind);
 		// 个人用户
-		System.out.println("头像设置+" + flag);
 		String status = clientService.getStatus(userId);
-
 		mv.addObject("status", status);
 		mv.addObject("headCheck", flag);
 		mv.setViewName("mgmt_a_info");
@@ -254,11 +258,9 @@ public class ClientController {
 	 */
 	public ModelAndView getBasicUserInfo(HttpServletRequest request,
 			HttpServletResponse response) {
-		System.out.println("进入基本信息");
 		String userId = (String) request.getSession().getAttribute("userId");
 
 		String email = clientService.getBasicUserInfo(userId);
-		System.out.println("email+" + email);
 		mv.addObject("email", email);
 		mv.setViewName("mgmt_a_info2");
 		return mv;
@@ -303,4 +305,45 @@ public class ClientController {
 		return mv;
 	}
 
+	@RequestMapping(value = "downloadclientrelated", method = RequestMethod.GET)
+	/**
+	 * 删除
+	 */
+	public ModelAndView downloadClientRelated(@RequestParam String id,// GET方式传入，在action中
+			HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("进入删除控制器");
+		System.out.println(id);
+		// 此处获取session里的carrierid，下面方法增加一个参数
+		// String carrierId=(String)request.getSession().getAttribute("userId");
+		// String carrierId = "C-0002";// 删除
+		Businessclient clientInfo = clientService.getBusinessclientInfo(id);
+		try {
+			String file = clientInfo.getRelatedMaterial();
+			/*File tempFile =new File(file.trim());  	          
+	        String fileName = tempFile.getName();  			*/
+			InputStream is = new FileInputStream(file);
+			response.reset(); // 必要地清除response中的缓存信息
+			response.setHeader("Content-Disposition", "attachment; filename="
+					+ file);
+			//response.setContentType("application/vnd.ms-excel");// 根据个人需要,这个是下载文件的类型
+			javax.servlet.ServletOutputStream out = response.getOutputStream();
+			byte[] content = new byte[1024];
+			int length = 0;
+			while ((length = is.read(content)) != -1) {
+				out.write(content, 0, length);
+			}
+			out.write(content);
+			out.flush();
+			out.close();
+		} catch (Exception e) {
+			System.out.println("重定向失败");
+			e.printStackTrace();
+		}
+
+		//response.setHeader("Content-disposition", "attachment;filename="+ citylineInfo.getDetailPrice());
+		return mv;
+
+	}
+	
+	
 }

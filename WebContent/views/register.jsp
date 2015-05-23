@@ -62,6 +62,10 @@
             <td><input type="text" class="input_mgmt1" style="width:300px;" name="username"/>&nbsp;&nbsp;<a href="javascript:;" hidefocus="true">检查用户名</a></td>
         </tr>
         <tr>
+        	<td width="120" height="40" class="td_mgmt_right3_td1b">用户类型：</td>
+        	<td><input type="radio" name="userkind" value="1" checked="checked"/>&nbsp;个人用户&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="userkind" value="2"/>企业用户
+        </tr>
+        <tr>
             <td height="40" class="td_mgmt_right3_td1b">手机验证码：</td>
             <td>
             	<input type="text" class="input_mgmt1" style="width:150px;" placeholder="填写本人手机号码" name="phone"/>
@@ -141,7 +145,7 @@
 </div>
 
 <div id="footer_frame">
-	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="footer.htm"></iframe>
+	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="views/footer.jsp"></iframe>
 </div>
 
 </body>

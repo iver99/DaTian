@@ -205,10 +205,11 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">司机姓名：</td>
                                     <td>
-                                        <select style="width:120px;" name="driverName">
+                                        <select style="width:120px;" name="driverId">
                                             <option value="" selected="selected">请选择</option>
-                                            <option value="王强">王强</option>
-                                            <option value="丁力">丁力</option>
+                                            <c:forEach var="driverList" items="${driverList }">
+                                            <option value="${driverList.id }">${driverList.driverName }</option>
+                                            </c:forEach>
                                         </select>
                                     </td>
                                 </tr>
@@ -224,10 +225,7 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">经停城市：</td>
-                                    <td>
-                                        <input id="city3" type="text" value="" class="input_city1" name="stopStation"/>
-                                        <img src="images/btn_add2.png" hidefocus="true" style="cursor:pointer;" title="添加" onclick="addcity();" />
-                                    </td>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${carInfo.stopPlace }" name="stopPlace"/>
                                 </tr>
                                 <tr>
                                     <td height="1"></td>
@@ -273,7 +271,7 @@
 </div>
 
 <div id="footer_frame">
-	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="footer.htm"></iframe>
+	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="views/footer.jsp"></iframe>
 </div>
 
 </body>

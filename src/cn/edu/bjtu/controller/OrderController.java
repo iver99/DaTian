@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.CarService;
 import cn.edu.bjtu.service.OrderService;
-import cn.edu.bjtu.vo.Carrierinfo;
-import cn.edu.bjtu.vo.Linetransport;
 import cn.edu.bjtu.vo.OrderCarrierView;
 import cn.edu.bjtu.vo.Orderform;
 
@@ -41,15 +40,17 @@ public class OrderController {
 	 * 我提交的订单信息
 	 * @return
 	 */
-	public ModelAndView getAllSendOrderInfo(HttpServletRequest request,
-			HttpServletResponse response) {
+	public ModelAndView getAllSendOrderInfo(HttpSession session) {
 		// 从session获取用户Id
-		String userId = (String) request.getSession().getAttribute("userId");
+		String userId = (String) session.getAttribute("userId");
 		List orderList = orderService.getAllSendOrderInfo(userId);
-		System.out.println("orderList+" + orderList);
 		mv.addObject("orderList", orderList);
-		mv.setViewName("mgmt_d_order_s");
-
+		if (userId == null){
+			mv.setViewName("login");
+		}
+		else{
+			mv.setViewName("mgmt_d_order_s");
+		}
 		return mv;
 	}
 

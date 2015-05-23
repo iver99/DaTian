@@ -102,7 +102,7 @@
                        <c:forEach var="citylineList" items="${citylineList }">
                     <tr>
                         <td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
-                        <td class="td_mgmt_right3_td1"><a href="citylinedetail?citylineId=${citylineList.id }&carrierId=0&flag=2" hidefocus="true">${citylineList.cityName }城市配送</a></td>
+                        <td class="td_mgmt_right3_td1"><a href="citylinedetail?citylineId=${citylineList.id }&carrierId=0&flag=2" hidefocus="true">${citylineList.name }</a></td>
                         <td class="td_mgmt_right3_td1">${citylineList.cityName }</td>
                         <td class="td_mgmt_right3_td1">${citylineList.VIPService }</td>
                         <td class="td_mgmt_right3_td1">${citylineList.refPrice}</td>
@@ -179,7 +179,7 @@
 </div>
 
 <div id="footer_frame">
-	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="footer.htm"></iframe>
+	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="views/footer.jsp"></iframe>
 </div>
 
 </body>

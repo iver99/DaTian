@@ -141,6 +141,67 @@ public class ClientSecurityController {
 			mv.setViewName("mgmt_a_security4b");
 			return mv;
 		}
-
 	}
+	@RequestMapping("getsetquestionpage")
+	public ModelAndView gotoSetSecurityQuestionPage()
+	{
+		mv.setViewName("mgmt_a_security5");//设置
+		return mv;
+	}
+	
+	@RequestMapping("getchangequestionpage")
+	public ModelAndView gotoChangeSecurityQuestionPage(HttpSession session)
+	{
+		String userId=(String )session.getAttribute("userId");
+		Userinfo userinfo=clientSecurityService.getUserById(userId);
+		
+		mv.addObject("userinfo", userinfo);
+		mv.setViewName("mgmt_a_security5a");//修改
+		return mv;
+	}
+	@RequestMapping("setquestion")
+	public ModelAndView setSecurityQuestion(String question1,String question2,String question3,
+			String answer1,String answer2,String answer3,HttpSession session)
+	{
+		String userId=(String )session.getAttribute("userId");
+		boolean flag=clientSecurityService.setSecurityQuestion(question1,question2,question3,answer1,answer2,answer3,userId);
+		if(flag== true)
+		{
+			String msg="修改密保问题成功!";
+			Userinfo userinfo=clientSecurityService.getUserById(userId);
+			mv.addObject("userinfo", userinfo);//更新页面上的bean
+			mv.addObject("msg", msg);
+			mv.setViewName("mgmt_a_security");
+			return mv;
+		}
+		else
+		{
+			String msg="修改密保问题失败，请重新设置!";
+			mv.addObject("msg", msg);
+			mv.setViewName("mgmt_a_security5");
+			return mv;
+		}
+	}
+	@RequestMapping("checkanswer")
+	public ModelAndView checkSecurityQuestion(String answer1,String answer2,String answer3,HttpSession session)
+	{
+		String userId=(String )session.getAttribute("userId");
+		boolean flag=clientSecurityService.checkAnswer(answer1,answer2,answer3,userId);
+		if(flag==true)
+		{
+			String msg="答案正确！";
+			mv.addObject("msg",msg);
+			mv.setViewName("mgmt_a_security5b");//验证成功后，设置页面
+			return mv;
+		}
+		else 
+		{
+			String msg="答案不正确，请重新输入！";
+			mv.addObject("msg",msg);
+			
+			mv.setViewName("mgmt_a_security5a");//验证失败，返回验证页面
+			return mv;
+		}
+	}
+	
 }

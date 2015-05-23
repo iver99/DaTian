@@ -120,6 +120,23 @@ public class UploadPath {
 			return path;
 		}
 	}
+	
+	public static String getDriverPath() {
+		if (isWindows()) {//windows系统
+			String path = "D://uploadFile//driver";//上传到D盘
+			file = new File(path);
+			file.mkdirs();//以防文件夹不存在
+			return path;
+		}
+		else//linux系统 (未测试)
+		{
+			//如果文件夹不存在情况没有处理
+			String path= "/usr/local/tomcat7/webapps/DaTian/uploadFile/driver";
+			file=new File(path);
+			file.mkdirs();//防止文件夹不存在
+			return path;
+		}
+	}
 	/*
 	 * public static void main(String [] args) { File file=new File("");
 	 * System.out.println("path+"+file.getAbsolutePath()); }

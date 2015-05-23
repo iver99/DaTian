@@ -1,5 +1,7 @@
 package cn.edu.bjtu.vo;
 
+import java.util.Date;
+
 import org.springframework.stereotype.Component;
 
 // Generated 2015-1-31 22:44:34 by Hibernate Tools 3.4.0.CR1
@@ -31,7 +33,17 @@ public class Userinfo implements java.io.Serializable {
 	private String securityQuestionThree;
 	private String securityAnswerThree;
 	
+	private Date validateTime;
 	
+	
+	public Date getValidateTime() {
+		return validateTime;
+	}
+
+	public void setValidateTime(Date validateTime) {
+		this.validateTime = validateTime;
+	}
+
 	public Userinfo() {
 	}
 

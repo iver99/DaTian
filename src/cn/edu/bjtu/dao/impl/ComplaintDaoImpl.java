@@ -8,13 +8,16 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import cn.edu.bjtu.dao.ComplaintDao;
+import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.vo.Complaintform;
+
 @Repository
 public class ComplaintDaoImpl implements ComplaintDao
 {
 	@Resource
 	HibernateTemplate ht;
-	
+	@Resource
+	private HQLTool hqltool;
 	
 	@Override
 	public List getUserCompliant(String userId) {
@@ -23,9 +26,19 @@ public class ComplaintDaoImpl implements ComplaintDao
 	}
 
 	@Override
+	public List getAllUserCompliant() {
+		// TODO Auto-generated method stub
+		return ht.find("from ComplaintClientView");
+	}
+
+	
+	@Override
 	public Complaintform getComplaintInfo(String id) {
 		return ht.get(Complaintform.class, id);
 	}
 	
-	
+	@Override
+	public List getFindComplaint(String sql){
+		return ht.find(sql);
+	}
 }

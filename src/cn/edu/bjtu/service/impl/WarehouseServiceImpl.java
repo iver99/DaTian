@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.BaseDao;
 import cn.edu.bjtu.dao.WarehouseDao;
@@ -20,6 +21,7 @@ import cn.edu.bjtu.vo.Warehouse;
  * @author RussWest0
  *
  */
+@Transactional
 public class WarehouseServiceImpl implements WarehouseService {
 
 	@Resource
@@ -258,7 +260,8 @@ public class WarehouseServiceImpl implements WarehouseService {
 			String fileLocation = path + "//" + fileName;
 			warehouse.setDetailPrice(fileLocation);
 		}
-		return baseDao.save(warehouse);// 保存实体
+		 baseDao.save(warehouse);// 保存实体
+		 return true;
 	}
 
 	@Override
@@ -293,10 +296,12 @@ public class WarehouseServiceImpl implements WarehouseService {
 			String fileLocation = path + "//" + fileName;
 			warehouse.setDetailPrice(fileLocation);
 		}
-		return baseDao.update(warehouse);// 保存实体
+		 baseDao.update(warehouse);// 保存实体
+		 return true;
 	}
 	public boolean deleteWarehouse(String id){
 		warehouse = getWarehouseInfo(id);// 根据id查找到仓库信息
-		return baseDao.delete(warehouse);
+		baseDao.delete(warehouse);
+		return true;
 	}
 }

@@ -122,8 +122,8 @@
                                             <option value="手机">手机</option>
                                             <option value="无">无</option>
                                         </select>
-                                        <div id="pos_detail_1" style="display:inline;">
-                                            <input type="text" class="input_mgmt1" style="width:176px;" value="终端ID：${carInfo.terminalId }" placeholder="请输入终端设备编码..." name="GPSText"/>
+                                        <div id="pos_detail_1" style="display:none;">
+                                            <input type="text" class="input_mgmt1" style="width:176px;" value="${carInfo.terminalId }" placeholder="请输入终端设备编码..." name="terminalId"/>
                                         </div>
                                     </td>
                                 </tr>
@@ -206,10 +206,10 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">司机姓名：</td>
                                     <td>
-                                        <select style="width:120px;" name="driverName">
+                                        <select style="width:120px;" name="driverId">
                                             <option value="" selected="selected">请选择</option>
-                                            <c:forEach var="driverName" items="${driverNameList }">
-                                            <option value="${driverName }" >${driverName }</option>
+                                            <c:forEach var="driverList" items="${driverList }">
+                                            <option value="${driverList.id }">${driverList.driverName }</option>
                                             </c:forEach>
                                         </select>
                                     </td>
@@ -218,18 +218,15 @@
                                     <td height="40" class="td_mgmt_right3_td1b">运营线路：</td>
                                     <td id="cityselector">
                                     <div>
-                                        <input id="city1" type="text" value="北京" class="input_city1" name="startPlace"/>
+                                        <input id="city1" type="text" value="${linetransportInfo.startPlace }" class="input_city1" name="startPlace"/>
                                         &nbsp;&nbsp;至&nbsp;&nbsp;
-                                        <input id="city2" type="text" value="武汉" class="input_city1" name="endPlace"/>
+                                        <input id="city2" type="text" value="${linetransportInfo.endPlace }" class="input_city1" name="endPlace"/>
                                     </div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">经停城市：</td>
-                                    <td>
-                                        <input id="city3" type="text" value="郑州" class="input_city1" name="stopPlace"/>
-                                        <img src="images/btn_add2.png" hidefocus="true" style="cursor:pointer;" title="添加" onclick="addcity();" />
-                                    </td>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${carInfo.stopPlace }" name="stopPlace"/>
                                 </tr>
                                 <tr>
                                     <td height="1"></td>
@@ -274,7 +271,7 @@
 </div>
 
 <div id="footer_frame">
-	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="footer.htm"></iframe>
+	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="views/footer.jsp"></iframe>
 </div>
 
 </body>

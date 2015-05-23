@@ -114,7 +114,7 @@
                             </tr>
                             <tr>
                                 <td height="40" class="td_mgmt_right3_td1b">结算方式：</td>
-                                <td>月结 (30天)(未实现)</td>
+                                <td>${contract.caculateType } ${contract.monthlyStatementDays }</td>
                             </tr>
                             <tr>
                                 <td height="40" class="td_mgmt_right3_td1b">联系人：</td>
@@ -126,7 +126,7 @@
                             </tr>
                             <tr>
                                 <td height="40" class="td_mgmt_right3_td1b">相关材料：</td>
-                                <td><a href="javascript:;" hidefocus="true"><img src="images/btn_filetype2.png" /></a></td>
+                                <td><a href="downloadcontactrelated?id=${contract.id }" hidefocus="true"><img src="images/btn_filetype2.png" /></a></td>
                             </tr>
                             <tr>
                                 <td height="40" class="td_mgmt_right3_td1b">补充信息：</td>
@@ -165,7 +165,7 @@
 </div>
 
 <div id="footer_frame">
-	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="footer.htm"></iframe>
+	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="views/footer.jsp"></iframe>
 </div>
 
 </body>
