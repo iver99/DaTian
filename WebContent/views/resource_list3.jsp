@@ -278,9 +278,25 @@
 									<td class="td_main_list_content">${car.carWeight }</td>
 									<td class="td_main_list_content">${car.carLocation }</td>
 									<td class="td_main_list_content">${car.relDate }</td>
-									<td class="td_main_list_content"><a href="javascript:;"
-										class="a_main_list_handle_icon1a" hidefocus="true"
-										onclick="hide(this)"></a></td>
+									<input type="button" value="0" style="display:none" id="i"></input>
+									<td class="td_main_list_content">
+										<script>
+											document.getElementById("i").value=0;
+										</script>
+										<c:forEach var="focus" items="${focusList }">
+										<c:if test="${car.id==focus.focusId}">
+											<script>
+												document.getElementById("i").value=1;
+											</script>
+										</c:if>
+										</c:forEach>
+										<script type="text/javascript">
+											if(document.getElementById("i").value==1)
+												document.write( "<a href=\"javascript:;\" class=\"a_main_list_handle_icon1b\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('${car.id }')\"></a>" );
+											else
+												document.write( "<a href=\"javascript:;\" class=\"a_main_list_handle_icon1a\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('${car.id }')\"></a>" );
+										</script>
+									</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -611,4 +627,16 @@
 		});
 		map.addOverlay(circle);
 	}
+</script>
+<script type="text/javascript">
+function loadXMLDoc(id)
+{
+	$.ajax({
+		   type: "GET",
+		   url: "http://localhost:8585/DaTian/focus",//请求的后台地址
+		   data: "type=car&id=" + id,//前台传给后台的参数
+		   success: function(msg){//msg:返回值
+		   }
+		});
+}
 </script>

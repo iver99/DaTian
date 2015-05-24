@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,10 +20,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.CompanyService;
+import cn.edu.bjtu.service.FocusService;
 import cn.edu.bjtu.service.WarehouseService;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carrierinfo;
-import cn.edu.bjtu.vo.Driverinfo;
 import cn.edu.bjtu.vo.Warehouse;
 
 @Controller
@@ -32,7 +33,8 @@ public class WarehouseController {
 	WarehouseService warehouseService;
 	@Resource
 	CompanyService companyService;
-
+	@Autowired
+	FocusService focusService;
 	ModelAndView mv = new ModelAndView();
 
 	@RequestMapping("/warehouse")
@@ -49,12 +51,13 @@ public class WarehouseController {
 		if (flag == 0) {// 对应资源栏点击车辆
 			List warehouseList = warehouseService.getAllWarehouse(Display,PageNow);
 			int count = warehouseService.getTotalRows("All", "All", "All", "All");// 获取总记录数,不需要where子句，所以参数都是All
-			System.out.println("count+"+count);
+			String clientId = (String) request.getSession().getAttribute("userId");
+			List focusList = focusService.getFocusList(clientId,"warehouse");
 			int pageNum = (int) Math.ceil(count * 1.0 / Display);// 页数
 			mv.addObject("count", count);
 			mv.addObject("pageNum", pageNum);
 			mv.addObject("pageNow", PageNow);
-			
+			mv.addObject("focusList", focusList);
 			mv.addObject("warehouseList", warehouseList);
 			mv.setViewName("resource_list4");
 		} else if (flag == 1) {// 对应我的信息栏点击车辆信息

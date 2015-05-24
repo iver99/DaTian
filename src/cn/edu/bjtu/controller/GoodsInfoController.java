@@ -10,7 +10,9 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,18 +20,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.edu.bjtu.service.FocusService;
 import cn.edu.bjtu.service.GoodsInfoService;
 import cn.edu.bjtu.util.UploadPath;
-import cn.edu.bjtu.vo.Driverinfo;
 import cn.edu.bjtu.vo.GoodsClientView;
-import cn.edu.bjtu.vo.Goodsform;
 
 @Controller
 public class GoodsInfoController {
 
 	@Resource
 	GoodsInfoService goodsInfoService;
-
+	@Autowired
+	FocusService focusService;
 	ModelAndView mv = new ModelAndView();
 
 	@RequestMapping("/goodsform")
@@ -40,7 +42,7 @@ public class GoodsInfoController {
 	 * @return
 	 */
 	public ModelAndView getAllGoodsInfo(@RequestParam int flag,
-			HttpServletRequest request) {
+			HttpSession session) {
 		int Display = 10;// 默认的每页大小
 		int PageNow = 1;// 默认的当前页面
 
@@ -48,16 +50,17 @@ public class GoodsInfoController {
 			List goodsInfoList = goodsInfoService.getAllGoodsInfo(Display,
 					PageNow);
 			int count = goodsInfoService.getTotalRows("All", "All", "All");// 获取总记录数,不需要where子句，所以参数都是All
-			System.out.println("count+" + count);
+			String clientId = (String) session.getAttribute("userId");
+			List focusList = focusService.getFocusList(clientId,"goods");
 			int pageNum = (int) Math.ceil(count * 1.0 / Display);// 页数
 			mv.addObject("count", count);
 			mv.addObject("pageNum", pageNum);
 			mv.addObject("pageNow", PageNow);
-
+			mv.addObject("focusList", focusList);
 			mv.addObject("goodsformInfo", goodsInfoList);
 			mv.setViewName("resource_list6");// 点击资源栏城市配送显示所有信息
 		} else if (flag == 1) {
-			String clientId = (String) request.getSession().getAttribute(
+			String clientId = (String) session.getAttribute(
 					"userId");
 			List goodsList = goodsInfoService.getUserGoodsInfo(clientId);
 			mv.addObject("goodsList", goodsList);

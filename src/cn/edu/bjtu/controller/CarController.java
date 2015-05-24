@@ -23,6 +23,7 @@ import cn.edu.bjtu.service.CarService;
 import cn.edu.bjtu.service.CarTeamService;
 import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.service.DriverService;
+import cn.edu.bjtu.service.FocusService;
 import cn.edu.bjtu.service.LinetransportService;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carinfo;
@@ -47,6 +48,8 @@ public class CarController {
 	
 	@Resource
 	LinetransportService linetransportService;
+	@Autowired
+	FocusService focusService;
 
 	ModelAndView mv = new ModelAndView();
 
@@ -63,11 +66,14 @@ public class CarController {
 		if (flag == 0) {
 			List carList = carService.getAllCar(Display, PageNow);
 			int count = carService.getTotalRows("All", "All", "All", "All");// 获取总记录数,不需要where子句，所以参数都是All
+			String clientId = (String) request.getSession().getAttribute("userId");
+			List focusList = focusService.getFocusList(clientId,"car");
 			System.out.println("count+" + count);
 			int pageNum = (int) Math.ceil(count * 1.0 / Display);// 页数
 			mv.addObject("count", count);
 			mv.addObject("pageNum", pageNum);
-			mv.addObject("pageNow", PageNow);
+			mv.addObject("pageNow", PageNow);	
+			mv.addObject("focusList", focusList);
 
 			mv.addObject("carList", carList);
 			mv.setViewName("resource_list3");

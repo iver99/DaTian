@@ -67,7 +67,20 @@
                 <br />
                 联系电话：${carrierinfo.phone }
                 <hr class="hr_1" />
-                <input type="button" id="btn2" value="关注" class="input_detail1" hidefocus="true" onclick="window.location.href='mgmt_d_focus.htm'" />
+                <input type="button" value="0" style="display:none" id="i"></input>
+                <c:forEach var="focus" items="${focusList }">
+					<c:if test="${carrierinfo.id==focus.focusId}">
+						<script>
+							document.getElementById("i").value=1;
+						</script>
+					</c:if>
+				</c:forEach>
+				<script type="text/javascript">
+					if(document.getElementById("i").value==1)
+						document.write( "<input type=\"button\" id=\"btnfav\" value=\"已关注\" class=\"input_detail3\" hidefocus=\"true\" onclick=\"loadXMLDoc('${carrierinfo.id }');hidefav(this);\" />" );
+					else
+						document.write( "<input type=\"button\" id=\"btnfav\" value=\"关注\" class=\"input_detail1\" hidefocus=\"true\" onclick=\"loadXMLDoc('${carrierinfo.id }');hidefav(this);\" />" );
+				</script>
             </td>
 		</tr>
     </table>
@@ -216,4 +229,16 @@
 </div>
 
 </body>
+<script type="text/javascript">
+function loadXMLDoc(id)
+{
+	$.ajax({
+		   type: "GET",
+		   url: "http://localhost:8585/DaTian/focus",//请求的后台地址
+		   data: "type=company&id=" + id,//前台传给后台的参数
+		   success: function(msg){//msg:返回值
+		   }
+		});
+}
+</script>
 </html>

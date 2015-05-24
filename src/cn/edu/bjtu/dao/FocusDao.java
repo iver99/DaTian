@@ -8,5 +8,6 @@ public interface FocusDao extends BaseDao<Focus>{
 	public List getFocusJudgement(String clientId, String focusType, String focusId);
 
 	public boolean deleteFocus(String id);
-
+	
+	public List getFocusList(String clientId,String focusType);
 }

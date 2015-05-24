@@ -195,9 +195,25 @@
 									<td class="td_main_list_content">${linetransport.type }</td>
 									<td class="td_main_list_content">${linetransport.onWayTime }</td>
 									<td class="td_main_list_content">${linetransport.relDate }</td>
-									<td class="td_main_list_content"><a href="javascript:;"
-										class="a_main_list_handle_icon1a" hidefocus="true"
-										onclick="hide(this);loadXMLDoc('${linetransport.id }')"></a></td>
+									<input type="button" value="0" style="display:none" id="i"></input>
+									<td class="td_main_list_content">
+										<script>
+											document.getElementById("i").value=0;
+										</script>
+										<c:forEach var="focus" items="${focusList }">
+										<c:if test="${linetransport.id==focus.focusId}">
+											<script>
+												document.getElementById("i").value=1;
+											</script>
+										</c:if>
+										</c:forEach>
+										<script type="text/javascript">
+											if(document.getElementById("i").value==1)
+												document.write( "<a href=\"javascript:;\" class=\"a_main_list_handle_icon1b\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('${linetransport.id }')\"></a>" );
+											else
+												document.write( "<a href=\"javascript:;\" class=\"a_main_list_handle_icon1a\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('${linetransport.id }')\"></a>" );
+										</script>
+										</td>
 								</tr>
 							</c:forEach>
 						</tbody>

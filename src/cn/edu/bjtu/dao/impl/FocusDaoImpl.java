@@ -41,5 +41,10 @@ public class FocusDaoImpl extends BaseDaoImpl<Focus> implements FocusDao{
 		 this.delete(focus);
 		 return true;
 	}
-
+	
+	@Override
+	public List getFocusList(String clientId,String focusType) {
+		// TODO Auto-generated method stub
+		return ht.find("from Focus where clientId='"+clientId+"' and focusType='"+focusType+"'");
+	}
 }

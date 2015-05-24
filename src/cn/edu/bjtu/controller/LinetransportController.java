@@ -10,7 +10,9 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,10 +21,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.CompanyService;
+import cn.edu.bjtu.service.FocusService;
 import cn.edu.bjtu.service.LinetransportService;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carrierinfo;
-import cn.edu.bjtu.vo.Driverinfo;
 import cn.edu.bjtu.vo.Linetransport;
 
 @Controller
@@ -44,7 +46,8 @@ public class LinetransportController {
 	public ModelAndView getAllLinetransport(@RequestParam int flag,
 			@RequestParam(required = false) Integer Display,
 			@RequestParam(required = false) Integer PageNow,
-			HttpServletRequest request) {
+			HttpSession session) {
+		String userId = (String) session.getAttribute("userId");
 		if (Display == null)
 			Display = 10;// 默认的每页大小
 		if (PageNow == null)
@@ -55,18 +58,26 @@ public class LinetransportController {
 					Display, PageNow);
 			int count = linetransportService.getTotalRows("All", "All", "All",
 					"All", "All");// 获取总记录数,不需要where子句，所以参数都是All
+			
+			/*String userId = (String) request.getSession().getAttribute(
+					"userId");*/
+			List focusList = focusService.getFocusList(userId,"linetransport");
 			// System.out.println("count+"+count);
 			int pageNum = (int) Math.ceil(count * 1.0 / Display);// 页数
 			mv.addObject("count", count);
 			mv.addObject("pageNum", pageNum);
 			mv.addObject("pageNow", PageNow);
+			mv.addObject("focusList", focusList);
 			mv.addObject("linetransportList", linetransportList);
 			mv.setViewName("resource_list");
 		} else if (flag == 1) {
 			// 这里从session取出id，查询指定的line
-			String userId = (String) request.getSession().getAttribute(
-					"userId");
-
+			
+			if(userId==null)
+			{
+				mv.setViewName("login");
+				return mv;
+			}
 			List linetransportList = linetransportService.getCompanyLine(
 					userId, Display, PageNow);// 新增两个参数
 
@@ -346,6 +357,7 @@ public class LinetransportController {
 	LinetransportService linetransportService;
 	@Resource
 	CompanyService companyService;
-
+	@Autowired
+	FocusService focusService;
 	ModelAndView mv = new ModelAndView();
 }

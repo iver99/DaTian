@@ -62,5 +62,13 @@ public class FocusServiceImpl extends BaseDaoImpl<Focus> implements FocusService
 	public boolean deleteFocus(String id){
 		return focusDao.deleteFocus(id);
 	}
+	@Override
+	/**
+	 * 关注列表获取
+	 */
+	public List getFocusList(String clientId,String focusType) {
+		// TODO Auto-generated method stub
+		return focusDao.getFocusList(clientId,focusType);
+	}
 
 }

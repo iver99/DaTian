@@ -167,7 +167,25 @@
                            <td class="td_main_list_content">${goodsformInfo.realName }</td>
                             <td class="td_main_list_content">${goodsformInfo.weight }</td>
                             <td class="td_main_list_content">${goodsformInfo.relDate }</td>
-                            <td class="td_main_list_content"><a href="javascript:;" class="a_main_list_handle_icon1a" hidefocus="true" onclick="hide(this)"></a></td>
+                           <input type="button" value="0" style="display:none" id="i"></input>
+							<td class="td_main_list_content">
+								<script>
+									document.getElementById("i").value=0;
+								</script>
+								<c:forEach var="focus" items="${focusList }">
+								<c:if test="${goodsformInfo.id==focus.focusId}">
+									<script>
+										document.getElementById("i").value=1;
+									</script>
+								</c:if>
+								</c:forEach>
+								<script type="text/javascript">
+									if(document.getElementById("i").value==1)
+										document.write( "<a href=\"javascript:;\" class=\"a_main_list_handle_icon1b\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('${goodsformInfo.id }')\"></a>" );
+									else
+										document.write( "<a href=\"javascript:;\" class=\"a_main_list_handle_icon1a\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('${goodsformInfo.id }')\"></a>" );
+								</script>
+							</td>
                        </tr> 
                        </c:forEach>
                     </tbody>
@@ -289,7 +307,7 @@
     }
 </script>
 
-<Script language="javascript" charset="gb2312">
+<script language="javascript" charset="gb2312">
 function GetRequest() {
    var url = location.search; //获取url中"?"符后的字串
    if(url == "?flag=0"){
@@ -356,6 +374,17 @@ function AsciiToString(asccode){
     return String.fromCharCode(asccode);  
 }
 
-</Script>
-
+</script>
+<script type="text/javascript">
+function loadXMLDoc(id)
+{
+	$.ajax({
+		   type: "GET",
+		   url: "http://localhost:8585/DaTian/focus",//请求的后台地址
+		   data: "type=goods&id=" + id,//前台传给后台的参数
+		   success: function(msg){//msg:返回值
+		   }
+		});
+}
+</script>
 </html>
