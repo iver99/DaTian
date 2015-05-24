@@ -59,7 +59,7 @@
     <table border="0" cellspacing="0" cellpadding="0" class="table_register1">
         <tr>
             <td width="120" height="40" class="td_mgmt_right3_td1b">用户名：</td>
-            <td><input type="text" class="input_mgmt1" style="width:300px;" name="username"/>&nbsp;&nbsp;<a href="javascript:;" hidefocus="true">检查用户名</a></td>
+            <td><input type="text" class="input_mgmt1" style="width:300px;" name="username" id="username"/>&nbsp;&nbsp;<a href="javascript:;" hidefocus="true" onclick="loadXMLDoc()">检查用户名</a></td>
         </tr>
         <tr>
         	<td width="120" height="40" class="td_mgmt_right3_td1b">用户类型：</td>
@@ -147,6 +147,21 @@
 <div id="footer_frame">
 	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="views/footer.jsp"></iframe>
 </div>
-
 </body>
+<script type="text/javascript">
+function loadXMLDoc()
+{
+	$.ajax({
+		   type: "GET",
+		   url: "http://localhost:8585/DaTian/usercheck",//请求的后台地址
+		   data: "username=" + document.getElementById("username").value,//前台传给后台的参数
+		   success: function(msg){//msg:返回值
+			   if(msg == "true")
+				   alert("该用户名可以使用~");
+			   else
+				   alert("该用户名已被使用！");
+		   }
+		});
+}
+</script>
 </html>

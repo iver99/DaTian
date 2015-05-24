@@ -132,5 +132,13 @@ public class IdCreator {
 	public static String createCarteamId(){
 		return "CT"+(int)(Math.random()*100000000);
 	}
+	
+	/**
+	 * ·µ»Ø¹Ø×¢id
+	 * @return
+	 */
+	public static String createFocusId(){
+		return "F"+(int)(Math.random()*100000000);
+	}
 
 }

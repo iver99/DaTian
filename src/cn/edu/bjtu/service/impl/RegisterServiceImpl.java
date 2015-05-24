@@ -1,15 +1,16 @@
 package cn.edu.bjtu.service.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.ClientDao;
 import cn.edu.bjtu.dao.CompanyDao;
+import cn.edu.bjtu.dao.RegisterDao;
 import cn.edu.bjtu.dao.UserinfoDao;
 import cn.edu.bjtu.service.RegisterService;
 import cn.edu.bjtu.util.IdCreator;
@@ -17,7 +18,6 @@ import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Clientinfo;
 import cn.edu.bjtu.vo.Userinfo;
 @Service("registerServiceImpl")
-@Transactional
 /**
  * 
  * @author RussWest0
@@ -25,19 +25,22 @@ import cn.edu.bjtu.vo.Userinfo;
  */
 public class RegisterServiceImpl implements RegisterService{
 
+	/*@Resource 
+	BaseDao baseDao;*/
 	@Autowired
 	UserinfoDao userinfoDao;
 	@Autowired
 	ClientDao clientDao;
 	@Autowired
-	CompanyDao companyDao;
+	CompanyDao companyDao;	
+	@Resource
+	Carrierinfo carrierinfo;
 	@Resource 
 	Userinfo userInfo;
 	@Resource
 	Clientinfo clientInfo;
 	@Resource
-	Carrierinfo carrierinfo;
-	
+	RegisterDao registerDao;
 	@Override
 	public String register(String username, String password, String phone,int userKind) {
 		// TODO Auto-generated method stub
@@ -90,6 +93,11 @@ public class RegisterServiceImpl implements RegisterService{
 		clientInfo.setId(userId);
 		return baseDao.save(clientInfo);
 	}*/
+	@Override
+	public List getUserCheck(String username) {
+		// TODO Auto-generated method stub
+		return registerDao.getUserCheck(username);
+	}
 	
 	
 

@@ -86,6 +86,7 @@
 				<value>cn/edu/bjtu/vo/Carteam.hbm.xml</value>
 				<value>cn/edu/bjtu/vo/SettlementCarrierView.hbm.xml</value> 
 				<value>cn/edu/bjtu/vo/ComplaintClientView.hbm.xml</value>
+				<value>cn/edu/bjtu/vo/Focus.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

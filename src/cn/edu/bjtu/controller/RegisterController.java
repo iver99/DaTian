@@ -1,5 +1,7 @@
 package cn.edu.bjtu.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,6 +37,27 @@ public class RegisterController {
 		
 		mv.setViewName("register1");
 		return mv;
+	}
+	
+
+	@RequestMapping("usercheck")
+	public String userCheck(
+			HttpServletRequest request,HttpServletResponse response) throws Exception{
+		String username = request.getParameter("username");
+		String check;
+		List userCheck = registerServiceImpl.getUserCheck(username);
+		if(userCheck.isEmpty())
+		{
+			response.setContentType("text/html;charset=UTF-8");
+			response.getWriter().print("true");
+		}
+		else
+		{
+			response.setContentType("text/html;charset=UTF-8");
+			response.getWriter().print("false");
+		}
+		//System.out.println("username="+username);
+		return null;
 	}
 	/*@RequestMapping("userdetail")
 	public ModelAndView userValidation()

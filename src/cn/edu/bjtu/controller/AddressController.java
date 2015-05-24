@@ -32,7 +32,6 @@ public class AddressController {
 	{
 		String userId=(String)request.getSession().getAttribute("userId");
 		List addressList = addressService.getAddress(userId);
-		System.out.println("addressList+" + addressList);
 		mv.addObject("addressList", addressList);
 		mv.setViewName("mgmt_a_address");
 		return mv;

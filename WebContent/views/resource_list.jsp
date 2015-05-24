@@ -197,7 +197,7 @@
 									<td class="td_main_list_content">${linetransport.relDate }</td>
 									<td class="td_main_list_content"><a href="javascript:;"
 										class="a_main_list_handle_icon1a" hidefocus="true"
-										onclick="hide(this)"></a></td>
+										onclick="hide(this);loadXMLDoc('${linetransport.id }')"></a></td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -308,15 +308,49 @@
 	<div id="footer_frame">
 		<iframe allowtransparency="true" width="100%" frameborder="0"
 			hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0"
-			src="views/footer.jsp"></iframe>
+			src="footer.htm"></iframe>
 	</div>
+	<!-- <div id="myDiv"></div> -->
 </body>
 <script type="text/javascript" charset="utf-8">
 	function OnLoad() {
 		GetRequest();
 	}
 </script>
-
+<script type="text/javascript">
+/* function loadXMLDoc(id)
+{
+	var xmlhttp;
+	if (window.XMLHttpRequest)
+	  {// code for IE7+, Firefox, Chrome, Opera, Safari
+	  xmlhttp=new XMLHttpRequest();
+	  }
+	else
+	  {// code for IE6, IE5
+	  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	  }
+	xmlhttp.onreadystatechange=function()
+	  {
+	  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+	    {
+	    //document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+	    }
+	  }
+	url = "http://localhost:8585/DaTian/focus?type=linetransport&id=" + id;
+	xmlhttp.open("GET",url,true);
+	xmlhttp.send(null);
+} */
+function loadXMLDoc(id)
+{
+	$.ajax({
+		   type: "GET",
+		   url: "http://localhost:8585/DaTian/focus",//请求的后台地址
+		   data: "type=linetransport&id=" + id,//前台传给后台的参数
+		   success: function(msg){//msg:返回值
+		   }
+		});
+}
+</script>
 <Script language="javascript" charset="gb2312">
 	function GetRequest() {
 		var url = location.search; //获取url中"?"符后的字串
