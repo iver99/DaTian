@@ -14,7 +14,7 @@ import cn.edu.bjtu.vo.Carteam;
 import cn.edu.bjtu.vo.Driverinfo;
 
 @Repository
-public class CarDaoImpl implements CarDao{
+public class CarDaoImpl extends BaseDaoImpl<Carinfo> implements CarDao{
 	
 	@Resource
 	private HibernateTemplate ht;
@@ -47,20 +47,6 @@ public class CarDaoImpl implements CarDao{
 		
 	}
 
-	@Override
-	/**
-	 * 返回所有司机信息
-	 */
-	public List getAllDriver() {
-		// TODO Auto-generated method stub
-		return ht.find("from Driverinfo");
-	}
-
-	@Override
-	public Driverinfo getDriverInfo(String driverId) {
-		// TODO Auto-generated method stub
-		return ht.get(Driverinfo.class,driverId);
-	}
 
 	@Override
 	/**
@@ -71,38 +57,7 @@ public class CarDaoImpl implements CarDao{
 		return ht.find("from Carinfo where carrierId='"+carrierId+"'");
 	}
 
-	@Override
-	/**
-	 * 获取某公司的所有司机姓名 
-	 */
-	public List getAllDriverName(String carrierId) {
-		// TODO Auto-generated method stub
-		return ht.find("select driverName from Driverinfo where carrierId='"+carrierId+"'");
-	}
-
-	@Override
-	/**
-	 * 获取某公司的所有司机信息 
-	 */
-	public List getAllDriver(String carrierId) {
-		// TODO Auto-generated method stub
-		return ht.find("from Driverinfo where carrierId='"+carrierId+"'");
-	}
 	
-	@Override
-	public String getDriverIdByName(String driverName) {
-		// TODO Auto-generated method stub
-		return "";
-	}
-
-	@Override
-	/**
-	 * 返回公司司机
-	 */
-	public List getCompanyDriver(String carrier) {
-		// TODO Auto-generated method stub
-		return ht.find("from Driverinfo where carrierId='"+carrier+"'");
-	}
 	
 	
 	@Override
@@ -114,22 +69,6 @@ public class CarDaoImpl implements CarDao{
 
 		return hqltool.getQueryList(hql, page, pageSize);//Dao层分页函数提取到此方法
 	}
+
 	
-	@Override
-	/**
-	 * 返回车队信息
-	 */
-	public List getCarteam(String carrierId) {
-		// TODO Auto-generated method stub
-		return ht.find("from Carteam where carrierId='"+carrierId+"'");
-	}
-	
-	@Override
-	/**
-	 * 返回具体车队信息
-	 */
-	public Carteam getCarteamInfo(String id) {
-		// TODO Auto-generated method stub
-		return ht.get(Carteam.class,id);
-	}
 }

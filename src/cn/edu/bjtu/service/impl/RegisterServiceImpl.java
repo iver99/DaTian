@@ -4,10 +4,13 @@ import java.util.Date;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import cn.edu.bjtu.dao.BaseDao;
+import cn.edu.bjtu.dao.ClientDao;
+import cn.edu.bjtu.dao.CompanyDao;
+import cn.edu.bjtu.dao.UserinfoDao;
 import cn.edu.bjtu.service.RegisterService;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.vo.Carrierinfo;
@@ -22,8 +25,12 @@ import cn.edu.bjtu.vo.Userinfo;
  */
 public class RegisterServiceImpl implements RegisterService{
 
-	@Resource 
-	BaseDao baseDao;
+	@Autowired
+	UserinfoDao userinfoDao;
+	@Autowired
+	ClientDao clientDao;
+	@Autowired
+	CompanyDao companyDao;
 	@Resource 
 	Userinfo userInfo;
 	@Resource
@@ -59,7 +66,7 @@ public class RegisterServiceImpl implements RegisterService{
 		//clientInfo.setRealName(realName);
 		//clientInfo.setRemarks(remarks);
 		//clientInfo.setSex(sex);
-		baseDao.save(clientInfo);
+		clientDao.save(clientInfo);
 		}
 		else //企业用户
 		{
@@ -67,11 +74,11 @@ public class RegisterServiceImpl implements RegisterService{
 			carrierinfo.setId(userInfo.getId());
 			carrierinfo.setStatus("未验证");
 			
-			baseDao.save(carrierinfo);
+			companyDao.save(carrierinfo);
 			
 		}
 		//clientInfo.setStatus("未验证");//新增用户 先设置成未验证 
-		baseDao.save(userInfo);//保存实体
+		userinfoDao.save(userInfo);//保存实体
 		
 		
 		//registerInfo(userInfo.getId());

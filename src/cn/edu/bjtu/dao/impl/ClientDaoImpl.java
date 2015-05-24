@@ -4,13 +4,14 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
-import cn.edu.bjtu.dao.BaseDao;
 import cn.edu.bjtu.dao.ClientDao;
 import cn.edu.bjtu.vo.Businessclient;
 import cn.edu.bjtu.vo.Clientinfo;
+import cn.edu.bjtu.vo.Userinfo;
 import cn.edu.bjtu.vo.Userinfo;
 
 @Repository
@@ -19,13 +20,15 @@ import cn.edu.bjtu.vo.Userinfo;
  * @author RussWest0
  *
  */
-public class ClientDaoImpl implements ClientDao {
+public class ClientDaoImpl extends BaseDaoImpl<Clientinfo> implements ClientDao {
 
 	@Resource
 	HibernateTemplate ht;
 	
-	@Resource
-	BaseDao baseDao;
+	/*@Resource
+	BaseDao baseDao;*/
+	/*@Autowired
+	ClientDao clientDao;*/
 
 	@Override
 	/**
@@ -115,13 +118,15 @@ public class ClientDaoImpl implements ClientDao {
 		clientInfo.setIdcard(IDCard);
 		clientInfo.setSex(sex);
 		
-		baseDao.update(clientInfo);
+		/*baseDao.update(clientInfo);*/
+		this.update(clientInfo);
 		//修改个人信息状态
 		//if(flag== true)
 	//	{
 			Userinfo userInfo=ht.get(Userinfo.class, userId);
 			userInfo.setStatus("已审核");
-			baseDao.update(userInfo);
+			/*baseDao.update(userInfo);*/
+			this.update(clientInfo);
 	//}
 		
 		return true;

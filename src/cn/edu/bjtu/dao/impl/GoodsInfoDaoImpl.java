@@ -4,25 +4,27 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
-import cn.edu.bjtu.dao.BaseDao;
 import cn.edu.bjtu.dao.GoodsInfoDao;
 import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.vo.GoodsClientView;
 import cn.edu.bjtu.vo.Goodsform;
 
 @Repository
-public class GoodsInfoDaoImpl implements GoodsInfoDao {
+public class GoodsInfoDaoImpl extends BaseDaoImpl<Goodsform> implements GoodsInfoDao {
 
 	@Resource
 	private HibernateTemplate ht;
 	@Resource
 	private HQLTool hqltool;
 
-	@Resource
-	private BaseDao baseDao;
+	/*@Resource
+	private BaseDao baseDao;*/
+	/*@Autowired
+	GoodsInfoDao goodsInfoDao;*/
 
 	@Override
 	/**
@@ -76,7 +78,7 @@ public class GoodsInfoDaoImpl implements GoodsInfoDao {
 		// goods.setCarrierId(userId);
 		// ÐÞ¸Ä×´Ì¬
 		goods.setState("´ýÈ·ÈÏ");
-		baseDao.update(goods);
+		this.update(goods);
 		return true;
 	}
 
@@ -96,7 +98,7 @@ public class GoodsInfoDaoImpl implements GoodsInfoDao {
 	public boolean deleteGoods(String id) {
 
 		Goodsform goodsform = ht.get(Goodsform.class, id);
-		baseDao.delete(goodsform);
+		this.delete(goodsform);
 		return true;
 	}
 

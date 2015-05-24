@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.BaseDao;
 import cn.edu.bjtu.dao.ComplaintDao;
+import cn.edu.bjtu.dao.ContractDao;
 import cn.edu.bjtu.service.ComplaintService;
 import cn.edu.bjtu.service.OrderService;
 import cn.edu.bjtu.util.IdCreator;
@@ -28,8 +29,6 @@ public class ComplaintServiceImpl implements ComplaintService{
 	Complaintform complaintform;
 	@Resource 
 	OrderService orderService;
-	@Resource
-	BaseDao baseDao;
 	
 	@Override
 	public List getUserCompliant(String userId) {
@@ -86,7 +85,7 @@ public class ComplaintServiceImpl implements ComplaintService{
 						get(0).toString());
 			}
 		}
-		baseDao.save(complaintform);
+		complaintDao.save(complaintform);
 		return true;
 	
 	}
@@ -97,7 +96,7 @@ public class ComplaintServiceImpl implements ComplaintService{
 		complaintform = getComplaintInfo(id);
 		complaintform.setFeedback(feedback);
 		complaintform.setState("“— ‹¿Ì");
-		baseDao.update(complaintform);
+		complaintDao.update(complaintform);
 		return false;
 	}
 	

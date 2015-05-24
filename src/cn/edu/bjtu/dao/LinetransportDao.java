@@ -4,7 +4,7 @@ import java.util.List;
 
 import cn.edu.bjtu.vo.Linetransport;
 
-public interface LinetransportDao {
+public interface LinetransportDao extends BaseDao<Linetransport>{
 
 	public List getAllLinetransport(int Display,int PageNow);
 

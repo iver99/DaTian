@@ -81,6 +81,7 @@
 						</td>
 					</tr>
 				</table>
+				<form action="commitcomment" method="post">
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
                     <tr>
                         <td class="td_mgmt_right3_td1a">
@@ -89,35 +90,36 @@
                                 <div class="div_rating_sub">
                                     <div class="div_rating_left">服务态度</div>
                                     <div id="rating1" style="float:left;"></div>
-                                    <div class="div_rating_right"><input id="hint1" type="text" class="input_rating" /></div>
+                                    <div class="div_rating_right"><input id="hint1" type="text" class="input_rating" name="rate1"/></div>
                                 </div>
                                 <div class="div_rating_sub">
                                     <div class="div_rating_left">运输时效</div>
                                     <div id="rating2" style="float:left;"></div>
-                                    <div class="div_rating_right"><input id="hint2" type="text" class="input_rating" /></div>
+                                    <div class="div_rating_right"><input id="hint2" type="text" class="input_rating" name="rate2"/></div>
                                 </div>
                                 <div class="div_rating_sub">
                                     <div class="div_rating_left">货物安全</div>
                                     <div id="rating3" style="float:left;"></div>
-                                    <div class="div_rating_right"><input id="hint3" type="text" class="input_rating" /></div>
+                                    <div class="div_rating_right"><input id="hint3" type="text" class="input_rating" name="rate3"/></div>
                                 </div>
                                 <div class="div_rating_sub">
                                     <div class="div_rating_left">总体费用</div>
                                     <div id="rating4" style="float:left;"></div>
-                                    <div class="div_rating_right"><input id="hint4" type="text" class="input_rating" /></div>
+                                    <div class="div_rating_right"><input id="hint4" type="text" class="input_rating" name="rate4"/></div>
                                 </div>
                                 <div class="div_rating_sub">
-                                	<textarea class="textarea_rating" placeholder="请输入补充内容..."></textarea>
+                                	<textarea class="textarea_rating" placeholder="请输入补充内容..." name="remarks"></textarea>
                                 </div>
                             </div>
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
-                                    <td height="40" class="td_mgmt_right3_td1a1"><input type="button" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="window.location.href='mgmt_d_order_s.htm'" /></td>
+                                    <td height="40" class="td_mgmt_right3_td1a1"><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /></td>
                                 </tr>
                     		</table>
                     	</td>
                     </tr>
 				</table>
+				</form>
 			</td>
 		</tr>
     </table>

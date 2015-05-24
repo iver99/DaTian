@@ -338,12 +338,9 @@ public class LinetransportController {
 			System.out.println("÷ÿ∂®œÚ ß∞‹");
 			e.printStackTrace();
 		}
-
-		//response.setHeader("Content-disposition", "attachment;filename="+ citylineInfo.getDetailPrice());
 		return mv;
 
 	}
-	
 	
 	@Resource
 	LinetransportService linetransportService;

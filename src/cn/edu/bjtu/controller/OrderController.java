@@ -121,7 +121,6 @@ public class OrderController {
 			@RequestParam float freight, @RequestParam String contractId,
 			@RequestParam String remarks) {
 
-		System.out.println("进入订单控制器");
 		boolean flag = orderService.insertOrder(goodsName, contactWaybill,
 				deliveryAddr, recieverAddr, deliveryName, deliveryPhone,
 				recieverName, recieverPhone, goodsWeight, goodsVolume,

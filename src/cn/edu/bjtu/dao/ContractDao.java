@@ -4,7 +4,7 @@ import java.util.List;
 
 import cn.edu.bjtu.vo.Contract;
 
-public interface ContractDao {
+public interface ContractDao extends BaseDao<Contract>{
 	public List getCompanyContract(String carrierId);
 	public Contract getContractInfo(String contractId);
 	public boolean shutdownContract(String contractId,String reason);

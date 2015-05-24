@@ -27,8 +27,6 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 	@Resource
 	Goodsform goodsform;
 	@Resource
-	BaseDao baseDao;
-	@Resource
 	HQLTool hqltool;
 	@Resource
 	GoodsClientView goodsClientView;
@@ -114,7 +112,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 			String fileLocation = path + "//" + fileName;
 			goodsform.setRelatedMaterial(fileLocation);
 		}
-		baseDao.save(goodsform);//保存实体
+		goodsinfoDao.save(goodsform);//保存实体
 		return false;
 		
 	}
@@ -180,7 +178,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 				String fileLocation = path + "//" + fileName;
 				goodsform.setRelatedMaterial(fileLocation);
 			}
-			baseDao.update(goodsform);//保存实体
+			goodsinfoDao.update(goodsform);//保存实体
 			return false;
 			
 		}

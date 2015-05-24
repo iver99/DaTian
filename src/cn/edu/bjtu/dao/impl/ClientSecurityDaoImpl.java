@@ -4,8 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
-import cn.edu.bjtu.dao.BaseDao;
+import cn.edu.bjtu.dao.ClientDao;
 import cn.edu.bjtu.dao.ClientSecurityDao;
+import cn.edu.bjtu.dao.UserinfoDao;
 import cn.edu.bjtu.vo.Clientinfo;
 import cn.edu.bjtu.vo.Userinfo;
 
@@ -16,7 +17,9 @@ public class ClientSecurityDaoImpl implements ClientSecurityDao {
 	private HibernateTemplate ht;
 
 	@Autowired
-	private BaseDao baseDao;
+	ClientDao clientDao;
+	@Autowired
+	UserinfoDao userinfoDao;
 
 	@Override
 	/**
@@ -39,7 +42,7 @@ public class ClientSecurityDaoImpl implements ClientSecurityDao {
 		// TODO Auto-generated method stub
 		Userinfo user = ht.get(Userinfo.class, userId);
 		user.setPassword(newPassword);
-		baseDao.update(user);
+		userinfoDao.save(user);
 		return true;
 	}
 
@@ -55,8 +58,10 @@ public class ClientSecurityDaoImpl implements ClientSecurityDao {
 		Clientinfo clientinfo = ht.get(Clientinfo.class, userId);
 		clientinfo.setEmail(email);
 
-		baseDao.update(user);
-		baseDao.update(clientinfo);
+		/*baseDao.update(user);
+		baseDao.update(clientinfo);*/
+		userinfoDao.update(user);
+		clientDao.update(clientinfo);
 		return true;
 	}
 
@@ -83,8 +88,10 @@ public class ClientSecurityDaoImpl implements ClientSecurityDao {
 
 		clientinfo.setEmail(newEmail);
 
-		baseDao.update(userinfo);
-		baseDao.update(clientinfo);
+		/*baseDao.update(userinfo);
+		baseDao.update(clientinfo);*/
+		userinfoDao.update(userinfo);
+		clientDao.update(clientinfo);
 		return true;
 
 	}
@@ -104,7 +111,8 @@ public class ClientSecurityDaoImpl implements ClientSecurityDao {
 
 		userinfo.setSecurityQuestionStatus("“—…Ë÷√");
 
-		baseDao.update(userinfo);
+		/*baseDao.update(userinfo);*/
+		userinfoDao.update(userinfo);
 		return true;
 	}
 

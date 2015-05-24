@@ -29,8 +29,6 @@ public class OrderServiceImpl implements OrderService {
 	OrderDao orderDao;
 	@Resource
 	Orderform orderform;
-	@Resource
-	BaseDao baseDao;
 
 	@Override
 	public List getAllSendOrderInfo(String userId) {
@@ -81,7 +79,7 @@ public class OrderServiceImpl implements OrderService {
 		orderform.setContractId(contractId);
 		orderform.setRemarks(remarks);
 
-		baseDao.save(orderform);// 保存实体
+		orderDao.save(orderform);// 保存实体
 		return true;
 
 	}
@@ -162,7 +160,7 @@ public class OrderServiceImpl implements OrderService {
 		orderform.setRecieverPhone(recieverPhone);
 		orderform.setRecieverAddr(recieverAddr);
 		orderform.setRemarks(remarks);
-		baseDao.update(orderform);
+		orderDao.update(orderform);
 		return true;
 
 	}

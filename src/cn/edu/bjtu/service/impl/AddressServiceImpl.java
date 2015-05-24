@@ -5,18 +5,18 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.AddressDao;
-import cn.edu.bjtu.dao.BaseDao;
 import cn.edu.bjtu.service.AddressService;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.vo.Address;
 
 @Transactional
-@Service("AddressServiceImpl")
+@Service
 /**
  * 子账户服务层实现 
  * 
@@ -26,9 +26,9 @@ public class AddressServiceImpl implements AddressService{
 	
 	@Resource
 	HibernateTemplate ht;
-	@Resource 
-	BaseDao baseDao;
-	@Resource 
+	/*@Resource 
+	BaseDao baseDao;*/
+	@Autowired
 	AddressDao addressDao;
 	@Resource 
 	Address address;
@@ -68,7 +68,7 @@ public class AddressServiceImpl implements AddressService{
 		address.setPhone(phone);
 		address.setRelDate(new Date());
 		address.setClientId(clientId);
-		 baseDao.save(address);
+		 addressDao.save(address);
 		 return true;
 	}
 	
@@ -80,7 +80,7 @@ public class AddressServiceImpl implements AddressService{
 		address.setAddress(paramaddress);
 		address.setName(name);
 		address.setPhone(phone);
-		baseDao.update(address);
+		addressDao.update(address);
 		return true;
 	}
 	

@@ -12,7 +12,7 @@ import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.vo.Complaintform;
 
 @Repository
-public class ComplaintDaoImpl implements ComplaintDao
+public class ComplaintDaoImpl extends BaseDaoImpl<Complaintform> implements ComplaintDao
 {
 	@Resource
 	HibernateTemplate ht;

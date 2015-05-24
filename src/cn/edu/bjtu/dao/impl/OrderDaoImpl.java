@@ -5,23 +5,25 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
-import cn.edu.bjtu.dao.BaseDao;
 import cn.edu.bjtu.dao.OrderDao;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.vo.OrderCarrierView;
 import cn.edu.bjtu.vo.Orderform;
 
 @Repository
-public class OrderDaoImpl implements OrderDao {
+public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 
 	@Resource
 	private HibernateTemplate ht;
 
-	@Resource
-	private BaseDao baseDao;
+	/*@Resource
+	private BaseDao baseDao;*/
+	/*@Autowired
+	OrderDao orderDao;*/
 
 	@Override
 	/**
@@ -81,7 +83,7 @@ public class OrderDaoImpl implements OrderDao {
 		//System.out.println("orderEntity+" + order);
 		order.setState("待收货");// 修改状态
 
-		baseDao.update(order);
+		this.update(order);
 		return true;
 
 	}
@@ -109,7 +111,7 @@ public class OrderDaoImpl implements OrderDao {
 		order.setState("待确认");//修改 订单状态
 		order.setActualPrice(actualPrice);
 		order.setExplainReason(explainReason);
-		baseDao.update(order);
+		this.update(order);
 		return true;
 	}
 
@@ -131,7 +133,7 @@ public class OrderDaoImpl implements OrderDao {
 		Orderform order=ht.get(Orderform.class, orderId);
 		order.setState("待评价");
 		
-		baseDao.update(order);
+		this.update(order);
 		return true;
 	}
 	
@@ -145,7 +147,7 @@ public class OrderDaoImpl implements OrderDao {
 		order.setCancelReason(cancelReason);
 		order.setState("已取消");
 		
-		baseDao.update(order);
+		this.update(order);
 		return true;
 	}
 	
@@ -158,7 +160,7 @@ public class OrderDaoImpl implements OrderDao {
 		Orderform order = (Orderform) ht.get(Orderform.class, orderId);
 		order.setActualPrice(actualPrice);
 		order.setExplainReason(explainReason);
-		baseDao.update(order);
+		this.update(order);
 		return true;
 	}
 
@@ -196,7 +198,7 @@ public class OrderDaoImpl implements OrderDao {
 		//order.setResourceType(resourceType);
 		order.setState("待受理");//订单状态
 		
-		baseDao.save(order);
+		this.save(order);
 		return true;
 		
 	}

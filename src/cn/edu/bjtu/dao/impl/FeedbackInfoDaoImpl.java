@@ -8,9 +8,10 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import cn.edu.bjtu.dao.FeedbackInfoDao;
+import cn.edu.bjtu.vo.Feedbackform;
 
 @Repository
-public class FeedbackInfoDaoImpl implements FeedbackInfoDao{
+public class FeedbackInfoDaoImpl extends BaseDaoImpl<Feedbackform> implements FeedbackInfoDao{
 	
 	@Resource
 	private HibernateTemplate ht;

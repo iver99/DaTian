@@ -4,7 +4,7 @@ import java.util.List;
 
 import cn.edu.bjtu.vo.Cityline;
 
-public interface CitylineDao {
+public interface CitylineDao extends BaseDao<Cityline> {
 	
 	public List getAllCityline(int Display,int PageNow);
 	public Cityline getCitylineInfo(String citylineid);

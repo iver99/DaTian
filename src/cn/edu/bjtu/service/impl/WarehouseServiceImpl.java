@@ -28,8 +28,8 @@ public class WarehouseServiceImpl implements WarehouseService {
 	WarehouseDao warehouseDao;
 	@Resource
 	Warehouse warehouse;
-	@Resource
-	BaseDao baseDao;
+	/*@Resource
+	BaseDao baseDao;*/
 	@Resource
 	HQLTool hqltool;
 
@@ -260,7 +260,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 			String fileLocation = path + "//" + fileName;
 			warehouse.setDetailPrice(fileLocation);
 		}
-		 baseDao.save(warehouse);// 保存实体
+		 warehouseDao.save(warehouse);// 保存实体
 		 return true;
 	}
 
@@ -296,12 +296,12 @@ public class WarehouseServiceImpl implements WarehouseService {
 			String fileLocation = path + "//" + fileName;
 			warehouse.setDetailPrice(fileLocation);
 		}
-		 baseDao.update(warehouse);// 保存实体
+		 warehouseDao.update(warehouse);// 保存实体
 		 return true;
 	}
 	public boolean deleteWarehouse(String id){
 		warehouse = getWarehouseInfo(id);// 根据id查找到仓库信息
-		baseDao.delete(warehouse);
+		warehouseDao.delete(warehouse);
 		return true;
 	}
 }

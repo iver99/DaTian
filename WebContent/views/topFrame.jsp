@@ -282,10 +282,8 @@
                     $(".allsort .item").hoverForIE6({delay:50});
                 </script>
             </td>
-            <td class="td_top2a">
-            	<a href="linetransport?flag=0" class="a_mainnav" hidefocus="true">找线路</a>
-            	<a href="car?flag=0" class="a_mainnav" hidefocus="true">找车</a>
-            	<a href="goodsform?flag=0" class="a_mainnav" hidefocus="true">找货</a>
+           <td class="td_top2a">
+            	<a href="linetransport?flag=0" class="a_mainnav" hidefocus="true">找资源</a>
             </td>
             <td class="td_top2a">&nbsp;</td>
             <td width="3%">&nbsp;</td>

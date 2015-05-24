@@ -5,7 +5,7 @@ import java.util.List;
 import cn.edu.bjtu.vo.OrderCarrierView;
 import cn.edu.bjtu.vo.Orderform;
 
-public interface OrderDao {
+public interface OrderDao extends BaseDao<Orderform> {
 	
 	public List getAllSendOrderInfo(String userId);
 	public List getAllRecieveOrderInfo(String userId);

@@ -12,7 +12,7 @@ import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.vo.Cityline;
 
 @Repository
-public class CitylineDaoImpl implements CitylineDao{
+public class CitylineDaoImpl extends BaseDaoImpl<Cityline> implements CitylineDao{
 	
 	@Resource
 	private HibernateTemplate ht;

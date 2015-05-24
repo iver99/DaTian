@@ -30,8 +30,8 @@ public class SubAccountServiceImpl implements SubAccountService{
 	HibernateTemplate ht;
 	@Resource 
 	SubAccountDao subAccountDao;
-	@Resource 
-	BaseDao baseDao;
+	/*@Resource 
+	BaseDao baseDao;*/
 	@Resource
 	HQLTool hqltool;
 	@Resource
@@ -129,7 +129,7 @@ public class SubAccountServiceImpl implements SubAccountService{
 		subAccount.setRelDate(new Date());
 		subAccount.setStatus("Õý³£");
 		
-		baseDao.save(subAccount);
+		subAccountDao.save(subAccount);
 		return true;
 	}
 	
@@ -169,7 +169,7 @@ public class SubAccountServiceImpl implements SubAccountService{
 		subAccount.setStatisticsManagement(statisticsManagement);
 		subAccount.setRemarks(remarks);
 		
-		 baseDao.update(subAccount);
+		 subAccountDao.update(subAccount);
 		 return true;
 	}
 	

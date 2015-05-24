@@ -5,18 +5,17 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.apache.catalina.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import cn.edu.bjtu.dao.BaseDao;
+import cn.edu.bjtu.dao.BusinessClientDao;
 import cn.edu.bjtu.dao.ClientDao;
 import cn.edu.bjtu.service.ClientService;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.vo.Businessclient;
 import cn.edu.bjtu.vo.Clientinfo;
-import cn.edu.bjtu.vo.Userinfo;
 @Repository
 /**
  * client服务层实现
@@ -27,12 +26,13 @@ import cn.edu.bjtu.vo.Userinfo;
 @Transactional
 public class ClientServiceImpl implements ClientService{
 
-	@Resource
+	@Autowired	
 	ClientDao clientDao;
+	@Autowired
+	BusinessClientDao businessClientDao;
 	@Resource
 	Businessclient businessClient;
-	@Resource
-	BaseDao baseDao;
+	
 	@Override
 	/**
 	 *返回公司客户 
@@ -82,7 +82,7 @@ public class ClientServiceImpl implements ClientService{
 			String fileLocation = path + "//" + fileName;
 			businessClient.setRelatedMaterial(fileLocation);
 		}
-		baseDao.save(businessClient);//保存实体
+		businessClientDao.save(businessClient);//保存实体
 		return true;
 	}
 	
@@ -109,7 +109,7 @@ public class ClientServiceImpl implements ClientService{
 			String fileLocation = path + "//" + fileName;
 			businessClient.setRelatedMaterial(fileLocation);
 		}
-		baseDao.update(businessClient);//保存实体
+		businessClientDao.update(businessClient);//保存实体
 		return true;
 	}
 	@Override
@@ -118,7 +118,7 @@ public class ClientServiceImpl implements ClientService{
 	 */
 	public boolean deleteClient(String id){
 		businessClient=getBusinessclientInfo(id);//根据id查找到客户信息
-		baseDao.delete(businessClient);
+		businessClientDao.delete(businessClient);
 		return true;
 	}
 	@Override

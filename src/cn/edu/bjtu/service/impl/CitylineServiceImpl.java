@@ -27,8 +27,8 @@ public class CitylineServiceImpl implements CitylineService {
 	CitylineDao citylineDao;
 	@Resource
 	Cityline cityline;
-	@Resource
-	BaseDao baseDao;
+	/*@Resource
+	BaseDao baseDao;*/
 	@Resource
 	HQLTool hqltool;
 
@@ -246,7 +246,7 @@ public class CitylineServiceImpl implements CitylineService {
 			String fileLocation = path + "//" + fileName;
 			cityline.setDetailPrice(fileLocation);
 		}
-		baseDao.save(cityline);
+		citylineDao.save(cityline);
 		return true;
 	}
 
@@ -274,7 +274,7 @@ public class CitylineServiceImpl implements CitylineService {
 			String fileLocation = path + "//" + fileName;
 			cityline.setDetailPrice(fileLocation);
 		}
-		baseDao.update(cityline);
+		citylineDao.update(cityline);
 		return true;
 	}
 	
@@ -284,7 +284,7 @@ public class CitylineServiceImpl implements CitylineService {
 	 */
 	public boolean deleteCityline(String id) {
 		cityline = getCitylineInfo(id);// 根据id查找到城市配送信息
-		baseDao.delete(cityline);
+		citylineDao.delete(cityline);
 		return true;
 	}
 }

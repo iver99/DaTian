@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,10 +20,10 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 	
 	@Resource
 	Userinfo userinfo;
-	@Resource
+	@Autowired
 	AuthenticationDao authenticationDao;
-	@Resource
-	BaseDao baseDao;
+	/*@Resource
+	BaseDao baseDao;*/
 	@Resource
 	HQLTool hqltool;
 
@@ -69,7 +70,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 			// TODO Auto-generated method stub
 		userinfo = getMyUserDetail(clientId);
 		userinfo.setStatus(status);
-		 baseDao.update(userinfo);//保存实体
+		authenticationDao.update(userinfo);//保存实体
 		 return true;
 	}
 }

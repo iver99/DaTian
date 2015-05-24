@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.hibernate.Query;
-import org.hibernate.Session;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -18,7 +16,7 @@ import cn.edu.bjtu.vo.Carrierinfo;
  *
  */
 @Repository
-public class CompanyDaoImpl implements CompanyDao{
+public class CompanyDaoImpl extends BaseDaoImpl<Carrierinfo> implements CompanyDao{
 	
 	@Resource
 	private HibernateTemplate ht;

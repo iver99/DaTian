@@ -5,10 +5,10 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import cn.edu.bjtu.dao.BaseDao;
 import cn.edu.bjtu.dao.LinetransportDao;
 import cn.edu.bjtu.service.LinetransportService;
 import cn.edu.bjtu.util.HQLTool;
@@ -29,8 +29,8 @@ public class LinetransportServiceImpl implements LinetransportService {
 	LinetransportDao linetransportDao;
 	@Resource
 	Linetransport linetransport;
-	@Resource
-	BaseDao baseDao;
+	/*@Resource
+	BaseDao baseDao;*/
 	@Resource
 	HQLTool hqltool;
 
@@ -234,7 +234,7 @@ public class LinetransportServiceImpl implements LinetransportService {
 			String fileLocation = path + "//" + fileName;
 			linetransport.setDetailPrice(fileLocation);
 		}
-		baseDao.save(linetransport);// 保存实体
+		linetransportDao.save(linetransport);// 保存实体
 		return false;
 
 	}
@@ -285,7 +285,7 @@ public class LinetransportServiceImpl implements LinetransportService {
 			linetransport.setDetailPrice(fileLocation);
 		}
 
-		baseDao.update(linetransport);
+		linetransportDao.update(linetransport);
 		return false;
 
 	}
@@ -299,7 +299,7 @@ public class LinetransportServiceImpl implements LinetransportService {
 
 		System.out.println(linetransport);
 		System.out.println(id);
-		baseDao.delete(linetransport);
+		linetransportDao.delete(linetransport);
 		
 		return false;
 	}

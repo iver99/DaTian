@@ -5,7 +5,7 @@ import java.util.List;
 import cn.edu.bjtu.vo.GoodsClientView;
 import cn.edu.bjtu.vo.Goodsform;
 
-public interface GoodsInfoDao {
+public interface GoodsInfoDao extends BaseDao<Goodsform>{
 	
 	public List getAllGoodsInfo(int Display,int PageNow);
 	public List getSelectedGoodsInfo(String hql,int Display,int PageNow);

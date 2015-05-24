@@ -8,36 +8,35 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import cn.edu.bjtu.dao.BaseDao;
 import cn.edu.bjtu.dao.CarDao;
+import cn.edu.bjtu.dao.CarTeamDao;
 import cn.edu.bjtu.service.CarService;
-import cn.edu.bjtu.service.GoodsInfoService;
 import cn.edu.bjtu.service.LinetransportService;
 import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.util.IdCreator;
-import cn.edu.bjtu.util.ParseDate;
 import cn.edu.bjtu.vo.Carinfo;
 import cn.edu.bjtu.vo.Carteam;
-import cn.edu.bjtu.vo.Driverinfo;
 @Transactional
 @Service("carServiceImpl")
 public class CarServiceImpl implements CarService {
 
-	@Resource
+	@Autowired
 	CarDao carDao;
 	@Resource
 	Carinfo carinfo;
-	@Resource
-	BaseDao baseDao;
+	
+	/*@Resource
+	BaseDao baseDao;*/
 	@Resource
 	LinetransportService linetransportService;
-	@Resource(name = "carServiceImpl")
-	CarService carService;
-	@Resource
-	Driverinfo driverinfo;
+	/*@Autowired
+	CarService carService;*/
+	/*@Resource
+	Driverinfo driverinfo;*/
 	@Resource
 	Carteam carteam;
 	// List driverNameList=new ArrayList();
@@ -97,23 +96,7 @@ public class CarServiceImpl implements CarService {
 		return carDao.getCarInfo(carid);
 	}
 
-	@Override
-	/**
-	 * 返回所有司机信息
-	 */
-	public List getAllDriver() {
-		// TODO Auto-generated method stub
-		return carDao.getAllDriver();
-	}
-
-	@Override
-	/**
-	 * 通过driverid找到司机信息
-	 */
-	public Driverinfo getDriverInfo(String driverId) {
-		// TODO Auto-generated method stub
-		return carDao.getDriverInfo(driverId);
-	}
+	
 
 	@Override
 	public List getCompanyCar(String carrierId) {
@@ -121,31 +104,7 @@ public class CarServiceImpl implements CarService {
 		return carDao.getCompanyCar(carrierId);
 	}
 
-	@Override
-	/**
-	 * 通过carid找到driverinfo
-	 */
-	public Driverinfo getDriverByCarId(String carId) {
-		// TODO Auto-generated method stub
-		String driverId = ((Carinfo) carDao.getCarInfo(carId)).getDriverId();
-
-		return carDao.getDriverInfo(driverId);
-	}
-
-	@Override
-	/**
-	 * 获取所有的司机姓名，更新车辆页面使用
-	 */
-	public List getAllDriverName(String carrierId) {
-		// TODO Auto-generated method stub
-		return carDao.getAllDriverName(carrierId);
-	}
-
-	@Override
-	public List getAllDriver(String carrierId) {
-		// TODO Auto-generated method stub
-		return carDao.getAllDriver(carrierId);
-	}
+	
 
 	@Override
 	/**
@@ -187,53 +146,11 @@ public class CarServiceImpl implements CarService {
 		carinfo.setStorage(storage);
 		// carinfo.setTerminalId(terminalId);
 
-		baseDao.save(carinfo);
+		carDao.save(carinfo);
 		return true;
 	}
 
-	@Override
-	// 未实现
-	public String getDriverIdByName(String driverName) {
-		// TODO Auto-generated method stub
-		return "";
-	}
-
-	@Override
-	/**
-	 * 新增司机
-	 */
-	public boolean insertDriver(String name, String sex, String licenceRate,
-			String phone, String IDCard, String licenceNum, String licenceTime,
-			String carrierId, String path, String fileName) {
-		// TODO Auto-generated method stub
-		// driverinfo.setAge(age);
-		driverinfo.setCarrierId(carrierId);
-		driverinfo.setDriverName(name);
-		driverinfo.setId(IdCreator.createDriverId());
-		driverinfo.setIDCard(IDCard);
-		driverinfo.setLicenceNum(licenceNum);
-		driverinfo.setLicenceRate(licenceRate);
-		driverinfo.setLicenceTime(stringToDate(licenceTime));
-		driverinfo.setPhone(phone);
-		driverinfo.setRelDate(new Date());
-		driverinfo.setSex(sex);
-		// 保存文件路径
-		if (path != null && fileName != null) {
-			String fileLocation = path + "//" + fileName;
-			driverinfo.setIdscans(fileLocation);
-		}
-		baseDao.save(driverinfo);// 保存实体
-		return true;
-	}
-
-	@Override
-	/**
-	 * 返回公司司机
-	 */
-	public List getCompanyDriver(String carrierId) {
-		// TODO Auto-generated method stub
-		return carDao.getCompanyDriver(carrierId);
-	}
+	
 
 	@Override
 	/**
@@ -267,12 +184,12 @@ public class CarServiceImpl implements CarService {
 		carinfo.setStopPlace(stopPlace);
 		
 		System.out.println("set over");// null
-		baseDao.update(carinfo);
+		carDao.update(carinfo);
 		return true;
 
 	}
 
-	public static Date stringToDate(String str) {  
+	private static Date stringToDate(String str) {  
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");  
         Date date = null;  
         try {  
@@ -287,34 +204,7 @@ public class CarServiceImpl implements CarService {
         return date;  
 } 
 	
-	@Override
-	/**
-	 * 更新司机
-	 */
-	public boolean updateDriver(String id, String name, String sex,
-			String IDCard, String licenceNum, String licenceRate,
-			String licenceTime, String phone, String carrierId, String path,
-			String fileName) {
-		// TODO Auto-generated method stub
-		// driverinfo.setAge(age);
-		driverinfo = getDriverInfo(id);// 根据id查找到车辆信息
-		driverinfo.setCarrierId(carrierId);
-		driverinfo.setDriverName(name);
-		driverinfo.setSex(sex);
-		driverinfo.setIDCard(IDCard);
-		driverinfo.setLicenceNum(licenceNum);
-		driverinfo.setLicenceRate(licenceRate);
-		driverinfo.setLicenceTime(stringToDate(licenceTime));
-		driverinfo.setPhone(phone);
-		driverinfo.setRelDate(new Date());
-		// 保存文件路径
-		if (path != null && fileName != null) {
-			String fileLocation = path + "//" + fileName;
-			driverinfo.setIdscans(fileLocation);
-		}
-		baseDao.update(driverinfo);// 保存实体
-		return true;
-	}
+	
 
 	@Override
 	/**
@@ -325,76 +215,9 @@ public class CarServiceImpl implements CarService {
 	public boolean deleteCar(String id) {
 		carinfo = getCarInfo(id);// 根据id查找到车辆信息
 
-		baseDao.delete(carinfo);
+		carDao.delete(carinfo);
 		return true;
 	}
 
-	@Override
-	/**
-	 * 删除司机
-	 * @param id
-	 * @return
-	 */
-	public boolean deleteDriver(String id) {
-		driverinfo = getDriverInfo(id);// 根据id查找到车辆信息
-		baseDao.delete(driverinfo);
-		return true;
-	}
-
-	@Override
-	public List getCarteam(String carrierId) {
-		// TODO Auto-generated method stub
-		return carDao.getCarteam(carrierId);
-	}
-
-	@Override
-	public Carteam getCarteamInfo(String id) {
-		// TODO Auto-generated method stub
-		return carDao.getCarteamInfo(id);
-	}
-
-	@Override
-	public boolean insertCarteam(String teamName, String carCount,
-			String chief, String phone, String explaination, String carrierId) {
-		System.out.println("insertcarteam " + IdCreator.createCarteamId()
-				+ teamName + carCount + carrierId + chief + phone
-				+ explaination + new Date());// null
-		carteam.setId(IdCreator.createCarteamId());
-		carteam.setTeamName(teamName);
-		carteam.setCarCount(carCount);
-		carteam.setCarrierId(carrierId);
-		carteam.setChief(chief);
-		carteam.setPhone(phone);
-		carteam.setExplaination(explaination);
-		carteam.setRelDate(new Date());
-		// return true;
-		baseDao.save(carteam);// 保存实体
-		return true;
-	}
-
-	@Override
-	/**
-	 * 删除
-	 * @param id
-	 * @return
-	 */
-	public boolean deleteCarteam(String id) {
-		carteam = getCarteamInfo(id);// 根据id查找到车辆信息
-		baseDao.delete(carteam);
-		return true;
-	}
-
-	@Override
-	public boolean updateCarteam(String id, String teamName, String carCount,
-			String chief, String phone, String explaination) {
-		carteam = getCarteamInfo(id);// 根据id查找到车辆信息
-		carteam.setTeamName(teamName);
-		carteam.setCarCount(carCount);
-		carteam.setChief(chief);
-		carteam.setPhone(phone);
-		carteam.setExplaination(explaination);
-		// return true;
-		baseDao.update(carteam);// 保存实体
-		return true;
-	}
+	
 }

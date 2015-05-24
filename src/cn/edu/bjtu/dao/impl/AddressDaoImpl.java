@@ -4,11 +4,11 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import cn.edu.bjtu.dao.AddressDao;
-import cn.edu.bjtu.dao.BaseDao;
 import cn.edu.bjtu.vo.Address;
 
 
@@ -17,12 +17,14 @@ import cn.edu.bjtu.vo.Address;
  * 子账户dao层实现
  *
  */
-public class AddressDaoImpl implements AddressDao{
+public class AddressDaoImpl extends BaseDaoImpl<Address> implements AddressDao{
 
 	@Resource
 	HibernateTemplate ht;
-	@Resource
-	BaseDao baseDao;
+	/*@Resource
+	BaseDao baseDao;*/
+	/*@Autowired
+	AddressDao addressDao;*/
 	
 	@Override
 	public List getAddress(String userId) {
@@ -40,7 +42,8 @@ public class AddressDaoImpl implements AddressDao{
 	public boolean deleteAddress(String id){
 		
 		Address address = ht.get(Address.class, id);
-		baseDao.delete(address);
+		//baseDao.delete(address);
+		this.delete(address);
 		return true;
 	}
 }
