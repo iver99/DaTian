@@ -87,6 +87,12 @@
 				<value>cn/edu/bjtu/vo/SettlementCarrierView.hbm.xml</value> 
 				<value>cn/edu/bjtu/vo/ComplaintClientView.hbm.xml</value>
 				<value>cn/edu/bjtu/vo/Focus.hbm.xml</value>
+				<value>cn/edu/bjtu/vo/FocusCarView.hbm.xml</value>
+				<value>cn/edu/bjtu/vo/FocusCitylineView.hbm.xml</value>
+				<value>cn/edu/bjtu/vo/FocusCompanyView.hbm.xml</value>
+				<value>cn/edu/bjtu/vo/FocusGoodsView.hbm.xml</value>
+				<value>cn/edu/bjtu/vo/FocusLinetransportView.hbm.xml</value>
+				<value>cn/edu/bjtu/vo/FocusWarehouseView.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

@@ -10,4 +10,11 @@ public interface FocusDao extends BaseDao<Focus>{
 	public boolean deleteFocus(String id);
 	
 	public List getFocusList(String clientId,String focusType);
+	
+	public List getAllFocusLine(String clientId);
+	public List getAllFocusCityline(String clientId);
+	public List getAllFocusWarehouse(String clientId);
+	public List getAllFocusCar(String clientId);
+	public List getAllFocusCompany(String clientId);
+	public List getAllFocusGoods(String clientId);
 }

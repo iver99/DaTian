@@ -70,5 +70,33 @@ public class FocusServiceImpl extends BaseDaoImpl<Focus> implements FocusService
 		// TODO Auto-generated method stub
 		return focusDao.getFocusList(clientId,focusType);
 	}
-
+	
+	@Override
+	/**
+	 * 我的关注列表获取
+	 */
+	public List getAllFocusLine(String clientId){
+		return focusDao.getAllFocusLine(clientId);
+	}
+	@Override
+	public List getAllFocusCityline(String clientId){
+		return focusDao.getAllFocusCityline(clientId);
+	}
+	@Override
+	public List getAllFocusWarehouse(String clientId){
+		return focusDao.getAllFocusWarehouse(clientId);
+	}
+	@Override
+	public List getAllFocusCar(String clientId){
+		return focusDao.getAllFocusCar(clientId);
+	}
+	@Override
+	public List getAllFocusCompany(String clientId){
+		return focusDao.getAllFocusCompany(clientId);
+	}
+	@Override
+	public List getAllFocusGoods(String clientId){
+		return focusDao.getAllFocusGoods(clientId);
+	}
+	
 }

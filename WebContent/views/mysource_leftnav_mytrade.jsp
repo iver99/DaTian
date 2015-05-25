@@ -5,7 +5,7 @@
 我的交易
 </span>
                     <div id="mgmt_nav1" class="div_mgmt_show1">
-                        <a href="mgmt_d_focus.htm" class="a_mgmt_leftnav" hidefocus="true">我的关注</a>
+                        <a href="getallfocus" class="a_mgmt_leftnav" hidefocus="true">我的关注</a>
                         <a href="getallresponse" class="a_mgmt_leftnav" hidefocus="true">我的反馈</a>
                         <a href="sendorderinfo" class="a_mgmt_leftnav" hidefocus="true">我提交的订单</a>
                         <a href="recieveorderinfo" class="a_mgmt_leftnav" hidefocus="true">我收到的订单</a>
