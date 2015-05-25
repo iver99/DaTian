@@ -79,7 +79,6 @@
                 <c:forEach var="focus" items="${focusList }">
 					<c:if test="${citylineInfo.id==focus.focusId}">
 						<script>
-						    alert("	");
 							document.getElementById("i").value=1;
 						</script>
 					</c:if>

@@ -36,7 +36,7 @@ public class LoginController {
 			request.getSession().setAttribute("username", userinfo.getUsername());
 			request.getSession().setAttribute("userId",userinfo.getId());
 			request.getSession().setAttribute("email",userinfo.getEmail());
-			request.getSession().setAttribute("email",userinfo.getUserKind());//用户类型
+			request.getSession().setAttribute("userKind",userinfo.getUserKind());//用户类型
 		}
 
 		else{

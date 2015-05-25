@@ -59,26 +59,27 @@ public class CompanyController {
 	}
 	
 	
+
 	@RequestMapping(value="/companyDetail",method=RequestMethod.GET)
 	/**
 	 * 返回公司的具体信息
 	 * @param id
 	 * @return
 	 */
-	public ModelAndView companyDetail(@RequestParam String id)
+	public ModelAndView companyDetail(@RequestParam String id,HttpSession session)
 	{
-		System.out.println("id+"+id);
 		Carrierinfo carrierinfo=companyService.getCarrierInfo(id);
-		System.out.println("tele+"+carrierinfo.getPhone());//null
 		
 		//公司相关的干线信息，城市配送信息以及仓库信息
 		List linetransportList = companyService.getLinetransportByCarrierId(id);
 		List citylineList = companyService.getCitylineByCarrierId(id);
 		List warehouseList = companyService.getwarehouseByCarrierId(id);
-		
+		String clientId = (String) session.getAttribute("userId");
+		List focusList = focusService.getFocusList(clientId,"company");
 		mv.addObject("carrierinfo", carrierinfo);
 		mv.addObject("linetransportList", linetransportList);
 		mv.addObject("citylineList", citylineList);
+		mv.addObject("focusList", focusList);
 		mv.addObject("warehouseList", warehouseList);
 		mv.setViewName("resource_detail5");
 		return mv;

@@ -104,9 +104,11 @@ public class CarController {
 			@RequestParam("flag") int flag, HttpServletRequest request) {
 		Carinfo carInfo = carService.getCarInfo(carId);// 车辆信息
 		mv.addObject("carInfo", carInfo);
-
+		String clientId = (String) request.getSession().getAttribute("userId");
+		List focusList = focusService.getFocusList(clientId,"car");
 		Linetransport line = linetransportService
 				.getLinetransportInfo(linetransportId);// 干线信息
+		mv.addObject("focusList", focusList);
 		mv.addObject("linetransportInfo", line);
 		if (flag == 0) {// 对应资源栏车辆详情
 			Carrierinfo carrierInfo = companyService.getCarrierInfo(carrierId);

@@ -81,10 +81,13 @@ public class WarehouseController {
 	public ModelAndView getWarehouseInfo(
 			@RequestParam("warehouseId") String warehouseid,
 			@RequestParam("carrierId") String carrierId,
-			@RequestParam("flag") int flag) {
+			@RequestParam("flag") int flag,
+			HttpServletRequest request) {
 		Warehouse warehouseInfo = warehouseService
 				.getWarehouseInfo(warehouseid);
-
+		String clientId = (String) request.getSession().getAttribute("userId");
+		List focusList = focusService.getFocusList(clientId,"warehouse");
+		mv.addObject("focusList", focusList);
 		mv.addObject("warehouseInfo", warehouseInfo);
 		if (flag == 0) {// 对应资源栏仓库详情
 			Carrierinfo carrierInfo = companyService.getCarrierInfo(carrierId);

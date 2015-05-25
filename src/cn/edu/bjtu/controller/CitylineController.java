@@ -95,6 +95,7 @@ public class CitylineController {
 		Cityline citylineInfo = citylineService.getCitylineInfo(citylineId); // 需要重构,返回一条具体的线路不是list
 		String clientId = (String) request.getSession().getAttribute("userId");
 		List focusList = focusService.getFocusList(clientId,"cityline");
+		System.out.println("focusList+" + focusList);
 		mv.addObject("focusList", focusList);
 		mv.addObject("citylineInfo", citylineInfo);
 		if (flag == 0) {

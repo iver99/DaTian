@@ -103,10 +103,13 @@ public class LinetransportController {
 	public ModelAndView getLinetransportInfo(
 			@RequestParam("linetransportid") String linetransportid,
 			@RequestParam("carrierId") String carrierId,
-			@RequestParam("flag") int flag, HttpServletRequest request) {
+			@RequestParam("flag") int flag, HttpSession session) {
 		Linetransport linetransportInfo = linetransportService
 				.getLinetransportInfo(linetransportid);// 需要重构，返回一条线路信息
 		mv.addObject("linetransportInfo", linetransportInfo);
+		String userId = (String) session.getAttribute("userId");
+		List focusList = focusService.getFocusList(userId,"linetransport");
+		mv.addObject("focusList", focusList);
 		if (flag == 0) {
 			// carrierId=(String)request.getSession().getAttribute("carrierId");
 			// carrierId="C-0002";//删除
