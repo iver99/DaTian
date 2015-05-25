@@ -1,5 +1,7 @@
  package cn.edu.bjtu.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.edu.bjtu.service.FocusService;
 import cn.edu.bjtu.service.LoginService;
 import cn.edu.bjtu.vo.Userinfo;
 
@@ -17,6 +20,8 @@ import cn.edu.bjtu.vo.Userinfo;
 public class LoginController {
 	@Autowired
 	LoginService loginService;
+	@Autowired
+	FocusService focusService;
 	ModelAndView mv = new ModelAndView();
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -50,5 +55,17 @@ public class LoginController {
 		session.removeAttribute("userId");
 		mv.setViewName("index");
 		return mv;
+	}
+	
+	@RequestMapping("focusNum")
+	public String focusNum(
+			HttpSession session,HttpServletResponse response) throws Exception{
+		String userId = (String) session.getAttribute("userId");
+		List focusList = focusService.getFocusList(userId,"");
+		int num = focusList.size();
+		response.setContentType("text/html;charset=UTF-8");
+		response.getWriter().print(num);
+		//System.out.println("username="+username);
+		return null;
 	}
 }

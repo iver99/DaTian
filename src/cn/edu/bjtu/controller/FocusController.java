@@ -33,47 +33,53 @@ public class FocusController {
 
 	@RequestMapping("focus")
 	/**
-	 * 关注页面
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	public ModelAndView insertFocus(HttpServletRequest request,
-			HttpServletResponse response) {
-		String clientId = (String) request.getSession().getAttribute("userId");
-		if (clientId == null) {
-			mv.setViewName("login");
-			return mv;
-		}
-		String focusType = request.getParameter("type");
-		String foucsId = request.getParameter("id");
-		List focusJudgement = focusService.getFocusJudgement(clientId,
-				focusType, foucsId);
-		// System.out.println("focusJudgement="+focusJudgement);
-		boolean flag = true;
-		if (focusJudgement.isEmpty())
-			flag = focusService.insertFocus(clientId, focusType, foucsId);
-		else {
-			focus = (Focus) focusJudgement.get(0);
-			flag = focusService.deleteFocus(focus.getId());
-			// System.out.println(focus.getId());
-		}
-		// boolean flag = focusService.insertFocus(clientId,focusType,foucsId);
-		try {
-			if (flag == true)
-				response.sendRedirect("getaddress");
-			else
-				System.out.println("添加失败");// 应记录日志
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			// 此处应记录日志
-			e.printStackTrace();
+	  * 关注页面
+	  * @param request
+	  * @param response
+	  * @return
+ 	  */
+	public String insertFocus(
+			HttpServletRequest request,HttpServletResponse response) throws Exception{
+			String clientId=(String)request.getSession().getAttribute("userId");
+			/*if(clientId==null)
+			{
+				mv.setViewName("login");
+				return mv;
+			}*/
+			String focusType = request.getParameter("type");
+			String foucsId = request.getParameter("id");
+			List focusJudgement = focusService.getFocusJudgement(clientId,focusType,foucsId);
+			//System.out.println("focusJudgement="+focusJudgement);
+			boolean flag = true;
+			if(focusJudgement.isEmpty())
+			{
+				flag = focusService.insertFocus(clientId,focusType,foucsId);
+			    response.setContentType("text/html;charset=UTF-8");
+			    response.getWriter().print("insert");				
+			}
 
+			else{
+				focus = (Focus) focusJudgement.get(0);
+				flag = focusService.deleteFocus(focus.getId());
+				response.setContentType("text/html;charset=UTF-8");
+			    response.getWriter().print("delete");
+				//System.out.println(focus.getId());
+			}
+			//boolean flag = focusService.insertFocus(clientId,focusType,foucsId);
+/*				try {
+					if (flag == true)
+						response.sendRedirect("getaddress");
+					else
+						System.out.println("添加失败");// 应记录日志
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					// 此处应记录日志
+					e.printStackTrace();
+
+				}*/
+				
+			return null;
 		}
-
-		return mv;
-	}
-
 	
 	@RequestMapping("getallfocus")
 	/**

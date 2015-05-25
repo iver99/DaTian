@@ -25,6 +25,7 @@
 		<script type="text/javascript" src="js/popup.js"></script>
 		<script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
 		<script type="text/javascript" src="js/splitPage.js"></script><!-- 新增 -->
+		<script type="text/javascript" src="js/focus_load.js"></script>
 		<script type="text/javascript">
 			$(function() {
 				$('input, textarea').placeholder();
@@ -382,6 +383,7 @@
 <script type="text/javascript">
 	function OnLoad() {
 		//Rescreen();
+		loadFocus();
 		GetRequest();
 	}
 	function ChangePage(page){
@@ -516,6 +518,7 @@ function loadXMLDoc(id)
 		   url: "http://localhost:8585/DaTian/focus",//请求的后台地址
 		   data: "type=company&id=" + id,//前台传给后台的参数
 		   success: function(msg){//msg:返回值
+			   loadFocus();
 		   }
 		});
 }

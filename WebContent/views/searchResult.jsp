@@ -24,6 +24,7 @@
 		<script type="text/javascript" src="js/backtop.js"></script>
 		<script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
 		<script type="text/javascript" src="js/splitPage.js"></script><!-- 新增 -->
+		<script type="text/javascript" src="js/focus_load.js"></script>
 		<script type="text/javascript">
 			$(function() {
 				$('input, textarea').placeholder();
@@ -312,6 +313,7 @@
 </body>
 <script type="text/javascript" charset="utf-8">
 	function OnLoad() {
+		loadFocus();
 		GetRequest();
 	}
 </script>

@@ -89,10 +89,13 @@ public class CitylineController {
 	public ModelAndView getCitylineInfo(
 			@RequestParam("citylineId") String citylineId,
 			@RequestParam("carrierId") String carrierId,
-			@RequestParam("flag") int flag) {
+			@RequestParam("flag") int flag,
+			HttpServletRequest request) {
 		System.out.println("citylineid+" + citylineId);
 		Cityline citylineInfo = citylineService.getCitylineInfo(citylineId); // 需要重构,返回一条具体的线路不是list
-
+		String clientId = (String) request.getSession().getAttribute("userId");
+		List focusList = focusService.getFocusList(clientId,"cityline");
+		mv.addObject("focusList", focusList);
 		mv.addObject("citylineInfo", citylineInfo);
 		if (flag == 0) {
 			Carrierinfo carrierInfo = companyService.getCarrierInfo(carrierId);

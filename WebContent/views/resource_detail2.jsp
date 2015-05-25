@@ -18,6 +18,7 @@
 <script type="text/javascript" src="js/backtop.js"></script>
 <script type="text/javascript" src="js/popup.js"></script>
 <script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
+<script type="text/javascript" src="js/focus_load.js"></script>
 <script type="text/javascript"> 
 	$(function() {
 		$('input, textarea').placeholder(); 
@@ -25,7 +26,7 @@
 </script>
 </head>
 
-<body>
+<body onload="OnLoad()">
 
 <div id="backtop_item">
     <div class="qqserver">
@@ -76,17 +77,18 @@
                 <hr class="hr_1" />
                 <input type="button" value="0" style="display:none" id="i"></input>
                 <c:forEach var="focus" items="${focusList }">
-					<c:if test="${carrierInfo.id==focus.focusId}">
+					<c:if test="${citylineInfo.id==focus.focusId}">
 						<script>
+						    alert("	");
 							document.getElementById("i").value=1;
 						</script>
 					</c:if>
 				</c:forEach>
 				<script type="text/javascript">
 					if(document.getElementById("i").value==1)
-						document.write( "<input type=\"button\" id=\"btnfav\" value=\"已关注\" class=\"input_detail3\" hidefocus=\"true\" onclick=\"loadXMLDoc('${carrierInfo.id }');hidefav(this);\" />" );
+						document.write( "<input type=\"button\" id=\"btnfav\" value=\"已关注\" class=\"input_detail3\" hidefocus=\"true\" onclick=\"loadXMLDoc('${citylineInfo.id }');hidefav(this);\" />" );
 					else
-						document.write( "<input type=\"button\" id=\"btnfav\" value=\"关注\" class=\"input_detail1\" hidefocus=\"true\" onclick=\"loadXMLDoc('${carrierInfo.id }');hidefav(this);\" />" );
+						document.write( "<input type=\"button\" id=\"btnfav\" value=\"关注\" class=\"input_detail1\" hidefocus=\"true\" onclick=\"loadXMLDoc('${citylineInfo.id }');hidefav(this);\" />" );
 				</script>
                 <input type="button" id="btn2" value="提交订单" class="input_detail2" hidefocus="true" onclick="window.location.href='getneworderform?carrierid=${citylineInfo.carrierId}'" />
             </td>
@@ -167,6 +169,11 @@
 
 </body>
 <script type="text/javascript">
+	function OnLoad() {
+		loadFocus();
+	}
+</script>
+<script type="text/javascript">
 function loadXMLDoc(id)
 {
 	$.ajax({
@@ -174,6 +181,7 @@ function loadXMLDoc(id)
 		   url: "http://localhost:8585/DaTian/focus",//请求的后台地址
 		   data: "type=cityline&id=" + id,//前台传给后台的参数
 		   success: function(msg){//msg:返回值
+			   loadFocus();
 		   }
 		});
 }
