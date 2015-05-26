@@ -70,7 +70,7 @@
 							<a href="accountinfo" class="a_mgmt_leftnav1" hidefocus="true">帐户信息</a>
                         <a href="getsubaccount" class="a_mgmt_leftnav" hidefocus="true">附属帐户</a>
                         <a href="getaddress" class="a_mgmt_leftnav" hidefocus="true">常用地址</a>
-                        <a href="mgmt_a_security.htm" class="a_mgmt_leftnav" hidefocus="true">安全设置</a>
+                        <a href="mysecurity" class="a_mgmt_leftnav" hidefocus="true">安全设置</a>
 						</div>
 					</div>
 				</td>

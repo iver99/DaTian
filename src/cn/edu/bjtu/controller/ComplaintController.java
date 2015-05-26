@@ -166,16 +166,24 @@ public class ComplaintController {
 	 * @return
 	 */
 	public ModelAndView findByComplaintTheme(
-			@RequestParam String theme,
+			@RequestParam String theme,@RequestParam int flag,
 			HttpServletRequest request,HttpServletResponse response){
 		
-		//String userId=(String)request.getSession().getAttribute("userId");
-
-		List complaintList = complaintService.getFindComplaint(theme);
-		System.out.println("complaintList+" + complaintList);
-		System.out.println("listsize+"+complaintList.size());
-		mv.addObject("allCompliantList", complaintList);
-		mv.setViewName("mgmt_m_complain");
+		String clientId=(String)request.getSession().getAttribute("userId");
+		if(flag==0){//后台管理的搜索
+			List complaintList = complaintService.getFindComplaint(theme,flag,clientId);
+			System.out.println("complaintList+" + complaintList);
+			System.out.println("listsize+"+complaintList.size());
+			mv.addObject("allCompliantList", complaintList);
+			mv.setViewName("mgmt_m_complain");
+		}
+		else if(flag==1){//我的交易-我的投诉的搜索
+			List complaintList = complaintService.getFindComplaint(theme,flag,clientId);
+			System.out.println("complaintList+" + complaintList);
+			System.out.println("listsize+"+complaintList.size());
+			mv.addObject("compliantList", complaintList);
+			mv.setViewName("mgmt_d_complain");
+		}
 		return mv;
 	}
 }

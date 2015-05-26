@@ -63,7 +63,7 @@
 							id="mgmt_nav_switch1b" class="span_mgmt_nav2" title="展开"
 							onclick="mgmt_nav_switch1b();"></span>我的交易</span>
 						<div id="mgmt_nav1">
-						<a href="mgmt_d_focus.htm" class="a_mgmt_leftnav" hidefocus="true">我的关注</a>
+						<a href="getallfocus" class="a_mgmt_leftnav" hidefocus="true">我的关注</a>
                         <a href="getallresponse" class="a_mgmt_leftnav" hidefocus="true">我的反馈</a>
                         <a href="sendorderinfo" class="a_mgmt_leftnav" hidefocus="true">我提交的订单</a>
                         <a href="recieveorderinfo" class="a_mgmt_leftnav" hidefocus="true">我收到的订单</a>
@@ -77,18 +77,20 @@
 					</div>
 				</td>
 			<td class="td_leftnav_top">
+			<form action="findbycomplainttheme?flag=1" method="post">
             	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right2">
                     <tr>
                         <td>
                         	<span class="span_mgmt_right2_text1">我提交的投诉</span>
                             <span class="span_mgmt_right2_text2"><a href="insert?flag=8" hidefocus="true"><img src="images/btn_add1.png" class="span_mgmt_right2_pic1" title="添加" /></a></span>
                             <div class="div_mgmt_s1">
-                            	<input type="text" class="input_mgmt1" style="width:200px;" value="投诉主题..." />
-                                <input type="button" id="btn1" value="查询" class="btn_mgmt3" hidefocus="true" />
+                            	<input name="theme" type="text" class="input_mgmt1" style="width:200px;" value="投诉主题" />
+                                <input type="submit" id="btn1" value="查询" class="btn_mgmt3" hidefocus="true" />
                             </div>
                         </td>
                 	</tr>
             	</table>
+            	</form>
 				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
 					<tr>
                         <td width="20" height="40" class="td_mgmt_right3_head">&nbsp;</td>

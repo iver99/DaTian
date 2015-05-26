@@ -142,4 +142,35 @@ public class FocusController {
 		
 		return mv;
 	}
+	
+	@RequestMapping("findfocus")
+	/**
+	 * 子账户的查询功能
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ModelAndView findFocus(
+			@RequestParam String text,
+			HttpServletRequest request,HttpServletResponse response){
+		
+		String clientId=(String)request.getSession().getAttribute("userId");	
+		
+		List focusLineList = focusService.findFocusLine(text,clientId);
+		mv.addObject("focusLineList", focusLineList);
+		List focusCitylineList = focusService.findFocusCityline(text,clientId);
+		mv.addObject("focusCitylineList", focusCitylineList);
+		List focusWarehouseList = focusService.findFocusWarehouse(text,clientId);
+		mv.addObject("focusWarehouseList", focusWarehouseList);
+		List focusCarList = focusService.findFocusCar(text,clientId);
+		mv.addObject("focusCarList", focusCarList);
+		List focusCompanyList = focusService.findFocusCompany(text,clientId);
+		mv.addObject("focusCompanyList", focusCompanyList);
+		List focusGoodsList = focusService.findFocusGoods(text,clientId);
+		mv.addObject("focusGoodsList", focusGoodsList);
+		mv.setViewName("mgmt_d_focus");
+		
+		return mv;
+	}
+	
 }

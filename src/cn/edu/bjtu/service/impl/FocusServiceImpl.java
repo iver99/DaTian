@@ -99,4 +99,60 @@ public class FocusServiceImpl extends BaseDaoImpl<Focus> implements FocusService
 		return focusDao.getAllFocusGoods(clientId);
 	}
 	
+	@Override
+	public List findFocusLine(String text,String clientId){
+		String sql="from FocusLinetransportView ";
+		if(text.equals("关注内容")){
+			//查找时不考虑投诉主题
+		}
+		else sql+="where (startPlace like '%"+text+"%' or endPlace like '%"+text+"%') and clientId='"+clientId+"'";
+		return focusDao.getFind(sql);
+	}
+	@Override
+	public List findFocusCityline(String text,String clientId){
+		String sql="from FocusCitylineView ";
+		if(text.equals("关注内容")){
+			//查找时不考虑投诉主题
+		}
+		else sql+="where name like '%"+text+"%' and clientId='"+clientId+"'";
+		return focusDao.getFind(sql);
+	}
+	@Override
+	public List findFocusWarehouse(String text,String clientId){
+		String sql="from FocusWarehouseView ";
+		if(text.equals("关注内容")){
+			//查找时不考虑投诉主题
+		}
+		else sql+="where name like '%"+text+"%' and clientId='"+clientId+"'";
+		return focusDao.getFind(sql);
+	}
+	@Override
+	public List findFocusCar(String text,String clientId){
+		String sql="from FocusCarView ";
+		if(text.equals("关注内容")){
+			//查找时不考虑投诉主题
+		}
+		else sql+="where carNum like '%"+text+"%' and clientId='"+clientId+"'";
+		return focusDao.getFind(sql);
+	}
+	@Override
+	public List findFocusCompany(String text,String clientId){
+		String sql="from FocusCompanyView ";
+		if(text.equals("关注内容")){
+			//查找时不考虑投诉主题
+		}
+		else sql+="where companyName like '%"+text+"%' and clientId='"+clientId+"'";
+		return focusDao.getFind(sql);
+	}
+	@Override
+	public List findFocusGoods(String text,String clientId){
+		String sql="from FocusGoodsView ";
+		if(text.equals("关注内容")){
+			//查找时不考虑投诉主题
+		}
+		else sql+="where name like '%"+text+"%' and clientId='"+clientId+"'";
+		return focusDao.getFind(sql);
+	}
+	
+	
 }

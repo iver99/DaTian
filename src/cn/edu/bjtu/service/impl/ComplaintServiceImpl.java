@@ -101,13 +101,22 @@ public class ComplaintServiceImpl implements ComplaintService{
 	}
 	
 	@Override
-	public List getFindComplaint(String theme){
+	public List getFindComplaint(String theme, int flag, String clientId){
 		String sql="from ComplaintClientView ";
-		
-		if(theme.equals("投诉主题")){
-			//查找时不考虑投诉主题
+		if(flag==0){
+			if(theme.equals("投诉主题")){
+				//查找时不考虑投诉主题
+			}
+			else sql+="where theme like '%"+theme+"%' ";
+			
 		}
-		else sql+="where theme like '%"+theme+"%' ";
+		else if(flag==1){
+			if(theme.equals("投诉主题")){
+				//查找时不考虑投诉主题
+			}
+			else sql+="where theme like '%"+theme+"%' and clientId='"+clientId+"'";
+			
+		}
 		return complaintDao.getFindComplaint(sql);
 	}
 }

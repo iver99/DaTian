@@ -92,7 +92,7 @@
                 <input type="text" class="search_input" value="请输入关键字" hidefocus="true" />
                 <input type="submit" class="search_btn" value="" hidefocus="true">
 			</td>
-            <td width="280" class="td_top2b"><a href="mgmt_d_focus.htm" class="a_top2" hidefocus="true"><img src="images/btn_m1.png" />&nbsp;我的关注(5)</a></td>
+            <td width="280" class="td_top2b"><a href="getallfocus" class="a_top2" hidefocus="true"><img src="images/btn_m1.png" />&nbsp;我的关注(5)</a></td>
             <td width="3%">&nbsp;</td>
 		</tr>
 	</table>

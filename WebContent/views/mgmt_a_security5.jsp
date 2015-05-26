@@ -131,7 +131,7 @@
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
-									<td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="window.location.href='mgmt_a_security.htm'" /><input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
+									<td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="window.location.href='mysecurity'" /><input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
 								</tr>
 							</table>
 						</td>

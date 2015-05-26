@@ -81,4 +81,10 @@ public class FocusDaoImpl extends BaseDaoImpl<Focus> implements FocusDao{
 		// TODO Auto-generated method stub
 		return ht.find("from FocusGoodsView where clientId='"+clientId+"'");
 	}
+
+	@Override
+	public List getFind(String sql) {
+		// TODO Auto-generated method stub
+		return ht.find(sql);
+	}
 }
