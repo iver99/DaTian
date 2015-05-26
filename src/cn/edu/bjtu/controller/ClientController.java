@@ -229,6 +229,12 @@ public class ClientController {
 	}
 
 	@RequestMapping("accountinfo")
+	/**
+	 * 列出当前用户的验证信息
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	public ModelAndView getAccountInfo(HttpServletRequest request,
 			HttpServletResponse response) {
 		// 此方法内可能需要判断用户种类,因为企业用户和个人用户的验证页面不一样
@@ -242,9 +248,13 @@ public class ClientController {
 		int userKind=(Integer)request.getSession().getAttribute("userKind");
 		boolean flag = clientService.checkHeadIcon(userId,userKind);
 		// 个人用户
-		String status = clientService.getStatus(userId);
+		/*if(userKind==2){//普通用户{
+*/		String status = clientService.getStatus(userId);
 		mv.addObject("status", status);
 		mv.addObject("headCheck", flag);
+	/*}else if(userKind==3){//企业用户
+		
+	}*/
 		mv.setViewName("mgmt_a_info");
 		return mv;
 	}

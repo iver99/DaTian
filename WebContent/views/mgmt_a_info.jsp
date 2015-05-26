@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%-- <% int userKind=(Integer)session.getAttribute("userKind"); %> --%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -90,6 +91,7 @@
 							<td width="120" class="td_mgmt_right3_head">状态</td>
 							<td width="80" class="td_mgmt_right3_head">操作</td>
 						</tr>
+						<% if(userKind==2){ %>
 						<tr>
 							<td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
 							<td class="td_mgmt_right3_td1">基本信息</td>
@@ -175,7 +177,11 @@
 							</c:choose>
 
 						</tr>
-
+						<%} 
+							if(userKind==3){
+								
+						%>
+						
 						<tr>
 							<td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
 							<td class="td_mgmt_right3_td1">认证信息(公司)</td>
@@ -200,6 +206,7 @@
 							<td class="td_mgmt_right3_td3"><a href="javascript:;"
 								hidefocus="true">更新</a></td>
 						</tr>
+						<%} %>
 					</table> <br /> <img src="images/btn_help.png" />&nbsp;&nbsp;个人或公司均可发布资源信息。
 				</td>
 			</tr>

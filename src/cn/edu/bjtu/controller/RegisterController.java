@@ -28,7 +28,6 @@ public class RegisterController {
 	public ModelAndView register(String username, String phone,/*String validationKey,*/
 			String password, String passwordRepeat,int userkind, HttpServletRequest request,HttpServletResponse response) {
 		
-		System.out.println("userkind+"+userkind);
 		//验证码未实现 
 		String userId=registerServiceImpl.register(username, password, phone,userkind);
 		request.getSession().setAttribute("userId", userId);

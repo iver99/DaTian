@@ -73,7 +73,7 @@
         </div>
        			<br/>
        	 <div class="div_login_sub3">
-        	<input type="radio" name="userkind" value="1" checked="checked"/>&nbsp;个人用户&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="userkind" value="2"/>企业用户
+        	<input type="radio" name="userkind" value="2" checked="checked"/>&nbsp;个人用户&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="userkind" value="3"/>企业用户
         </div>
         	<br/>
     	<div class="div_login_sub3">

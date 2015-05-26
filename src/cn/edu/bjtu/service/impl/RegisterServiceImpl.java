@@ -25,8 +25,6 @@ import cn.edu.bjtu.vo.Userinfo;
  */
 public class RegisterServiceImpl implements RegisterService{
 
-	/*@Resource 
-	BaseDao baseDao;*/
 	@Autowired
 	UserinfoDao userinfoDao;
 	@Autowired
@@ -60,15 +58,7 @@ public class RegisterServiceImpl implements RegisterService{
 		clientInfo.setId(userInfo.getId());//同时在信息表中保存实体
 		//clientInfo.setCarrierId(carrierId);
 		clientInfo.setCreateDate(new Date());
-		//clientInfo.setEmail(email);
-		//clientInfo.setHeadIcon(headIcon);
-		//clientInfo.setId(id);
-		//clientInfo.setIdcard(idcard);
-		//clientInfo.setIDPicture(iDPicture);
 		clientInfo.setPhone(phone);
-		//clientInfo.setRealName(realName);
-		//clientInfo.setRemarks(remarks);
-		//clientInfo.setSex(sex);
 		clientDao.save(clientInfo);
 		}
 		else //企业用户
@@ -76,24 +66,16 @@ public class RegisterServiceImpl implements RegisterService{
 			carrierinfo.setPhone(phone);
 			carrierinfo.setId(userInfo.getId());
 			carrierinfo.setStatus("未验证");
-			
 			companyDao.save(carrierinfo);
-			
 		}
 		//clientInfo.setStatus("未验证");//新增用户 先设置成未验证 
 		userinfoDao.save(userInfo);//保存实体
-		
-		
-		//registerInfo(userInfo.getId());
 		return userInfo.getId();
 	}
-	/*@Override
-	public boolean registerInfo(String userId) {
-		// TODO Auto-generated method stub
-		clientInfo.setId(userId);
-		return baseDao.save(clientInfo);
-	}*/
 	@Override
+	/**
+	 * 检测用户名
+	 */
 	public List getUserCheck(String username) {
 		// TODO Auto-generated method stub
 		return registerDao.getUserCheck(username);
