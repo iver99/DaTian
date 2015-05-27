@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -85,14 +86,13 @@ public class CommonController {
 		return "register";
 	}
 	
-	@RequestMapping("homepage")
+	@RequestMapping(value="homepage",method=RequestMethod.GET)
 	/**
 	 * »Øµ½Ê×Ò³
 	 * @return
 	 */
 	public String gotoHomePage()
 	{
-		System.out.println("home-controller");
 		return "index";
 	}
 }
