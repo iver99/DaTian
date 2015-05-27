@@ -16,7 +16,6 @@ import cn.edu.bjtu.service.ClientService;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.vo.Businessclient;
 import cn.edu.bjtu.vo.Clientinfo;
-@Repository
 /**
  * client服务层实现
  * @author RussWest0

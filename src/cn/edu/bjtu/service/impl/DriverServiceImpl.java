@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.CarDao;
 import cn.edu.bjtu.dao.DriverDao;
@@ -17,6 +18,7 @@ import cn.edu.bjtu.vo.Carinfo;
 import cn.edu.bjtu.vo.Driverinfo;
 
 @Service
+@Transactional
 public class DriverServiceImpl implements DriverService{
 
 	@Autowired

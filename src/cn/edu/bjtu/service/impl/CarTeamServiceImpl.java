@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.CarTeamDao;
 import cn.edu.bjtu.service.CarTeamService;
@@ -12,6 +13,7 @@ import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.vo.Carteam;
 
 @Service
+@Transactional
 public class CarTeamServiceImpl implements CarTeamService{
 	
 	@Autowired
