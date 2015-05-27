@@ -15,7 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.CarService;
+import cn.edu.bjtu.service.CitylineService;
+import cn.edu.bjtu.service.LinetransportService;
 import cn.edu.bjtu.service.OrderService;
+import cn.edu.bjtu.vo.Carinfo;
+import cn.edu.bjtu.vo.Cityline;
+import cn.edu.bjtu.vo.Linetransport;
 import cn.edu.bjtu.vo.OrderCarrierView;
 import cn.edu.bjtu.vo.Orderform;
 
@@ -33,6 +38,11 @@ public class OrderController {
 	@Resource(name = "carServiceImpl")
 	CarService carService;
 
+	@Resource
+	LinetransportService linetransportService;
+	@Resource
+	CitylineService citylineService;
+	
 	ModelAndView mv = new ModelAndView();
 
 	@RequestMapping("/sendorderinfo")
@@ -644,8 +654,29 @@ public class OrderController {
 	 * 获取创建订单表单
 	 * @return
 	 */
-	public ModelAndView getNewOrderForm(String carrierid) {
+	public ModelAndView getNewOrderForm(@RequestParam String carrierid,@RequestParam String resourceId,@RequestParam int flag) {
 		// 需要取出承运方公司名称
+		//flag和resourceType中标识1为干线，2为城市，3为车辆
+		int resourceType = 0;
+		if(flag==1){
+			Linetransport linetransportInfo = linetransportService
+					.getLinetransportInfo(resourceId);
+			resourceType = 1;
+			mv.addObject("resourceType", resourceType);
+			mv.addObject("linetransportInfo", linetransportInfo);
+		}
+		if(flag==2){
+			Cityline citylineInfo = citylineService.getCitylineInfo(resourceId);
+			resourceType = 2;
+			mv.addObject("resourceType", resourceType);
+			mv.addObject("citylineInfo", citylineInfo);
+		}
+		if(flag==3){
+			Carinfo carInfo = carService.getCarInfo(resourceId);
+			resourceType = 3;
+			mv.addObject("resourceType", resourceType);
+			mv.addObject("carInfo", carInfo);
+		}
 		mv.addObject("carrierId", carrierid);
 		mv.setViewName("mgmt_d_order_s2");
 		return mv;

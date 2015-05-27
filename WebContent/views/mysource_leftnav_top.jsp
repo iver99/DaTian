@@ -9,7 +9,7 @@
                     <div id="mgmt_nav1">
                         <a href="getallfocus" class="a_mgmt_leftnav" hidefocus="true">我的关注</a>
                         <a href="mgmt_d_response.htm" class="a_mgmt_leftnav" hidefocus="true">我的反馈</a>
-                        <a href="mgmt_d_order_s.htm" class="a_mgmt_leftnav" hidefocus="true">我提交的订单</a>
+                        <a href="sendorderinfo" class="a_mgmt_leftnav" hidefocus="true">我提交的订单</a>
                         <a href="mgmt_d_order_r.htm" class="a_mgmt_leftnav" hidefocus="true">我收到的订单</a>
                         <a href="mgmt_d_settle_s.htm" class="a_mgmt_leftnav" hidefocus="true">我的结算</a>
                         <a href="mycomplaint" class="a_mgmt_leftnav" hidefocus="true">我的投诉</a>

@@ -62,7 +62,7 @@
                 <br />
                 参考报价：<span class="text_detail_title2">${citylineInfo.refPrice }元/公斤</span>
                 <br />
-                详细报价：<a href="javascript:;" hidefocus="true"><img src="images/btn_filetype2.png" /></a>
+                详细报价：<a href="downloaddetailprice?id=${citylineInfo.id }" hidefocus="true"><img src="images/btn_filetype2.png" /></a>
                 <br />
                 增值服务：${citylineInfo.VIPService }
                 <br />
@@ -89,7 +89,7 @@
 					else
 						document.write( "<input type=\"button\" id=\"btnfav\" value=\"关注\" class=\"input_detail1\" hidefocus=\"true\" onclick=\"loadXMLDoc('${citylineInfo.id }');hidefav(this);\" />" );
 				</script>
-                <input type="button" id="btn2" value="提交订单" class="input_detail2" hidefocus="true" onclick="window.location.href='getneworderform?carrierid=${citylineInfo.carrierId}'" />
+                <input type="button" id="btn2" value="提交订单" class="input_detail2" hidefocus="true" onclick="window.location.href='getneworderform?carrierid=${citylineInfo.carrierId}&flag=2&resourceId=${citylineInfo.id}'" />
             </td>
 		</tr>
 		</tbody>

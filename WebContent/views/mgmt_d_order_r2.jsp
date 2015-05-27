@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<% int userKind=(Integer)session.getAttribute("userKind"); %> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -58,14 +59,24 @@
 			<td width="230" class="td_leftnav_top">
                 <div id="main_frame_left">
                     <span class="text_mgmt_leftnav1"><span id="mgmt_nav_switch1a" class="span_mgmt_nav1" title="收起" onclick="mgmt_nav_switch1a();"></span><span id="mgmt_nav_switch1b" class="span_mgmt_nav2" title="展开" onclick="mgmt_nav_switch1b();"></span>我的交易</span>
-                    <div id="mgmt_nav1">
+                   <div id="mgmt_nav1">
+						<% if(userKind==2) {%><!-- 普通用户 -->
                         <a href="getallfocus" class="a_mgmt_leftnav" hidefocus="true">我的关注</a>
+                        <%} %>
+                       	<% if(userKind==3) {%><!-- 企业用户 -->
                         <a href="getallresponse" class="a_mgmt_leftnav" hidefocus="true">我的反馈</a>
+                         <%} %>
+                      <% if(userKind==2) {%> <!-- 普通用户 -->
                         <a href="sendorderinfo" class="a_mgmt_leftnav" hidefocus="true">我提交的订单</a>
+                      <%} %>
+                      <% if(userKind==3) {%><!-- 企业用户 -->
                         <a href="recieveorderinfo" class="a_mgmt_leftnav1" hidefocus="true">我收到的订单</a>
+                       <%} %>
                         <a href="mysettlement" class="a_mgmt_leftnav" hidefocus="true">我的结算</a>
+                        <% if(userKind==2) {%>  <!-- 普通用户 -->
                         <a href="mycomplaint" class="a_mgmt_leftnav" hidefocus="true">我的投诉</a>
-                    </div>
+                       <%} %>
+						</div>
                    <%@ include  file="mysource_leftnav_myresource.jsp"%>
                     <%@ include  file="mysource_leftnav_myplan.jsp"%>
                     <%@ include  file="mysource_leftnav_myanalysis.jsp"%>

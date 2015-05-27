@@ -64,7 +64,7 @@
                 <br />
                 仓库类型：<span class="text_detail_title2">${warehouseInfo.type }</span>
                 <br />
-                详细报价：<a href="javascript:;" hidefocus="true"><img src="images/btn_filetype2.png" /></a>
+                详细报价：<a href="downloadwarehousedetailprice?id=${warehouseInfo.id }" hidefocus="true"><img src="images/btn_filetype2.png" /></a>
                 <br />
                 发布日期：${warehouseInfo.relDate }
                 <br />

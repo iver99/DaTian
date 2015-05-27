@@ -64,7 +64,7 @@
                 <br />
                 参考报价：<span class="text_detail_title2">${linetransportInfo.refPrice }元/公斤</span>
                 <br />
-                详细报价：<a href="javascript:;" hidefocus="true"><img src="images/btn_filetype2.png" /></a>
+                详细报价：<a href="downloadlinedetailprice?id=${linetransportInfo.id }" hidefocus="true"><img src="images/btn_filetype2.png" /></a>
                 <br />
                 发布日期：${linetransportInfo.relDate }
                 <br />
@@ -91,7 +91,7 @@
 						document.write( "<input type=\"button\" id=\"btnfav\" value=\"关注\" class=\"input_detail1\" hidefocus=\"true\" onclick=\"loadXMLDoc('${linetransportInfo.id }');hidefav(this);\" />" );
 				</script>
                 
-                <input type="button" id="btn2" value="提交订单" class="input_detail2" hidefocus="true" onclick="window.location.href='getneworderform?carrierid=${linetransportInfo.carrierId}'" />
+                <input type="button" id="btn2" value="提交订单" class="input_detail2" hidefocus="true" onclick="window.location.href='getneworderform?carrierid=${linetransportInfo.carrierId}&flag=1&resourceId=${linetransportInfo.id}'" />
             
             </td>
 		</tr>

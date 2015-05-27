@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<% int userKind=(Integer)session.getAttribute("userKind"); %> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -65,6 +66,7 @@
 							id="mgmt_nav_switch2b" class="span_mgmt_nav2" title="展开"
 							onclick="mgmt_nav_switch2b();"></span>我的资源</span>
 						<div id="mgmt_nav2">
+                       <% if(userKind==3) {%><!-- 企业用户 -->
                         <a href="linetransport?flag=1&Display=10&PageNow=1" class="a_mgmt_leftnav" hidefocus="true">干线运输线路信息</a>
                         <a href="cityline?flag=1" class="a_mgmt_leftnav" hidefocus="true">城市配送网络信息</a>
                         <a href="car?flag=1" class="a_mgmt_leftnav" hidefocus="true">车辆信息</a>
@@ -72,7 +74,10 @@
 						<a href="driver?flag=1" class="a_mgmt_leftnav" hidefocus="true">司机信息</a>
                         <a href="client" class="a_mgmt_leftnav1" hidefocus="true">客户信息</a>
                         <a href="goodsform?flag=1" class="a_mgmt_leftnav" hidefocus="true">货物信息</a>
+                        <%} %>
+                         <% if(userKind==2) {%><!-- 普通用户 -->
                         <a href="contract" class="a_mgmt_leftnav" hidefocus="true">合同信息</a>
+                        <%} %>
                     </div>
                     <%@ include  file="mysource_leftnav_myplan.jsp"%>
                     <%@ include  file="mysource_leftnav_myanalysis.jsp"%>

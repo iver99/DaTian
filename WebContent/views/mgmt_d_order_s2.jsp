@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<% int userKind=(Integer)session.getAttribute("userKind"); %> 
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -58,13 +60,23 @@
                 <div id="main_frame_left">
                     <span class="text_mgmt_leftnav1"><span id="mgmt_nav_switch1a" class="span_mgmt_nav1" title="收起" onclick="mgmt_nav_switch1a();"></span><span id="mgmt_nav_switch1b" class="span_mgmt_nav2" title="展开" onclick="mgmt_nav_switch1b();"></span>我的交易</span>
                     <div id="mgmt_nav1">
+						<% if(userKind==2) {%><!-- 普通用户 -->
                         <a href="getallfocus" class="a_mgmt_leftnav" hidefocus="true">我的关注</a>
+                        <%} %>
+                       	<% if(userKind==3) {%><!-- 企业用户 -->
                         <a href="getallresponse" class="a_mgmt_leftnav" hidefocus="true">我的反馈</a>
+                         <%} %>
+                      <% if(userKind==2) {%> <!-- 普通用户 -->
                         <a href="sendorderinfo" class="a_mgmt_leftnav1" hidefocus="true">我提交的订单</a>
+                      <%} %>
+                      <% if(userKind==3) {%><!-- 企业用户 -->
                         <a href="recieveorderinfo" class="a_mgmt_leftnav" hidefocus="true">我收到的订单</a>
+                       <%} %>
                         <a href="mysettlement" class="a_mgmt_leftnav" hidefocus="true">我的结算</a>
+                        <% if(userKind==2) {%>  <!-- 普通用户 -->
                         <a href="mycomplaint" class="a_mgmt_leftnav" hidefocus="true">我的投诉</a>
-                    </div>
+                       <%} %>
+						</div>
                    <%@ include  file="mysource_leftnav_myresource.jsp"%>
                     <%@ include  file="mysource_leftnav_myplan.jsp"%>
                     <%@ include  file="mysource_leftnav_myanalysis.jsp"%>
@@ -132,14 +144,40 @@
                                         </div>
                                     </td>
                                 </tr>
+                                <c var="resourceType" items="${resourceType }">
+									<c:choose>
+			                        <c:when test="${resourceType == '1' }">
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">资源分类：</td>
 									<td>线路</td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">资源名称：</td>
-									<td>北京→上海</td>
+									<td>${linetransportInfo.startPlace }→${linetransportInfo.endPlace }</td>
                                 </tr>
+                                </c:when>
+			                    <c:when test="${resourceType == '2' }">
+			                    <tr>
+                                    <td height="40" class="td_mgmt_right3_td1b">资源分类：</td>
+									<td>城市配送</td>
+                                </tr>
+                                <tr>
+                                    <td height="40" class="td_mgmt_right3_td1b">资源名称：</td>
+									<td>${citylineInfo.name }</td>
+                                </tr>
+			                    </c:when>
+			                    <c:when test="${resourceType == '3' }">
+			                    <tr>
+                                    <td height="40" class="td_mgmt_right3_td1b">资源分类：</td>
+									<td>车辆</td>
+                                </tr>
+                                <tr>
+                                    <td height="40" class="td_mgmt_right3_td1b">资源名称：</td>
+									<td>${carInfo.carNum }</td>
+                                </tr>
+			                    </c:when>
+			                    </c:choose>
+								</c>
                             </table>
                             <div class="span_mgmt_right3_text4">货物信息</div>      	          
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
@@ -222,7 +260,7 @@
 								</tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
-                                    <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="window.location.href='mgmt_d_order_s.htm'" /><input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
+                                    <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="window.location.href='sendorderinfo'" /><input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
                                 </tr>
                             </table>
                         </td>

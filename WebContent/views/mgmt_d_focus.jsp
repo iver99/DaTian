@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<% int userKind=(Integer)session.getAttribute("userKind"); %> 
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="d" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -60,13 +61,23 @@
                 <div id="main_frame_left">
                     <span class="text_mgmt_leftnav1"><span id="mgmt_nav_switch1a" class="span_mgmt_nav1" title="收起" onclick="mgmt_nav_switch1a();"></span><span id="mgmt_nav_switch1b" class="span_mgmt_nav2" title="展开" onclick="mgmt_nav_switch1b();"></span>我的交易</span>
                     <div id="mgmt_nav1">
+						<% if(userKind==2) {%><!-- 普通用户 -->
                         <a href="getallfocus" class="a_mgmt_leftnav1" hidefocus="true">我的关注</a>
+                        <%} %>
+                       	<% if(userKind==3) {%><!-- 企业用户 -->
                         <a href="getallresponse" class="a_mgmt_leftnav" hidefocus="true">我的反馈</a>
+                         <%} %>
+                      <% if(userKind==2) {%> <!-- 普通用户 -->
                         <a href="sendorderinfo" class="a_mgmt_leftnav" hidefocus="true">我提交的订单</a>
+                      <%} %>
+                      <% if(userKind==3) {%><!-- 企业用户 -->
                         <a href="recieveorderinfo" class="a_mgmt_leftnav" hidefocus="true">我收到的订单</a>
+                       <%} %>
                         <a href="mysettlement" class="a_mgmt_leftnav" hidefocus="true">我的结算</a>
+                        <% if(userKind==2) {%>  <!-- 普通用户 -->
                         <a href="mycomplaint" class="a_mgmt_leftnav" hidefocus="true">我的投诉</a>
-                    </div>
+                       <%} %>
+						</div>
                    <%@ include  file="mysource_leftnav_myresource.jsp"%>
                     <%@ include  file="mysource_leftnav_myplan.jsp"%>
                     <%@ include  file="mysource_leftnav_myanalysis.jsp"%>
@@ -116,7 +127,7 @@
                                 <ul class="quickmenu">
                                     <li class="menuitem">
                                         <div class="menu">
-                                            <a href="getneworderform?carrierid=${focusLineList.carrierId}" class="menuhd" hidefocus="true">提交订单</a> 
+                                            <a href="getneworderform?carrierid=${focusLineList.carrierId}&flag=1&resourceId=${focusLineList.focusId}" class="menuhd" hidefocus="true">提交订单</a> 
                                             <div class="menubd">
                                                 <div class="menubdpanel">
                                                     <a href="deletefocus?id=${focusLineList.id }" class="a_top3" hidefocus="true">取消关注</a>
@@ -154,7 +165,7 @@
                                 <ul class="quickmenu">
                                     <li class="menuitem">
                                         <div class="menu">
-                                            <a href="getneworderform?carrierid=${focusCitylineList.carrierId}" class="menuhd" hidefocus="true">提交订单</a> 
+                                            <a href="getneworderform?carrierid=${focusCitylineList.carrierId}&flag=2&resourceId=${focusCitylineList.focusId}" class="menuhd" hidefocus="true">提交订单</a> 
                                             <div class="menubd">
                                                 <div class="menubdpanel">
                                                     <a href="deletefocus?id=${focusCitylineList.id }" class="a_top3" hidefocus="true">取消关注</a>
@@ -193,7 +204,7 @@
                                 <ul class="quickmenu">
                                     <li class="menuitem">
                                         <div class="menu">
-                                            <a href="getneworderform?carrierid=${focusCarList.carrierId}" class="menuhd" hidefocus="true">提交订单</a> 
+                                            <a href="getneworderform?carrierid=${focusCarList.carrierId}&flag=3&resourceId=${focusCarList.focusId}" class="menuhd" hidefocus="true">提交订单</a> 
                                             <div class="menubd">
                                                 <div class="menubdpanel">
                                                     <a href="deletefocus?id=${focusCarList.id }" class="a_top3" hidefocus="true">取消关注</a>
@@ -227,22 +238,8 @@
                         <c:choose>
                         <c:when test="${focusWarehouseList.status == '有效' }">
 						<td class="td_mgmt_right3_td1">有效</td>
-                        <td class="td_mgmt_right3_td3">
-                            <div id="handlebox" style="z-index:205;">
-                                <ul class="quickmenu">
-                                    <li class="menuitem">
-                                        <div class="menu">
-                                            <a href="getneworderform?carrierid=${focusWarehouseList.carrierId}" class="menuhd" hidefocus="true">提交订单</a> 
-                                            <div class="menubd">
-                                                <div class="menubdpanel">
-                                                    <a href="deletefocus?id=${focusWarehouseList.id }" class="a_top3" hidefocus="true">取消关注</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
+                        <td class="td_mgmt_right3_td3"><a href="deletefocus?id=${focusWarehouseList.id }" hidefocus="true">取消关注</a></td>
+                        
                         </c:when>
                         <c:when test="${focusWarehouseList.status == '失效' }">
                         <td class="td_mgmt_right3_td1"><span class="span_mgmt_right3_text3">失效</span></td>
@@ -264,22 +261,7 @@
                         <c:choose>
                         <c:when test="${focusCompanyList.status == '有效' }">
 						<td class="td_mgmt_right3_td1">有效</td>
-                        <td class="td_mgmt_right3_td3">
-                            <div id="handlebox" style="z-index:205;">
-                                <ul class="quickmenu">
-                                    <li class="menuitem">
-                                        <div class="menu">
-                                            <a href="getneworderform?carrierid=${focusCompanyList.carrierId}" class="menuhd" hidefocus="true">提交订单</a> 
-                                            <div class="menubd">
-                                                <div class="menubdpanel">
-                                                    <a href="deletefocus?id=${focusCompanyList.id }" class="a_top3" hidefocus="true">取消关注</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
+                       <td class="td_mgmt_right3_td3"><a href="deletefocus?id=${focusCompanyList.id }" hidefocus="true">取消关注</a></td>
                         </c:when>
                         <c:when test="${focusCompanyList.status == '失效' }">
                         <td class="td_mgmt_right3_td1"><span class="span_mgmt_right3_text3">失效</span></td>
@@ -301,22 +283,7 @@
                         <c:choose>
                         <c:when test="${focusGoodsList.status == '有效' }">
 						<td class="td_mgmt_right3_td1">有效</td>
-                        <td class="td_mgmt_right3_td3">
-                            <div id="handlebox" style="z-index:205;">
-                                <ul class="quickmenu">
-                                    <li class="menuitem">
-                                        <div class="menu">
-                                            <a href="getneworderform?carrierid=${focusGoodsList.carrierId}" class="menuhd" hidefocus="true">提交订单</a> 
-                                            <div class="menubd">
-                                                <div class="menubdpanel">
-                                                    <a href="deletefocus?id=${focusGoodsList.id }" class="a_top3" hidefocus="true">取消关注</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
+                       <td class="td_mgmt_right3_td3"><a href="deletefocus?id=${focusGoodsList.id }" hidefocus="true">取消关注</a></td>
                         </c:when>
                         <c:when test="${focusGoodsList.status == '失效' }">
                         <td class="td_mgmt_right3_td1"><span class="span_mgmt_right3_text3">失效</span></td>

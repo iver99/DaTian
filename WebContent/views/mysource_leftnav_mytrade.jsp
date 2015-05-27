@@ -4,8 +4,7 @@
 <span class="text_mgmt_leftnav1">
 <span id="mgmt_nav_switch1a" class="span_mgmt_nav1a" title="收起" onclick="mgmt_nav_switch1a();"></span>
 <span id="mgmt_nav_switch1b" class="span_mgmt_nav2a" title="展开" onclick="mgmt_nav_switch1b();"></span>
- <% int userKind=(Integer)session.getAttribute("userKind");
- %> 
+
 我的交易
 </span>
                     <div id="mgmt_nav1" class="div_mgmt_show1">

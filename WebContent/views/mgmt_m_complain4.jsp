@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<% int userKind=(Integer)session.getAttribute("userKind"); %> 
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -60,12 +61,12 @@
                     <ul class="quickmenu">
                         <li class="menuitem">
                             <div class="menu">
-                                <a href="mgmt.htm" class="menuhd" hidefocus="true">我的信息</a> 
+                                <a href="myinfo" class="menuhd" hidefocus="true">我的信息</a> 
                                 <div class="menubd">
                                     <div class="menubdpanel">
-                                        <a href="mgmt_d_order_s.htm" class="a_top1" hidefocus="true">我的订单</a>
-                                        <a href="mgmt_r_line.htm" class="a_top1" hidefocus="true">我的资源</a>
-                                        <a href="mgmt_a_info.htm" class="a_top1" hidefocus="true">帐户信息</a>
+                                        <a href="sendorderinfo" class="a_top1" hidefocus="true">我的订单</a>
+                                        <a href="linetransport?flag=1&Display=10&PageNow=1" class="a_top1" hidefocus="true">我的资源</a>
+                                        <a href="accountinfo" class="a_top1" hidefocus="true">帐户信息</a>
                                     </div>
                                 </div>
                             </div>
@@ -332,7 +333,7 @@
                     <span id="mgmt_nav_switch1a" class="span_mgmt_nav1" title="收起" onclick="mgmt_nav_switch1a();">客户服务</span>
                     <span id="mgmt_nav_switch1b" class="span_mgmt_nav2" title="展开" onclick="mgmt_nav_switch1b();">客户服务</span>
                     <div id="mgmt_nav1">
-                        <a href="mgmt_m_complain.htm" class="a_mgmt_leftnav1" hidefocus="true">投诉管理</a>
+                        <a href="allcomplaint" class="a_mgmt_leftnav1" hidefocus="true">投诉管理</a>
                         <a href="mgmt_m_register.htm" class="a_mgmt_leftnav" hidefocus="true">用户验证</a>
                     </div>
                     <hr class="hr_2" />
