@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.RegisterService;
-
+import cn.edu.bjtu.util.Encrypt;
 /**
  * 注册控制器
  * 
@@ -28,8 +28,9 @@ public class RegisterController {
 	public ModelAndView register(String username, String phone,/*String validationKey,*/
 			String password, String passwordRepeat,int userkind, HttpServletRequest request,HttpServletResponse response) {
 		
+		String psw = Encrypt.MD5(password);
 		//验证码未实现 
-		String userId=registerServiceImpl.register(username, password, phone,userkind);
+		String userId=registerServiceImpl.register(username, psw, phone,userkind);
 		request.getSession().setAttribute("userId", userId);
 		request.getSession().setAttribute("username", username);
 		request.getSession().setAttribute("userKind", userkind);

@@ -44,7 +44,7 @@
             <div class="qqserver_comment" onclick="showid('popup1');" hidefocus="true">
                 给我留言
             </div>
-            <a href="javascript:;" class="a1" hidefocus="true">查看历史记录</a>
+            <a href="javascript:;" class="a1" onclick="showid('popup2');" hidefocus="true">查看历史记录</a>
         </div>
     </div>
     <a id="backtop" onclick="return false;" title="回到顶部"></a> 
@@ -72,29 +72,29 @@
             <input id="city1" type="text" value="" class="input_city2" />
             &nbsp;&nbsp;&nbsp;&nbsp;—&nbsp;&nbsp;&nbsp;&nbsp;
             <input id="city2" type="text" value="" class="input_city2" />
-            <input type="button" id="btn1" value="查询" class="btn_index_2" hidefocus="true" />
+            <input type="button" id="btn1" value="查询" class="btn_index_2" onclick="search()" hidefocus="true" />
         </li>
         <li class="li_index_2c">
-            <a href="javascript:;" class="a_index_2c" hidefocus="true">北京</a>
-            <a href="javascript:;" class="a_index_2c" hidefocus="true">天津</a>
-            <a href="javascript:;" class="a_index_2c" hidefocus="true">上海</a>
-            <a href="javascript:;" class="a_index_2c" hidefocus="true">广州</a>
-            <a href="javascript:;" class="a_index_2c" hidefocus="true">深圳</a>
-            <a href="javascript:;" class="a_index_2c" hidefocus="true">武汉</a>
-            <a href="javascript:;" class="a_index_2c" hidefocus="true">南京</a>
-            <a href="javascript:;" class="a_index_2c" hidefocus="true">沈阳</a>
-            <a href="javascript:;" class="a_index_2c" hidefocus="true">西安</a>
-            <a href="javascript:;" class="a_index_2c" hidefocus="true">长沙</a>
-            <a href="javascript:;" class="a_index_2c" hidefocus="true">大连</a>
-            <a href="javascript:;" class="a_index_2c" hidefocus="true">成都</a>
+            <a href="linetransportselected?startPlace=北京&endPlace=All&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1" class="a_index_2c" hidefocus="true">北京</a>
+            <a href="linetransportselected?startPlace=天津&endPlace=All&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1" class="a_index_2c" hidefocus="true">天津</a>
+            <a href="linetransportselected?startPlace=上海&endPlace=All&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1" class="a_index_2c" hidefocus="true">上海</a>
+            <a href="linetransportselected?startPlace=广州&endPlace=All&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1" class="a_index_2c" hidefocus="true">广州</a>
+            <a href="linetransportselected?startPlace=深圳&endPlace=All&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1" class="a_index_2c" hidefocus="true">深圳</a>
+            <a href="linetransportselected?startPlace=武汉&endPlace=All&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1" class="a_index_2c" hidefocus="true">武汉</a>
+            <a href="linetransportselected?startPlace=南京&endPlace=All&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1" class="a_index_2c" hidefocus="true">南京</a>
+            <a href="linetransportselected?startPlace=沈阳&endPlace=All&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1" class="a_index_2c" hidefocus="true">沈阳</a>
+            <a href="linetransportselected?startPlace=西安&endPlace=All&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1" class="a_index_2c" hidefocus="true">西安</a>
+            <a href="linetransportselected?startPlace=长沙&endPlace=All&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1" class="a_index_2c" hidefocus="true">长沙</a>
+            <a href="linetransportselected?startPlace=大连&endPlace=All&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1" class="a_index_2c" hidefocus="true">大连</a>
+            <a href="linetransportselected?startPlace=成都&endPlace=All&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1" class="a_index_2c" hidefocus="true">成都</a>
         </li>
         <li class="li_index_2d">
-            <a href="javascript:;" class="a_index_2d" hidefocus="true">北京-上海</a>
-            <a href="javascript:;" class="a_index_2d" hidefocus="true">北京-天津</a>
-            <a href="javascript:;" class="a_index_2d" hidefocus="true">西安-上海</a>
-            <a href="javascript:;" class="a_index_2d" hidefocus="true">沈阳-广州</a>
-            <a href="javascript:;" class="a_index_2d" hidefocus="true">上海-武汉</a>
-            <a href="javascript:;" class="a_index_2d" hidefocus="true">北京-广州</a>
+            <a href="linetransportselected?startPlace=北京&endPlace=上海&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1" class="a_index_2d" hidefocus="true">北京-上海</a>
+            <a href="linetransportselected?startPlace=北京&endPlace=天津&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1" class="a_index_2d" hidefocus="true">北京-天津</a>
+            <a href="linetransportselected?startPlace=西安&endPlace=上海&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1" class="a_index_2d" hidefocus="true">西安-上海</a>
+            <a href="linetransportselected?startPlace=沈阳&endPlace=广州&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1" class="a_index_2d" hidefocus="true">沈阳-广州</a>
+            <a href="linetransportselected?startPlace=上海&endPlace=武汉&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1" class="a_index_2d" hidefocus="true">上海-武汉</a>
+            <a href="linetransportselected?startPlace=北京&endPlace=广州&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1" class="a_index_2d" hidefocus="true">北京-广州</a>
         </li>
     </ul>
 </div>
@@ -104,7 +104,7 @@
         <ul class="ul_index_3">
             <li class="li_index_3_1a">我有货，找线路</li>
             <li class="li_index_3_1b">全国范围内千条线路</li>
-            <li class="li_index_3_1c"><a href="javascript:;" class="a_index_3" hidefocus="true">找线路</a></li>
+            <li class="li_index_3_1c"><a href="linetransport?flag=0" class="a_index_3" hidefocus="true">找线路</a></li>
             <li><img src="images/illust_3_2a.png" /></li>
         </ul>
 	</div>
@@ -113,14 +113,14 @@
             <li class="li_index_3_2a"><img src="images/illust_3_2b.png" /></li>
             <li class="li_index_3_2b">我有货，找车</li>
             <li class="li_index_3_2c">全国范围内千条线路</li>
-            <li class="li_index_3_2d"><a href="javascript:;" class="a_index_3" hidefocus="true">找车辆</a></li>
+            <li class="li_index_3_2d"><a href="car?flag=0" class="a_index_3" hidefocus="true">找车辆</a></li>
         </ul>
 	</div>
 	<div id="div_index_3_3">
         <ul class="ul_index_3">
             <li class="li_index_3_3a">我有货，找仓库</li>
             <li class="li_index_3_3b">全国范围内千条线路</li>
-            <li class="li_index_3_3c"><a href="javascript:;" class="a_index_3" hidefocus="true">找仓库</a></li>
+            <li class="li_index_3_3c"><a href="warehouse?flag=0" class="a_index_3" hidefocus="true">找仓库</a></li>
             <li class="li_index_3_3d"><img src="images/illust_3_2c.png" /></li>
         </ul>
 	</div>
@@ -150,15 +150,40 @@
     <table border="0" cellpadding="0" cellspacing="0">
         <tr>
             <td width="540">
-            	<textarea class="textarea_popup1" placeholder="请输入内容..."></textarea>
+            	<textarea class="textarea_popup1" placeholder="请输入内容..." id="message"></textarea>
             </td>
         </tr>
         <tr>
             <td class="td_popup1">
-                <input type="button" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" />
+                <input type="button" id="btn1" value="提交" onclick="loadXMLDoc()" class="btn_mgmt1" hidefocus="true" /><input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" />
             </td>
         </tr>
     </table>
+</div>
+
+<div id="popup2" style="display:none;">
+    <table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td width="510"><div class="div_popup_title1">留言历史</div></td>
+            <td>
+                <div id="close_2" style="cursor:pointer;"><img src="images/btn_cancel1.png" title="关闭本窗口" /></div>
+            </td>
+        </tr>
+    </table>
+    <table border="0" cellspacing="0" cellpadding="0" class="table_main_list" id="list">
+		<thead>
+		   	<tr>
+				<td width="20" class="td_main_list_head">时间</td>
+				<td width="50" class="td_main_list_head">内容</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td class="td_main_list_content">123312412421</td>
+				<td class="td_main_list_content">124512512512</td>
+			</tr>
+		</tbody>
+	</table>
 </div>
 
 <div id="footer_frame" style="margin-top:0;">
@@ -166,4 +191,33 @@
 </div>
 
 </body>
+<script type="text/javascript">
+function loadXMLDoc()
+{
+	var message = document.getElementById("message").value;
+	//alert(message);
+	$.ajax({
+		   type: "GET",
+		   url: "http://localhost:8585/DaTian/insertmessage",//请求的后台地址
+		   data: "content=" + message,//前台传给后台的参数
+		   success: function(msg){//msg:返回值
+			   document.getElementById("close").click();
+		   }
+		});
+}
+</script>
+<script type="text/javascript">
+	function search() {
+		var city1 = document.getElementById("city1").value;
+		var city2 = document.getElementById("city2").value;
+		if(city1 == "中文或拼音")
+			city1 = "All";
+		if(city2 == "中文或拼音")
+			city2 = "All";
+		var url = "linetransportselected?startPlace="+city1+"&endPlace="+city2+"&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1";
+		if((city1 == "All") && (city2 == "All"))
+			url = "linetransport?flag=0";
+		location.assign(url);
+	}
+</script>
 </html>

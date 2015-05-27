@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.ClientDao;
 import cn.edu.bjtu.dao.CompanyDao;
@@ -18,6 +19,7 @@ import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Clientinfo;
 import cn.edu.bjtu.vo.Userinfo;
 @Service("registerServiceImpl")
+@Transactional
 /**
  * 
  * @author RussWest0
@@ -54,7 +56,7 @@ public class RegisterServiceImpl implements RegisterService{
 		userInfo.setStatus("未验证");
 		userInfo.setUserKind(userKind);
 		
-		if(userKind == 1){//个人用户
+		if(userKind == 2){//个人用户
 		clientInfo.setId(userInfo.getId());//同时在信息表中保存实体
 		//clientInfo.setCarrierId(carrierId);
 		clientInfo.setCreateDate(new Date());

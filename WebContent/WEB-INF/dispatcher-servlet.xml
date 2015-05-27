@@ -93,6 +93,7 @@
 				<value>cn/edu/bjtu/vo/FocusGoodsView.hbm.xml</value>
 				<value>cn/edu/bjtu/vo/FocusLinetransportView.hbm.xml</value>
 				<value>cn/edu/bjtu/vo/FocusWarehouseView.hbm.xml</value>
+				<value>cn/edu/bjtu/vo/Message.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

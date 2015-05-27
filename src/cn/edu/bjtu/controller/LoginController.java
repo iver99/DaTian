@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import cn.edu.bjtu.service.FocusService;
 import cn.edu.bjtu.service.LoginService;
 import cn.edu.bjtu.vo.Userinfo;
+import cn.edu.bjtu.util.Encrypt;
 
 @Controller
 public class LoginController {
@@ -27,10 +28,11 @@ public class LoginController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ModelAndView loginAction(String username, String password,int userkind,
 			HttpServletRequest request) {
-	
+		String psw = Encrypt.MD5(password);
 		mv.addObject("username", username);
-		mv.addObject("password", password);
-		Userinfo userinfo = loginService.checkLogin(username, password,userkind);
+		mv.addObject("password", psw);
+		
+		Userinfo userinfo = loginService.checkLogin(username, psw,userkind);
 		if (userinfo!=null) {//¥Ê»Îsession
 			mv.setViewName("mgmt");
 			request.getSession().setAttribute("username", userinfo.getUsername());

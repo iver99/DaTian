@@ -140,5 +140,13 @@ public class IdCreator {
 	public static String createFocusId(){
 		return "F"+(int)(Math.random()*100000000);
 	}
+	
+	/**
+	 * ·µ»ØÁôÑÔid
+	 * @return
+	 */
+	public static String createMessageId(){
+		return "M"+(int)(Math.random()*100000000);
+	}
 
 }
