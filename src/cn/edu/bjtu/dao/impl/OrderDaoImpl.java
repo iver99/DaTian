@@ -13,6 +13,7 @@ import cn.edu.bjtu.dao.OrderDao;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.vo.OrderCarrierView;
 import cn.edu.bjtu.vo.Orderform;
+import cn.edu.bjtu.vo.Track;
 
 @Repository
 public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
@@ -55,6 +56,13 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 	public Orderform getRecieveOrderDetail(String id) {
 		// TODO Auto-generated method stub
 		return ht.get(Orderform.class, id);
+	}
+	
+	@Override
+	public List getCargoTrack(String orderNum, String carNum) {
+		// TODO Auto-generated method stub
+		//System.out.println("from Track where orderNum='" + orderNum + "' and carNum='" + carNum + "'");
+		return ht.find("from Track where orderNum='" + orderNum + "' and carNum='" + carNum + "'");
 	}
 
 	@Override

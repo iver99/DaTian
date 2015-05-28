@@ -9,6 +9,7 @@ import cn.edu.bjtu.vo.Driverinfo;
 public interface CarDao extends BaseDao<Carinfo>{
 	
 	public List getAllCar(int Display,int PageNow);
+	public List getAllLocation();
 	public Carinfo getCarInfo(String carid);
 	
 	public List getCompanyCar(String carrierId);

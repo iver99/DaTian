@@ -53,6 +53,16 @@ public class CarServiceImpl implements CarService {
 
 		return carDao.getAllCar(Display, PageNow);
 	}
+	
+	@Override
+	/**
+	 * ·µ»Ø³µÁ¾Î»ÖÃ
+	 */
+	public List getAllLocation() {
+		// TODO Auto-generated method stub
+
+		return carDao.getAllLocation();
+	}
 
 	@Override
 	/**

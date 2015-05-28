@@ -4,6 +4,7 @@ import java.util.List;
 
 import cn.edu.bjtu.vo.OrderCarrierView;
 import cn.edu.bjtu.vo.Orderform;
+import cn.edu.bjtu.vo.Track;
 
 public interface OrderDao extends BaseDao<Orderform> {
 	
@@ -34,6 +35,7 @@ public interface OrderDao extends BaseDao<Orderform> {
 			float declaredPrice,float insurance,String contractId,String deliveryName,
 			String deliveryPhone,String deliveryAddr,String receiverName,String receiverPhone,
 			String receiverAddr,String carrierId);
+	public List getCargoTrack(String orderNum, String carNum);
 	
 	
 	

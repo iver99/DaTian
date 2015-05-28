@@ -43,9 +43,7 @@ public class AuthenticationController {
 	public ModelAndView getAllAuthentication(HttpServletRequest request) {
 		//String carrierId=(String)request.getSession().getAttribute("userId");
 		//String carrierId = "C-0002";
-		System.out.println("auth-controller");
 		List validateList = authenticationService.getAllAuthentication();
-		System.out.println("validateList" + validateList);
 		mv.addObject("validateList", validateList);
 		mv.setViewName("mgmt_m_register");
 		return mv;
@@ -103,8 +101,6 @@ public class AuthenticationController {
 	 */
 	public ModelAndView getAuthenticationCheck(@RequestParam String clientId
 			, HttpServletRequest request, HttpServletResponse response) {
-		//String carrierId=(String)request.getSession().getAttribute("userId");
-		//String carrierId = "C-0002";
 		Clientinfo clientinfo = authenticationService.getAuthenticationInfo(clientId);
 		mv.addObject("clientinfo", clientinfo);
 		mv.setViewName("mgmt_m_register2a");

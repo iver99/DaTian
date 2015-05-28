@@ -9,6 +9,7 @@ import cn.edu.bjtu.vo.Driverinfo;
 public interface CarService {
 
 	public List getAllCar(int Display,int PageNow);
+	public List getAllLocation();
 	public List getSelectedCar(String carLocation, String carBase, String carLength, String carWeight, int Display,int PageNow);
 	public int getTotalRows(String carLocation, String carBase, String carLength, String carWeight);
 	

@@ -15,6 +15,7 @@ import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.vo.Goodsform;
 import cn.edu.bjtu.vo.OrderCarrierView;
 import cn.edu.bjtu.vo.Orderform;
+import cn.edu.bjtu.vo.Track;
 
 /**
  * 
@@ -52,6 +53,12 @@ public class OrderServiceImpl implements OrderService {
 	public Orderform getRecieveOrderDetail(String id) {
 		// TODO Auto-generated method stub
 		return orderDao.getRecieveOrderDetail(id);
+	}
+	
+	@Override
+	public List getCargoTrack(String orderNum, String carNum) {
+		// TODO Auto-generated method stub
+		return orderDao.getCargoTrack(orderNum,carNum);
 	}
 
 	@Override

@@ -23,6 +23,7 @@ import cn.edu.bjtu.vo.Cityline;
 import cn.edu.bjtu.vo.Linetransport;
 import cn.edu.bjtu.vo.OrderCarrierView;
 import cn.edu.bjtu.vo.Orderform;
+import cn.edu.bjtu.vo.Track;
 
 /**
  * 
@@ -584,6 +585,22 @@ public class OrderController {
 		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);// 需要重构，返回一条信息
 		mv.addObject("orderInfo", orderInfo);
 		mv.setViewName("mgmt_d_order_r4");
+		return mv;
+	}
+	
+	@RequestMapping(value = "getOrderDetailCargoTrack")
+	/**
+	 * 
+	 * 
+	 * @param orderid
+	 * @return
+	 */
+	public ModelAndView getOrderDetailCargoTrack(HttpServletRequest request,
+			HttpServletResponse response, @RequestParam String orderNum, 
+			@RequestParam String carNum) {
+		List cargoTrackList = orderService.getCargoTrack(orderNum,carNum);
+		mv.addObject("cargoTrackList", cargoTrackList);
+		mv.setViewName("mgmt_d_order_s7");
 		return mv;
 	}
 

@@ -9,9 +9,9 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import cn.edu.bjtu.dao.ClientDao;
+import cn.edu.bjtu.dao.UserinfoDao;
 import cn.edu.bjtu.vo.Businessclient;
 import cn.edu.bjtu.vo.Clientinfo;
-import cn.edu.bjtu.vo.Userinfo;
 import cn.edu.bjtu.vo.Userinfo;
 
 @Repository
@@ -24,6 +24,8 @@ public class ClientDaoImpl extends BaseDaoImpl<Clientinfo> implements ClientDao 
 
 	@Resource
 	HibernateTemplate ht;
+	@Autowired
+	UserinfoDao userinfoDao;
 	
 	/*@Resource
 	BaseDao baseDao;*/
@@ -126,7 +128,9 @@ public class ClientDaoImpl extends BaseDaoImpl<Clientinfo> implements ClientDao 
 			Userinfo userInfo=ht.get(Userinfo.class, userId);
 			userInfo.setStatus("“—…Û∫À");
 			/*baseDao.update(userInfo);*/
-			this.update(clientInfo);
+			//this.update(clientInfo);
+			userinfoDao.update(userInfo);
+			
 	//}
 		
 		return true;

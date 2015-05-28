@@ -65,6 +65,7 @@ public class CarController {
 
 		if (flag == 0) {
 			List carList = carService.getAllCar(Display, PageNow);
+			List locList = carService.getAllLocation();
 			int count = carService.getTotalRows("All", "All", "All", "All");// 获取总记录数,不需要where子句，所以参数都是All
 			String clientId = (String) request.getSession().getAttribute("userId");
 			List focusList = focusService.getFocusList(clientId,"car");
@@ -76,6 +77,7 @@ public class CarController {
 			mv.addObject("focusList", focusList);
 
 			mv.addObject("carList", carList);
+			mv.addObject("locList", locList);
 			mv.setViewName("resource_list3");
 		} else if (flag == 1) {
 			// 这里用session取id

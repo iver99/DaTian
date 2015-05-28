@@ -39,6 +39,17 @@ public class CarDaoImpl extends BaseDaoImpl<Carinfo> implements CarDao{
 	
 	@Override
 	/**
+	 * 返回所有车辆经纬度信息
+	 * 视图查询
+	 * 
+	 */
+	public List getAllLocation() {
+		// TODO Auto-generated method stub
+		return ht.find("from Carinfo");
+	}
+	
+	@Override
+	/**
 	 * 返回具体车辆信息
 	 */
 	public Carinfo getCarInfo(String carid) {

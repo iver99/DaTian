@@ -4,6 +4,7 @@ import java.util.List;
 
 import cn.edu.bjtu.vo.OrderCarrierView;
 import cn.edu.bjtu.vo.Orderform;
+import cn.edu.bjtu.vo.Track;
 
 public interface OrderService {
 
@@ -54,5 +55,7 @@ public interface OrderService {
 			String remarks, String goodsName, float goodsVolume,
 			float goodsWeight, float expectedPrice, float declaredPrice,
 			float insurance, String contractId, String carrierId);
+	
+	public List getCargoTrack(String orderNum, String carNum);
 
 }

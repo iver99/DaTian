@@ -8,14 +8,14 @@ import java.util.List;
  * @date   2015年5月27日 下午11:20:07
  */
 public class PageUtil {
-	public static final int NUMBERS_PER_PAGE = 10;
+	//public static final int NUMBERS_PER_PAGE = 10;
 	private int numPerPage;//每页数目
 	private int totalRows;//总记录数
 	private int totalPages;//总页数
 	private int currentPage;//当前页
 	private int startIndex;//记录开始
 	private int lastIndex;//记录结束
-	private List resultList;
+	private List resultList;//返回结果list
 	
 	
 	public int getNumPerPage() {
@@ -60,9 +60,7 @@ public class PageUtil {
 	public void setResultList(List resultList) {
 		this.resultList = resultList;
 	}
-	public static int getNumbersPerPage() {
-		return NUMBERS_PER_PAGE;
-	}
+	
 	
 	
 }

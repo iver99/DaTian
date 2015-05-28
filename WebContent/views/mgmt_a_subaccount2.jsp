@@ -89,7 +89,7 @@
 							<table width="90%" border="0" cellspacing="0" cellpadding="0">
 								<tr>
 									<td width="120" height="40" class="td_mgmt_right3_td1b">帐户名称：</td>
-									<td><input type="text" class="input_mgmt1" style="width:100px;" value="${username } " readonly="readonly" />&nbsp;-&nbsp;<input type="text" class="input_mgmt1" style="width:180px;" value="" name="username"/>&nbsp;&nbsp;<a href="javascript:;" hidefocus="true">检查用户名</a></td>
+									<td><input type="text" class="input_mgmt1" style="width:100px;" value="${username } " readonly="readonly" />&nbsp;-&nbsp;<input type="text" class="input_mgmt1" style="width:180px;" value="" name="username" id="username"/>&nbsp;&nbsp;<a href="javascript:;" hidefocus="true" onclick="loadXMLDoc()">检查用户名</a></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">初始密码：</td>
@@ -158,6 +158,22 @@
 </div>
 
 </body>
+<script type="text/javascript">
+function loadXMLDoc()
+{
+	$.ajax({
+		   type: "GET",
+		   url: "http://localhost:8585/DaTian/usercheck",//请求的后台地址
+		   data: "username=" + document.getElementById("username").value,//前台传给后台的参数
+		   success: function(msg){//msg:返回值
+			   if(msg == "true")
+				   alert("该用户不存在！");
+			   else
+				   alert("该用户存在~");
+		   }
+		});
+}
+</script>
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
