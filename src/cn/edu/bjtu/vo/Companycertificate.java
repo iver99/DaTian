@@ -35,29 +35,6 @@ public class Companycertificate implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public Companycertificate(String id, String companyName, String divisionCode,
-			String legalName, String legalIDCard, String companyAddr, String companyType,
-			String companyScale, String invoiceKind, String serviceIndustry,
-			String businessKind, String companyContact,	String phone,
-			String basicSituation, String relatedMaterial) {
-		super();
-		this.id = id;
-		this.companyName = companyName;
-		this.divisionCode = divisionCode;
-		this.legalName = legalName;
-		this.legalIDCard = legalIDCard;
-		this.companyAddr = companyAddr;
-		this.companyType = companyType;
-		this.companyScale = companyScale;
-		this.invoiceKind = invoiceKind;
-		this.serviceIndustry = serviceIndustry;
-		this.businessKind = businessKind;
-		this.companyContact = companyContact;
-		this.phone = phone;
-		this.basicSituation = basicSituation;
-		this.relatedMaterial = relatedMaterial;
-	}
-
 	public String getId() {
 		return this.id;
 	}

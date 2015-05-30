@@ -20,11 +20,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.CitylineService;
+import cn.edu.bjtu.service.CommentService;
 import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.service.FocusService;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Cityline;
+import cn.edu.bjtu.vo.Comment;
 
 @Controller
 /**
@@ -33,7 +35,8 @@ import cn.edu.bjtu.vo.Cityline;
  *
  */
 public class CitylineController {
-
+	@Autowired
+	CommentService commentService;
 	@Resource
 	CitylineService citylineService;
 	@Resource
@@ -100,6 +103,9 @@ public class CitylineController {
 		mv.addObject("citylineInfo", citylineInfo);
 		if (flag == 0) {
 			Carrierinfo carrierInfo = companyService.getCarrierInfo(carrierId);
+			List<Comment> commentList=commentService.getCitylineCommentById(citylineId,carrierId);
+			System.out.println("commentList+" + commentList);
+			mv.addObject("commentList",commentList);
 			mv.addObject("carrierInfo", carrierInfo);
 			mv.setViewName("resource_detail2");// 资源栏点击详情的页面
 		} else if (flag == 1)

@@ -2,6 +2,7 @@
 	pageEncoding="utf-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<% int userKind=(Integer)session.getAttribute("userKind"); %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -57,7 +58,7 @@
 		<tr>
 			<td width="230" class="td_leftnav_top">
                 <div id="main_frame_left">
-                    <%@ include  file="mysource_leftnav_mytrade.jsp"%>
+                    <%@ include  file="mysource_leftnav_mytrade.jsp" %>
                     <hr class="hr_2" />
                     <span class="text_mgmt_leftnav1"><span
 							id="mgmt_nav_switch2a" class="span_mgmt_nav1" title="收起"

@@ -28,6 +28,24 @@ public interface CommentService {
 	 * @return
 	 */
 	public List<Comment> getLinetransportCommentById(String linetransportId,String userId);
+	/**
+	 * 根据carrierid得到城市配送评论
+	 * @param userId
+	 * @return
+	 */
+	public List<Comment> getCitylineCommentById(String citylineId,String userId);
+	/**
+	 * 根据carrierid得到车辆评论
+	 * @param userId
+	 * @return
+	 */
+	public List<Comment> getCarCommentById(String carId,String userId);
+	/**
+	 * 根据carrierid得到仓库评论
+	 * @param userId
+	 * @return
+	 */
+	public List<Comment> getWarehouseCommentById(String warehouseid,String userId);
 	
 	
 }

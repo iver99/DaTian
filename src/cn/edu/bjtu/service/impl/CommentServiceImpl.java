@@ -61,6 +61,37 @@ public class CommentServiceImpl implements CommentService{
 		params.put("carrierId", userId);
 		return commentDao.find(hql, params);
 	}
+
+	@Override
+	public List<Comment> getCitylineCommentById(String citylineId, String userId) {
+		// TODO Auto-generated method stub
+		Map<String,Object> params=new HashMap<String,Object>();
+		String hql="from Comment where citylineId=:citylineId and carrierId=:carrierId";
+		params.put("citylineId", citylineId);
+		params.put("carrierId", userId);
+		return commentDao.find(hql, params);
+	}
+
+	@Override
+	public List<Comment> getCarCommentById(String carId, String userId) {
+		// TODO Auto-generated method stub
+		Map<String,Object> params=new HashMap<String,Object>();
+		String hql="from Comment where carId=:carId and carrierId=:carrierId";
+		params.put("carId", carId);
+		params.put("carrierId", userId);
+		return commentDao.find(hql, params);
+	}
+
+	@Override
+	public List<Comment> getWarehouseCommentById(String warehouseid,
+			String userId) {
+		// TODO Auto-generated method stub
+		Map<String,Object> params=new HashMap<String,Object>();
+		String hql="from Comment where warehouseid=:warehouseid and carrierId=:carrierId";
+		params.put("warehouseid", warehouseid);
+		params.put("carrierId", userId);
+		return commentDao.find(hql, params);
+	}
 	
 	
 	

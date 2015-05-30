@@ -19,8 +19,6 @@ public class LoginServiceImpl implements LoginService{
 	public Userinfo checkLogin(String username, String password,int userKind) {
 		// TODO Auto-generated method stub
 		
-		/*这里进行一些逻辑处理*/
-		
 		
 		return loginDao.checkLogin(username, password,userKind); 
 	}

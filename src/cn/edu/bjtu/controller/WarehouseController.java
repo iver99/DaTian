@@ -19,16 +19,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.edu.bjtu.service.CommentService;
 import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.service.FocusService;
 import cn.edu.bjtu.service.WarehouseService;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carrierinfo;
+import cn.edu.bjtu.vo.Comment;
 import cn.edu.bjtu.vo.Warehouse;
 
 @Controller
 public class WarehouseController {
-
+	@Autowired
+	CommentService commentService;
 	@Resource
 	WarehouseService warehouseService;
 	@Resource
@@ -91,6 +94,8 @@ public class WarehouseController {
 		mv.addObject("warehouseInfo", warehouseInfo);
 		if (flag == 0) {// 对应资源栏仓库详情
 			Carrierinfo carrierInfo = companyService.getCarrierInfo(carrierId);
+			List<Comment> commentList=commentService.getWarehouseCommentById(warehouseid,carrierId);
+			mv.addObject("commentList",commentList);
 			mv.addObject("carrierInfo", carrierInfo);
 			mv.setViewName("resource_detail4");
 		} else if (flag == 1)// 对应我的信息栏仓库详情

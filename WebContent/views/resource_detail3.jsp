@@ -132,8 +132,9 @@
                             <li>信用等级：${carrierInfo.creditRate	 }级</li>
                         </ul>
                         <ul id="item4" class="tab_hide">
-                            <li class="item2a">服务好，准时！（西西 2014-03-12 18:29）</li>
-                            <li class="item2a">服务好，准时！（西西 2014-03-12 18:29）</li>
+                            <c:forEach var="comment" items="${commentList }">
+                            <li class="item2a">${comment.comment }--- ${comment.relDate }</li>
+                            </c:forEach>
                         </ul>
                     </div>
 				</div>

@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.CarService;
 import cn.edu.bjtu.service.CarTeamService;
+import cn.edu.bjtu.service.CommentService;
 import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.service.DriverService;
 import cn.edu.bjtu.service.FocusService;
@@ -29,12 +30,14 @@ import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carinfo;
 import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Carteam;
+import cn.edu.bjtu.vo.Comment;
 import cn.edu.bjtu.vo.Driverinfo;
 import cn.edu.bjtu.vo.Linetransport;
 
 @Controller
 public class CarController {
-
+	@Autowired
+	CommentService commentService;
 	@Autowired
 	CarService carService;
 	@Resource
@@ -114,7 +117,9 @@ public class CarController {
 		mv.addObject("linetransportInfo", line);
 		if (flag == 0) {// 对应资源栏车辆详情
 			Carrierinfo carrierInfo = companyService.getCarrierInfo(carrierId);
-
+			List<Comment> commentList=commentService.getCarCommentById(carId,carrierId);
+			mv.addObject("commentList",commentList);
+			
 			mv.addObject("carrierInfo", carrierInfo);
 
 			mv.setViewName("resource_detail3");

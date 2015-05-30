@@ -11,12 +11,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.ClientDao;
 import cn.edu.bjtu.dao.CompanyDao;
+import cn.edu.bjtu.dao.CompanycertificateDao;
 import cn.edu.bjtu.dao.RegisterDao;
 import cn.edu.bjtu.dao.UserinfoDao;
 import cn.edu.bjtu.service.RegisterService;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Clientinfo;
+import cn.edu.bjtu.vo.Companycertificate;
 import cn.edu.bjtu.vo.Userinfo;
 @Service("registerServiceImpl")
 @Transactional
@@ -33,8 +35,12 @@ public class RegisterServiceImpl implements RegisterService{
 	ClientDao clientDao;
 	@Autowired
 	CompanyDao companyDao;	
+	@Autowired
+	CompanycertificateDao companyCertificateDao;
 	@Resource
 	Carrierinfo carrierinfo;
+	@Autowired
+	Companycertificate companyCertificate;
 	@Resource 
 	Userinfo userInfo;
 	@Resource
@@ -63,8 +69,13 @@ public class RegisterServiceImpl implements RegisterService{
 		clientInfo.setPhone(phone);
 		clientDao.save(clientInfo);
 		}
-		else //企业用户
+		else //企业用户，目前维护两个公司表，以后重构成一个
 		{
+			companyCertificate.setId(userInfo.getId());
+			companyCertificate.setPhone(phone);
+			companyCertificateDao.save(companyCertificate);
+			
+			
 			carrierinfo.setPhone(phone);
 			carrierinfo.setId(userInfo.getId());
 			carrierinfo.setStatus("未验证");

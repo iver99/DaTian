@@ -17,6 +17,7 @@
 <script type="text/javascript" src="js/jquery.metadata.js"></script>
 <script type="text/javascript" src="js/jquery.validate.js"></script>
 <script type="text/javascript" src="js/messages_zh.js"></script>
+
 <script type="text/javascript" src="js/top_search.js"></script>
 <script type="text/javascript" src="js/main_nav.js"></script>
 <script type="text/javascript" src="js/backtop.js"></script>
@@ -24,9 +25,37 @@
 <script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
 <script type="text/javascript" src="js/focus_load.js"></script>
 <script type="text/javascript"> 
-	$(function() {
+	/* $(function() {
 		$('input, textarea').placeholder(); 
-	});
+		$("#loginForm").validate({
+			rules:{
+				username:{required : true},
+				password:{required : true}
+			},
+			errorPlacement: function( error, element ) {
+				error.insertAfter( element.parent() );
+			}
+		});
+		alert("finish")
+		
+	}); */
+	/* $().ready(function(){
+		//debugger;
+		$("#loginForm").validate({
+			rules:{
+				username:{required : true,minlength:5,maxlength:10},
+				password:{required : true,minlength:5,maxlength:10}
+			},
+			message:{
+				username:"用户名不能为空",
+				password:"密码不能为空"
+			},
+			errorPlacement: function( error, element ) {
+				error.insertAfter( element.parent() );
+			}
+		});
+		//alert("finish");
+	}); */
 </script>
 </head>
 
@@ -56,7 +85,7 @@
 <%@ include  file="topFrame.jsp"%>
 
 <div id="main_frame">
-<form action="login" name="loginForm" method="post">
+<form action="login" name="loginForm" method="post" id="loginForm">
 	<div class="div_login_left">
     	<div class="div_login_sub1">
         	登录&nbsp;&nbsp;${msg }
@@ -77,7 +106,8 @@
         </div>
        			<br/>
        	 <div class="div_login_sub3">
-        	<input type="radio" name="userkind" value="2" checked="checked"/>&nbsp;个人用户&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="userkind" value="3"/>企业用户
+        	<input type="radio" name="userkind" value="2" checked="checked"/>&nbsp;个人用户&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        	<input type="radio" name="userkind" value="3"/>企业用户
         </div>
         	<br/>
     	<div class="div_login_sub3">

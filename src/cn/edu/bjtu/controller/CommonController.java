@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,8 +32,14 @@ public class CommonController {
 	ModelAndView mv = new ModelAndView();
 
 	@RequestMapping("/myinfo")
-	public ModelAndView getMyInfo() {
-		mv.setViewName("mgmt");
+	public ModelAndView getMyInfo(HttpSession session) {
+		String userId=(String)session.getAttribute("userId");
+		// add by RussWest0 at 2015年5月30日,下午7:09:34 
+		if(userId==null){
+			mv.setViewName("login");
+		}else{
+			mv.setViewName("mgmt");
+		}
 		return mv;
 	}
 

@@ -108,9 +108,6 @@ public class BusinessClientController {
 			}
 		}
 		// 没有上传文件的情况path 和 filenName默认为null
-
-		// ////////////////////////////////////////////
-	
 		
 		boolean flag = clientService.insertBusinessClient(account, clientName,
 				clientBusiness, contact, phone, remarks, carrierId,path,fileName);

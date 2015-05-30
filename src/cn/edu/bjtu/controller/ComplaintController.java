@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -98,13 +99,25 @@ public class ComplaintController {
 	}
 	
 	@RequestMapping("/allcomplaint")
-	public ModelAndView getAllUserComplaint(HttpServletRequest request,HttpServletResponse response)
+	/**
+	 * 后台投诉管理(管理员)
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ModelAndView getAllUserComplaint(HttpSession session)
 	{	
-		/*String userId=(String)request.getSession().getAttribute("userId");
-		System.out.println("userid="+userId);
-		*/
+		String userId=(String) session.getAttribute("userId");
+		// add by RussWest0 at 2015年5月30日,上午10:40:43 
+		if(userId==null){//未登录
+			mv.setViewName("adminLogin");
+			return mv;
+		}
+		if((int)session.getAttribute("userKind") != 1){//非管理员
+			mv.addObject("msg", "非管理员不能进入");
+			mv.setViewName("index");
+		}
 		List allCompliantList=complaintService.getAllUserCompliant();
-		System.out.println("listsize+"+allCompliantList.size());
 		mv.addObject("allCompliantList", allCompliantList);
 		mv.setViewName("mgmt_m_complain");
 		return mv;
@@ -115,9 +128,6 @@ public class ComplaintController {
 			@RequestParam String id,@RequestParam String orderid,@RequestParam int flag,
 			HttpServletRequest request,HttpServletResponse response)
 	{	
-		/*String userId=(String)request.getSession().getAttribute("userId");
-		System.out.println("userid="+userId);
-		*/
 		Complaintform complaintInfo = complaintService.getComplaintInfo(id);
 		mv.addObject("complaintInfo", complaintInfo);
 		OrderCarrierView orderInfo = orderService.getSendOrderDetail(orderid);
@@ -138,15 +148,11 @@ public class ComplaintController {
 			@RequestParam String id, @RequestParam String feedback,
 			HttpServletRequest request,HttpServletResponse response)
 	{	
-		System.out.println("进入投诉控制器");
-		/*String userId=(String)request.getSession().getAttribute("userId");
-		System.out.println("userid="+userId);
-		*/
 		
 		boolean flag = complaintService.doAcceptComplaint(id, feedback);
 		if (flag == true) {
 			try {
-				response.sendRedirect("allcomplaint");// 重定向，显示最新的结果
+				response.sendRedirect("allcomplaint");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				// 此处应该记录日志
@@ -179,8 +185,6 @@ public class ComplaintController {
 		}
 		else if(flag==1){//我的交易-我的投诉的搜索
 			List complaintList = complaintService.getFindComplaint(theme,flag,clientId);
-			System.out.println("complaintList+" + complaintList);
-			System.out.println("listsize+"+complaintList.size());
 			mv.addObject("compliantList", complaintList);
 			mv.setViewName("mgmt_d_complain");
 		}
