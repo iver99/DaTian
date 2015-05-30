@@ -32,17 +32,17 @@
         <property name="comment" type="string">
             <column name="comment" />
         </property>
-        <property name="linetransport" type="java.lang.Integer">
-            <column name="linetransport" />
+        <property name="linetransportId" type="string">
+            <column name="linetransportId" />
         </property>
-        <property name="cityline" type="java.lang.Integer">
-            <column name="cityline" />
+        <property name="citylineId" type="string">
+            <column name="citylineId" />
         </property>
-        <property name="car" type="java.lang.Integer">
-            <column name="car" />
+        <property name="carId" type="string">
+            <column name="carId" />
         </property>
-        <property name="warehouse" type="java.lang.Integer">
-            <column name="warehouse" />
+        <property name="warehouseId" type="string">
+            <column name="warehouseId" />
         </property>
         <property name="carrierId" type="string">
             <column name="carrierId" />

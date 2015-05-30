@@ -60,7 +60,7 @@
         	<li class="li_index_1b">注册就送保险</li>
         	<li class="li_index_1c">海量资源</li>
         	<li class="li_index_1d">单票500公斤起更享85折优惠</li>
-        	<li class="li_index_1e"><a href="javascript:;" class="a_index_1" hidefocus="true">发货&#8250;</a></li>
+        	<li class="li_index_1e"></li>
         </ul>
     </div>
 </div>

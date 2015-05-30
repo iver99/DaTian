@@ -13,6 +13,10 @@
 <link rel="bookmark" href="/images/fav.ico" type="image/x-icon" />
 <link type="text/css" rel="stylesheet" href="css/index.css" />
 <script type="text/javascript" src="js/jquery.min.1.7.2.js"></script>
+<!-- 用于表单验证 -->
+<script type="text/javascript" src="js/jquery.metadata.js"></script>
+<script type="text/javascript" src="js/jquery.validate.js"></script>
+<script type="text/javascript" src="js/messages_zh.js"></script>
 <script type="text/javascript" src="js/top_search.js"></script>
 <script type="text/javascript" src="js/main_nav.js"></script>
 <script type="text/javascript" src="js/backtop.js"></script>

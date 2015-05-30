@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,11 +21,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.edu.bjtu.service.CommentService;
 import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.service.FocusService;
 import cn.edu.bjtu.service.LinetransportService;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carrierinfo;
+import cn.edu.bjtu.vo.Comment;
 import cn.edu.bjtu.vo.Linetransport;
 
 @Controller
@@ -35,9 +38,10 @@ import cn.edu.bjtu.vo.Linetransport;
  */
 public class LinetransportController {
 
-	/*
-	 * @Resource HibernateTemplate ht;
-	 */
+/*	@Autowired
+	private Logger logger = Logger.getLogger(LinetransportController.class);*/
+	
+	
 	@RequestMapping("/linetransport")
 	/**
 	 * 返回所有干线信息
@@ -82,14 +86,7 @@ public class LinetransportController {
 					userId, Display, PageNow);// 新增两个参数
 
 			mv.addObject("linetransportList", linetransportList);
-			if(userId !=null)
-			{
 				mv.setViewName("mgmt_r_line");
-			}else
-			{
-				mv.setViewName("login");
-			}
-			
 		}
 		return mv;
 	}
@@ -111,9 +108,11 @@ public class LinetransportController {
 		List focusList = focusService.getFocusList(userId,"linetransport");
 		mv.addObject("focusList", focusList);
 		if (flag == 0) {
-			// carrierId=(String)request.getSession().getAttribute("carrierId");
-			// carrierId="C-0002";//删除
 			Carrierinfo carrierInfo = companyService.getCarrierInfo(carrierId);
+			//此处需要获取到干线评价详情 
+			// add by RussWest0 at 2015年5月30日,上午9:19:53 
+			List<Comment> commentList=commentService.getLinetransportCommentById(linetransportid,carrierId);
+			mv.addObject("commentList",commentList);
 			mv.addObject("carrierInfo", carrierInfo);
 			mv.setViewName("resource_detail1");
 		} else if (flag == 1) {// 详情
@@ -151,7 +150,6 @@ public class LinetransportController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// System.out.println("已经进入linetransport控制器");
 
 		List linetransportList = linetransportService.getSelectedLine(
 				startPlace, endPlace, type, startPlace1, refPrice, Display,
@@ -160,8 +158,6 @@ public class LinetransportController {
 				type, startPlace1, refPrice);// 获取总记录数
 
 		int pageNum = (int) Math.ceil(count * 1.0 / Display);// 页数
-		// System.out.println("总记录数+"+count);
-		// System.out.println("页数+"+pageNum);
 		mv.addObject("linetransportList", linetransportList);
 		mv.addObject("count", count);
 		mv.addObject("pageNum", pageNum);
@@ -324,11 +320,6 @@ public class LinetransportController {
 	 */
 	public ModelAndView downloadLineDetailPrice(@RequestParam String id,// GET方式传入，在action中
 			HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("进入删除控制器");
-		System.out.println(id);
-		// 此处获取session里的carrierid，下面方法增加一个参数
-		// String carrierId=(String)request.getSession().getAttribute("userId");
-		// String carrierId = "C-0002";// 删除
 		Linetransport linetransportInfo = linetransportService.getLinetransportInfo(id);
 		try {
 			String file = linetransportInfo.getDetailPrice();
@@ -338,7 +329,6 @@ public class LinetransportController {
 			response.reset(); // 必要地清除response中的缓存信息
 			response.setHeader("Content-Disposition", "attachment; filename="
 					+ file);
-			//response.setContentType("application/vnd.ms-excel");// 根据个人需要,这个是下载文件的类型
 			javax.servlet.ServletOutputStream out = response.getOutputStream();
 			byte[] content = new byte[1024];
 			int length = 0;
@@ -355,7 +345,8 @@ public class LinetransportController {
 		return mv;
 
 	}
-	
+	@Autowired
+	CommentService commentService;
 	@Resource
 	LinetransportService linetransportService;
 	@Resource

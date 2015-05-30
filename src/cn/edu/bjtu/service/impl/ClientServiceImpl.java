@@ -42,7 +42,7 @@ public class ClientServiceImpl implements ClientService{
 	}
 	@Override
 	/**
-	 * 获取客户信息
+	 * 通过id获取客户信息
 	 */
 	public Clientinfo getClientInfo(String clientId) {
 		// TODO Auto-generated method stub
@@ -62,7 +62,7 @@ public class ClientServiceImpl implements ClientService{
 	/**
 	 * 新增客户s
 	 */
-	public boolean insertClient(String account, String clientName,
+	public boolean insertBusinessClient(String account, String clientName,
 			String clientBusiness, String contact, String phone,
 			String remarks, String carrierId,String path,String fileName) {
 		// TODO Auto-generated method stub
@@ -89,7 +89,7 @@ public class ClientServiceImpl implements ClientService{
 	/**
 	 * 更新客户
 	 */
-	public boolean updateClient(String id, String account, String clientName,
+	public boolean updateBusinessClient(String id, String account, String clientName,
 			String clientBusiness, String contact, String phone,
 			String remarks, String carrierId,String path,String fileName) {
 		// TODO Auto-generated method stub
@@ -115,7 +115,7 @@ public class ClientServiceImpl implements ClientService{
 	/**
 	 * 删除客户
 	 */
-	public boolean deleteClient(String id){
+	public boolean deleteBusinessClient(String id){
 		businessClient=getBusinessclientInfo(id);//根据id查找到客户信息
 		businessClientDao.delete(businessClient);
 		return true;
@@ -136,11 +136,30 @@ public class ClientServiceImpl implements ClientService{
 		return clientDao.getStatus(userId);
 	}
 	@Override
+	/**
+	 * 个人用户信息认证
+	 */
 	public boolean validateUser(String userId, String realName, String phone,
 			String IDCard, String sex) {
 		// TODO Auto-generated method stub
 		return clientDao.validateUser(userId,realName,phone,IDCard,sex);
 	}
+	@Override
+	/**
+	 *  更新个人用户信息
+	 */
+	public boolean updateClientinfo(Clientinfo clientinfo, String path,
+			String fileName, String userId) {
+		// TODO Auto-generated method stub
+		if (path != null && fileName != null) {
+			String fileLocation = path + "//" + fileName;
+			clientinfo.setIDPicture(fileLocation);//设置文件上传路径
+		}
+		clientinfo.setId(userId);
+		clientDao.update(clientinfo);//更新信息
+		return true;
+	}
+	
 	
 	
 	

@@ -21,10 +21,11 @@ public class Comment implements java.io.Serializable {
 	private String cargoSafety;
 	private String totalMoney;
 	private String comment;
-	private Integer linetransport;
-	private Integer cityline;
-	private Integer car;
-	private Integer warehouse;
+	// add by RussWest0 at 2015年5月30日,上午9:42:38 
+	private String linetransportId;
+	private String citylineId;
+	private String carId;
+	private String warehouseId;
 	
 	private String carrierId;//add by haochendong 
 
@@ -137,36 +138,56 @@ public class Comment implements java.io.Serializable {
 		this.comment = comment;
 	}
 
-	public Integer getLinetransport() {
-		return this.linetransport;
+
+
+	public String getLinetransportId() {
+		return linetransportId;
 	}
 
-	public void setLinetransport(Integer linetransport) {
-		this.linetransport = linetransport;
+
+
+	public void setLinetransportId(String linetransportId) {
+		this.linetransportId = linetransportId;
 	}
 
-	public Integer getCityline() {
-		return this.cityline;
+
+
+	public String getCitylineId() {
+		return citylineId;
 	}
 
-	public void setCityline(Integer cityline) {
-		this.cityline = cityline;
+
+
+	public void setCitylineId(String citylineId) {
+		this.citylineId = citylineId;
 	}
 
-	public Integer getCar() {
-		return this.car;
+
+
+	public String getCarId() {
+		return carId;
 	}
 
-	public void setCar(Integer car) {
-		this.car = car;
+
+
+	public void setCarId(String carId) {
+		this.carId = carId;
 	}
 
-	public Integer getWarehouse() {
-		return this.warehouse;
+
+
+	public String getWarehouseId() {
+		return warehouseId;
 	}
 
-	public void setWarehouse(Integer warehouse) {
-		this.warehouse = warehouse;
+
+
+	public void setWarehouseId(String warehouseId) {
+		this.warehouseId = warehouseId;
 	}
+
+	
+
+	
 
 }

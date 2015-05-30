@@ -1,6 +1,9 @@
 package cn.edu.bjtu.service.impl;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,5 +49,19 @@ public class CommentServiceImpl implements CommentService{
 		return true;
 	}
 
+	@Override
+	/**
+	 *根据公司id和干线id得到评价
+	 */
+	public List<Comment> getLinetransportCommentById(String linetransportId,String userId) {
+		// TODO Auto-generated method stub
+		Map<String,Object> params=new HashMap<String,Object>();
+		String hql="from Comment where linetransportId=:linetransportId and carrierId=:carrierId";
+		params.put("linetransportId", linetransportId);
+		params.put("carrierId", userId);
+		return commentDao.find(hql, params);
+	}
+	
+	
 	
 }

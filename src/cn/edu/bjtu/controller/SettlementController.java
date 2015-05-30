@@ -26,7 +26,6 @@ public class SettlementController {
 	@RequestMapping("/mysettlement")
 	public ModelAndView getMySettlement(HttpServletRequest request,HttpServletResponse response)
 	{
-		System.out.println("进入结算控制器");
 		String userId=(String )request.getSession().getAttribute("userId");
 		
 		List orderList=settlementService.getUserOrder(userId);

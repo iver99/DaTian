@@ -127,8 +127,6 @@ public class ClientDaoImpl extends BaseDaoImpl<Clientinfo> implements ClientDao 
 	//	{
 			Userinfo userInfo=ht.get(Userinfo.class, userId);
 			userInfo.setStatus("“—…Û∫À");
-			/*baseDao.update(userInfo);*/
-			//this.update(clientInfo);
 			userinfoDao.update(userInfo);
 			
 	//}

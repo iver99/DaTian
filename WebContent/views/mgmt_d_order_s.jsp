@@ -65,7 +65,10 @@ function cancel(id){
 		<tr>
 			<td width="230" class="td_leftnav_top">
                 <div id="main_frame_left">
-                    <span class="text_mgmt_leftnav1"><span id="mgmt_nav_switch1a" class="span_mgmt_nav1" title="收起" onclick="mgmt_nav_switch1a();"></span><span id="mgmt_nav_switch1b" class="span_mgmt_nav2" title="展开" onclick="mgmt_nav_switch1b();"></span>我的交易</span>
+                    <span class="text_mgmt_leftnav1">
+                    <span id="mgmt_nav_switch1a" class="span_mgmt_nav1" title="收起" onclick="mgmt_nav_switch1a();"></span>
+                    <span id="mgmt_nav_switch1b" class="span_mgmt_nav2" title="展开" onclick="mgmt_nav_switch1b();"></span>我的交易
+                    </span>
                     <div id="mgmt_nav1">
 						<% if(userKind==2) {%><!-- 普通用户 -->
                         <a href="getallfocus" class="a_mgmt_leftnav" hidefocus="true">我的关注</a>

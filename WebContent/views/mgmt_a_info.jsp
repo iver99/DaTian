@@ -87,11 +87,10 @@
 						class="table_mgmt_right3">
 						<tr>
 							<td width="20" height="40" class="td_mgmt_right3_head1">&nbsp;</td>
-							<td class="td_mgmt_right3_head">类别</td>
+							<td class="td_mgmt_right3_head">类别&nbsp;&nbsp;${msg }</td>
 							<td width="120" class="td_mgmt_right3_head">状态</td>
 							<td width="80" class="td_mgmt_right3_head">操作</td>
 						</tr>
-						<% if(userKind==2){ %>
 						<tr>
 							<td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
 							<td class="td_mgmt_right3_td1">基本信息</td>
@@ -136,7 +135,7 @@
 							</c:choose>
 
 						</tr>
-
+						<% if(userKind==2){ %>
 						<tr>
 							<td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
 							<td class="td_mgmt_right3_td1">
@@ -145,7 +144,7 @@
 								<c:when test="${status=='审核中'}">
 									<td class="td_mgmt_right3_td3"><img
 										src="images/btn_hint3.png" />&nbsp;审核中</td>
-									<td class="td_mgmt_right3_td3"><a href="javascript:;"
+									<td class="td_mgmt_right3_td3"><a href="viewClientInfoDetail"
 										hidefocus="true">查看</a></td>
 								</c:when>
 								<c:when test="${status=='已审核'}">
@@ -156,10 +155,10 @@
 											<ul class="quickmenu">
 												<li class="menuitem">
 													<div class="menu">
-														<a href="javascript:;" class="menuhd" hidefocus="true">查看</a>
+														<a href="viewClientInfoDetail" class="menuhd" hidefocus="true">查看</a>
 														<div class="menubd">
 															<div class="menubdpanel">
-																<a href="javascript:;" class="a_top3" hidefocus="true">更新</a>
+																<a href="getupdateUserinfoForm" class="a_top3" hidefocus="true">更新</a>
 															</div>
 														</div>
 													</div>
@@ -179,33 +178,46 @@
 						</tr>
 						<%} 
 							if(userKind==3){
-								
 						%>
-						
 						<tr>
-							<td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
+						<td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
 							<td class="td_mgmt_right3_td1">认证信息(公司)</td>
-							<td class="td_mgmt_right3_td3"><img
-								src="images/btn_hint2.png" />&nbsp;未验证</td>
-							<td class="td_mgmt_right3_td3"><a href="mgmt_a_info4.htm"
-								hidefocus="true">立即验证</a></td>
-						</tr>
-						<tr>
-							<td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
-							<td class="td_mgmt_right3_td1">认证信息(公司)</td>
-							<td class="td_mgmt_right3_td3"><img
-								src="images/btn_hint3.png" />&nbsp;审核中</td>
-							<td class="td_mgmt_right3_td3"><a href="javascript:;"
-								hidefocus="true">查看</a></td>
-						</tr>
-						<tr>
-							<td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
-							<td class="td_mgmt_right3_td1">认证信息(公司)</td>
-							<td class="td_mgmt_right3_td3"><img
-								src="images/btn_hint1.png" />&nbsp;已审核</td>
-							<td class="td_mgmt_right3_td3"><a href="javascript:;"
-								hidefocus="true">更新</a></td>
-						</tr>
+						<c:choose>
+								<c:when test="${status=='审核中'}">
+									<td class="td_mgmt_right3_td3"><img
+										src="images/btn_hint3.png" />&nbsp;审核中</td>
+									<td class="td_mgmt_right3_td3"><a href="detailcompanycertificate?flag=0"
+										hidefocus="true">查看</a></td>
+								</c:when>
+								<c:when test="${status=='已审核'}">
+									<td class="td_mgmt_right3_td3"><img
+										src="images/btn_hint1.png" />&nbsp;已审核</td>
+									<td class="td_mgmt_right3_td3">
+										<div id="handlebox" style="z-index: 202;">
+											<ul class="quickmenu">
+												<li class="menuitem">
+													<div class="menu">
+														<a href="detailcompanycertificate?flag=0" class="menuhd" hidefocus="true">查看</a>
+														<div class="menubd">
+															<div class="menubdpanel">
+																<a href="detailcompanycertificate?flag=1" class="a_top3" hidefocus="true">更新</a>
+															</div>
+														</div>
+													</div>
+												</li>
+											</ul>
+										</div>
+									</td>
+								</c:when>
+								<c:when test="${status=='未验证'}">
+									<td class="td_mgmt_right3_td3"><img
+										src="images/btn_hint2.png" />&nbsp;未验证</td>
+									<td class="td_mgmt_right3_td3"><a href="getcompanyvalidateform"
+										hidefocus="true">立即验证</a></td>
+								</c:when>
+							</c:choose>
+							
+							
 						<%} %>
 					</table> <br /> <img src="images/btn_help.png" />&nbsp;&nbsp;个人或公司均可发布资源信息。
 				</td>

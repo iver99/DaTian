@@ -137,6 +137,26 @@ public class UploadPath {
 			return path;
 		}
 	}
+	
+
+	public static String getCompanyCertificatePath() {
+		// TODO Auto-generated method stub
+		if (isWindows()) {//windows系统
+			String path = "D://uploadFile//companyCertificate";//上传到D盘
+			file = new File(path);
+			file.mkdirs();//以防文件夹不存在
+			return path;
+		}
+		else//linux系统 (未测试)
+		{
+			//如果文件夹不存在情况没有处理
+			String path= "/usr/local/tomcat7/webapps/DaTian/uploadFile/companyCertificate";
+			file=new File(path);
+			file.mkdirs();//防止文件夹不存在
+			return path;
+		}
+	}
+	
 	/*
 	 * public static void main(String [] args) { File file=new File("");
 	 * System.out.println("path+"+file.getAbsolutePath()); }
@@ -151,5 +171,6 @@ public class UploadPath {
 		}
 		return flag;
 	}
+
 
 }
