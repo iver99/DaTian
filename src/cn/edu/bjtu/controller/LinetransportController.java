@@ -267,7 +267,6 @@ public class LinetransportController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			//System.out.println("path+fileName+" + path + "-" + fileName);
 		} 
 		//没有上传文件的情况path 和 filenName默认为null
 		
@@ -280,7 +279,6 @@ public class LinetransportController {
 			try {
 				response.sendRedirect("linetransport?flag=1");// 重定向，显示最新的结果
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				// 此处应该记录日志
 				System.out.println("linetransport更新后重定向失败");
 				e.printStackTrace();

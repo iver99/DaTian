@@ -65,26 +65,22 @@ public class ComplaintServiceImpl implements ComplaintService{
 		complaintform.setCarrierId(carrierId);
 		complaintform.setClientId(carrierId);
 		complaintform.setRelDate(new Date());
-		if(orderNum!=null)//不考虑订单号出错的情况
-		{
-			if(orderService.getOrderIdByOrderNum(orderNum).isEmpty())
+		// add by RussWest0 at 2015年5月30日,下午10:05:22 
+		complaintform.setOrderId(orderNum);
+		//if(orderNum!=null)//不考虑订单号出错的情况
+		//{
+			/*if(orderService.getOrderIdByOrderNum(orderNum).isEmpty())
 			{
 				System.out.println("找不到订单编号");
-				/*try {
-					response.sendRedirect("mycomplaint");//重定向显示最新结果
-					return;
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}*/
+				
 				return false;
-			}
-			else {
-				complaintform.setOrderId(orderService.
+			}*/
+			//else {
+				/*complaintform.setOrderId(orderService.
 						getOrderIdByOrderNum(orderNum).
-						get(0).toString());
-			}
-		}
+						get(0).toString());*/
+			//}
+		//}
 		complaintDao.save(complaintform);
 		return true;
 	

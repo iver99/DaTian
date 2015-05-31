@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<% int userKind=(Integer)session.getAttribute("userKind"); %> 
+  
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -70,7 +70,7 @@
 							id="mgmt_nav_switch2b" class="span_mgmt_nav2" title="展开"
 							onclick="mgmt_nav_switch2b();"></span>我的资源</span>
 						<div id="mgmt_nav2">
-                       <% if(userKind==3) {%><!-- 企业用户 -->
+                       <% if((Integer)session.getAttribute("userKind") ==3) {%><!-- 企业用户 -->
                         <a href="linetransport?flag=1&Display=10&PageNow=1" class="a_mgmt_leftnav" hidefocus="true">干线运输线路信息</a>
                         <a href="cityline?flag=1" class="a_mgmt_leftnav" hidefocus="true">城市配送网络信息</a>
                         <a href="car?flag=1" class="a_mgmt_leftnav1" hidefocus="true">车辆信息</a>

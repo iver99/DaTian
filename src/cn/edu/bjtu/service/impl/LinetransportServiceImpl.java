@@ -286,7 +286,7 @@ public class LinetransportServiceImpl implements LinetransportService {
 		}
 
 		linetransportDao.update(linetransport);
-		return false;
+		return true;
 
 	}
 

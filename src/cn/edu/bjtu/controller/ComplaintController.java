@@ -94,7 +94,7 @@ public class ComplaintController {
 				e.printStackTrace();
 			}
 		} else
-			mv.setViewName("fail");
+			mv.setViewName("mgmt");
 		return mv;
 	}
 	
