@@ -115,16 +115,15 @@ public class ClientDaoImpl extends BaseDaoImpl<Clientinfo> implements ClientDao 
 			String IDCard, String sex) {
 		// TODO Auto-generated method stub
 		Clientinfo clientInfo=ht.get(Clientinfo.class, userId);
-		clientInfo.setRealName(realName);
-		clientInfo.setPhone(phone);
-		clientInfo.setIdcard(IDCard);
-		clientInfo.setSex(sex);
+			if(clientInfo == null){//clientinfo找不到记录
+				return false;
+			}
 		
-		/*baseDao.update(clientInfo);*/
-		this.update(clientInfo);
-		//修改个人信息状态
-		//if(flag== true)
-	//	{
+			clientInfo.setRealName(realName);
+			clientInfo.setPhone(phone);
+			clientInfo.setIdcard(IDCard);
+			clientInfo.setSex(sex);
+			this.update(clientInfo);
 			Userinfo userInfo=ht.get(Userinfo.class, userId);
 			userInfo.setStatus("已审核");
 			userinfoDao.update(userInfo);

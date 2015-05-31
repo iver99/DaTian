@@ -67,20 +67,7 @@ public class ComplaintServiceImpl implements ComplaintService{
 		complaintform.setRelDate(new Date());
 		// add by RussWest0 at 2015年5月30日,下午10:05:22 
 		complaintform.setOrderId(orderNum);
-		//if(orderNum!=null)//不考虑订单号出错的情况
-		//{
-			/*if(orderService.getOrderIdByOrderNum(orderNum).isEmpty())
-			{
-				System.out.println("找不到订单编号");
-				
-				return false;
-			}*/
-			//else {
-				/*complaintform.setOrderId(orderService.
-						getOrderIdByOrderNum(orderNum).
-						get(0).toString());*/
-			//}
-		//}
+		
 		complaintDao.save(complaintform);
 		return true;
 	
@@ -93,7 +80,7 @@ public class ComplaintServiceImpl implements ComplaintService{
 		complaintform.setFeedback(feedback);
 		complaintform.setState("已受理");
 		complaintDao.update(complaintform);
-		return false;
+		return true;
 	}
 	
 	@Override

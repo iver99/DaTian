@@ -90,7 +90,6 @@ $(document).ready(function(){
 	
 	function Rescreen()//想做外部调用没成功，目前这段代码没用
 	{
-		alert("123");
 	}
 	
 	$("#btn1").click(function () {//筛选按钮

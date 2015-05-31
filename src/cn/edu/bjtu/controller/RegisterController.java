@@ -41,10 +41,16 @@ public class RegisterController {
 	
 
 	@RequestMapping("usercheck")
+	/**
+	 * 用户名检测是否使用
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
 	public String userCheck(
 			HttpServletRequest request,HttpServletResponse response) throws Exception{
 		String username = request.getParameter("username");
-		String check;
 		List userCheck = registerServiceImpl.getUserCheck(username);
 		if(userCheck.isEmpty())
 		{

@@ -191,7 +191,6 @@ public class GoodsInfoController {
 	 */
 	public ModelAndView getAllResponse(HttpServletRequest request,
 			HttpServletResponse response) {
-		System.out.println("进入反馈控制器");
 		String userId = (String) request.getSession().getAttribute("userId");
 
 		List responseList = goodsInfoService.getAllResponse(userId);

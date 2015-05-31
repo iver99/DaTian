@@ -64,7 +64,8 @@
         </tr>
         <tr>
         	<td width="120" height="40" class="td_mgmt_right3_td1b">用户类型：</td>
-        	<td><input type="radio" name="userkind" value="1" checked="checked"/>&nbsp;个人用户&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="userkind" value="2"/>企业用户
+        	<td><input type="radio" name="userkind" value="2" checked="checked"/>&nbsp;个人用户&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        		<input type="radio" name="userkind" value="3"/>企业用户
         </tr>
         <tr>
             <td height="40" class="td_mgmt_right3_td1b">手机验证码：</td>
@@ -115,7 +116,7 @@
             <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
             <td>
                 <input type="submit" id="btn2" value="注册" class="btn_register_submit" hidefocus="true"  />
-                <input type="button" id="btn2" value="取消" class="btn_register_cancel" hidefocus="true" onclick="window.location.href='index.htm'" />
+                <input type="button" id="btn2" value="取消" class="btn_register_cancel" hidefocus="true" />
             </td>
         </tr>
     </table>

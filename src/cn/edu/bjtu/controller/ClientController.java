@@ -94,11 +94,10 @@ public class ClientController {
 	public ModelAndView validateUser(String realName, String phone,
 			String IDCard, String sex, HttpServletRequest request,
 			HttpServletResponse response) {
-		//System.out.println("进入验证用户控制器");
 		String userId=(String)request.getSession().getAttribute("userId");
 		
 		boolean flag=clientService.validateUser(userId,realName,phone,IDCard,sex);
-		if(flag==true)
+		if(flag==true){
 			try {
 				response.sendRedirect("accountinfo");
 			} catch (IOException e) {
@@ -106,6 +105,11 @@ public class ClientController {
 				System.out.println("验证账户出错");//logging
 				e.printStackTrace();
 			}
+		}else{//验证账户出错
+			mv.setViewName("mgmt_a_info");
+			mv.addObject("msg", "验证账户出错，稍后请重试");
+		}
+			
 		return mv;
 	}
 	/**

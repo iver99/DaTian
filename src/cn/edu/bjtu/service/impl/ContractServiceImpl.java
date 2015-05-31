@@ -76,7 +76,7 @@ public class ContractServiceImpl implements ContractService{
 			contract.setRelatedMaterial(fileLocation);
 		}
 		contractDao.save(contract);//±£¥Ê µÃÂ
-		return false;
+		return true;
 		
 	}
 	@Override

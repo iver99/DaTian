@@ -235,7 +235,7 @@ public class LinetransportServiceImpl implements LinetransportService {
 			linetransport.setDetailPrice(fileLocation);
 		}
 		linetransportDao.save(linetransport);// 保存实体
-		return false;
+		return true;
 
 	}
 
@@ -297,11 +297,9 @@ public class LinetransportServiceImpl implements LinetransportService {
 	public boolean deleteLine(String id) {
 		linetransport = getLinetransportInfo(id);// 根据id查找到干线信息
 
-		System.out.println(linetransport);
-		System.out.println(id);
 		linetransportDao.delete(linetransport);
 		
-		return false;
+		return true;
 	}
 
 }

@@ -25,7 +25,7 @@ $(function(){
 	$('.search_btn').click(function(){
 		var mval=$('.mkey').text();
 		var keyval=$('.search_input').val();
-		alert(mval+'：'+keyval+'！')	
+		//alert(mval+'：'+keyval+'！')	
 //		alert(keyval+'！')	
 	})
 	$('.key_ul li').hover(function(){$(this).addClass('on');},function(){$(this).removeClass('on');})

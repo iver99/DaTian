@@ -86,7 +86,6 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 		String invoice, String remarks,String clientId,String path,
 		String fileName) {
 		// TODO Auto-generated method stub
-		System.out.println("insertGoods");
 		
 		goodsform.setId(IdCreator.createGoodsId());
 		goodsform.setName(name);
@@ -113,7 +112,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 			goodsform.setRelatedMaterial(fileLocation);
 		}
 		goodsinfoDao.save(goodsform);//保存实体
-		return false;
+		return true;
 		
 	}
 
@@ -157,7 +156,6 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 			String damageReq, String VIPService, String oriented, String limitDate,
 			String invoice, String remarks,String clientId,String path, String fileName) {
 			// TODO Auto-generated method stub
-			System.out.println("updateGoods");
 			goodsform = getMyGoodsDetail(id);
 
 			goodsform.setName(name);
@@ -179,7 +177,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 				goodsform.setRelatedMaterial(fileLocation);
 			}
 			goodsinfoDao.update(goodsform);//保存实体
-			return false;
+			return true;
 			
 		}
 	 

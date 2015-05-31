@@ -56,18 +56,20 @@ public class RegisterServiceImpl implements RegisterService{
 		userInfo.setPassword(password);//未加密
 		userInfo.setStatus("未验证");
 		userInfo.setEmailStatus("未绑定");
-		userInfo.setPhoneStatus("已绑定");/////////////需要修改
+		userInfo.setPhoneStatus("已绑定");
 		userInfo.setSecurityQuestionStatus("未设置");
 		//userInfo.setPrivilege(privilege);
 		userInfo.setStatus("未验证");
 		userInfo.setUserKind(userKind);
+		userinfoDao.save(userInfo);//保存实体
 		
 		if(userKind == 2){//个人用户
 		clientInfo.setId(userInfo.getId());//同时在信息表中保存实体
 		//clientInfo.setCarrierId(carrierId);
 		clientInfo.setCreateDate(new Date());
 		clientInfo.setPhone(phone);
-		clientDao.save(clientInfo);
+		clientInfo.setHeadIcon("未设置");// add by RussWest0 at 2015年5月31日,上午10:47:42 
+		clientDao.save(clientInfo);//保存clientinfo实体
 		}
 		else //企业用户，目前维护两个公司表，以后重构成一个
 		{
@@ -81,8 +83,7 @@ public class RegisterServiceImpl implements RegisterService{
 			carrierinfo.setStatus("未验证");
 			companyDao.save(carrierinfo);
 		}
-		//clientInfo.setStatus("未验证");//新增用户 先设置成未验证 
-		userinfoDao.save(userInfo);//保存实体
+		
 		return userInfo.getId();
 	}
 	@Override

@@ -36,9 +36,7 @@ public class ComplaintController {
 	@RequestMapping("/mycomplaint")
 	public ModelAndView getUserComplaint(HttpServletRequest request,HttpServletResponse response)
 	{	
-		System.out.println("进入投诉控制器");
 		String userId=(String)request.getSession().getAttribute("userId");
-		System.out.println("userid="+userId);
 		
 		List compliantList=complaintService.getUserCompliant(userId);
 		System.out.println("listsize+"+compliantList.size());
@@ -52,7 +50,6 @@ public class ComplaintController {
 			@RequestParam("id") String id,
 			@RequestParam("orderId") String orderId)
 	{	
-		System.out.println("进入投诉控制器");
 		Complaintform complaintInfo = complaintService.getComplaintInfo(id);
 		mv.addObject("complaintInfo", complaintInfo);
 		OrderCarrierView orderInfo = orderService.getSendOrderDetail(orderId);
@@ -108,15 +105,19 @@ public class ComplaintController {
 	public ModelAndView getAllUserComplaint(HttpSession session)
 	{	
 		String userId=(String) session.getAttribute("userId");
+		Integer userKind=(Integer) session.getAttribute("userKind");
 		// add by RussWest0 at 2015年5月30日,上午10:40:43 
 		if(userId==null){//未登录
 			mv.setViewName("adminLogin");
 			return mv;
 		}
-		if((int)session.getAttribute("userKind") != 1){//非管理员
-			mv.addObject("msg", "非管理员不能进入");
+		// add by RussWest0 at 2015年5月31日,上午10:22:10 
+		if(userKind !=1){//其它用户，非管理员
+			mv.addObject("msg", "非管理员不能进入!");
 			mv.setViewName("index");
+			return mv;
 		}
+		
 		List allCompliantList=complaintService.getAllUserCompliant();
 		mv.addObject("allCompliantList", allCompliantList);
 		mv.setViewName("mgmt_m_complain");
