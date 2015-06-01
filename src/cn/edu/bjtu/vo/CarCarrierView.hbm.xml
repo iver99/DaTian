@@ -70,5 +70,24 @@
 		<property name="carBase" type="string">
 			<column name="carBase" />
 		</property>
+		
+		<property name="stopPlace" type="string">
+            <column name="stopPlace" />
+        </property>
+        <property name="startPlace" type="string">
+            <column name="startPlace" />
+        </property>
+        <property name="endPlace" type="string">
+            <column name="endPlace" />
+        </property>   
+        <property name="carWidth" type="java.lang.Double">
+            <column name="carWidth" scale="1"/>
+        </property>
+        <property name="carHeight" type="java.lang.Double">
+            <column name="carHeight" scale="1"/>
+        </property>
+        <property name="terminalId" type="string">
+            <column name="terminalId" />
+        </property>
 	</class>
 </hibernate-mapping>

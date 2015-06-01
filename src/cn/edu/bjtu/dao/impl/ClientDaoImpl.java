@@ -26,11 +26,13 @@ public class ClientDaoImpl extends BaseDaoImpl<Clientinfo> implements ClientDao 
 	HibernateTemplate ht;
 	@Autowired
 	UserinfoDao userinfoDao;
-	
-	/*@Resource
-	BaseDao baseDao;*/
-	/*@Autowired
-	ClientDao clientDao;*/
+
+	/*
+	 * @Resource BaseDao baseDao;
+	 */
+	/*
+	 * @Autowired ClientDao clientDao;
+	 */
 
 	@Override
 	/**
@@ -75,28 +77,30 @@ public class ClientDaoImpl extends BaseDaoImpl<Clientinfo> implements ClientDao 
 	/**
 	 * 检查是否设置头像
 	 */
-	public boolean checkHeadIcon(String userId,int userKind) {
+	public boolean checkHeadIcon(String userId, int userKind) {
 		// TODO Auto-generated method stub
 		// System.out.println("userId"+userId);
-		
-		if(userKind == 1)//个人用户 
+
+		if (userKind == 2)// 个人用户
 		{
 			List list = ht.find("select headIcon from Clientinfo where id='"
 					+ userId + "'");
 			if (list != null) {
-				// System.out.println("list+"+list);
 				return true;
 			} else
 				return false;
-		}else//企业用户
+		} else if (userKind == 3)// 企业用户
 		{
-			List list= ht.find("select headIcon from Carrierinfo where id='"+userId+"'");
-			if(list !=null)
+			List list = ht.find("select headIcon from Carrierinfo where id='"
+					+ userId + "'");
+			if (list != null)
 				return true;
-			else 
+			else
 				return false;
+		} else {
+			return false;// 默认返回false
 		}
-		
+
 	}
 
 	@Override
@@ -114,24 +118,23 @@ public class ClientDaoImpl extends BaseDaoImpl<Clientinfo> implements ClientDao 
 	public boolean validateUser(String userId, String realName, String phone,
 			String IDCard, String sex) {
 		// TODO Auto-generated method stub
-		Clientinfo clientInfo=ht.get(Clientinfo.class, userId);
-			if(clientInfo == null){//clientinfo找不到记录
-				return false;
-			}
-		
-			clientInfo.setRealName(realName);
-			clientInfo.setPhone(phone);
-			clientInfo.setIdcard(IDCard);
-			clientInfo.setSex(sex);
-			this.update(clientInfo);
-			Userinfo userInfo=ht.get(Userinfo.class, userId);
-			userInfo.setStatus("审核中");
-			userinfoDao.update(userInfo);
-			
-	//}
-		
+		Clientinfo clientInfo = ht.get(Clientinfo.class, userId);
+		if (clientInfo == null) {// clientinfo找不到记录
+			return false;
+		}
+
+		clientInfo.setRealName(realName);
+		clientInfo.setPhone(phone);
+		clientInfo.setIdcard(IDCard);
+		clientInfo.setSex(sex);
+		this.update(clientInfo);
+		Userinfo userInfo = ht.get(Userinfo.class, userId);
+		userInfo.setStatus("审核中");
+		userinfoDao.update(userInfo);
+
+		// }
+
 		return true;
 	}
-	
 
 }

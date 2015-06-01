@@ -47,7 +47,7 @@ public interface OrderService {
 			String recieverPhone, String recieverAddr, String remarks);
 
 	public boolean DoGetOrderWaitToConfirmUpdate(String orderId,
-			float actualPrice, String explainReason);
+			float actualPrice, String explainReason,String path,String fileName);
 	/**
 	 * ÐÂÔö¶©µ¥
 	 * @param userId

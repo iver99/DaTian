@@ -94,7 +94,7 @@
                                         </span> -->
                                     </td>
                                 </tr>
-                               <tr id="layer_subs" style="display:none;">
+                               <!-- <tr id="layer_subs" style="display:none;">
                                     <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
                                     <td>
                                         <span class="span_mgmt_right3_checkbox1">
@@ -150,14 +150,14 @@
                                         <input type="checkbox" />六环以外
                                         </span>
                                     </td>
-                                </tr> 
+                                </tr>  -->
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">增值服务：</td>
                                     <td>
                                         <select id="valueadd" style="width:120px;" onchange="change1(); " name="VIPService">
-                                            <option value="" selected="selected">请选择</option>
+                                            <option value="" >请选择</option>
                                             <option value="有">有</option>
-                                            <option value="无">无</option>
+                                            <option value="无" selected="selected">无</option>
                                         </select>
                                         <div id="v_detail" style="display:none;">
                                             <input type="text" class="input_mgmt1" style="width:176px;" placeholder="请输入内容..." name="VIPDetail"/>

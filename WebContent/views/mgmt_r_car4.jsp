@@ -131,7 +131,7 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">运营线路：</td>
-                                    <td>${linetransportInfo.startPlace }←→${linetransportInfo.endPlace }</td>
+                                    <td>${carInfo.startPlace }←→${carInfo.endPlace }</td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">经停城市：</td>

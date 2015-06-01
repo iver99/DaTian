@@ -21,11 +21,11 @@ public interface CarService {
 
 
 	public boolean insertCar(String carNum, String carTeam,
-			String locationType, String carBase, String carBrand,
+			String locationType, String terminalId, String carBase, String carBrand,
 			String carType, String carUse, double carLength, double carWidth,
 			double carHeight, double carWeight, String driverId,
 			String purchaseTime, String storage, String startPlace,
-			String endPlace, String carrierId);
+			String endPlace, String stopPlace, String carrierId);
 
 	
 

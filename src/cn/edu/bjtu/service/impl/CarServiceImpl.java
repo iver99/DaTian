@@ -121,41 +121,35 @@ public class CarServiceImpl implements CarService {
 	 * 增加车辆
 	 */
 	public boolean insertCar(String carNum, String carTeam,
-			String locationType, String carBase, String carBrand,
+			String locationType, String terminalId, String carBase, String carBrand,
 			String carType, String carUse, double carLength, double carWidth,
 			double carHeight, double carWeight, String driverId,
 			String purchaseTime, String storage, String startPlace,
-			String endPlace, String carrierId) {
+			String endPlace, String stopPlace, String carrierId) {
 		// TODO Auto-generated method stub
+		
+		carinfo.setId(IdCreator.createCarId());
+		carinfo.setCarNum(carNum);
+		carinfo.setCarTeam(carTeam);
+		carinfo.setLocationType(locationType);
+		carinfo.setTerminalId(terminalId);
 		carinfo.setCarBase(carBase);
 		carinfo.setCarBrand(carBrand);
-		carinfo.setCarHeight(carHeight);
-		carinfo.setCarLength(carLength);
-		// carinfo.setCarLocation(carLocation);
-		carinfo.setCarNum(carNum);
-		carinfo.setCarrierId(carrierId);
-		// carinfo.setCarState(carState);
-		carinfo.setCarTeam(carTeam);
 		carinfo.setCarType(carType);
 		carinfo.setCarUse(carUse);
-		carinfo.setCarWeight(carWeight);
+		carinfo.setCarLength(carLength);
 		carinfo.setCarWidth(carWidth);
-
-		// String driverId=carService.getDriverIdByName(driverName);//未实现
+		carinfo.setCarHeight(carHeight);
+		carinfo.setCarWeight(carWeight);
 		carinfo.setDriverId(driverId);
-
-		String linetransportId = linetransportService.getLinetransportIdByCity(
-				startPlace, endPlace);// 未实现n
-		carinfo.setLinetransportId(linetransportId);
-
-		carinfo.setId(IdCreator.createCarId());
-		// carinfo.setLinetransportId(linetransportId);
-		carinfo.setLocationType(locationType);
 		carinfo.setPurchaseTime(stringToDate(purchaseTime));
-		carinfo.setRelDate(new Date());
 		carinfo.setStorage(storage);
-		// carinfo.setTerminalId(terminalId);
-
+		carinfo.setStartPlace(startPlace);
+		carinfo.setEndPlace(endPlace);
+		carinfo.setStopPlace(stopPlace);
+		carinfo.setCarrierId(carrierId);
+		carinfo.setRelDate(new Date());
+		
 		carDao.save(carinfo);
 		return true;
 	}
@@ -177,9 +171,9 @@ public class CarServiceImpl implements CarService {
 		// TODO Auto-generated method stub
 		System.out.println("in updateCar");// null
 		carinfo = getCarInfo(id);// 根据id查找到车辆信息
-		carinfo.setTerminalId(terminalId);
 		carinfo.setCarTeam(carTeam);
 		carinfo.setLocationType(locType);
+		carinfo.setTerminalId(terminalId);
 		carinfo.setCarType(carType);
 		carinfo.setCarBase(carBase);
 		carinfo.setCarBrand(carBrand);
@@ -192,8 +186,8 @@ public class CarServiceImpl implements CarService {
 		carinfo.setStorage(storage);
 		carinfo.setDriverId(driverId);
 		carinfo.setStopPlace(stopPlace);
-		
-		System.out.println("set over");// null
+		carinfo.setStartPlace(startPlace);
+		carinfo.setEndPlace(endPlace);
 		carDao.update(carinfo);
 		return true;
 

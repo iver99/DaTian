@@ -666,13 +666,26 @@ public class OrderController {
 	}
 
 	@RequestMapping("updateSignBill")
-	public ModelAndView DoGetOrderWaitToConfirmUpdate(String orderid,
+	public ModelAndView updateSignBill(String orderid,
 			float actualPrice, String explainReason,
-			HttpServletRequest request, HttpServletResponse response,) {
-		// System.out.println("actualPrice+"+actualPrice);
-		// System.out.println("explainReason+"+explainReason);
+			HttpServletRequest request, HttpServletResponse response,@RequestParam(required = false) MultipartFile file) {
+		String carrierId = (String) request.getSession().getAttribute("userId");
+		String path = null;
+		String fileName = null;
+		if (file.getSize() != 0)// 有上传文件的情况
+		{
+			path = UploadPath.getSignBillPath();// 不同的地方取不同的上传路径
+			fileName = file.getOriginalFilename();
+			fileName = carrierId + "_" + fileName;// 文件名
+			File targetFile = new File(path, fileName);
+			try { // 保存 文件
+				file.transferTo(targetFile);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} 
 		boolean flag = orderService.DoGetOrderWaitToConfirmUpdate(orderid,
-				actualPrice, explainReason);
+				actualPrice, explainReason,path,fileName);
 		try {
 			if (flag == true)
 				response.sendRedirect("recieveorderinfo");

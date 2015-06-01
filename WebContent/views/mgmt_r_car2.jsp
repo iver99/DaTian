@@ -182,8 +182,8 @@
                                     <td>
                                         <select style="width:120px;" name="storage">
                                             <option value="" selected="selected">请选择</option>
-                                            <option value="是">是</option>
-                                            <option value="否">否</option>
+                                            <option value="冷藏">是</option>
+                                            <option value="非冷藏">否</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -219,7 +219,7 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
                                     <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" />
-                                    <input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
+                                    <input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
                                 </tr>
                             </table>
                             </

@@ -171,9 +171,9 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public boolean DoGetOrderWaitToConfirmUpdate(String orderId,
-			float actualPrice, String explainReason) {
+			float actualPrice, String explainReason,String path,String fileName) {
 		// TODO Auto-generated method stub
-		return orderDao.signBill(orderId, actualPrice, explainReason);
+		return orderDao.signBill(orderId, actualPrice, explainReason,path,fileName);
 	}
 
 	@Override

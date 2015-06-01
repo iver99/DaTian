@@ -104,14 +104,26 @@
                                     <c:choose>
                                     <c:when test="${linetransportInfo.type == '整车' }">
                        				<td>
-                                        <input name="type" type="radio" value="整车" checked="checked" hidefocus="true" />整车&nbsp;&nbsp;&nbsp;
-                                        <input name="type" type="radio" value="零担" hidefocus="true" />零担
+                                        <input type="checkbox" name="type" id="checkbox" checked="checked" value="整车"/>
+                                        整车&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" name="type" id="checkbox" value="零担"/>
+                                        零担
                                     </td>
                                     </c:when>
                                      <c:when test="${linetransportInfo.type == '零担' }">
                        				<td>
-                                        <input name="type" type="radio" value="整车" hidefocus="true" />整车&nbsp;&nbsp;&nbsp;
-                                        <input name="type" type="radio" value="零担" checked="checked" hidefocus="true" />零担
+                                        <input type="checkbox" name="type" id="checkbox" value="整车"/>
+                                        整车&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" name="type" id="checkbox" checked="checked" value="零担"/>
+                                        零担
+                                    </td>
+                                    </c:when>
+                                    <c:when test="${linetransportInfo.type == '整车,零担' }">
+                       				<td>
+                                        <input type="checkbox" name="type" id="checkbox" checked="checked" value="整车"/>
+                                        整车&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" name="type" id="checkbox" checked="checked" value="零担"/>
+                                        零担
                                     </td>
                                     </c:when>
                                     </c:choose>

@@ -270,24 +270,20 @@ public class CarController {
 	 */
 	public ModelAndView insertCar(@RequestParam String carNum,
 			@RequestParam String carTeam, @RequestParam String locationType,
+			@RequestParam(required = false) String terminalId,
 			@RequestParam String carType, @RequestParam String carBase,
 			@RequestParam String carBrand, @RequestParam String carUse,
 			@RequestParam double carLength, @RequestParam double carWidth,
 			@RequestParam double carHeight, @RequestParam double carWeight,
 			@RequestParam String driverId, @RequestParam String purchaseTime,
 			@RequestParam String storage, @RequestParam String startPlace,
-			@RequestParam String endPlace, HttpServletRequest request,
-			HttpServletResponse response) {
+			@RequestParam String endPlace, @RequestParam String stopPlace,
+			HttpServletRequest request,	HttpServletResponse response) {
 		String carrierId = (String) request.getSession().getAttribute("userId");
-		// String carrierId = "C-0002";// É¾³ý
-		/*
-		 * boolean flag = linetransportService.insertLine(lineName, startPlace,
-		 * endPlace, onWayTime, type, refPrice, remarks,carrierId);
-		 */
-		boolean flag = carService.insertCar(carNum, carTeam, locationType,
+		boolean flag = carService.insertCar(carNum, carTeam, locationType, terminalId,
 				carBase, carBrand, carType, carUse, carLength, carWidth,
 				carHeight, carWeight, driverId, purchaseTime, storage,
-				startPlace, endPlace, carrierId);
+				startPlace, endPlace, stopPlace, carrierId);
 		System.out.println("flag+" + flag);
 		if (flag == true) {
 			try {
@@ -403,7 +399,7 @@ public class CarController {
 			@RequestParam String carNum,
 			@RequestParam String carTeam,
 			@RequestParam String locType,
-			@RequestParam String terminalId,// È±ÉÙ²ÎÊý
+			@RequestParam String terminalId,
 			@RequestParam String carType, @RequestParam String carBase,
 			@RequestParam String carBrand, @RequestParam String carUse,
 			@RequestParam double carLength, @RequestParam double carWidth,
