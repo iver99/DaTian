@@ -224,7 +224,7 @@ public class LinetransportController {
 				e.printStackTrace();
 			}
 		} else
-			mv.setViewName("fail");
+			mv.setViewName("mgmt_r_line");
 		return mv;
 	}
 
@@ -284,7 +284,7 @@ public class LinetransportController {
 				e.printStackTrace();
 			}
 		} else
-			mv.setViewName("fail");
+			mv.setViewName("mgmt_r_line");
 		return mv;
 
 	}
@@ -307,7 +307,7 @@ public class LinetransportController {
 				e.printStackTrace();
 			}
 		} else
-			mv.setViewName("fail");
+			mv.setViewName("mgmt_r_line");
 		return mv;
 
 	}

@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.CommentDao;
+import cn.edu.bjtu.dao.OrderDao;
 import cn.edu.bjtu.service.CommentService;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.vo.Comment;
+import cn.edu.bjtu.vo.Orderform;
 
 @Service
 @Transactional
@@ -25,13 +27,15 @@ public class CommentServiceImpl implements CommentService{
 
 	@Autowired
 	CommentDao commentDao;
+	@Autowired
+	OrderDao orderDao;
 	
 	@Override
 	/**
-	 * 提交评价
+	 * 提交评价,修改订单状态
 	 */
 	public boolean commitComment(String rate1, String rate2, String rate3,
-			String rate4, String remarks, String userId) {
+			String rate4, String remarks, String userId,String orderid) {
 		// TODO Auto-generated method stub
 		Comment comment=new Comment();
 		comment.setId(IdCreator.createAssessId());
@@ -42,6 +46,14 @@ public class CommentServiceImpl implements CommentService{
 		comment.setTransportEfficiency(rate2);
 		comment.setCargoSafety(rate3);
 		comment.setComment(remarks);
+		
+		Orderform order=orderDao.get(Orderform.class, orderid);
+//		Orderform order=orderDao.get
+		if(order!= null){
+			order.setState("已完成");
+			order.setCommentId(comment.getId());
+			orderDao.update(order);
+		}
 		
 		commentDao.save(comment);
 		

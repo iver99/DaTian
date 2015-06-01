@@ -48,14 +48,38 @@ public interface OrderService {
 
 	public boolean DoGetOrderWaitToConfirmUpdate(String orderId,
 			float actualPrice, String explainReason);
-
+	/**
+	 * ÐÂÔö¶©µ¥
+	 * @param userId
+	 * @param hasCarrierContract
+	 * @param deliveryName
+	 * @param receiverName
+	 * @param deliveryPhone
+	 * @param receiverPhone
+	 * @param deliveryAddr
+	 * @param receiverAddr
+	 * @param remarks
+	 * @param goodsName
+	 * @param goodsVolume
+	 * @param goodsWeight
+	 * @param expectedPrice
+	 * @param declaredPrice
+	 * @param insurance
+	 * @param contractId
+	 * @param carrierId
+	 * @param clientWayBillNum
+	 * @param resourceName
+	 * @param resourceType
+	 * @return
+	 */
 	public boolean createNewOrder(String userId, String hasCarrierContract,
 			String deliveryName, String receiverName, String deliveryPhone,
 			String receiverPhone, String deliveryAddr, String receiverAddr,
 			String remarks, String goodsName, float goodsVolume,
 			float goodsWeight, float expectedPrice, float declaredPrice,
-			float insurance, String contractId, String carrierId);
-	
+			float insurance, String contractId, String carrierId,
+			String isLinkToClientWayBill,String clientWayBillNum, String resourceName, String resourceType);
+
 	public List getCargoTrack(String orderNum, String carNum);
 
 }

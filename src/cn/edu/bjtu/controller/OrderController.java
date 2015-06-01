@@ -362,12 +362,7 @@ public class OrderController {
 		// System.out.println("进入order更新控制器");
 		String carrierId = (String) request.getSession().getAttribute("userId");
 		// 字符串拆解
-		/*
-		 * String[] de = delivery.split("/"); String[] re = reciever.split("/");
-		 * String deliveryName = de[0]; String deliveryPhone = de[1]; String
-		 * deliveryAddr = de[2]; String recieverName = re[0]; String
-		 * recieverPhone = re[1]; String recieverAddr = re[2];
-		 */
+		
 		boolean flag = orderService.updateOrder(orderid, clientName,
 				hasCarrierContract, contractId, goodsName, goodsWeight,
 				goodsVolume, declaredPrice, insurance, expectedPrice,
@@ -728,7 +723,8 @@ public class OrderController {
 			String goodsName, float goodsWeight, float goodsVolume,
 			float declaredPrice, float expectedPrice, float insurance,
 			String contractId, HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response,@RequestParam String isLinkToClientWayBill,
+			@RequestParam(required=false) String clientWayBillNum,String resourceName,String resourceType) {
 		// 页面有许多字段没有传入
 		// clientName参数里有，但是没有使用
 		String userId = (String) request.getSession().getAttribute("userId");
@@ -737,7 +733,7 @@ public class OrderController {
 				deliveryName, recieverName, deliveryPhone, recieverPhone,
 				deliveryAddr, recieverAddr, remarks, goodsName, goodsVolume,
 				goodsWeight, expectedPrice, declaredPrice, insurance,
-				contractId, carrierid);
+				contractId, carrierid,isLinkToClientWayBill,clientWayBillNum,resourceName,resourceType);
 		if (flag == true) {
 			// mv.setViewName("mgmt_d_order_s");
 			try {

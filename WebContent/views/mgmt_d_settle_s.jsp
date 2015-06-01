@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-  
+<% int userKind=(Integer)session.getAttribute("userKind"); %> 
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -24,26 +24,7 @@
 
 <body onload="OnLoad()">
 
-<div id="backtop_item">
-    <div class="qqserver">
-        <div class="qqserver_fold">
-            <div></div>
-        </div>
-        <div class="qqserver-body" style="display:block;">
-            <div class="qqserver-header">
-                <div>在线客服</div>
-                <span class="qqserver_arrow"></span>
-            </div>
-            <a href="javascript:;" onclick="window.open('http://b.qq.com/webc.htm?new=0&sid=11223344&o=abc.com&q=1', '_blank')" hidefocus="true">咨询提问</a>
-            <a href="javascript:;" hidefocus="true">意见建议</a>
-            <div class="qqserver_comment" onclick="showid('popup1');" hidefocus="true">
-                给我留言
-            </div>
-            <a href="javascript:;" class="a1" hidefocus="true">查看历史记录</a>
-        </div>
-    </div>
-    <a id="backtop" onclick="return false;" title="回到顶部"></a> 
-</div>
+<%@ include file="qq.jsp"%>
 
 <%@ include  file="topFrame.jsp"%>
 
@@ -55,20 +36,20 @@
                 <div id="main_frame_left">
                     <span class="text_mgmt_leftnav1"><span id="mgmt_nav_switch1a" class="span_mgmt_nav1" title="收起" onclick="mgmt_nav_switch1a();"></span><span id="mgmt_nav_switch1b" class="span_mgmt_nav2" title="展开" onclick="mgmt_nav_switch1b();"></span>我的交易</span>
                     <div id="mgmt_nav1">
-						<% if((Integer)session.getAttribute("userKind") ==2) {%><!-- 普通用户 -->
+						<% if(userKind==2) {%><!-- 普通用户 -->
                         <a href="getallfocus" class="a_mgmt_leftnav" hidefocus="true">我的关注</a>
                         <%} %>
-                       	<% if((Integer)session.getAttribute("userKind") ==3) {%><!-- 企业用户 -->
+                       	<% if(userKind==3) {%><!-- 企业用户 -->
                         <a href="getallresponse" class="a_mgmt_leftnav" hidefocus="true">我的反馈</a>
                          <%} %>
-                      <% if((Integer)session.getAttribute("userKind") ==2) {%> <!-- 普通用户 -->
+                      <% if(userKind==2) {%> <!-- 普通用户 -->
                         <a href="sendorderinfo" class="a_mgmt_leftnav" hidefocus="true">我提交的订单</a>
                       <%} %>
-                      <% if((Integer)session.getAttribute("userKind") ==3) {%><!-- 企业用户 -->
+                      <% if(userKind==3) {%><!-- 企业用户 -->
                         <a href="recieveorderinfo" class="a_mgmt_leftnav" hidefocus="true">我收到的订单</a>
                        <%} %>
                         <a href="mysettlement" class="a_mgmt_leftnav1" hidefocus="true">我的结算</a>
-                        <% if((Integer)session.getAttribute("userKind") ==2) {%>  <!-- 普通用户 -->
+                        <% if(userKind==2) {%>  <!-- 普通用户 -->
                         <a href="mycomplaint" class="a_mgmt_leftnav" hidefocus="true">我的投诉</a>
                        <%} %>
 						</div>
@@ -79,21 +60,25 @@
 </div>
 			</td>
 			<td class="td_leftnav_top">
+			
+			 <form action="findsettlement" method="post">	      
             	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right2">
                     <tr>
                     	<td>
                         	<span class="span_mgmt_right2_text1">我的结算(需求方)</span>
                             <span class="span_mgmt_right2_text2"><a href="javascript:;" hidefocus="true" class="a_btn_mgmt4">批量生成对账单</a></span>
                             <div class="div_mgmt_s1">
-                                <input type="text" class="input_date1" onclick="SelectDate(this,'yyyy-MM-dd')" value="开始时间" readonly="readonly" title="点击选择" />
+                                <!-- <input type="text" class="input_date1" onclick="SelectDate(this,'yyyy-MM-dd')" value="开始时间" readonly="readonly" title="点击选择" />
                                 &nbsp;&nbsp;至&nbsp;&nbsp;
                                 <input type="text" class="input_date1" onclick="SelectDate(this,'yyyy-MM-dd')" value="结束时间" readonly="readonly" title="点击选择" />
-                                &nbsp;&nbsp;<input type="text" class="input_mgmt1" style="width:180px;" placeholder="承运方名称或承运方合同编号..." />
-                                <input type="button" id="btn1" value="查询" class="btn_mgmt3" hidefocus="true" />
+                                &nbsp;&nbsp; -->
+                                <input type="text" class="input_mgmt1" style="width:180px;" value="承运方名称或承运方合同编号" name="name"/>
+                                <input type="submit" id="btn1" value="查询" class="btn_mgmt3" hidefocus="true" />
                             </div>
                         </td>
                 	</tr>
             	</table>
+            	</form>
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
                     <tr>
                         <td width="30" height="40" class="td_mgmt_right3_head1"><input type="checkbox" id="f1_all" onClick="selectall();" /></td>

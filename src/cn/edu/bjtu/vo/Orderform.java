@@ -52,7 +52,42 @@ public class Orderform implements java.io.Serializable {
 	private String cancelReason;
 	
 	private String settlementState;
+	// add by RussWest0 at 2015年5月31日,下午11:34:05 
+	private String isLinkToClientWayBill;
+	private String clientWayBillNum;
+	private String resourceName;
 	
+	
+
+	public String getResourceName() {
+		return resourceName;
+	}
+
+
+	public void setResourceName(String resourceName) {
+		this.resourceName = resourceName;
+	}
+
+
+	public String getIsLinkToClientWayBill() {
+		return isLinkToClientWayBill;
+	}
+
+
+	public void setIsLinkToClientWayBill(String isLinkToClientWayBill) {
+		this.isLinkToClientWayBill = isLinkToClientWayBill;
+	}
+
+
+	public String getClientWayBillNum() {
+		return clientWayBillNum;
+	}
+
+
+	public void setClientWayBillNum(String clientWayBillNum) {
+		this.clientWayBillNum = clientWayBillNum;
+	}
+
 
 	public String getSettlementState() {
 		return settlementState;

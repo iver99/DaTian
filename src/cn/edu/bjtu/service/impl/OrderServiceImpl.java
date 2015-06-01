@@ -185,7 +185,7 @@ public class OrderServiceImpl implements OrderService {
 			String receiverPhone, String deliveryAddr, String receiverAddr,
 			String remarks, String goodsName, float goodsVolume,
 			float goodsWeight, float expectedPrice, float declaredPrice,
-			float insurance, String contractId, String carrierId) {
+			float insurance, String contractId, String carrierId,String isLinkToClientWayBill,String clientWayBillNum, String resourceName, String resourceType) {
 		// TODO Auto-generated method stub
 		// 解析字符串
 		/*String[] se = senderInfo.split("/");
@@ -196,12 +196,17 @@ public class OrderServiceImpl implements OrderService {
 		String receiverName = re[0];
 		String receiverPhone = re[1];
 		String receiverAddr = re[2];*/
-
+		String[] temp={"无"," "};//默认情况
+		if(isLinkToClientWayBill.contains(",")){
+			temp=isLinkToClientWayBill.split(",");
+		}
+		
+		
 		return orderDao.createNewOrder(userId, hasCarrierContract, remarks,
 				goodsName, goodsVolume, goodsWeight, expectedPrice,
 				declaredPrice, insurance, contractId, deliveryName,
 				deliveryPhone, deliveryAddr, receiverName, receiverPhone,
-				receiverAddr, carrierId);
+				receiverAddr, carrierId,temp[0],temp[1],resourceName,resourceType);
 
 	}
 

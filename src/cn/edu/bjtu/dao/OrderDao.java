@@ -34,7 +34,7 @@ public interface OrderDao extends BaseDao<Orderform> {
 			String goodsName,float goodsVolume,float goodsWeight,float expectedPrice,
 			float declaredPrice,float insurance,String contractId,String deliveryName,
 			String deliveryPhone,String deliveryAddr,String receiverName,String receiverPhone,
-			String receiverAddr,String carrierId);
+			String receiverAddr,String carrierId,String isLinkToClientWayBill,String clientWayBillNum, String resourceName, String resourceType);
 	public List getCargoTrack(String orderNum, String carNum);
 	
 	

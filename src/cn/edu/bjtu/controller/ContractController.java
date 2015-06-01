@@ -148,7 +148,7 @@ public class ContractController {
 				e.printStackTrace();
 			}
 		} else
-			mv.setViewName("fail");
+			mv.setViewName("mgmt_r_contact_s");
 		return mv;
 	}
 	@RequestMapping(value="shutdownContract",method = RequestMethod.POST)

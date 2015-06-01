@@ -29,26 +29,7 @@
 
 <body onload="OnLoad()">
 
-<div id="backtop_item">
-    <div class="qqserver">
-        <div class="qqserver_fold">
-            <div></div>
-        </div>
-        <div class="qqserver-body" style="display:block;">
-            <div class="qqserver-header">
-                <div>在线客服</div>
-                <span class="qqserver_arrow"></span>
-            </div>
-            <a href="javascript:;" onclick="window.open('http://b.qq.com/webc.htm?new=0&sid=11223344&o=abc.com&q=1', '_blank')" hidefocus="true">咨询提问</a>
-            <a href="javascript:;" hidefocus="true">意见建议</a>
-            <div class="qqserver_comment" onclick="showid('popup1');" hidefocus="true">
-                给我留言
-            </div>
-            <a href="javascript:;" class="a1" hidefocus="true">查看历史记录</a>
-        </div>
-    </div>
-    <a id="backtop" onclick="return false;" title="回到顶部"></a> 
-</div>
+<%@ include file="qq.jsp"%>
 
 <%@ include  file="topFrame.jsp"%>
 
@@ -112,13 +93,13 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">关联客户运单：</td>
                                     <td>
-                                        <select id="psource" style="width:120px;" onchange="change2();">
+                                        <select id="psource" style="width:120px;" onchange="change2();" name="isLinkToClientWayBill">
                                             <option value="" selected="selected">请选择</option>
                                             <option value="有">有</option>
                                             <option value="无">无</option>
                                         </select>
                                         <div id="p_detail" style="display:none;">
-                                            <input type="text" class="input_mgmt1" style="width:176px;" placeholder="请输入客户运单号..." />
+                                            <input type="text" name="isLinkToClientWayBill" class="input_mgmt1" style="width:176px;" placeholder="请输入客户运单号..." />
                                         </div>
                                     </td>
                                 </tr>
@@ -149,31 +130,31 @@
 			                        <c:when test="${resourceType == '1' }">
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">资源分类：</td>
-									<td>线路</td>
+                                    <td><input name="resourceType" type="text" readonly="readonly" value="线路"/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">资源名称：</td>
-									<td>${linetransportInfo.startPlace }→${linetransportInfo.endPlace }</td>
+                                   <td> <input name="resourceName" type="text" readonly="readonly" value="${linetransportInfo.startPlace }→${linetransportInfo.endPlace }"/></td>
                                 </tr>
                                 </c:when>
 			                    <c:when test="${resourceType == '2' }">
 			                    <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">资源分类：</td>
-									<td>城市配送</td>
+                                    <td><input name="resourceType" type="text" readonly="readonly" value="城市配送"/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">资源名称：</td>
-									<td>${citylineInfo.name }</td>
+                                    <td><input name="resourceName" type="text" readonly="readonly" value="${citylineInfo.name }"/></td>
                                 </tr>
 			                    </c:when>
 			                    <c:when test="${resourceType == '3' }">
 			                    <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">资源分类：</td>
-									<td>车辆</td>
+                                    <td><input name="resourceType" type="text" readonly="readonly" value="车辆"/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">资源名称：</td>
-									<td>${carInfo.carNum }</td>
+                                    <td><input name="resourceName" type="text" readonly="readonly" value="${carInfo.carNum }"/></td>
                                 </tr>
 			                    </c:when>
 			                    </c:choose>
@@ -245,9 +226,9 @@
                                 </tr>
                                 <tr>
                                     <td height="20" class="td_mgmt_right3_td1b">&nbsp;</td>
-                                    <td><input type="checkbox" />&nbsp;加入常用发货地址(未实现)</td>
+                                    <td><input type="checkbox" />&nbsp;加入常用发货地址</td>
                                     <td class="td_mgmt_right3_td1b">&nbsp;</td>
-                                    <td><input type="checkbox" />&nbsp;加入常用收货地址(未实现)</td>
+                                    <td><input type="checkbox" />&nbsp;加入常用收货地址</td>
                                 </tr>
                             </table>
                             <div class="span_mgmt_right3_text4">备注信息</div>      	          

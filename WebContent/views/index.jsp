@@ -39,8 +39,8 @@
                 <div>在线客服</div>
                 <span class="qqserver_arrow"></span>
             </div>
-            <a href="javascript:;" onclick="window.open('http://b.qq.com/webc.htm?new=0&sid=11223344&o=abc.com&q=1', '_blank')" hidefocus="true">咨询提问</a>
-            <a href="javascript:;" hidefocus="true">意见建议</a>
+           <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=2509129180&site=qq&menu=yes" hidefocus="true">咨询提问</a>
+            <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=2509129180&site=qq&menu=yes" hidefocus="true">意见建议</a>
             <div class="qqserver_comment" onclick="showid('popup1');" hidefocus="true">
                 给我留言
             </div>
@@ -166,7 +166,7 @@
         <tr>
             <td width="510"><div class="div_popup_title1">留言历史</div></td>
             <td>
-                <div id="close_2" style="cursor:pointer;"><img src="images/btn_cancel1.png" title="关闭本窗口" /></div>
+                <div id="close2" style="cursor:pointer;"><img src="images/btn_cancel1.png" title="关闭本窗口" /></div>
             </td>
         </tr>
     </table>

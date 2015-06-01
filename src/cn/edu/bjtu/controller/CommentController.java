@@ -1,5 +1,8 @@
 package cn.edu.bjtu.controller;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,17 +28,35 @@ public class CommentController {
 	ModelAndView mv=new ModelAndView();
 	
 	@RequestMapping("/commitcomment")
+	/**
+	 * Ìá½»ÆÀÂÛ
+	 * @param session
+	 * @param rate1
+	 * @param rate2
+	 * @param rate3
+	 * @param rate4
+	 * @param remarks
+	 * @return
+	 */
 	public ModelAndView commitComment(HttpSession session ,
 			String rate1,String rate2,String rate3,String rate4,
-			String remarks)
+			String remarks,String orderid,HttpServletResponse response)
 	{
 		String userId=(String)session.getAttribute("userId");
 		if(userId==null)//Î´µÇÂ¼
 		{
 			mv.setViewName("login");
 		}
-		boolean flag=commentService.commitComment(rate1,rate2,rate3,rate4,remarks,userId);
-		
+		boolean flag=commentService.commitComment(rate1,rate2,rate3,rate4,remarks,userId,orderid);
+		if(flag==true){
+			try {
+				response.sendRedirect("sendorderinfo");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+			
 		mv.setViewName("mgmt_d_order_s");
 		return mv;
 		

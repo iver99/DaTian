@@ -123,7 +123,7 @@ public class BusinessClientController {
 				e.printStackTrace();
 			}
 		} else
-			mv.setViewName("fail");
+			mv.setViewName("mgmt_r_customer");
 		return mv;
 	}
 	/**
@@ -187,7 +187,7 @@ public class BusinessClientController {
 				e.printStackTrace();
 			}
 		} else
-			mv.setViewName("fail");
+			mv.setViewName("mgmt_r_customer");
 		return mv;
 	}
 
@@ -209,7 +209,7 @@ public class BusinessClientController {
 				e.printStackTrace();
 			}
 		} else
-			mv.setViewName("fail");
+			mv.setViewName("mgmt_r_customer");
 		return mv;
 	}
 	

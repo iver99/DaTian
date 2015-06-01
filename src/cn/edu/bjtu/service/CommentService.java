@@ -20,7 +20,7 @@ public interface CommentService {
 	 * @param userId
 	 * @return
 	 */
-	public boolean commitComment(String rate1,String rate2,String rate3,String rate4,String remarks,String userId);
+	public boolean commitComment(String rate1,String rate2,String rate3,String rate4,String remarks,String userId,String orderid);
 
 	/**
 	 * 根据carrierid得到公司干线评论

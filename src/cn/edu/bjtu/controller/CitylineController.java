@@ -219,7 +219,7 @@ public class CitylineController {
 				e.printStackTrace();
 			}
 		} else
-			mv.setViewName("fail");
+			mv.setViewName("mgmt_r_line");
 		return mv;
 	}
 
@@ -285,7 +285,7 @@ public class CitylineController {
 				e.printStackTrace();
 			}
 		} else
-			mv.setViewName("fail");
+			mv.setViewName("mgmt_r_line");
 		return mv;
 
 	}
@@ -313,7 +313,7 @@ public class CitylineController {
 				e.printStackTrace();
 			}
 		} else
-			mv.setViewName("fail");
+			mv.setViewName("mgmt_r_line");
 		return mv;
 
 	}

@@ -278,7 +278,6 @@ public class CarController {
 			@RequestParam String storage, @RequestParam String startPlace,
 			@RequestParam String endPlace, HttpServletRequest request,
 			HttpServletResponse response) {
-		System.out.println("进入控制器");
 		String carrierId = (String) request.getSession().getAttribute("userId");
 		// String carrierId = "C-0002";// 删除
 		/*
@@ -303,7 +302,7 @@ public class CarController {
 				e.printStackTrace();
 			}
 		} else
-			mv.setViewName("fail");
+			mv.setViewName("mgmt_r_car");
 		return mv;
 	}
 
@@ -329,7 +328,6 @@ public class CarController {
 			@RequestParam String licenceTime,
 
 			HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("进入driver控制器insert");
 		String carrierId = (String) request.getSession().getAttribute("userId");
 		// String carrierId = "C-0002";// 删除
 		// ////////////////////////////////////////////////////////////////////////
@@ -370,7 +368,7 @@ public class CarController {
 				e.printStackTrace();
 			}
 		} else
-			mv.setViewName("fail");
+			mv.setViewName("mgmt_r_driver");
 		return mv;
 	}
 
@@ -437,7 +435,7 @@ public class CarController {
 				e.printStackTrace();
 			}
 		} else
-			mv.setViewName("fail");
+			mv.setViewName("mgmt_r_car");
 		return mv;
 
 	}
@@ -505,7 +503,7 @@ public class CarController {
 				e.printStackTrace();
 			}
 		} else
-			mv.setViewName("fail");
+			mv.setViewName("mgmt_r_driver");
 		return mv;
 	}
 
@@ -532,7 +530,7 @@ public class CarController {
 				e.printStackTrace();
 			}
 		} else
-			mv.setViewName("fail");
+			mv.setViewName("mgmt_r_car");
 		return mv;
 
 	}
@@ -560,7 +558,7 @@ public class CarController {
 				e.printStackTrace();
 			}
 		} else
-			mv.setViewName("fail");
+			mv.setViewName("mgmt_r_driver");
 		return mv;
 
 	}
@@ -627,7 +625,7 @@ public class CarController {
 				e.printStackTrace();
 			}
 		} else
-			mv.setViewName("fail");
+			mv.setViewName("mgmt_r_car");
 		return mv;
 	}
 
@@ -651,7 +649,7 @@ public class CarController {
 				e.printStackTrace();
 			}
 		} else
-			mv.setViewName("fail");
+			mv.setViewName("mgmt_r_car");
 		return mv;
 
 	}
@@ -679,7 +677,7 @@ public class CarController {
 				e.printStackTrace();
 			}
 		} else
-			mv.setViewName("fail");
+			mv.setViewName("mgmt_r_car");
 		return mv;
 	}
 	

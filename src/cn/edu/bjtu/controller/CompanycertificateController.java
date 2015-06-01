@@ -93,7 +93,7 @@ public class CompanycertificateController {
 				e.printStackTrace();
 			}
 		}
-		else mv.setViewName("fail");
+		else mv.setViewName("mgmt_a_info");
 		return mv;
 	}
 	
@@ -209,7 +209,7 @@ public class CompanycertificateController {
 				e.printStackTrace();
 			}
 		}
-		else mv.setViewName("fail");
+		else mv.setViewName("mgmt_a_info");
 		return mv;
 	}
 }

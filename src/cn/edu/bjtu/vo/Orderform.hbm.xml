@@ -116,5 +116,14 @@
         <property name="settlementState" type="string">
             <column name="settlementState" />
         </property> 
+        <property name="clientWayBillNum" type="string">
+            <column name="clientWayBillNum" />
+        </property> 
+        <property name="isLinkToClientWayBill" type="string">
+            <column name="isLinkToClientWayBill" />
+        </property> 
+        <property name="resourceName" type="string">
+            <column name="resourceName" />
+        </property> 
     </class>
 </hibernate-mapping>

@@ -50,6 +50,37 @@ public class OrderCarrierView implements java.io.Serializable {
 	private String clientName;
 	private String cancelReason;
 
+	
+	// add by RussWest0 at 2015年5月31日,下午11:34:05 
+		private String isLinkToClientWayBill;
+		private String clientWayBillNum;
+		private String resourceName;
+		
+		
+	public String getIsLinkToClientWayBill() {
+			return isLinkToClientWayBill;
+		}
+
+		public void setIsLinkToClientWayBill(String isLinkToClientWayBill) {
+			this.isLinkToClientWayBill = isLinkToClientWayBill;
+		}
+
+		public String getClientWayBillNum() {
+			return clientWayBillNum;
+		}
+
+		public void setClientWayBillNum(String clientWayBillNum) {
+			this.clientWayBillNum = clientWayBillNum;
+		}
+
+		public String getResourceName() {
+			return resourceName;
+		}
+
+		public void setResourceName(String resourceName) {
+			this.resourceName = resourceName;
+		}
+
 	public String getCancelReason() {
 		return cancelReason;
 	}

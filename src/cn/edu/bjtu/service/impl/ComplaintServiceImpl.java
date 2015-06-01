@@ -67,7 +67,7 @@ public class ComplaintServiceImpl implements ComplaintService{
 		complaintform.setRelDate(new Date());
 		// add by RussWest0 at 2015年5月30日,下午10:05:22 
 		complaintform.setOrderId(orderNum);
-		
+		complaintform.setState("受理中");
 		complaintDao.save(complaintform);
 		return true;
 	

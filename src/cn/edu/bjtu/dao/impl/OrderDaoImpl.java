@@ -178,7 +178,7 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 			float goodsWeight, float expectedPrice, float declaredPrice,
 			float insurance, String contractId, String deliveryName,
 			String deliveryPhone, String deliveryAddr, String receiverName,
-			String receiverPhone, String receiverAddr,String carrierId) {
+			String receiverPhone, String receiverAddr,String carrierId,String isLinkToClientWayBill,String clientWayBillNum, String resourceName, String resourceType) {
 		// TODO Auto-generated method stub
 		Orderform order=new Orderform();
 		order.setClientId(userId);
@@ -197,6 +197,11 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 		order.setRecieverAddr(receiverAddr);
 		order.setRecieverName(receiverName);
 		order.setRecieverPhone(receiverPhone);
+		// add by RussWest0 at 2015年6月1日,上午12:46:08 
+		order.setIsLinkToClientWayBill(isLinkToClientWayBill);
+		order.setClientWayBillNum(clientWayBillNum);
+		order.setResourceName(resourceName);
+		order.setResourceType(resourceType);
 		
 		order.setSubmitTime(new Date());
 		order.setId(IdCreator.createOrderId());

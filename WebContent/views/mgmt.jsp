@@ -31,26 +31,7 @@
 </head>
 
 <body>
-<div id="backtop_item">
-    <div class="qqserver">
-        <div class="qqserver_fold">
-            <div></div>
-        </div>
-        <div class="qqserver-body" style="display:block;">
-            <div class="qqserver-header">
-                <div>在线客服</div>
-                <span class="qqserver_arrow"></span>
-            </div>
-            <a href="javascript:;" onclick="window.open('http://b.qq.com/webc.htm?new=0&sid=11223344&o=abc.com&q=1', '_blank')" hidefocus="true">咨询提问</a>
-            <a href="javascript:;" hidefocus="true">意见建议</a>
-            <div class="qqserver_comment" onclick="showid('popup1');" hidefocus="true">
-                给我留言
-            </div>
-            <a href="javascript:;" class="a1" hidefocus="true">查看历史记录</a>
-        </div>
-    </div>
-    <a id="backtop" onclick="return false;" title="回到顶部"></a> 
-</div>
+<%@ include file="qq.jsp"%>
 
 <%@ include  file="topFrame.jsp"%>
 <div id="main_frame">
@@ -75,6 +56,8 @@
                                 <span class="span_mgmt_right1_text1"><%=request.getSession().getAttribute("username") %>，欢迎您！<br /><img src="images/btn_level1a.png" /></span>
                             </div>
                         	<div class="div_mgmt_index2">
+
+</body>
                                 <div class="div_mgmt_index2a">
                                 	 本月已结算金额 (元)
                                      <a href="mysettlement" class="a_mgmt_right1_text2a" hidefocus="true">130,992.00</a>
@@ -168,6 +151,4 @@
 <div id="footer_frame">
 	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="views/footer.jsp"></iframe>
 </div>
-
-</body>
 </html>
