@@ -35,14 +35,14 @@ public class CompanyServiceImpl implements CompanyService{
 		return companyDao.getAllCompany(Display,PageNow);
 	}
 
-	@Override
-	/**
+	/*@Override
+	*//**
 	 * 返回公司信息
-	 */
+	 *//*
 	public Carrierinfo getCarrierInfo(String id) {
 		// TODO Auto-generated method stub
 		return companyDao.getCarrierInfo(id);
-	}
+	}*/
 	
 	@Override
 	/**
@@ -181,5 +181,13 @@ public class CompanyServiceImpl implements CompanyService{
 	public List getwarehouseByCarrierId(String id){
 		return companyDao.getwarehouseByCarrierId(id);
 	}
+
+	@Override
+	public Carrierinfo getCompanyById(String carrierId) {
+		// TODO Auto-generated method stub
+		return companyDao.get(Carrierinfo.class, carrierId);
+	}
+	
+	
 	
 }

@@ -33,15 +33,15 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 	public List getAllSendOrderInfo(String userId) {
 		// TODO Auto-generated method stub
 		// System.out.println("dao-userid+"+userId);
-		return ht.find("from OrderCarrierView where clientId='" + userId + "'");
+		//return ht.find("from OrderCarrierView where clientId='" + userId + "'");
+		return this.find("from OrderCarrierView where clientId='"+userId+"'");
 
 	}
 
 	@Override
 	public List getAllRecieveOrderInfo(String userId) {
 		// TODO Auto-generated method stub
-		return ht
-				.find("from OrderCarrierView where carrierId='" + userId + "'");
+		return this.find("from OrderCarrierView where carrierId='" + userId + "'");
 	}
 
 	@Override
@@ -113,12 +113,18 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 	/**
 	 * 承运方修改订单状态为待确认
 	 */
-	public boolean signBill(String orderId,float actualPrice,String explainReason) {
+	public boolean signBill(String orderId,float actualPrice,String explainReason,String path,String fileName) {
 		// TODO Auto-generated method stub
+		
 		Orderform order = (Orderform) ht.get(Orderform.class, orderId);
 		order.setState("待确认");//修改 订单状态
 		order.setActualPrice(actualPrice);
 		order.setExplainReason(explainReason);
+		// 保存文件路径
+				if (path != null && fileName != null) {
+					String fileLocation = path + "//" + fileName;
+					order.setAcceptPicture(fileLocation);
+				}
 		this.update(order);
 		return true;
 	}
@@ -178,7 +184,7 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 			float goodsWeight, float expectedPrice, float declaredPrice,
 			float insurance, String contractId, String deliveryName,
 			String deliveryPhone, String deliveryAddr, String receiverName,
-			String receiverPhone, String receiverAddr,String carrierId,String isLinkToClientWayBill,String clientWayBillNum, String resourceName, String resourceType) {
+			String receiverPhone, String receiverAddr,String carrierId,String isLinkToClientWayBill,String clientWayBillNum, String resourceName, String resourceType,String companyName) {
 		// TODO Auto-generated method stub
 		Orderform order=new Orderform();
 		order.setClientId(userId);
@@ -203,6 +209,7 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 		order.setResourceName(resourceName);
 		order.setResourceType(resourceType);
 		
+		
 		order.setSubmitTime(new Date());
 		order.setId(IdCreator.createOrderId());
 		order.setOrderNum(IdCreator.createOrderNum());
@@ -210,6 +217,7 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 		//order.setClientName(clientName);
 		//order.setResourceType(resourceType);
 		order.setState("待受理");//订单状态
+		order.setCompanyName(companyName);
 		
 		this.save(order);
 		return true;

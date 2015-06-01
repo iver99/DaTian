@@ -108,7 +108,7 @@ public class LinetransportController {
 		List focusList = focusService.getFocusList(userId,"linetransport");
 		mv.addObject("focusList", focusList);
 		if (flag == 0) {
-			Carrierinfo carrierInfo = companyService.getCarrierInfo(carrierId);
+			Carrierinfo carrierInfo = companyService.getCompanyById(carrierId);
 			//此处需要获取到干线评价详情 
 			// add by RussWest0 at 2015年5月30日,上午9:19:53 
 			List<Comment> commentList=commentService.getLinetransportCommentById(linetransportid,carrierId);
@@ -321,19 +321,18 @@ public class LinetransportController {
 		Linetransport linetransportInfo = linetransportService.getLinetransportInfo(id);
 		try {
 			String file = linetransportInfo.getDetailPrice();
-			/*File tempFile =new File(file.trim());  	          
-	        String fileName = tempFile.getName();  			*/
+			File tempFile =new File(file.trim());  	          
+	        String fileName = tempFile.getName();  			
 			InputStream is = new FileInputStream(file);
 			response.reset(); // 必要地清除response中的缓存信息
 			response.setHeader("Content-Disposition", "attachment; filename="
-					+ file);
+					+ java.net.URLEncoder.encode(fileName, "UTF-8"));
 			javax.servlet.ServletOutputStream out = response.getOutputStream();
 			byte[] content = new byte[1024];
 			int length = 0;
 			while ((length = is.read(content)) != -1) {
 				out.write(content, 0, length);
 			}
-			out.write(content);
 			out.flush();
 			out.close();
 		} catch (Exception e) {

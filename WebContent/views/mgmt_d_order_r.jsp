@@ -96,9 +96,9 @@
                     <tr>
                         <td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
                         <td class="td_mgmt_right3_td1"><a href="getOrderDetail?orderid=${orderinfo.id }" hidefocus="true">${orderinfo.orderNum }</a></td>
-                        <td class="td_mgmt_right3_td1">线路</td>
-                        <td class="td_mgmt_right3_td1"><a href="resource_detail1.htm" class="link1" hidefocus="true">北京→上海</a></td>
-                        <td class="td_mgmt_right3_td1"><a href="javascript:;" class="link1" hidefocus="true">北京大田(未实现)</a></td>
+                        <td class="td_mgmt_right3_td1">${orderinfo.resourceType }</td>
+                        <td class="td_mgmt_right3_td1"><a href="resource_detail1.htm" class="link1" hidefocus="true">${orderinfo.resourceName }</a></td>
+                        <td class="td_mgmt_right3_td1"><a href="javascript:;" class="link1" hidefocus="true">${orderinfo.carrierName }</a></td>
                         <td class="td_mgmt_right3_td1">${orderinfo.expectedPrice }</td>
                         <td class="td_mgmt_right3_td1">${orderinfo.actualPrice}</td>
                         <td class="td_mgmt_right3_td1">${orderinfo.submitTime }<br />

@@ -56,8 +56,19 @@ public class Orderform implements java.io.Serializable {
 	private String isLinkToClientWayBill;
 	private String clientWayBillNum;
 	private String resourceName;
+	private String companyName;
 	
 	
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
 
 	public String getResourceName() {
 		return resourceName;

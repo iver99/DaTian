@@ -1,6 +1,5 @@
 package cn.edu.bjtu.service.impl;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -8,14 +7,11 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import cn.edu.bjtu.dao.BaseDao;
 import cn.edu.bjtu.dao.OrderDao;
 import cn.edu.bjtu.service.OrderService;
 import cn.edu.bjtu.util.IdCreator;
-import cn.edu.bjtu.vo.Goodsform;
 import cn.edu.bjtu.vo.OrderCarrierView;
 import cn.edu.bjtu.vo.Orderform;
-import cn.edu.bjtu.vo.Track;
 
 /**
  * 
@@ -54,11 +50,11 @@ public class OrderServiceImpl implements OrderService {
 		// TODO Auto-generated method stub
 		return orderDao.getRecieveOrderDetail(id);
 	}
-	
+
 	@Override
 	public List getCargoTrack(String orderNum, String carNum) {
 		// TODO Auto-generated method stub
-		return orderDao.getCargoTrack(orderNum,carNum);
+		return orderDao.getCargoTrack(orderNum, carNum);
 	}
 
 	@Override
@@ -120,9 +116,10 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public boolean signBill(String orderId, float actualPrice,
-			String explainReason) {
+			String explainReason,String path,String fileName) {
 		// TODO Auto-generated method stub
-		return orderDao.signBill(orderId, actualPrice, explainReason);
+		
+		return orderDao.signBill(orderId, actualPrice, explainReason,path,fileName);
 	}
 
 	@Override
@@ -185,28 +182,21 @@ public class OrderServiceImpl implements OrderService {
 			String receiverPhone, String deliveryAddr, String receiverAddr,
 			String remarks, String goodsName, float goodsVolume,
 			float goodsWeight, float expectedPrice, float declaredPrice,
-			float insurance, String contractId, String carrierId,String isLinkToClientWayBill,String clientWayBillNum, String resourceName, String resourceType) {
+			float insurance, String contractId, String carrierId,
+			String isLinkToClientWayBill, String clientWayBillNum,
+			String resourceName, String resourceType, String companyName) {
 		// TODO Auto-generated method stub
-		// 解析字符串
-		/*String[] se = senderInfo.split("/");
-		String[] re = receiverInfo.split("/");
-		String deliveryName = se[0];
-		String deliveryPhone = se[1];
-		String deliveryAddr = se[2];
-		String receiverName = re[0];
-		String receiverPhone = re[1];
-		String receiverAddr = re[2];*/
-		String[] temp={"无"," "};//默认情况
-		if(isLinkToClientWayBill.contains(",")){
-			temp=isLinkToClientWayBill.split(",");
+		String[] temp = { "无", " " };// 默认情况
+		if (isLinkToClientWayBill.contains(",")) {
+			temp = isLinkToClientWayBill.split(",");
 		}
-		
-		
+
 		return orderDao.createNewOrder(userId, hasCarrierContract, remarks,
 				goodsName, goodsVolume, goodsWeight, expectedPrice,
 				declaredPrice, insurance, contractId, deliveryName,
 				deliveryPhone, deliveryAddr, receiverName, receiverPhone,
-				receiverAddr, carrierId,temp[0],temp[1],resourceName,resourceType);
+				receiverAddr, carrierId, temp[0], temp[1], resourceName,
+				resourceType,companyName);
 
 	}
 

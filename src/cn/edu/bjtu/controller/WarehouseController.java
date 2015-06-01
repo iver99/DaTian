@@ -93,7 +93,7 @@ public class WarehouseController {
 		mv.addObject("focusList", focusList);
 		mv.addObject("warehouseInfo", warehouseInfo);
 		if (flag == 0) {// 对应资源栏仓库详情
-			Carrierinfo carrierInfo = companyService.getCarrierInfo(carrierId);
+			Carrierinfo carrierInfo = companyService.getCompanyById(carrierId);
 			List<Comment> commentList=commentService.getWarehouseCommentById(warehouseid,carrierId);
 			mv.addObject("commentList",commentList);
 			mv.addObject("carrierInfo", carrierInfo);

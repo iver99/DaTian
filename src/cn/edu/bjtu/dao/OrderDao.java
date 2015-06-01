@@ -20,7 +20,7 @@ public interface OrderDao extends BaseDao<Orderform> {
 	
 	public float getExpectedMoney(String orderId);
 	
-	public boolean signBill(String orderId,float actualPrice,String explainReason);
+	public boolean signBill(String orderId,float actualPrice,String explainReason,String path,String fileName);
 	
 	public Orderform getOrderInfo(String orderId);
 	
@@ -34,7 +34,7 @@ public interface OrderDao extends BaseDao<Orderform> {
 			String goodsName,float goodsVolume,float goodsWeight,float expectedPrice,
 			float declaredPrice,float insurance,String contractId,String deliveryName,
 			String deliveryPhone,String deliveryAddr,String receiverName,String receiverPhone,
-			String receiverAddr,String carrierId,String isLinkToClientWayBill,String clientWayBillNum, String resourceName, String resourceType);
+			String receiverAddr,String carrierId,String isLinkToClientWayBill,String clientWayBillNum, String resourceName, String resourceType,String companyName);
 	public List getCargoTrack(String orderNum, String carNum);
 	
 	

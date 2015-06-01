@@ -105,7 +105,7 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">承运方：</td>
-                                    <td>北京市畅通达物流有限公司</td>
+                                    <td><input name="companyName" type="text" readonly="readonly" value="${companyName }"/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">承运方合同：</td>

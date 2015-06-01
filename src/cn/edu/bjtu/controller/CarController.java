@@ -116,7 +116,7 @@ public class CarController {
 		mv.addObject("focusList", focusList);
 		mv.addObject("linetransportInfo", line);
 		if (flag == 0) {// 对应资源栏车辆详情
-			Carrierinfo carrierInfo = companyService.getCarrierInfo(carrierId);
+			Carrierinfo carrierInfo = companyService.getCompanyById(carrierId);
 			List<Comment> commentList=commentService.getCarCommentById(carId,carrierId);
 			mv.addObject("commentList",commentList);
 			

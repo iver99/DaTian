@@ -29,7 +29,7 @@ public class UploadPath {
 		else//linux系统 (未测试)
 		{
 			//如果文件夹不存在情况没有处理
-			String path= "/usr/local/tomcat7/webapps/DaTian/uploadFile/linetransport";
+			String path= "/usr/local/uploadFile/linetransport";
 			file=new File(path);
 			file.mkdirs();//防止文件夹不存在
 			return path;
@@ -46,7 +46,7 @@ public class UploadPath {
 		else//linux系统 (未测试)
 		{
 			//如果文件夹不存在情况没有处理
-			String path= "/usr/local/tomcat7/webapps/DaTian/uploadFile/cityline";
+			String path= "/usr/local/uploadFile/cityline";
 			file=new File(path);
 			file.mkdirs();//防止文件夹不存在
 			return path;
@@ -63,7 +63,7 @@ public class UploadPath {
 		else//linux系统 (未测试)
 		{
 			//如果文件夹不存在情况没有处理
-			String path= "/usr/local/tomcat7/webapps/DaTian/uploadFile/goods";
+			String path= "/usr/local/uploadFile/goods";
 			file=new File(path);
 			file.mkdirs();//防止文件夹不存在
 			return path;
@@ -80,7 +80,7 @@ public class UploadPath {
 		else//linux系统 (未测试)
 		{
 			//如果文件夹不存在情况没有处理
-			String path= "/usr/local/tomcat7/webapps/DaTian/uploadFile/warehouse";
+			String path= "/usr/local/uploadFile/warehouse";
 			file=new File(path);
 			file.mkdirs();//防止文件夹不存在
 			return path;
@@ -97,7 +97,7 @@ public class UploadPath {
 		else//linux系统 (未测试)
 		{
 			//如果文件夹不存在情况没有处理
-			String path= "/usr/local/tomcat7/webapps/DaTian/uploadFile/client";
+			String path= "/usr/local/uploadFile/client";
 			file=new File(path);
 			file.mkdirs();//防止文件夹不存在
 			return path;
@@ -114,7 +114,7 @@ public class UploadPath {
 		else//linux系统 (未测试)
 		{
 			//如果文件夹不存在情况没有处理
-			String path= "/usr/local/tomcat7/webapps/DaTian/uploadFile/client";
+			String path= "/usr/local/uploadFile/client";
 			file=new File(path);
 			file.mkdirs();//防止文件夹不存在
 			return path;
@@ -131,7 +131,7 @@ public class UploadPath {
 		else//linux系统 (未测试)
 		{
 			//如果文件夹不存在情况没有处理
-			String path= "/usr/local/tomcat7/webapps/DaTian/uploadFile/driver";
+			String path= "/usr/local/uploadFile/driver";
 			file=new File(path);
 			file.mkdirs();//防止文件夹不存在
 			return path;
@@ -150,17 +150,30 @@ public class UploadPath {
 		else//linux系统 (未测试)
 		{
 			//如果文件夹不存在情况没有处理
-			String path= "/usr/local/tomcat7/webapps/DaTian/uploadFile/companyCertificate";
+			String path= "/usr/local/uploadFile/companyCertificate";
 			file=new File(path);
 			file.mkdirs();//防止文件夹不存在
 			return path;
 		}
 	}
 	
-	/*
-	 * public static void main(String [] args) { File file=new File("");
-	 * System.out.println("path+"+file.getAbsolutePath()); }
-	 */
+	public static String getSignBillPath() {
+		if (isWindows()) {//windows系统
+			String path = "D://uploadFile//signBill";//上传到D盘
+			file = new File(path);
+			file.mkdirs();//以防文件夹不存在
+			return path;
+		}
+		else//linux系统 (未测试)
+		{
+			//如果文件夹不存在情况没有处理
+			String path= "/usr/local/uploadFile/signBill";
+			file=new File(path);
+			file.mkdirs();//防止文件夹不存在
+			return path;
+		}
+	}
+	
 	
 	// 判断当前系统
 	public static boolean isWindows() {

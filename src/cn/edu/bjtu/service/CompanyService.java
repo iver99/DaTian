@@ -12,8 +12,10 @@ public interface CompanyService {
 	public int getTotalRows(String resourceRate, String serviceIndustry, 
 			String creditRate, String business);
 	
-	public Carrierinfo getCarrierInfo(String id);
+	/*public Carrierinfo getCarrierInfo(String id);*/
 	public List getLinetransportByCarrierId(String id);
 	public List getCitylineByCarrierId(String id);
 	public List getwarehouseByCarrierId(String id);
+
+	public Carrierinfo getCompanyById(String carrierId);
 }

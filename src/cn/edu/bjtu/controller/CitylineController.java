@@ -102,7 +102,7 @@ public class CitylineController {
 		mv.addObject("focusList", focusList);
 		mv.addObject("citylineInfo", citylineInfo);
 		if (flag == 0) {
-			Carrierinfo carrierInfo = companyService.getCarrierInfo(carrierId);
+			Carrierinfo carrierInfo = companyService.getCompanyById(carrierId);
 			List<Comment> commentList=commentService.getCitylineCommentById(citylineId,carrierId);
 			System.out.println("commentList+" + commentList);
 			mv.addObject("commentList",commentList);

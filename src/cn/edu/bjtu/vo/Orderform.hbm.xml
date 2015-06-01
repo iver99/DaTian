@@ -125,5 +125,8 @@
         <property name="resourceName" type="string">
             <column name="resourceName" />
         </property> 
+        <property name="companyName" type="string">
+            <column name="companyName" />
+        </property>
     </class>
 </hibernate-mapping>

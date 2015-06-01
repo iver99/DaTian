@@ -73,6 +73,7 @@
                         </td>
                 	</tr>
             	</table>
+            	<form action="signBill?orderid=${orderId }" method="post" enctype="multipart/form-data">
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
                     <tr>
                         <td class="td_mgmt_right3_td1a">
@@ -84,13 +85,13 @@
                                         <div style="position:relative; padding-top:1px;">
                                             <input type="text" id="attch1" class="input_mgmt1" style="width:220px;" value="" readonly="readonly" />
                                             <input type="button" value="选择" class="btn_mgmt1" style="width:60px; margin-left:10px;" />
-                                            <input type="file" onchange="document.getElementById('attch1').value=/[^\\]+\.\w+$/.exec(this.value)[0]" class="input_attch_hidden1" hidefocus="true" />
+                                            <input type="file" name="file" onchange="document.getElementById('attch1').value=/[^\\]+\.\w+$/.exec(this.value)[0]" class="input_attch_hidden1" hidefocus="true" />
                                         </div>
                                     </td>
                                 </tr>
                             </table>
                         	<div class="span_mgmt_right3_text4">最终运费</div>
-                        	<form action="signBill?orderid=${orderId }" method="post">    	          
+                        	    	          
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">合同规定运费：</td>
@@ -113,15 +114,16 @@
 								<tr>
 								    <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
                                     <td>
-                                        <input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="window.location.href='mgmt_d_order_r.htm'" />
+                                        <input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true"  />
                                         <input type="button" id="btn1" value="重置" class="btn_mgmt2" hidefocus="true" />
                                     </td>
 							    </tr>
                             </table>
-                            </form>
+                           
                         </td>
                     </tr>
                 </table>
+                </form>
 			</td>
 		</tr>
     </table>

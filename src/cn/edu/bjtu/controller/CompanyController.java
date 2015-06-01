@@ -68,7 +68,7 @@ public class CompanyController {
 	 */
 	public ModelAndView companyDetail(@RequestParam String id,HttpSession session)
 	{
-		Carrierinfo carrierinfo=companyService.getCarrierInfo(id);
+		Carrierinfo carrierinfo=companyService.getCompanyById(id);
 		
 		//公司相关的干线信息，城市配送信息以及仓库信息
 		List linetransportList = companyService.getLinetransportByCarrierId(id);
