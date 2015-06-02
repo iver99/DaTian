@@ -146,7 +146,6 @@ public class GoodsInfoController {
 		System.out.println("进入货物控制器");
 
 		String clientId = (String) request.getSession().getAttribute("userId");
-		// ////////////////////////////////////////////
 		String path = null;
 		String fileName = null;
 		// System.out.println("file+"+file+"filename"+file.getOriginalFilename());//不上传文件还是会显示有值
@@ -165,7 +164,6 @@ public class GoodsInfoController {
 		}
 		// 没有上传文件的情况path 和 filenName默认为null
 
-		// ////////////////////////////////////////////
 
 		boolean flag = goodsInfoService.insertGoods(name, type, weight,
 				transportType, transportReq, startPlace, endPlace, damageReq,
@@ -220,14 +218,27 @@ public class GoodsInfoController {
 	 * @param goodsid
 	 * @return
 	 */
-	public ModelAndView commitResponse(String goodsid, String remarks,
+	public ModelAndView commitResponse(MultipartFile file,String goodsid, String remarks,
 			HttpServletRequest request, HttpServletResponse response) {
 
 		String carrierId = (String) request.getSession().getAttribute("userId");
-		// System.out.println("进入创建反馈 控制器+goodsid+" + goodsid);
-
+		String path = null;
+		String fileName = null;
+		if (file.getSize() != 0)// 有上传文件的情况
+		{
+			path = UploadPath.getResponsePath();// 不同的地方取不同的上传路径
+			fileName = file.getOriginalFilename();
+			fileName = carrierId + "_" + fileName;// 文件名
+			File targetFile = new File(path, fileName);
+			try { // 保存 文件
+				file.transferTo(targetFile);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} 
+		//没有上传文件的情况path 和 filenName默认为null
 		boolean flag = goodsInfoService.commitResponse(goodsid, remarks,
-				carrierId);
+				carrierId,path,fileName);
 		if (flag == true) {
 			try {
 				response.sendRedirect("getallresponse");

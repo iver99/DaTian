@@ -173,6 +173,26 @@ public class UploadPath {
 			return path;
 		}
 	}
+	/**
+	 * 提交反馈时提交的文件
+	 * @return
+	 */
+	public static String getResponsePath(){
+		if (isWindows()) {//windows系统
+			String path = "D://uploadFile//response";//上传到D盘
+			file = new File(path);
+			file.mkdirs();//以防文件夹不存在
+			return path;
+		}
+		else//linux系统 (未测试)
+		{
+			//如果文件夹不存在情况没有处理
+			String path= "/usr/local/uploadFile/response";
+			file=new File(path);
+			file.mkdirs();//防止文件夹不存在
+			return path;
+		}
+	}
 	
 	
 	// 判断当前系统

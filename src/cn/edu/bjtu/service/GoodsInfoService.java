@@ -48,7 +48,7 @@ public interface GoodsInfoService {
 			String path,
 			String fileName);
 	
-	public boolean commitResponse(String goodsId,String remarks,String userId);
+	public boolean commitResponse(String goodsId,String remarks,String userId,String path,String fileName);
 	
 	public List getAllResponse(String carrierId);
 	

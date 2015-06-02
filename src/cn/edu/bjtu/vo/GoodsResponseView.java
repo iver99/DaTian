@@ -5,9 +5,9 @@ import java.util.Date;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Response {
+public class GoodsResponseView {
 	
-	private String id;
+	private String responseId;
 	private String phone;
 	private String committer;
 	private String clientId;
@@ -17,6 +17,9 @@ public class Response {
 	private String relatedMaterial;
 	private Date relDate;
 	
+	private String id ;//货物id
+	private String state;//货物状态
+	private String name;//货物名称
 	
 	
 	
@@ -32,17 +35,17 @@ public class Response {
 	public void setRelatedMaterial(String relatedMaterial) {
 		this.relatedMaterial = relatedMaterial;
 	}
-	public String getRemarks() {
-		return remarks;
+	public String getName() {
+		return name;
 	}
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public String getId() {
-		return id;
+	public String getResponseId() {
+		return responseId;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setResponseId(String responseId) {
+		this.responseId = responseId;
 	}
 	public String getPhone() {
 		return phone;
@@ -73,6 +76,24 @@ public class Response {
 	}
 	public void setGoodsId(String goodsId) {
 		this.goodsId = goodsId;
+	}
+	public String getRemarks() {
+		return remarks;
+	}
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
 	}
 
 }

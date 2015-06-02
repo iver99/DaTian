@@ -89,7 +89,6 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public List getOrderIdByOrderNum(String orderNum) {
-		// TODO Auto-generated method stub
 		return orderDao.getOrderIdByOrderNum(orderNum);
 	}
 

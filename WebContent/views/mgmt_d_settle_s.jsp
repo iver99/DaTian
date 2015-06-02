@@ -95,7 +95,7 @@
                     <c:forEach var="order" items="${orderList }">
                     <tr>
                         <td height="60" class="td_mgmt_right3_td1d"><input type="checkbox" name="f1" id="f1a" /></td>
-                        <td class="td_mgmt_right3_td1"><a href="mgmt_d_order_s6a.htm" hidefocus="true">${order.orderNum }</a></td>
+                        <td class="td_mgmt_right3_td1"><a href="#" hidefocus="true">${order.orderNum }</a></td>
                         <td class="td_mgmt_right3_td1"><a href="javascript:;" class="link1" hidefocus="true">${order.clientName }</a></td>
                         <td class="td_mgmt_right3_td1"><a href="javascript:;" class="link1" hidefocus="true">${order.companyName }</a></td>
                         <td class="td_mgmt_right3_td1"><a href="mgmt_r_contact_s4.htm" class="link1">${order.contractId }</a></td>
@@ -106,7 +106,7 @@
                         <c:choose>
                         	<c:when test="${order.settlementState =='已生成'}">
                         	<td class="td_mgmt_right3_td1">${order.settlementState }</td>
-                        		<td class="td_mgmt_right3_td3"><a href="mgmt_d_settle_s2.htm" hidefocus="true">查看记录</a></td>
+                        		<td class="td_mgmt_right3_td3"><a href="#" hidefocus="true">查看记录</a></td>
                         	</c:when>
                         	<c:otherwise>
                         	 	<td class="td_mgmt_right3_td2">${order.settlementState }</td>

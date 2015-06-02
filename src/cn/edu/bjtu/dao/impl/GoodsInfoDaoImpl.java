@@ -1,5 +1,6 @@
 package cn.edu.bjtu.dao.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -8,10 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
+import cn.edu.bjtu.dao.CompanyDao;
 import cn.edu.bjtu.dao.GoodsInfoDao;
+import cn.edu.bjtu.dao.ResponseDao;
 import cn.edu.bjtu.util.HQLTool;
+import cn.edu.bjtu.util.IdCreator;
+import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.GoodsClientView;
 import cn.edu.bjtu.vo.Goodsform;
+import cn.edu.bjtu.vo.Response;
 
 @Repository
 public class GoodsInfoDaoImpl extends BaseDaoImpl<Goodsform> implements GoodsInfoDao {
@@ -20,6 +26,11 @@ public class GoodsInfoDaoImpl extends BaseDaoImpl<Goodsform> implements GoodsInf
 	private HibernateTemplate ht;
 	@Resource
 	private HQLTool hqltool;
+	
+	@Autowired
+	private CompanyDao companyDao;
+	@Autowired
+	private ResponseDao responseDao;
 
 	/*@Resource
 	private BaseDao baseDao;*/
@@ -35,8 +46,7 @@ public class GoodsInfoDaoImpl extends BaseDaoImpl<Goodsform> implements GoodsInf
 
 		int page = PageNow;
 		int pageSize = Display;
-		String hql = " from GoodsClientView";
-		System.out.println("hql+goods" + hql);
+		String hql = " from GoodsClientView t where t.state='待确认'";
 		return hqltool.getQueryList(hql, page, pageSize);// dao层分批取数据方法
 
 	}
@@ -71,21 +81,53 @@ public class GoodsInfoDaoImpl extends BaseDaoImpl<Goodsform> implements GoodsInf
 	/**
 	 * 提交反馈Dao
 	 */
-	public boolean commitResponse(String goodsId, String remarks, String userId) {
+	public boolean commitResponse(String goodsId, String remarks, String userId,String path,String fileName) {
 		// TODO Auto-generated method stub
-		Goodsform goods = ht.get(Goodsform.class, goodsId);
-		goods.setRemarks(remarks);
-		// goods.setCarrierId(userId);
-		// 修改状态
-		goods.setState("待确认");
+		Goodsform goods = this.get(Goodsform.class, goodsId);
+		String clientId="";
+		String committer="";
+		String phone="";
+		if(goods!=null){
+			clientId=goods.getClientId();
+		}
+		Carrierinfo carrier=companyDao.getCarrierInfo(userId);
+		if(carrier!=null){
+			committer=carrier.getCompanyContact();
+			phone=carrier.getPhone();
+		}
+		//goods.setRemarks(remarks);
+		int feedBackQuantity=goods.getFeedbackQuantity();
+		feedBackQuantity++;//反馈数量加1
+		goods.setFeedbackQuantity(feedBackQuantity);
+		// 不应该修改状态
+		//goods.setState("待确认");
 		this.update(goods);
+		//此处还需要记录到反馈表中
+		Response response=new Response();
+		response.setId(IdCreator.createResponseId());
+		response.setCarrierId(userId);
+		response.setClientId(clientId);
+		response.setCommitter(committer);
+		response.setGoodsId(goodsId);
+		response.setPhone(phone);
+		response.setRemarks(remarks);
+		response.setRelDate(new Date());
+		// 保存文件路径
+				if (path != null && fileName != null) {
+					String fileLocation = path + "//" + fileName;
+					response.setRelatedMaterial(fileLocation);
+				}
+		//保存反馈信息
+		responseDao.save(response);
+		
 		return true;
 	}
 
 	@Override
 	public List getAllResponse(String carrierId) {
 		// TODO Auto-generated method stub
-		return ht.find("from Goodsform where clientId='" + carrierId + "'");
+		//return ht.find("from Goodsform where clientId='" + carrierId + "'");
+		return this.find("from GoodsResponseView where carrierId='"+carrierId+"'");
 	}
 
 	@Override

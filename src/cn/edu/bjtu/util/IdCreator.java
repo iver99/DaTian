@@ -148,5 +148,13 @@ public class IdCreator {
 	public static String createMessageId(){
 		return "M"+(int)(Math.random()*100000000);
 	}
+	
+	/**
+	 * ·µ»Ø·´À¡±íid
+	 * @return
+	 */
+	public static String createResponseId(){
+		return "RE"+(int )(Math.random()*100000000);
+	}
 
 }

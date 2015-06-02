@@ -192,8 +192,6 @@ public class OrderController {
 
 		// 需要更新订单的司机列表，并且修改订单状态为已受理(待收货)
 		// 需要重定向,用来更新页面
-		System.out.println("接收订单+orderId+" + orderid);
-		System.out.println("接收订单-orderId+" + orderid);
 		boolean flag = orderService.acceptOrder(orderid);
 		try {
 			if (flag == true)

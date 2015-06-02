@@ -87,7 +87,7 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 	 */
 	public boolean acceptOrder(String orderId) {
 		// TODO Auto-generated method stub
-		Orderform order = (Orderform) ht.get(Orderform.class, orderId);
+		Orderform order = this.get(Orderform.class, orderId);
 		//System.out.println("orderEntity+" + order);
 		order.setState("´ýÊÕ»õ");// ÐÞ¸Ä×´Ì¬
 

@@ -86,13 +86,13 @@
 								<td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
 								<td class="td_mgmt_right3_td1">${resp.id }</td>
 								<td class="td_mgmt_right3_td1"><a
-									href="resource_detail6.htm" hidefocus="true">${resp.name }</a></td>
+									href="#" hidefocus="true">${resp.name }</a></td>
 								<td class="td_mgmt_right3_td1">${resp.relDate }</td>
 								<td class="td_mgmt_right3_td1">${resp.state }</td>
 								<c:choose>
 									<c:when test="${resp.state=='待确认' }">
 										<td class="td_mgmt_right3_td3"><a
-											href="mgmt_d_response3.htm" hidefocus="true">查看</a></td>
+											href="viewResponseDetail?responseid=${resp.responseId }" hidefocus="true">查看</a></td>
 									</c:when>
 									<c:when test="${resp.state=='已确认' }">
 										<td class="td_mgmt_right3_td1">已确认</td>
