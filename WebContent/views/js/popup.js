@@ -50,6 +50,7 @@ for (var i=0;i<sel.length;i++) {
 ****/
 
 document.getElementById("close").onclick=function(){newbox.style.display="none";layer.style.display="none";}
+//document.getElementById("close_2").onclick=function(){newbox.style.display="none";layer.style.display="none";}
 
 document.getElementById("close2").onclick=function(){newbox.style.display="none";layer.style.display="none";}
 

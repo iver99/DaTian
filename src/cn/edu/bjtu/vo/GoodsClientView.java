@@ -29,7 +29,7 @@ public class GoodsClientView implements java.io.Serializable {
 	//private int feedbackQuantity;
 	private String invoice;
 	private String relatedMaterial;
-	private String state;
+	private String state;//»õÎï×´Ì¬
 	private String clientId;
 	private String remarks;
 	private String realName;

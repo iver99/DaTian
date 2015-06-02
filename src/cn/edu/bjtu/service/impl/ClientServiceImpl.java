@@ -5,19 +5,17 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.apache.catalina.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import cn.edu.bjtu.dao.BaseDao;
+import cn.edu.bjtu.dao.BusinessClientDao;
 import cn.edu.bjtu.dao.ClientDao;
 import cn.edu.bjtu.service.ClientService;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.vo.Businessclient;
 import cn.edu.bjtu.vo.Clientinfo;
-import cn.edu.bjtu.vo.Userinfo;
-@Repository
 /**
  * client服务层实现
  * @author RussWest0
@@ -27,12 +25,13 @@ import cn.edu.bjtu.vo.Userinfo;
 @Transactional
 public class ClientServiceImpl implements ClientService{
 
-	@Resource
+	@Autowired	
 	ClientDao clientDao;
+	@Autowired
+	BusinessClientDao businessClientDao;
 	@Resource
 	Businessclient businessClient;
-	@Resource
-	BaseDao baseDao;
+	
 	@Override
 	/**
 	 *返回公司客户 
@@ -43,7 +42,7 @@ public class ClientServiceImpl implements ClientService{
 	}
 	@Override
 	/**
-	 * 获取客户信息
+	 * 通过id获取客户信息
 	 */
 	public Clientinfo getClientInfo(String clientId) {
 		// TODO Auto-generated method stub
@@ -63,7 +62,7 @@ public class ClientServiceImpl implements ClientService{
 	/**
 	 * 新增客户s
 	 */
-	public boolean insertClient(String account, String clientName,
+	public boolean insertBusinessClient(String account, String clientName,
 			String clientBusiness, String contact, String phone,
 			String remarks, String carrierId,String path,String fileName) {
 		// TODO Auto-generated method stub
@@ -82,7 +81,7 @@ public class ClientServiceImpl implements ClientService{
 			String fileLocation = path + "//" + fileName;
 			businessClient.setRelatedMaterial(fileLocation);
 		}
-		baseDao.save(businessClient);//保存实体
+		businessClientDao.save(businessClient);//保存实体
 		return true;
 	}
 	
@@ -90,7 +89,7 @@ public class ClientServiceImpl implements ClientService{
 	/**
 	 * 更新客户
 	 */
-	public boolean updateClient(String id, String account, String clientName,
+	public boolean updateBusinessClient(String id, String account, String clientName,
 			String clientBusiness, String contact, String phone,
 			String remarks, String carrierId,String path,String fileName) {
 		// TODO Auto-generated method stub
@@ -109,16 +108,16 @@ public class ClientServiceImpl implements ClientService{
 			String fileLocation = path + "//" + fileName;
 			businessClient.setRelatedMaterial(fileLocation);
 		}
-		baseDao.update(businessClient);//保存实体
+		businessClientDao.update(businessClient);//保存实体
 		return true;
 	}
 	@Override
 	/**
 	 * 删除客户
 	 */
-	public boolean deleteClient(String id){
+	public boolean deleteBusinessClient(String id){
 		businessClient=getBusinessclientInfo(id);//根据id查找到客户信息
-		baseDao.delete(businessClient);
+		businessClientDao.delete(businessClient);
 		return true;
 	}
 	@Override
@@ -137,11 +136,30 @@ public class ClientServiceImpl implements ClientService{
 		return clientDao.getStatus(userId);
 	}
 	@Override
+	/**
+	 * 个人用户信息认证
+	 */
 	public boolean validateUser(String userId, String realName, String phone,
 			String IDCard, String sex) {
 		// TODO Auto-generated method stub
 		return clientDao.validateUser(userId,realName,phone,IDCard,sex);
 	}
+	@Override
+	/**
+	 *  更新个人用户信息
+	 */
+	public boolean updateClientinfo(Clientinfo clientinfo, String path,
+			String fileName, String userId) {
+		// TODO Auto-generated method stub
+		if (path != null && fileName != null) {
+			String fileLocation = path + "//" + fileName;
+			clientinfo.setIDPicture(fileLocation);//设置文件上传路径
+		}
+		clientinfo.setId(userId);
+		clientDao.update(clientinfo);//更新信息
+		return true;
+	}
+	
 	
 	
 	

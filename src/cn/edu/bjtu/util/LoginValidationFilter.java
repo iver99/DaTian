@@ -84,7 +84,6 @@ public class LoginValidationFilter implements Filter {
 		}*/
 		if(req.getSession().getAttribute("username")==null || req.getSession().getAttribute("userId")==null)
 		{
-			System.out.println("未登录，跳转到登录也面 ");
 			res.sendRedirect("loginForm");
 		}
 		chain.doFilter(request, response);

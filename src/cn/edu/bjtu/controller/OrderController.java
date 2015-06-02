@@ -1,5 +1,6 @@
 package cn.edu.bjtu.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -8,14 +9,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.CarService;
+import cn.edu.bjtu.service.CitylineService;
+import cn.edu.bjtu.service.CompanyService;
+import cn.edu.bjtu.service.LinetransportService;
 import cn.edu.bjtu.service.OrderService;
+import cn.edu.bjtu.util.UploadPath;
+import cn.edu.bjtu.vo.Carinfo;
+import cn.edu.bjtu.vo.Carrierinfo;
+import cn.edu.bjtu.vo.Cityline;
+import cn.edu.bjtu.vo.Linetransport;
 import cn.edu.bjtu.vo.OrderCarrierView;
 import cn.edu.bjtu.vo.Orderform;
 
@@ -33,6 +44,14 @@ public class OrderController {
 	@Resource(name = "carServiceImpl")
 	CarService carService;
 
+	@Resource
+	LinetransportService linetransportService;
+	@Resource
+	CitylineService citylineService;
+	@Autowired
+	CompanyService companyService;
+	
+	
 	ModelAndView mv = new ModelAndView();
 
 	@RequestMapping("/sendorderinfo")
@@ -61,14 +80,10 @@ public class OrderController {
 	 */
 	public ModelAndView getAllRecieveOrderInfo(HttpServletRequest request,
 			HttpServletResponse response) {
-		// 从session获取用户Id
-		// System.out.println("进入收到订单控制器");
 		String userId = (String) request.getSession().getAttribute("userId");
 		// System.out.println("userId+" + userId);
 		List orderList = orderService.getAllRecieveOrderInfo(userId);
-		// System.out.println("orderList+"+orderList);
 		mv.addObject("receiveOrderList", orderList);
-		// mv.addObject("name", "iver99");
 		mv.setViewName("mgmt_d_order_r");
 
 		return mv;
@@ -121,7 +136,6 @@ public class OrderController {
 			@RequestParam float freight, @RequestParam String contractId,
 			@RequestParam String remarks) {
 
-		System.out.println("进入订单控制器");
 		boolean flag = orderService.insertOrder(goodsName, contactWaybill,
 				deliveryAddr, recieverAddr, deliveryName, deliveryPhone,
 				recieverName, recieverPhone, goodsWeight, goodsVolume,
@@ -178,8 +192,6 @@ public class OrderController {
 
 		// 需要更新订单的司机列表，并且修改订单状态为已受理(待收货)
 		// 需要重定向,用来更新页面
-		System.out.println("接收订单+orderId+" + orderid);
-		System.out.println("接收订单-orderId+" + orderid);
 		boolean flag = orderService.acceptOrder(orderid);
 		try {
 			if (flag == true)
@@ -197,27 +209,47 @@ public class OrderController {
 	}
 
 	@RequestMapping("getSignBillForm")
+	/**
+	 * 获取签单上传表单
+	 * @param orderid
+	 * @return
+	 */
 	public ModelAndView getSignBillForm(String orderid) {
 		// 上传图片，添加实际运费，修改订单状态为待确认
 		// 需要再页面上显示合同规定运费和预期运费
 		// 上传图片未实现
 		float expectedMoney = orderService.getExpectedMoney(orderid);
-
-		System.out.println("expectedPrice+" + expectedMoney);
 		// System.out.println("签单上传+orderid+" + orderid);
 		mv.addObject("expectedPrice", expectedMoney);
 		mv.addObject("orderId", orderid);
+		mv.setViewName("mgmt_d_order_r6");
 		return mv;
 	}
 
 	@RequestMapping("signBill")
-	public ModelAndView SignBill(String orderid, float actualPrice,
+	public ModelAndView SignBill(@RequestParam(required = false) MultipartFile file,String orderid, float actualPrice,
 			String explainReason, HttpServletRequest request,
 			HttpServletResponse response) {
-		// System.out.println("actualPrice+"+actualPrice);
-		// System.out.println("explainReason+"+explainReason);
+		String carrierId = (String) request.getSession().getAttribute("userId");
+		// ////////////////////////////////////////////////////////////////////////
+
+		String path = null;
+		String fileName = null;
+		if (file.getSize() != 0)// 有上传文件的情况
+		{
+			path = UploadPath.getSignBillPath();// 不同的地方取不同的上传路径
+			fileName = file.getOriginalFilename();
+			fileName = carrierId + "_" + fileName;// 文件名
+			File targetFile = new File(path, fileName);
+			try { // 保存 文件
+				file.transferTo(targetFile);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} 
+		//没有上传文件的情况path 和 filenName默认为null
 		boolean flag = orderService.signBill(orderid, actualPrice,
-				explainReason);
+				explainReason,path,fileName);
 		try {
 			if (flag == true)
 				response.sendRedirect("recieveorderinfo");
@@ -352,12 +384,7 @@ public class OrderController {
 		// System.out.println("进入order更新控制器");
 		String carrierId = (String) request.getSession().getAttribute("userId");
 		// 字符串拆解
-		/*
-		 * String[] de = delivery.split("/"); String[] re = reciever.split("/");
-		 * String deliveryName = de[0]; String deliveryPhone = de[1]; String
-		 * deliveryAddr = de[2]; String recieverName = re[0]; String
-		 * recieverPhone = re[1]; String recieverAddr = re[2];
-		 */
+		
 		boolean flag = orderService.updateOrder(orderid, clientName,
 				hasCarrierContract, contractId, goodsName, goodsWeight,
 				goodsVolume, declaredPrice, insurance, expectedPrice,
@@ -577,6 +604,22 @@ public class OrderController {
 		mv.setViewName("mgmt_d_order_r4");
 		return mv;
 	}
+	
+	@RequestMapping(value = "getOrderDetailCargoTrack")
+	/**
+	 * 
+	 * 
+	 * @param orderid
+	 * @return
+	 */
+	public ModelAndView getOrderDetailCargoTrack(HttpServletRequest request,
+			HttpServletResponse response, @RequestParam String orderNum, 
+			@RequestParam String carNum) {
+		List cargoTrackList = orderService.getCargoTrack(orderNum,carNum);
+		mv.addObject("cargoTrackList", cargoTrackList);
+		mv.setViewName("mgmt_d_order_s7");
+		return mv;
+	}
 
 	@RequestMapping(value = "getOrderDetailWaitToConfirm")
 	/**
@@ -620,14 +663,27 @@ public class OrderController {
 		return mv;
 	}
 
-	@RequestMapping("DoGetOrderWaitToConfirmUpdate")
-	public ModelAndView DoGetOrderWaitToConfirmUpdate(String orderid,
+	@RequestMapping("updateSignBill")
+	public ModelAndView updateSignBill(String orderid,
 			float actualPrice, String explainReason,
-			HttpServletRequest request, HttpServletResponse response) {
-		// System.out.println("actualPrice+"+actualPrice);
-		// System.out.println("explainReason+"+explainReason);
+			HttpServletRequest request, HttpServletResponse response,@RequestParam(required = false) MultipartFile file) {
+		String carrierId = (String) request.getSession().getAttribute("userId");
+		String path = null;
+		String fileName = null;
+		if (file.getSize() != 0)// 有上传文件的情况
+		{
+			path = UploadPath.getSignBillPath();// 不同的地方取不同的上传路径
+			fileName = file.getOriginalFilename();
+			fileName = carrierId + "_" + fileName;// 文件名
+			File targetFile = new File(path, fileName);
+			try { // 保存 文件
+				file.transferTo(targetFile);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} 
 		boolean flag = orderService.DoGetOrderWaitToConfirmUpdate(orderid,
-				actualPrice, explainReason);
+				actualPrice, explainReason,path,fileName);
 		try {
 			if (flag == true)
 				response.sendRedirect("recieveorderinfo");
@@ -645,8 +701,31 @@ public class OrderController {
 	 * 获取创建订单表单
 	 * @return
 	 */
-	public ModelAndView getNewOrderForm(String carrierid) {
+	public ModelAndView getNewOrderForm(@RequestParam String carrierid,@RequestParam String resourceId,@RequestParam int flag) {
 		// 需要取出承运方公司名称
+		//flag和resourceType中标识1为干线，2为城市，3为车辆
+		int resourceType = 0;
+		if(flag==1){
+			Linetransport linetransportInfo = linetransportService
+					.getLinetransportInfo(resourceId);
+			resourceType = 1;
+			mv.addObject("resourceType", resourceType);
+			mv.addObject("linetransportInfo", linetransportInfo);
+		}
+		if(flag==2){
+			Cityline citylineInfo = citylineService.getCitylineInfo(resourceId);
+			resourceType = 2;
+			mv.addObject("resourceType", resourceType);
+			mv.addObject("citylineInfo", citylineInfo);
+		}
+		if(flag==3){
+			Carinfo carInfo = carService.getCarInfo(resourceId);
+			resourceType = 3;
+			mv.addObject("resourceType", resourceType);
+			mv.addObject("carInfo", carInfo);
+		}
+		Carrierinfo company=companyService.getCompanyById(carrierid);
+		mv.addObject("companyName", company.getCompanyName());
 		mv.addObject("carrierId", carrierid);
 		mv.setViewName("mgmt_d_order_s2");
 		return mv;
@@ -681,24 +760,22 @@ public class OrderController {
 			String goodsName, float goodsWeight, float goodsVolume,
 			float declaredPrice, float expectedPrice, float insurance,
 			String contractId, HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response,@RequestParam String isLinkToClientWayBill,
+			@RequestParam(required=false) String clientWayBillNum,String resourceName,String resourceType,String companyName) {
 		// 页面有许多字段没有传入
 		// clientName参数里有，但是没有使用
 		String userId = (String) request.getSession().getAttribute("userId");
-		System.out.println("carrierId+" + carrierid);
 		boolean flag = orderService.createNewOrder(userId, hasCarrierContract,
 				deliveryName, recieverName, deliveryPhone, recieverPhone,
 				deliveryAddr, recieverAddr, remarks, goodsName, goodsVolume,
 				goodsWeight, expectedPrice, declaredPrice, insurance,
-				contractId, carrierid);
+				contractId, carrierid,isLinkToClientWayBill,clientWayBillNum,resourceName,resourceType,companyName);
 		if (flag == true) {
 			// mv.setViewName("mgmt_d_order_s");
 			try {
 				response.sendRedirect("sendorderinfo");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				System.out.println("redirecting");
-				System.out.println("新增订单出错");// logging
 				e.printStackTrace();
 			}
 		}

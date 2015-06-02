@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,25 +20,39 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.CarService;
+import cn.edu.bjtu.service.CarTeamService;
+import cn.edu.bjtu.service.CommentService;
 import cn.edu.bjtu.service.CompanyService;
+import cn.edu.bjtu.service.DriverService;
+import cn.edu.bjtu.service.FocusService;
 import cn.edu.bjtu.service.LinetransportService;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carinfo;
 import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Carteam;
-import cn.edu.bjtu.vo.Cityline;
+import cn.edu.bjtu.vo.Comment;
 import cn.edu.bjtu.vo.Driverinfo;
 import cn.edu.bjtu.vo.Linetransport;
 
 @Controller
 public class CarController {
-
-	@Resource(name = "carServiceImpl")
+	@Autowired
+	CommentService commentService;
+	@Autowired
 	CarService carService;
 	@Resource
 	CompanyService companyService;
+	
+	@Autowired
+	CarTeamService carTeamService;
+	
+	@Autowired
+	DriverService driverService;
+	
 	@Resource
 	LinetransportService linetransportService;
+	@Autowired
+	FocusService focusService;
 
 	ModelAndView mv = new ModelAndView();
 
@@ -53,14 +68,19 @@ public class CarController {
 
 		if (flag == 0) {
 			List carList = carService.getAllCar(Display, PageNow);
+			List locList = carService.getAllLocation();
 			int count = carService.getTotalRows("All", "All", "All", "All");// 获取总记录数,不需要where子句，所以参数都是All
+			String clientId = (String) request.getSession().getAttribute("userId");
+			List focusList = focusService.getFocusList(clientId,"car");
 			System.out.println("count+" + count);
 			int pageNum = (int) Math.ceil(count * 1.0 / Display);// 页数
 			mv.addObject("count", count);
 			mv.addObject("pageNum", pageNum);
-			mv.addObject("pageNow", PageNow);
+			mv.addObject("pageNow", PageNow);	
+			mv.addObject("focusList", focusList);
 
 			mv.addObject("carList", carList);
+			mv.addObject("locList", locList);
 			mv.setViewName("resource_list3");
 		} else if (flag == 1) {
 			// 这里用session取id
@@ -69,7 +89,7 @@ public class CarController {
 			// String carrierId = "C-0002";// 删除
 			List carList = carService.getCompanyCar(carrierId);
 			mv.addObject("carList", carList);
-			List driverList = carService.getAllDriverName(carrierId);
+			List driverList = driverService.getAllDriverName(carrierId);
 			mv.addObject("driverList", driverList);
 			mv.setViewName("mgmt_r_car");// 后台还没实现
 		}
@@ -89,28 +109,32 @@ public class CarController {
 			@RequestParam("flag") int flag, HttpServletRequest request) {
 		Carinfo carInfo = carService.getCarInfo(carId);// 车辆信息
 		mv.addObject("carInfo", carInfo);
-
+		String clientId = (String) request.getSession().getAttribute("userId");
+		List focusList = focusService.getFocusList(clientId,"car");
 		Linetransport line = linetransportService
 				.getLinetransportInfo(linetransportId);// 干线信息
+		mv.addObject("focusList", focusList);
 		mv.addObject("linetransportInfo", line);
 		if (flag == 0) {// 对应资源栏车辆详情
-			Carrierinfo carrierInfo = companyService.getCarrierInfo(carrierId);
-
+			Carrierinfo carrierInfo = companyService.getCompanyById(carrierId);
+			List<Comment> commentList=commentService.getCarCommentById(carId,carrierId);
+			mv.addObject("commentList",commentList);
+			
 			mv.addObject("carrierInfo", carrierInfo);
 
 			mv.setViewName("resource_detail3");
 		} else if (flag == 1)// 对应我的信息列车辆信息
 		{
 			// 需要司机信息
-			Driverinfo driverinfo = carService.getDriverByCarId(carId);
+			Driverinfo driverinfo = driverService.getDriverByCarId(carId);
 			mv.addObject("driverInfo", driverinfo);
 			mv.setViewName("mgmt_r_car4");
 		} else if (flag == 2)// 对应我的信息-车辆-更新
 		{
 			// 需要司机信息
-			Driverinfo driverinfo = carService.getDriverByCarId(carId);
+			Driverinfo driverinfo = driverService.getDriverByCarId(carId);
 			mv.addObject("driverInfo", driverinfo);
-			List driverList = carService.getAllDriver(carrierId);
+			List driverList = driverService.getAllDriver(carrierId);
 			mv.addObject("driverList", driverList);
 			// 此处要查出本公司所有司机的姓名以供选择
 			// String
@@ -184,7 +208,7 @@ public class CarController {
 			HttpServletRequest request, HttpServletResponse response) {
 		// 从session里取出id查询
 		if (flag == 0) {// 所有的司机信息
-			List driverList = carService.getAllDriver();
+			List driverList = driverService.getAllDriver();
 			mv.addObject("driverList", driverList);
 			mv.setViewName("mgmt_r_driver");
 		} else if (flag == 1) {// 公司司机列表
@@ -192,7 +216,7 @@ public class CarController {
 			String carrierId = (String) request.getSession().getAttribute(
 					"userId");
 			// String carrierId = "C-0002";// 删除
-			List driverList = carService.getCompanyDriver(carrierId);
+			List driverList = driverService.getCompanyDriver(carrierId);
 			mv.addObject("driverList", driverList);
 			mv.setViewName("mgmt_r_driver");
 		}
@@ -209,7 +233,7 @@ public class CarController {
 	 */
 	public ModelAndView getDriverInfo(@RequestParam String driverId,
 			@RequestParam int flag) {
-		Driverinfo driver = carService.getDriverInfo(driverId);
+		Driverinfo driver = driverService.getDriverInfo(driverId);
 		mv.addObject("driver", driver);
 		if (flag == 1) {// 对应司机详情
 			mv.setViewName("mgmt_r_driver4");
@@ -246,25 +270,20 @@ public class CarController {
 	 */
 	public ModelAndView insertCar(@RequestParam String carNum,
 			@RequestParam String carTeam, @RequestParam String locationType,
+			@RequestParam(required = false) String terminalId,
 			@RequestParam String carType, @RequestParam String carBase,
 			@RequestParam String carBrand, @RequestParam String carUse,
 			@RequestParam double carLength, @RequestParam double carWidth,
 			@RequestParam double carHeight, @RequestParam double carWeight,
 			@RequestParam String driverId, @RequestParam String purchaseTime,
 			@RequestParam String storage, @RequestParam String startPlace,
-			@RequestParam String endPlace, HttpServletRequest request,
-			HttpServletResponse response) {
-		System.out.println("进入控制器");
+			@RequestParam String endPlace, @RequestParam String stopPlace,
+			HttpServletRequest request,	HttpServletResponse response) {
 		String carrierId = (String) request.getSession().getAttribute("userId");
-		// String carrierId = "C-0002";// 删除
-		/*
-		 * boolean flag = linetransportService.insertLine(lineName, startPlace,
-		 * endPlace, onWayTime, type, refPrice, remarks,carrierId);
-		 */
-		boolean flag = carService.insertCar(carNum, carTeam, locationType,
+		boolean flag = carService.insertCar(carNum, carTeam, locationType, terminalId,
 				carBase, carBrand, carType, carUse, carLength, carWidth,
 				carHeight, carWeight, driverId, purchaseTime, storage,
-				startPlace, endPlace, carrierId);
+				startPlace, endPlace, stopPlace, carrierId);
 		System.out.println("flag+" + flag);
 		if (flag == true) {
 			try {
@@ -279,7 +298,7 @@ public class CarController {
 				e.printStackTrace();
 			}
 		} else
-			mv.setViewName("fail");
+			mv.setViewName("mgmt_r_car");
 		return mv;
 	}
 
@@ -305,7 +324,6 @@ public class CarController {
 			@RequestParam String licenceTime,
 
 			HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("进入driver控制器insert");
 		String carrierId = (String) request.getSession().getAttribute("userId");
 		// String carrierId = "C-0002";// 删除
 		// ////////////////////////////////////////////////////////////////////////
@@ -329,7 +347,7 @@ public class CarController {
 		}
 		// 没有上传文件的情况path 和 filenName默认为null
 
-		boolean flag = carService.insertDriver(name, sex, licenceRate, phone,
+		boolean flag = driverService.insertDriver(name, sex, licenceRate, phone,
 				IDCard, licenceNum, licenceTime, carrierId, path, fileName);
 		System.out.println("flag+" + flag);
 		if (flag == true) {
@@ -346,7 +364,7 @@ public class CarController {
 				e.printStackTrace();
 			}
 		} else
-			mv.setViewName("fail");
+			mv.setViewName("mgmt_r_driver");
 		return mv;
 	}
 
@@ -381,7 +399,7 @@ public class CarController {
 			@RequestParam String carNum,
 			@RequestParam String carTeam,
 			@RequestParam String locType,
-			@RequestParam String terminalId,// 缺少参数
+			@RequestParam String terminalId,
 			@RequestParam String carType, @RequestParam String carBase,
 			@RequestParam String carBrand, @RequestParam String carUse,
 			@RequestParam double carLength, @RequestParam double carWidth,
@@ -413,7 +431,7 @@ public class CarController {
 				e.printStackTrace();
 			}
 		} else
-			mv.setViewName("fail");
+			mv.setViewName("mgmt_r_car");
 		return mv;
 
 	}
@@ -464,7 +482,7 @@ public class CarController {
 			// //////////////////////////////////////////////////////////////////
 		}
 		// 没有上传文件的情况path 和 filenName默认为null
-		boolean flag = carService.updateDriver(id, name, sex, IDCard,
+		boolean flag = driverService.updateDriver(id, name, sex, IDCard,
 				licenceNum, licenceRate, licenceTime, phone, carrierId, path, fileName);
 		System.out.println("flag+" + flag);
 		if (flag == true) {
@@ -481,7 +499,7 @@ public class CarController {
 				e.printStackTrace();
 			}
 		} else
-			mv.setViewName("fail");
+			mv.setViewName("mgmt_r_driver");
 		return mv;
 	}
 
@@ -508,7 +526,7 @@ public class CarController {
 				e.printStackTrace();
 			}
 		} else
-			mv.setViewName("fail");
+			mv.setViewName("mgmt_r_car");
 		return mv;
 
 	}
@@ -524,7 +542,7 @@ public class CarController {
 		// 此处获取session里的carrierid，下面方法增加一个参数
 		// String carrierId=(String)request.getSession().getAttribute("userId");
 		// String carrierId = "C-0002";// 删除
-		boolean flag = carService.deleteDriver(id);
+		boolean flag = driverService.deleteDriver(id);
 		if (flag == true) {
 			// mv.setViewName("mgmt_r_line");
 			try {
@@ -536,7 +554,7 @@ public class CarController {
 				e.printStackTrace();
 			}
 		} else
-			mv.setViewName("fail");
+			mv.setViewName("mgmt_r_driver");
 		return mv;
 
 	}
@@ -552,7 +570,7 @@ public class CarController {
 		// 这里用session取id
 		String carrierId = (String) request.getSession().getAttribute("userId");
 		// String carrierId = "C-0002";// 删除
-		List carteamList = carService.getCarteam(carrierId);
+		List carteamList = carTeamService.getCarteam(carrierId);
 		mv.addObject("carteamList", carteamList);
 		mv.setViewName("mgmt_r_car_fleet");
 
@@ -567,9 +585,8 @@ public class CarController {
 	 */
 	public ModelAndView getCarteamDetail(@RequestParam String id,
 			@RequestParam("flag") int flag, HttpServletRequest request) {
-		Carteam carteaminfo = carService.getCarteamInfo(id);// 车队信息
+		Carteam carteaminfo = carTeamService.getCarteamInfo(id);// 车队信息
 		mv.addObject("carteaminfo", carteaminfo);
-		System.out.println("进入getCarteamDetail控制器 " + id);
 		if (flag == 1)// 对应车队信息查看
 		{
 			mv.setViewName("mgmt_r_car_fleet4");
@@ -589,7 +606,7 @@ public class CarController {
 			HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("进入控制器");
 		String carrierId = (String) request.getSession().getAttribute("userId");
-		boolean flag = carService.insertCarteam(teamName, carCount, chief,
+		boolean flag = carTeamService.insertCarteam(teamName, carCount, chief,
 				phone, explaination, carrierId);
 		// boolean flag=true;
 		System.out.println("flag+" + flag);
@@ -604,7 +621,7 @@ public class CarController {
 				e.printStackTrace();
 			}
 		} else
-			mv.setViewName("fail");
+			mv.setViewName("mgmt_r_car");
 		return mv;
 	}
 
@@ -616,7 +633,7 @@ public class CarController {
 			HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("进入删除控制器");
 
-		boolean flag = carService.deleteCarteam(id);
+		boolean flag = carTeamService.deleteCarteam(id);
 		if (flag == true) {
 			// mv.setViewName("mgmt_r_line");
 			try {
@@ -628,7 +645,7 @@ public class CarController {
 				e.printStackTrace();
 			}
 		} else
-			mv.setViewName("fail");
+			mv.setViewName("mgmt_r_car");
 		return mv;
 
 	}
@@ -641,8 +658,7 @@ public class CarController {
 			@RequestParam String chief, @RequestParam String phone,
 			@RequestParam String explaination, HttpServletRequest request,
 			HttpServletResponse response) {
-		System.out.println("进入控制器");
-		boolean flag = carService.updateCarteam(id, teamName, carCount, chief,
+		boolean flag = carTeamService.updateCarteam(id, teamName, carCount, chief,
 				phone, explaination);
 		// boolean flag=true;
 		System.out.println("flag+" + flag);
@@ -657,7 +673,7 @@ public class CarController {
 				e.printStackTrace();
 			}
 		} else
-			mv.setViewName("fail");
+			mv.setViewName("mgmt_r_car");
 		return mv;
 	}
 	
@@ -672,7 +688,7 @@ public class CarController {
 		// 此处获取session里的carrierid，下面方法增加一个参数
 		// String carrierId=(String)request.getSession().getAttribute("userId");
 		// String carrierId = "C-0002";// 删除
-		Driverinfo driverinfo = carService.getDriverInfo(id);
+		Driverinfo driverinfo = driverService.getDriverInfo(id);
 		try {
 			String file = driverinfo.getIdscans();
 			/*File tempFile =new File(file.trim());  	          

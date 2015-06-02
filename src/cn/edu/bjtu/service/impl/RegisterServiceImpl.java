@@ -1,17 +1,24 @@
 package cn.edu.bjtu.service.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import cn.edu.bjtu.dao.BaseDao;
+import cn.edu.bjtu.dao.ClientDao;
+import cn.edu.bjtu.dao.CompanyDao;
+import cn.edu.bjtu.dao.CompanycertificateDao;
+import cn.edu.bjtu.dao.RegisterDao;
+import cn.edu.bjtu.dao.UserinfoDao;
 import cn.edu.bjtu.service.RegisterService;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Clientinfo;
+import cn.edu.bjtu.vo.Companycertificate;
 import cn.edu.bjtu.vo.Userinfo;
 @Service("registerServiceImpl")
 @Transactional
@@ -22,15 +29,24 @@ import cn.edu.bjtu.vo.Userinfo;
  */
 public class RegisterServiceImpl implements RegisterService{
 
-	@Resource 
-	BaseDao baseDao;
+	@Autowired
+	UserinfoDao userinfoDao;
+	@Autowired
+	ClientDao clientDao;
+	@Autowired
+	CompanyDao companyDao;	
+	@Autowired
+	CompanycertificateDao companyCertificateDao;
+	@Resource
+	Carrierinfo carrierinfo;
+	@Autowired
+	Companycertificate companyCertificate;
 	@Resource 
 	Userinfo userInfo;
 	@Resource
 	Clientinfo clientInfo;
 	@Resource
-	Carrierinfo carrierinfo;
-	
+	RegisterDao registerDao;
 	@Override
 	public String register(String username, String password, String phone,int userKind) {
 		// TODO Auto-generated method stub
@@ -40,49 +56,44 @@ public class RegisterServiceImpl implements RegisterService{
 		userInfo.setPassword(password);//未加密
 		userInfo.setStatus("未验证");
 		userInfo.setEmailStatus("未绑定");
-		userInfo.setPhoneStatus("已绑定");/////////////需要修改
+		userInfo.setPhoneStatus("已绑定");
 		userInfo.setSecurityQuestionStatus("未设置");
 		//userInfo.setPrivilege(privilege);
 		userInfo.setStatus("未验证");
 		userInfo.setUserKind(userKind);
+		userinfoDao.save(userInfo);//保存实体
 		
-		if(userKind == 1){//个人用户
+		if(userKind == 2){//个人用户
 		clientInfo.setId(userInfo.getId());//同时在信息表中保存实体
 		//clientInfo.setCarrierId(carrierId);
 		clientInfo.setCreateDate(new Date());
-		//clientInfo.setEmail(email);
-		//clientInfo.setHeadIcon(headIcon);
-		//clientInfo.setId(id);
-		//clientInfo.setIdcard(idcard);
-		//clientInfo.setIDPicture(iDPicture);
 		clientInfo.setPhone(phone);
-		//clientInfo.setRealName(realName);
-		//clientInfo.setRemarks(remarks);
-		//clientInfo.setSex(sex);
-		baseDao.save(clientInfo);
+		clientInfo.setHeadIcon("未设置");// add by RussWest0 at 2015年5月31日,上午10:47:42 
+		clientDao.save(clientInfo);//保存clientinfo实体
 		}
-		else //企业用户
+		else //企业用户，目前维护两个公司表，以后重构成一个
 		{
+			companyCertificate.setId(userInfo.getId());
+			companyCertificate.setPhone(phone);
+			companyCertificateDao.save(companyCertificate);
+			
+			
 			carrierinfo.setPhone(phone);
 			carrierinfo.setId(userInfo.getId());
 			carrierinfo.setStatus("未验证");
-			
-			baseDao.save(carrierinfo);
-			
+			companyDao.save(carrierinfo);
 		}
-		//clientInfo.setStatus("未验证");//新增用户 先设置成未验证 
-		baseDao.save(userInfo);//保存实体
 		
-		
-		//registerInfo(userInfo.getId());
 		return userInfo.getId();
 	}
-	/*@Override
-	public boolean registerInfo(String userId) {
+	@Override
+	/**
+	 * 检测用户名
+	 */
+	public List getUserCheck(String username) {
 		// TODO Auto-generated method stub
-		clientInfo.setId(userId);
-		return baseDao.save(clientInfo);
-	}*/
+		return registerDao.getUserCheck(username);
+	}
 	
 	
 

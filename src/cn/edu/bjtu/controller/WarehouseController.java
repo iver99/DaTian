@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,21 +19,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.edu.bjtu.service.CommentService;
 import cn.edu.bjtu.service.CompanyService;
+import cn.edu.bjtu.service.FocusService;
 import cn.edu.bjtu.service.WarehouseService;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carrierinfo;
-import cn.edu.bjtu.vo.Driverinfo;
+import cn.edu.bjtu.vo.Comment;
 import cn.edu.bjtu.vo.Warehouse;
 
 @Controller
 public class WarehouseController {
-
+	@Autowired
+	CommentService commentService;
 	@Resource
 	WarehouseService warehouseService;
 	@Resource
 	CompanyService companyService;
-
+	@Autowired
+	FocusService focusService;
 	ModelAndView mv = new ModelAndView();
 
 	@RequestMapping("/warehouse")
@@ -49,12 +54,13 @@ public class WarehouseController {
 		if (flag == 0) {// 对应资源栏点击车辆
 			List warehouseList = warehouseService.getAllWarehouse(Display,PageNow);
 			int count = warehouseService.getTotalRows("All", "All", "All", "All");// 获取总记录数,不需要where子句，所以参数都是All
-			System.out.println("count+"+count);
+			String clientId = (String) request.getSession().getAttribute("userId");
+			List focusList = focusService.getFocusList(clientId,"warehouse");
 			int pageNum = (int) Math.ceil(count * 1.0 / Display);// 页数
 			mv.addObject("count", count);
 			mv.addObject("pageNum", pageNum);
 			mv.addObject("pageNow", PageNow);
-			
+			mv.addObject("focusList", focusList);
 			mv.addObject("warehouseList", warehouseList);
 			mv.setViewName("resource_list4");
 		} else if (flag == 1) {// 对应我的信息栏点击车辆信息
@@ -78,19 +84,100 @@ public class WarehouseController {
 	public ModelAndView getWarehouseInfo(
 			@RequestParam("warehouseId") String warehouseid,
 			@RequestParam("carrierId") String carrierId,
-			@RequestParam("flag") int flag) {
+			@RequestParam("flag") int flag,
+			HttpServletRequest request) {
 		Warehouse warehouseInfo = warehouseService
 				.getWarehouseInfo(warehouseid);
-
+		String clientId = (String) request.getSession().getAttribute("userId");
+		List focusList = focusService.getFocusList(clientId,"warehouse");
+		mv.addObject("focusList", focusList);
 		mv.addObject("warehouseInfo", warehouseInfo);
 		if (flag == 0) {// 对应资源栏仓库详情
-			Carrierinfo carrierInfo = companyService.getCarrierInfo(carrierId);
+			Carrierinfo carrierInfo = companyService.getCompanyById(carrierId);
+			List<Comment> commentList=commentService.getWarehouseCommentById(warehouseid,carrierId);
+			mv.addObject("commentList",commentList);
 			mv.addObject("carrierInfo", carrierInfo);
 			mv.setViewName("resource_detail4");
 		} else if (flag == 1)// 对应我的信息栏仓库详情
 			mv.setViewName("mgmt_r_warehouse4");
-		else if (flag == 2)// 我的信息栏仓库更新
+		else if (flag == 2){
+			// 我的信息栏仓库更新
+			// 保管形态字符串拆解
+			String storageForm = warehouseInfo.getStorageForm();
+			String[] storageFormSpl = storageForm.split(",");
+			String[] everystorageForm ={"普通","冷藏","恒温","露天","危险品"};
+			for(int i=0;i<5;i++)
+			{
+				int j=0;
+				for(;j<storageFormSpl.length;j++){
+					if(storageFormSpl[j].equals(everystorageForm[i])){
+						break;
+					}
+				}
+				System.out.println(j);
+				if(j==storageFormSpl.length){
+					everystorageForm[i]="";
+				}
+			}
+			mv.addObject("everystorageForm", everystorageForm);
+			// 防火安保字符串拆解
+			String fireSecurity = warehouseInfo.getFireSecurity();
+			String[] fireSecuritySpl = fireSecurity.split(",");
+			String[] everyfireSecurity ={"烟感","自动喷淋","24小时摄像监控","无"};
+			for(int i=0;i<4;i++)
+			{
+				int j=0;
+				for(;j<fireSecuritySpl.length;j++){
+					if(fireSecuritySpl[j].equals(everyfireSecurity[i])){
+						break;
+					}
+				}
+				System.out.println(j);
+				if(j==fireSecuritySpl.length){
+					everyfireSecurity[i]="";
+				}
+			}
+			mv.addObject("everyfireSecurity", everyfireSecurity);
+			// IT环境字符串拆解
+			String environment = warehouseInfo.getEnvironment();
+			String[] environmentSpl = environment.split(",");
+			String[] everyenvironment ={"Internet宽带接入","仓库信息管理系统","无"};
+			for(int i=0;i<3;i++)
+			{
+				int j=0;
+				for(;j<environmentSpl.length;j++){
+					if(environmentSpl[j].equals(everyenvironment[i])){
+						break;
+					}
+				}
+				System.out.println(j);
+				if(j==environmentSpl.length){
+					everyenvironment[i]="";
+				}
+			}
+			mv.addObject("everyenvironment", everyenvironment);
+			// 服务内容字符串拆解
+			String serviceContent = warehouseInfo.getServiceContent();
+			String[] serviceContentSpl = serviceContent.split(",");
+			String[] everyserviceContent ={"机械出入库搬运","分拣","包装","打托盘","地面存储 ","货架存储"};
+			for(int i=0;i<6;i++)
+			{
+				int j=0;
+				for(;j<serviceContentSpl.length;j++){
+					if(serviceContentSpl[j].equals(everyserviceContent[i])){
+						break;
+					}
+				}
+				System.out.println(j);
+				if(j==serviceContentSpl.length){
+					everyserviceContent[i]="";
+				}
+			}
+			mv.addObject("everyserviceContent", everyserviceContent);
+			
 			mv.setViewName("mgmt_r_warehouse3");
+		}
+			
 
 		return mv;
 	}
@@ -176,11 +263,10 @@ public class WarehouseController {
 		// 此处获取session里的carrierid，下面方法增加一个参数
 		// String
 		String carrierId=(String)request.getSession().getAttribute("userId");
-		//String carrierId = "C-0002";// 删除
 		
 		String path = null;
 		String fileName = null;
-		// System.out.println("file+"+file+"filename"+file.getOriginalFilename());//不上传文件还是会显示有值
+
 		if (file.getSize() != 0)// 有上传文件的情况
 		{
 			path = UploadPath.getWarehousePath();// 不同的地方取不同的上传路径
@@ -198,7 +284,6 @@ public class WarehouseController {
 
 		// ////////////////////////////////////////////
 		
-		System.out.println("进入插入仓库控制器");
 		boolean flag = warehouseService.insertWarehouse(name, city, address,
 				type, kind, houseArea, yardArea, height, fireRate, storageForm,
 				fireSecurity, environment, serviceContent, contact, phone,
@@ -264,11 +349,9 @@ public class WarehouseController {
 		// 此处获取session里的carrierid，下面方法增加一个参数
 		// String
 		String carrierId=(String)request.getSession().getAttribute("userId");
-		//String carrierId = "C-0002";// 删除
 
 		String path = null;
 		String fileName = null;
-		// System.out.println("file+"+file+"filename"+file.getOriginalFilename());//不上传文件还是会显示有值
 		if (file.getSize() != 0)// 有上传文件的情况
 		{
 			path = UploadPath.getWarehousePath();// 不同的地方取不同的上传路径
@@ -342,29 +425,22 @@ public class WarehouseController {
 	 */
 	public ModelAndView downloadWarehouseDetailPrice(@RequestParam String id,// GET方式传入，在action中
 			HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("进入删除控制器");
-		System.out.println(id);
-		// 此处获取session里的carrierid，下面方法增加一个参数
-		// String carrierId=(String)request.getSession().getAttribute("userId");
-		// String carrierId = "C-0002";// 删除
 		Warehouse warehouseInfo = warehouseService
 				.getWarehouseInfo(id);
 		try {
 			String file = warehouseInfo.getDetailPrice();
-			/*File tempFile =new File(file.trim());  	          
-	        String fileName = tempFile.getName();  			*/
+			File tempFile =new File(file.trim());  	          
+	        String fileName = tempFile.getName();  			
 			InputStream is = new FileInputStream(file);
 			response.reset(); // 必要地清除response中的缓存信息
 			response.setHeader("Content-Disposition", "attachment; filename="
-					+ file);
-			//response.setContentType("application/vnd.ms-excel");// 根据个人需要,这个是下载文件的类型
+					+ java.net.URLEncoder.encode(fileName, "UTF-8"));
 			javax.servlet.ServletOutputStream out = response.getOutputStream();
 			byte[] content = new byte[1024];
 			int length = 0;
 			while ((length = is.read(content)) != -1) {
 				out.write(content, 0, length);
 			}
-			out.write(content);
 			out.flush();
 			out.close();
 		} catch (Exception e) {
@@ -372,7 +448,6 @@ public class WarehouseController {
 			e.printStackTrace();
 		}
 
-		//response.setHeader("Content-disposition", "attachment;filename="+ citylineInfo.getDetailPrice());
 		return mv;
 
 	}

@@ -1,5 +1,7 @@
 package cn.edu.bjtu.vo;
 
+import java.util.Date;
+
 import org.springframework.stereotype.Component;
 
 @Component
@@ -11,6 +13,31 @@ public class Response {
 	private String clientId;
 	private String carrierId;
 	private String goodsId;
+	private String remarks;
+	private String relatedMaterial;
+	private Date relDate;
+	
+	
+	
+	
+	public Date getRelDate() {
+		return relDate;
+	}
+	public void setRelDate(Date relDate) {
+		this.relDate = relDate;
+	}
+	public String getRelatedMaterial() {
+		return relatedMaterial;
+	}
+	public void setRelatedMaterial(String relatedMaterial) {
+		this.relatedMaterial = relatedMaterial;
+	}
+	public String getRemarks() {
+		return remarks;
+	}
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
 	public String getId() {
 		return id;
 	}

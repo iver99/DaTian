@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 2015-2-24 14:27:00 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="cn.edu.bjtu.vo.Assessform" table="assessform" catalog="datian">
+    <class name="cn.edu.bjtu.vo.Comment" table="comment" catalog="datian">
         <id name="id" type="string">
             <column name="id" />
             <generator class="assigned" />
@@ -17,32 +17,35 @@
         <property name="orderId" type="string">
             <column name="orderId" />
         </property>
-        <property name="serviceAttitude" type="java.lang.Integer">
+        <property name="serviceAttitude" type="string">
             <column name="serviceAttitude" />
         </property>
-        <property name="transportEfficiency" type="java.lang.Integer">
+        <property name="transportEfficiency" type="string">
             <column name="transportEfficiency" />
         </property>
-        <property name="cargoSafety" type="java.lang.Integer">
+        <property name="cargoSafety" type="string">
             <column name="cargoSafety" />
         </property>
-        <property name="totalMoney" type="java.lang.Integer">
+        <property name="totalMoney" type="string">
             <column name="totalMoney" />
         </property>
         <property name="comment" type="string">
             <column name="comment" />
         </property>
-        <property name="linetransport" type="java.lang.Integer">
-            <column name="linetransport" />
+        <property name="linetransportId" type="string">
+            <column name="linetransportId" />
         </property>
-        <property name="cityline" type="java.lang.Integer">
-            <column name="cityline" />
+        <property name="citylineId" type="string">
+            <column name="citylineId" />
         </property>
-        <property name="car" type="java.lang.Integer">
-            <column name="car" />
+        <property name="carId" type="string">
+            <column name="carId" />
         </property>
-        <property name="warehouse" type="java.lang.Integer">
-            <column name="warehouse" />
+        <property name="warehouseId" type="string">
+            <column name="warehouseId" />
+        </property>
+        <property name="carrierId" type="string">
+            <column name="carrierId" />
         </property>
     </class>
 </hibernate-mapping>

@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,10 +20,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.CitylineService;
+import cn.edu.bjtu.service.CommentService;
 import cn.edu.bjtu.service.CompanyService;
+import cn.edu.bjtu.service.FocusService;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Cityline;
+import cn.edu.bjtu.vo.Comment;
 
 @Controller
 /**
@@ -31,14 +35,16 @@ import cn.edu.bjtu.vo.Cityline;
  *
  */
 public class CitylineController {
-
+	@Autowired
+	CommentService commentService;
 	@Resource
 	CitylineService citylineService;
 	@Resource
 	CompanyService companyService;
-
+	@Autowired
+	FocusService focusService;
 	ModelAndView mv = new ModelAndView();
-
+	
 	@RequestMapping("/cityline")
 	/**
 	 * 获取所有城市配送线路信息
@@ -54,12 +60,13 @@ public class CitylineController {
 			List citylineList = citylineService
 					.getAllCityline(Display, PageNow);
 			int count = citylineService.getTotalRows("All", "All", "All");// 获取总记录数,不需要where子句，所以参数都是All
-			System.out.println("count+" + count);
+			String clientId = (String) request.getSession().getAttribute("userId");
+			List focusList = focusService.getFocusList(clientId,"cityline");
 			int pageNum = (int) Math.ceil(count * 1.0 / Display);// 页数
 			mv.addObject("count", count);
 			mv.addObject("pageNum", pageNum);
 			mv.addObject("pageNow", PageNow);
-
+			mv.addObject("focusList", focusList);
 			mv.addObject("citylineList", citylineList);
 			mv.setViewName("resource_list2");// 点击资源栏城市配送显示所有信息
 		} else if (flag == 1) {
@@ -85,13 +92,20 @@ public class CitylineController {
 	public ModelAndView getCitylineInfo(
 			@RequestParam("citylineId") String citylineId,
 			@RequestParam("carrierId") String carrierId,
-			@RequestParam("flag") int flag) {
+			@RequestParam("flag") int flag,
+			HttpServletRequest request) {
 		System.out.println("citylineid+" + citylineId);
 		Cityline citylineInfo = citylineService.getCitylineInfo(citylineId); // 需要重构,返回一条具体的线路不是list
-
+		String clientId = (String) request.getSession().getAttribute("userId");
+		List focusList = focusService.getFocusList(clientId,"cityline");
+		System.out.println("focusList+" + focusList);
+		mv.addObject("focusList", focusList);
 		mv.addObject("citylineInfo", citylineInfo);
 		if (flag == 0) {
-			Carrierinfo carrierInfo = companyService.getCarrierInfo(carrierId);
+			Carrierinfo carrierInfo = companyService.getCompanyById(carrierId);
+			List<Comment> commentList=commentService.getCitylineCommentById(citylineId,carrierId);
+			System.out.println("commentList+" + commentList);
+			mv.addObject("commentList",commentList);
 			mv.addObject("carrierInfo", carrierInfo);
 			mv.setViewName("resource_detail2");// 资源栏点击详情的页面
 		} else if (flag == 1)
@@ -205,7 +219,7 @@ public class CitylineController {
 				e.printStackTrace();
 			}
 		} else
-			mv.setViewName("fail");
+			mv.setViewName("mgmt_r_line");
 		return mv;
 	}
 
@@ -271,7 +285,7 @@ public class CitylineController {
 				e.printStackTrace();
 			}
 		} else
-			mv.setViewName("fail");
+			mv.setViewName("mgmt_r_line");
 		return mv;
 
 	}
@@ -299,7 +313,7 @@ public class CitylineController {
 				e.printStackTrace();
 			}
 		} else
-			mv.setViewName("fail");
+			mv.setViewName("mgmt_r_line");
 		return mv;
 
 	}
@@ -312,25 +326,22 @@ public class CitylineController {
 			HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("进入删除控制器");
 		System.out.println(id);
-		// 此处获取session里的carrierid，下面方法增加一个参数
-		// String carrierId=(String)request.getSession().getAttribute("userId");
-		// String carrierId = "C-0002";// 删除
 		Cityline citylineInfo = citylineService.getCitylineInfo(id); // 需要重构,返回一条具体的线路不是list
 
 		try {
 			String file = citylineInfo.getDetailPrice();
+			File tempFile =new File(file.trim());  	          
+	        String fileName = tempFile.getName();
 			InputStream is = new FileInputStream(file);
 			response.reset(); // 必要地清除response中的缓存信息
 			response.setHeader("Content-Disposition", "attachment; filename="
-					+ file);
-			//response.setContentType("application/vnd.ms-excel");// 根据个人需要,这个是下载文件的类型
+					+ java.net.URLEncoder.encode(fileName, "UTF-8"));
 			javax.servlet.ServletOutputStream out = response.getOutputStream();
 			byte[] content = new byte[1024];
 			int length = 0;
 			while ((length = is.read(content)) != -1) {
 				out.write(content, 0, length);
 			}
-			out.write(content);
 			out.flush();
 			out.close();
 		} catch (Exception e) {

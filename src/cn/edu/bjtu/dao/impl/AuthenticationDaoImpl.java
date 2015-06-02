@@ -8,12 +8,8 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import cn.edu.bjtu.dao.AuthenticationDao;
-import cn.edu.bjtu.dao.BaseDao;
-
-
 import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.vo.Clientinfo;
-import cn.edu.bjtu.vo.Goodsform;
 import cn.edu.bjtu.vo.Userinfo;
 @Repository
 /**
@@ -21,12 +17,12 @@ import cn.edu.bjtu.vo.Userinfo;
  * @author RussWest0
  *
  */
-public class AuthenticationDaoImpl implements AuthenticationDao{
+public class AuthenticationDaoImpl extends BaseDaoImpl<Userinfo> implements AuthenticationDao{
 
 	@Resource
 	HibernateTemplate ht;
-	@Resource
-	BaseDao baseDao;
+	/*@Resource
+	BaseDao baseDao;*/
 	@Resource 
 	private HQLTool hqltool;
 	

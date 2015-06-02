@@ -16,6 +16,7 @@
 <script type="text/javascript" src="js/backtop.js"></script>
 <script type="text/javascript" src="js/popup.js"></script>
 <script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
+<script type="text/javascript" src="js/focus_load.js"></script>
 <script type="text/javascript"> 
 	$(function() {
 		$('input, textarea').placeholder(); 
@@ -23,28 +24,9 @@
 </script>
 </head>
 
-<body>
+<body onload="OnLoad()">
 
-<div id="backtop_item">
-    <div class="qqserver">
-        <div class="qqserver_fold">
-            <div></div>
-        </div>
-        <div class="qqserver-body" style="display:block;">
-            <div class="qqserver-header">
-                <div>在线客服</div>
-                <span class="qqserver_arrow"></span>
-            </div>
-            <a href="javascript:;" onclick="window.open('http://b.qq.com/webc.htm?new=0&sid=11223344&o=abc.com&q=1', '_blank')" hidefocus="true">咨询提问</a>
-            <a href="javascript:;" hidefocus="true">意见建议</a>
-            <div class="qqserver_comment" onclick="showid('popup1');" hidefocus="true">
-                给我留言
-            </div>
-            <a href="javascript:;" class="a1" hidefocus="true">查看历史记录</a>
-        </div>
-    </div>
-    <a id="backtop" onclick="return false;" title="回到顶部"></a> 
-</div>
+<%@ include file="qq.jsp"%>
 
 <%@ include  file="topFrame.jsp"%>
 
@@ -59,11 +41,12 @@
     <table border="0" cellspacing="0" cellpadding="0" class="table_register1">
         <tr>
             <td width="120" height="40" class="td_mgmt_right3_td1b">用户名：</td>
-            <td><input type="text" class="input_mgmt1" style="width:300px;" name="username"/>&nbsp;&nbsp;<a href="javascript:;" hidefocus="true">检查用户名</a></td>
+            <td><input type="text" class="input_mgmt1" style="width:300px;" name="username" id="username"/>&nbsp;&nbsp;<a href="javascript:;" hidefocus="true" onclick="loadXMLDoc()">检查用户名</a></td>
         </tr>
         <tr>
         	<td width="120" height="40" class="td_mgmt_right3_td1b">用户类型：</td>
-        	<td><input type="radio" name="userkind" value="1" checked="checked"/>&nbsp;个人用户&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="userkind" value="2"/>企业用户
+        	<td><input type="radio" name="userkind" value="2" checked="checked"/>&nbsp;个人用户&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        		<input type="radio" name="userkind" value="3"/>企业用户
         </tr>
         <tr>
             <td height="40" class="td_mgmt_right3_td1b">手机验证码：</td>
@@ -114,7 +97,7 @@
             <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
             <td>
                 <input type="submit" id="btn2" value="注册" class="btn_register_submit" hidefocus="true"  />
-                <input type="button" id="btn2" value="取消" class="btn_register_cancel" hidefocus="true" onclick="window.location.href='index.htm'" />
+                <input type="button" id="btn2" value="取消" class="btn_register_cancel" hidefocus="true" />
             </td>
         </tr>
     </table>
@@ -147,6 +130,26 @@
 <div id="footer_frame">
 	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="views/footer.jsp"></iframe>
 </div>
-
 </body>
+<script type="text/javascript">
+	function OnLoad() {
+		loadFocus();
+	}
+</script>
+<script type="text/javascript">
+function loadXMLDoc()
+{
+	$.ajax({
+		   type: "GET",
+		   url: "http://localhost:8585/DaTian/usercheck",//请求的后台地址
+		   data: "username=" + document.getElementById("username").value,//前台传给后台的参数
+		   success: function(msg){//msg:返回值
+			   if(msg == "true")
+				   alert("该用户名可以使用~");
+			   else
+				   alert("该用户名已被使用！");
+		   }
+		});
+}
+</script>
 </html>

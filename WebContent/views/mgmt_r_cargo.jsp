@@ -2,6 +2,7 @@
 	pageEncoding="utf-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+ 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -18,6 +19,7 @@
 <script type="text/javascript" src="js/backtop.js"></script>
 <script type="text/javascript" src="js/popup.js"></script>
 <script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
+<script type="text/javascript" src="js/focus_load.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$('input, textarea').placeholder();
@@ -25,28 +27,9 @@
 </script>
 </head>
 
-<body>
+<body onload="OnLoad()">
 
-	<div id="backtop_item">
-		<div class="qqserver">
-			<div class="qqserver_fold">
-				<div></div>
-			</div>
-			<div class="qqserver-body" style="display: block;">
-				<div class="qqserver-header">
-					<div>在线客服</div>
-					<span class="qqserver_arrow"></span>
-				</div>
-				<a href="javascript:;"
-					onclick="window.open('http://b.qq.com/webc.htm?new=0&sid=11223344&o=abc.com&q=1', '_blank')"
-					hidefocus="true">咨询提问</a> <a href="javascript:;" hidefocus="true">意见建议</a>
-				<div class="qqserver_comment" onclick="showid('popup1');"
-					hidefocus="true">给我留言</div>
-				<a href="javascript:;" class="a1" hidefocus="true">查看历史记录</a>
-			</div>
-		</div>
-		<a id="backtop" onclick="return false;" title="回到顶部"></a>
-	</div>
+	<%@ include file="qq.jsp"%>
 
 <%@ include  file="topFrame.jsp"%>
 
@@ -56,7 +39,7 @@
 		<tr>
 			<td width="230" class="td_leftnav_top">
                 <div id="main_frame_left">
-                    <%@ include  file="mysource_leftnav_mytrade.jsp"%>
+                    <%@ include  file="mysource_leftnav_mytrade.jsp" %>
                     <hr class="hr_2" />
                     <span class="text_mgmt_leftnav1"><span
 							id="mgmt_nav_switch2a" class="span_mgmt_nav1" title="收起"
@@ -64,13 +47,17 @@
 							id="mgmt_nav_switch2b" class="span_mgmt_nav2" title="展开"
 							onclick="mgmt_nav_switch2b();"></span>我的资源</span>
 						<div id="mgmt_nav2">
+                       <% if((Integer)session.getAttribute("userKind") ==3) {%><!-- 企业用户 -->
                         <a href="linetransport?flag=1&Display=10&PageNow=1" class="a_mgmt_leftnav" hidefocus="true">干线运输线路信息</a>
                         <a href="cityline?flag=1" class="a_mgmt_leftnav" hidefocus="true">城市配送网络信息</a>
                         <a href="car?flag=1" class="a_mgmt_leftnav" hidefocus="true">车辆信息</a>
                         <a href="warehouse?flag=1" class="a_mgmt_leftnav" hidefocus="true">仓库信息</a>
 						<a href="driver?flag=1" class="a_mgmt_leftnav" hidefocus="true">司机信息</a>
                         <a href="client" class="a_mgmt_leftnav" hidefocus="true">客户信息</a>
+                        <%} %>
+                        <% if((Integer)session.getAttribute("userKind") ==2) {%><!-- 企业用户 -->
                         <a href="goodsform?flag=1" class="a_mgmt_leftnav1" hidefocus="true">货物信息</a>
+                        <%} %>
                         <a href="contract" class="a_mgmt_leftnav" hidefocus="true">合同信息</a>
                     </div>
                     <%@ include  file="mysource_leftnav_myplan.jsp"%>
@@ -217,5 +204,9 @@
 	</div>
 
 </body>
-
+<script type="text/javascript">
+	function OnLoad() {
+		loadFocus();
+	}
+</script>
 </html>

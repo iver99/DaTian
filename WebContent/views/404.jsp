@@ -8,5 +8,6 @@
 	</div>
 	<div>
 		<span>错误描述：资源未找到</span>
+		<span>页面正在建设中...</span>
 	</div>
 </div>

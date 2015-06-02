@@ -57,7 +57,7 @@
 		<property name="mappingResources">
 			<list>
 				<value>cn/edu/bjtu/vo/Userinfo.hbm.xml</value>
-				<value>cn/edu/bjtu/vo/Assessform.hbm.xml</value>
+				<value>cn/edu/bjtu/vo/Comment.hbm.xml</value>
 				<value>cn/edu/bjtu/vo/Attention.hbm.xml</value>
 				<value>cn/edu/bjtu/vo/Carinfo.hbm.xml</value>
 				<value>cn/edu/bjtu/vo/Carrierinfo.hbm.xml</value>
@@ -86,6 +86,17 @@
 				<value>cn/edu/bjtu/vo/Carteam.hbm.xml</value>
 				<value>cn/edu/bjtu/vo/SettlementCarrierView.hbm.xml</value> 
 				<value>cn/edu/bjtu/vo/ComplaintClientView.hbm.xml</value>
+				<value>cn/edu/bjtu/vo/Focus.hbm.xml</value>
+				<value>cn/edu/bjtu/vo/FocusCarView.hbm.xml</value>
+				<value>cn/edu/bjtu/vo/FocusCitylineView.hbm.xml</value>
+				<value>cn/edu/bjtu/vo/FocusCompanyView.hbm.xml</value>
+				<value>cn/edu/bjtu/vo/FocusGoodsView.hbm.xml</value>
+				<value>cn/edu/bjtu/vo/FocusLinetransportView.hbm.xml</value>
+				<value>cn/edu/bjtu/vo/FocusWarehouseView.hbm.xml</value>
+				<value>cn/edu/bjtu/vo/Message.hbm.xml</value>
+				<value>cn/edu/bjtu/vo/Track.hbm.xml</value>
+				<value>cn/edu/bjtu/vo/Companycertificate.hbm.xml</value>
+				<value>cn/edu/bjtu/vo/GoodsResponseView.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -108,5 +119,17 @@
     <tx:annotation-driven transaction-manager="txManager"/> 
 	
 	<!-- 支持上传文件 -->  
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    <property name="defaultEncoding">
+			<value>UTF-8</value>
+		</property>
+		<property name="maxUploadSize">
+	<!-- <value>32505856</value> -->
+		<!-- 设置最大 20M 20*1024*1024   （文件上传最大值,以 byte为单位） -->
+			<value>20971520</value>
+		</property>
+		<property name="maxInMemorySize">
+			<value>4096</value>
+		</property>
+    </bean>
 </beans>

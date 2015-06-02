@@ -2,16 +2,18 @@ package cn.edu.bjtu.controller;
 
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import cn.edu.bjtu.service.CarService;
+import cn.edu.bjtu.service.DriverService;
 import cn.edu.bjtu.util.IdCreator;
 
 @Controller
@@ -22,14 +24,22 @@ import cn.edu.bjtu.util.IdCreator;
  */
 public class CommonController {
 	
-	@Resource(name = "carServiceImpl")
-	CarService carService;
+	/*@Autowired
+	CarService carService;*/
+	@Autowired
+	DriverService driverService;
 	
 	ModelAndView mv = new ModelAndView();
 
 	@RequestMapping("/myinfo")
-	public ModelAndView getMyInfo() {
-		mv.setViewName("mgmt");
+	public ModelAndView getMyInfo(HttpSession session) {
+		String userId=(String)session.getAttribute("userId");
+		// add by RussWest0 at 2015年5月30日,下午7:09:34 
+		if(userId==null){
+			mv.setViewName("login");
+		}else{
+			mv.setViewName("mgmt");
+		}
 		return mv;
 	}
 
@@ -41,15 +51,13 @@ public class CommonController {
 	 */
 	public ModelAndView insert(@RequestParam int flag,HttpServletRequest request,HttpServletResponse response) {
 		
-		//CheckLogin.checkLogin(request, response);//检查登录
-		System.out.println("common控制器");
 		if (flag == 1)
 			mv.setViewName("mgmt_r_line2");// 干线
 		else if (flag == 2)
 			mv.setViewName("mgmt_r_city2");// 城市配送
 		else if (flag == 3){
 			String carrierId=(String)request.getSession().getAttribute("userId");
-			List driverList = carService.getAllDriver(carrierId);
+			List driverList = driverService.getAllDriver(carrierId);
 			mv.addObject("driverList", driverList);
 			mv.setViewName("mgmt_r_car2");// 车辆
 		}
@@ -85,14 +93,13 @@ public class CommonController {
 		return "register";
 	}
 	
-	@RequestMapping("homepage")
+	@RequestMapping(value="homepage",method=RequestMethod.GET)
 	/**
 	 * 回到首页
 	 * @return
 	 */
 	public String gotoHomePage()
 	{
-		System.out.println("home-controller");
 		return "index";
 	}
 }

@@ -5,10 +5,10 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import cn.edu.bjtu.dao.BaseDao;
 import cn.edu.bjtu.dao.LinetransportDao;
 import cn.edu.bjtu.service.LinetransportService;
 import cn.edu.bjtu.util.HQLTool;
@@ -29,8 +29,8 @@ public class LinetransportServiceImpl implements LinetransportService {
 	LinetransportDao linetransportDao;
 	@Resource
 	Linetransport linetransport;
-	@Resource
-	BaseDao baseDao;
+	/*@Resource
+	BaseDao baseDao;*/
 	@Resource
 	HQLTool hqltool;
 
@@ -219,23 +219,23 @@ public class LinetransportServiceImpl implements LinetransportService {
 			String endPlace, int onWayTime, String type, float refPrice,
 			String remarks, String carrierId, String path, String fileName) {
 		// TODO Auto-generated method stub
-		linetransport.setCarrierId(carrierId);// 插入session里的carrierid
-		// linetransport.setDetailPrice(detailPrice);
-		linetransport.setEndPlace(endPlace);
 		linetransport.setId(IdCreator.createlineTransportId());
+		linetransport.setCarrierId(carrierId);// 插入session里的carrierid
+		linetransport.setLineName(lineName);
+		linetransport.setStartPlace(startPlace);
+		linetransport.setEndPlace(endPlace);
 		linetransport.setOnWayTime(onWayTime);
 		linetransport.setRefPrice(refPrice);
 		linetransport.setRelDate(new Date());
 		linetransport.setRemarks(remarks);
-		linetransport.setStartPlace(startPlace);
 		linetransport.setType(type);
 		// 保存文件路径
 		if (path != null && fileName != null) {
 			String fileLocation = path + "//" + fileName;
 			linetransport.setDetailPrice(fileLocation);
 		}
-		baseDao.save(linetransport);// 保存实体
-		return false;
+		linetransportDao.save(linetransport);// 保存实体
+		return true;
 
 	}
 
@@ -271,7 +271,7 @@ public class LinetransportServiceImpl implements LinetransportService {
 		// TODO Auto-generated method stub
 
 		linetransport = getLinetransportInfo(id);// 根据id查找到干线信息
-
+		linetransport.setLineName(lineName);
 		linetransport.setStartPlace(startPlace);
 		linetransport.setEndPlace(endPlace);
 		linetransport.setOnWayTime(onWayTime);
@@ -285,8 +285,8 @@ public class LinetransportServiceImpl implements LinetransportService {
 			linetransport.setDetailPrice(fileLocation);
 		}
 
-		baseDao.update(linetransport);
-		return false;
+		linetransportDao.update(linetransport);
+		return true;
 
 	}
 
@@ -297,11 +297,9 @@ public class LinetransportServiceImpl implements LinetransportService {
 	public boolean deleteLine(String id) {
 		linetransport = getLinetransportInfo(id);// 根据id查找到干线信息
 
-		System.out.println(linetransport);
-		System.out.println(id);
-		baseDao.delete(linetransport);
+		linetransportDao.delete(linetransport);
 		
-		return false;
+		return true;
 	}
 
 }

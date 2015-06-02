@@ -37,6 +37,8 @@ public class Carinfo implements java.io.Serializable {
 	private String storage;
 	private String carrierId;
 	private String stopPlace;
+	private String startPlace;
+	private String endPlace;
 
 	public Carinfo() {
 	}
@@ -54,7 +56,8 @@ public class Carinfo implements java.io.Serializable {
 			String carState, String carLocation, Date relDate, String carType,
 			String linetransportId, Double locLongitude, Double locLatitude,
 			String locationType, Date purchaseTime, String driverId,
-			String carBrand, String storage, String carrierId, String stopPlace) {
+			String carBrand, String storage, String carrierId, String stopPlace,
+			String startPlace, String endPlace) {
 		super();
 		this.id = id;
 		this.carNum = carNum;
@@ -80,6 +83,24 @@ public class Carinfo implements java.io.Serializable {
 		this.storage = storage;
 		this.carrierId = carrierId;
 		this.stopPlace = stopPlace;
+		this.startPlace = startPlace;
+		this.endPlace = endPlace;
+	}
+	
+	public String getStartPlace() {
+		return startPlace;
+	}
+
+	public void setStartPlace(String startPlace) {
+		this.startPlace = startPlace;
+	}
+	
+	public String getEndPlace() {
+		return endPlace;
+	}
+
+	public void setEndPlace(String endPlace) {
+		this.endPlace = endPlace;
 	}
 	
 	public String getStopPlace() {

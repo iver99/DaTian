@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+  
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+     <%@ taglib prefix="d" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -22,6 +24,7 @@
 <script type="text/javascript" src="js/backtop.js"></script>
 <script type="text/javascript" src="js/popup.js"></script>
 <script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
+<script type="text/javascript" src="js/focus_load.js"></script>
 <script type="text/javascript"> 
 	$(function() {
 		$('input, textarea').placeholder(); 
@@ -29,28 +32,9 @@
 </script>
 </head>
 
-<body>
+<body onload="OnLoad()">
 
-<div id="backtop_item">
-    <div class="qqserver">
-        <div class="qqserver_fold">
-            <div></div>
-        </div>
-        <div class="qqserver-body" style="display:block;">
-            <div class="qqserver-header">
-                <div>在线客服</div>
-                <span class="qqserver_arrow"></span>
-            </div>
-            <a href="javascript:;" onclick="window.open('http://b.qq.com/webc.htm?new=0&sid=11223344&o=abc.com&q=1', '_blank')" hidefocus="true">咨询提问</a>
-            <a href="javascript:;" hidefocus="true">意见建议</a>
-            <div class="qqserver_comment" onclick="showid('popup1');" hidefocus="true">
-                给我留言
-            </div>
-            <a href="javascript:;" class="a1" hidefocus="true">查看历史记录</a>
-        </div>
-    </div>
-    <a id="backtop" onclick="return false;" title="回到顶部"></a> 
-</div>
+<%@ include file="qq.jsp"%>
 
 <%@ include  file="topFrame.jsp"%>
 
@@ -68,6 +52,7 @@
 							id="mgmt_nav_switch2b" class="span_mgmt_nav2" title="展开"
 							onclick="mgmt_nav_switch2b();"></span>我的资源</span>
 						<div id="mgmt_nav2">
+                       <% if((Integer)session.getAttribute("userKind") ==3) {%><!-- 企业用户 -->
                         <a href="linetransport?flag=1&Display=10&PageNow=1" class="a_mgmt_leftnav" hidefocus="true">干线运输线路信息</a>
                         <a href="cityline?flag=1" class="a_mgmt_leftnav" hidefocus="true">城市配送网络信息</a>
                         <a href="car?flag=1" class="a_mgmt_leftnav1" hidefocus="true">车辆信息</a>
@@ -75,6 +60,7 @@
 						<a href="driver?flag=1" class="a_mgmt_leftnav" hidefocus="true">司机信息</a>
                         <a href="client" class="a_mgmt_leftnav" hidefocus="true">客户信息</a>
                         <a href="goodsform?flag=1" class="a_mgmt_leftnav" hidefocus="true">货物信息</a>
+                        <%} %>
                         <a href="contract" class="a_mgmt_leftnav" hidefocus="true">合同信息</a>
                     </div>
                     <%@ include  file="mysource_leftnav_myplan.jsp"%>
@@ -96,6 +82,7 @@
                         <td class="td_mgmt_right3_td1a"> 
                             <br />   
                               <form action="updateCar?id=${carInfo.id }" method="post">	   
+                              <c var="citylineInfo" items="${citylineInfo }">
                                      
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
@@ -104,6 +91,8 @@
                                 </tr>
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">所属车队：</td>
+                                   <c:choose>
+                                    <c:when test="${carInfo.carTeam == '' }">
                                     <td>
                                         <select style="width:120px;" name="carTeam">
                                             <option value="" selected="selected">请选择</option>
@@ -112,11 +101,45 @@
                                             <option value="上海车队">上海车队</option>
                                         </select>
                                     </td>
+                                    </c:when>
+                                    <c:when test="${carInfo.carTeam == '北京车队' }">
+                                    <td>
+                                        <select style="width:120px;" name="carTeam">
+                                            <option value="">请选择</option>
+                                            <option value="北京车队" selected="selected">北京车队</option>
+                                            <option value="天津车队">天津车队</option>
+                                            <option value="上海车队">上海车队</option>
+                                        </select>
+                                    </td>
+                                    </c:when>
+                                    <c:when test="${carInfo.carTeam == '天津车队' }">
+                                    <td>
+                                        <select style="width:120px;" name="carTeam">
+                                            <option value="">请选择</option>
+                                            <option value="北京车队">北京车队</option>
+                                            <option value="天津车队" selected="selected">天津车队</option>
+                                            <option value="上海车队">上海车队</option>
+                                        </select>
+                                    </td>
+                                    </c:when>
+                                    <c:when test="${carInfo.carTeam == '上海车队' }">
+                                    <td>
+                                        <select style="width:120px;" name="carTeam">
+                                            <option value="">请选择</option>
+                                            <option value="北京车队">北京车队</option>
+                                            <option value="天津车队">天津车队</option>
+                                            <option value="上海车队" selected="selected">上海车队</option>
+                                        </select>
+                                    </td>
+                                    </c:when>
+                                   </c:choose>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">定位方式：</td>
                                     <td>
-                                        <select id="pos" style="width:120px;" onchange="change_pos();" name="locType">
+                                    <c:choose>
+                                    <c:when test="${carInfo.locationType == '' }">
+                                    	<select id="pos" style="width:120px;" onchange="change_pos();" name="locType">
                                             <option value="" selected="selected">请选择</option>
                                             <option value="GPS" >GPS</option>
                                             <option value="手机">手机</option>
@@ -125,11 +148,48 @@
                                         <div id="pos_detail_1" style="display:none;">
                                             <input type="text" class="input_mgmt1" style="width:176px;" value="${carInfo.terminalId }" placeholder="请输入终端设备编码..." name="terminalId"/>
                                         </div>
+                                    </c:when>
+                                    <c:when test="${carInfo.locationType == 'GPS' }">
+                                    	<select id="pos" style="width:120px;" onchange="change_pos();" name="locType">
+                                            <option value="">请选择</option>
+                                            <option value="GPS" selected="selected">GPS</option>
+                                            <option value="手机">手机</option>
+                                            <option value="无">无</option>
+                                        </select>
+                                        <div id="pos_detail_1" style="display:inline;">
+                                            <input type="text" class="input_mgmt1" style="width:176px;" value="${carInfo.terminalId }" placeholder="请输入终端设备编码..." name="terminalId"/>
+                                        </div>
+                                    </c:when>
+                                    <c:when test="${carInfo.locationType == '手机' }">
+                                    	<select id="pos" style="width:120px;" onchange="change_pos();" name="locType">
+                                            <option value="" >请选择</option>
+                                            <option value="GPS" >GPS</option>
+                                            <option value="手机" selected="selected">手机</option>
+                                            <option value="无">无</option>
+                                        </select>
+                                        <div id="pos_detail_1" style="display:none;">
+                                            <input type="text" class="input_mgmt1" style="width:176px;" value="${carInfo.terminalId }" placeholder="请输入终端设备编码..." name="terminalId"/>
+                                        </div>
+                                    </c:when>
+                                    <c:when test="${carInfo.locationType == '无' }">
+                                    	<select id="pos" style="width:120px;" onchange="change_pos();" name="locType">
+                                            <option value="">请选择</option>
+                                            <option value="GPS" >GPS</option>
+                                            <option value="手机">手机</option>
+                                            <option value="无"  selected="selected">无</option>
+                                        </select>
+                                        <div id="pos_detail_1" style="display:none;">
+                                            <input type="text" class="input_mgmt1" style="width:176px;" value="${carInfo.terminalId }" placeholder="请输入终端设备编码..." name="terminalId"/>
+                                        </div>
+                                    </c:when>
+                                    </c:choose>    
                                     </td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">车型：</td>
-                                    <td>
+                                    <c:choose>
+                                    <c:when test="${carInfo.carType == '' }">
+                                   	<td>
                                         <select style="width:120px;" name="carType">
                                             <option value="" selected="selected">请选择</option>
                                             <option value="前四后四" >前四后四</option>
@@ -137,11 +197,45 @@
                                             <option value="其他">其他</option>
                                         </select>
                                     </td>
+                                    </c:when>
+                                    <c:when test="${carInfo.carType == '前四后四' }">
+                                   	<td>
+                                        <select style="width:120px;" name="carType">
+                                            <option value="">请选择</option>
+                                            <option value="前四后四" selected="selected">前四后四</option>
+                                            <option value="单桥">单桥</option>
+                                            <option value="其他">其他</option>
+                                        </select>
+                                    </td>
+                                    </c:when>
+                                    <c:when test="${carInfo.carType == '单桥' }">
+                                   	<td>
+                                        <select style="width:120px;" name="carType">
+                                            <option value="">请选择</option>
+                                            <option value="前四后四" >前四后四</option>
+                                            <option value="单桥" selected="selected">单桥</option>
+                                            <option value="其他">其他</option>
+                                        </select>
+                                    </td>
+                                    </c:when>
+                                    <c:when test="${carInfo.carType == '其他' }">
+                                   	<td>
+                                        <select style="width:120px;" name="carType">
+                                            <option value="">请选择</option>
+                                            <option value="前四后四" >前四后四</option>
+                                            <option value="单桥">单桥</option>
+                                            <option value="其他" selected="selected">其他</option>
+                                        </select>
+                                    </td>
+                                    </c:when>
+                                    </c:choose>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">厢型：</td>
                                     <td>
-                                        <select style="width:120px;" name="carBase">
+                                    <c:choose>
+                                    <c:when test="${carInfo.carBase == '' }">
+                                    	<select style="width:120px;" name="carBase">
                                             <option value="" selected="selected">请选择</option>
                                             <option value="普通" >普通</option>
                                             <option value="平板">平板</option>
@@ -151,27 +245,159 @@
                                             <option value="高栏">高栏</option>
                                             <option value="其他结构">其他结构</option>
                                         </select>
+                                    </c:when>
+                                    <c:when test="${carInfo.carBase == '普通' }">
+                                    	<select style="width:120px;" name="carBase">
+                                            <option value="">请选择</option>
+                                            <option value="普通" selected="selected">普通</option>
+                                            <option value="平板">平板</option>
+                                            <option value="厢式">厢式</option>
+                                            <option value="开顶厢">开顶厢</option>
+                                            <option value="集装厢">集装厢</option>
+                                            <option value="高栏">高栏</option>
+                                            <option value="其他结构">其他结构</option>
+                                        </select>
+                                    </c:when>
+                                    <c:when test="${carInfo.carBase == '平板' }">
+                                    	<select style="width:120px;" name="carBase">
+                                            <option value="">请选择</option>
+                                            <option value="普通" >普通</option>
+                                            <option value="平板" selected="selected">平板</option>
+                                            <option value="厢式">厢式</option>
+                                            <option value="开顶厢">开顶厢</option>
+                                            <option value="集装厢">集装厢</option>
+                                            <option value="高栏">高栏</option>
+                                            <option value="其他结构">其他结构</option>
+                                        </select>
+                                    </c:when>
+                                    <c:when test="${carInfo.carBase == '厢式' }">
+                                    	<select style="width:120px;" name="carBase">
+                                            <option value="" >请选择</option>
+                                            <option value="普通" >普通</option>
+                                            <option value="平板">平板</option>
+                                            <option value="厢式" selected="selected">厢式</option>
+                                            <option value="开顶厢">开顶厢</option>
+                                            <option value="集装厢">集装厢</option>
+                                            <option value="高栏">高栏</option>
+                                            <option value="其他结构">其他结构</option>
+                                        </select>
+                                    </c:when>
+                                    <c:when test="${carInfo.carBase == '开顶厢' }">
+                                    	<select style="width:120px;" name="carBase">
+                                            <option value="">请选择</option>
+                                            <option value="普通" >普通</option>
+                                            <option value="平板">平板</option>
+                                            <option value="厢式">厢式</option>
+                                            <option value="开顶厢" selected="selected">开顶厢</option>
+                                            <option value="集装厢">集装厢</option>
+                                            <option value="高栏">高栏</option>
+                                            <option value="其他结构">其他结构</option>
+                                        </select>
+                                    </c:when>
+                                    <c:when test="${carInfo.carBase == '集装厢' }">
+                                    	<select style="width:120px;" name="carBase">
+                                            <option value="">请选择</option>
+                                            <option value="普通" >普通</option>
+                                            <option value="平板">平板</option>
+                                            <option value="厢式">厢式</option>
+                                            <option value="开顶厢">开顶厢</option>
+                                            <option value="集装厢" selected="selected">集装厢</option>
+                                            <option value="高栏">高栏</option>
+                                            <option value="其他结构">其他结构</option>
+                                        </select>
+                                    </c:when>
+                                    <c:when test="${carInfo.carBase == '高栏' }">
+                                    	<select style="width:120px;" name="carBase">
+                                            <option value="">请选择</option>
+                                            <option value="普通" >普通</option>
+                                            <option value="平板">平板</option>
+                                            <option value="厢式">厢式</option>
+                                            <option value="开顶厢">开顶厢</option>
+                                            <option value="集装厢">集装厢</option>
+                                            <option value="高栏" selected="selected">高栏</option>
+                                            <option value="其他结构">其他结构</option>
+                                        </select>
+                                    </c:when>
+                                    <c:when test="${carInfo.carBase == '其他结构' }">
+                                    	<select style="width:120px;" name="carBase">
+                                            <option value="">请选择</option>
+                                            <option value="普通" >普通</option>
+                                            <option value="平板">平板</option>
+                                            <option value="厢式">厢式</option>
+                                            <option value="开顶厢">开顶厢</option>
+                                            <option value="集装厢">集装厢</option>
+                                            <option value="高栏">高栏</option>
+                                            <option value="其他结构" selected="selected">其他结构</option>
+                                        </select>
+                                    </c:when>
+                                    </c:choose>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">品牌：</td>
                                     <td>
-                                        <select id="menu_name4" class="select_apply1" style="width:120px;" name="carBrand">
+                                    <c:choose>
+                                    <c:when test="${carInfo.carBrand == '' }">
+                                    <select id="menu_name4" class="select_apply1" style="width:120px;" name="carBrand">
                                             <option value="" selected="selected">请选择</option>
                                             <option value="解放">解放</option>
                                             <option value="福田" >福田</option>
                                             <option value="东风">东风</option>
-                                        </select>
+                                    </select>
+                                    </c:when>
+                                    <c:when test="${carInfo.carBrand == '解放' }">
+                                    <select id="menu_name4" class="select_apply1" style="width:120px;" name="carBrand">
+                                            <option value="">请选择</option>
+                                            <option value="解放" selected="selected">解放</option>
+                                            <option value="福田" >福田</option>
+                                            <option value="东风">东风</option>
+                                    </select>
+                                    </c:when>
+                                    <c:when test="${carInfo.carBrand == '福田' }">
+                                    <select id="menu_name4" class="select_apply1" style="width:120px;" name="carBrand">
+                                            <option value="" >请选择</option>
+                                            <option value="解放">解放</option>
+                                            <option value="福田" selected="selected">福田</option>
+                                            <option value="东风">东风</option>
+                                    </select>
+                                    </c:when>
+                                    <c:when test="${carInfo.carBrand == '东风' }">
+                                    <select id="menu_name4" class="select_apply1" style="width:120px;" name="carBrand">
+                                            <option value="">请选择</option>
+                                            <option value="解放">解放</option>
+                                            <option value="福田" >福田</option>
+                                            <option value="东风" selected="selected">东风</option>
+                                    </select>
+                                    </c:when>
+                                    </c:choose>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">用途：</td>
                                     <td>
-                                        <select style="width:120px;" name="carUse">
+                                    <c:choose>
+                                    <c:when test="${carInfo.carUse == '' }">
+                                     	<select style="width:120px;" name="carUse">
                                             <option value="" selected="selected">请选择</option>
                                             <option value="普通运输" >普通运输</option>
                                             <option value="特殊">特殊</option>
                                         </select>
+                                    </c:when>
+                                    <c:when test="${carInfo.carUse == '普通运输' }">
+                                     	<select style="width:120px;" name="carUse">
+                                            <option value="">请选择</option>
+                                            <option value="普通运输" selected="selected">普通运输</option>
+                                            <option value="特殊">特殊</option>
+                                        </select>
+                                    </c:when>
+                                    <c:when test="${carInfo.carUse == '特殊' }">
+                                     	<select style="width:120px;" name="carUse">
+                                            <option value="">请选择</option>
+                                            <option value="普通运输" >普通运输</option>
+                                            <option value="特殊" selected="selected">特殊</option>
+                                        </select>
+                                    </c:when>
+                                    </c:choose>
                                     </td>
                                 </tr>
                                 <tr>
@@ -196,11 +422,29 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">冷藏：</td>
                                     <td>
-                                        <select style="width:120px;" name="storage">
+                                    <c:choose>
+                                    <c:when test="${carInfo.storage == '' }">
+                                    	<select style="width:120px;" name="storage">
                                             <option value="" selected="selected">请选择</option>
                                             <option value="冷藏" >是</option>
                                             <option value="非冷藏">否</option>
                                         </select>
+                                    </c:when>
+                                    <c:when test="${carInfo.storage == '冷藏' }">
+                                    	<select style="width:120px;" name="storage">
+                                            <option value="">请选择</option>
+                                            <option value="冷藏" selected="selected">是</option>
+                                            <option value="非冷藏">否</option>
+                                        </select>
+                                    </c:when>
+                                    <c:when test="${carInfo.storage == '非冷藏' }">
+                                    	<select style="width:120px;" name="storage">
+                                            <option value="">请选择</option>
+                                            <option value="冷藏" >是</option>
+                                            <option value="非冷藏" selected="selected">否</option>
+                                        </select>
+                                    </c:when>
+                                    </c:choose>
                                     </td>
                                 </tr>
                                 <tr>
@@ -208,9 +452,9 @@
                                     <td>
                                         <select style="width:120px;" name="driverId">
                                             <option value="" selected="selected">请选择</option>
-                                            <c:forEach var="driverList" items="${driverList }">
+                                            <d:forEach var="driverList" items="${driverList }">
                                             <option value="${driverList.id }">${driverList.driverName }</option>
-                                            </c:forEach>
+                                            </d:forEach>
                                         </select>
                                     </td>
                                 </tr>
@@ -218,9 +462,9 @@
                                     <td height="40" class="td_mgmt_right3_td1b">运营线路：</td>
                                     <td id="cityselector">
                                     <div>
-                                        <input id="city1" type="text" value="${linetransportInfo.startPlace }" class="input_city1" name="startPlace"/>
+                                        <input id="city1" type="text" value="${carInfo.startPlace }" class="input_city1" name="startPlace"/>
                                         &nbsp;&nbsp;至&nbsp;&nbsp;
-                                        <input id="city2" type="text" value="${linetransportInfo.endPlace }" class="input_city1" name="endPlace"/>
+                                        <input id="city2" type="text" value="${carInfo.endPlace }" class="input_city1" name="endPlace"/>
                                     </div>
                                     </td>
                                 </tr>
@@ -235,9 +479,10 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
                                     <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="window.location.href='mgmt_r_car.htm'" />
-                                    <input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
+                                    <input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
                                 </tr>
                             </table>
+                            </c>
                             </form>
                         </td>
                         </tr>
@@ -275,4 +520,9 @@
 </div>
 
 </body>
+<script type="text/javascript">
+	function OnLoad() {
+		loadFocus();
+	}
+</script>
 </html>

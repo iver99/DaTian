@@ -12,7 +12,7 @@ import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.vo.Warehouse;
 
 @Repository
-public class WarehouseDaoImpl implements WarehouseDao{
+public class WarehouseDaoImpl extends BaseDaoImpl<Warehouse> implements WarehouseDao{
 	
 	@Resource
 	private HibernateTemplate ht;

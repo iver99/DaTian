@@ -4,10 +4,10 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import cn.edu.bjtu.dao.BaseDao;
 import cn.edu.bjtu.dao.ContractDao;
 import cn.edu.bjtu.service.ContractService;
 import cn.edu.bjtu.util.HQLTool;
@@ -26,8 +26,6 @@ public class ContractServiceImpl implements ContractService{
 	ContractDao contractDao;
 	@Resource 
 	Contract contract;
-	@Resource 
-	BaseDao baseDao;
 	@Resource
 	HQLTool hqltool;
 
@@ -77,8 +75,8 @@ public class ContractServiceImpl implements ContractService{
 			String fileLocation = path + "//" + fileName;
 			contract.setRelatedMaterial(fileLocation);
 		}
-		baseDao.save(contract);//保存实体
-		return false;
+		contractDao.save(contract);//保存实体
+		return true;
 		
 	}
 	@Override

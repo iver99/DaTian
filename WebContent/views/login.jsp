@@ -13,45 +13,60 @@
 <link rel="bookmark" href="/images/fav.ico" type="image/x-icon" />
 <link type="text/css" rel="stylesheet" href="css/index.css" />
 <script type="text/javascript" src="js/jquery.min.1.7.2.js"></script>
+<!-- 用于表单验证 -->
+<script type="text/javascript" src="js/jquery.metadata.js"></script>
+<script type="text/javascript" src="js/jquery.validate.js"></script>
+<script type="text/javascript" src="js/messages_zh.js"></script>
+
 <script type="text/javascript" src="js/top_search.js"></script>
 <script type="text/javascript" src="js/main_nav.js"></script>
 <script type="text/javascript" src="js/backtop.js"></script>
 <script type="text/javascript" src="js/popup.js"></script>
 <script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
+<script type="text/javascript" src="js/focus_load.js"></script>
 <script type="text/javascript"> 
-	$(function() {
+	/* $(function() {
 		$('input, textarea').placeholder(); 
-	});
+		$("#loginForm").validate({
+			rules:{
+				username:{required : true},
+				password:{required : true}
+			},
+			errorPlacement: function( error, element ) {
+				error.insertAfter( element.parent() );
+			}
+		});
+		alert("finish")
+		
+	}); */
+	/* $().ready(function(){
+		//debugger;
+		$("#loginForm").validate({
+			rules:{
+				username:{required : true,minlength:5,maxlength:10},
+				password:{required : true,minlength:5,maxlength:10}
+			},
+			message:{
+				username:"用户名不能为空",
+				password:"密码不能为空"
+			},
+			errorPlacement: function( error, element ) {
+				error.insertAfter( element.parent() );
+			}
+		});
+		//alert("finish");
+	}); */
 </script>
 </head>
 
-<body>
+<body onload="OnLoad()">
 
-<div id="backtop_item">
-    <div class="qqserver">
-        <div class="qqserver_fold">
-            <div></div>
-        </div>
-        <div class="qqserver-body" style="display:block;">
-            <div class="qqserver-header">
-                <div>在线客服</div>
-                <span class="qqserver_arrow"></span>
-            </div>
-            <a href="javascript:;" onclick="window.open('http://b.qq.com/webc.htm?new=0&sid=11223344&o=abc.com&q=1', '_blank')" hidefocus="true">咨询提问</a>
-            <a href="javascript:;" hidefocus="true">意见建议</a>
-            <div class="qqserver_comment" onclick="showid('popup1');" hidefocus="true">
-                给我留言
-            </div>
-            <a href="javascript:;" class="a1" hidefocus="true">查看历史记录</a>
-        </div>
-    </div>
-    <a id="backtop" onclick="return false;" title="回到顶部"></a> 
-</div>
+<%@ include file="qq.jsp"%>
 
 <%@ include  file="topFrame.jsp"%>
 
 <div id="main_frame">
-<form action="login" name="loginForm" method="post">
+<form action="login" name="loginForm" method="post" id="loginForm">
 	<div class="div_login_left">
     	<div class="div_login_sub1">
         	登录&nbsp;&nbsp;${msg }
@@ -72,7 +87,8 @@
         </div>
        			<br/>
        	 <div class="div_login_sub3">
-        	<input type="radio" name="userkind" value="1" checked="checked"/>&nbsp;个人用户&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="userkind" value="2"/>企业用户
+        	<input type="radio" name="userkind" value="2" checked="checked"/>&nbsp;个人用户&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        	<input type="radio" name="userkind" value="3"/>企业用户
         </div>
         	<br/>
     	<div class="div_login_sub3">
@@ -120,4 +136,9 @@
 </div>
 
 </body>
+<script type="text/javascript">
+	function OnLoad() {
+		loadFocus();
+	}
+</script>
 </html>

@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.BaseDao;
 import cn.edu.bjtu.dao.ComplaintDao;
+import cn.edu.bjtu.dao.ContractDao;
 import cn.edu.bjtu.service.ComplaintService;
 import cn.edu.bjtu.service.OrderService;
 import cn.edu.bjtu.util.IdCreator;
@@ -28,8 +29,6 @@ public class ComplaintServiceImpl implements ComplaintService{
 	Complaintform complaintform;
 	@Resource 
 	OrderService orderService;
-	@Resource
-	BaseDao baseDao;
 	
 	@Override
 	public List getUserCompliant(String userId) {
@@ -66,27 +65,10 @@ public class ComplaintServiceImpl implements ComplaintService{
 		complaintform.setCarrierId(carrierId);
 		complaintform.setClientId(carrierId);
 		complaintform.setRelDate(new Date());
-		if(orderNum!=null)//不考虑订单号出错的情况
-		{
-			if(orderService.getOrderIdByOrderNum(orderNum).isEmpty())
-			{
-				System.out.println("找不到订单编号");
-				/*try {
-					response.sendRedirect("mycomplaint");//重定向显示最新结果
-					return;
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}*/
-				return false;
-			}
-			else {
-				complaintform.setOrderId(orderService.
-						getOrderIdByOrderNum(orderNum).
-						get(0).toString());
-			}
-		}
-		baseDao.save(complaintform);
+		// add by RussWest0 at 2015年5月30日,下午10:05:22 
+		complaintform.setOrderId(orderNum);
+		complaintform.setState("受理中");
+		complaintDao.save(complaintform);
 		return true;
 	
 	}
@@ -97,18 +79,27 @@ public class ComplaintServiceImpl implements ComplaintService{
 		complaintform = getComplaintInfo(id);
 		complaintform.setFeedback(feedback);
 		complaintform.setState("已受理");
-		baseDao.update(complaintform);
-		return false;
+		complaintDao.update(complaintform);
+		return true;
 	}
 	
 	@Override
-	public List getFindComplaint(String theme){
+	public List getFindComplaint(String theme, int flag, String clientId){
 		String sql="from ComplaintClientView ";
-		
-		if(theme.equals("投诉主题")){
-			//查找时不考虑投诉主题
+		if(flag==0){
+			if(theme.equals("投诉主题")){
+				//查找时不考虑投诉主题
+			}
+			else sql+="where theme like '%"+theme+"%' ";
+			
 		}
-		else sql+="where theme like '%"+theme+"%' ";
+		else if(flag==1){
+			if(theme.equals("投诉主题")){
+				//查找时不考虑投诉主题
+			}
+			else sql+="where theme like '%"+theme+"%' and clientId='"+clientId+"'";
+			
+		}
 		return complaintDao.getFindComplaint(sql);
 	}
 }

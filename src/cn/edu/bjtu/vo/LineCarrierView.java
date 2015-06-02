@@ -16,13 +16,14 @@ public class LineCarrierView {
 	private String detailPrice;
 	private String remarks;
 	private String type;
+	private String lineName;
 	
 	
 	public LineCarrierView() {
 	}
 	public LineCarrierView(String companyName, String id, String startPlace,
 			String endPlace, int onWayTime, Float refPrice, Date relDate,
-			String carrierId, String detailPrice, String remarks, String type) {
+			String carrierId, String detailPrice, String remarks, String type, String lineName) {
 		super();
 		this.companyName = companyName;
 		this.id = id;
@@ -35,6 +36,7 @@ public class LineCarrierView {
 		this.detailPrice = detailPrice;
 		this.remarks = remarks;
 		this.type = type;
+		this.lineName = lineName;
 	}
 	public String getCompanyName() {
 		return companyName;
@@ -104,5 +106,11 @@ public class LineCarrierView {
 		this.type = type;
 	}
 	
-	
+	public String getLineName() {
+		return this.lineName;
+	}
+
+	public void setLineName(String lineName) {
+		this.lineName = lineName;
+	}
 }

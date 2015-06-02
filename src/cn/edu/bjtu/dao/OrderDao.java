@@ -4,8 +4,9 @@ import java.util.List;
 
 import cn.edu.bjtu.vo.OrderCarrierView;
 import cn.edu.bjtu.vo.Orderform;
+import cn.edu.bjtu.vo.Track;
 
-public interface OrderDao {
+public interface OrderDao extends BaseDao<Orderform> {
 	
 	public List getAllSendOrderInfo(String userId);
 	public List getAllRecieveOrderInfo(String userId);
@@ -19,7 +20,7 @@ public interface OrderDao {
 	
 	public float getExpectedMoney(String orderId);
 	
-	public boolean signBill(String orderId,float actualPrice,String explainReason);
+	public boolean signBill(String orderId,float actualPrice,String explainReason,String path,String fileName);
 	
 	public Orderform getOrderInfo(String orderId);
 	
@@ -33,7 +34,8 @@ public interface OrderDao {
 			String goodsName,float goodsVolume,float goodsWeight,float expectedPrice,
 			float declaredPrice,float insurance,String contractId,String deliveryName,
 			String deliveryPhone,String deliveryAddr,String receiverName,String receiverPhone,
-			String receiverAddr,String carrierId);
+			String receiverAddr,String carrierId,String isLinkToClientWayBill,String clientWayBillNum, String resourceName, String resourceType,String companyName);
+	public List getCargoTrack(String orderNum, String carNum);
 	
 	
 	

@@ -18,6 +18,7 @@
 <script type="text/javascript" src="js/backtop.js"></script>
 <script type="text/javascript" src="js/popup.js"></script>
 <script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
+<script type="text/javascript" src="js/focus_load.js"></script>
 <script type="text/javascript"> 
 	$(function() {
 		$('input, textarea').placeholder(); 
@@ -25,28 +26,9 @@
 </script>
 </head>
 
-<body>
+<body onload="OnLoad()">
 
-<div id="backtop_item">
-    <div class="qqserver">
-        <div class="qqserver_fold">
-            <div></div>
-        </div>
-        <div class="qqserver-body" style="display:block;">
-            <div class="qqserver-header">
-                <div>在线客服</div>
-                <span class="qqserver_arrow"></span>
-            </div>
-            <a href="javascript:;" onclick="window.open('http://b.qq.com/webc.htm?new=0&sid=11223344&o=abc.com&q=1', '_blank')" hidefocus="true">咨询提问</a>
-            <a href="javascript:;" hidefocus="true">意见建议</a>
-            <div class="qqserver_comment" onclick="showid('popup1');" hidefocus="true">
-                给我留言
-            </div>
-            <a href="javascript:;" class="a1" hidefocus="true">查看历史记录</a>
-        </div>
-    </div>
-    <a id="backtop" onclick="return false;" title="回到顶部"></a> 
-</div>
+<%@ include file="qq.jsp"%>
 
 <%@ include  file="topFrame.jsp"%>
 <div id="main_frame">
@@ -63,7 +45,7 @@
                 <br />
                 仓库类型：<span class="text_detail_title2">${warehouseInfo.type }</span>
                 <br />
-                详细报价：<a href="javascript:;" hidefocus="true"><img src="images/btn_filetype2.png" /></a>
+                详细报价：<a href="downloadwarehousedetailprice?id=${warehouseInfo.id }" hidefocus="true"><img src="images/btn_filetype2.png" /></a>
                 <br />
                 发布日期：${warehouseInfo.relDate }
                 <br />
@@ -74,7 +56,20 @@
                 <br />
                 联系电话：${carrierInfo.phone }
                 <hr class="hr_1" />
-                <input type="button" id="btn2" value="关注" class="input_detail1" hidefocus="true" onclick="window.location.href='mgmt_d_focus.htm'" />
+                <input type="button" value="0" style="display:none" id="i"></input>
+                <c:forEach var="focus" items="${focusList }">
+					<c:if test="${warehouseInfo.id==focus.focusId}">
+						<script>
+							document.getElementById("i").value=1;
+						</script>
+					</c:if>
+				</c:forEach>
+				<script type="text/javascript">
+					if(document.getElementById("i").value==1)
+						document.write( "<input type=\"button\" id=\"btnfav\" value=\"已关注\" class=\"input_detail3\" hidefocus=\"true\" onclick=\"loadXMLDoc('${warehouseInfo.id }');hidefav(this);\" />" );
+					else
+						document.write( "<input type=\"button\" id=\"btnfav\" value=\"关注\" class=\"input_detail1\" hidefocus=\"true\" onclick=\"loadXMLDoc('${warehouseInfo.id }');hidefav(this);\" />" );
+				</script>
             </td>
 		</tr>
     </table>
@@ -109,8 +104,9 @@
                             <li>信用等级：${carrierInfo.creditRate	 }级</li>
                         </ul>
                         <ul id="item3" class="tab_hide">
-                            <li class="item2a">服务好，准时！（西西 2014-03-12 18:29）</li>
-                            <li class="item2a">服务好，准时！（西西 2014-03-12 18:29）</li>
+                           <c:forEach var="comment" items="${commentList }">
+                            <li class="item2a">${comment.comment }--- ${comment.relDate }</li>
+                            </c:forEach>
                         </ul>
                     </div>
 				</div>
@@ -147,4 +143,22 @@
 </div>
 
 </body>
+<script type="text/javascript">
+	function OnLoad() {
+		loadFocus();
+	}
+</script>
+<script type="text/javascript">
+function loadXMLDoc(id)
+{
+	$.ajax({
+		   type: "GET",
+		   url: "http://localhost:8585/DaTian/focus",//请求的后台地址
+		   data: "type=warehouse&id=" + id,//前台传给后台的参数
+		   success: function(msg){//msg:返回值
+			   loadFocus();
+		   }
+		});
+}
+</script>
 </html>

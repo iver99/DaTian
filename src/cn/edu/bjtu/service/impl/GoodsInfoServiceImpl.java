@@ -11,7 +11,6 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import cn.edu.bjtu.dao.BaseDao;
 import cn.edu.bjtu.dao.GoodsInfoDao;
 import cn.edu.bjtu.service.GoodsInfoService;
 import cn.edu.bjtu.util.HQLTool;
@@ -26,8 +25,6 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 	GoodsInfoDao goodsinfoDao;
 	@Resource
 	Goodsform goodsform;
-	@Resource
-	BaseDao baseDao;
 	@Resource
 	HQLTool hqltool;
 	@Resource
@@ -88,7 +85,6 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 		String invoice, String remarks,String clientId,String path,
 		String fileName) {
 		// TODO Auto-generated method stub
-		System.out.println("insertGoods");
 		
 		goodsform.setId(IdCreator.createGoodsId());
 		goodsform.setName(name);
@@ -114,15 +110,15 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 			String fileLocation = path + "//" + fileName;
 			goodsform.setRelatedMaterial(fileLocation);
 		}
-		baseDao.save(goodsform);//保存实体
-		return false;
+		goodsinfoDao.save(goodsform);//保存实体
+		return true;
 		
 	}
 
 	@Override
-	public boolean commitResponse(String goodsId, String remarks, String userId) {
+	public boolean commitResponse(String goodsId, String remarks, String userId,String path,String fileName) {
 		// TODO Auto-generated method stub
-		return goodsinfoDao.commitResponse(goodsId,remarks,userId);
+		return goodsinfoDao.commitResponse(goodsId,remarks,userId,path,fileName);
 	}
 
 	@Override
@@ -159,7 +155,6 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 			String damageReq, String VIPService, String oriented, String limitDate,
 			String invoice, String remarks,String clientId,String path, String fileName) {
 			// TODO Auto-generated method stub
-			System.out.println("updateGoods");
 			goodsform = getMyGoodsDetail(id);
 
 			goodsform.setName(name);
@@ -180,8 +175,8 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 				String fileLocation = path + "//" + fileName;
 				goodsform.setRelatedMaterial(fileLocation);
 			}
-			baseDao.update(goodsform);//保存实体
-			return false;
+			goodsinfoDao.update(goodsform);//保存实体
+			return true;
 			
 		}
 	 

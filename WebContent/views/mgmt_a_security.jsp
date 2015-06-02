@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+  
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -18,6 +19,7 @@
 <script type="text/javascript" src="js/backtop.js"></script>
 <script type="text/javascript" src="js/popup.js"></script>
 <script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
+<script type="text/javascript" src="js/focus_load.js"></script>
 <script type="text/javascript"> 
 	$(function() {
 		$('input, textarea').placeholder(); 
@@ -25,32 +27,13 @@
 </script>
 </head>
 
-<body>
+<body onload="OnLoad()">
 
-<div id="backtop_item">
-    <div class="qqserver">
-        <div class="qqserver_fold">
-            <div></div>
-        </div>
-        <div class="qqserver-body" style="display:block;">
-            <div class="qqserver-header">
-                <div>在线客服</div>
-                <span class="qqserver_arrow"></span>
-            </div>
-            <a href="javascript:;" onclick="window.open('http://b.qq.com/webc.htm?new=0&sid=11223344&o=abc.com&q=1', '_blank')" hidefocus="true">咨询提问</a>
-            <a href="javascript:;" hidefocus="true">意见建议</a>
-            <div class="qqserver_comment" onclick="showid('popup1');" hidefocus="true">
-                给我留言
-            </div>
-            <a href="javascript:;" class="a1" hidefocus="true">查看历史记录</a>
-        </div>
-    </div>
-    <a id="backtop" onclick="return false;" title="回到顶部"></a> 
-</div>
+<%@ include file="qq.jsp"%>
 
 <%@ include  file="topFrame.jsp"%>
 <div id="main_frame">
-	<a href="mgmt.htm" hidefocus="true" class="a_text_main_title1">我的信息</a>&nbsp;&gt;&nbsp;我的帐户
+	<a href="myinfo" hidefocus="true" class="a_text_main_title1">我的信息</a>&nbsp;&gt;&nbsp;我的帐户
     <table width="100%" border="0" cellpadding="0" cellspacing="0">
 		<tr>
 			<td width="230" class="td_leftnav_top">
@@ -171,4 +154,9 @@
 </div>
 
 </body>
+<script type="text/javascript">
+	function OnLoad() {
+		loadFocus();
+	}
+</script>
 </html>

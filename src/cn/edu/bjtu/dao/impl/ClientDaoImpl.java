@@ -4,11 +4,12 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
-import cn.edu.bjtu.dao.BaseDao;
 import cn.edu.bjtu.dao.ClientDao;
+import cn.edu.bjtu.dao.UserinfoDao;
 import cn.edu.bjtu.vo.Businessclient;
 import cn.edu.bjtu.vo.Clientinfo;
 import cn.edu.bjtu.vo.Userinfo;
@@ -19,13 +20,19 @@ import cn.edu.bjtu.vo.Userinfo;
  * @author RussWest0
  *
  */
-public class ClientDaoImpl implements ClientDao {
+public class ClientDaoImpl extends BaseDaoImpl<Clientinfo> implements ClientDao {
 
 	@Resource
 	HibernateTemplate ht;
-	
-	@Resource
-	BaseDao baseDao;
+	@Autowired
+	UserinfoDao userinfoDao;
+
+	/*
+	 * @Resource BaseDao baseDao;
+	 */
+	/*
+	 * @Autowired ClientDao clientDao;
+	 */
 
 	@Override
 	/**
@@ -70,28 +77,30 @@ public class ClientDaoImpl implements ClientDao {
 	/**
 	 * 检查是否设置头像
 	 */
-	public boolean checkHeadIcon(String userId,int userKind) {
+	public boolean checkHeadIcon(String userId, int userKind) {
 		// TODO Auto-generated method stub
 		// System.out.println("userId"+userId);
-		
-		if(userKind == 1)//个人用户 
+
+		if (userKind == 2)// 个人用户
 		{
 			List list = ht.find("select headIcon from Clientinfo where id='"
 					+ userId + "'");
 			if (list != null) {
-				// System.out.println("list+"+list);
 				return true;
 			} else
 				return false;
-		}else//企业用户
+		} else if (userKind == 3)// 企业用户
 		{
-			List list= ht.find("select headIcon from Carrierinfo where id='"+userId+"'");
-			if(list !=null)
+			List list = ht.find("select headIcon from Carrierinfo where id='"
+					+ userId + "'");
+			if (list != null)
 				return true;
-			else 
+			else
 				return false;
+		} else {
+			return false;// 默认返回false
 		}
-		
+
 	}
 
 	@Override
@@ -109,23 +118,23 @@ public class ClientDaoImpl implements ClientDao {
 	public boolean validateUser(String userId, String realName, String phone,
 			String IDCard, String sex) {
 		// TODO Auto-generated method stub
-		Clientinfo clientInfo=ht.get(Clientinfo.class, userId);
+		Clientinfo clientInfo = ht.get(Clientinfo.class, userId);
+		if (clientInfo == null) {// clientinfo找不到记录
+			return false;
+		}
+
 		clientInfo.setRealName(realName);
 		clientInfo.setPhone(phone);
 		clientInfo.setIdcard(IDCard);
 		clientInfo.setSex(sex);
-		
-		baseDao.update(clientInfo);
-		//修改个人信息状态
-		//if(flag== true)
-	//	{
-			Userinfo userInfo=ht.get(Userinfo.class, userId);
-			userInfo.setStatus("已审核");
-			baseDao.update(userInfo);
-	//}
-		
+		this.update(clientInfo);
+		Userinfo userInfo = ht.get(Userinfo.class, userId);
+		userInfo.setStatus("审核中");
+		userinfoDao.update(userInfo);
+
+		// }
+
 		return true;
 	}
-	
 
 }

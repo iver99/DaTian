@@ -24,6 +24,7 @@
 		<script type="text/javascript" src="js/backtop.js"></script>
 		<script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
 		<script type="text/javascript" src="js/splitPage.js"></script><!-- 新增 -->
+		<script type="text/javascript" src="js/focus_load.js"></script>
 		<script type="text/javascript">
 			$(function() {
 				$('input, textarea').placeholder();
@@ -33,26 +34,7 @@
 
 <body onload="OnLoad()">
 
-	<div id="backtop_item">
-		<div class="qqserver">
-			<div class="qqserver_fold">
-				<div></div>
-			</div>
-			<div class="qqserver-body" style="display: block;">
-				<div class="qqserver-header">
-					<div>在线客服</div>
-					<span class="qqserver_arrow"></span>
-				</div>
-				<a href="javascript:;"
-					onclick="window.open('http://b.qq.com/webc.htm?new=0&sid=11223344&o=abc.com&q=1', '_blank')"
-					hidefocus="true">咨询提问</a> <a href="javascript:;" hidefocus="true">意见建议</a>
-				<div class="qqserver_comment" onclick="showid('popup1');"
-					hidefocus="true">给我留言</div>
-				<a href="javascript:;" class="a1" hidefocus="true">查看历史记录</a>
-			</div>
-		</div>
-		<a id="backtop" onclick="return false;" title="回到顶部"></a>
-	</div>
+	<%@ include file="qq.jsp"%>
 
 <%@ include  file="topFrame.jsp"%>
 	<div id="main_frame">
@@ -195,9 +177,25 @@
 									<td class="td_main_list_content">${linetransport.type }</td>
 									<td class="td_main_list_content">${linetransport.onWayTime }</td>
 									<td class="td_main_list_content">${linetransport.relDate }</td>
-									<td class="td_main_list_content"><a href="javascript:;"
-										class="a_main_list_handle_icon1a" hidefocus="true"
-										onclick="hide(this)"></a></td>
+									<input type="button" value="0" style="display:none" id="i"></input>
+									<td class="td_main_list_content">
+										<script>
+											document.getElementById("i").value=0;
+										</script>
+										<c:forEach var="focus" items="${focusList }">
+										<c:if test="${linetransport.id==focus.focusId}">
+											<script>
+												document.getElementById("i").value=1;
+											</script>
+										</c:if>
+										</c:forEach>
+										<script type="text/javascript">
+											if(document.getElementById("i").value==1)
+												document.write( "<a href=\"javascript:;\" class=\"a_main_list_handle_icon1b\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('${linetransport.id }')\"></a>" );
+											else
+												document.write( "<a href=\"javascript:;\" class=\"a_main_list_handle_icon1a\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('${linetransport.id }')\"></a>" );
+										</script>
+										</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -308,15 +306,52 @@
 	<div id="footer_frame">
 		<iframe allowtransparency="true" width="100%" frameborder="0"
 			hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0"
-			src="views/footer.jsp"></iframe>
+			src="footer.htm"></iframe>
 	</div>
+	<!-- <div id="myDiv"></div> -->
 </body>
 <script type="text/javascript" charset="utf-8">
 	function OnLoad() {
+		loadFocus();
 		GetRequest();
 	}
 </script>
-
+<script type="text/javascript">
+/* function loadXMLDoc(id)
+{
+	var xmlhttp;
+	if (window.XMLHttpRequest)
+	  {// code for IE7+, Firefox, Chrome, Opera, Safari
+	  xmlhttp=new XMLHttpRequest();
+	  }
+	else
+	  {// code for IE6, IE5
+	  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	  }
+	xmlhttp.onreadystatechange=function()
+	  {
+	  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+	    {
+	    //document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+	    }
+	  }
+	url = "http://localhost:8585/DaTian/focus?type=linetransport&id=" + id;
+	xmlhttp.open("GET",url,true);
+	xmlhttp.send(null);
+} */
+function loadXMLDoc(id)
+{
+	$.ajax({
+		   type: "GET",
+		   url: "http://localhost:8585/DaTian/focus",//请求的后台地址
+		   data: "type=linetransport&id=" + id,//前台传给后台的参数
+		   success: function(msg){//msg:返回值
+			   loadFocus();
+			   //alert(msg);
+		   }
+		});
+}
+</script>
 <Script language="javascript" charset="gb2312">
 	function GetRequest() {
 		var url = location.search; //获取url中"?"符后的字串

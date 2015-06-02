@@ -35,5 +35,8 @@
             <property name="type" type="string">
                 <column name="type" />
             </property>
+            <property name="lineName" type="string">
+                <column name="lineName" />
+            </property>
     </class>
 </hibernate-mapping>

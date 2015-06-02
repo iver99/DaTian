@@ -23,6 +23,14 @@
         <property name="goodsId" type="string">
             <column name="goodsId" />
         </property>
-        
+         <property name="remarks" type="string">
+            <column name="remarks" />
+        </property>
+        <property name="relatedMaterial" type="string">
+            <column name="relatedMaterial" />
+        </property>
+        <property name="relDate" type="date">
+            <column name="relDate" />
+        </property>
     </class>
 </hibernate-mapping>

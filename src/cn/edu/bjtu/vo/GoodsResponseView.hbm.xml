@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-2-14 15:14:57 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="cn.edu.bjtu.vo.GoodsResponseView" table="goods_response_view" catalog="datian">
+        <id name="id" type="string">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="committer" type="string">
+            <column name="committer" />
+        </property>
+        <property name="phone" type="string">
+            <column name="phone" />
+        </property>
+        <property name="clientId" type="string">
+            <column name="clientId" />
+        </property>
+        <property name="carrierId" type="string">
+            <column name="carrierId" />
+        </property>
+        <property name="goodsId" type="string">
+            <column name="goodsId" />
+        </property>
+         <property name="remarks" type="string">
+            <column name="remarks" />
+        </property>
+        <property name="state" type="string">
+            <column name="state" />
+        </property>
+        <property name="responseId" type="string">
+            <column name="responseId" />
+        </property>
+         <property name="name" type="string">
+            <column name="name" />
+        </property>
+         <property name="relatedMaterial" type="string">
+            <column name="relatedMaterial" />
+        </property>
+        <property name="relDate" type="date">
+            <column name="relDate" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

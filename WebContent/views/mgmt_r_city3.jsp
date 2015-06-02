@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -20,6 +21,7 @@
 <script type="text/javascript" src="js/backtop.js"></script>
 <script type="text/javascript" src="js/popup.js"></script>
 <script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
+<script type="text/javascript" src="js/focus_load.js"></script>
 <script type="text/javascript"> 
 	$(function() {
 		$('input, textarea').placeholder(); 
@@ -27,28 +29,9 @@
 </script>
 </head>
 
-<body>
+<body onload="OnLoad()">
 
-<div id="backtop_item">
-    <div class="qqserver">
-        <div class="qqserver_fold">
-            <div></div>
-        </div>
-        <div class="qqserver-body" style="display:block;">
-            <div class="qqserver-header">
-                <div>在线客服</div>
-                <span class="qqserver_arrow"></span>
-            </div>
-            <a href="javascript:;" onclick="window.open('http://b.qq.com/webc.htm?new=0&sid=11223344&o=abc.com&q=1', '_blank')" hidefocus="true">咨询提问</a>
-            <a href="javascript:;" hidefocus="true">意见建议</a>
-            <div class="qqserver_comment" onclick="showid('popup1');" hidefocus="true">
-                给我留言
-            </div>
-            <a href="javascript:;" class="a1" hidefocus="true">查看历史记录</a>
-        </div>
-    </div>
-    <a id="backtop" onclick="return false;" title="回到顶部"></a> 
-</div>
+<%@ include file="qq.jsp"%>
 
 <%@ include  file="topFrame.jsp"%>
 
@@ -66,6 +49,7 @@
 							id="mgmt_nav_switch2b" class="span_mgmt_nav2" title="展开"
 							onclick="mgmt_nav_switch2b();"></span>我的资源</span>
 						<div id="mgmt_nav2">
+                       <% if((Integer)session.getAttribute("userKind") ==3) {%><!-- 企业用户 -->
                         <a href="linetransport?flag=1&Display=10&PageNow=1" class="a_mgmt_leftnav" hidefocus="true">干线运输线路信息</a>
                         <a href="cityline?flag=1" class="a_mgmt_leftnav1" hidefocus="true">城市配送网络信息</a>
                         <a href="car?flag=1" class="a_mgmt_leftnav" hidefocus="true">车辆信息</a>
@@ -73,6 +57,7 @@
 						<a href="driver?flag=1" class="a_mgmt_leftnav" hidefocus="true">司机信息</a>
                         <a href="client" class="a_mgmt_leftnav" hidefocus="true">客户信息</a>
                         <a href="goodsform?flag=1" class="a_mgmt_leftnav" hidefocus="true">货物信息</a>
+                        <%} %>
                         <a href="contract" class="a_mgmt_leftnav" hidefocus="true">合同信息</a>
                     </div>
                     <%@ include  file="mysource_leftnav_myplan.jsp"%>
@@ -105,12 +90,12 @@
                                     <td id="cityselector">
                                     	<input id="city1" type="text" value="${citylineInfo.cityName }" class="input_city1" name="cityName"/>
                                         &nbsp;
-                                        <span id="layer_switch"><input type="checkbox" id="subs" onclick="check_sub();" checked="checked" />
+                                       <!--  <span id="layer_switch"><input type="checkbox" id="subs" onclick="check_sub();" checked="checked" />
                                         显示辖区
-                                        </span>
+                                        </span> -->
                                     </td>
                                 </tr>
-                                <tr id="layer_subs">
+                                <!-- <tr id="layer_subs">
                                     <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
                                     <td>
                                         <span class="span_mgmt_right3_checkbox1">
@@ -167,19 +152,36 @@
                                         </span>
                                         <br />
                                     </td>
-                                </tr>
+                                </tr> -->
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">增值服务：</td>
+                                    <c var="citylineInfo" items="${citylineInfo }">
+                                     <c:choose>
+                                    <c:when test="${citylineInfo.VIPService == '无' }">
                                     <td>
                                         <select id="valueadd" style="width:120px;" onchange="change1();" name="VIPService">
-                                        <option value="" selected="selected">请选择</option>
+                                        <option value="">请选择</option>
                                         <option value="有">有</option>
-                                        <option value="无">无</option>
+                                        <option value="无" selected="selected">无</option>
                                         </select>
                                         <div id="v_detail" style="display:none;">
                                         <input type="text" class="input_mgmt1" style="width:176px;" value="${citylineInfo.VIPDetail }" name="VIPDetail"/>
                                         </div>
                                     </td>
+                                    </c:when>
+                                     <c:when test="${citylineInfo.VIPService == '有' }">
+                                    <td>
+                                        <select id="valueadd" style="width:120px;" onchange="change1();" name="VIPService">
+                                        <option value="">请选择</option>
+                                        <option value="有" selected="selected">有</option>
+                                        <option value="无">无</option>
+                                        </select>
+                                        <div id="v_detail" style="display:inline;">
+                                        <input type="text" class="input_mgmt1" style="width:176px;" value="${citylineInfo.VIPDetail }" name="VIPDetail"/>
+                                        </div>
+                                    </td>
+                                    </c:when>
+                                    </c:choose>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">参考价：</td>
@@ -248,4 +250,9 @@
 </div>
 
 </body>
+<script type="text/javascript">
+	function OnLoad() {
+		loadFocus();
+	}
+</script>
 </html>

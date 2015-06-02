@@ -13,17 +13,32 @@ import cn.edu.bjtu.vo.Clientinfo;
 public interface ClientService {
 	
 	public List getCompanyClient(String carrierId);
+	/**
+	 * 通过clientId查找clientinfo对象
+	 *
+	 * @param clientId
+	 * @return
+	 */
 	public Clientinfo getClientInfo(String clientId);
 	public Businessclient getBusinessclientInfo(String clientId);
-	public boolean insertClient(String account,String clientName,String clientBusiness,
+	public boolean insertBusinessClient(String account,String clientName,String clientBusiness,
 			String contact,String phone,String remarks,String carrierId,String path,String fileName);
-	public boolean updateClient(String id, String account,String clientName,String clientBusiness,
+	public boolean updateBusinessClient(String id, String account,String clientName,String clientBusiness,
 			String contact,String phone,String remarks,String carrierId,String path,String fileName);
-	public boolean deleteClient(String id);
+	public boolean deleteBusinessClient(String id);
 	public String getBasicUserInfo(String userId);
 	public boolean checkHeadIcon(String userId,int userKind);
 	
 	public String getStatus(String userId);
 	
 	public boolean validateUser(String userId,String realName,String phone,String IDCard,String sex);
+	/**
+	 * 更新个人用户信息
+	 * @param clientinfo
+	 * @param path
+	 * @param fileName
+	 * @param userId
+	 * @return
+	 */
+	public boolean updateClientinfo(Clientinfo clientinfo,String path,String fileName,String userId);
 }

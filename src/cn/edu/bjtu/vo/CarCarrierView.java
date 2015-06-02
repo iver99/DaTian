@@ -34,6 +34,13 @@ public class CarCarrierView implements java.io.Serializable {
 	private String companyName;
 	private String carBase;
 	
+	private Double carWidth;
+	private Double carHeight;
+	private String terminalId;
+	private String stopPlace;
+	private String startPlace;
+	private String endPlace;
+	
 	public CarCarrierView() {
 	}
 
@@ -46,7 +53,9 @@ public class CarCarrierView implements java.io.Serializable {
 			String linetransportId, Double locLongitude, Double locLatitude,
 			String locationType, String carBrand, String storage,
 			String carrierId, String carWeight, String carState,
-			String driverId, Date purchaseTime, String id, String companyName, String carBase) {
+			String driverId, Date purchaseTime, String id, String companyName, String carBase,
+			Double carWidth, Double carHeight, String terminalId, String stopPlace,
+			String startPlace, String endPlace) {
 		this.carLength = carLength;
 		this.carNum = carNum;
 		this.carTeam = carTeam;
@@ -68,8 +77,62 @@ public class CarCarrierView implements java.io.Serializable {
 		this.id = id;
 		this.companyName = companyName;
 		this.carBase = carBase;
+		this.carWidth = carWidth;
+		this.carHeight = carHeight;
+		this.terminalId = terminalId;
+		this.stopPlace = stopPlace;
+		this.startPlace = startPlace;
+		this.endPlace = endPlace;
 	}
 
+	public String getStartPlace() {
+		return startPlace;
+	}
+
+	public void setStartPlace(String startPlace) {
+		this.startPlace = startPlace;
+	}
+	
+	public String getEndPlace() {
+		return endPlace;
+	}
+
+	public void setEndPlace(String endPlace) {
+		this.endPlace = endPlace;
+	}
+	
+	public String getStopPlace() {
+		return stopPlace;
+	}
+
+	public void setStopPlace(String stopPlace) {
+		this.stopPlace = stopPlace;
+	}
+	
+	public Double getCarWidth() {
+		return carWidth;
+	}
+
+	public void setCarWidth(Double carWidth) {
+		this.carWidth = carWidth;
+	}
+
+	public Double getCarHeight() {
+		return carHeight;
+	}
+
+	public void setCarHeight(Double carHeight) {
+		this.carHeight = carHeight;
+	}
+	
+	public String getTerminalId() {
+		return terminalId;
+	}
+
+	public void setTerminalId(String terminalId) {
+		this.terminalId = terminalId;
+	}
+	
 	public String getCarLength() {
 		return this.carLength;
 	}

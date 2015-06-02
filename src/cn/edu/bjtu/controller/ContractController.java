@@ -54,7 +54,7 @@ public class ContractController {
 		List contractList = contractService.getCompanyContract(carrierId);
 		System.out.println("contractList+" + contractList);
 		mv.addObject("contractList", contractList);
-		Carrierinfo carrierInfo = companyService.getCarrierInfo(carrierId);
+		Carrierinfo carrierInfo = companyService.getCompanyById(carrierId);
 		mv.addObject("carrierInfo", carrierInfo);
 		mv.setViewName("mgmt_r_contact_s");
 		return mv;
@@ -74,7 +74,7 @@ public class ContractController {
 		//String carrierId = "C-0002";
 		Contract contract = contractService.getContractInfo(contractId);
 		mv.addObject("contract", contract);
-		Carrierinfo carrierInfo = companyService.getCarrierInfo(carrierId);
+		Carrierinfo carrierInfo = companyService.getCompanyById(carrierId);
 		mv.addObject("carrierInfo", carrierInfo);
 		if (flag == 1)// 详情
 		{
@@ -148,7 +148,7 @@ public class ContractController {
 				e.printStackTrace();
 			}
 		} else
-			mv.setViewName("fail");
+			mv.setViewName("mgmt_r_contact_s");
 		return mv;
 	}
 	@RequestMapping(value="shutdownContract",method = RequestMethod.POST)
@@ -200,7 +200,7 @@ public class ContractController {
 		List contractList = contractService.getFindContract(carrierId, startDate, endDate, name, Display, PageNow);
 		System.out.println("contractList+" + contractList);
 		mv.addObject("contractList", contractList);
-		Carrierinfo carrierInfo = companyService.getCarrierInfo(carrierId);
+		Carrierinfo carrierInfo = companyService.getCompanyById(carrierId);
 		mv.addObject("carrierInfo", carrierInfo);
 		
 		int count = contractService.getFindContractTotalRows(carrierId, startDate, endDate, name, Display, PageNow);// 获取查询总记录数

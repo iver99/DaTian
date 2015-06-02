@@ -1,11 +1,14 @@
 package cn.edu.bjtu.controller;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.ComplaintService;
 import cn.edu.bjtu.service.OrderService;
+import cn.edu.bjtu.vo.Cityline;
 import cn.edu.bjtu.vo.Complaintform;
 import cn.edu.bjtu.vo.OrderCarrierView;
 
@@ -35,12 +39,9 @@ public class ComplaintController {
 	@RequestMapping("/mycomplaint")
 	public ModelAndView getUserComplaint(HttpServletRequest request,HttpServletResponse response)
 	{	
-		System.out.println("进入投诉控制器");
 		String userId=(String)request.getSession().getAttribute("userId");
-		System.out.println("userid="+userId);
 		
 		List compliantList=complaintService.getUserCompliant(userId);
-		System.out.println("listsize+"+compliantList.size());
 		mv.addObject("compliantList", compliantList);
 		mv.setViewName("mgmt_d_complain");
 		return mv;
@@ -51,7 +52,6 @@ public class ComplaintController {
 			@RequestParam("id") String id,
 			@RequestParam("orderId") String orderId)
 	{	
-		System.out.println("进入投诉控制器");
 		Complaintform complaintInfo = complaintService.getComplaintInfo(id);
 		mv.addObject("complaintInfo", complaintInfo);
 		OrderCarrierView orderInfo = orderService.getSendOrderDetail(orderId);
@@ -93,18 +93,30 @@ public class ComplaintController {
 				e.printStackTrace();
 			}
 		} else
-			mv.setViewName("fail");
+			mv.setViewName("mgmt");
 		return mv;
 	}
 	
 	@RequestMapping("/allcomplaint")
-	public ModelAndView getAllUserComplaint(HttpServletRequest request,HttpServletResponse response)
+	/**
+	 * 后台投诉管理(管理员)
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ModelAndView getAllUserComplaint(HttpSession session)
 	{	
-		/*String userId=(String)request.getSession().getAttribute("userId");
-		System.out.println("userid="+userId);
-		*/
+		String userId=(String) session.getAttribute("userId");
+		// add by RussWest0 at 2015年5月30日,上午10:40:43 
+		if(userId==null){//未登录
+			mv.setViewName("adminLogin");
+			return mv;
+		}
+		if((int)session.getAttribute("userKind") != 1){//非管理员
+			mv.addObject("msg", "非管理员不能进入");
+			mv.setViewName("index");
+		}
 		List allCompliantList=complaintService.getAllUserCompliant();
-		System.out.println("listsize+"+allCompliantList.size());
 		mv.addObject("allCompliantList", allCompliantList);
 		mv.setViewName("mgmt_m_complain");
 		return mv;
@@ -115,9 +127,6 @@ public class ComplaintController {
 			@RequestParam String id,@RequestParam String orderid,@RequestParam int flag,
 			HttpServletRequest request,HttpServletResponse response)
 	{	
-		/*String userId=(String)request.getSession().getAttribute("userId");
-		System.out.println("userid="+userId);
-		*/
 		Complaintform complaintInfo = complaintService.getComplaintInfo(id);
 		mv.addObject("complaintInfo", complaintInfo);
 		OrderCarrierView orderInfo = orderService.getSendOrderDetail(orderid);
@@ -134,19 +143,23 @@ public class ComplaintController {
 	}
 	
 	@RequestMapping("/doacceptcomplaint")
+	/**
+	 * 受理投诉
+	 * @param id
+	 * @param feedback
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	public ModelAndView doAcceptComplaint(
 			@RequestParam String id, @RequestParam String feedback,
 			HttpServletRequest request,HttpServletResponse response)
 	{	
-		System.out.println("进入投诉控制器");
-		/*String userId=(String)request.getSession().getAttribute("userId");
-		System.out.println("userid="+userId);
-		*/
 		
 		boolean flag = complaintService.doAcceptComplaint(id, feedback);
 		if (flag == true) {
 			try {
-				response.sendRedirect("allcomplaint");// 重定向，显示最新的结果
+				response.sendRedirect("allcomplaint");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				// 此处应该记录日志
@@ -154,7 +167,7 @@ public class ComplaintController {
 				e.printStackTrace();
 			}
 		} else
-			mv.setViewName("fail");
+			mv.setViewName("mgmt_m_complain");
 		return mv;
 	}
 	
@@ -166,16 +179,54 @@ public class ComplaintController {
 	 * @return
 	 */
 	public ModelAndView findByComplaintTheme(
-			@RequestParam String theme,
+			@RequestParam String theme,@RequestParam int flag,
 			HttpServletRequest request,HttpServletResponse response){
 		
-		//String userId=(String)request.getSession().getAttribute("userId");
-
-		List complaintList = complaintService.getFindComplaint(theme);
-		System.out.println("complaintList+" + complaintList);
-		System.out.println("listsize+"+complaintList.size());
-		mv.addObject("allCompliantList", complaintList);
-		mv.setViewName("mgmt_m_complain");
+		String clientId=(String)request.getSession().getAttribute("userId");
+		if(flag==0){//后台管理的搜索
+			List complaintList = complaintService.getFindComplaint(theme,flag,clientId);
+			System.out.println("complaintList+" + complaintList);
+			System.out.println("listsize+"+complaintList.size());
+			mv.addObject("allCompliantList", complaintList);
+			mv.setViewName("mgmt_m_complain");
+		}
+		else if(flag==1){//我的交易-我的投诉的搜索
+			List complaintList = complaintService.getFindComplaint(theme,flag,clientId);
+			mv.addObject("compliantList", complaintList);
+			mv.setViewName("mgmt_d_complain");
+		}
 		return mv;
 	}
+	
+	@RequestMapping(value = "downloadrelatedmaterial", method = RequestMethod.GET)
+	public ModelAndView downloadRelatedMaterial(@RequestParam String id,// GET方式传入，在action中
+			HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("进入删除控制器");
+		System.out.println(id);
+		Complaintform complaintInfo = complaintService.getComplaintInfo(id);
+		try {
+			String file = complaintInfo.getRelatedMaterial();
+			InputStream is = new FileInputStream(file);
+			response.reset(); // 必要地清除response中的缓存信息
+			response.setHeader("Content-Disposition", "attachment; filename="
+					+ file);
+			//response.setContentType("application/vnd.ms-excel");// 根据个人需要,这个是下载文件的类型
+			javax.servlet.ServletOutputStream out = response.getOutputStream();
+			byte[] content = new byte[1024];
+			int length = 0;
+			while ((length = is.read(content)) != -1) {
+				out.write(content, 0, length);
+			}
+			out.write(content);
+			out.flush();
+			out.close();
+		} catch (Exception e) {
+			System.out.println("重定向失败");
+			e.printStackTrace();
+		}
+
+		return mv;
+
+	}
+	
 }

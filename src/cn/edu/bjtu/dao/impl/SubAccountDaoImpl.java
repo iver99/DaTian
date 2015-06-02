@@ -4,11 +4,10 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import cn.edu.bjtu.dao.BaseDao;
 import cn.edu.bjtu.dao.SubAccountDao;
 import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.vo.SubAccount;
@@ -20,12 +19,14 @@ import cn.edu.bjtu.vo.SubAccount;
  * 子账户dao层实现
  *
  */
-public class SubAccountDaoImpl implements SubAccountDao{
+public class SubAccountDaoImpl extends BaseDaoImpl<SubAccount> implements SubAccountDao{
 
 	@Resource
 	HibernateTemplate ht;
-	@Resource
-	BaseDao baseDao;
+	/*@Resource
+	BaseDao baseDao;*/
+	/*@Autowired
+	SubAccountDao subAccountDao;*/
 	@Resource 
 	private HQLTool hqltool;
 	
@@ -60,7 +61,7 @@ public class SubAccountDaoImpl implements SubAccountDao{
 		}
 
 		//return baseDao.update(subAccount);
-		baseDao.save(subAccount);
+		this.save(subAccount);
 		return true;
 	}
 	
@@ -68,7 +69,7 @@ public class SubAccountDaoImpl implements SubAccountDao{
 	public boolean deleteSubAccount(String id){
 		
 		SubAccount subAccount = ht.get(SubAccount.class, id);
-		 baseDao.delete(subAccount);
+		this.delete(subAccount);
 		 return true;
 	}
 }

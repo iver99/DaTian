@@ -4,27 +4,27 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
-import cn.edu.bjtu.dao.BaseDao;
 import cn.edu.bjtu.dao.ContractDao;
-import cn.edu.bjtu.vo.Contract;
-
-
 import cn.edu.bjtu.util.HQLTool;
+import cn.edu.bjtu.vo.Contract;
 @Repository
 /**
  * 合同dao层实现
  * @author RussWest0
  *
  */
-public class ContractDaoImpl implements ContractDao{
+public class ContractDaoImpl extends BaseDaoImpl<Contract> implements ContractDao{
 
 	@Resource
 	HibernateTemplate ht;
-	@Resource
-	BaseDao baseDao;
+	/*@Resource
+	BaseDao baseDao;*/
+	/*@Autowired
+	ContractDao contractDao;*/
 	@Resource 
 	private HQLTool hqltool;
 	
@@ -54,7 +54,8 @@ public class ContractDaoImpl implements ContractDao{
 		contract=ht.get(Contract.class, contractId);
 		contract.setState("已终止");//更新状态
 		contract.setReason(reason);
-		baseDao.update(contract);		
+		/*baseDao.update(contract);		*/
+		this.update(contract);
 		return true;
 	}
 	

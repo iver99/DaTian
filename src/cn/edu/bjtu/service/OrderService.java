@@ -4,6 +4,7 @@ import java.util.List;
 
 import cn.edu.bjtu.vo.OrderCarrierView;
 import cn.edu.bjtu.vo.Orderform;
+import cn.edu.bjtu.vo.Track;
 
 public interface OrderService {
 
@@ -30,7 +31,7 @@ public interface OrderService {
 	public float getExpectedMoney(String orderId);
 
 	public boolean signBill(String orderId, float actualPrice,
-			String explainReason);
+			String explainReason,String path,String fileName);
 
 	public Orderform getOrderInfo(String orderId);
 
@@ -46,13 +47,39 @@ public interface OrderService {
 			String recieverPhone, String recieverAddr, String remarks);
 
 	public boolean DoGetOrderWaitToConfirmUpdate(String orderId,
-			float actualPrice, String explainReason);
-
+			float actualPrice, String explainReason,String path,String fileName);
+	/**
+	 * ÐÂÔö¶©µ¥
+	 * @param userId
+	 * @param hasCarrierContract
+	 * @param deliveryName
+	 * @param receiverName
+	 * @param deliveryPhone
+	 * @param receiverPhone
+	 * @param deliveryAddr
+	 * @param receiverAddr
+	 * @param remarks
+	 * @param goodsName
+	 * @param goodsVolume
+	 * @param goodsWeight
+	 * @param expectedPrice
+	 * @param declaredPrice
+	 * @param insurance
+	 * @param contractId
+	 * @param carrierId
+	 * @param clientWayBillNum
+	 * @param resourceName
+	 * @param resourceType
+	 * @return
+	 */
 	public boolean createNewOrder(String userId, String hasCarrierContract,
 			String deliveryName, String receiverName, String deliveryPhone,
 			String receiverPhone, String deliveryAddr, String receiverAddr,
 			String remarks, String goodsName, float goodsVolume,
 			float goodsWeight, float expectedPrice, float declaredPrice,
-			float insurance, String contractId, String carrierId);
+			float insurance, String contractId, String carrierId,
+			String isLinkToClientWayBill,String clientWayBillNum, String resourceName, String resourceType,String companyName);
+
+	public List getCargoTrack(String orderNum, String carNum);
 
 }

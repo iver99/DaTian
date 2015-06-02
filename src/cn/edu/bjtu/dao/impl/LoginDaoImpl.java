@@ -13,7 +13,7 @@ import cn.edu.bjtu.dao.LoginDao;
 import cn.edu.bjtu.vo.Userinfo;
 
 @Repository
-public class LoginDaoImpl implements LoginDao {
+public class LoginDaoImpl extends BaseDaoImpl<Userinfo> implements LoginDao {
 
 
 	@Resource
@@ -25,22 +25,13 @@ public class LoginDaoImpl implements LoginDao {
 	public Userinfo checkLogin(String username, String password,int userKind) {
 		// TODO Auto-generated method stub
 		//需要修改 
-		//userinfo=(Userinfo)ht.find("from Userinfo where username='"+username+"' and password='"+password+"'");
-		List list=null;
-		String hql="from Userinfo where username='"+username+"' and password='"+password+"'"+" and userKind="+userKind;
-		list=ht.find(hql);
-		if(list.size()>0){
-			userinfo=(Userinfo)list.get(0);
-			return userinfo;
-		}
-		else
-			return null;//不存在次用户
-		/*if(userinfo!= null)
-		{
-			return userinfo;
-		}
-		else
-			return null;*/
+		String hql="from Userinfo where username=:username and password=:password and userKind=:userKind";
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("username", username);
+		params.put("password", password);
+		params.put("userKind", userKind);
+		
+		return this.get(hql, params);
 	}
 	
 

@@ -132,5 +132,29 @@ public class IdCreator {
 	public static String createCarteamId(){
 		return "CT"+(int)(Math.random()*100000000);
 	}
+	
+	/**
+	 * 返回关注id
+	 * @return
+	 */
+	public static String createFocusId(){
+		return "F"+(int)(Math.random()*100000000);
+	}
+	
+	/**
+	 * 返回留言id
+	 * @return
+	 */
+	public static String createMessageId(){
+		return "M"+(int)(Math.random()*100000000);
+	}
+	
+	/**
+	 * 返回反馈表id
+	 * @return
+	 */
+	public static String createResponseId(){
+		return "RE"+(int )(Math.random()*100000000);
+	}
 
 }

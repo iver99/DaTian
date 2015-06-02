@@ -18,6 +18,7 @@
 <script type="text/javascript" src="js/backtop.js"></script>
 <script type="text/javascript" src="js/popup.js"></script>
 <script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
+<script type="text/javascript" src="js/focus_load.js"></script>
 <script type="text/javascript"> 
 	$(function() {
 		$('input, textarea').placeholder(); 
@@ -25,28 +26,9 @@
 </script>
 </head>
 
-<body>
+<body onload="OnLoad()">
 
-<div id="backtop_item">
-    <div class="qqserver">
-        <div class="qqserver_fold">
-            <div></div>
-        </div>
-        <div class="qqserver-body" style="display:block;">
-            <div class="qqserver-header">
-                <div>在线客服</div>
-                <span class="qqserver_arrow"></span>
-            </div>
-            <a href="javascript:;" onclick="window.open('http://b.qq.com/webc.htm?new=0&sid=11223344&o=abc.com&q=1', '_blank')" hidefocus="true">咨询提问</a>
-            <a href="javascript:;" hidefocus="true">意见建议</a>
-            <div class="qqserver_comment" onclick="showid('popup1');" hidefocus="true">
-                给我留言
-            </div>
-            <a href="javascript:;" class="a1" hidefocus="true">查看历史记录</a>
-        </div>
-    </div>
-    <a id="backtop" onclick="return false;" title="回到顶部"></a> 
-</div>
+<%@ include file="qq.jsp"%>
 
 <%@ include  file="topFrame.jsp"%>
 <div id="main_frame">
@@ -78,8 +60,21 @@
                 <br />
                 联系电话：${carrierInfo.phone }
                 <hr class="hr_1" />
-                <input type="button" id="btn2" value="关注" class="input_detail1" hidefocus="true" onclick="window.location.href='mgmt_d_focus.htm'" />
-                <input type="button" id="btn2" value="提交订单" class="input_detail2" hidefocus="true" onclick="window.location.href='getneworderform?carrierid=${carInfo.carrierId}'" />
+               <input type="button" value="0" style="display:none" id="i"></input>
+                <c:forEach var="focus" items="${focusList }">
+					<c:if test="${carInfo.id==focus.focusId}">
+						<script>
+							document.getElementById("i").value=1;
+						</script>
+					</c:if>
+				</c:forEach>
+				<script type="text/javascript">
+					if(document.getElementById("i").value==1)
+						document.write( "<input type=\"button\" id=\"btnfav\" value=\"已关注\" class=\"input_detail3\" hidefocus=\"true\" onclick=\"loadXMLDoc('${carInfo.id }');hidefav(this);\" />" );
+					else
+						document.write( "<input type=\"button\" id=\"btnfav\" value=\"关注\" class=\"input_detail1\" hidefocus=\"true\" onclick=\"loadXMLDoc('${carInfo.id }');hidefav(this);\" />" );
+				</script>
+                <input type="button" id="btn2" value="提交订单" class="input_detail2" hidefocus="true" onclick="window.location.href='getneworderform?carrierid=${carInfo.carrierId}&flag=3&resourceId=${carInfo.id}'" />
             </td>
 		</tr>
 		</tbody>
@@ -106,20 +101,21 @@
                        
                         </ul>
                         <ul id="item2" class="tab_hide">
-                            <li class="item2a">${linetransportInfo.startPlace }←→${linetransportInfo.endPlace }</li>
-                            <li class="item2a">经停城市：数据库没有，与城市关联？（石家庄、郑州）</li>
+                            <li class="item2a">${carInfo.startPlace }←→${carInfo.endPlace }</li>
+                            <li class="item2a">${carInfo.stopPlace }</li>
                         </ul>
                         <ul id="item3" class="tab_hide">
                            	<li>公司名称：${carrierInfo.companyName }</li>
                             <li>公司性质：${carrierInfo.companyType }</li>
                             <li>注册日期：${carrierInfo.relDate }</li>
                             <li>服务行业：${carrierInfo.serviceIndustry }</li>
-                            <li>业务种类：专线卡车</li>
+                            <!-- <li>业务种类：专线卡车</li> -->
                             <li>信用等级：${carrierInfo.creditRate	 }级</li>
                         </ul>
                         <ul id="item4" class="tab_hide">
-                            <li class="item2a">服务好，准时！（西西 2014-03-12 18:29）</li>
-                            <li class="item2a">服务好，准时！（西西 2014-03-12 18:29）</li>
+                            <c:forEach var="comment" items="${commentList }">
+                            <li class="item2a">${comment.comment }--- ${comment.relDate }</li>
+                            </c:forEach>
                         </ul>
                     </div>
 				</div>
@@ -156,4 +152,22 @@
 </div>
 
 </body>
+<script type="text/javascript">
+	function OnLoad() {
+		loadFocus();
+	}
+</script>
+<script type="text/javascript">
+function loadXMLDoc(id)
+{
+	$.ajax({
+		   type: "GET",
+		   url: "http://localhost:8585/DaTian/focus",//请求的后台地址
+		   data: "type=car&id=" + id,//前台传给后台的参数
+		   success: function(msg){//msg:返回值
+			   loadFocus();
+		   }
+		});
+}
+</script>
 </html>

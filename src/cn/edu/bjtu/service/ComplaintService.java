@@ -16,5 +16,5 @@ public interface ComplaintService {
 			String content, String orderNum, String carrierId,
 			HttpServletRequest request, HttpServletResponse response);
 	public boolean doAcceptComplaint(String id, String feedback);
-	public List getFindComplaint(String theme);
+	public List getFindComplaint(String theme,int flag, String clientId);
 }

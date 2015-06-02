@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+ 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -18,6 +19,7 @@
 <script type="text/javascript" src="js/backtop.js"></script>
 <script type="text/javascript" src="js/popup.js"></script>
 <script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
+<script type="text/javascript" src="js/focus_load.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$('input, textarea').placeholder();
@@ -25,28 +27,9 @@
 </script>
 </head>
 
-<body>
+<body onload="OnLoad()">
 
-	<div id="backtop_item">
-		<div class="qqserver">
-			<div class="qqserver_fold">
-				<div></div>
-			</div>
-			<div class="qqserver-body" style="display: block;">
-				<div class="qqserver-header">
-					<div>在线客服</div>
-					<span class="qqserver_arrow"></span>
-				</div>
-				<a href="javascript:;"
-					onclick="window.open('http://b.qq.com/webc.htm?new=0&sid=11223344&o=abc.com&q=1', '_blank')"
-					hidefocus="true">咨询提问</a> <a href="javascript:;" hidefocus="true">意见建议</a>
-				<div class="qqserver_comment" onclick="showid('popup1');"
-					hidefocus="true">给我留言</div>
-				<a href="javascript:;" class="a1" hidefocus="true">查看历史记录</a>
-			</div>
-		</div>
-		<a id="backtop" onclick="return false;" title="回到顶部"></a>
-	</div>
+	<%@ include file="qq.jsp"%>
 
 	<%@ include file="topFrame.jsp"%>
 
@@ -70,7 +53,7 @@
 							<a href="accountinfo" class="a_mgmt_leftnav1" hidefocus="true">帐户信息</a>
                         <a href="getsubaccount" class="a_mgmt_leftnav" hidefocus="true">附属帐户</a>
                         <a href="getaddress" class="a_mgmt_leftnav" hidefocus="true">常用地址</a>
-                        <a href="mgmt_a_security.htm" class="a_mgmt_leftnav" hidefocus="true">安全设置</a>
+                        <a href="mysecurity" class="a_mgmt_leftnav" hidefocus="true">安全设置</a>
 						</div>
 					</div>
 				</td>
@@ -85,7 +68,7 @@
 						class="table_mgmt_right3">
 						<tr>
 							<td width="20" height="40" class="td_mgmt_right3_head1">&nbsp;</td>
-							<td class="td_mgmt_right3_head">类别</td>
+							<td class="td_mgmt_right3_head">类别&nbsp;&nbsp;${msg }</td>
 							<td width="120" class="td_mgmt_right3_head">状态</td>
 							<td width="80" class="td_mgmt_right3_head">操作</td>
 						</tr>
@@ -133,7 +116,7 @@
 							</c:choose>
 
 						</tr>
-
+						<% if((Integer)session.getAttribute("userKind") ==2){ %>
 						<tr>
 							<td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
 							<td class="td_mgmt_right3_td1">
@@ -142,7 +125,7 @@
 								<c:when test="${status=='审核中'}">
 									<td class="td_mgmt_right3_td3"><img
 										src="images/btn_hint3.png" />&nbsp;审核中</td>
-									<td class="td_mgmt_right3_td3"><a href="javascript:;"
+									<td class="td_mgmt_right3_td3"><a href="viewClientInfoDetail"
 										hidefocus="true">查看</a></td>
 								</c:when>
 								<c:when test="${status=='已审核'}">
@@ -153,10 +136,10 @@
 											<ul class="quickmenu">
 												<li class="menuitem">
 													<div class="menu">
-														<a href="javascript:;" class="menuhd" hidefocus="true">查看</a>
+														<a href="viewClientInfoDetail" class="menuhd" hidefocus="true">查看</a>
 														<div class="menubd">
 															<div class="menubdpanel">
-																<a href="javascript:;" class="a_top3" hidefocus="true">更新</a>
+																<a href="getupdateUserinfoForm" class="a_top3" hidefocus="true">更新</a>
 															</div>
 														</div>
 													</div>
@@ -174,31 +157,49 @@
 							</c:choose>
 
 						</tr>
-
+						<%} 
+							if((Integer)session.getAttribute("userKind") ==3){
+						%>
 						<tr>
-							<td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
+						<td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
 							<td class="td_mgmt_right3_td1">认证信息(公司)</td>
-							<td class="td_mgmt_right3_td3"><img
-								src="images/btn_hint2.png" />&nbsp;未验证</td>
-							<td class="td_mgmt_right3_td3"><a href="mgmt_a_info4.htm"
-								hidefocus="true">立即验证</a></td>
-						</tr>
-						<tr>
-							<td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
-							<td class="td_mgmt_right3_td1">认证信息(公司)</td>
-							<td class="td_mgmt_right3_td3"><img
-								src="images/btn_hint3.png" />&nbsp;审核中</td>
-							<td class="td_mgmt_right3_td3"><a href="javascript:;"
-								hidefocus="true">查看</a></td>
-						</tr>
-						<tr>
-							<td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
-							<td class="td_mgmt_right3_td1">认证信息(公司)</td>
-							<td class="td_mgmt_right3_td3"><img
-								src="images/btn_hint1.png" />&nbsp;已审核</td>
-							<td class="td_mgmt_right3_td3"><a href="javascript:;"
-								hidefocus="true">更新</a></td>
-						</tr>
+						<c:choose>
+								<c:when test="${status=='审核中'}">
+									<td class="td_mgmt_right3_td3"><img
+										src="images/btn_hint3.png" />&nbsp;审核中</td>
+									<td class="td_mgmt_right3_td3"><a href="detailcompanycertificate?flag=0"
+										hidefocus="true">查看</a></td>
+								</c:when>
+								<c:when test="${status=='已审核'}">
+									<td class="td_mgmt_right3_td3"><img
+										src="images/btn_hint1.png" />&nbsp;已审核</td>
+									<td class="td_mgmt_right3_td3">
+										<div id="handlebox" style="z-index: 202;">
+											<ul class="quickmenu">
+												<li class="menuitem">
+													<div class="menu">
+														<a href="detailcompanycertificate?flag=0" class="menuhd" hidefocus="true">查看</a>
+														<div class="menubd">
+															<div class="menubdpanel">
+																<a href="detailcompanycertificate?flag=1" class="a_top3" hidefocus="true">更新</a>
+															</div>
+														</div>
+													</div>
+												</li>
+											</ul>
+										</div>
+									</td>
+								</c:when>
+								<c:when test="${status=='未验证'}">
+									<td class="td_mgmt_right3_td3"><img
+										src="images/btn_hint2.png" />&nbsp;未验证</td>
+									<td class="td_mgmt_right3_td3"><a href="getcompanyvalidateform"
+										hidefocus="true">立即验证</a></td>
+								</c:when>
+							</c:choose>
+							
+							
+						<%} %>
 					</table> <br /> <img src="images/btn_help.png" />&nbsp;&nbsp;个人或公司均可发布资源信息。
 				</td>
 			</tr>
@@ -236,4 +237,9 @@
 	</div>
 
 </body>
+<script type="text/javascript">
+	function OnLoad() {
+		loadFocus();
+	}
+</script>
 </html>
