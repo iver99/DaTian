@@ -22,6 +22,7 @@ public class Linetransport implements java.io.Serializable {
 	private String detailPrice;
 	private String remarks;
 	private String type;
+	private String lineName;
 
 	public Linetransport() {
 	}
@@ -34,7 +35,7 @@ public class Linetransport implements java.io.Serializable {
 
 	public Linetransport(String id, String startPlace, String endPlace,
 			int onWayTime, Float refPrice, Date relDate, String carrierId,
-			String detailPrice, String remarks, String type) {
+			String detailPrice, String remarks, String type, String lineName) {
 		super();
 		this.id = id;
 		this.startPlace = startPlace;
@@ -46,6 +47,7 @@ public class Linetransport implements java.io.Serializable {
 		this.detailPrice = detailPrice;
 		this.remarks = remarks;
 		this.type = type;
+		this.lineName = lineName;
 	}
 
 	public String getId() {
@@ -129,4 +131,11 @@ public class Linetransport implements java.io.Serializable {
 		this.type = type;
 	}
 
+	public String getLineName() {
+		return this.lineName;
+	}
+
+	public void setLineName(String lineName) {
+		this.lineName = lineName;
+	}
 }

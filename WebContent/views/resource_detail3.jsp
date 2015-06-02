@@ -101,15 +101,15 @@
                        
                         </ul>
                         <ul id="item2" class="tab_hide">
-                            <li class="item2a">${linetransportInfo.startPlace }←→${linetransportInfo.endPlace }</li>
-                            <li class="item2a">经停城市：数据库没有，与城市关联？（石家庄、郑州）</li>
+                            <li class="item2a">${carInfo.startPlace }←→${carInfo.endPlace }</li>
+                            <li class="item2a">${carInfo.stopPlace }</li>
                         </ul>
                         <ul id="item3" class="tab_hide">
                            	<li>公司名称：${carrierInfo.companyName }</li>
                             <li>公司性质：${carrierInfo.companyType }</li>
                             <li>注册日期：${carrierInfo.relDate }</li>
                             <li>服务行业：${carrierInfo.serviceIndustry }</li>
-                            <li>业务种类：专线卡车</li>
+                            <!-- <li>业务种类：专线卡车</li> -->
                             <li>信用等级：${carrierInfo.creditRate	 }级</li>
                         </ul>
                         <ul id="item4" class="tab_hide">

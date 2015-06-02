@@ -79,7 +79,7 @@
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">线路名称：</td>
-                                    <td>${linetransportInfo.startPlace }→${linetransportInfo.endPlace }</td>
+                                    <td>${linetransportInfo.lineName }</td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">始发城市：</td>

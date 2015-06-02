@@ -134,7 +134,7 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
                                     <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="window.location.href='linetransport?flag=1&Display=10&PageNow=1'" />
-                                    <input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
+                                    <input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
                                 </tr>
                             </table>
                             </form>

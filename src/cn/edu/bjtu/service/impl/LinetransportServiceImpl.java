@@ -219,15 +219,15 @@ public class LinetransportServiceImpl implements LinetransportService {
 			String endPlace, int onWayTime, String type, float refPrice,
 			String remarks, String carrierId, String path, String fileName) {
 		// TODO Auto-generated method stub
-		linetransport.setCarrierId(carrierId);// 插入session里的carrierid
-		// linetransport.setDetailPrice(detailPrice);
-		linetransport.setEndPlace(endPlace);
 		linetransport.setId(IdCreator.createlineTransportId());
+		linetransport.setCarrierId(carrierId);// 插入session里的carrierid
+		linetransport.setLineName(lineName);
+		linetransport.setStartPlace(startPlace);
+		linetransport.setEndPlace(endPlace);
 		linetransport.setOnWayTime(onWayTime);
 		linetransport.setRefPrice(refPrice);
 		linetransport.setRelDate(new Date());
 		linetransport.setRemarks(remarks);
-		linetransport.setStartPlace(startPlace);
 		linetransport.setType(type);
 		// 保存文件路径
 		if (path != null && fileName != null) {
@@ -271,7 +271,7 @@ public class LinetransportServiceImpl implements LinetransportService {
 		// TODO Auto-generated method stub
 
 		linetransport = getLinetransportInfo(id);// 根据id查找到干线信息
-
+		linetransport.setLineName(lineName);
 		linetransport.setStartPlace(startPlace);
 		linetransport.setEndPlace(endPlace);
 		linetransport.setOnWayTime(onWayTime);

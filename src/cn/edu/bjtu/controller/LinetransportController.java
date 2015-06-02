@@ -1,4 +1,4 @@
-package cn.edu.bjtu.controller;
+ï»¿package cn.edu.bjtu.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,7 +32,7 @@ import cn.edu.bjtu.vo.Linetransport;
 
 @Controller
 /**
- * ¸ÉÏßÏà¹Ø¿ØÖÆÆ÷
+ * å¹²çº¿ç›¸å…³æ§åˆ¶å™¨
  * @author RussWest0
  *
  */
@@ -44,7 +44,7 @@ public class LinetransportController {
 	
 	@RequestMapping("/linetransport")
 	/**
-	 * ·µ»ØËùÓĞ¸ÉÏßĞÅÏ¢
+	 * è¿”å›æ‰€æœ‰å¹²çº¿ä¿¡æ¯
 	 * @return
 	 */
 	public ModelAndView getAllLinetransport(@RequestParam int flag,
@@ -53,21 +53,21 @@ public class LinetransportController {
 			HttpSession session) {
 		String userId = (String) session.getAttribute("userId");
 		if (Display == null)
-			Display = 10;// Ä¬ÈÏµÄÃ¿Ò³´óĞ¡
+			Display = 10;// é»˜è®¤çš„æ¯é¡µå¤§å°
 		if (PageNow == null)
-			PageNow = 1;// Ä¬ÈÏµÄµ±Ç°Ò³Ãæ
+			PageNow = 1;// é»˜è®¤çš„å½“å‰é¡µé¢
 
 		if (flag == 0) {
 			List linetransportList = linetransportService.getAllLinetransport(
 					Display, PageNow);
 			int count = linetransportService.getTotalRows("All", "All", "All",
-					"All", "All");// »ñÈ¡×Ü¼ÇÂ¼Êı,²»ĞèÒªwhere×Ó¾ä£¬ËùÒÔ²ÎÊı¶¼ÊÇAll
+					"All", "All");// è·å–æ€»è®°å½•æ•°,ä¸éœ€è¦whereå­å¥ï¼Œæ‰€ä»¥å‚æ•°éƒ½æ˜¯All
 			
 			/*String userId = (String) request.getSession().getAttribute(
 					"userId");*/
 			List focusList = focusService.getFocusList(userId,"linetransport");
 			// System.out.println("count+"+count);
-			int pageNum = (int) Math.ceil(count * 1.0 / Display);// Ò³Êı
+			int pageNum = (int) Math.ceil(count * 1.0 / Display);// é¡µæ•°
 			mv.addObject("count", count);
 			mv.addObject("pageNum", pageNum);
 			mv.addObject("pageNow", PageNow);
@@ -75,7 +75,7 @@ public class LinetransportController {
 			mv.addObject("linetransportList", linetransportList);
 			mv.setViewName("resource_list");
 		} else if (flag == 1) {
-			// ÕâÀï´ÓsessionÈ¡³öid£¬²éÑ¯Ö¸¶¨µÄline
+			// è¿™é‡Œä»sessionå–å‡ºidï¼ŒæŸ¥è¯¢æŒ‡å®šçš„line
 			
 			if(userId==null)
 			{
@@ -83,7 +83,7 @@ public class LinetransportController {
 				return mv;
 			}
 			List linetransportList = linetransportService.getCompanyLine(
-					userId, Display, PageNow);// ĞÂÔöÁ½¸ö²ÎÊı
+					userId, Display, PageNow);// æ–°å¢ä¸¤ä¸ªå‚æ•°
 
 			mv.addObject("linetransportList", linetransportList);
 				mv.setViewName("mgmt_r_line");
@@ -93,7 +93,7 @@ public class LinetransportController {
 
 	@RequestMapping(value = "/linetransportdetail", method = RequestMethod.GET)
 	/**
-	 * »ñÈ¡ÌØ¶¨µÄ¸ÉÏßĞÅÏ¢
+	 * è·å–ç‰¹å®šçš„å¹²çº¿ä¿¡æ¯
 	 * @param linetransportid
 	 * @return
 	 */
@@ -102,22 +102,22 @@ public class LinetransportController {
 			@RequestParam("carrierId") String carrierId,
 			@RequestParam("flag") int flag, HttpSession session) {
 		Linetransport linetransportInfo = linetransportService
-				.getLinetransportInfo(linetransportid);// ĞèÒªÖØ¹¹£¬·µ»ØÒ»ÌõÏßÂ·ĞÅÏ¢
+				.getLinetransportInfo(linetransportid);// éœ€è¦é‡æ„ï¼Œè¿”å›ä¸€æ¡çº¿è·¯ä¿¡æ¯
 		mv.addObject("linetransportInfo", linetransportInfo);
 		String userId = (String) session.getAttribute("userId");
 		List focusList = focusService.getFocusList(userId,"linetransport");
 		mv.addObject("focusList", focusList);
 		if (flag == 0) {
 			Carrierinfo carrierInfo = companyService.getCompanyById(carrierId);
-			//´Ë´¦ĞèÒª»ñÈ¡µ½¸ÉÏßÆÀ¼ÛÏêÇé 
-			// add by RussWest0 at 2015Äê5ÔÂ30ÈÕ,ÉÏÎç9:19:53 
+			//æ­¤å¤„éœ€è¦è·å–åˆ°å¹²çº¿è¯„ä»·è¯¦æƒ… 
+			// add by RussWest0 at 2015å¹´5æœˆ30æ—¥,ä¸Šåˆ9:19:53 
 			List<Comment> commentList=commentService.getLinetransportCommentById(linetransportid,carrierId);
 			mv.addObject("commentList",commentList);
 			mv.addObject("carrierInfo", carrierInfo);
 			mv.setViewName("resource_detail1");
-		} else if (flag == 1) {// ÏêÇé
+		} else if (flag == 1) {// è¯¦æƒ…
 			mv.setViewName("mgmt_r_line4");
-		} else if (flag == 2) {// ¸üĞÂ
+		} else if (flag == 2) {// æ›´æ–°
 			mv.setViewName("mgmt_r_line3");
 
 		}
@@ -125,9 +125,9 @@ public class LinetransportController {
 	}
 
 	@RequestMapping(value = { "linetransportselected", "searchResourceselected" })
-	// Í¬Ê±À¹½ØÁ½ÖÖÇëÇó
+	// åŒæ—¶æ‹¦æˆªä¸¤ç§è¯·æ±‚
 	/**              
-	 * ·µ»Ø¸ÉÏß·ûºÏÉ¸Ñ¡µÄÌõ¼şµÄĞÅÏ¢
+	 * è¿”å›å¹²çº¿ç¬¦åˆç­›é€‰çš„æ¡ä»¶çš„ä¿¡æ¯
 	 * @param startPlace
 	 * @param endPlace
 	 * @param type
@@ -155,9 +155,9 @@ public class LinetransportController {
 				startPlace, endPlace, type, startPlace1, refPrice, Display,
 				PageNow);
 		int count = linetransportService.getTotalRows(startPlace, endPlace,
-				type, startPlace1, refPrice);// »ñÈ¡×Ü¼ÇÂ¼Êı
+				type, startPlace1, refPrice);// è·å–æ€»è®°å½•æ•°
 
-		int pageNum = (int) Math.ceil(count * 1.0 / Display);// Ò³Êı
+		int pageNum = (int) Math.ceil(count * 1.0 / Display);// é¡µæ•°
 		mv.addObject("linetransportList", linetransportList);
 		mv.addObject("count", count);
 		mv.addObject("pageNum", pageNum);
@@ -169,7 +169,7 @@ public class LinetransportController {
 
 	@RequestMapping(value = "insertLine", method = RequestMethod.POST)
 	/**
-	 * ĞÂÔö¸ÉÏßÏßÂ·
+	 * æ–°å¢å¹²çº¿çº¿è·¯
 	 * @param lineName
 	 * @param startPlace
 	 * @param endPlace
@@ -186,7 +186,7 @@ public class LinetransportController {
 			@RequestParam String lineName, @RequestParam String startPlace,
 			@RequestParam String endPlace, @RequestParam int onWayTime,
 			@RequestParam String type,
-			@RequestParam float refPrice,// È±ÉÙÏêÏ¸±¨¼Û²ÎÊı
+			@RequestParam float refPrice,// ç¼ºå°‘è¯¦ç»†æŠ¥ä»·å‚æ•°
 			@RequestParam String remarks, HttpServletRequest request,
 			HttpServletResponse response) {
 		String carrierId = (String) request.getSession().getAttribute("userId");
@@ -194,33 +194,31 @@ public class LinetransportController {
 
 		String path = null;
 		String fileName = null;
-		//System.out.println("file+"+file+"filename"+file.getOriginalFilename());//²»ÉÏ´«ÎÄ¼ş»¹ÊÇ»áÏÔÊ¾ÓĞÖµ
-		if (file.getSize() != 0)// ÓĞÉÏ´«ÎÄ¼şµÄÇé¿ö
+		if (file.getSize() != 0)// æœ‰ä¸Šä¼ æ–‡ä»¶çš„æƒ…å†µ
 		{
-			path = UploadPath.getLinetransportPath();// ²»Í¬µÄµØ·½È¡²»Í¬µÄÉÏ´«Â·¾¶
+			path = UploadPath.getLinetransportPath();// ä¸åŒçš„åœ°æ–¹å–ä¸åŒçš„ä¸Šä¼ è·¯å¾„
 			fileName = file.getOriginalFilename();
-			fileName = carrierId + "_" + fileName;// ÎÄ¼şÃû
+			fileName = carrierId + "_" + fileName;// æ–‡ä»¶å
 			File targetFile = new File(path, fileName);
-			try { // ±£´æ ÎÄ¼ş
+			try { // ä¿å­˜ æ–‡ä»¶
 				file.transferTo(targetFile);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			//System.out.println("path+fileName+" + path + "-" + fileName);
 			// //////////////////////////////////////////////////////////////////
 		} 
-		//Ã»ÓĞÉÏ´«ÎÄ¼şµÄÇé¿öpath ºÍ filenNameÄ¬ÈÏÎªnull
+		//æ²¡æœ‰ä¸Šä¼ æ–‡ä»¶çš„æƒ…å†µpath å’Œ filenNameé»˜è®¤ä¸ºnull
 		boolean flag = linetransportService.insertLine(lineName, startPlace,
 				endPlace, onWayTime, type, refPrice, remarks, carrierId, path,
 				fileName);
-		// ĞŞ¸Ä´Ë·½·¨,Ôö¼ÓÁ½¸ö²ÎÊı
+		// ä¿®æ”¹æ­¤æ–¹æ³•,å¢åŠ ä¸¤ä¸ªå‚æ•°
 		if (flag == true) {
 			try {
-				response.sendRedirect("linetransport?flag=1");// ÖØ¶¨Ïò£¬ÏÔÊ¾×îĞÂµÄ½á¹û
+				response.sendRedirect("linetransport?flag=1");// é‡å®šå‘ï¼Œæ˜¾ç¤ºæœ€æ–°çš„ç»“æœ
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				// ´Ë´¦Ó¦¸Ã¼ÇÂ¼ÈÕÖ¾
-				System.out.println("linetransport²åÈëºóÖØ¶¨ÏòÊ§°Ü");
+				// æ­¤å¤„åº”è¯¥è®°å½•æ—¥å¿—
+				System.out.println("linetransportæ’å…¥åé‡å®šå‘å¤±è´¥");
 				e.printStackTrace();
 			}
 		} else
@@ -230,7 +228,7 @@ public class LinetransportController {
 
 	@RequestMapping(value = "updateLine", method = RequestMethod.POST)
 	/**
-	 * ¸üĞÂ¸ÉÏßĞÅÏ¢
+	 * æ›´æ–°å¹²çº¿ä¿¡æ¯
 	 * @param id
 	 * @param lineName
 	 * @param startPlace
@@ -244,31 +242,31 @@ public class LinetransportController {
 	 * @return
 	 */
 	public ModelAndView updateLine(@RequestParam MultipartFile file,
-			@RequestParam String id,// GET·½Ê½´«Èë£¬ÔÚactionÖĞ
+			@RequestParam String id,// GETæ–¹å¼ä¼ å…¥ï¼Œåœ¨actionä¸­
 			@RequestParam String lineName, @RequestParam String startPlace,
 			@RequestParam String endPlace, @RequestParam int onWayTime,
 			@RequestParam String type,
-			@RequestParam float refPrice,// È±ÉÙÏêÏ¸±¨¼Û²ÎÊı
+			@RequestParam float refPrice,// ç¼ºå°‘è¯¦ç»†æŠ¥ä»·å‚æ•°
 			@RequestParam String remarks, HttpServletRequest request,
 			HttpServletResponse response) {
 		String carrierId = (String) request.getSession().getAttribute("userId");
 		//////////////////////////////////////////////
 		String path = null;
 		String fileName = null;
-		//System.out.println("file+"+file+"filename"+file.getOriginalFilename());//²»ÉÏ´«ÎÄ¼ş»¹ÊÇ»áÏÔÊ¾ÓĞÖµ
-		if (file.getSize() != 0)// ÓĞÉÏ´«ÎÄ¼şµÄÇé¿ö
+		//System.out.println("file+"+file+"filename"+file.getOriginalFilename());//ä¸ä¸Šä¼ æ–‡ä»¶è¿˜æ˜¯ä¼šæ˜¾ç¤ºæœ‰å€¼
+		if (file.getSize() != 0)// æœ‰ä¸Šä¼ æ–‡ä»¶çš„æƒ…å†µ
 		{
-			path = UploadPath.getLinetransportPath();// ²»Í¬µÄµØ·½È¡²»Í¬µÄÉÏ´«Â·¾¶
+			path = UploadPath.getLinetransportPath();// ä¸åŒçš„åœ°æ–¹å–ä¸åŒçš„ä¸Šä¼ è·¯å¾„
 			fileName = file.getOriginalFilename();
-			fileName = carrierId + "_" + fileName;// ÎÄ¼şÃû
+			fileName = carrierId + "_" + fileName;// æ–‡ä»¶å
 			File targetFile = new File(path, fileName);
-			try { // ±£´æ ÎÄ¼ş
+			try { // ä¿å­˜ æ–‡ä»¶
 				file.transferTo(targetFile);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		} 
-		//Ã»ÓĞÉÏ´«ÎÄ¼şµÄÇé¿öpath ºÍ filenNameÄ¬ÈÏÎªnull
+		//æ²¡æœ‰ä¸Šä¼ æ–‡ä»¶çš„æƒ…å†µpath å’Œ filenNameé»˜è®¤ä¸ºnull
 		
 		//////////////////////////////////////////////
 		
@@ -277,10 +275,10 @@ public class LinetransportController {
 				carrierId,path,fileName);//change
 		if (flag == true) {
 			try {
-				response.sendRedirect("linetransport?flag=1");// ÖØ¶¨Ïò£¬ÏÔÊ¾×îĞÂµÄ½á¹û
+				response.sendRedirect("linetransport?flag=1");// é‡å®šå‘ï¼Œæ˜¾ç¤ºæœ€æ–°çš„ç»“æœ
 			} catch (IOException e) {
-				// ´Ë´¦Ó¦¸Ã¼ÇÂ¼ÈÕÖ¾
-				System.out.println("linetransport¸üĞÂºóÖØ¶¨ÏòÊ§°Ü");
+				// æ­¤å¤„åº”è¯¥è®°å½•æ—¥å¿—
+				System.out.println("linetransportæ›´æ–°åé‡å®šå‘å¤±è´¥");
 				e.printStackTrace();
 			}
 		} else
@@ -291,19 +289,19 @@ public class LinetransportController {
 
 	@RequestMapping(value = "linetransportdelete", method = RequestMethod.GET)
 	/**
-	 * É¾³ı¸ÉÏß
+	 * åˆ é™¤å¹²çº¿
 	 */
-	public ModelAndView deleteLine(@RequestParam String id,// GET·½Ê½´«Èë£¬ÔÚactionÖĞ
+	public ModelAndView deleteLine(@RequestParam String id,// GETæ–¹å¼ä¼ å…¥ï¼Œåœ¨actionä¸­
 			HttpServletRequest request, HttpServletResponse response) {
 		boolean flag = linetransportService.deleteLine(id);
 		if (flag == true) {
 			// mv.setViewName("mgmt_r_line");
 			try {
-				response.sendRedirect("linetransport?flag=1");// ÖØ¶¨Ïò£¬ÏÔÊ¾×îĞÂµÄ½á¹û
+				response.sendRedirect("linetransport?flag=1");// é‡å®šå‘ï¼Œæ˜¾ç¤ºæœ€æ–°çš„ç»“æœ
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				// ´Ë´¦Ó¦¸Ã¼ÇÂ¼ÈÕÖ¾
-				System.out.println("linetransportÉ¾³ıºóÖØ¶¨ÏòÊ§°Ü");
+				// æ­¤å¤„åº”è¯¥è®°å½•æ—¥å¿—
+				System.out.println("linetransportåˆ é™¤åé‡å®šå‘å¤±è´¥");
 				e.printStackTrace();
 			}
 		} else
@@ -314,9 +312,9 @@ public class LinetransportController {
 
 	@RequestMapping(value = "downloadlinedetailprice", method = RequestMethod.GET)
 	/**
-	 * É¾³ı
+	 * åˆ é™¤
 	 */
-	public ModelAndView downloadLineDetailPrice(@RequestParam String id,// GET·½Ê½´«Èë£¬ÔÚactionÖĞ
+	public ModelAndView downloadLineDetailPrice(@RequestParam String id,// GETæ–¹å¼ä¼ å…¥ï¼Œåœ¨actionä¸­
 			HttpServletRequest request, HttpServletResponse response) {
 		Linetransport linetransportInfo = linetransportService.getLinetransportInfo(id);
 		try {
@@ -324,7 +322,7 @@ public class LinetransportController {
 			File tempFile =new File(file.trim());  	          
 	        String fileName = tempFile.getName();  			
 			InputStream is = new FileInputStream(file);
-			response.reset(); // ±ØÒªµØÇå³ıresponseÖĞµÄ»º´æĞÅÏ¢
+			response.reset(); // å¿…è¦åœ°æ¸…é™¤responseä¸­çš„ç¼“å­˜ä¿¡æ¯
 			response.setHeader("Content-Disposition", "attachment; filename="
 					+ java.net.URLEncoder.encode(fileName, "UTF-8"));
 			javax.servlet.ServletOutputStream out = response.getOutputStream();
@@ -336,7 +334,7 @@ public class LinetransportController {
 			out.flush();
 			out.close();
 		} catch (Exception e) {
-			System.out.println("ÖØ¶¨ÏòÊ§°Ü");
+			System.out.println("é‡å®šå‘å¤±è´¥");
 			e.printStackTrace();
 		}
 		return mv;

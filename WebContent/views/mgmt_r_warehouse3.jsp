@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-  
+  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@ taglib prefix="d" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -78,7 +79,7 @@
                         <td class="td_mgmt_right3_td1a"> 
                             <br /> 
                              <form action="updateWarehouse?id=${warehouseInfo.id }" method="post" enctype="multipart/form-data">	          
-                              	          
+                            <c var="warehouseInfo" items="${warehouseInfo }">
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">仓库名称：</td>
@@ -95,21 +96,57 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">仓库类型：</td>
                                     <td>
-                                        <select style="width:120px;" name="type">
+                                    <c:choose>
+                                    <c:when test="${warehouseInfo.type == '' }">
+                       					<select style="width:120px;" name="type">
                                             <option value="" selected="selected">请选择</option>
                                             <option value="保税" >保税</option>
                                             <option value="非保税">非保税</option>
                                         </select>
+                                    </c:when>
+                                    <c:when test="${warehouseInfo.type == '保税' }">
+                       					<select style="width:120px;" name="type">
+                                            <option value="" >请选择</option>
+                                            <option value="保税" selected="selected">保税</option>
+                                            <option value="非保税">非保税</option>
+                                        </select>
+                                    </c:when>
+                                    <c:when test="${warehouseInfo.type == '非保税' }">
+                       					<select style="width:120px;" name="type">
+                                            <option value="" >请选择</option>
+                                            <option value="保税" >保税</option>
+                                            <option value="非保税" selected="selected">非保税</option>
+                                        </select>
+                                    </c:when>
+                                    </c:choose>    
                                     </td>
                                 </tr>
                                 <tr>
                                 <td height="40" class="td_mgmt_right3_td1b">所属性质：</td>
                                     <td>
-                                        <select style="width:120px;" name="kind">
+                                    <c:choose>
+                                    <c:when test="${warehouseInfo.kind == '' }">
+                       					<select style="width:120px;" name="kind">
                                             <option value="" selected="selected">请选择</option>
                                             <option value="自有" >自有</option>
                                             <option value="租用">租用</option>
                                         </select>
+                                    </c:when>
+                                    <c:when test="${warehouseInfo.kind == '自有' }">
+                       					<select style="width:120px;" name="kind">
+                                            <option value="" >请选择</option>
+                                            <option value="自有" selected="selected">自有</option>
+                                            <option value="租用">租用</option>
+                                        </select>
+                                    </c:when>
+                                    <c:when test="${warehouseInfo.kind == '租用' }">
+                       					<select style="width:120px;" name="kind">
+                                            <option value="">请选择</option>
+                                            <option value="自有" >自有</option>
+                                            <option value="租用" selected="selected">租用</option>
+                                        </select>
+                                    </c:when>
+                                    </c:choose>
                                     </td>
                                 </tr>
                                 <tr>
@@ -130,68 +167,277 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">消防等级：</td>
                                     <td>
-                                        <select style="width:120px;" name="fireRate">
+                                    <c:choose>
+                                    <c:when test="${warehouseInfo.fireRate == '' }">
+                       					<select style="width:120px;" name="fireRate">
                                             <option value="" selected="selected">请选择</option>
                                             <option value="甲" >甲</option>
                                             <option value="乙">乙</option>
                                             <option value="丙">丙</option>
                                         </select>
+                                    </c:when>
+                                    <c:when test="${warehouseInfo.fireRate == '甲' }">
+                       					<select style="width:120px;" name="fireRate">
+                                            <option value="">请选择</option>
+                                            <option value="甲" selected="selected">甲</option>
+                                            <option value="乙">乙</option>
+                                            <option value="丙">丙</option>
+                                        </select>
+                                    </c:when>
+                                    <c:when test="${warehouseInfo.fireRate == '乙' }">
+                       					<select style="width:120px;" name="fireRate">
+                                            <option value="">请选择</option>
+                                            <option value="甲" >甲</option>
+                                            <option value="乙" selected="selected">乙</option>
+                                            <option value="丙">丙</option>
+                                        </select>
+                                    </c:when>
+                                    <c:when test="${warehouseInfo.fireRate == '丙' }">
+                       					<select style="width:120px;" name="fireRate">
+                                            <option value="">请选择</option>
+                                            <option value="甲" >甲</option>
+                                            <option value="乙">乙</option>
+                                            <option value="丙" selected="selected">丙</option>
+                                        </select>
+                                    </c:when>
+                                    </c:choose>
+                                        
                                     </td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">保管形态：</td>
                                     <td>
-                                        <input type="checkbox" id="checkbox" value="普通" name="storageForm" />
+                                    <d var="everystorageForm" items="${everystorageForm }">
+                                    <d:choose>
+                                    <d:when test="${everystorageForm[0] == '普通' }">
+                                    	<input type="checkbox" id="checkbox" checked="checked" value="普通" name="storageForm" />
                                         普通仓库&nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox" id="checkbox"  value="冷藏" name="storageForm"/>
+                                    </d:when>
+                                    <d:when test="${everystorageForm[0] == '' }">
+                                    	<input type="checkbox" id="checkbox" value="普通" name="storageForm" />
+                                        普通仓库&nbsp;&nbsp;&nbsp;
+                                    </d:when>
+                                    </d:choose>
+                                    </d>
+                                    <d var="everystorageForm" items="${everystorageForm }">
+                                    <d:choose>
+                                    <d:when test="${everystorageForm[1] == '冷藏' }">
+                                    	<input type="checkbox" id="checkbox" checked="checked" value="冷藏" name="storageForm" />
                                         冷藏仓库&nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox" id="checkbox"  value="恒温" name="storageForm"/><!-- checked="checked" -->
+                                    </d:when>
+                                    <d:when test="${everystorageForm[1] == '' }">
+                                    	<input type="checkbox" id="checkbox" value="冷藏" name="storageForm" />
+                                        冷藏仓库&nbsp;&nbsp;&nbsp;
+                                    </d:when>
+                                    </d:choose> 
+                                    </d>
+                                    <d var="everystorageForm" items="${everystorageForm }">
+                                    <d:choose>
+                                    <d:when test="${everystorageForm[2] == '恒温' }">
+                                    	<input type="checkbox" id="checkbox" checked="checked" value="恒温" name="storageForm" />
                                         恒温仓库&nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox" id="checkbox" value="露天" name="storageForm"/>
+                                    </d:when>
+                                    <d:when test="${everystorageForm[2] == '' }">
+                                    	<input type="checkbox" id="checkbox" value="恒温" name="storageForm" />
+                                        恒温仓库&nbsp;&nbsp;&nbsp;
+                                    </d:when>
+                                    </d:choose> 
+                                    </d>
+                                    <d var="everystorageForm" items="${everystorageForm }">
+                                    <d:choose>
+                                    <d:when test="${everystorageForm[3] == '露天' }">
+                                    	<input type="checkbox" id="checkbox" checked="checked" value="露天" name="storageForm" />
                                         露天仓库&nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox" id="checkbox" value="危险品" name="storageForm"/>
-                                        危险品仓库
+                                    </d:when>
+                                    <d:when test="${everystorageForm[3] == '' }">
+                                    	<input type="checkbox" id="checkbox" value="露天" name="storageForm" />
+                                        露天仓库&nbsp;&nbsp;&nbsp;
+                                    </d:when>
+                                    </d:choose> 
+                                    </d>
+                                    <d var="everystorageForm" items="${everystorageForm }">
+                                    <d:choose>
+                                    <d:when test="${everystorageForm[4] == '危险品' }">
+                                    	<input type="checkbox" id="checkbox" checked="checked" value="危险品" name="storageForm" />
+                                        危险品仓库&nbsp;&nbsp;&nbsp;
+                                    </d:when>
+                                    <d:when test="${everystorageForm[4] == '' }">
+                                    	<input type="checkbox" id="checkbox" value="危险品" name="storageForm" />
+                                        危险品仓库&nbsp;&nbsp;&nbsp;
+                                    </d:when>
+                                    </d:choose> 
+                                    </d>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">防火安保：</td>
                                     <td>
-                                        <input type="checkbox" id="checkbox" value="烟感" name="fireSecurity"/>
+                                    <d var="everyfireSecurity" items="${everyfireSecurity }">
+                                    <d:choose>
+                                    <d:when test="${everyfireSecurity[0] == '烟感' }">
+                                    	<input type="checkbox" id="checkbox" checked="checked" value="烟感" name="fireSecurity"/>
                                         烟感&nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox" id="checkbox" value="自动喷淋" name="fireSecurity" />
+                                    </d:when>
+                                    <d:when test="${everyfireSecurity[0] == '' }">
+                                    	<input type="checkbox" id="checkbox" value="烟感" name="fireSecurity"/>
+                                        烟感&nbsp;&nbsp;&nbsp;
+                                    </d:when>
+                                    </d:choose> 
+                                    </d>
+                                    <d var="everyfireSecurity" items="${everyfireSecurity }">
+                                    <d:choose>
+                                    <d:when test="${everyfireSecurity[1] == '自动喷淋' }">
+                                    	<input type="checkbox" id="checkbox" checked="checked" value="自动喷淋" name="fireSecurity"/>
                                         自动喷淋&nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox" id="checkbox" value="24小时摄像监控" name="fireSecurity" />
+                                    </d:when>
+                                    <d:when test="${everyfireSecurity[1] == '' }">
+                                    	<input type="checkbox" id="checkbox" value="自动喷淋" name="fireSecurity"/>
+                                        自动喷淋&nbsp;&nbsp;&nbsp;
+                                    </d:when>
+                                    </d:choose> 
+                                    </d>
+                                    <d var="everyfireSecurity" items="${everyfireSecurity }">
+                                    <d:choose>
+                                    <d:when test="${everyfireSecurity[2] == '24小时摄像监控' }">
+                                    	<input type="checkbox" id="checkbox" checked="checked" value="24小时摄像监控" name="fireSecurity"/>
                                         24小时摄像监控&nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox" id="checkbox" value="无" name="fireSecurity" />
-                                        无
+                                    </d:when>
+                                    <d:when test="${everyfireSecurity[2] == '' }">
+                                    	<input type="checkbox" id="checkbox" value="24小时摄像监控" name="fireSecurity"/>
+                                       24小时摄像监控&nbsp;&nbsp;&nbsp;
+                                    </d:when>
+                                    </d:choose> 
+                                    </d>
+                                    <d var="everyfireSecurity" items="${everyfireSecurity }">
+                                    <d:choose>
+                                    <d:when test="${everyfireSecurity[3] == '无' }">
+                                    	<input type="checkbox" id="checkbox" checked="checked" value="无" name="fireSecurity"/>
+                                        无&nbsp;&nbsp;&nbsp;
+                                    </d:when>
+                                    <d:when test="${everyfireSecurity[3] == '' }">
+                                    	<input type="checkbox" id="checkbox" value="无" name="fireSecurity"/>
+                                       无&nbsp;&nbsp;&nbsp;
+                                    </d:when>
+                                    </d:choose> 
+                                    </d>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">IT环境：</td>
                                     <td>
-                                        <input type="checkbox" id="checkbox" value="Internet宽带接入" name="environment"/>
+                                    <d var="everyenvironment" items="${everyenvironment }">
+                                    <d:choose>
+                                    <d:when test="${everyenvironment[0] == 'Internet宽带接入' }">
+                                    	<input type="checkbox" id="checkbox" checked="checked" value="Internet宽带接入" name="environment"/>
                                         Internet宽带接入&nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox" id="checkbox" value="仓库信息管理系统" name="environment"/>
+                                    </d:when>
+                                    <d:when test="${everyenvironment[0] == '' }">
+                                    	<input type="checkbox" id="checkbox" value="Internet宽带接入" name="environment"/>
+                                        Internet宽带接入&nbsp;&nbsp;&nbsp;
+                                    </d:when>
+                                    </d:choose> 
+                                    </d>
+                                    <d var="everyenvironment" items="${everyenvironment }">
+                                    <d:choose>
+                                    <d:when test="${everyenvironment[1] == '仓库信息管理系统' }">
+                                    	<input type="checkbox" id="checkbox" checked="checked" value="仓库信息管理系统" name="environment"/>
                                         仓库信息管理系统&nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox" id="checkbox" value="无" name="environment"/>
-                                        无
+                                    </d:when>
+                                    <d:when test="${everyenvironment[1] == '' }">
+                                    	<input type="checkbox" id="checkbox" value="仓库信息管理系统" name="environment"/>
+                                        仓库信息管理系统&nbsp;&nbsp;&nbsp;
+                                    </d:when>
+                                    </d:choose> 
+                                    </d>
+                                    <d var="everyenvironment" items="${everyenvironment }">
+                                    <d:choose>
+                                    <d:when test="${everyenvironment[2] == '无' }">
+                                    	<input type="checkbox" id="checkbox" checked="checked" value="无" name="environment"/>
+                                        无&nbsp;&nbsp;&nbsp;
+                                    </d:when>
+                                    <d:when test="${everyenvironment[2] == '' }">
+                                    	<input type="checkbox" id="checkbox" value="无" name="environment"/>
+                                        无&nbsp;&nbsp;&nbsp;
+                                    </d:when>
+                                    </d:choose> 
+                                    </d>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">服务内容：</td>
                                     <td>
-                                        <input type="checkbox" id="checkbox" value="机械出入库搬运" name="serviceContent"/>
+                                    <d var="everyserviceContent" items="${everyserviceContent }">
+                                    <d:choose>
+                                    <d:when test="${everyserviceContent[0] == '机械出入库搬运' }">
+                                    	<input type="checkbox" id="checkbox" checked="checked" value="机械出入库搬运" name="serviceContent"/>
                                         机械出入库搬运&nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox" id="checkbox" value="分拣" name="serviceContent"/>
+                                    </d:when>
+                                    <d:when test="${everyserviceContent[0] == '' }">
+                                    	<input type="checkbox" id="checkbox" value="机械出入库搬运" name="serviceContent"/>
+                                        机械出入库搬运&nbsp;&nbsp;&nbsp;
+                                    </d:when>
+                                    </d:choose> 
+                                    </d>
+                                    <d var="everyserviceContent" items="${everyserviceContent }">
+                                    <d:choose>
+                                    <d:when test="${everyserviceContent[1] == '分拣' }">
+                                    	<input type="checkbox" id="checkbox" checked="checked" value="分拣" name="serviceContent"/>
                                         分拣&nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox" id="checkbox"  value="包装" name="serviceContent"/>
+                                    </d:when>
+                                    <d:when test="${everyserviceContent[1] == '' }">
+                                    	<input type="checkbox" id="checkbox" value="分拣" name="serviceContent"/>
+                                        分拣&nbsp;&nbsp;&nbsp;
+                                    </d:when>
+                                    </d:choose> 
+                                    </d>
+                                    <d var="everyserviceContent" items="${everyserviceContent }">
+                                    <d:choose>
+                                    <d:when test="${everyserviceContent[2] == '包装' }">
+                                    	<input type="checkbox" id="checkbox" checked="checked" value="包装" name="serviceContent"/>
                                         包装&nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox" id="checkbox" value="打托盘" name="serviceContent"/>
+                                    </d:when>
+                                    <d:when test="${everyserviceContent[2] == '' }">
+                                    	<input type="checkbox" id="checkbox" value="包装" name="serviceContent"/>
+                                        包装&nbsp;&nbsp;&nbsp;
+                                    </d:when>
+                                    </d:choose> 
+                                    </d>
+                                    <d var="everyserviceContent" items="${everyserviceContent }">
+                                    <d:choose>
+                                    <d:when test="${everyserviceContent[3] == '打托盘' }">
+                                    	<input type="checkbox" id="checkbox" checked="checked" value="打托盘" name="serviceContent"/>
                                         打托盘&nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox" id="checkbox" value="地面存储 " name="serviceContent" />
+                                    </d:when>
+                                    <d:when test="${everyserviceContent[3] == '' }">
+                                    	<input type="checkbox" id="checkbox" value="打托盘" name="serviceContent"/>
+                                        打托盘&nbsp;&nbsp;&nbsp;
+                                    </d:when>
+                                    </d:choose> 
+                                    </d>
+                                    <d var="everyserviceContent" items="${everyserviceContent }">
+                                    <d:choose>
+                                    <d:when test="${everyserviceContent[4] == '地面存储' }">
+                                    	<input type="checkbox" id="checkbox" checked="checked" value="地面存储" name="serviceContent"/>
                                         地面存储&nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox" id="checkbox" value="货架存储" name="serviceContent"/>
-                                        货架存储
+                                    </d:when>
+                                    <d:when test="${everyserviceContent[4] == '' }">
+                                    	<input type="checkbox" id="checkbox" value="地面存储" name="serviceContent"/>
+                                        地面存储&nbsp;&nbsp;&nbsp;
+                                    </d:when>
+                                    </d:choose> 
+                                    </d>
+                                    <d var="everyserviceContent" items="${everyserviceContent }">
+                                    <d:choose>
+                                    <d:when test="${everyserviceContent[5] == '货架存储' }">
+                                    	<input type="checkbox" id="checkbox" checked="checked" value="货架存储" name="serviceContent"/>
+                                        货架存储&nbsp;&nbsp;&nbsp;
+                                    </d:when>
+                                    <d:when test="${everyserviceContent[5] == '' }">
+                                    	<input type="checkbox" id="checkbox" value="货架存储" name="serviceContent"/>
+                                       货架存储&nbsp;&nbsp;&nbsp;
+                                    </d:when>
+                                    </d:choose> 
+                                    </d>
                                     </td>
                                 </tr>
                                 <tr>
@@ -214,14 +460,15 @@
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">补充信息：</td>
 									<td>
-                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="remarks"></textarea>
+                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="remarks">${warehouseInfo.remarks }</textarea>
                                     </td>
 								</tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
-                                    <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="window.location.href='mgmt_r_warehouse.htm'" /><input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
+                                    <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
                                 </tr>
                             </table>
+                            </c>
                             </form>
                     	</td>
                     </tr>
