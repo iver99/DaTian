@@ -569,7 +569,7 @@ public class OrderController {
 	 */
 	public ModelAndView getOrderDetail(HttpServletRequest request,
 			HttpServletResponse response, String orderid) {
-		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);// 需要重构，返回一条信息
+		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);
 		mv.addObject("orderInfo", orderInfo);
 		mv.setViewName("mgmt_d_order_r3");
 		return mv;
@@ -630,7 +630,7 @@ public class OrderController {
 	 */
 	public ModelAndView getOrderDetailWaitToConfirm(HttpServletRequest request,
 			HttpServletResponse response, String orderid) {
-		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);// 需要重构，返回一条信息
+		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);
 		mv.addObject("orderInfo", orderInfo);
 		mv.setViewName("mgmt_d_order_r4a");
 		return mv;

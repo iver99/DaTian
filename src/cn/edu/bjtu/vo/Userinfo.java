@@ -35,7 +35,18 @@ public class Userinfo implements java.io.Serializable {
 	
 	private Date validateTime;
 	
+	private String headIcon;// add by RussWest0 at 2015年6月2日,下午11:55:34 
 	
+	
+	
+	public String getHeadIcon() {
+		return headIcon;
+	}
+
+	public void setHeadIcon(String headIcon) {
+		this.headIcon = headIcon;
+	}
+
 	public Date getValidateTime() {
 		return validateTime;
 	}

@@ -96,13 +96,19 @@ $(document).ready(function(){
 		//var div = document.getElementById("zzz");
 		//div.click();
 		var locateurl = "";
+		
+		var curWwwPath=window.document.location.href;
+	    var pathName=window.document.location.pathname;
+	    var pos=curWwwPath.indexOf(pathName);
+		
+		//alert(location.host);
 		if(location.pathname.indexOf("selected")>0){//判断是否需要再加selected
-			locateurl = "http://localhost:8585" + location.pathname+"?";
+			locateurl = curWwwPath.substring(0,pos) + location.pathname+"?";
 			//alert(locateurl);
 		}
 		else
 			//alert(location.pathname.indexOf("selected"));
-			locateurl = "http://localhost:8585" + location.pathname + "selected?";//重组url前缀
+			locateurl = curWwwPath.substring(0,pos) + location.pathname + "selected?";//重组url前缀
 			//alert(locateurl);
 		
 		if(document.getElementById("city1") != null)//判断某页面是否存在id为city1的控件
@@ -142,6 +148,7 @@ $(document).ready(function(){
 
 		locateurl += "&Display=" + document.getElementById("Display").options[document.getElementById("Display").selectedIndex].value + "&PageNow=" + document.getElementById("PageNow").getAttribute('value');
         //Display是每页显示个数，PageNow是目前在第几页，分页和页面跳转对应的控件变化还没做
+		//alert(locateurl);
 		location.assign(locateurl);//重载新的url，是否能被后台获取未检验
 	});
 

@@ -61,6 +61,7 @@ public class RegisterServiceImpl implements RegisterService{
 		//userInfo.setPrivilege(privilege);
 		userInfo.setStatus("未验证");
 		userInfo.setUserKind(userKind);
+		userInfo.setHeadIcon("未设置");// add by RussWest0 at 2015年6月2日,下午11:56:49 
 		userinfoDao.save(userInfo);//保存实体
 		
 		if(userKind == 2){//个人用户
@@ -68,7 +69,7 @@ public class RegisterServiceImpl implements RegisterService{
 		//clientInfo.setCarrierId(carrierId);
 		clientInfo.setCreateDate(new Date());
 		clientInfo.setPhone(phone);
-		clientInfo.setHeadIcon("未设置");// add by RussWest0 at 2015年5月31日,上午10:47:42 
+		//clientInfo.setHeadIcon("未设置");// add by RussWest0 at 2015年5月31日,上午10:47:42 
 		clientDao.save(clientInfo);//保存clientinfo实体
 		}
 		else //企业用户，目前维护两个公司表，以后重构成一个

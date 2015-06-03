@@ -1,55 +1,73 @@
 package cn.edu.bjtu.util;
 
 import java.io.IOException;
-import javax.servlet.Filter;
+import java.io.PrintWriter;
+
 import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
- * Servlet Filter implementation class LoginFilter
- */
-/*@WebFilter(filterName = "filterBeforeAction", urlPatterns = { "/filterBeforeAction" })*/
-/**
- * 登录过滤器，发现未登录即跳到登录界面
+ * 登录过滤
+ * 
  * @author RussWest0
- * @date   2015年6月2日 上午9:05:23
+ * @date 2015年6月2日 下午8:36:01
  */
-public class LoginFilter implements Filter {
+public class LoginFilter extends OncePerRequestFilter {
 
-    /**
-     * Default constructor. 
-     */
-    public LoginFilter() {
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see Filter#destroy()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.springframework.web.filter.OncePerRequestFilter#doFilterInternal(
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse, javax.servlet.FilterChain)
 	 */
-	public void destroy() {
-		// TODO Auto-generated method stub
-	}
+	@Override
+	protected void doFilterInternal(HttpServletRequest request,
+			HttpServletResponse response, FilterChain filterChain)
+			throws ServletException, IOException {
+		System.out.println("正在过滤login");
+		// 不过滤的uri
+		String[] notFilter = new String[] { "login", "register",
+				"adminLogin" };
 
-	/**
-	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
-	 */
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		// TODO Auto-generated method stub
-		// place your code here
+		// 请求的uri
+		String uri = request.getRequestURI();
+		//刚刚进入首页的情况
+		if(uri.equals("/DaTian/")){
+			filterChain.doFilter(request, response);
+		}
 
-		// pass the request along the filter chain
-		chain.doFilter(request, response);
-	}
-
-	/**
-	 * @see Filter#init(FilterConfig)
-	 */
-	public void init(FilterConfig fConfig) throws ServletException {
-		// TODO Auto-generated method stub
+		// 是否过滤
+		boolean doFilter = true;
+		for (String s : notFilter) {
+			if (uri.indexOf(s) != -1) {
+				// 如果uri中包含不过滤的uri，则不进行过滤
+				doFilter = false;
+				break;
+			}
+		}
+		if (doFilter) {
+			// 执行过滤
+			// 从session中获取登录者实体
+			Object obj = request.getSession().getAttribute(Constant.USER_NAME);
+			if (null == obj) {
+				request.setCharacterEncoding("UTF-8");
+				response.setCharacterEncoding("UTF-8");
+				//跳转至登录页面
+				response.sendRedirect("login");
+			} else {
+				// 如果session中存在登录者实体，则继续
+				filterChain.doFilter(request, response);
+			}
+		} else {
+			// 如果不执行过滤，则继续
+			filterChain.doFilter(request, response);
+		}
 	}
 
 }

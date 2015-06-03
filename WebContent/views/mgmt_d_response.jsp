@@ -86,7 +86,7 @@
 								<td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
 								<td class="td_mgmt_right3_td1">${resp.id }</td>
 								<td class="td_mgmt_right3_td1"><a
-									href="#" hidefocus="true">${resp.name }</a></td>
+									href="goodsdetail?id=${resp.id }" hidefocus="true">${resp.name }</a></td>
 								<td class="td_mgmt_right3_td1">${resp.relDate }</td>
 								<td class="td_mgmt_right3_td1">${resp.state }</td>
 								<c:choose>

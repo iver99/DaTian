@@ -73,35 +73,6 @@ public class ClientDaoImpl extends BaseDaoImpl<Clientinfo> implements ClientDao 
 			return null;
 	}
 
-	@Override
-	/**
-	 * 检查是否设置头像
-	 */
-	public boolean checkHeadIcon(String userId, int userKind) {
-		// TODO Auto-generated method stub
-		// System.out.println("userId"+userId);
-
-		if (userKind == 2)// 个人用户
-		{
-			List list = ht.find("select headIcon from Clientinfo where id='"
-					+ userId + "'");
-			if (list != null) {
-				return true;
-			} else
-				return false;
-		} else if (userKind == 3)// 企业用户
-		{
-			List list = ht.find("select headIcon from Carrierinfo where id='"
-					+ userId + "'");
-			if (list != null)
-				return true;
-			else
-				return false;
-		} else {
-			return false;// 默认返回false
-		}
-
-	}
 
 	@Override
 	public String getStatus(String userId) {

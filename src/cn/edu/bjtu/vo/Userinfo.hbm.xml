@@ -68,5 +68,8 @@
         <property name="validateTime" type="date">
             <column name="validateTime" />
         </property>
+        <property name="headIcon" type="string">
+            <column name="headIcon" />
+        </property>
     </class>
 </hibernate-mapping>

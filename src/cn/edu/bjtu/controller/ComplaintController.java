@@ -115,6 +115,7 @@ public class ComplaintController {
 		if((int)session.getAttribute("userKind") != 1){//非管理员
 			mv.addObject("msg", "非管理员不能进入");
 			mv.setViewName("index");
+			return mv;
 		}
 		List allCompliantList=complaintService.getAllUserCompliant();
 		mv.addObject("allCompliantList", allCompliantList);

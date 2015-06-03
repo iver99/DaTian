@@ -24,12 +24,13 @@
 	<context:component-scan base-package="cn.edu.bjtu.vo"></context:component-scan>
 
 	<!-- 对静态资源的处理 -->
-	<mvc:resources location="/views/images/" mapping="/images/**"/>
+	 <mvc:resources location="/views/images/" mapping="/images/**"/><!-- /images/**的请求都会到/views/images/下去找，下面的类似 -->
 	<mvc:resources location="/views/css/" mapping="/css/**"/>
 	<mvc:resources location="/views/js/" mapping="/js/**"/>
 	<mvc:resources location="/views/" mapping="/views/**"/>
 	<mvc:resources location="/" mapping="/**"/>
-	<mvc:resources location="/views/" mapping="*.htm"/>
+	<mvc:resources location="/views/" mapping="*.htm"/> 
+	<!-- <mvc:default-servlet-handler/> -->
 
 	<!-- 下面是视图解析器 -->
 	<bean id="viewResolver"
@@ -77,8 +78,8 @@
 				<value>cn/edu/bjtu/vo/GoodsClientView.hbm.xml</value>
 				<value>cn/edu/bjtu/vo/Contract.hbm.xml</value>
 				<value>cn/edu/bjtu/vo/Businessclient.hbm.xml</value>
-				<value>cn/edu/bjtu/vo/FeedbackGoodsView.hbm.xml</value>
-				<value>cn/edu/bjtu/vo/Feedbackform.hbm.xml</value>
+				<!-- <value>cn/edu/bjtu/vo/FeedbackGoodsView.hbm.xml</value> -->
+				<!-- <value>cn/edu/bjtu/vo/Feedbackform.hbm.xml</value> -->
 				<value>cn/edu/bjtu/vo/OrderCarrierView.hbm.xml</value>
 				<value>cn/edu/bjtu/vo/SubAccount.hbm.xml</value> 
 				<value>cn/edu/bjtu/vo/Response.hbm.xml</value>
@@ -117,6 +118,14 @@
           <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
     <tx:annotation-driven transaction-manager="txManager"/> 
+	
+	<!-- 配置登录拦截器 -->
+	<!-- <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean id="loginInterceptor" class="cn.edu.bjtu.util.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors> -->
 	
 	<!-- 支持上传文件 -->  
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

@@ -40,8 +40,8 @@
         <property name="email" type="string">
             <column name="email" />
         </property>
-        <property name="headIcon" type="string">
+       <!--  <property name="headIcon" type="string">
             <column name="headIcon" />
-        </property>
+        </property> -->
     </class>
 </hibernate-mapping>

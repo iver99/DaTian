@@ -36,7 +36,7 @@
 <%@ include  file="topFrame.jsp"%>
 
 <div id="main_frame">
-<form action="adminLogin" name="loginForm" method="post">
+<form action="login" name="loginForm" method="post">
 	<div class="div_login_left">
     	<div class="div_login_sub1">
         管理员登录&nbsp;&nbsp;${msg }
@@ -57,7 +57,7 @@
         </div>
        			<br/>
        	 <div class="div_login_sub3">
-        	<input type="radio" name="userKind" value="1" checked="checked"/>&nbsp;管理员用户
+        	<input type="radio" name="userkind" value="1" checked="checked"/>&nbsp;管理员用户
         </div>
         	<br/>
     	<div class="div_login_sub3">
