@@ -9,4 +9,6 @@ public interface ContractDao extends BaseDao<Contract>{
 	public Contract getContractInfo(String contractId);
 	public boolean shutdownContract(String contractId,String reason);
 	public List getFindContract(String hql, int display, int pageNow);
+	public boolean changeStatus(String id);
+	public List getCompanyContractForUser(String clientId);
 }

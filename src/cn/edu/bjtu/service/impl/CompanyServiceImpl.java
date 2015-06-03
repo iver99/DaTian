@@ -34,6 +34,15 @@ public class CompanyServiceImpl implements CompanyService{
 		// TODO Auto-generated method stub
 		return companyDao.getAllCompany(Display,PageNow);
 	}
+	
+
+	@Override
+	/**
+	 * 返回所有公司
+	 */
+	public List getAllCompanyWithoutPage(){
+		return companyDao.getAllCompanyWithoutPage();
+	}
 
 	/*@Override
 	*//**

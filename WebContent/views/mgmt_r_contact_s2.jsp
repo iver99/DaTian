@@ -89,7 +89,19 @@
 								</tr>
                             <tr>
                                 <td height="40" class="td_mgmt_right3_td1b">承运方帐户：</td>
-                                <td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="carrierAccount"/><a href="javascript:;" hidefocus="true">&nbsp;<img src="images/btn_verify1.png" title="校验" /></td>
+                                <td>
+                                    <select id="abc" name="carrierId" data-placeholder="请选择" style="width:308px;">
+                                        <option value=""></option>
+                                            <c:forEach var="companyList" items="${companyList }">
+                                            <option value="${companyList.id }">${companyList.companyName }</option>
+                                            </c:forEach>
+                                    </select>
+                                    <script type="text/javascript">
+                                        $("#abc").chosen({
+                                            no_results_text: "无此信息",
+                                            search_contains: true,
+                                        });
+                                    </script>                                </td>
                             </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">合同开始日期：</td>

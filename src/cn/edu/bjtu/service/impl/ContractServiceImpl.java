@@ -39,6 +39,14 @@ public class ContractServiceImpl implements ContractService{
 		
 		return contractDao.getCompanyContract(carrierId);
 	}
+	
+	
+	@Override
+	public List getCompanyContractForUser(String clientId) {
+		// TODO Auto-generated method stub
+		return contractDao.getCompanyContractForUser(clientId);
+	}
+
 	@Override
 	/**
 	 * 获取合同信息
@@ -52,12 +60,13 @@ public class ContractServiceImpl implements ContractService{
 	 * 新增合同
 	 */
 	public boolean insertContract(String id,String name, String caculateType,
-			String carrierAccount, String startDate, String endDate,
-			String contact, String phone, String remarks, String carrierId,
-			String monthlyStatementDays, String path, String fileName) {
+			String carrierAccount, String carrierId, String startDate, String endDate,
+			String contact, String phone, String remarks, String clientId,
+			String monthlyStatementDays,String path, String fileName) {
 		// TODO Auto-generated method stub
 		contract.setCaculateType(caculateType);
 		contract.setCarrierAccount(carrierAccount);
+		contract.setClientId(clientId);
 		contract.setCarrierId(carrierId);
 		contract.setContact(contact);
 		contract.setEndDate(ParseDate.parseDate(startDate));
@@ -161,5 +170,10 @@ public class ContractServiceImpl implements ContractService{
 		}
 		return hqltool.getTotalRows(sql);// 这里的HQLTool实例千万不能自己new出来，用@Resource
 	}
-
+	@Override
+	public boolean changeStatus(String id) {
+		// TODO Auto-generated method stub
+		return contractDao.changeStatus(id);
+	}
+	
 }

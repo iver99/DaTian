@@ -83,7 +83,6 @@ public class CarController {
 			mv.addObject("locList", locList);
 			mv.setViewName("resource_list3");
 		} else if (flag == 1) {
-			// 这里用session取id
 			String carrierId = (String) request.getSession().getAttribute(
 					"userId");
 			// String carrierId = "C-0002";// 删除
@@ -685,26 +684,21 @@ public class CarController {
 			HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("进入删除控制器");
 		System.out.println(id);
-		// 此处获取session里的carrierid，下面方法增加一个参数
-		// String carrierId=(String)request.getSession().getAttribute("userId");
-		// String carrierId = "C-0002";// 删除
 		Driverinfo driverinfo = driverService.getDriverInfo(id);
 		try {
 			String file = driverinfo.getIdscans();
-			/*File tempFile =new File(file.trim());  	          
-	        String fileName = tempFile.getName();  			*/
+			File tempFile =new File(file.trim());  	          
+	        String fileName = tempFile.getName();  			
 			InputStream is = new FileInputStream(file);
 			response.reset(); // 必要地清除response中的缓存信息
 			response.setHeader("Content-Disposition", "attachment; filename="
-					+ file);
-			//response.setContentType("application/vnd.ms-excel");// 根据个人需要,这个是下载文件的类型
+					+ java.net.URLEncoder.encode(fileName, "UTF-8"));
 			javax.servlet.ServletOutputStream out = response.getOutputStream();
 			byte[] content = new byte[1024];
 			int length = 0;
 			while ((length = is.read(content)) != -1) {
 				out.write(content, 0, length);
 			}
-			out.write(content);
 			out.flush();
 			out.close();
 		} catch (Exception e) {
@@ -712,7 +706,6 @@ public class CarController {
 			e.printStackTrace();
 		}
 
-		//response.setHeader("Content-disposition", "attachment;filename="+ citylineInfo.getDetailPrice());
 		return mv;
 
 	}

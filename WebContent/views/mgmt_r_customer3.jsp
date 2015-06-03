@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-  
+   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -55,8 +55,11 @@
 						<a href="driver?flag=1" class="a_mgmt_leftnav" hidefocus="true">司机信息</a>
                         <a href="client" class="a_mgmt_leftnav1" hidefocus="true">客户信息</a>
                         <a href="goodsform?flag=1" class="a_mgmt_leftnav" hidefocus="true">货物信息</a>
+                        <a href="contract2" class="a_mgmt_leftnav" hidefocus="true">合同信息</a>
                         <%} %>
-                        <a href="contract" class="a_mgmt_leftnav" hidefocus="true">合同信息</a>
+                        <% if((Integer)session.getAttribute("userKind") ==2) {%><!-- 个人用户 -->
+                        <a href="contract" class="a_mgmt_leftnav1" hidefocus="true">合同信息</a>
+                        <%} %>
                     </div>
                     <%@ include  file="mysource_leftnav_myplan.jsp"%>
                     <%@ include  file="mysource_leftnav_myanalysis.jsp"%>
@@ -90,12 +93,42 @@
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">所属行业：</td>
 									<td>
-										<select style="width:120px;" name="clientBusiness">
+									<c var="clientInfo" items="${clientInfo }">
+                                    <c:choose>
+                                    <c:when test="${clientInfo.clientBusiness == '' }">
+                                        <select style="width:120px;" name="clientBusiness">
 											<option value="" selected="selected">请选择</option>
                                             <option value="医药" >医药</option>
                                             <option value="电子">电子</option>
                                             <option value="汽车">汽车</option>
                                         </select>
+                                    </c:when>
+                                    <c:when test="${clientInfo.clientBusiness == '医药' }">
+                                        <select style="width:120px;" name="clientBusiness">
+											<option value="">请选择</option>
+                                            <option value="医药" selected="selected">医药</option>
+                                            <option value="电子">电子</option>
+                                            <option value="汽车">汽车</option>
+                                        </select>
+                                    </c:when>
+                                    <c:when test="${clientInfo.clientBusiness == '电子' }">
+                                        <select style="width:120px;" name="clientBusiness">
+											<option value="">请选择</option>
+                                            <option value="医药" >医药</option>
+                                            <option value="电子" selected="selected">电子</option>
+                                            <option value="汽车">汽车</option>
+                                        </select>
+                                    </c:when>
+                                    <c:when test="${clientInfo.clientBusiness == '汽车' }">
+                                        <select style="width:120px;" name="clientBusiness">
+											<option value="">请选择</option>
+                                            <option value="医药" >医药</option>
+                                            <option value="电子">电子</option>
+                                            <option value="汽车" selected="selected">汽车</option>
+                                        </select>
+                                    </c:when>
+									</c:choose>
+									</c>
 									</td>
 								</tr>
 								<tr>
@@ -118,7 +151,7 @@
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">补充信息：</td>
 									<td>
-                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="remarks"></textarea>
+                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="remarks">${clientInfo.remarks }</textarea>
                                     </td>
 								</tr>
 								<tr>

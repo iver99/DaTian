@@ -129,7 +129,6 @@ public class DriverServiceImpl implements DriverService{
 		// TODO Auto-generated method stub
 		// driverinfo.setAge(age);
 		driverinfo = getDriverInfo(id);// 根据id查找到车辆信息
-		driverinfo.setCarrierId(carrierId);
 		driverinfo.setDriverName(name);
 		driverinfo.setSex(sex);
 		driverinfo.setIDCard(IDCard);
@@ -137,7 +136,7 @@ public class DriverServiceImpl implements DriverService{
 		driverinfo.setLicenceRate(licenceRate);
 		driverinfo.setLicenceTime(stringToDate(licenceTime));
 		driverinfo.setPhone(phone);
-		driverinfo.setRelDate(new Date());
+		//driverinfo.setRelDate(new Date());
 		// 保存文件路径
 		if (path != null && fileName != null) {
 			String fileLocation = path + "//" + fileName;

@@ -26,7 +26,16 @@ public class Contract implements java.io.Serializable {
 	private String state;
 	private String reason;
 	private String monthlyStatementDays;
+	private String clientId;
 
+	public String getClientId() {
+		return clientId;
+	}
+
+	public void setClientId(String clientId) {
+		this.clientId = clientId;
+	}
+	
 	public String getMonthlyStatementDays() {
 		return monthlyStatementDays;
 	}
@@ -34,6 +43,7 @@ public class Contract implements java.io.Serializable {
 	public void setMonthlyStatementDays(String monthlyStatementDays) {
 		this.monthlyStatementDays = monthlyStatementDays;
 	}
+	
 	public String getReason() {
 		return reason;
 	}
@@ -56,7 +66,7 @@ public class Contract implements java.io.Serializable {
 			Date startDate, Date endDate, Integer time, String caculateType,
 			String contact, String phone, String relatedMaterial,
 			String remarks, String carrierId, String state, String reason,
-			String monthlyStatementDays) {
+			String monthlyStatementDays, String clientId) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -73,6 +83,8 @@ public class Contract implements java.io.Serializable {
 		this.state = state;
 		this.reason = reason;
 		this.monthlyStatementDays = monthlyStatementDays;
+		this.clientId = clientId;
+		
 	}
 
 	public String getId() {

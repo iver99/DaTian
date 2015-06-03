@@ -50,5 +50,8 @@
         <property name="monthlyStatementDays" type="string">
             <column name="monthlyStatementDays" />
         </property>
+        <property name="clientId" type="string">
+            <column name="clientId" />
+        </property>
     </class>
 </hibernate-mapping>

@@ -226,20 +226,18 @@ public class BusinessClientController {
 		Businessclient clientInfo = clientService.getBusinessclientInfo(id);
 		try {
 			String file = clientInfo.getRelatedMaterial();
-			/*File tempFile =new File(file.trim());  	          
-	        String fileName = tempFile.getName();  			*/
+			File tempFile =new File(file.trim());  	          
+	        String fileName = tempFile.getName();  			
 			InputStream is = new FileInputStream(file);
 			response.reset(); // 必要地清除response中的缓存信息
 			response.setHeader("Content-Disposition", "attachment; filename="
-					+ file);
-			//response.setContentType("application/vnd.ms-excel");// 根据个人需要,这个是下载文件的类型
+					+ java.net.URLEncoder.encode(fileName, "UTF-8"));
 			javax.servlet.ServletOutputStream out = response.getOutputStream();
 			byte[] content = new byte[1024];
 			int length = 0;
 			while ((length = is.read(content)) != -1) {
 				out.write(content, 0, length);
 			}
-			out.write(content);
 			out.flush();
 			out.close();
 		} catch (Exception e) {
@@ -247,7 +245,6 @@ public class BusinessClientController {
 			e.printStackTrace();
 		}
 
-		//response.setHeader("Content-disposition", "attachment;filename="+ citylineInfo.getDetailPrice());
 		return mv;
 	}
 }

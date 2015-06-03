@@ -55,8 +55,11 @@
 						<a href="driver?flag=1" class="a_mgmt_leftnav" hidefocus="true">司机信息</a>
                         <a href="client" class="a_mgmt_leftnav" hidefocus="true">客户信息</a>
                         <a href="goodsform?flag=1" class="a_mgmt_leftnav" hidefocus="true">货物信息</a>
+                        <a href="contract2" class="a_mgmt_leftnav" hidefocus="true">合同信息</a>
                         <%} %>
-                        <a href="contract" class="a_mgmt_leftnav" hidefocus="true">合同信息</a>
+                        <% if((Integer)session.getAttribute("userKind") ==2) {%><!-- 个人用户 -->
+                        <a href="contract" class="a_mgmt_leftnav1" hidefocus="true">合同信息</a>
+                        <%} %>
                     </div>
                     <%@ include  file="mysource_leftnav_myplan.jsp"%>
                     <%@ include  file="mysource_leftnav_myanalysis.jsp"%>
@@ -85,10 +88,10 @@
                                     <td height="40" class="td_mgmt_right3_td1b">定位方式：</td>
                                     <td>${carInfo.locationType } (终端ID：${carInfo.terminalId })</td>
                                 </tr>
-                                <tr>
+                               <%--  <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">当前位置：</td>
                                     <td>${carInfo.carLocation } &nbsp;&nbsp;<a href="javascript:;" hidefocus="true" title="刷新轨迹"><img src="images/btn_refresh1.png" />&nbsp;刷新</a>&nbsp;&nbsp;&nbsp;<a href="mgmt_r_car5.htm" hidefocus="true" title="查看地图"><img src="images/btn_map4.png" />查看</a></td>
-                                </tr>
+                                </tr> --%>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">车型：</td>
                                     <td>${carInfo.carType } </td>

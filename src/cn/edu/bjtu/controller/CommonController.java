@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.service.DriverService;
 import cn.edu.bjtu.util.IdCreator;
 
@@ -28,7 +29,8 @@ public class CommonController {
 	CarService carService;*/
 	@Autowired
 	DriverService driverService;
-	
+	@Autowired
+	CompanyService companyService;
 	ModelAndView mv = new ModelAndView();
 
 	@RequestMapping("/myinfo")
@@ -71,6 +73,9 @@ public class CommonController {
 		{
 			String id=IdCreator.createContractId();
 			mv.addObject("id", id);
+			String clientId=(String)request.getSession().getAttribute("userId");
+			List companyList = companyService.getAllCompanyWithoutPage();
+			mv.addObject("companyList", companyList);
 			mv.setViewName("mgmt_r_contact_s2");//ºÏÍ¬
 		}
 		else if (flag == 8)

@@ -111,7 +111,7 @@
                             </tr>
                             <tr>
                                 <td height="40" class="td_mgmt_right3_td1b">相关材料：</td>
-                                <td><a href="javascript:;" hidefocus="true"><img src="images/btn_filetype2.png" /></a></td>
+                                <td><a href="downloadcontactrelated?id=${contract.id }" hidefocus="true"><img src="images/btn_filetype2.png" /></a></td>
                             </tr>
                             <tr>
                                 <td height="40" class="td_mgmt_right3_td1b">补充信息：</td>
@@ -162,7 +162,7 @@
             </td>
         </tr>
     </table>
-    <form action="shutdownContract?contractId=${contract.id }" method="post">
+    <form action="shutdownContract?contractId=${contract.id }&rorsflag=1" method="post">
     <table border="0" cellpadding="0" cellspacing="0">
         <tr>
             <td width="540">

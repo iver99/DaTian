@@ -40,6 +40,18 @@ public class CompanyDaoImpl extends BaseDaoImpl<Carrierinfo> implements CompanyD
 		
 	}
 
+	@Override
+	/**
+	 * 返回所有公司信息,不用分页
+	 */
+	public List getAllCompanyWithoutPage() {
+		// TODO Auto-generated method stub
+		//return ht.find("from Carrierinfo");
+		return ht.find("from Carrierinfo");
+		
+		
+		
+	}
 
 	@Override
 	/**
