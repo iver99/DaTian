@@ -113,7 +113,7 @@ $(document).ready(function(){
 		
 		if(document.getElementById("city1") != null)//判断某页面是否存在id为city1的控件
 		{
-			if(document.getElementById("city1").value == "中文或拼音")//city1控件状态是否为默认状态
+			if(document.getElementById("city1").value == "中文或拼音" || document.getElementById("city1").value == "全国")//city1控件状态是否为默认状态
 				locateurl += document.getElementById("city1").getAttribute('text') + "=All" + "&";//若是，则设定为All
 			else
 				locateurl += document.getElementById("city1").getAttribute('text') + "=" + document.getElementById("city1").value + "&";//否则将value值写入url
@@ -121,7 +121,7 @@ $(document).ready(function(){
 		
 		if(document.getElementById("city2") != null)
 		{
-			if(document.getElementById("city2").value == "中文或拼音")
+			if(document.getElementById("city2").value == "中文或拼音" || document.getElementById("city2").value == "全国")
 				locateurl += document.getElementById("city2").getAttribute('text') + "=All" + "&";
 			else
 				locateurl += document.getElementById("city2").getAttribute('text') + "=" + document.getElementById("city2").value + "&";

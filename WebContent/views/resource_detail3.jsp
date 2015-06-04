@@ -101,15 +101,15 @@
                        
                         </ul>
                         <ul id="item2" class="tab_hide">
-                            <li class="item2a">${carInfo.startPlace }←→${carInfo.endPlace }</li>
-                            <li class="item2a">${carInfo.stopPlace }</li>
+                            <li class="item2a">${linetransportInfo.startPlace }←→${linetransportInfo.endPlace }</li>
+                            <li class="item2a">经停城市：数据库没有，与城市关联？（石家庄、郑州）</li>
                         </ul>
                         <ul id="item3" class="tab_hide">
                            	<li>公司名称：${carrierInfo.companyName }</li>
                             <li>公司性质：${carrierInfo.companyType }</li>
                             <li>注册日期：${carrierInfo.relDate }</li>
                             <li>服务行业：${carrierInfo.serviceIndustry }</li>
-                            <!-- <li>业务种类：专线卡车</li> -->
+                            <li>业务种类：专线卡车</li>
                             <li>信用等级：${carrierInfo.creditRate	 }级</li>
                         </ul>
                         <ul id="item4" class="tab_hide">
@@ -160,9 +160,12 @@
 <script type="text/javascript">
 function loadXMLDoc(id)
 {
+	var curWwwPath=window.document.location.href;
+    var pathName=window.document.location.pathname;
+    var pos=curWwwPath.indexOf(pathName);
 	$.ajax({
 		   type: "GET",
-		   url: "http://localhost:8585/DaTian/focus",//请求的后台地址
+		   url: curWwwPath.substring(0,pos) + "/DaTian/focus",//请求的后台地址
 		   data: "type=car&id=" + id,//前台传给后台的参数
 		   success: function(msg){//msg:返回值
 			   loadFocus();

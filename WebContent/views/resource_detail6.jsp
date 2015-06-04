@@ -55,7 +55,7 @@
                 <br />
                 联系电话：${goodsformInfo.phone }
                 <hr class="hr_1" />
-                <% if((Integer)session.getAttribute("userKind") ==3) {%><!-- 企业用户 -->
+                <% if((Integer)session.getAttribute("userKind") && (Integer)session.getAttribute("userKind") ==3) {%><!-- 企业用户 -->
                 <input type="button" id="btn2" value="提交反馈" class="input_detail1" hidefocus="true" onclick="window.location.href='getresponseform?goodsid=${goodsformInfo.id}'" />
             	<% } %>
             </td>
@@ -72,7 +72,11 @@
                     <div class="list_wrap">
                         <ul id="item1">
                             <li class="item2a">说明：</li>
-                            <li>${goodsformInfo.remarks }</li>
+                            <li class="item2a">1）货物信息：包括大型仪器。</li>
+                            <li class="item2a">2）货物的体积大，并且至少25米长。</li>
+                            <li class="item2a">3）运送目的地包括华中五省的一级城市与二级城市。</li>
+                            <li class="item2a">4）增值服务：需要对货物进行分拣包装。</li>
+                            <li class="item2a">5）赔偿要求：若出现丢失或破损，须照原价赔偿。</li>
                         </ul>
                     </div>
 				</div>

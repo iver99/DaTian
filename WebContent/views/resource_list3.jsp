@@ -150,7 +150,7 @@
 								</dl>
 							</li>
 							<li><input type="button" id="btn2" value="重置"
-								class="btn_resource_search2" hidefocus="true" /> <input
+								class="btn_resource_search2" hidefocus="true" onclick="Reset()"/> <input
 								type="button" id="btn1" value="筛选" class="btn_resource_search1"
 								hidefocus="true" /></li>
 						</ul>
@@ -445,11 +445,19 @@
 	</div>
 </body>
 <script type="text/javascript">
-	function OnLoad() {
-		//Rescreen();
-		loadFocus();
-		GetRequest();
-	}
+function OnLoad() {
+	//Rescreen();
+	loadFocus();
+	GetRequest();
+}
+function Reset()
+{
+	document.getElementById("select1_0").click();
+	document.getElementById("select2_0").click();
+	document.getElementById("select3_0").click();
+	document.getElementById("city1").value = "中文或拼音";
+	document.getElementById("city2").value = "中文或拼音";
+}
 </script>
 
 <Script language="javascript" charset="gb2312">
@@ -491,6 +499,10 @@
 						.split("=")[1]);
 				document.getElementById("city2").value = UrlDecode(strs[1]
 						.split("=")[1]);
+				if(document.getElementById("city1").value == "All")
+					document.getElementById("city1").value = "全国";
+				if(document.getElementById("city2").value == "All")
+					document.getElementById("city2").value = "全国";
 				// alert(UrlDecode(strs[strs.length-2].split("=")[1]));
 				for (var i = 2; i < strs.length; i++) {
 					for (var j = 0; j < 10; j++)
@@ -614,9 +626,12 @@
 <script type="text/javascript">
 function loadXMLDoc(id)
 {
+	var curWwwPath=window.document.location.href;
+    var pathName=window.document.location.pathname;
+    var pos=curWwwPath.indexOf(pathName);
 	$.ajax({
 		   type: "GET",
-		   url: "http://localhost:8585/DaTian/focus",//请求的后台地址
+		   url: curWwwPath.substring(0,pos) + "/DaTian/focus",//请求的后台地址
 		   data: "type=car&id=" + id,//前台传给后台的参数
 		   success: function(msg){//msg:返回值
 			   loadFocus();

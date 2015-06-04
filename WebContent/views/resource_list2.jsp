@@ -97,7 +97,7 @@
 								</dl>
 							</li>
 							<li><input type="button" id="btn2" value="重置"
-								class="btn_resource_search2" hidefocus="true" /> <input
+								class="btn_resource_search2" hidefocus="true" onclick="Reset()"/> <input
 								type="button" id="btn1" value="筛选" class="btn_resource_search1"
 								hidefocus="true" /></li>
 						</ul>
@@ -319,11 +319,20 @@
 	}
 </script>
 <script type="text/javascript">
+function Reset()
+{
+	document.getElementById("select1_0").click();
+	document.getElementById("select2_0").click();
+	document.getElementById("city1").value = "中文或拼音";
+}
 function loadXMLDoc(id)
 {
+	var curWwwPath=window.document.location.href;
+    var pathName=window.document.location.pathname;
+    var pos=curWwwPath.indexOf(pathName);
 	$.ajax({
 		   type: "GET",
-		   url: "http://localhost:8585/DaTian/focus",//请求的后台地址
+		   url: curWwwPath.substring(0,pos) + "/DaTian/focus",//请求的后台地址
 		   data: "type=cityline&id=" + id,//前台传给后台的参数
 		   success: function(msg){//msg:返回值
 			   loadFocus();
@@ -359,6 +368,8 @@ function loadXMLDoc(id)
 				strs = str.split("&");
 				document.getElementById("city1").value = UrlDecode(strs[0]
 						.split("=")[1]);
+				if(document.getElementById("city1").value == "All")
+					document.getElementById("city1").value = "全国";
 				for (var i = 1; i < strs.length - 2; i++) {
 					for (var j = 0; j < 10; j++)
 						if (carparameter[i - 1][j] != "") {

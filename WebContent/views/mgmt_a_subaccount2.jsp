@@ -144,9 +144,12 @@
 <script type="text/javascript">
 function loadXMLDoc()
 {
+	var curWwwPath=window.document.location.href;
+    var pathName=window.document.location.pathname;
+    var pos=curWwwPath.indexOf(pathName);
 	$.ajax({
 		   type: "GET",
-		   url: "http://localhost:8585/DaTian/usercheck",//请求的后台地址
+		   url: curWwwPath.substring(0,pos) + "/DaTian/usercheck",//请求的后台地址
 		   data: "username=" + document.getElementById("username").value,//前台传给后台的参数
 		   success: function(msg){//msg:返回值
 			   if(msg == "true")

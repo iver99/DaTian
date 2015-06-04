@@ -88,8 +88,11 @@
                     </ul>
                     <div class="list_wrap">
                         <ul id="item1">
-                         	<li class="item2a">说明：</li>
-                            <li>${citylineInfo.remarks }</li>
+                            <li class="item2a">1）重量与体积之比小于1：4时即为泡货，按轻货报价计费。</li>
+                            <li class="item2a">2）时限从货物到达始发站的次日零时起开始计算。</li>
+                            <li class="item2a">3）所有报价均不含保险，保险费率为货物声明价值的0.3%。</li>
+                            <li class="item2a">4）以上报价为门到门价格，不含装卸、分拣、上楼等操作费用。如需装卸，装卸费另计。</li>
+                            <li class="item2a">5）单票最低收费50元/票，不含提派费装卸费另计。</li>
                         </ul>
                         <ul id="item2" class="tab_hide">
                             <li class="item2a">配送城市：北京</li>
@@ -154,9 +157,12 @@
 <script type="text/javascript">
 function loadXMLDoc(id)
 {
+	var curWwwPath=window.document.location.href;
+    var pathName=window.document.location.pathname;
+    var pos=curWwwPath.indexOf(pathName);
 	$.ajax({
 		   type: "GET",
-		   url: "http://localhost:8585/DaTian/focus",//请求的后台地址
+		   url: curWwwPath.substring(0,pos) + "/DaTian/focus",//请求的后台地址
 		   data: "type=cityline&id=" + id,//前台传给后台的参数
 		   success: function(msg){//msg:返回值
 			   loadFocus();
