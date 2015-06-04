@@ -28,6 +28,12 @@ public class SettlementController {
 	SettlementService settlementService;
 	
 	@RequestMapping("/mysettlement")
+	/**
+	 * 获取当前用户的结算
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	public ModelAndView getMySettlement(HttpServletRequest request,HttpServletResponse response)
 	{
 		String userId=(String )request.getSession().getAttribute("userId");

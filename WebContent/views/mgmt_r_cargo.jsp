@@ -102,14 +102,23 @@
 									<td class="td_main_list_content">${goodsinfo.oriented }</td>
 									<td class="td_main_list_content">${goodsinfo.feedbackQuantity }</td>
 									<c:choose>
-									<c:when test="${goodsinfo.state=='待确认' }">
+									<c:when test="${goodsinfo.state=='已确认' }">
+										<td class="td_mgmt_right3_td1">已确认</td>
+                        				<td class="td_mgmt_right3_td3"><a href="viewResponseDetail?goodsid=${goodsinfo.id }" hidefocus="true">查看反馈</a></td>
+									</c:when>
+									
+									<c:when test="${goodsinfo.state=='已取消' }">
+										<td class="td_mgmt_right3_td1">已取消</td>
+                       					 <td class="td_mgmt_right3_td3"><a href="mygoodsdetail?id=${goodsinfo.id }&flag=1" hidefocus="true">查看</a></td>
+									</c:when>
+									<c:otherwise>
 									<td class="td_mgmt_right3_td2">待确认</td>
 									<td class="td_mgmt_right3_td3">
 										<div id="handlebox" style="z-index: 203;">
 											<ul class="quickmenu">
 												<li class="menuitem">
 													<div class="menu">
-														<a href="mgmt_r_cargo5a.htm" class="menuhd"
+														<a href="viewResponseDetail?goodsid=${goodsinfo.id }" class="menuhd"
 															hidefocus="true">查看反馈</a>
 														<div class="menubd">
 															<div class="menubdpanel">
@@ -123,18 +132,9 @@
 											</ul>
 										</div>
 									</td>
-									</c:when>
-									
-									<c:when test="${goodsinfo.state=='已确认' }">
-										<td class="td_mgmt_right3_td1">已确认</td>
-                        <td class="td_mgmt_right3_td3"><a href="mgmt_r_cargo5b.htm" hidefocus="true">查看反馈</a></td>
-									</c:when>
-									
-									<c:when test="${goodsinfo.state=='已取消' }">
-										<td class="td_mgmt_right3_td1">已取消</td>
-                        <td class="td_mgmt_right3_td3"><a href="mygoodsdetail?id=${goodsinfo.id }&flag=1" hidefocus="true">查看</a></td>
-									</c:when>
+									</c:otherwise>
 									</c:choose>
+									
 								</tr>
 							</c:forEach>
 						</tbody>

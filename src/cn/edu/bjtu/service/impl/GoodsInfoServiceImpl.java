@@ -72,6 +72,9 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 	}
 	
 	@Override
+	/**
+	 * 根据goodsid得到货物信息
+	 */
 	public Goodsform getMyGoodsDetail(String id) {
 		// TODO Auto-generated method stub
 		return goodsinfoDao.getMyGoodsDetail(id);
@@ -184,5 +187,26 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 	 public boolean deleteGoods(String id){
 		 return goodsinfoDao.deleteGoods(id);
 	 }
+
+	@Override
+	/**
+	 * 确认反馈时修改货物状态为已确认
+	 */
+	public boolean confirmResponse(String goodsId) {
+		// TODO Auto-generated method stub
+		Goodsform goodsinfo=goodsinfoDao.getMyGoodsDetail(goodsId);	
+		
+		if(goodsinfo!=null){
+			//修改货物状态为已确认
+			goodsinfo.setState("已确认");
+		}
+		
+		return true;
+
+		
+	}
+	 
+	 
+	 
 	 
 }

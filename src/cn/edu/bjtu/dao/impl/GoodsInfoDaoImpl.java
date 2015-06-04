@@ -63,7 +63,7 @@ public class GoodsInfoDaoImpl extends BaseDaoImpl<Goodsform> implements GoodsInf
 	public Goodsform getMyGoodsDetail(String id) {
 		// TODO Auto-generated method stub
 
-		return ht.get(Goodsform.class, id);
+		return this.get(Goodsform.class, id);
 
 	}
 

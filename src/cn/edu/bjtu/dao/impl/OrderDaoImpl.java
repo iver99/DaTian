@@ -214,6 +214,7 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 		order.setId(IdCreator.createOrderId());
 		order.setOrderNum(IdCreator.createOrderNum());
 		order.setCarrierId(carrierId);
+		order.setSettlementState("未生成");// add by RussWest0 at 2015年6月4日,下午8:40:27 
 		//order.setClientName(clientName);
 		//order.setResourceType(resourceType);
 		order.setState("待受理");//订单状态

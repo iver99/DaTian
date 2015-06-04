@@ -169,7 +169,13 @@ public class ClientServiceImpl implements ClientService{
 			String fileLocation = path + "//" + fileName;
 			clientinfo.setIDPicture(fileLocation);//设置文件上传路径
 		}
+		Userinfo userinfo=userinfoDao.get(Userinfo.class,userId);
+		// add by RussWest0 at 2015年6月4日,下午8:23:30 
+//		更新后显示审核中
+		userinfo.setStatus("审核中");
 		clientinfo.setId(userId);
+		
+		userinfoDao.update(userinfo);
 		clientDao.update(clientinfo);//更新信息
 		return true;
 	}

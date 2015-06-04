@@ -72,7 +72,7 @@
                                 &nbsp;&nbsp;至&nbsp;&nbsp;
                                 <input type="text" class="input_date1" onclick="SelectDate(this,'yyyy-MM-dd')" value="结束时间" readonly="readonly" title="点击选择" />
                                 &nbsp;&nbsp; -->
-                                <input type="text" class="input_mgmt1" style="width:180px;" value="承运方名称或承运方合同编号" name="name"/>
+                                <input type="text" class="input_mgmt1" style="width:180px;" placeholder="承运方名称或承运方合同编号" name="name"/>
                                 <input type="submit" id="btn1" value="查询" class="btn_mgmt3" hidefocus="true" />
                             </div>
                         </td>
@@ -95,7 +95,7 @@
                     <c:forEach var="order" items="${orderList }">
                     <tr>
                         <td height="60" class="td_mgmt_right3_td1d"><input type="checkbox" name="f1" id="f1a" /></td>
-                        <td class="td_mgmt_right3_td1"><a href="#" hidefocus="true">${order.orderNum }</a></td>
+                        <td class="td_mgmt_right3_td1"><a href="getOrderDetail?orderid=${order.id }" hidefocus="true">${order.orderNum }</a></td>
                         <td class="td_mgmt_right3_td1"><a href="javascript:;" class="link1" hidefocus="true">${order.clientName }</a></td>
                         <td class="td_mgmt_right3_td1"><a href="javascript:;" class="link1" hidefocus="true">${order.companyName }</a></td>
                         <td class="td_mgmt_right3_td1"><a href="mgmt_r_contact_s4.htm" class="link1">${order.contractId }</a></td>

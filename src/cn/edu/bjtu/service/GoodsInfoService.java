@@ -56,4 +56,11 @@ public interface GoodsInfoService {
 	
 	public boolean deleteGoods(String id);
 	
+	/**
+	 * 确认反馈，修改货物状态
+	 * @param goodsId
+	 * @return
+	 */
+	public boolean confirmResponse(String goodsId);
+	
 }
