@@ -31,5 +31,7 @@ public interface LinetransportService {
 	public int getCompanyTotalRows(String carrierId);
 	
 	public boolean deleteLine(String id);
+
+	public List getAllLinetransportWithoutPage();
 	
 }

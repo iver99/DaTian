@@ -15,6 +15,8 @@ public interface LinetransportDao extends BaseDao<Linetransport>{
 	public List getSelectedLine(String hql,int Display,int PageNow);
 	
 	public int getCompanyTotalRows(String carrierId);
+
+	public List getAllLinetransportWithoutPage();
 	
 	
 }

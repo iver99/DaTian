@@ -41,6 +41,16 @@ public class CitylineServiceImpl implements CitylineService {
 
 		return citylineDao.getAllCityline(Display, PageNow);
 	}
+	
+	@Override
+	/**
+	 * 获取所有城市配送线路
+	 */
+	public List getAllCitylineWithoutPage() {
+		// TODO Auto-generated method stub
+
+		return citylineDao.getAllCitylineWithoutPage();
+	}
 
 	@Override
 	/**

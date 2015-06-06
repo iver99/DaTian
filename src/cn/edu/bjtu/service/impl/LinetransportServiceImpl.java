@@ -45,6 +45,15 @@ public class LinetransportServiceImpl implements LinetransportService {
 		// TODO Auto-generated method stub
 		return linetransportDao.getAllLinetransport(Display, PageNow);
 	}
+	
+	@Override
+	/**
+	 * 返回所有干线列表
+	 */
+	public List getAllLinetransportWithoutPage() {
+		// TODO Auto-generated method stub
+		return linetransportDao.getAllLinetransportWithoutPage();
+	}
 
 	@Override
 	/**

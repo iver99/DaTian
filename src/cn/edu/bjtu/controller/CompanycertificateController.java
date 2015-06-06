@@ -42,7 +42,7 @@ public class CompanycertificateController {
 	
 	@RequestMapping("companycertificate")
 	/**
-	 * 验证公司
+	 * 验证公司信息
 	 */
 	public ModelAndView companycertificate(
 			@RequestParam(required = false) MultipartFile file,
@@ -54,13 +54,10 @@ public class CompanycertificateController {
 			@RequestParam(required = false) String companyContact, @RequestParam(required = false) String phone,
 			@RequestParam(required = false) String basicSituation,
 			HttpServletRequest request,	HttpServletResponse response) {
-		System.out.println("进入验证公司控制器");
 		String userId=(String)request.getSession().getAttribute("userId");
 		
-		// ////////////////////////////////////////////
 				String path = null;
 				String fileName = null;
-				// System.out.println("file+"+file+"filename"+file.getOriginalFilename());//不上传文件还是会显示有值
 				if (file.getSize() != 0)// 有上传文件的情况
 				{
 					path = UploadPath.getCompanyCertificatePath();// 不同的地方取不同的上传路径
@@ -76,17 +73,12 @@ public class CompanycertificateController {
 				}
 				// 没有上传文件的情况path 和 filenName默认为null
 
-				// ////////////////////////////////////////////
-		
 		boolean flag=companycertificateService.validateCompany(userId,companyName,divisionCode,legalName,
 				legalIDCard,companyAddr,companyType,companyScale,invoiceKind,serviceIndustry,
 				businessKind,companyContact,phone,basicSituation,path,fileName);
-		System.out.println(flag);
 		if(flag==true){
 			try {
-				System.out.println("redirect之前");
 				response.sendRedirect("accountinfo");
-				System.out.println("redirect之后");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				System.out.println("验证公司出错");//logging

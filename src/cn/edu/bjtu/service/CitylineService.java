@@ -20,4 +20,5 @@ public interface CitylineService {
 			String VIPDetail,float refPrice, String remarks, String carrierId,
 			String path,String fileName);
 	public boolean deleteCityline(String id);
+	public List getAllCitylineWithoutPage();
 }

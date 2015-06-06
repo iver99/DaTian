@@ -37,6 +37,13 @@ public class CarDaoImpl extends BaseDaoImpl<Carinfo> implements CarDao{
 		
 	}
 	
+
+	@Override
+	public List getAllCarWithoutPage() {
+		// TODO Auto-generated method stub
+		return ht.find(" from CarCarrierView");
+	}
+	
 	@Override
 	/**
 	 * 返回所有车辆经纬度信息
@@ -80,6 +87,7 @@ public class CarDaoImpl extends BaseDaoImpl<Carinfo> implements CarDao{
 
 		return hqltool.getQueryList(hql, page, pageSize);//Dao层分页函数提取到此方法
 	}
+
 
 	
 }

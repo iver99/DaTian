@@ -121,7 +121,33 @@ function change_cert() {
 	return false;
 }
 
-
+/*订单中的资源选择*/
+function change_cert2() {
+	if (document.getElementById('order_cert').selectedIndex == 1 )
+	{
+		document.getElementById('line_detail').style.display='inline';
+		document.getElementById('cityline_detail').style.display='none';
+		document.getElementById('car_detail').style.display='none';
+		}
+	else if (document.getElementById('order_cert').selectedIndex == 2 )
+	{
+		document.getElementById('line_detail').style.display='none';
+		document.getElementById('cityline_detail').style.display='inline';
+		document.getElementById('car_detail').style.display='none';
+		}
+	else if (document.getElementById('order_cert').selectedIndex == 3 )
+	{
+		document.getElementById('line_detail').style.display='none';
+		document.getElementById('cityline_detail').style.display='none';
+		document.getElementById('car_detail').style.display='inline';
+		}
+	else{
+		document.getElementById('line_detail').style.display='none';
+		document.getElementById('cityline_detail').style.display='none';
+		document.getElementById('car_detail').style.display='none';	
+		}
+	return false;
+}
 
 /*
 //方案需求申请页面：点击radio进行内容切换

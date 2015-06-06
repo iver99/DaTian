@@ -248,17 +248,18 @@ public class ContractController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//System.out.println("已经进入控制器");
-
-		String carrierId=(String)request.getSession().getAttribute("userId");
-		//String carrierId = "C-0002";
-		List contractList = contractService.getFindContract(carrierId, startDate, endDate, name, Display, PageNow);
-		System.out.println("contractList+" + contractList);
-		mv.addObject("contractList", contractList);
-		Carrierinfo carrierInfo = companyService.getCompanyById(carrierId);
-		mv.addObject("carrierInfo", carrierInfo);
 		
-		int count = contractService.getFindContractTotalRows(carrierId, startDate, endDate, name, Display, PageNow);// 获取查询总记录数
+		
+		if(flag==1){//需求方
+
+		String clientId=(String)request.getSession().getAttribute("userId");
+		//String carrierId = "C-0002";
+		List contractList = contractService.getFindContract(clientId, startDate, endDate, name, Display, PageNow);
+		mv.addObject("contractList", contractList);
+		/*Carrierinfo carrierInfo = companyService.getCompanyById(clientId);
+		mv.addObject("carrierInfo", carrierInfo);*/
+		
+		int count = contractService.getFindContractTotalRows(clientId, startDate, endDate, name, Display, PageNow);// 获取查询总记录数
 		System.out.println("coount+"+count);
 		int pageNum = (int) Math.ceil(count * 1.0 / Display);// 页数
 		System.out.println("总记录数+"+count);
@@ -266,13 +267,28 @@ public class ContractController {
 		mv.addObject("count", count);
 		mv.addObject("pageNum", pageNum);
 		mv.addObject("pageNow", PageNow);
-		
-		if(flag==1){//需求方
 
 			mv.setViewName("mgmt_r_contact_s");
 		}
 		if(flag==2){//承运方
 
+			String carrierId=(String)request.getSession().getAttribute("userId");
+			//String carrierId = "C-0002";
+			List contractList = contractService.getFindContract2(carrierId, startDate, endDate, name, Display, PageNow);
+			mv.addObject("contractList", contractList);
+			/*Carrierinfo carrierInfo = companyService.getCompanyById(carrierId);
+			mv.addObject("carrierInfo", carrierInfo);*/
+			
+			int count = contractService.getFindContractTotalRows(carrierId, startDate, endDate, name, Display, PageNow);// 获取查询总记录数
+			System.out.println("coount+"+count);
+			int pageNum = (int) Math.ceil(count * 1.0 / Display);// 页数
+			System.out.println("总记录数+"+count);
+			System.out.println("页数+"+pageNum);
+			mv.addObject("count", count);
+			mv.addObject("pageNum", pageNum);
+			mv.addObject("pageNow", PageNow);
+
+			mv.setViewName("mgmt_r_contact_s");
 			mv.setViewName("mgmt_r_contact_r");
 		}
 		return mv;

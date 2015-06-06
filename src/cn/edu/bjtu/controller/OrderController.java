@@ -192,6 +192,8 @@ public class OrderController {
 
 		// 需要更新订单的司机列表，并且修改订单状态为已受理(待收货)
 		// 需要重定向,用来更新页面
+		System.out.println("接收订单+orderId+" + orderid);
+		System.out.println("接收订单-orderId+" + orderid);
 		boolean flag = orderService.acceptOrder(orderid);
 		try {
 			if (flag == true)
@@ -569,7 +571,7 @@ public class OrderController {
 	 */
 	public ModelAndView getOrderDetail(HttpServletRequest request,
 			HttpServletResponse response, String orderid) {
-		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);
+		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);// 需要重构，返回一条信息
 		mv.addObject("orderInfo", orderInfo);
 		mv.setViewName("mgmt_d_order_r3");
 		return mv;
@@ -630,7 +632,7 @@ public class OrderController {
 	 */
 	public ModelAndView getOrderDetailWaitToConfirm(HttpServletRequest request,
 			HttpServletResponse response, String orderid) {
-		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);
+		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);// 需要重构，返回一条信息
 		mv.addObject("orderInfo", orderInfo);
 		mv.setViewName("mgmt_d_order_r4a");
 		return mv;
@@ -701,10 +703,28 @@ public class OrderController {
 	 * 获取创建订单表单
 	 * @return
 	 */
-	public ModelAndView getNewOrderForm(@RequestParam String carrierid,@RequestParam String resourceId,@RequestParam int flag) {
+	public ModelAndView getNewOrderForm(@RequestParam String carrierid,
+			@RequestParam(required=false) String resourceId,@RequestParam int flag) {
 		// 需要取出承运方公司名称
-		//flag和resourceType中标识1为干线，2为城市，3为车辆
+		//flag和resourceType中标识1为干线，2为城市，3为车辆,4为公司
 		int resourceType = 0;
+		if(flag==4){
+			//Carinfo carInfo = carService.getCarInfo(resourceId);
+			//resourceType = 3;
+			//mv.addObject("resourceType", resourceType);
+			//mv.addObject("carInfo", carInfo);
+			Carrierinfo company=companyService.getCompanyById(carrierid);
+			mv.addObject("companyName", company.getCompanyName());
+			mv.addObject("carrierId", carrierid);
+			List linetransportList=linetransportService.getAllLinetransportWithoutPage();
+			mv.addObject("linetransportList", linetransportList);
+			List citylineList=citylineService.getAllCitylineWithoutPage();
+			mv.addObject("citylineList", citylineList);
+			List carList=carService.getAllCarWithoutPage();
+			mv.addObject("carList", carList);
+			mv.setViewName("mgmt_d_order_s2a");
+			return mv;
+		}
 		if(flag==1){
 			Linetransport linetransportInfo = linetransportService
 					.getLinetransportInfo(resourceId);

@@ -99,9 +99,46 @@ public class ContractServiceImpl implements ContractService{
 	
 	@Override
 	/**
-	 * 查询合同
+	 * 查询合同（需求方）
 	 */
-	public List getFindContract(String carrierId,String startDate,String endDate,String name,int Display,int PageNow){
+	public List getFindContract(String clientId,String startDate,String endDate,String name,int Display,int PageNow){
+		String sql="from Contract where clientId='"+clientId+"' and ";
+		System.out.println("name1="+name+"startDate="+startDate+"endDate="+endDate);
+		if(name.equals("合同名称")){
+			//查找时不考虑合同名字
+			System.out.println("name2="+name);
+			name = "";
+			System.out.println("name3="+name);
+		}
+		if(!startDate.equals("开始时间")){
+			if(!endDate.equals("结束时间")){
+				//查询时有开始和截止时间
+				sql+=" startDate >= '"+startDate+"' and endDate <= '"+endDate+"' and name like '%"+name+"%'";
+				
+			}
+			else{
+				//只有开始日期没有截止日期
+				sql+=" startDate >= '"+startDate+"' and name like '%"+name+"%'";
+				
+			}
+		}
+		else if(!endDate.equals("结束时间")){
+			//只有结束时间没有开始时间
+			sql+=" endDate <= '"+endDate+"' and name like '%"+name+"%'";
+			
+		}
+		else{
+			//没有时间限制
+			sql+=" name like '%"+name+"%'";
+		}
+		return contractDao.getFindContract(sql, Display, PageNow);
+	}
+	
+	@Override
+	/**
+	 * 查询合同（承运方）
+	 */
+	public List getFindContract2(String carrierId,String startDate,String endDate,String name,int Display,int PageNow){
 		String sql="from Contract where carrierId='"+carrierId+"' and ";
 		System.out.println("name1="+name+"startDate="+startDate+"endDate="+endDate);
 		if(name.equals("合同名称")){

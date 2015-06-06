@@ -26,6 +26,9 @@ public class ComplaintDaoImpl extends BaseDaoImpl<Complaintform> implements Comp
 	}
 
 	@Override
+	/**
+	 * 获取所有投诉 
+	 */
 	public List getAllUserCompliant() {
 		// TODO Auto-generated method stub
 		return ht.find("from ComplaintClientView");

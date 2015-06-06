@@ -10,5 +10,6 @@ public interface CitylineDao extends BaseDao<Cityline> {
 	public Cityline getCitylineInfo(String citylineid);
 	public List getCompanyCityline(String carrierId);
 	public List getSelectedCityline(String hql,int Display,int PageNow);
+	public List getAllCitylineWithoutPage();
 	
 }

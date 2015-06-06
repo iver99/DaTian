@@ -37,6 +37,7 @@ public interface CarService {
 	
 	
 	public boolean deleteCar(String id);
+	public List getAllCarWithoutPage();
 	
 	
 	

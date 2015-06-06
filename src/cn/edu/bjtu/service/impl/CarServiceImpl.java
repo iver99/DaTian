@@ -56,6 +56,16 @@ public class CarServiceImpl implements CarService {
 	
 	@Override
 	/**
+	 * 返回所有车辆
+	 */
+	public List getAllCarWithoutPage() {
+		// TODO Auto-generated method stub
+
+		return carDao.getAllCarWithoutPage();
+	}
+	
+	@Override
+	/**
 	 * 返回车辆位置
 	 */
 	public List getAllLocation() {

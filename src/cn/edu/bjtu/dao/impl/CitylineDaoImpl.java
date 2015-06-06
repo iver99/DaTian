@@ -33,6 +33,12 @@ public class CitylineDaoImpl extends BaseDaoImpl<Cityline> implements CitylineDa
 		return hqltool.getQueryList(hql, page, pageSize);//dao层分批取数据方法
 		
 	}
+
+	@Override
+	public List getAllCitylineWithoutPage() {
+		// TODO Auto-generated method stub
+		return ht.find(" from CityCarrierView");
+	}
 	
 	@Override
 	/**
@@ -62,4 +68,5 @@ public class CitylineDaoImpl extends BaseDaoImpl<Cityline> implements CitylineDa
 
 		return hqltool.getQueryList(hql, page, pageSize);//Dao层分页函数提取到此方法
 	}
+
 }

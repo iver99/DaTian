@@ -59,7 +59,7 @@ public class CompanycertificateDaoImpl extends BaseDaoImpl<Companycertificate> i
 					companycertificate.setRelatedMaterial(fileLocation);
 				}
 		/*baseDao.update(clientInfo);*/
-		this.save(companycertificate);
+		this.update(companycertificate);
 		//修改个人信息状态
 		//if(flag== true)
 	//	{
@@ -107,6 +107,11 @@ public class CompanycertificateDaoImpl extends BaseDaoImpl<Companycertificate> i
 				}
 		/*baseDao.update(clientInfo);*/
 		this.update(companycertificate);
+		
+		Userinfo userInfo=ht.get(Userinfo.class, userId);
+		userInfo.setStatus("审核中");
+		/*baseDao.update(userInfo);*/
+		registerDao.update(userInfo);
 		
 		return true;
 	}

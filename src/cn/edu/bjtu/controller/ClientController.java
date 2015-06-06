@@ -127,7 +127,7 @@ public class ClientController {
 	 * @param clientinfo
 	 * @return
 	 */
-	public ModelAndView updateClientInfo(HttpSession session,Clientinfo clientinfo,MultipartFile file){
+	public ModelAndView updateClientInfo(HttpServletResponse response,HttpSession session,Clientinfo clientinfo,MultipartFile file){
 		String userId=(String) session.getAttribute("userId");
 		String path = null;
 		String fileName = null;
@@ -146,10 +146,23 @@ public class ClientController {
 		boolean flag=clientService.updateClientinfo(clientinfo,path, fileName,userId);
 		if(flag){
 			mv.addObject("msg", "更新个人信息成功!");
-			mv.setViewName("mgmt_a_info");
+			try {
+				response.sendRedirect("accountinfo");//跳到我的信息页面
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			//mv.setViewName("mgmt_a_info");
+			
 		}else{
 			mv.addObject("msg", "更新个人信息失败！");
-			mv.setViewName("mgmt_a_info3a");
+			try {
+				response.sendRedirect("accountinfo");//跳到我的信息页面 
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			//mv.setViewName("mgmt_a_info3a");
 		}
 		return mv;
 	}

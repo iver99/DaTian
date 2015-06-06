@@ -56,8 +56,6 @@
                         <a href="warehouse?flag=1" class="a_mgmt_leftnav" hidefocus="true">仓库信息</a>
 						<a href="driver?flag=1" class="a_mgmt_leftnav" hidefocus="true">司机信息</a>
                         <a href="client" class="a_mgmt_leftnav" hidefocus="true">客户信息</a>
-                        <%} %>
-                        <% if((Integer)session.getAttribute("userKind") ==2) {%><!-- 个人用户 -->
                         <a href="goodsform?flag=1" class="a_mgmt_leftnav" hidefocus="true">货物信息</a>
                         <%} %>
                         <a href="contract" class="a_mgmt_leftnav1" hidefocus="true">合同信息</a>
@@ -103,7 +101,7 @@
                         <td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
                         <td class="td_mgmt_right3_td1"><a href="contractdetail?contractId=${contract.id }&flag=1" hidefocus="true">${contract.id }</a></td>
                         <td class="td_mgmt_right3_td1" id="name">${contract.name }</td>
-                        <td class="td_mgmt_right3_td1">${contract.carrierId }</td>
+                        <td class="td_mgmt_right3_td1">${contract.carrierAccount }</td>
                         <td class="td_mgmt_right3_td1">${contract.monthlyStatementDays }</td>
                         <td class="td_mgmt_right3_td1">${contract.startDate }</td>
                         <td class="td_mgmt_right3_td1">${contract.state }</td>
