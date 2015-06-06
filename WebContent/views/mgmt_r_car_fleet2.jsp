@@ -83,24 +83,24 @@
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">车队名称：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="teamName"/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="teamName" required/></td>
                                 </tr>
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">数量(辆)：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="carCount"/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="carCount" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">车队负责人：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="chief"/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="chief" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">联系电话：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="phone"/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="phone" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">说明：</td>
                                     <td>
-                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="explaination"></textarea>
+                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="explaination" required></textarea>
                                     </td>
                                 </tr>
                                 <tr>

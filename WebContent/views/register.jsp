@@ -41,7 +41,7 @@
     <table border="0" cellspacing="0" cellpadding="0" class="table_register1">
         <tr>
             <td width="120" height="40" class="td_mgmt_right3_td1b">用户名：</td>
-            <td><input type="text" class="input_mgmt1" style="width:300px;" name="username" id="username"/>&nbsp;&nbsp;<a href="javascript:;" hidefocus="true" onclick="loadXMLDoc()">检查用户名</a></td>
+            <td><input type="text" class="input_mgmt1" style="width:300px;" name="username" id="username" required/>&nbsp;&nbsp;<a href="javascript:;" hidefocus="true" onclick="loadXMLDoc()">检查用户名</a></td>
         </tr>
         <tr>
         	<td width="120" height="40" class="td_mgmt_right3_td1b">用户类型：</td>
@@ -51,8 +51,8 @@
         <tr>
             <td height="40" class="td_mgmt_right3_td1b">手机验证码：</td>
             <td>
-            	<input type="text" class="input_mgmt1" style="width:150px;" placeholder="填写本人手机号码" name="phone"/>
-                <input type="text" class="input_mgmt1" style="width:48px;" name="validationkey"/>
+            	<input type="text" class="input_mgmt1" style="width:150px;" placeholder="填写本人手机号码" name="phone" required/>
+                <input type="text" class="input_mgmt1" style="width:48px;" name="validationkey" required/>
                 <input type="button" id="btn_t" value="获取验证码" hidefocus="true" class="btn_register_t" />
                 <script type="text/javascript">
 					var wait=60;
@@ -80,18 +80,18 @@
         </tr>
         <tr>
             <td height="40" class="td_mgmt_right3_td1b">密码：</td>
-            <td><input type="password" class="input_mgmt1" style="width:300px;" name="password"/></td>
+            <td><input type="password" class="input_mgmt1" style="width:300px;" name="password" required/></td>
         </tr>
         <tr>
             <td height="40" class="td_mgmt_right3_td1b">确认密码：</td>
-            <td><input type="password" class="input_mgmt1" style="width:300px;" name="passwordRepeat"/></td>
+            <td><input type="password" class="input_mgmt1" style="width:300px;" name="passwordRepeat" required/></td>
         </tr>
     </table>
     <div class="div_register_content1a"></div>
     <table border="0" cellspacing="0" cellpadding="0" class="table_register1">
         <tr>
             <td width="120" height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
-            <td><input name="" type="checkbox" value="" />&nbsp;<a href="javascript:;" hidefocus="true" target="_blank">我同意并遵守《平台服务协议》</a></td>
+            <td><input name="" type="checkbox" value="" required/>&nbsp;<a href="javascript:;" hidefocus="true" target="_blank">我同意并遵守《平台服务协议》</a></td>
         </tr>
         <tr>
             <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>

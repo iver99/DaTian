@@ -82,10 +82,10 @@
                         	 <br />
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
                             <tr>
-                            <textarea name="cancelReason" class="textarea_rating" placeholder="请输入内容..."></textarea>
+                            <textarea name="cancelReason" class="textarea_rating" placeholder="请输入内容..." required></textarea>
                                </tr>
                                 <tr>
-                                    <td height="40" class="td_mgmt_right3_td1a1"><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="window.location.href='sendorderinfo'" /></td>
+                                    <td height="40" class="td_mgmt_right3_td1a1"><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /></td>
                                 </tr>
                     		</table>
                     	</td>

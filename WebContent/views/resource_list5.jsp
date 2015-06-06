@@ -504,6 +504,9 @@ function loadXMLDoc(id)
 		   url: curWwwPath.substring(0,pos) + "/DaTian/focus",//请求的后台地址
 		   data: "type=company&id=" + id,//前台传给后台的参数
 		   success: function(msg){//msg:返回值
+			   if(msg == "login"){
+				   location.assign(curWwwPath.substring(0,pos) + "/DaTian/loginForm");
+			   }
 			   loadFocus();
 		   }
 		});

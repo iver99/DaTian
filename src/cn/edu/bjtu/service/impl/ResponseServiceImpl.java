@@ -56,6 +56,7 @@ public class ResponseServiceImpl implements ResponseService{
 		Response confirmResp=responseDao.get(Response.class,responseId);
 		if(confirmResp!=null){
 			confirmResp.setStatus("已确认");//修改确认的反馈记录
+			responseDao.update(confirmResp);
 		}
 		
 		String hql="from Response where carrierId=:carrierId and goodsId=:goodsId";
@@ -68,6 +69,8 @@ public class ResponseServiceImpl implements ResponseService{
 		if(unconfirmRespList!=null){
 			for(Response resp:unconfirmRespList){
 				resp.setStatus("已取消");
+				responseDao.update(resp);
+				
 			}
 		}
 		

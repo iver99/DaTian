@@ -59,7 +59,8 @@ public class ResponseController {
 		return mv;
 	}
 	
-	//跳到提交订单页面之后，未完成...........
+	
+	@RequestMapping("confirmResponse")
 	public ModelAndView confirmResponse(String responseid,String carrierid,String goodsid){
 		//需要修改此条货物信息的其它反馈为已取消
 		
@@ -68,8 +69,8 @@ public class ResponseController {
 		//货物表修改状态
 		goodsInfoService.confirmResponse(goodsid);
 		
-		
-		mv.addObject("", "");
+		//页面上需要承运方id
+		mv.addObject("carrierId", carrierid);
 		
 		mv.setViewName("mgmt_d_order_s2a");
 		return mv;

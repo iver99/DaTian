@@ -49,7 +49,9 @@
                     <span class="text_mgmt_leftnav1"><span id="mgmt_nav_switch5a" class="span_mgmt_nav1" title="收起" onclick="mgmt_nav_switch5a();"></span><span id="mgmt_nav_switch5b" class="span_mgmt_nav2" title="展开" onclick="mgmt_nav_switch5b();"></span>我的帐户</span>
                     <div id="mgmt_nav5">
                         <a href="accountinfo" class="a_mgmt_leftnav" hidefocus="true">帐户信息</a>
+                         <% if((Integer)session.getAttribute("userKind") ==3) {%><!-- 企业用户 -->
                         <a href="getsubaccount" class="a_mgmt_leftnav" hidefocus="true">附属帐户</a>
+                        <% } %>
                         <a href="getaddress" class="a_mgmt_leftnav1" hidefocus="true">常用地址</a>
                         <a href="mysecurity" class="a_mgmt_leftnav" hidefocus="true">安全设置</a>
                     </div>
@@ -73,15 +75,15 @@
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">姓名：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${address.name }" name="name"/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${address.name }" name="name" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">地址：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${address.address }" name="address"/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${address.address }" name="address" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">联系电话：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${address.phone }" name="phone"/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${address.phone }" name="phone" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>

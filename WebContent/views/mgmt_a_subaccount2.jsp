@@ -72,11 +72,11 @@
 							<table width="90%" border="0" cellspacing="0" cellpadding="0">
 								<tr>
 									<td width="120" height="40" class="td_mgmt_right3_td1b">帐户名称：</td>
-									<td><input type="text" class="input_mgmt1" style="width:100px;" value="${username } " readonly="readonly" />&nbsp;-&nbsp;<input type="text" class="input_mgmt1" style="width:180px;" value="" name="username" id="username"/>&nbsp;&nbsp;<a href="javascript:;" hidefocus="true" onclick="loadXMLDoc()">检查用户名</a></td>
+									<td><input type="text" class="input_mgmt1" style="width:100px;" value="${username } " readonly="readonly" />&nbsp;-&nbsp;<input type="text" class="input_mgmt1" style="width:180px;" value="" name="username" id="username" required/>&nbsp;&nbsp;<a href="javascript:;" hidefocus="true" onclick="loadXMLDoc()">检查用户名</a></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">初始密码：</td>
-									<td><input type="password" class="input_mgmt1" style="width:300px;" value="" name="password"/></td>
+									<td><input type="password" class="input_mgmt1" style="width:300px;" value="" name="password" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">权限：</td>
@@ -94,12 +94,12 @@
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">备注：</td>
 									<td>
-                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="remarks"></textarea>
+                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="remarks" required></textarea>
                                     </td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
-									<td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="window.location.href='mgmt_a_subaccount.htm'" /><input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
+									<td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
 								</tr>
 							</table>
 						</form>

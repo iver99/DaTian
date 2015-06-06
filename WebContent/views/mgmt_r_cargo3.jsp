@@ -89,7 +89,7 @@
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">货物名称：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${goodsdetail.name }" name="name"/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${goodsdetail.name }" name="name" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">货物类型：</td>
@@ -119,11 +119,11 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">货物信息：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="goodsinfo"/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="goodsinfo" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">重量：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${goodsdetail.weight }" name="weight"/>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${goodsdetail.weight }" name="weight" required/>
                                     (吨)</td>
                                 </tr>
                                 <tr>
@@ -145,12 +145,12 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">关于运输的要求：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${goodsdetail.transportReq }" name="transportReq"/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${goodsdetail.transportReq }" name="transportReq" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">线路起止：</td>
                                     <td id="cityselector">
-                                        <input id="city1" type="text" value="${goodsdetail.startPlace }" class="input_city1" name="startPlace"/><span class="span_mgmt_dynamic1">至</span><input id="city2" type="text" value="${goodsdetail.endPlace }" class="input_city1" name="endPlace"/>
+                                        <input id="city1" type="text" value="${goodsdetail.startPlace }" class="input_city1" name="startPlace" required/><span class="span_mgmt_dynamic1">至</span><input id="city2" type="text" value="${goodsdetail.endPlace }" class="input_city1" name="endPlace" required/>
                                         <img src="images/btn_add2.png" hidefocus="true" style="cursor:pointer;" title="添加" onclick="addcity2();" />
                                     </td>
                                 </tr>
@@ -160,30 +160,30 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">关于赔偿的要求：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${goodsdetail.damageReq }" name="damageReq"/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${goodsdetail.damageReq }" name="damageReq" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">增值服务：</td>
                                     <td>
                                     <c:choose>
                                     <c:when test="${goodsdetail.vipservice == '不需要' }">
-                       				<select name="VIPService" id="city_cert" style="width:110px;" onchange="change_cert();">
+                       				<select name="VIPService" id="city_cert" style="width:110px;" onchange="change_cert();" required>
                                             <option value="">请选择</option>
                                             <option value="需要">需要</option>
                                             <option value="不需要" selected="selected">不需要</option>
                                         </select>
                                         <div id="c_detail" style="display:none;">
-                                            <input name="VIPServiceDetail" type="text" class="input_mgmt1" style="width:186px;" placeholder="请输入内容..." />
+                                            <input name="VIPServiceDetail" type="text" class="input_mgmt1" style="width:186px;" placeholder="请输入内容..." required/>
                                         </div>
 									</c:when>
 									<c:when test="${goodsdetail.vipservice == '需要' }">
-                       				<select name="VIPService" id="city_cert" style="width:110px;" onchange="change_cert();">
+                       				<select name="VIPService" id="city_cert" style="width:110px;" onchange="change_cert();" required>
                                             <option value="">请选择</option>
                                             <option value="需要" selected="selected">需要</option>
                                             <option value="不需要">不需要</option>
                                         </select>
                                         <div id="c_detail" style="display:none;">
-                                            <input name="VIPServiceDetail" type="text" class="input_mgmt1" style="width:186px;" placeholder="请输入内容..." />
+                                            <input name="VIPServiceDetail" type="text" class="input_mgmt1" style="width:186px;" placeholder="请输入内容..." required/>
                                         </div>
 									</c:when>
                                     </c:choose>
@@ -194,13 +194,13 @@
                                     <td>
                                     <c:choose>
                                     <c:when test="${goodsdetail.oriented == '用户' }">
-                       				<select name="oriented" id="valueadd" style="width:110px;" onchange="change1();">
+                       				<select name="oriented" id="valueadd" style="width:110px;" onchange="change1();" required>
                                             <option value="">请选择</option>
                                             <option value="用户" selected="selected">用户</option>
                                             <option value="平台">平台</option>
                                         </select>
                                         <div id="v_detail" style="display:none;">
-                                            <select name="orientedUser" style="width:93px;">
+                                            <select name="orientedUser" style="width:93px;" required>
                                                 <option value="" selected="selected">请选择</option>
                                                 <option value="全体用户">全体用户</option>
                                                 <option value="承运方">承运方</option>
@@ -209,13 +209,13 @@
                                         </div>
 									</c:when>
 									<c:when test="${goodsdetail.oriented == '平台' }">
-                       				<select name="oriented" id="valueadd" style="width:110px;" onchange="change1();">
+                       				<select name="oriented" id="valueadd" style="width:110px;" onchange="change1();" required>
                                             <option value="">请选择</option>
                                             <option value="用户">用户</option>
                                             <option value="平台" selected="selected">平台</option>
                                         </select>
                                         <div id="v_detail" style="display:none;">
-                                            <select name="orientedUser" style="width:93px;">
+                                            <select name="orientedUser" style="width:93px;" required>
                                                 <option value="" selected="selected">请选择</option>
                                                 <option value="全体用户">全体用户</option>
                                                 <option value="承运方">承运方</option>
@@ -228,21 +228,21 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">有效期至：</td>
-                                    <td><input type="text" class="input_date1" title="点击此处选择" onclick="SelectDate(this,'yyyy-MM-dd')" value="${goodsdetail.limitDate }" readonly="readonly" name="limitDate"/></td>
+                                    <td><input type="text" class="input_date1" title="点击此处选择" onclick="SelectDate(this,'yyyy-MM-dd')" value="${goodsdetail.limitDate }" readonly="readonly" name="limitDate" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">发票要求：</td>
                                     <td>
                                     <c:choose>
                                     <c:when test="${goodsdetail.invoice == '需要' }">
-                       				<select name="invoice" style="width:110px;">
+                       				<select name="invoice" style="width:110px;" required>
                                             <option value="">请选择</option>
                                             <option value="需要" selected="selected">需要</option>
                                             <option value="不需要">不需要</option>
                                         </select>
 									</c:when>
 									<c:when test="${goodsdetail.invoice == '不需要' }">
-                       				<select name="invoice" style="width:110px;">
+                       				<select name="invoice" style="width:110px;" required>
                                             <option value="">请选择</option>
                                             <option value="需要">需要</option>
                                             <option value="不需要" selected="selected">不需要</option>
@@ -256,19 +256,19 @@
 									<td>
                                     	<div style="position:relative;">
                                         	<input id="apply_attachment1" type="text" class="input_attachment1" style="width:230px;" value="${goodsdetail.relatedMaterial }" name="relatedMaterial"/><input id="upload_btn3" type="button" value="添加" class="input_attachment_btn1" style="width:60px; margin-left:10px;" />
-      <input id="upload_btn4" type="file" name="file" onchange="document.getElementById('apply_attachment1').value=/[^\\]+\.\w+$/.exec(this.value)[0]" class="input_attachment_btn1_hidden" style="width:300px;" hidefocus="true" />
+      <input id="upload_btn4" type="file" name="file" onchange="document.getElementById('apply_attachment1').value=/[^\\]+\.\w+$/.exec(this.value)[0]" class="input_attachment_btn1_hidden" style="width:300px;" hidefocus="true" required/>
                                         </div>
                                     </td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">补充信息：</td>
 									<td>
-                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="remarks">${goodsdetail.remarks }</textarea>
+                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="remarks" required>${goodsdetail.remarks }</textarea>
                                     </td>
 								</tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
-                                    <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="window.location.href='mgmt_r_cargo.htm'" /><input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
+                                    <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
                                 </tr>
                             </table>
                             </form>

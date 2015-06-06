@@ -199,6 +199,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 		if(goodsinfo!=null){
 			//修改货物状态为已确认
 			goodsinfo.setState("已确认");
+			goodsinfoDao.update(goodsinfo);
 		}
 		
 		return true;

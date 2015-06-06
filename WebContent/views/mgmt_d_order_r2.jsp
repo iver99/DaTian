@@ -82,7 +82,7 @@
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">受理：</td>
                                     <td>
-                                    	<select class="input_mgmt2a">
+                                    	<select class="input_mgmt2a" required>
 											<option value="" selected="selected">选择车牌号</option>
                                             <option value="a">京AB0001</option>
                                             <option value="b">京AB0002</option>
@@ -98,7 +98,7 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
                                     <td>
-                                        <input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="window.location.href='mgmt_d_order_r.htm'" />
+                                        <input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" />
                                         <input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" />
                                     </td>
                                 </tr>

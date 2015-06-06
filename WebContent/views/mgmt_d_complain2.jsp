@@ -86,7 +86,7 @@
 								<tr>
 									<td width="120" height="40" class="td_mgmt_right3_td1b">类型：</td>
 									<td>
-										<select style="width:120px;" name="type">
+										<select style="width:120px;" name="type" required>
 											<option value="" selected="selected">请选择</option>
                                             <option value="服务">服务</option>
                                             <option value="质量">质量</option>
@@ -95,12 +95,12 @@
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">主题：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="theme"/></td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="theme" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">内容：</td>
 									<td>
-                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="content"></textarea>
+                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="content" required></textarea>
                                     </td>
 								</tr>
 								<tr>
@@ -112,13 +112,13 @@
 									<td>
                                     	<div style="position:relative;">
                                         	<input id="apply_attachment1" type="text" class="input_attachment1" style="width:230px;" value="" /><input id="upload_btn3" type="button" value="添加" class="input_attachment_btn1" style="width:60px; margin-left:10px;" />
-      <input id="upload_btn4" type="file" onchange="document.getElementById('apply_attachment1').value=/[^\\]+\.\w+$/.exec(this.value)[0]" class="input_attachment_btn1_hidden" style="width:300px;" hidefocus="true" />
+      <input id="upload_btn4" type="file" onchange="document.getElementById('apply_attachment1').value=/[^\\]+\.\w+$/.exec(this.value)[0]" class="input_attachment_btn1_hidden" style="width:300px;" hidefocus="true" required/>
                                         </div>
                                     </td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
-									<td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="window.location.href='mgmt_d_complain.htm'" /><input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
+									<td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
 								</tr>
 							</table>
 							</form>

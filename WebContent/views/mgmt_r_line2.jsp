@@ -85,19 +85,19 @@
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">线路名称：</td>
-                                    <td><input type="text" class="input_mgmt1" name="lineName" style="width:300px;" /></td>
+                                    <td><input type="text" class="input_mgmt1" name="lineName" style="width:300px;" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">始发城市：</td>
-                                    <td id="cityselector"><input id="city1" type="text" value="" name="startPlace" class="input_city1" /></td>
+                                    <td id="cityselector"><input id="city1" type="text" value="" name="startPlace" class="input_city1" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">到达城市：</td>
-                                    <td id="cityselector"><input id="city2" type="text" value="" name="endPlace" class="input_city1" /></td>
+                                    <td id="cityselector"><input id="city2" type="text" value="" name="endPlace" class="input_city1" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">在途时限：</td>
-                                    <td><input type="text" class="input_mgmt1" name="onWayTime" style="width:300px;" />
+                                    <td><input type="text" class="input_mgmt1" name="onWayTime" style="width:300px;" required/>
                                     (小时)</td>
                                 </tr>
                                 <tr>
@@ -111,7 +111,7 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">参考价：</td>
-                                    <td><input type="text" class="input_mgmt1" name="refPrice" style="width:300px;" />
+                                    <td><input type="text" class="input_mgmt1" name="refPrice" style="width:300px;" required/>
                                     (元/kg)</td>
                                 </tr>
 								<tr>
@@ -120,7 +120,7 @@
                                     	<div style="position:relative;">
                                         	<input id="apply_attachment1" type="text" class="input_attachment1" style="width:230px;" value="请参照模板格式要求填写后提交..." />
                                         	<input id="upload_btn3" type="button" value="添加" class="input_attachment_btn1" style="width:60px; margin-left:10px;" />
-     									    <input id="upload_btn4" type="file"  name="file" onchange="document.getElementById('apply_attachment1').value=/[^\\]+\.\w+$/.exec(this.value)[0]" class="input_attachment_btn1_hidden" style="width:300px;" hidefocus="true" />
+     									    <input id="upload_btn4" type="file"  name="file" onchange="document.getElementById('apply_attachment1').value=/[^\\]+\.\w+$/.exec(this.value)[0]" class="input_attachment_btn1_hidden" style="width:300px;" hidefocus="true" required/>
                                         </div>
                                     </td>
 								</tr>
@@ -131,12 +131,12 @@
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">补充信息：</td>
 									<td>
-                                    	<textarea class="textarea_rating" name="remarks" placeholder="请输入内容..."></textarea>
+                                    	<textarea class="textarea_rating" name="remarks" placeholder="请输入内容..." required></textarea>
                                     </td>
 								</tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
-                                    <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="window.location.href='linetransport?flag=1&Display=10&PageNow=1'" />
+                                    <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" />
                                     <input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
                                 </tr>
                             </table>

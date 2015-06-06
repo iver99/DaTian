@@ -45,8 +45,8 @@
 			<div class="div_login_sub2a">
             	<div class="div_login_sub2as">
             		
-                    <input name="username" type="text" class="input_login1" placeholder="帐户" />
-                    <input name="password" type="password" class="input_login1" placeholder="密码" />   
+                    <input name="username" type="text" class="input_login1" placeholder="帐户" required/>
+                    <input name="password" type="password" class="input_login1" placeholder="密码" required/>   
                     
 				</div>
             </div>

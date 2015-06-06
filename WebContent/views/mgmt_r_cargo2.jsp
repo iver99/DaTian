@@ -88,7 +88,7 @@
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">货物名称：</td>
-                                    <td><input type="text" class="input_mgmt1" name="name" style="width:300px;" /></td>
+                                    <td><input type="text" class="input_mgmt1" name="name" style="width:300px;" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">类型：</td>
@@ -100,7 +100,7 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">重量：</td>
-                                    <td><input type="text" class="input_mgmt1" name="weight" style="width:300px;" />
+                                    <td><input type="text" class="input_mgmt1" name="weight" style="width:300px;" required/>
                                     (吨)</td>
                                 </tr>
                                 <tr>
@@ -112,12 +112,12 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">关于运输的要求：</td>
-                                    <td><input type="text" class="input_mgmt1" name="transportReq" style="width:300px;" /></td>
+                                    <td><input type="text" class="input_mgmt1" name="transportReq" style="width:300px;" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">线路起止：</td>
                                     <td id="cityselector">
-                                        <input id="city1" type="text" value="" name="startPlace" class="input_city1" /><span class="span_mgmt_dynamic1">至</span><input id="city2" type="text" value="" name="endPlace" class="input_city1" />
+                                        <input id="city1" type="text" value="" name="startPlace" class="input_city1" /><span class="span_mgmt_dynamic1" required>至</span><input id="city2" type="text" value="" name="endPlace" class="input_city1" required/>
                                         <!--<img src="images/btn_add2.png" hidefocus="true" style="cursor:pointer;" title="添加" onclick="addcity2();" />-->
                                     </td>
                                 </tr>
@@ -127,31 +127,31 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">关于赔偿的要求：</td>
-                                    <td><input type="text" class="input_mgmt1" name="damageReq" style="width:300px;" /></td>
+                                    <td><input type="text" class="input_mgmt1" name="damageReq" style="width:300px;" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">增值服务：</td>
                                     <td>
-                                        <select id="city_cert" style="width:110px;" name="VIPService" onchange="change_cert();">
+                                        <select id="city_cert" style="width:110px;" name="VIPService" onchange="change_cert();" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="需要">需要</option>
                                             <option value="不需要">不需要</option>
                                         </select>
                                         <div id="c_detail" style="display:none;">
-                                            <input type="text" name="VIPServiceDetail" class="input_mgmt1" style="width:186px;" placeholder="请输入内容..." />
+                                            <input type="text" name="VIPServiceDetail" class="input_mgmt1" style="width:186px;" placeholder="请输入内容..." required/>
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">发送对象：</td>
                                     <td>
-                                        <select id="valueadd" style="width:110px;" name="oriented" onchange="change1();">
+                                        <select id="valueadd" style="width:110px;" name="oriented" onchange="change1();" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="用户">用户</option>
                                             <option value="平台">平台</option>
                                         </select>
                                         <div id="v_detail" style="display:none;">
-                                            <select style="width:93px;" name="user">
+                                            <select style="width:93px;" name="user" required>
                                                 <option name="orienteUser" value="" selected="selected">请选择</option>
                                                 <option value="全体用户">全体用户</option>
                                                 <option value="承运方">承运方</option>
@@ -162,12 +162,12 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">有效期至：</td>
-                                    <td><input type="text" class="input_date1" title="点击此处选择" name="limitDate" onclick="SelectDate(this,'yyyy-MM-dd')" readonly="readonly" /></td>
+                                    <td><input type="text" class="input_date1" title="点击此处选择" name="limitDate" onclick="SelectDate(this,'yyyy-MM-dd')" readonly="readonly" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">发票要求：</td>
                                     <td>
-                                        <select style="width:110px;" name="invoice">
+                                        <select style="width:110px;" name="invoice" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="需要">需要</option>
                                             <option value="不需要">不需要</option>
@@ -179,14 +179,14 @@
 									<td>
                                     	<div style="position:relative;">
                                         	<input id="apply_attachment1" type="text" class="input_attachment1" name="relatedMaterial" style="width:230px;" value="" /><input id="upload_btn3" type="button" value="添加" class="input_attachment_btn1" style="width:60px; margin-left:10px;" />
-      <input id="upload_btn4" type="file" name="file" onchange="document.getElementById('apply_attachment1').value=/[^\\]+\.\w+$/.exec(this.value)[0]" class="input_attachment_btn1_hidden" style="width:300px;" hidefocus="true" />
+      <input id="upload_btn4" type="file" name="file" onchange="document.getElementById('apply_attachment1').value=/[^\\]+\.\w+$/.exec(this.value)[0]" class="input_attachment_btn1_hidden" style="width:300px;" hidefocus="true" required/>
                                         </div>
                                     </td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">补充信息：</td>
 									<td>
-                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="remarks"></textarea>
+                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="remarks" required></textarea>
                                     </td>
 								</tr>
                                 <tr>

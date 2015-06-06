@@ -41,11 +41,13 @@ public class FocusController {
 	public String insertFocus(
 			HttpServletRequest request,HttpServletResponse response) throws Exception{
 			String clientId=(String)request.getSession().getAttribute("userId");
-			/*if(clientId==null)
+			if(clientId==null)
 			{
-				mv.setViewName("login");
-				return mv;
-			}*/
+				response.setContentType("text/html;charset=UTF-8");
+			    response.getWriter().print("login");
+				return null;
+			}
+			System.out.println(clientId);
 			String focusType = request.getParameter("type");
 			String foucsId = request.getParameter("id");
 			List focusJudgement = focusService.getFocusJudgement(clientId,focusType,foucsId);

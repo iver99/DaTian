@@ -85,7 +85,7 @@
                                         <div style="position:relative; padding-top:1px;">
                                             <input type="text" id="attch1" class="input_mgmt1" style="width:220px;" value="" readonly="readonly" />
                                             <input type="button" value="选择" class="btn_mgmt1" style="width:60px; margin-left:10px;" />
-                                            <input type="file" name="file" onchange="document.getElementById('attch1').value=/[^\\]+\.\w+$/.exec(this.value)[0]" class="input_attch_hidden1" hidefocus="true" />
+                                            <input type="file" name="file" onchange="document.getElementById('attch1').value=/[^\\]+\.\w+$/.exec(this.value)[0]" class="input_attch_hidden1" hidefocus="true" required/>
                                         </div>
                                     </td>
                                 </tr>
@@ -103,12 +103,12 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">最终运费：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:100px;" name="actualPrice"/> (元)</td>
+                                    <td><input type="text" class="input_mgmt1" style="width:100px;" name="actualPrice" required/> (元)</td>
                                 </tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">说明：</td>
 									<td>
-                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="explainReason"></textarea>
+                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="explainReason" required></textarea>
                                     </td>
 								</tr>
 								<tr>

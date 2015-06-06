@@ -89,7 +89,7 @@
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">反馈：</td>
 									<td>
-                                    	<textarea name="feedback" class="textarea_rating" placeholder="请输入内容...">${complaintInfo.feedback }</textarea>
+                                    	<textarea name="feedback" class="textarea_rating" placeholder="请输入内容..." required>${complaintInfo.feedback }</textarea>
                                     </td>
 								</tr>
 								<tr>

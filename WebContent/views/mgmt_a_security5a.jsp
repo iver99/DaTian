@@ -46,7 +46,9 @@
                    <span class="text_mgmt_leftnav1"><span id="mgmt_nav_switch5a" class="span_mgmt_nav1" title="收起" onclick="mgmt_nav_switch5a();"></span><span id="mgmt_nav_switch5b" class="span_mgmt_nav2" title="展开" onclick="mgmt_nav_switch5b();"></span>我的帐户</span>
                     <div id="mgmt_nav5">
                         <a href="accountinfo" class="a_mgmt_leftnav" hidefocus="true">帐户信息</a>
+                       <% if((Integer)session.getAttribute("userKind") ==3) {%><!-- 企业用户 -->
                         <a href="getsubaccount" class="a_mgmt_leftnav" hidefocus="true">附属帐户</a>
+                        <% } %>
                         <a href="getaddress" class="a_mgmt_leftnav" hidefocus="true">常用地址</a>
                         <a href="mysecurity" class="a_mgmt_leftnav1" hidefocus="true">安全设置</a>
                     </div>
@@ -73,7 +75,7 @@
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">答案：</td>
-									<td><input type="text" class="input_mgmt1" style="width:252px;" value="" name="answer1"/></td>
+									<td><input type="text" class="input_mgmt1" style="width:252px;" value="" name="answer1" required/></td>
 								</tr>
 								<tr>
 									<td width="120" height="40" class="td_mgmt_right3_td1b">问题二：</td>
@@ -81,7 +83,7 @@
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">答案：</td>
-									<td><input type="text" class="input_mgmt1" style="width:252px;" value="" name="answer2"/></td>
+									<td><input type="text" class="input_mgmt1" style="width:252px;" value="" name="answer2" required/></td>
 								</tr>
 								<tr>
 									<td width="120" height="40" class="td_mgmt_right3_td1b">问题三：</td>
@@ -89,11 +91,11 @@
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">答案：</td>
-									<td><input type="text" class="input_mgmt1" style="width:252px;" value="" name="answer3"/></td>
+									<td><input type="text" class="input_mgmt1" style="width:252px;" value="" name="answer3" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
-									<td><input type="submit" id="btn1" value="下一步" class="btn_mgmt1" hidefocus="true" onclick="window.location.href='mgmt_a_security5b.htm'" /><input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
+									<td><input type="submit" id="btn1" value="下一步" class="btn_mgmt1" hidefocus="true" /><input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
 								</tr>
 							</table>
 							</form>

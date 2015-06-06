@@ -87,12 +87,12 @@
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">牌照：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="carNum"/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="carNum" required/></td>
                                 </tr>
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">所属车队：</td>
                                     <td>
-                                        <select style="width:120px;" name="carTeam">
+                                        <select style="width:120px;" name="carTeam" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="北京车队">北京车队</option>
                                             <option value="天津车队">天津车队</option>
@@ -103,21 +103,21 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">定位方式：</td>
                                     <td>
-                                        <select id="pos" style="width:120px;" onchange="change_pos();" name="locationType">
+                                        <select id="pos" style="width:120px;" onchange="change_pos();" name="locationType" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="GPS">GPS</option>
                                             <option value="手机">手机</option>
                                             <option value="无">无</option>
                                         </select>
                                         <div id="pos_detail_1" style="display:none;">
-                                            <input type="text" class="input_mgmt1" style="width:176px;" placeholder="请输入终端设备编码..." name="terminalId" />
+                                            <input type="text" class="input_mgmt1" style="width:176px;" placeholder="请输入终端设备编码..." name="terminalId" required/>
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">车型：</td>
                                     <td>
-                                        <select style="width:120px;" name="carType">
+                                        <select style="width:120px;" name="carType" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="前四后四">前四后四</option>
                                             <option value="单桥">单桥</option>
@@ -128,7 +128,7 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">厢型：</td>
                                     <td>
-                                        <select style="width:120px;" name="carBase">
+                                        <select style="width:120px;" name="carBase" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="普通">普通</option>
                                             <option value="平板">平板</option>
@@ -143,7 +143,7 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">品牌：</td>
                                     <td>
-                                        <select name="carBrand" id="menu_name4" class="select_apply1" style="width:120px;">
+                                        <select name="carBrand" id="menu_name4" class="select_apply1" style="width:120px;" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="解放">解放</option>
                                             <option value="福田">福田</option>
@@ -154,7 +154,7 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">用途：</td>
                                     <td>
-                                        <select style="width:120px;" name="carUse">
+                                        <select style="width:120px;" name="carUse" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="普通运输">普通运输</option>
                                             <option value="特殊">特殊</option>
@@ -164,26 +164,26 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">规格：</td>
                                     <td>
-                                    长&nbsp;<input type="text" class="input_mgmt1" style="width:46px;" name="carLength" />
-                                    (米)&nbsp;&nbsp;×&nbsp;&nbsp;宽&nbsp;<input type="text" class="input_mgmt1" style="width:46px;" name="carWidth"/>
-                                    (米)&nbsp;&nbsp;×&nbsp;&nbsp;高&nbsp;<input type="text" class="input_mgmt1" style="width:46px;" name="carHeight"/>
+                                    长&nbsp;<input type="text" class="input_mgmt1" style="width:46px;" name="carLength" required/>
+                                    (米)&nbsp;&nbsp;×&nbsp;&nbsp;宽&nbsp;<input type="text" class="input_mgmt1" style="width:46px;" name="carWidth" required/>
+                                    (米)&nbsp;&nbsp;×&nbsp;&nbsp;高&nbsp;<input type="text" class="input_mgmt1" style="width:46px;" name="carHeight" required/>
                                     (米)
                                     </td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">载重：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="carWeight" />
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="carWeight" required/>
                                     (吨)
                                     </td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">购置日期：</td>
-                                    <td><input type="text" class="input_date1" onclick="SelectDate(this,'yyyy-MM-dd')" readonly="readonly" title="点击此处选择" name="purchaseTime"/></td>
+                                    <td><input type="text" class="input_date1" onclick="SelectDate(this,'yyyy-MM-dd')" readonly="readonly" title="点击此处选择" name="purchaseTime" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b" >冷藏：</td>
                                     <td>
-                                        <select style="width:120px;" name="storage">
+                                        <select style="width:120px;" name="storage" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="冷藏">是</option>
                                             <option value="非冷藏">否</option>
@@ -193,7 +193,7 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">司机姓名：</td>
                                     <td>
-                                        <select style="width:120px;" name="driverId">
+                                        <select style="width:120px;" name="driverId" required>
                                             <option value="" selected="selected">请选择</option>
                                             <c:forEach var="driverList" items="${driverList }">
                                             <option value="${driverList.id }">${driverList.driverName }</option>
@@ -205,15 +205,15 @@
                                     <td height="40" class="td_mgmt_right3_td1b">运营线路：</td>
                                     <td id="cityselector">
                                     <div>
-                                        <input id="city1" type="text" value="" class="input_city1" name="startPlace"/>
+                                        <input id="city1" type="text" value="" class="input_city1" name="startPlace" required/>
                                         &nbsp;&nbsp;至&nbsp;&nbsp;
-                                        <input id="city2" type="text" value="" class="input_city1" name="endPlace"/>
+                                        <input id="city2" type="text" value="" class="input_city1" name="endPlace" required/>
                                     </div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">经停城市：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${carInfo.stopPlace }" name="stopPlace"/>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${carInfo.stopPlace }" name="stopPlace" required/>
                                 </tr>
                                 <tr>
                                     <td height="1"></td>

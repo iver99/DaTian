@@ -77,12 +77,12 @@
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">姓名：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="${clientinfo.realName }" name="realName"/></td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" value="${clientinfo.realName }" name="realName" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">性别：</td>
 									<td>
-										<select style="width:120px;" name="sex">
+										<select style="width:120px;" name="sex" required>
 											<option value="" selected="selected">请选择</option>
                                             <option value="男">男</option>
                                             <option value="女">女</option>
@@ -91,11 +91,11 @@
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">身份证号码：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="${clientinfo.idcard }" name="idcard"/></td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" value="${clientinfo.idcard }" name="idcard" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">联系电话：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="${clientinfo.phone }" name="phone"/></td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" value="${clientinfo.phone }" name="phone" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">身份证扫描件：</td>
@@ -111,13 +111,13 @@
 														id="upload_btn4" type="file"
 														onchange="document.getElementById('apply_attachment1').value=/[^\\]+\.\w+$/.exec(this.value)[0]"
 														class="input_attachment_btn1_hidden" style="width: 300px;"
-														hidefocus="true" />
+														hidefocus="true" required/>
 												</div>
 											</td>
 										</tr>
 								<tr>
 									<td width="120" height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
-									<td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="window.location.href='accountinfo'" /><input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
+									<td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true"/><input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
 								</tr>
 							</table>
 						</td>
