@@ -88,21 +88,23 @@
 								<td class="td_mgmt_right3_td1"><a
 									href="goodsdetail?id=${resp.id }" hidefocus="true">${resp.name }</a></td>
 								<td class="td_mgmt_right3_td1">${resp.relDate }</td>
-								<td class="td_mgmt_right3_td1">${resp.state }</td>
+								
 								<c:choose>
 									<c:when test="${resp.state=='待确认' }">
+									<td class="td_mgmt_right3_td1">${resp.state }</td>
 										<td class="td_mgmt_right3_td3"><a
-											href="viewResponseDetail?responseid=${resp.responseId }" hidefocus="true">查看</a></td>
+											href="viewResponseInfo?responseid=${resp.responseId }" hidefocus="true">查看</a></td>
 									</c:when>
 									<c:when test="${resp.state=='已确认' }">
-										<td class="td_mgmt_right3_td1">已确认</td>
-										<td class="td_mgmt_right3_td3"><a href="javascript:;"
+										<td class="td_mgmt_right3_td1">${resp.state }</td>
+										<td class="td_mgmt_right3_td3"><a href="viewResponseInfo?responseid=${resp.id }"
 											hidefocus="true">查看</a></td>
 									</c:when>
-									<c:otherwise>
+									<%-- <c:otherwise>
+									<td class="td_mgmt_right3_td1">${resp.state }</td>
 									<td class="td_mgmt_right3_td3"><a
 											href="getresponseform?goodsid=${resp.id }" hidefocus="true">提交</a></td>
-									</c:otherwise>
+									</c:otherwise> --%>
 								</c:choose>
 							</tr>
 						</c:forEach>

@@ -102,7 +102,7 @@ public class CompanycertificateController {
 		Companycertificate companycertificate = companycertificateService.getCompanycertificate(companyId);
 		mv.addObject("detailCompanyCertificate", companycertificate);
 		if (flag == 0) {// 对应公司验证查看详情
-			mv.setViewName("mgmt_a_info5");
+			mv.setViewName("mgmt_a_info4a");
 		} else if (flag == 1)// 对应公司验证更新
 		{
 			mv.setViewName("mgmt_a_info6");

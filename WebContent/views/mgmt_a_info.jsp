@@ -99,7 +99,7 @@
 															hidefocus="true">查看</a>
 														<div class="menubd">
 															<div class="menubdpanel">
-																<a href="mgmt_a_info5.htm" class="a_top3"
+																<a href="getSetHeadIconPage" class="a_top3"
 																	hidefocus="true">更新</a>
 															</div>
 														</div>
@@ -112,7 +112,7 @@
 								<c:otherwise >
 									<td class="td_mgmt_right3_td3"><img
 										src="images/btn_hint2.png" />&nbsp;未设置</td>
-									<td class="td_mgmt_right3_td3"><a href="mgmt_a_info5.htm"
+									<td class="td_mgmt_right3_td3"><a href="getSetHeadIconPage"
 										hidefocus="true">设置</a></td>
 								</c:otherwise>
 							</c:choose>

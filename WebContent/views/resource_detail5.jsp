@@ -63,6 +63,8 @@
 					else
 						document.write( "<input type=\"button\" id=\"btnfav\" value=\"关注\" class=\"input_detail1\" hidefocus=\"true\" onclick=\"loadXMLDoc('${carrierinfo.id }');hidefav(this);\" />" );
 				</script>
+				<input type="button" id="btn2" value="提交订单" class="input_detail2" hidefocus="true" onclick="window.location.href='getneworderform?carrierid=${carrierinfo.id}&flag=4'" />
+				
             </td>
 		</tr>
     </table>

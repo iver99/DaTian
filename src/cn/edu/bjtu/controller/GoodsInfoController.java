@@ -257,7 +257,7 @@ public class GoodsInfoController {
 			HttpServletResponse response) {
 		String clientId = (String) request.getSession().getAttribute("userId");
 		GoodsClientView goodsformInfo = goodsInfoService.getAllGoodsDetail(id);
-		// System.out.println(goodsformInfo);
+		System.out.println(goodsformInfo);
 		mv.addObject("goodsdetail", goodsformInfo);
 
 		if (flag == 1) {

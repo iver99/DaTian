@@ -173,7 +173,7 @@
                                             <option value="不需要" selected="selected">不需要</option>
                                         </select>
                                         <div id="c_detail" style="display:none;">
-                                            <input name="VIPServiceDetail" type="text" class="input_mgmt1" style="width:186px;" placeholder="请输入内容..." required/>
+                                            <input name="VIPServiceDetail" type="text" class="input_mgmt1" style="width:186px;" placeholder="请输入内容..."/>
                                         </div>
 									</c:when>
 									<c:when test="${goodsdetail.vipservice == '需要' }">
@@ -183,7 +183,7 @@
                                             <option value="不需要">不需要</option>
                                         </select>
                                         <div id="c_detail" style="display:none;">
-                                            <input name="VIPServiceDetail" type="text" class="input_mgmt1" style="width:186px;" placeholder="请输入内容..." required/>
+                                            <input name="VIPServiceDetail" type="text" class="input_mgmt1" style="width:186px;" placeholder="请输入内容..."/>
                                         </div>
 									</c:when>
                                     </c:choose>
@@ -200,7 +200,7 @@
                                             <option value="平台">平台</option>
                                         </select>
                                         <div id="v_detail" style="display:none;">
-                                            <select name="orientedUser" style="width:93px;" required>
+                                            <select name="orientedUser" style="width:93px;">
                                                 <option value="" selected="selected">请选择</option>
                                                 <option value="全体用户">全体用户</option>
                                                 <option value="承运方">承运方</option>
@@ -215,7 +215,7 @@
                                             <option value="平台" selected="selected">平台</option>
                                         </select>
                                         <div id="v_detail" style="display:none;">
-                                            <select name="orientedUser" style="width:93px;" required>
+                                            <select name="orientedUser" style="width:93px;">
                                                 <option value="" selected="selected">请选择</option>
                                                 <option value="全体用户">全体用户</option>
                                                 <option value="承运方">承运方</option>
@@ -268,7 +268,7 @@
 								</tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
-                                    <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
+                                    <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><!-- <input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /> --></td>
                                 </tr>
                             </table>
                             </form>

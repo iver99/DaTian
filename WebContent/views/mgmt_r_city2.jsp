@@ -163,7 +163,7 @@
                                             <option value="无" selected="selected">无</option>
                                         </select>
                                         <div id="v_detail" style="display:none;">
-                                            <input type="text" class="input_mgmt1" style="width:176px;" placeholder="请输入内容..." name="VIPDetail" required/>
+                                            <input type="text" class="input_mgmt1" style="width:176px;" placeholder="请输入内容..." name="VIPDetail"/>
                                         </div>
                                     </td>
                                 </tr>
@@ -194,7 +194,7 @@
 								</tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
-                                    <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
+                                    <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
                                 </tr>
                             </table>
                             </form>
@@ -238,5 +238,11 @@
 	function OnLoad() {
 		loadFocus();
 	}
+	$(function(){
+		$('reset:button').click(function(){
+		   $('.input').val("");
+		   $('.select').val("");
+		});
+    })
 </script>
 </html>

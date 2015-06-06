@@ -87,7 +87,7 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">关联客户运单：</td>
-                                    <td>(未实现)无</td>
+                                    <td>${orderInfo.clientName }</td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">承运方：</td>

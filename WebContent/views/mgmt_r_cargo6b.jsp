@@ -65,62 +65,33 @@
                     <%@ include  file="mysource_leftnav_myaccount.jsp"%>
 </div>
 			</td>
-				<td class="td_leftnav_top">
-            	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right2">
+				 <td class="td_leftnav_top">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right2a">
                     <tr>
-                    	<td>
-                        	<!-- <span class="span_mgmt_right2_text1">货物名称：北京发往华中地区，包括末端配送</span> -->
+                        <td>
+                            <span class="span_mgmt_right2_text1">查看反馈内容</span>
                             <span class="span_mgmt_right2_text2"><a href="javascript:history.go(-1);" hidefocus="true"><img src="images/btn_back1.png" class="span_mgmt_right2_pic1" title="返回" /></a></span>
                         </td>
-                	</tr>
-            	</table>
-            	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
-                    <tr>
-                        <td width="20" height="40" class="td_mgmt_right3_head1">&nbsp;</td>
-                        <td class="td_mgmt_right3_head">提交人</td>
-                        <td width="120" class="td_mgmt_right3_head">电话</td>
-                        <td width="80" class="td_mgmt_right3_head">提交日期</td>
-                        <td width="60" class="td_mgmt_right3_head">状态</td>
-                        <td width="80" class="td_mgmt_right3_head">操作</td>
                     </tr>
-                    <c:forEach var="response" items="${respList }">
-                    <tr>
-                        <td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
-                        <td class="td_mgmt_right3_td1">${response.committer }</td>
-                        <td class="td_mgmt_right3_td1">${response.phone }</td>
-                        <td class="td_mgmt_right3_td1">${response.relDate }</td>
-                        <td class="td_mgmt_right3_td2">${response.status }</td>
-                        <td class="td_mgmt_right3_td3"><a href="getConfirmResponseForm?goodsid=${response.goodsId }&carrierid=${response.carrierId}&responseid=${response.id}" hidefocus="true">确认</a></td>
-                       				
-                    </tr>
-                    </c:forEach>
-                    
                 </table>
-				<table border="0" cellpadding="0" cellspacing="0" class="table_recordnumber">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
                     <tr>
-	                    <td>
-                            每页
-                            <select>
-                                <option value="" selected="selected">10</option>
-                                <option value="a">20</option>
-                                <option value="b">50</option>
-                            </select>
-                            条记录
+                        <td class="td_mgmt_right3_td1a">
+                            <br />   	          
+                            <table width="90%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td width="120" height="40" class="td_mgmt_right3_td1b">材料：</td>
+                                    <td><a href="javascript:;" hidefocus="true"><img src="images/btn_filetype2.png" /></a></td>
+                                </tr>
+                                <tr>
+                                    <td height="40" class="td_mgmt_right3_td1b">备注：</td>
+                                    <td>${response.remarks }</td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
-				</table>
-            	<table border="0" cellpadding="0" cellspacing="0" class="table_pagenumber">
-                    <tr>
-	                    <td width="45" class="td_pagenumber">首页</td>
-                        <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">上页</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">1</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">2</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">3</a></td>
-                        <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">下页</a></td>
-                        <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">末页</a></td>
-					</tr>
-				</table>
-			</td>
+                </table>
+            </td>
 		</tr>
     </table>
 </div>

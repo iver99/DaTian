@@ -90,15 +90,14 @@ public class SubAccountServiceImpl implements SubAccountService{
 	}
 	
 	@Override
+	/**
+	 * 添加新的附属账户
+	 */
 	public boolean insertSubAccount(String username,String password,String resourceManagement,
 			String transactionManagement,String schemaManagement,
 			String statisticsManagement,String remarks,
 			String hostAccountId,String hostAccountName){
 		
-		System.out.println("resourceManagement"+resourceManagement);
-		System.out.println("transactionManagement"+transactionManagement);
-		System.out.println("schemaManagement"+schemaManagement);
-		System.out.println("statisticsManagement"+statisticsManagement);
 		if(resourceManagement==null){
 			resourceManagement = new String("无");}
 		else if (resourceManagement.equals("on"))

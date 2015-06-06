@@ -94,7 +94,7 @@
                         <ul id="item1">
                             <li>用途：${carInfo.carUse }</li>
                             <li>车型：${carInfo.carType }</li>
-                            <li>厢型：(数据库没有)</li>
+                            <li>厢型：${carInfo.carBase }</li>
                             <li>品牌：${carInfo.carBrand }</li>
                             <li>冷藏：${carInfo.storage }</li>
                             <li>购置日期：${carInfo.purchaseTime }</li>
@@ -102,7 +102,7 @@
                         </ul>
                         <ul id="item2" class="tab_hide">
                             <li class="item2a">${linetransportInfo.startPlace }←→${linetransportInfo.endPlace }</li>
-                            <li class="item2a">经停城市：数据库没有，与城市关联？（石家庄、郑州）</li>
+                            <!-- <li class="item2a">经停城市：数据库没有，与城市关联？（石家庄、郑州）</li> -->
                         </ul>
                         <ul id="item3" class="tab_hide">
                            	<li>公司名称：${carrierInfo.companyName }</li>

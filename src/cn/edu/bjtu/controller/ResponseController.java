@@ -8,9 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.service.GoodsInfoService;
 import cn.edu.bjtu.service.ResponseService;
-import cn.edu.bjtu.vo.Goodsform;
+import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Response;
 
 @Controller
@@ -26,10 +27,13 @@ public class ResponseController {
 	@Autowired
 	GoodsInfoService goodsInfoService;
 	
+	@Autowired
+	CompanyService companyService;
+	
 	ModelAndView mv=new ModelAndView();
 	
 	/**
-	 * 查看反馈操作
+	 * 我的货物-查看反馈操作(未确认前)
 	 * @param goodsid
 	 * @return
 	 */
@@ -39,6 +43,56 @@ public class ResponseController {
 		
 		mv.addObject("respList", respList);
 		mv.setViewName("mgmt_r_cargo5a");
+		return mv;
+		
+	}
+	
+	/**
+	 * 我的货物-查看反馈操作(确认后)
+	 * @param goodsid
+	 * @return
+	 */
+	@RequestMapping("viewResponseDetailAfter")
+	public ModelAndView viewResponseDetail2(String goodsid){
+		List<Response> respList=responseService.getResponseListByGoodsId(goodsid);
+		
+		mv.addObject("respList", respList);
+		mv.setViewName("mgmt_r_cargo5b");
+		return mv;
+		
+	}
+	
+	/**
+	 * 我的货物-查看反馈（已确认）-查看
+	 * @param goodsid
+	 * @return
+	 */
+	@RequestMapping("viewResponseDetailInfo")
+	public ModelAndView viewResponseDetailInfo(String responseid){
+		
+		Response response=responseService.getResponseById(responseid);
+		
+		mv.addObject("response", response);
+		mv.setViewName("mgmt_r_cargo6b");
+		
+		return mv;
+		
+		
+	}
+	
+	/**
+	 * 我的反馈-查看操作
+	 * @param goodsid
+	 * @return
+	 */
+	@RequestMapping("viewResponseInfo")
+	public ModelAndView viewResponse(String responseid){
+		
+		Response response=responseService.getResponseById(responseid);
+		
+		mv.addObject("response", response);
+		mv.setViewName("mgmt_d_response3");
+		
 		return mv;
 		
 	}
@@ -69,8 +123,9 @@ public class ResponseController {
 		//货物表修改状态
 		goodsInfoService.confirmResponse(goodsid);
 		
+		Carrierinfo carrierinfo=companyService.getCompanyById(carrierid);
 		//页面上需要承运方id
-		mv.addObject("carrierId", carrierid);
+		mv.addObject("carrierInfo", carrierinfo);
 		
 		mv.setViewName("mgmt_d_order_s2a");
 		return mv;

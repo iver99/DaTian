@@ -65,7 +65,6 @@
                         </td>
                 	</tr>
             	</table>
-            	<form action="companycertificate" method="post" name="companycertificate" enctype="multipart/form-data">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
 					<tr>
 						<td class="td_mgmt_right3_td1a"> 
@@ -77,107 +76,64 @@
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">公司名称：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="companyName" required/></td>
+									<td>${detailCompanyCertificate.companyName }</td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">组织机构代码：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="divisionCode" required/></td>
+									<td>${detailCompanyCertificate.divisionCode }</td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">法人姓名：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="legalName" required/></td>
+									<td>${detailCompanyCertificate.legalName }</td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">法人身份证号：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="legalIDCard" required/></td>
+									<td>${detailCompanyCertificate.legalIDCard }</td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">公司地址：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="companyAddr" required/></td>
+									<td>${detailCompanyCertificate.companyAddr }</td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">公司性质：</td>
-									<td>
-										<select style="width:120px;" name="companyType" required>
-											<option value="" selected="selected">请选择</option>
-                                            <option value="国有企业">国有企业</option>
-                                            <option value="外资企业">外资企业</option>
-                                            <option value="合资企业">合资企业</option>
-                                            <option value="私营企业">私营企业</option>
-                                        </select>
-									</td>
+									<td>${detailCompanyCertificate.companyType }</td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">公司规模：</td>
-									<td>
-										<select style="width:120px;" name="companyScale" required>
-											<option value="" selected="selected">请选择</option>
-                                            <option value="1-50人">1-50人</option>
-                                            <option value="50-200人">50-200人</option>
-                                            <option value="200-500人">200-500人</option>
-                                            <option value="500人以上">500人以上</option>
-                                        </select>
-									</td>
+									<td>${detailCompanyCertificate.companyScale }</td>
 								</tr>
 
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">发票种类：</td>
-									<td>
-										<select style="width:120px;" name="invoiceKind" required>
-											<option value="" selected="selected">请选择</option>
-                                            <option value="增值税发票">增值税发票</option>
-                                            <option value="非增值税发票">非增值税发票</option>
-                                        </select>
-									</td>
+									<td>${detailCompanyCertificate.invoiceKind }</td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">服务行业：</td>
-                                    <td>
-                                        <input type="checkbox" name="serviceIndustry" id="checkbox" value="医药"/>
-                                        医药&nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox" name="serviceIndustry" id="checkbox" value="电子"/>
-                                        电子&nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox" name="serviceIndustry" id="checkbox" value="汽车"/>
-                                        汽车
-                                    </td>
+                                    <td>${detailCompanyCertificate.serviceIndustry }</td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">业务种类：</td>
-									<td>
-                                        <input type="checkbox" name="businessKind" id="checkbox2" value="干线运输线路"/>
-                                        干线运输线路&nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox" name="businessKind" id="checkbox2" value="城市配送网络"/>
-                                        城市配送网络&nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox" name="businessKind" id="checkbox2" value="仓储"/>
-                                        仓储
-									</td>
+									<td>${detailCompanyCertificate.businessKind }</td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">联系人：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="companyContact" required/></td>
+									<td>${detailCompanyCertificate.companyContact }</td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">手机号：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="phone" required/></td>
+									<td>${detailCompanyCertificate.phone }</td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">公司基本情况：</td>
 									<td>
-                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="basicSituation" required></textarea>
+                                    	${detailCompanyCertificate.basicSituation }
                                     </td>
-								</tr>								
-								<tr>
+								</tr>								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">相关资质材料：</td>
-									<td>
-                                    	<div style="position:relative;">
-                                        	<input id="apply_attachment1" type="text" class="input_attachment1" style="width:230px;" value="" /><input id="upload_btn3" type="button" value="添加" class="input_attachment_btn1" style="width:60px; margin-left:10px;" />
-      <input id="upload_btn4" type="file" name="file" onchange="document.getElementById('apply_attachment1').value=/[^\\]+\.\w+$/.exec(this.value)[0]" class="input_attachment_btn1_hidden" style="width:300px;" hidefocus="true" required/>
-                                        </div>
-                                    </td>
+									<td><a href="downloadcompanycertificatematerial" hidefocus="true"><img src="images/btn_filetype2.png" /></a></td>
 								</tr>
 								<tr>
 									<td width="120" height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
-									<td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
 								</tr>
 							</table>
 
@@ -185,7 +141,6 @@
 						</td>
 					</tr>
 				</table>
-				</form>
 			</td>
 		</tr>
     </table>
@@ -219,13 +174,4 @@
 </div>
 
 </body>
-<script type="text/javascript">
-	 $(function(){
-			$('reset:button').click(function(){
-			   $('.input').val("");
-			   $('.select').val("");
-			   $('.checkbox').val("");
-			});
-	})
-</script>
 </html>

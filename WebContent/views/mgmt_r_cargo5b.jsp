@@ -89,12 +89,21 @@
                         <td class="td_mgmt_right3_td1">${response.committer }</td>
                         <td class="td_mgmt_right3_td1">${response.phone }</td>
                         <td class="td_mgmt_right3_td1">${response.relDate }</td>
-                        <td class="td_mgmt_right3_td2">${response.status }</td>
-                        <td class="td_mgmt_right3_td3"><a href="getConfirmResponseForm?goodsid=${response.goodsId }&carrierid=${response.carrierId}&responseid=${response.id}" hidefocus="true">确认</a></td>
-                       				
+                        <c:choose>
+                        	<c:when test="${response.status == '已确认' }">
+                        		 <td class="td_mgmt_right3_td2">${response.status }</td>
+                        		<td class="td_mgmt_right3_td3"><a href="viewResponseDetailInfo?responseid=${response.id }" hidefocus="true">查看</a></td>
+                        	</c:when>
+                        	<c:otherwise>
+                        		<td class="td_mgmt_right3_td1">${response.status }</td>
+                        		<td class="td_mgmt_right3_td3"><a href="viewResponseDetailInfo?responseid=${response.id }" hidefocus="true">查看</a></td>
+                        	</c:otherwise>
+                        </c:choose>
+                       
+                       
                     </tr>
                     </c:forEach>
-                    
+                   
                 </table>
 				<table border="0" cellpadding="0" cellspacing="0" class="table_recordnumber">
                     <tr>
@@ -124,6 +133,7 @@
 		</tr>
     </table>
 </div>
+
 
 	<div id="popup1" style="display: none;">
 		<table border="0" cellpadding="0" cellspacing="0">

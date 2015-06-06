@@ -41,8 +41,7 @@ public class RegisterServiceImpl implements RegisterService{
 	Carrierinfo carrierinfo;
 	@Autowired
 	Companycertificate companyCertificate;
-	@Resource 
-	Userinfo userInfo;
+	
 	@Resource
 	Clientinfo clientInfo;
 	@Resource
@@ -50,6 +49,7 @@ public class RegisterServiceImpl implements RegisterService{
 	@Override
 	public String register(String username, String password, String phone,int userKind) {
 		// TODO Auto-generated method stub
+		Userinfo userInfo=new Userinfo();
 		userInfo.setUsername(username);
 		userInfo.setPhone(phone);
 		userInfo.setId(IdCreator.createClientId());
@@ -94,6 +94,32 @@ public class RegisterServiceImpl implements RegisterService{
 	public List getUserCheck(String username) {
 		// TODO Auto-generated method stub
 		return registerDao.getUserCheck(username);
+	}
+	
+	/*
+	 *在userinfo表中添加附属账号
+	 */
+	@Override
+	public boolean registerSubAccount(String username, String password,
+			int userKind) {
+		// TODO 在userinfo表中添加附属账号
+		Userinfo userInfo=new Userinfo();
+		userInfo.setUsername(username);
+		//userInfo.setPhone(phone);
+		userInfo.setId(IdCreator.createClientId());
+		userInfo.setPassword(password);//未加密
+		userInfo.setStatus("未验证");
+		userInfo.setEmailStatus("未绑定");
+		userInfo.setPhoneStatus("已绑定");
+		userInfo.setSecurityQuestionStatus("未设置");
+		//userInfo.setPrivilege(privilege);
+		userInfo.setStatus("未验证");
+		userInfo.setUserKind(userKind);
+		userInfo.setHeadIcon("未设置");// add by RussWest0 at 2015年6月2日,下午11:56:49 
+		userinfoDao.save(userInfo);//保存实体
+		
+		return true;
+		
 	}
 	
 	

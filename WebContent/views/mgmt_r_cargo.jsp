@@ -104,10 +104,10 @@
 									<c:choose>
 									<c:when test="${goodsinfo.state=='已确认' }">
 										<td class="td_mgmt_right3_td1">已确认</td>
-                        				<td class="td_mgmt_right3_td3"><a href="viewResponseDetail?goodsid=${goodsinfo.id }" hidefocus="true">查看反馈</a></td>
+                        				<td class="td_mgmt_right3_td3"><a href="viewResponseDetailAfter?goodsid=${goodsinfo.id }" hidefocus="true">查看反馈</a></td>
 									</c:when>
 									
-									<c:when test="${goodsinfo.state=='已取消' }">
+									<c:when test="${goodsinfo.state=='已取消' }"><!-- 好像没用,没有这个状态 -->
 										<td class="td_mgmt_right3_td1">已取消</td>
                        					 <td class="td_mgmt_right3_td3"><a href="mygoodsdetail?id=${goodsinfo.id }&flag=1" hidefocus="true">查看</a></td>
 									</c:when>

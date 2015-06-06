@@ -181,5 +181,12 @@
 	function OnLoad() {
 		loadFocus();
 	}
+	$(function(){
+		$('reset:button').click(function(){
+		   $('.input').val("");
+		   $('.select').val("");
+		   $('.checkbox').val("");
+		});
+    })
 </script>
 </html>

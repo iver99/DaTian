@@ -149,5 +149,10 @@
 	function OnLoad() {
 		loadFocus();
 	}
+	$(function(){
+		$('reset:button').click(function(){
+		   $('.input').val("");
+		});
+    })
 </script>
 </html>

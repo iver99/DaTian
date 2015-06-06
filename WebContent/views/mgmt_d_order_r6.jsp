@@ -115,7 +115,7 @@
 								    <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
                                     <td>
                                         <input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true"  />
-                                        <input type="button" id="btn1" value="重置" class="btn_mgmt2" hidefocus="true" />
+                                        <!-- <input type="button" id="btn1" value="重置" class="btn_mgmt2" hidefocus="true" /> -->
                                     </td>
 							    </tr>
                             </table>

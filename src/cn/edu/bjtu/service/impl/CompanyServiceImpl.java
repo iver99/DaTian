@@ -191,6 +191,9 @@ public class CompanyServiceImpl implements CompanyService{
 		return companyDao.getwarehouseByCarrierId(id);
 	}
 
+	/**
+	 * ≤È’“Carrierinfo µÃÂ
+	 */
 	@Override
 	public Carrierinfo getCompanyById(String carrierId) {
 		// TODO Auto-generated method stub

@@ -90,17 +90,17 @@
                             <li>堆场面积：${warehouseInfo.yardArea }（平方米）</li>
                             <li>库层层高：${warehouseInfo.height }（米）</li>
                             <li>消防等级：${warehouseInfo.fireRate }</li>
-                            <li>装卸平台：数据库没有（有）</li>
+                           <!--  <li>装卸平台：数据库没有（有）</li> -->
                             <li class="item2a">保管形态：${warehouseInfo.storageForm } </li>
                             <li class="item2a">服务内容：${warehouseInfo.serviceContent }</li>
-                            <li class="item2a">搬运设备：数据库没有（托盘(库内使用)、叉车、打包机）</li>
+                           <!--  <li class="item2a">搬运设备：数据库没有（托盘(库内使用)、叉车、打包机）</li> -->
                         </ul>
                         <ul id="item2" class="tab_hide">
                             <li>公司名称：${carrierInfo.companyName }</li>
                             <li>公司性质：${carrierInfo.companyType }</li>
                             <li>注册日期：${carrierInfo.relDate }</li>
                             <li>服务行业：${carrierInfo.serviceIndustry }</li>
-                            <li>业务种类：专线卡车</li>
+                           <!--  <li>业务种类：专线卡车</li> -->
                             <li>信用等级：${carrierInfo.creditRate	 }级</li>
                         </ul>
                         <ul id="item3" class="tab_hide">

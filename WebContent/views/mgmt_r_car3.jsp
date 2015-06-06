@@ -149,7 +149,7 @@
                                             <option value="无">无</option>
                                         </select>
                                         <div id="pos_detail_1" style="display:none;">
-                                            <input type="text" class="input_mgmt1" style="width:176px;" value="${carInfo.terminalId }" placeholder="请输入终端设备编码..." name="terminalId" required/>
+                                            <input type="text" class="input_mgmt1" style="width:176px;" value="${carInfo.terminalId }" placeholder="请输入终端设备编码..." name="terminalId"/>
                                         </div>
                                     </c:when>
                                     <c:when test="${carInfo.locationType == 'GPS' }">
@@ -160,7 +160,7 @@
                                             <option value="无">无</option>
                                         </select>
                                         <div id="pos_detail_1" style="display:inline;">
-                                            <input type="text" class="input_mgmt1" style="width:176px;" value="${carInfo.terminalId }" placeholder="请输入终端设备编码..." name="terminalId" required/>
+                                            <input type="text" class="input_mgmt1" style="width:176px;" value="${carInfo.terminalId }" placeholder="请输入终端设备编码..." name="terminalId"/>
                                         </div>
                                     </c:when>
                                     <c:when test="${carInfo.locationType == '手机' }">
@@ -171,7 +171,7 @@
                                             <option value="无">无</option>
                                         </select>
                                         <div id="pos_detail_1" style="display:none;">
-                                            <input type="text" class="input_mgmt1" style="width:176px;" value="${carInfo.terminalId }" placeholder="请输入终端设备编码..." name="terminalId" required/>
+                                            <input type="text" class="input_mgmt1" style="width:176px;" value="${carInfo.terminalId }" placeholder="请输入终端设备编码..." name="terminalId"/>
                                         </div>
                                     </c:when>
                                     <c:when test="${carInfo.locationType == '无' }">
@@ -182,7 +182,7 @@
                                             <option value="无"  selected="selected">无</option>
                                         </select>
                                         <div id="pos_detail_1" style="display:none;">
-                                            <input type="text" class="input_mgmt1" style="width:176px;" value="${carInfo.terminalId }" placeholder="请输入终端设备编码..." name="terminalId" required/>
+                                            <input type="text" class="input_mgmt1" style="width:176px;" value="${carInfo.terminalId }" placeholder="请输入终端设备编码..." name="terminalId"/>
                                         </div>
                                     </c:when>
                                     </c:choose>    
@@ -482,7 +482,8 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
                                     <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" />
-                                    <input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
+                                   <!--  <input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /> -->
+                                    </td>
                                 </tr>
                             </table>
                             </c>

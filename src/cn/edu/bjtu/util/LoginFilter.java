@@ -30,18 +30,21 @@ public class LoginFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request,
 			HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		System.out.println("正在过滤login");
+		//System.out.println("正在过滤login");
 		// 不过滤的uri
-		String[] notFilter = new String[] { "login", "register",
-				"adminLogin" };
+		String[] notFilter = new String[] { "login", "loginForm", "register","adminLogin" ,
+				"js" ,"images", "css", "Focus", "foucs", 
+				"focusNum", "homepage", "linetransport", "footer", "cityline",
+				"car", "warehouse", "company", "goodsform","allcomplaint"
+		};
 
 		// 请求的uri
 		String uri = request.getRequestURI();
 		//刚刚进入首页的情况
 		if(uri.equals("/DaTian/")){
 			filterChain.doFilter(request, response);
+			return;
 		}
-
 		// 是否过滤
 		boolean doFilter = true;
 		for (String s : notFilter) {
@@ -51,6 +54,9 @@ public class LoginFilter extends OncePerRequestFilter {
 				break;
 			}
 		}
+		if(doFilter == true)
+			System.out.println(">>>>" + uri + ">>>>" + doFilter);
+		//filterChain.doFilter(request, response);
 		if (doFilter) {
 			// 执行过滤
 			// 从session中获取登录者实体
@@ -59,13 +65,24 @@ public class LoginFilter extends OncePerRequestFilter {
 				request.setCharacterEncoding("UTF-8");
 				response.setCharacterEncoding("UTF-8");
 				//跳转至登录页面
-				response.sendRedirect("login");
+				response.sendRedirect("loginForm");
+				return;
 			} else {
 				// 如果session中存在登录者实体，则继续
 				filterChain.doFilter(request, response);
 			}
 		} else {
 			// 如果不执行过滤，则继续
+			Object obj = request.getSession().getAttribute(Constant.USER_NAME);
+			//System.out.println(request.getQueryString());
+			if(request.getQueryString()!=null && request.getQueryString().indexOf("flag=1") != -1 && obj == null)//用户未登录，请求访问个人信息
+			{
+				request.setCharacterEncoding("UTF-8");
+				response.setCharacterEncoding("UTF-8");
+				//跳转至登录页面
+				response.sendRedirect("loginForm");
+				return;
+			}
 			filterChain.doFilter(request, response);
 		}
 	}

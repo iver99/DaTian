@@ -44,7 +44,7 @@
             <div class="qqserver_comment" onclick="showid('popup1');" hidefocus="true">
                 给我留言
             </div>
-            <a href="javascript:;" class="a1" onclick="showid('popup2');" hidefocus="true">查看历史记录</a>
+            <!-- <a href="javascript:;" class="a1" onclick="showid('popup2');" hidefocus="true">查看历史记录</a> -->
         </div>
     </div>
     <a id="backtop" onclick="return false;" title="回到顶部"></a> 

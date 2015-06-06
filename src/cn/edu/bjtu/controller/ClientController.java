@@ -180,6 +180,18 @@ public class ClientController {
 		mv.setViewName("mgmt_a_info3b");
 		return mv;
 	}
+	
+	/**
+	 * 获取设置头像页面
+	 * @return
+	 */
+	@RequestMapping("getSetHeadIconPage")
+	public ModelAndView getSetHeadIconPage(){
+		
+		mv.setViewName("mgmt_a_info5");
+		return mv;
+		
+	}
 
 	
 	

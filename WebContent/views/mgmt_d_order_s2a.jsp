@@ -74,7 +74,7 @@
                         </td>
                     </tr>
                 </table>
-                <form action="createneworder?carrierid=${carrierId }" method="post">
+                <form action="createneworder?carrierid=${carrierInfo.id }" method="post">
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
                     <tr>
                         <td class="td_mgmt_right3_td1a">
@@ -100,13 +100,13 @@
                                             <option value="无">无</option>
                                         </select>
                                         <div id="p_detail" style="display:none;">
-                                            <input type="text" name="isLinkToClientWayBill" class="input_mgmt1" style="width:176px;" placeholder="请输入客户运单号..." required/>
+                                            <input type="text" name="isLinkToClientWayBill" class="input_mgmt1" style="width:176px;" placeholder="请输入客户运单号..."/>
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">承运方：</td>
-                                    <td><input name="companyName" type="text" readonly="readonly" value="${companyName }" required/></td>
+                                    <td><input name="companyName" type="text" readonly="readonly" value="${carrierInfo.companyName }" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">承运方合同：</td>
@@ -117,7 +117,7 @@
                                             <option value="无">无</option>
                                         </select>
                                         <div id="c_detail" style="display:none;">
-                                            <select style="width:93px;" name="contractId" required>
+                                            <select style="width:93px;" name="contractId">
                                                 <option value="" selected="selected">请选择</option>
                                                 <option value="C0001">C0001</option>
                                                 <option value="C0002">C0002</option>
@@ -131,9 +131,9 @@
 									<td>
 										<select name="resourceType" style="width:120px;" required>
 											<option value="" selected="selected">请选择</option>
-                                            <option value="a">线路</option>
-                                            <option value="b">网络</option>
-                                            <option value="c">车辆</option>
+                                            <option value="线路">线路</option>
+                                            <option value="网格">网络</option>
+                                            <option value="车辆">车辆</option>
                                         </select>
 									</td>
                                 </tr>
@@ -142,9 +142,9 @@
 									<td>
 										<select name="resourceName" style="width:120px;" required>
 											<option value="" selected="selected">请选择</option>
-                                            <option value="a">北京→上海</option>
-                                            <option value="b">北京→上海</option>
-                                            <option value="c">北京→上海</option>
+                                            <option value="北京→上海">北京→上海</option>
+                                            <option value="北京→上海">北京→上海</option>
+                                            <option value="北京→上海">北京→上海</option>
                                         </select>
 									</td>
                                 </tr>
@@ -231,7 +231,7 @@
 								</tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
-                                    <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
+                                    <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
                                 </tr>
                             </table>
                         </td>
@@ -279,5 +279,11 @@
 	function OnLoad() {
 		loadFocus();
 	}
+	$(function(){
+		$('reset:button').click(function(){
+		   $('.input').val("");
+		   $('.select').val("");
+		});
+    })
 </script>
 </html>

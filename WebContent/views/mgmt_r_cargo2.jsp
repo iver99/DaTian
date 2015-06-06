@@ -138,7 +138,7 @@
                                             <option value="不需要">不需要</option>
                                         </select>
                                         <div id="c_detail" style="display:none;">
-                                            <input type="text" name="VIPServiceDetail" class="input_mgmt1" style="width:186px;" placeholder="请输入内容..." required/>
+                                            <input type="text" name="VIPServiceDetail" class="input_mgmt1" style="width:186px;" placeholder="请输入内容..."/>
                                         </div>
                                     </td>
                                 </tr>
@@ -151,7 +151,7 @@
                                             <option value="平台">平台</option>
                                         </select>
                                         <div id="v_detail" style="display:none;">
-                                            <select style="width:93px;" name="user" required>
+                                            <select style="width:93px;" name="user">
                                                 <option name="orienteUser" value="" selected="selected">请选择</option>
                                                 <option value="全体用户">全体用户</option>
                                                 <option value="承运方">承运方</option>
@@ -238,5 +238,11 @@
 	function OnLoad() {
 		loadFocus();
 	}
+	$(function(){
+		$('reset:button').click(function(){
+		   $('.input').val("");
+		   $('.select').val("");
+		});
+    })
 </script>
 </html>

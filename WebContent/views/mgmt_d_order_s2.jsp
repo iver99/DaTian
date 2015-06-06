@@ -99,7 +99,7 @@
                                             <option value="无">无</option>
                                         </select>
                                         <div id="p_detail" style="display:none;">
-                                            <input type="text" name="isLinkToClientWayBill" class="input_mgmt1" style="width:176px;" placeholder="请输入客户运单号..." required/>
+                                            <input type="text" name="isLinkToClientWayBill" class="input_mgmt1" style="width:176px;" placeholder="请输入客户运单号..."/>
                                         </div>
                                     </td>
                                 </tr>
@@ -116,7 +116,7 @@
                                             <option value="无">无</option>
                                         </select>
                                         <div id="c_detail" style="display:none;">
-                                            <select style="width:93px;" name="contractId" required>
+                                            <select style="width:93px;" name="contractId">
                                                 <option value="" selected="selected">请选择</option>
                                                 <option value="C0001">C0001</option>
                                                 <option value="C0002">C0002</option>
@@ -241,7 +241,7 @@
 								</tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
-                                    <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
+                                    <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
                                 </tr>
                             </table>
                         </td>
@@ -353,5 +353,11 @@
 	function OnLoad() {
 		loadFocus();
 	}
+	$(function(){
+		$('reset:button').click(function(){
+		   $('.input').val("");
+		   $('.select').val("");
+		});
+    })
 </script>
 </html>

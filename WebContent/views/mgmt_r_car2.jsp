@@ -110,7 +110,7 @@
                                             <option value="无">无</option>
                                         </select>
                                         <div id="pos_detail_1" style="display:none;">
-                                            <input type="text" class="input_mgmt1" style="width:176px;" placeholder="请输入终端设备编码..." name="terminalId" required/>
+                                            <input type="text" class="input_mgmt1" style="width:176px;" placeholder="请输入终端设备编码..." name="terminalId"/>
                                         </div>
                                     </td>
                                 </tr>
@@ -267,5 +267,11 @@
 	function OnLoad() {
 		loadFocus();
 	}
+	$(function(){
+		$('reset:button').click(function(){
+		   $('.input').val("");
+		   $('.select').val("");
+		});
+    })
 </script>
 </html>

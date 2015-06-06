@@ -41,12 +41,7 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-	<!-- <filter> <filter-name>LoginFilter</filter-name> <filter-class>cn.edu.bjtu.util.LoginValidationFilter</filter-class> 
-		<init-param> <param-name>redirectURL</param-name> <param-value>loginForm</param-value> 
-		</init-param> <init-param> <param-name>checkSessionKey</param-name> <param-value>username</param-value> 
-		</init-param> <init-param> <param-name>notCheckURLList</param-name> <param-value>/index.jsp;/loginForm;/</param-value> 
-		</init-param> </filter> <filter-mapping> <filter-name>LoginFilter</filter-name> 
-		<url-pattern>/myinfo</url-pattern> </filter-mapping> -->
+
 	<filter>
 		<filter-name>SQLFilter</filter-name>
 		<filter-class>cn.edu.bjtu.util.SQLFilter</filter-class>
@@ -55,9 +50,16 @@
 		<filter-name>SQLFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	<!-- <filter> <filter-name>LoginFilter</filter-name> <filter-class>cn.edu.bjtu.util.LoginFilter</filter-class> 
-		</filter> <filter-mapping> <filter-name>LoginFilter</filter-name> <url-pattern>/*</url-pattern> 
-		</filter-mapping> -->
+
+	<!-- <filter>
+		<filter-name>LoginFilter</filter-name>
+		<filter-class>cn.edu.bjtu.util.LoginFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>LoginFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping> -->
+
 	<!-- 过滤器配置解结束 -->
 	<session-config>
 		<!-- session时长120 mins -->
@@ -81,6 +83,6 @@
 		<location>/views/405.jsp</location>
 	</error-page>
 
-	
+
 
 </web-app>

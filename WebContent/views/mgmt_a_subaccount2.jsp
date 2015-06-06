@@ -164,5 +164,11 @@ function loadXMLDoc()
 	function OnLoad() {
 		loadFocus();
 	}
+	$(function(){
+		$('reset:button').click(function(){
+		   $('.input').val("");
+		   $('.checkbox').val("");
+		});
+    })
 </script>
 </html>
