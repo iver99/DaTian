@@ -1,8 +1,11 @@
 function loadFocus()
 {
+	var curWwwPath=window.document.location.href;
+    var pathName=window.document.location.pathname;
+    var pos=curWwwPath.indexOf(pathName);
 	$.ajax({
 		   type: "GET",
-		   url: "http://localhost:8585/DaTian/focusNum",//请求的后台地址
+		   url: curWwwPath.substring(0,pos) + "/DaTian/focusNum",//请求的后台地址
 		   data: "",//前台传给后台的参数
 		   success: function(msg){//msg:返回值
 			   //alert(msg);
@@ -11,7 +14,10 @@ function loadFocus()
 		});
 	var City = getCookie("city");
 	//alert(City);
-	document.getElementById("city").innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;"+City+"&nbsp;<a href=\"city\" hidefocus=\"true\">[更换]</a>";
+	if(City == null)
+		document.getElementById("city").innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;北京&nbsp;<a href=\"city\" hidefocus=\"true\">[更换]</a>";
+	else
+		document.getElementById("city").innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;"+City+"&nbsp;<a href=\"city\" hidefocus=\"true\">[更换]</a>";
 }
 
 function getCookie(name) 
@@ -24,18 +30,3 @@ function getCookie(name)
     else 
         return null; 
 } 
-/*function setFocus(status)
-{
-	$.ajax({
-		   type: "GET",
-		   url: "http://localhost:8585/DaTian/focusNum",//请求的后台地址
-		   data: "",//前台传给后台的参数
-		   success: function(msg){//msg:返回值
-			   if(status == "insert")
-				   document.getElementById("focusNum").innerHTML = "<img src=\"images/btn_m1.png\" />&nbsp;我的关注("+ (msg+1) +")";
-			   else
-				   document.getElementById("focusNum").innerHTML = "<img src=\"images/btn_m1.png\" />&nbsp;我的关注("+ (msg-1) +")";
-		   }
-		});
-		
-}*/

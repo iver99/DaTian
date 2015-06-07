@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.AuthenticationDao;
+import cn.edu.bjtu.dao.UserinfoDao;
 import cn.edu.bjtu.service.AuthenticationService;
 import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.vo.Clientinfo;
@@ -22,6 +23,9 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 	Userinfo userinfo;
 	@Autowired
 	AuthenticationDao authenticationDao;
+	@Autowired
+	UserinfoDao userinfoDao;	
+	
 	/*@Resource
 	BaseDao baseDao;*/
 	@Resource
@@ -81,4 +85,68 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 		// TODO Auto-generated method stub
 		return authenticationDao.getFindUser(username);
 	}
+	
+	/**
+	 * 个人用户审核拒绝
+	 */
+	@Override
+	public boolean authenUserDeny(String feedback, String user_id) {
+		
+		Userinfo userinfo=userinfoDao.get(Userinfo.class, user_id);
+		
+		userinfo.setStatus("未验证");
+		userinfo.setFeedback(feedback);
+		
+		userinfoDao.update(userinfo);
+		return true;
+	}
+	
+	/**
+	 * 个人用户审合通过
+	 */
+	@Override
+	public boolean authenUserPass(String feedback, String user_id) {
+		
+		Userinfo userinfo = userinfoDao.get(Userinfo.class, user_id);
+
+		userinfo.setStatus("已审核");
+		userinfo.setFeedback(feedback);
+
+		userinfoDao.update(userinfo);
+		return true;
+	}
+	/**
+	 * 公司用户验证拒绝
+	 */
+	@Override
+	public boolean authenCompanyDeny(String feedback, String user_id) {
+		
+		Userinfo userinfo=userinfoDao.get(Userinfo.class, user_id);
+		
+		userinfo.setStatus("未验证");
+		userinfo.setFeedback(feedback);
+		userinfoDao.update(userinfo);
+		
+		return true;
+		
+	}
+	
+	/**
+	 * 公司用户验证通过
+	 */
+	@Override
+	public boolean authenCompanyPass(String feedback, String user_id) {
+
+Userinfo userinfo=userinfoDao.get(Userinfo.class, user_id);
+		
+		userinfo.setStatus("已审核");
+		userinfo.setFeedback(feedback);
+		userinfoDao.update(userinfo);
+		
+		return true;
+	
+	}
+	
+	
+	
 }

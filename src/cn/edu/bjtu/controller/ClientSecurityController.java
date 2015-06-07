@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.ClientSecurityService;
+import cn.edu.bjtu.util.Encrypt;
 import cn.edu.bjtu.vo.Userinfo;
 
 @Controller
@@ -57,12 +58,16 @@ public class ClientSecurityController {
 			String newPassword, String repeatPassword) {
 		String userId = (String) session.getAttribute("userId");
 		boolean flag = false;
-		flag = clientSecurityService.checkOldPassword(oldPassword, userId);
+		String psw_old = Encrypt.MD5(oldPassword);//add by RussWest0 at 2015年6月7日,上午11:21:01 
+		flag = clientSecurityService.checkOldPassword(psw_old, userId);
 		if (flag == true)// 旧密码正确 的情况
 		{
 			if (newPassword.equals(repeatPassword))// 两次新密码一样
 			{
-				clientSecurityService.changePassword(newPassword, userId);// 修改密码
+				//add by RussWest0 at 2015年6月7日,上午11:19:49 
+//				密码加密
+				String psw = Encrypt.MD5(newPassword);
+				clientSecurityService.changePassword(psw, userId);// 修改密码
 				String msg = "修改密码成功";
 				mv.addObject("msg", msg);
 				mv.setViewName("mgmt_a_security");

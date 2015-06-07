@@ -61,11 +61,11 @@
                         </td>
                 	</tr>
             	</table>
+            	<form action="authenCompanyPass" id="authen_company" method="post">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
 					<tr>
 						<td class="td_mgmt_right3_td1a"> 
 							<br />   
-							<form action="authenticdetail?clientId=${detailCompanyCertificate.id }&flag=33" method="post" id="form1">	          
 							<table width="90%" border="0" cellspacing="0" cellpadding="0">
 								<tr>
 									<td width="120" height="40" class="td_mgmt_right3_td1b">用户名：</td>
@@ -135,17 +135,19 @@
 									<td>
                                     	<textarea name="feedback" class="textarea_rating" placeholder="请输入内容..."></textarea>
                                     </td>
+                                    <td>	<!--     隐藏字段 -->
+                                    <input type="hidden" name="user_id" value="${userinfo.id }"/></td>
 								</tr>
 								<tr>
 									<td width="120" height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
-									<td><input type="submit" id="btn1" value="通过" class="btn_mgmt1" hidefocus="true" onclick="window.location.href=''" />
+									<td><input type="submit" id="btn1" value="通过" class="btn_mgmt1" hidefocus="true"  />
 									    <input type="button" id="btn1" value="拒绝" class="btn_mgmt2" hidefocus="true" onclick="changeAction()"/></td><%-- onclick="window.location.href='authenticdetail?clientId=${detailCompanyCertificate.id }&flag=43'"							 --%>	
 								</tr>
 							</table>
-							</form>
 						</td>
 					</tr>
 				</table>
+				</form>
 			</td>
 		</tr>
     </table>
@@ -175,7 +177,7 @@
 </div>
 
 <div id="footer_frame">
-	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="footer.htm"></iframe>
+	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="views/footer.jsp"></iframe>
 </div>
 
 </body>
@@ -185,12 +187,13 @@
 	}
 	
 	
+	//修改action
 	function changeAction(){
-		alert("test");
-		var form=document.getElementById("form1");
-		form.action="";
-		form.submit();
 		
+		var url="authenCompanyDeny";
+		var form =$("#authen_company");
+		form.attr("action", url);
+		form.submit();
 	}
 </script>
 </html>

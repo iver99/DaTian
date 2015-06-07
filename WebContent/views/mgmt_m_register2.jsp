@@ -61,6 +61,7 @@
                         </td>
                 	</tr>
             	</table>
+            	<form action="authenUserPass" method="post" id="authen_user">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
 					<tr>
 						<td class="td_mgmt_right3_td1a"> 
@@ -95,18 +96,23 @@
 									<td>
                                     	<textarea class="textarea_rating" name="feedback" id="feedb1" placeholder="请输入内容..."></textarea>
                                     </td>
+                                    <td>
+                                		<!--     隐藏字段 -->
+                                    <input type="hidden" name="user_id" value="${clientinfo.id }"/>
+                                    </td>
 								</tr>
 								<tr>
 									<td width="120" height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
-									<td><input type="button" id="btn1" value="通过" class="btn_mgmt1" 
-									hidefocus="true" onclick="window.location.href='authenticdetail?clientId=${clientinfo.id }&flag=32&feedback='"+document.getElementsById('feedb1') />
-									    <input type="button" id="btn1" value="拒绝" class="btn_mgmt2"
-									     hidefocus="true" onclick="window.location.href='authenticdetail?clientId=${clientinfo.id }&flag=42'"/></td>
+									<td><input type="submit" id="btn1" value="通过" class="btn_mgmt1" 
+									hidefocus="true"  />
+									    <input type="submit" id="btn1" value="拒绝" class="btn_mgmt2"
+									     hidefocus="true" onclick="changeAction()"/></td>
 								</tr>
 							</table>
 						</td>
 					</tr>
 				</table>
+				</form>
 			</td>
 		</tr>
     </table>
@@ -136,7 +142,7 @@
 </div>
 
 <div id="footer_frame">
-	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="footer.htm"></iframe>
+	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="views/footer.jsp"></iframe>
 </div>
 
 </body>
@@ -144,5 +150,15 @@
 	function OnLoad() {
 		loadFocus();
 	}
+	
+	//修改action
+	function changeAction(){
+		
+		var url="authenUserDeny";
+		var form =$("#authen_user");
+		form.attr("action", url);
+		form.submit();
+	}
+	
 </script>
 </html>

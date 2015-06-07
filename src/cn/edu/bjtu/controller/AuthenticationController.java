@@ -161,6 +161,95 @@ public class AuthenticationController {
 		
 		return mv;
 	}
+	/**
+	 * 审核个人用户通过,需要修改状态为已验证
+	 * @return
+	 */
+	@RequestMapping("authenUserPass")
+	public ModelAndView authenUserPass(String feedback,String user_id,HttpServletResponse response){
+		
+		boolean flag = authenticationService.authenUserPass(feedback, user_id);
+		if (flag == true) {
+			// mv.setViewName("");
+			try {
+				response.sendRedirect("authentic");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+		mv.setViewName("mgmt_m_register");
+
+		return mv;
+		
+	}
+	
+	/**
+	 * 审核个人用户拒绝，需要修改状态为未验证
+	 * @return
+	 */
+	@RequestMapping("authenUserDeny")
+	public ModelAndView authenUserDeny(String feedback,String user_id,HttpServletResponse response){
+		
+		boolean flag = authenticationService.authenUserDeny(feedback, user_id);
+		if (flag == true) {
+			try {
+				response.sendRedirect("authentic");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		mv.setViewName("mgmt_m_register");
+		return mv;
+
+	}
+	
+	/**
+	 * 审核公司用户通过
+	 * @return
+	 */
+	@RequestMapping("authenCompanyPass")
+	public ModelAndView authenCompanyPass(String feedback,String user_id,HttpServletResponse response){
+		
+		boolean flag=authenticationService.authenCompanyPass(feedback,user_id);
+		
+		if(flag==true){
+			try {
+				response.sendRedirect("authentic");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		mv.setViewName("mgmt_m_register");
+		
+		return mv;
+	}
+	
+	/**
+	 * 审核公司用户拒绝
+	 * @return
+	 */
+	@RequestMapping("authenCompanyDeny")
+	public ModelAndView authenCompanyDeny(String feedback,String user_id,HttpServletResponse response){
+		
+		boolean flag=authenticationService.authenCompanyDeny(feedback,user_id);
+		
+		if(flag==true){
+			try {
+				response.sendRedirect("authentic");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		mv.setViewName("mgmt_m_register");
+		
+		return mv;
+	}
 	
 	
 

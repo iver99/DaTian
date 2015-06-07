@@ -199,11 +199,14 @@ function OnLoad() {
 }
 function loadXMLDoc()
 {
+	var curWwwPath=window.document.location.href;
+    var pathName=window.document.location.pathname;
+    var pos=curWwwPath.indexOf(pathName);
 	var message = document.getElementById("message").value;
 	//alert(message);
 	$.ajax({
 		   type: "GET",
-		   url: "http://localhost:8585/DaTian/insertmessage",//请求的后台地址
+		   url: curWwwPath.substring(0,pos) + "/DaTian/insertmessage",//请求的后台地址
 		   data: "content=" + message,//前台传给后台的参数
 		   success: function(msg){//msg:返回值
 			   document.getElementById("close").click();
