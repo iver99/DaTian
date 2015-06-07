@@ -21,6 +21,7 @@ import cn.edu.bjtu.service.CarService;
 import cn.edu.bjtu.service.CitylineService;
 import cn.edu.bjtu.service.CommentService;
 import cn.edu.bjtu.service.CompanyService;
+import cn.edu.bjtu.service.DriverService;
 import cn.edu.bjtu.service.LinetransportService;
 import cn.edu.bjtu.service.OrderService;
 import cn.edu.bjtu.util.UploadPath;
@@ -28,6 +29,7 @@ import cn.edu.bjtu.vo.Carinfo;
 import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Cityline;
 import cn.edu.bjtu.vo.Comment;
+import cn.edu.bjtu.vo.Driverinfo;
 import cn.edu.bjtu.vo.Linetransport;
 import cn.edu.bjtu.vo.OrderCarrierView;
 import cn.edu.bjtu.vo.Orderform;
@@ -54,6 +56,9 @@ public class OrderController {
 	CompanyService companyService;
 	@Autowired
 	CommentService commentService;
+	
+	@Autowired
+	DriverService driverService;
 	
 	ModelAndView mv = new ModelAndView();
 
@@ -167,15 +172,22 @@ public class OrderController {
 		return mv;
 	}
 
+	/**
+	 * 获取受理表单
+	 * @param orderid
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping("acceptOrderForm")
 	public ModelAndView getAcceptOrderForm(String orderid,
 			HttpServletRequest request, HttpServletResponse response) {
 
-		// 需要查出公司司机列表
+		// 需要查出公司司机列表 add by RussWest0 at 2015年6月7日,下午7:56:32 
 		String carrierId = (String) request.getSession().getAttribute("userId");
-
+		List<Driverinfo> driverList=driverService.getAllDriver(carrierId);
+		mv.addObject("driverList",driverList);
 		// 需要获取车牌号和司机名
-		// System.out.println("获取接收表单-orderid+"+orderid);
 		mv.addObject("orderId", orderid);
 
 		mv.setViewName("mgmt_d_order_r2");
@@ -191,12 +203,11 @@ public class OrderController {
 	 * @return
 	 */
 	public ModelAndView acceptOrder(String orderid, HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response,String driver) {
 
 		// 需要更新订单的司机列表，并且修改订单状态为已受理(待收货)
 		// 需要重定向,用来更新页面
-		System.out.println("接收订单+orderId+" + orderid);
-		System.out.println("接收订单-orderId+" + orderid);
+		//获取到司机，但是未作处理 add by RussWest0 at 2015年6月7日,下午8:03:50 
 		boolean flag = orderService.acceptOrder(orderid);
 		try {
 			if (flag == true)

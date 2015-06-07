@@ -37,6 +37,7 @@ public class DriverDaoImpl extends BaseDaoImpl<Driverinfo> implements DriverDao{
 	 */
 	public List getAllDriver(String carrierId) {
 		// TODO Auto-generated method stub
+		
 		return this.find("from Driverinfo where carrierId='"+carrierId+"'");
 	}
 	

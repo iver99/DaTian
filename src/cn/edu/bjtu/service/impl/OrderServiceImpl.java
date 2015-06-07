@@ -203,12 +203,5 @@ public class OrderServiceImpl implements OrderService {
 
 	}
 	
-	public static void main(String [] args){
-		
-		String s="abc,";
-		String[] temp= s.split(",");
-		
-		System.out.println(temp);
-	}
 
 }

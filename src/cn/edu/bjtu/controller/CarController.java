@@ -164,7 +164,6 @@ public class CarController {
 			// @RequestParam String location,
 			@RequestParam int Display, @RequestParam int PageNow,
 			HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("进入筛选车辆的控制器");
 
 		try {
 			response.setCharacterEncoding("UTF-8");
