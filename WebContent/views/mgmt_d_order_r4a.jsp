@@ -202,7 +202,7 @@
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">签收图像：</td>
-                                    <td><a href="${orderInfo.recieverPhone }" target="_blank" hidefocus="true"><img src="${orderInfo.recieverPhone }" /></a></td>
+                                    <td><a href="${orderInfo.acceptPicture }" target="_blank" hidefocus="true"><img src="${orderInfo.acceptPicture }" /></a></td>
                                 </tr>
                             </table>
                         	<div class="span_mgmt_right3_text4">最终运费</div>      	          

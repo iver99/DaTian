@@ -85,9 +85,9 @@
 									<td>
 										<select style="width:120px;" name="clientName" required>
 											<option value="" selected="selected">请选择</option>
-                                            <option value="ABC商贸公司">ABC商贸公司</option>
-                                            <option value="X公司">X公司</option>
-                                            <option value="DEF公司">DEF公司</option>
+                                            <option value="北京索契物流有限公司">北京索契物流有限公司</option>
+                                            <option value="天津友达通有限公司">天津友达通有限公司</option>
+                                            <option value="北京大田物流有限公司">北京大田物流有限公司</option>
                                         </select>
 									</td>
                                 </tr>
