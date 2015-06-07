@@ -229,30 +229,30 @@
 									<td>${orderInfo.explainReason }</td>
 								</tr>
                             </table>
-                        	<div class="span_mgmt_right3_text4">评价信息<!-- (未实现) --></div>      	          
+                        	<div class="span_mgmt_right3_text4">评价信息</div>      	          
                             <div id="div_rating">
                                 <div class="div_rating_sub">
                                     <div class="div_rating_left">服务态度</div>
                                     <div id="rating1" style="float:left;"></div>
-                                    <div class="div_rating_right"><input id="hint1" type="text" class="input_rating" /></div>
+                                    <div class="div_rating_right"><input id="hint1" type="text" value="${comment.serviceAttitude }" class="input_rating" /></div>
                                 </div>
                                 <div class="div_rating_sub">
                                     <div class="div_rating_left">运输时效</div>
                                     <div id="rating2" style="float:left;"></div>
-                                    <div class="div_rating_right"><input id="hint2" type="text" class="input_rating" /></div>
+                                    <div class="div_rating_right"><input id="hint2" type="text" value="${comment.transportEfficiency }" class="input_rating" /></div>
                                 </div>
                                 <div class="div_rating_sub">
                                     <div class="div_rating_left">货物安全</div>
                                     <div id="rating3" style="float:left;"></div>
-                                    <div class="div_rating_right"><input id="hint3" type="text" class="input_rating" /></div>
+                                    <div class="div_rating_right"><input id="hint3" type="text" value="${comment.cargoSafety }" class="input_rating" /></div>
                                 </div>
                                 <div class="div_rating_sub">
                                     <div class="div_rating_left">总体费用</div>
                                     <div id="rating4" style="float:left;"></div>
-                                    <div class="div_rating_right"><input id="hint4" type="text" class="input_rating" /></div>
+                                    <div class="div_rating_right"><input id="hint4" type="text" value="${comment.totalMoney }" class="input_rating" /></div>
                                 </div>
                                 <div class="div_rating_sub">
-                                	补充：货物运送的很及时，就是费用上略高了，还是不错的！
+                                	补充：${comment.comment }
                                 </div>
                             </div>
                         </td>

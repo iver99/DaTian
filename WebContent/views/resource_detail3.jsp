@@ -32,7 +32,7 @@
 
 <%@ include  file="topFrame.jsp"%>
 <div id="main_frame">
-	<span class="text_main_title1">资源</span>&nbsp;&gt;&nbsp;<a href="resource_list.htm" hidefocus="true">车辆</a>
+	<span class="text_main_title1">资源</span>&nbsp;&gt;&nbsp;车辆
     <table width="100%" border="0" cellpadding="0" cellspacing="0">
     <tbody>
 	

@@ -70,7 +70,7 @@
                     <tr>
                     	<td>
                         	<span class="span_mgmt_right2_text1">我的关注</span>
-                            <span class="span_mgmt_right2_text2"><a href="javascript:;" hidefocus="true" class="a_btn_mgmt3">取消关注</a></span>
+                            <!-- <span class="span_mgmt_right2_text2"><a href="javascript:;" hidefocus="true" class="a_btn_mgmt3">取消关注</a></span> -->
                             <div class="div_mgmt_s1">
                             <form action="findfocus" method="post">
                             	<input type="text" class="input_mgmt1" style="width:200px;" value="关注内容" name="text"/>

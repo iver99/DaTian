@@ -186,17 +186,29 @@ public class OrderServiceImpl implements OrderService {
 			String resourceName, String resourceType, String companyName,String clientName) {
 		// TODO Auto-generated method stub
 		String[] temp = { "无", " " };// 默认情况
-		if (isLinkToClientWayBill.contains(",")) {
+		clientWayBillNum="";
+		if (isLinkToClientWayBill.contains(",")) {//没有关联客户账单，进来的字符串是"无," 
 			temp = isLinkToClientWayBill.split(",");
-		}
+			if (temp.length == 2) {//有关联客户运单
+				clientWayBillNum = temp[2];
+			}
+		} 
 
 		return orderDao.createNewOrder(userId, hasCarrierContract, remarks,
 				goodsName, goodsVolume, goodsWeight, expectedPrice,
 				declaredPrice, insurance, contractId, deliveryName,
 				deliveryPhone, deliveryAddr, receiverName, receiverPhone,
-				receiverAddr, carrierId, temp[0], temp[1], resourceName,
+				receiverAddr, carrierId, temp[0], clientWayBillNum, resourceName,
 				resourceType,companyName,clientName);
 
+	}
+	
+	public static void main(String [] args){
+		
+		String s="abc,";
+		String[] temp= s.split(",");
+		
+		System.out.println(temp);
 	}
 
 }
