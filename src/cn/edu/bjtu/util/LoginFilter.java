@@ -46,7 +46,7 @@ public class LoginFilter extends OncePerRequestFilter {
 			filterChain.doFilter(request, response);
 			return;
 		}
-		// 是否过滤
+		// 是否过滤,true时过滤 false不过滤
 		boolean doFilter = true;
 		for (String s : notFilter) {
 			if (uri.indexOf(s) != -1) {

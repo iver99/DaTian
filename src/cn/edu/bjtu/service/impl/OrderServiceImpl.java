@@ -183,7 +183,7 @@ public class OrderServiceImpl implements OrderService {
 			float goodsWeight, float expectedPrice, float declaredPrice,
 			float insurance, String contractId, String carrierId,
 			String isLinkToClientWayBill, String clientWayBillNum,
-			String resourceName, String resourceType, String companyName) {
+			String resourceName, String resourceType, String companyName,String clientName) {
 		// TODO Auto-generated method stub
 		String[] temp = { "无", " " };// 默认情况
 		if (isLinkToClientWayBill.contains(",")) {
@@ -195,7 +195,7 @@ public class OrderServiceImpl implements OrderService {
 				declaredPrice, insurance, contractId, deliveryName,
 				deliveryPhone, deliveryAddr, receiverName, receiverPhone,
 				receiverAddr, carrierId, temp[0], temp[1], resourceName,
-				resourceType,companyName);
+				resourceType,companyName,clientName);
 
 	}
 

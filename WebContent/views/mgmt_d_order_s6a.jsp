@@ -229,7 +229,7 @@
 									<td>${orderInfo.explainReason }</td>
 								</tr>
                             </table>
-                        	<div class="span_mgmt_right3_text4">评价信息(未实现)</div>      	          
+                        	<div class="span_mgmt_right3_text4">评价信息<!-- (未实现) --></div>      	          
                             <div id="div_rating">
                                 <div class="div_rating_sub">
                                     <div class="div_rating_left">服务态度</div>

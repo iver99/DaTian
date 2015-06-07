@@ -323,7 +323,7 @@
     </table>
 </div>
 <div id="main_frame">
-	<span class="text_main_title1">资源</span>&nbsp;&gt;&nbsp;<a href="resource_list6.htm" hidefocus="true">货物</a>
+	<span class="text_main_title1">资源</span>&nbsp;&gt;&nbsp;货物
     <table width="100%" border="0" cellpadding="0" cellspacing="0">
     		<tr>
 			<td width="320" class="td_leftnav_top"><img src="images/illust_2g.png" /></td>

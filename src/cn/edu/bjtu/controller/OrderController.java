@@ -789,7 +789,7 @@ public class OrderController {
 				deliveryName, recieverName, deliveryPhone, recieverPhone,
 				deliveryAddr, recieverAddr, remarks, goodsName, goodsVolume,
 				goodsWeight, expectedPrice, declaredPrice, insurance,
-				contractId, carrierid,isLinkToClientWayBill,clientWayBillNum,resourceName,resourceType,companyName);
+				contractId, carrierid,isLinkToClientWayBill,clientWayBillNum,resourceName,resourceType,companyName,clientName);
 		if (flag == true) {
 			// mv.setViewName("mgmt_d_order_s");
 			try {
