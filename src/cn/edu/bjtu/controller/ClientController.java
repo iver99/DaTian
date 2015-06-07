@@ -10,12 +10,16 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.ClientService;
+import cn.edu.bjtu.util.DownloadFile;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Clientinfo;
+import cn.edu.bjtu.vo.Linetransport;
 
 @Controller
 /**
@@ -85,12 +89,34 @@ public class ClientController {
 	}
 
 	@RequestMapping("validateuser")
-	public ModelAndView validateUser(String realName, String phone,
+	public ModelAndView validateUser(@RequestParam(required = false) MultipartFile file,
+			String realName, String phone,
 			String IDCard, String sex, HttpServletRequest request,
 			HttpServletResponse response) {
 		String userId=(String)request.getSession().getAttribute("userId");
 		
-		boolean flag=clientService.validateUser(userId,realName,phone,IDCard,sex);
+		// ////////////////////////////////////////////
+		String path = null;
+		String fileName = null;
+		// System.out.println("file+"+file+"filename"+file.getOriginalFilename());//不上传文件还是会显示有值
+		if (file.getSize() != 0)// 有上传文件的情况
+		{
+			path = UploadPath.getClientPath();// 不同的地方取不同的上传路径
+			fileName = file.getOriginalFilename();
+			fileName = userId + "_" + fileName;// 文件名
+			File targetFile = new File(path, fileName);
+			try { // 保存 文件
+				file.transferTo(targetFile);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// System.out.println("path+fileName+" + path + "-" + fileName);
+		}
+		// 没有上传文件的情况path 和 filenName默认为null
+
+		// ////////////////////////////////////////////
+		
+		boolean flag=clientService.validateUser(userId,realName,phone,IDCard,sex,path,fileName);
 		if(flag==true){
 			try {
 				response.sendRedirect("accountinfo");
@@ -180,19 +206,19 @@ public class ClientController {
 		mv.setViewName("mgmt_a_info3b");
 		return mv;
 	}
-	
-	/**
-	 * 获取设置头像页面
-	 * @return
-	 */
-	@RequestMapping("getSetHeadIconPage")
-	public ModelAndView getSetHeadIconPage(){
-		
-		mv.setViewName("mgmt_a_info5");
-		return mv;
-		
-	}
 
-	
+	@RequestMapping(value = "downloaduseridpicture", method = RequestMethod.GET)
+	/**
+	 * 下载idpicture
+	 */
+	public ModelAndView downloadUserIDPicture(@RequestParam String id,// GET方式传入，在action中
+			HttpServletRequest request, HttpServletResponse response) {
+			Clientinfo clientinfo = clientService.getClientInfo(id);
+			String file = clientinfo.getIDPicture();
+			System.out.println(file);
+			DownloadFile.downloadFile(file,request,response);
+		return mv;
+
+	}
 	
 }

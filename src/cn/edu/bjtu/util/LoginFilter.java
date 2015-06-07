@@ -35,7 +35,8 @@ public class LoginFilter extends OncePerRequestFilter {
 		String[] notFilter = new String[] { "login", "loginForm", "register","adminLogin" ,
 				"js" ,"images", "css", "Focus", "foucs", 
 				"focusNum", "homepage", "linetransport", "footer", "cityline",
-				"car", "warehouse", "company", "goodsform","allcomplaint"
+				"car", "warehouse", "company", "goodsform", "allcomplaint",
+				"city"
 		};
 
 		// ÇëÇóµÄuri

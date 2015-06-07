@@ -16,6 +16,7 @@ public interface ClientDao extends BaseDao<Clientinfo>{
 	public Businessclient getBusinessclientInfo(String clientId);
 	public String getBasicUserInfo(String userId);
 	public String getStatus(String userId);
-	public boolean validateUser(String userId,String realName,String phone,String IDCard,String sex);
+	public boolean validateUser(String userId,String realName,String phone,String IDCard,
+			String sex, String path, String fileName);
 
 }

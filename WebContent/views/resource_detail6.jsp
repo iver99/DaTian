@@ -48,7 +48,7 @@
 			<%
 				}
 			%>
-			<td class="td_top1a"><span class="span_top1a">&nbsp;&nbsp;&nbsp;&nbsp;北京&nbsp;<a href="city.htm" hidefocus="true">[更换]</a></span></td>
+			<td class="td_top1a"><span class="span_top1a" id="city">&nbsp;&nbsp;&nbsp;&nbsp;北京&nbsp;<a href="city.htm" hidefocus="true">[更换]</a></span></td>
 			<td class="td_top1a" width="90">
             	<div id="topinfo">
                     <ul class="quickmenu">

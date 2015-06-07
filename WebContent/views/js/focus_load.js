@@ -9,8 +9,21 @@ function loadFocus()
 			   document.getElementById("focusNum").innerHTML = "<img src=\"images/btn_m1.png\" />&nbsp;我的关注("+ msg +")";
 		   }
 		});
+	var City = getCookie("city");
+	//alert(City);
+	document.getElementById("city").innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;"+City+"&nbsp;<a href=\"city\" hidefocus=\"true\">[更换]</a>";
 }
 
+function getCookie(name) 
+{ 
+    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+ 
+    if(arr=document.cookie.match(reg))
+ 
+        return unescape(arr[2]); 
+    else 
+        return null; 
+} 
 /*function setFocus(status)
 {
 	$.ajax({

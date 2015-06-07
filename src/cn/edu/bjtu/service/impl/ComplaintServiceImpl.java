@@ -21,15 +21,15 @@ import cn.edu.bjtu.vo.Complaintform;
 
 @Service("complaintServiceImpl")
 @Transactional
-public class ComplaintServiceImpl implements ComplaintService{
+public class ComplaintServiceImpl implements ComplaintService {
 
 	@Resource
 	ComplaintDao complaintDao;
-	@Resource 
+	@Resource
 	Complaintform complaintform;
-	@Resource 
+	@Resource
 	OrderService orderService;
-	
+
 	@Override
 	public List getUserCompliant(String userId) {
 		// TODO Auto-generated method stub
@@ -37,24 +37,23 @@ public class ComplaintServiceImpl implements ComplaintService{
 	}
 
 	@Override
-	public List getAllUserCompliant(){
-		
+	public List getAllUserCompliant() {
+
 		return complaintDao.getAllUserCompliant();
 	}
-	
+
 	@Override
 	public Complaintform getComplaintInfo(String id) {
-		
+
 		return complaintDao.getComplaintInfo(id);
 	}
-	
+
 	@Override
 	/**
 	 * 新增投诉
 	 */
 	public boolean insertComplaint(String type, String theme,
-			String content, String orderNum, String carrierId,
-			HttpServletRequest request, HttpServletResponse response) {
+			String content, String orderNum, String carrierId, String path, String fileName) {
 		// TODO Auto-generated method stub
 
 		complaintform.setId(IdCreator.createCityLineId());
@@ -65,40 +64,46 @@ public class ComplaintServiceImpl implements ComplaintService{
 		complaintform.setCarrierId(carrierId);
 		complaintform.setClientId(carrierId);
 		complaintform.setRelDate(new Date());
-		// add by RussWest0 at 2015年5月30日,下午10:05:22 
+		// add by RussWest0 at 2015年5月30日,下午10:05:22
 		complaintform.setOrderId(orderNum);
+		// 保存文件路径
+		if (path != null && fileName != null) {
+			String fileLocation = path + "//" + fileName;
+			complaintform.setRelatedMaterial(fileLocation);
+		}
+
 		complaintform.setState("受理中");
 		complaintDao.save(complaintform);
 		return true;
-	
+
 	}
-	
+
 	@Override
-	public boolean doAcceptComplaint(String id, String feedback){
-		
+	public boolean doAcceptComplaint(String id, String feedback) {
+
 		complaintform = getComplaintInfo(id);
 		complaintform.setFeedback(feedback);
 		complaintform.setState("已受理");
 		complaintDao.update(complaintform);
 		return true;
 	}
-	
+
 	@Override
-	public List getFindComplaint(String theme, int flag, String clientId){
-		String sql="from ComplaintClientView ";
-		if(flag==0){
-			if(theme.equals("投诉主题")){
-				//查找时不考虑投诉主题
-			}
-			else sql+="where theme like '%"+theme+"%' ";
-			
-		}
-		else if(flag==1){
-			if(theme.equals("投诉主题")){
-				//查找时不考虑投诉主题
-			}
-			else sql+="where theme like '%"+theme+"%' and clientId='"+clientId+"'";
-			
+	public List getFindComplaint(String theme, int flag, String clientId) {
+		String sql = "from ComplaintClientView ";
+		if (flag == 0) {
+			if (theme.equals("投诉主题")) {
+				// 查找时不考虑投诉主题
+			} else
+				sql += "where theme like '%" + theme + "%' ";
+
+		} else if (flag == 1) {
+			if (theme.equals("投诉主题")) {
+				// 查找时不考虑投诉主题
+			} else
+				sql += "where theme like '%" + theme + "%' and clientId='"
+						+ clientId + "'";
+
 		}
 		return complaintDao.getFindComplaint(sql);
 	}

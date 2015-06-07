@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
+﻿<%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 	  
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -71,33 +71,67 @@
 									<td>${userinfo.username }</td>
 								</tr>
 								<tr>
-									<td height="40" class="td_mgmt_right3_td1b">姓名：</td>
-									<td>${clientinfo.realName }</td>
+									<td height="40" class="td_mgmt_right3_td1b">公司名称：</td>
+									<td>${detailCompanyCertificate.companyName }</td>
 								</tr>
 								<tr>
-									<td height="40" class="td_mgmt_right3_td1b">性别：</td>
-									<td>${clientinfo.sex }</td>
+									<td height="40" class="td_mgmt_right3_td1b">组织机构代码：</td>
+									<td>${detailCompanyCertificate.divisionCode }</td>
 								</tr>
 								<tr>
-									<td height="40" class="td_mgmt_right3_td1b">身份证号码：</td>
-									<td>${clientinfo.idcard }</td>
+									<td height="40" class="td_mgmt_right3_td1b">法人姓名：</td>
+									<td>${detailCompanyCertificate.legalName }</td>
 								</tr>
 								<tr>
-									<td height="40" class="td_mgmt_right3_td1b">联系电话：</td>
-									<td>${clientinfo.phone }</td>
+									<td height="40" class="td_mgmt_right3_td1b">法人身份证号：</td>
+									<td>${detailCompanyCertificate.legalIDCard }</td>
 								</tr>
 								<tr>
-									<td height="40" class="td_mgmt_right3_td1b">身份证扫描件：</td>
-                                    <td><a href="downloaduseridpicture?id=${clientinfo.id }" hidefocus="true"><img src="images/btn_filetype2.png" /></a></td>
+									<td height="40" class="td_mgmt_right3_td1b">公司地址：</td>
+									<td>${detailCompanyCertificate.companyAddr }</td>
+								</tr>
+								<tr>
+									<td height="40" class="td_mgmt_right3_td1b">公司性质：</td>
+									<td>${detailCompanyCertificate.companyType }</td>
+								</tr>
+								<tr>
+									<td height="40" class="td_mgmt_right3_td1b">公司规模：</td>
+									<td>${detailCompanyCertificate.companyScale }</td>
+								</tr>
+
+								<tr>
+									<td height="40" class="td_mgmt_right3_td1b">发票种类：</td>
+									<td>${detailCompanyCertificate.invoiceKind }</td>
+								</tr>
+								<tr>
+									<td height="40" class="td_mgmt_right3_td1b">服务行业：</td>
+                                    <td>${detailCompanyCertificate.serviceIndustry }</td>
+								</tr>
+								<tr>
+									<td height="40" class="td_mgmt_right3_td1b">业务种类：</td>
+									<td>${detailCompanyCertificate.businessKind }</td>
+								</tr>
+								<tr>
+									<td height="40" class="td_mgmt_right3_td1b">联系人：</td>
+									<td>${detailCompanyCertificate.companyContact }</td>
+								</tr>
+								<tr>
+									<td height="40" class="td_mgmt_right3_td1b">手机号：</td>
+									<td>${detailCompanyCertificate.phone }</td>
+								</tr>
+								<tr>
+									<td height="40" class="td_mgmt_right3_td1b">公司基本情况：</td>
+									<td>
+                                    	${detailCompanyCertificate.basicSituation }
+                                    </td>
+								</tr>								<tr>
+									<td height="40" class="td_mgmt_right3_td1b">相关资质材料：</td>
+									<td><a href="downloadcompanycertificatematerial?id=${detailCompanyCertificate.id }" hidefocus="true"><img src="images/btn_filetype2.png" /></a></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">反馈：</td>
 									<td>${userinfo.feedback }</td>
 								</tr>
-								<%-- <tr>
-									<td width="120" height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
-									<td><input type="button" id="btn1" value="通过" class="btn_mgmt1" hidefocus="true" onclick="window.location.href='authenticdetail?clientId=${clientinfo.id }&flag=3'" /><input type="button" id="btn1" value="拒绝" class="btn_mgmt2" hidefocus="true" /></td>
-								</tr> --%>
 							</table>
 						</td>
 					</tr>

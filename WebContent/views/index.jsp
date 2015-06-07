@@ -19,6 +19,7 @@
 <script type="text/javascript" src="js/popup.js"></script>
 <script type="text/javascript" src="js/backtop.js"></script>
 <script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
+<script type="text/javascript" src="js/focus_load.js"></script>
 <script type="text/javascript"> 
 	$(function() {
 		$('input, textarea').placeholder(); 
@@ -27,7 +28,7 @@
 
 </head>
 
-<body>
+<body onload="OnLoad()">
 
 <div id="backtop_item">
     <div class="qqserver">
@@ -192,6 +193,10 @@
 
 </body>
 <script type="text/javascript">
+function OnLoad() {
+	//Rescreen();
+	loadFocus();
+}
 function loadXMLDoc()
 {
 	var message = document.getElementById("message").value;

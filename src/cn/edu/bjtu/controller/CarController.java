@@ -26,6 +26,7 @@ import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.service.DriverService;
 import cn.edu.bjtu.service.FocusService;
 import cn.edu.bjtu.service.LinetransportService;
+import cn.edu.bjtu.util.DownloadFile;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carinfo;
 import cn.edu.bjtu.vo.Carrierinfo;
@@ -682,30 +683,9 @@ public class CarController {
 	 */
 	public ModelAndView downloadIdScans(@RequestParam String id,// GET方式传入，在action中
 			HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("进入删除控制器");
-		System.out.println(id);
 		Driverinfo driverinfo = driverService.getDriverInfo(id);
-		try {
 			String file = driverinfo.getIdscans();
-			File tempFile =new File(file.trim());  	          
-	        String fileName = tempFile.getName();  			
-			InputStream is = new FileInputStream(file);
-			response.reset(); // 必要地清除response中的缓存信息
-			response.setHeader("Content-Disposition", "attachment; filename="
-					+ java.net.URLEncoder.encode(fileName, "UTF-8"));
-			javax.servlet.ServletOutputStream out = response.getOutputStream();
-			byte[] content = new byte[1024];
-			int length = 0;
-			while ((length = is.read(content)) != -1) {
-				out.write(content, 0, length);
-			}
-			out.flush();
-			out.close();
-		} catch (Exception e) {
-			System.out.println("重定向失败");
-			e.printStackTrace();
-		}
-
+			DownloadFile.downloadFile(file,request,response);
 		return mv;
 
 	}

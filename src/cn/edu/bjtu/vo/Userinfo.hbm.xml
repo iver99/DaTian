@@ -71,5 +71,8 @@
         <property name="headIcon" type="string">
             <column name="headIcon" />
         </property>
+        <property name="feedback" type="string">
+            <column name="feedback" />
+        </property>
     </class>
 </hibernate-mapping>

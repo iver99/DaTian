@@ -34,7 +34,7 @@
 <%@ include  file="topFrame.jsp"%>
 
 <div id="main_frame">
-	<a href="mgmt_m.htm" hidefocus="true" class="a_text_main_title1">后台管理</a>&nbsp;&gt;&nbsp;客户服务
+	<a href="allcomplaint" hidefocus="true" class="a_text_main_title1">后台管理</a>&nbsp;&gt;&nbsp;客户服务
     <table width="100%" border="0" cellpadding="0" cellspacing="0">
 		<tr>
 			<td width="230" class="td_leftnav_top">
@@ -42,7 +42,7 @@
                     <span class="text_mgmt_leftnav1"><span id="mgmt_nav_switch1a" class="span_mgmt_nav1" title="收起" onclick="mgmt_nav_switch1a();"></span><span id="mgmt_nav_switch1b" class="span_mgmt_nav2" title="展开" onclick="mgmt_nav_switch1b();"></span>客户服务</span>
                     <div id="mgmt_nav1">
                         <a href="allcomplaint" class="a_mgmt_leftnav" hidefocus="true">投诉管理</a>
-                        <a href="mgmt_m_register.htm" class="a_mgmt_leftnav1" hidefocus="true">用户验证</a>
+                        <a href="authentic" class="a_mgmt_leftnav1" hidefocus="true">用户验证</a>
                     </div>
                     <!-- <hr class="hr_2" />
                     <span class="text_mgmt_leftnav1"><span id="mgmt_nav_switch2a" class="span_mgmt_nav1" title="收起" onclick="mgmt_nav_switch2a();"></span><span id="mgmt_nav_switch2b" class="span_mgmt_nav2" title="展开" onclick="mgmt_nav_switch2b();"></span>平台运营</span>
@@ -53,17 +53,19 @@
                 </div>
 			</td>
 			<td class="td_leftnav_top">
+			<form action="findbyusername" method="post">
             	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right2">
                     <tr>
                     	<td>
                         	<span class="span_mgmt_right2_text1">用户验证</span>
                             <div class="div_mgmt_s1">
-                            	<input type="text" class="input_mgmt1" style="width:200px;" value="用户名..." />
-                                <input type="button" id="btn1" value="查询" class="btn_mgmt3" hidefocus="true" />
+                            	<input type="text" class="input_mgmt1" style="width:200px;" value="用户名" name="username"/>
+                                <input type="submit" id="btn1" value="查询" class="btn_mgmt3" hidefocus="true" />
                             </div>
                         </td>
                 	</tr>
 				</table>
+				</form>
             	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
 					<tr>
                         <td width="20" height="40" class="td_mgmt_right3_head1">&nbsp;</td>
@@ -76,16 +78,47 @@
 					<c:forEach var="validate" items="${validateList }">
 					<tr>
                         <td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
+                        <c:choose>
+                        <c:when test="${validate.userKind=='1' }">
+                        <td class="td_mgmt_right3_td1">管理员</td>
+                        </c:when>
+						<c:when test="${validate.userKind=='2' }">
                         <td class="td_mgmt_right3_td1">个人</td>
+                        </c:when>
+                        <c:when test="${validate.userKind=='3' }">
+                        <td class="td_mgmt_right3_td1">公司</td>
+                        </c:when>
+						</c:choose>
+						
                         <td class="td_mgmt_right3_td1">${validate.username }</td>
                         <td class="td_mgmt_right3_td1">${validate.validateTime }</td>
                         <td class="td_mgmt_right3_td1">${validate.status }</td>
                         <c:choose>
                         <c:when test="${validate.status=='审核中' }">
-                        <td class="td_mgmt_right3_td3"><a href="authenticdetail?clientId=${validate.id }&flag=2" hidefocus="true">审核</a></td>
-						</c:when>
+	                        <c:choose>
+	                        <c:when test="${validate.userKind=='1' }">
+	                        <td class="td_mgmt_right3_td3"><a href="authenticdetailuserpage?userid=${validate.id }" hidefocus="true">审核</a></td>
+							</c:when>
+							<c:when test="${validate.userKind=='2' }">
+	                        <td class="td_mgmt_right3_td3"><a href="authenticdetailuserpage?userid=${validate.id }" hidefocus="true">审核</a></td>
+							</c:when>
+	                        <c:when test="${validate.userKind=='3' }">
+	                        <td class="td_mgmt_right3_td3"><a href="authenticdetailcompanypage?userid=${validate.id }" hidefocus="true">审核</a></td>
+							</c:when>
+							</c:choose>
+                        </c:when>
 						<c:otherwise>
-						<td class="td_mgmt_right3_td3"><a href="authenticview?clientId=${validate.id }" hidefocus="true">查看</a></td>
+							<c:choose>
+	                        <c:when test="${validate.userKind=='1' }">
+	                        <td class="td_mgmt_right3_td3"><a href="authenticview?clientId=${validate.id }&flag=2" hidefocus="true">查看</a></td>
+							</c:when>
+							<c:when test="${validate.userKind=='2' }">
+	                        <td class="td_mgmt_right3_td3"><a href="authenticview?clientId=${validate.id }&flag=2" hidefocus="true">查看</a></td>
+							</c:when>
+	                        <c:when test="${validate.userKind=='3' }">
+	                        <td class="td_mgmt_right3_td3"><a href="authenticview?clientId=${validate.id }&flag=3" hidefocus="true">查看</a></td>
+							</c:when>
+							</c:choose>
 						</c:otherwise>
 						</c:choose>
 					</tr>

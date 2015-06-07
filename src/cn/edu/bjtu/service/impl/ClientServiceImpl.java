@@ -154,9 +154,9 @@ public class ClientServiceImpl implements ClientService{
 	 * 个人用户信息认证
 	 */
 	public boolean validateUser(String userId, String realName, String phone,
-			String IDCard, String sex) {
+			String IDCard, String sex, String path, String fileName) {
 		// TODO Auto-generated method stub
-		return clientDao.validateUser(userId,realName,phone,IDCard,sex);
+		return clientDao.validateUser(userId,realName,phone,IDCard,sex, path, fileName);
 	}
 	@Override
 	/**

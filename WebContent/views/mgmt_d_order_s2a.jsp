@@ -143,8 +143,8 @@
 										<select name="resourceName" style="width:120px;" required>
 											<option value="" selected="selected">请选择</option>
                                             <option value="北京→上海">北京→上海</option>
-                                            <option value="北京→上海">北京→上海</option>
-                                            <option value="北京→上海">北京→上海</option>
+                                            <option value="北京→天津">北京→天津</option>
+                                            <option value="北京→广州">北京→广州</option>
                                         </select>
 									</td>
                                 </tr>

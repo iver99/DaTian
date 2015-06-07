@@ -34,7 +34,7 @@
 <%@ include  file="topFrame.jsp"%>
 
 <div id="main_frame">
-	<a href="mgmt_m.htm" hidefocus="true" class="a_text_main_title1">后台管理</a>&nbsp;&gt;&nbsp;客户服务
+	<a href="allcomplaint" hidefocus="true" class="a_text_main_title1">后台管理</a>&nbsp;&gt;&nbsp;客户服务
     <table width="100%" border="0" cellpadding="0" cellspacing="0">
 		<tr>
 			<td width="230" class="td_leftnav_top">
@@ -42,7 +42,7 @@
                     <span class="text_mgmt_leftnav1"><span id="mgmt_nav_switch1a" class="span_mgmt_nav1" title="收起" onclick="mgmt_nav_switch1a();"></span><span id="mgmt_nav_switch1b" class="span_mgmt_nav2" title="展开" onclick="mgmt_nav_switch1b();"></span>客户服务</span>
                     <div id="mgmt_nav1">
                         <a href="allcomplaint" class="a_mgmt_leftnav" hidefocus="true">投诉管理</a>
-                        <a href="mgmt_m_register.htm" class="a_mgmt_leftnav1" hidefocus="true">用户验证</a>
+                        <a href="authentic" class="a_mgmt_leftnav1" hidefocus="true">用户验证</a>
                     </div>
                     <!-- <hr class="hr_2" />
                     <span class="text_mgmt_leftnav1"><span id="mgmt_nav_switch2a" class="span_mgmt_nav1" title="收起" onclick="mgmt_nav_switch2a();"></span><span id="mgmt_nav_switch2b" class="span_mgmt_nav2" title="展开" onclick="mgmt_nav_switch2b();"></span>平台运营</span>
@@ -64,11 +64,11 @@
 				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
 					<tr>
 						<td class="td_mgmt_right3_td1a"> 
-							<br />   	          
+							<br /> 
 							<table width="90%" border="0" cellspacing="0" cellpadding="0">
 								<tr>
 									<td width="120" height="40" class="td_mgmt_right3_td1b">用户名：</td>
-									<td><%=request.getSession().getAttribute("username") %></td>
+									<td>${userinfo.username }</td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">姓名：</td>
@@ -88,18 +88,20 @@
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">身份证扫描件：</td>
-                                    <td><a href="javascript:;" hidefocus="true"><img src="images/btn_filetype2.png" /></a></td>
+									<td><a href="downloaduseridpicture?id=${clientinfo.id }" hidefocus="true"><img src="images/btn_filetype2.png" /></a></td>
 								</tr>
-								<!-- <tr>
+								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">反馈：</td>
 									<td>
-                                    	<textarea class="textarea_rating" placeholder="请输入内容..."></textarea>
+                                    	<textarea class="textarea_rating" name="feedback" id="feedb1" placeholder="请输入内容..."></textarea>
                                     </td>
-								</tr> -->
+								</tr>
 								<tr>
 									<td width="120" height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
-									<td><input type="button" id="btn1" value="通过" class="btn_mgmt1" hidefocus="true" onclick="window.location.href='authenticdetail?clientId=${clientinfo.id }&flag=3'" />
-									    <input type="button" id="btn1" value="拒绝" class="btn_mgmt2" hidefocus="true" onclick="window.location.href='authenticdetail?clientId=${clientinfo.id }&flag=4'"/></td>
+									<td><input type="button" id="btn1" value="通过" class="btn_mgmt1" 
+									hidefocus="true" onclick="window.location.href='authenticdetail?clientId=${clientinfo.id }&flag=32&feedback='"+document.getElementsById('feedb1') />
+									    <input type="button" id="btn1" value="拒绝" class="btn_mgmt2"
+									     hidefocus="true" onclick="window.location.href='authenticdetail?clientId=${clientinfo.id }&flag=42'"/></td>
 								</tr>
 							</table>
 						</td>

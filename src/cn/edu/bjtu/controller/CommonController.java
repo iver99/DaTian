@@ -98,6 +98,12 @@ public class CommonController {
 		return "register";
 	}
 	
+	@RequestMapping("city")
+	public String getCity()
+	{
+		return "city";
+	}
+	
 	@RequestMapping(value="homepage",method=RequestMethod.GET)
 	/**
 	 * »Øµ½Ê×Ò³

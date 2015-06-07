@@ -31,7 +31,8 @@ public interface ClientService {
 	
 	public String getStatus(String userId);
 	
-	public boolean validateUser(String userId,String realName,String phone,String IDCard,String sex);
+	public boolean validateUser(String userId,String realName,String phone,
+			String IDCard,String sex, String path, String fileName);
 	/**
 	 * 更新个人用户信息
 	 * @param clientinfo

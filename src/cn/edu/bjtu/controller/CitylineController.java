@@ -23,6 +23,7 @@ import cn.edu.bjtu.service.CitylineService;
 import cn.edu.bjtu.service.CommentService;
 import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.service.FocusService;
+import cn.edu.bjtu.util.DownloadFile;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Cityline;
@@ -324,32 +325,9 @@ public class CitylineController {
 	 */
 	public ModelAndView downloadDetailPrice(@RequestParam String id,// GET方式传入，在action中
 			HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("进入删除控制器");
-		System.out.println(id);
 		Cityline citylineInfo = citylineService.getCitylineInfo(id); // 需要重构,返回一条具体的线路不是list
-
-		try {
 			String file = citylineInfo.getDetailPrice();
-			File tempFile =new File(file.trim());  	          
-	        String fileName = tempFile.getName();
-			InputStream is = new FileInputStream(file);
-			response.reset(); // 必要地清除response中的缓存信息
-			response.setHeader("Content-Disposition", "attachment; filename="
-					+ java.net.URLEncoder.encode(fileName, "UTF-8"));
-			javax.servlet.ServletOutputStream out = response.getOutputStream();
-			byte[] content = new byte[1024];
-			int length = 0;
-			while ((length = is.read(content)) != -1) {
-				out.write(content, 0, length);
-			}
-			out.flush();
-			out.close();
-		} catch (Exception e) {
-			System.out.println("重定向失败");
-			e.printStackTrace();
-		}
-
-		//response.setHeader("Content-disposition", "attachment;filename="+ citylineInfo.getDetailPrice());
+			DownloadFile.downloadFile(file,request,response);
 		return mv;
 
 	}

@@ -799,6 +799,7 @@ public class OrderController {
 				e.printStackTrace();
 			}
 		}
+		mv.setViewName("mgmt_d_order_s");
 		return mv;
 	}
 

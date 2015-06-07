@@ -87,7 +87,7 @@ public class ClientDaoImpl extends BaseDaoImpl<Clientinfo> implements ClientDao 
 
 	@Override
 	public boolean validateUser(String userId, String realName, String phone,
-			String IDCard, String sex) {
+			String IDCard, String sex, String path, String fileName) {
 		// TODO Auto-generated method stub
 		Clientinfo clientInfo = ht.get(Clientinfo.class, userId);
 		if (clientInfo == null) {// clientinfo找不到记录
@@ -101,6 +101,10 @@ public class ClientDaoImpl extends BaseDaoImpl<Clientinfo> implements ClientDao 
 		this.update(clientInfo);
 		Userinfo userInfo = ht.get(Userinfo.class, userId);
 		userInfo.setStatus("审核中");
+		if (path != null && fileName != null) {
+			String fileLocation = path + "//" + fileName;
+			clientInfo.setIDPicture(fileLocation);//设置文件上传路径
+		}
 		userinfoDao.update(userInfo);
 
 		// }

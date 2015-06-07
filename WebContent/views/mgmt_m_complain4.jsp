@@ -34,7 +34,7 @@
 <%@ include  file="topFrame.jsp"%>
 
 <div id="main_frame">
-	<a href="mgmt_m.htm" hidefocus="true" class="a_text_main_title1">后台管理</a>&nbsp;&gt;&nbsp;客户服务
+	<a href="allcomplaint" hidefocus="true" class="a_text_main_title1">后台管理</a>&nbsp;&gt;&nbsp;客户服务
     <table width="100%" border="0" cellpadding="0" cellspacing="0">
 		<tr>
 			<td width="230" class="td_leftnav_top">

@@ -17,7 +17,7 @@
 			<%
 				}
 			%>
-			<td class="td_top1a"><span class="span_top1a">&nbsp;&nbsp;&nbsp;&nbsp;北京&nbsp;<a href="city.htm" hidefocus="true">[更换]</a></span></td>
+			<td class="td_top1a"><span class="span_top1a" id="city">&nbsp;&nbsp;&nbsp;&nbsp;北京&nbsp;<a href="city" hidefocus="true">[更换]</a></span></td>
 			<td class="td_top1a" width="90">
             	<div id="topinfo">
                     <ul class="quickmenu">
@@ -112,9 +112,9 @@
                                     <img src="images/illust_1a.png" />
                                     <dl class='fore'>
                                         <dt>推荐</dt>
-                                        <dd><a href="javascript:;" hidefocus="true">北京畅通达物流</a></dd>
-                                        <dd><a href="javascript:;" hidefocus="true">北京畅通达物流</a></dd>
-                                        <dd><a href="javascript:;" hidefocus="true">北京畅通达物流</a></dd>
+                                        <dd><a href="companyDetail?id=C-0001" hidefocus="true">北京市畅通达1</a></dd>
+                                        <dd><a href="companyDetail?id=C-0002" hidefocus="true">北京市畅通达</a></dd>
+                                        <dd><a href="companyDetail?id=C-0003" hidefocus="true">北京圆通</a></dd>
                                     </dl>
                                 </div>
                             </div>
@@ -145,9 +145,9 @@
                                     <img src="images/illust_1b.png" />
                                     <dl class='fore'>
                                         <dt>推荐</dt>
-                                        <dd><a href="javascript:;" hidefocus="true">北京畅通达物流</a></dd>
-                                        <dd><a href="javascript:;" hidefocus="true">北京畅通达物流</a></dd>
-                                        <dd><a href="javascript:;" hidefocus="true">北京畅通达物流</a></dd>
+                                        <dd><a href="companyDetail?id=C-0001" hidefocus="true">北京市畅通达1</a></dd>
+                                        <dd><a href="companyDetail?id=C-0002" hidefocus="true">北京市畅通达</a></dd>
+                                        <dd><a href="companyDetail?id=C-0003" hidefocus="true">北京圆通</a></dd>
                                     </dl>
                                 </div>
                             </div>
@@ -186,9 +186,9 @@
                                     <img src="images/illust_1c.png" />
                                     <dl class='fore'>
                                         <dt>推荐</dt>
-                                        <dd><a href="javascript:;" hidefocus="true">北京畅通达物流</a></dd>
-                                        <dd><a href="javascript:;" hidefocus="true">北京畅通达物流</a></dd>
-                                        <dd><a href="javascript:;" hidefocus="true">北京畅通达物流</a></dd>
+                                        <dd><a href="companyDetail?id=C-0001" hidefocus="true">北京市畅通达1</a></dd>
+                                        <dd><a href="companyDetail?id=C-0002" hidefocus="true">北京市畅通达</a></dd>
+                                        <dd><a href="companyDetail?id=C-0003" hidefocus="true">北京圆通</a></dd>
                                     </dl>
                                 </div>
                             </div>
@@ -226,9 +226,9 @@
                                     <img src="images/illust_1d.png" />
                                     <dl class='fore'>
                                         <dt>推荐</dt>
-                                        <dd><a href="javascript:;" hidefocus="true">北京畅通达物流</a></dd>
-                                        <dd><a href="javascript:;" hidefocus="true">北京畅通达物流</a></dd>
-                                        <dd><a href="javascript:;" hidefocus="true">北京畅通达物流</a></dd>
+                                        <dd><a href="companyDetail?id=C-0001" hidefocus="true">北京市畅通达1</a></dd>
+                                        <dd><a href="companyDetail?id=C-0002" hidefocus="true">北京市畅通达</a></dd>
+                                        <dd><a href="companyDetail?id=C-0003" hidefocus="true">北京圆通</a></dd>
                                     </dl>
                                 </div>
                             </div>
@@ -267,9 +267,9 @@
                                     <img src="images/illust_1f.png" />
                                     <dl class='fore'>
                                         <dt>推荐</dt>
-                                        <dd><a href="javascript:;" hidefocus="true">北京畅通达物流</a></dd>
-                                        <dd><a href="javascript:;" hidefocus="true">北京畅通达物流</a></dd>
-                                        <dd><a href="javascript:;" hidefocus="true">北京畅通达物流</a></dd>
+                                        <dd><a href="companyDetail?id=C-0001" hidefocus="true">北京市畅通达1</a></dd>
+                                        <dd><a href="companyDetail?id=C-0002" hidefocus="true">北京市畅通达</a></dd>
+                                        <dd><a href="companyDetail?id=C-0003" hidefocus="true">北京圆通</a></dd>
                                     </dl>
                                 </div>
                             </div>

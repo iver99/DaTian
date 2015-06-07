@@ -5,11 +5,11 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.AuthenticationDao;
-import cn.edu.bjtu.dao.BaseDao;
 import cn.edu.bjtu.service.AuthenticationService;
 import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.vo.Clientinfo;
@@ -26,6 +26,8 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 	BaseDao baseDao;*/
 	@Resource
 	HQLTool hqltool;
+	@Resource
+	private HibernateTemplate ht;
 
 	private String hql = "";
 	private static boolean flag = false;
@@ -34,7 +36,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 	/**
 	 * 获取所有认证信息
 	 */
-	public List getAllAuthentication() {
+	public List<Userinfo> getAllAuthentication() {
 		// TODO Auto-generated method stub
 		
 		return authenticationDao.getAllAuthentication();
@@ -66,11 +68,17 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 	  * @param clientId
 	  * @param status
 	  */
-	public boolean updateAuthenticStatus(String clientId,String status) {
+	public boolean updateAuthenticStatus(String feedback, String clientId,String status) {
 			// TODO Auto-generated method stub
 		userinfo = getMyUserDetail(clientId);
+		userinfo.setFeedback(feedback);
 		userinfo.setStatus(status);
 		authenticationDao.update(userinfo);//保存实体
 		 return true;
+	}
+	@Override
+	public List getFindUser(String username) {
+		// TODO Auto-generated method stub
+		return authenticationDao.getFindUser(username);
 	}
 }
