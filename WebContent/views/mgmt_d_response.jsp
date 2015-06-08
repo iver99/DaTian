@@ -95,11 +95,11 @@
 										<td class="td_mgmt_right3_td3"><a
 											href="viewResponseInfo?responseid=${resp.responseId }" hidefocus="true">查看</a></td>
 									</c:when>
-									<c:when test="${resp.state=='已确认' }">
+									<c:otherwise>
 										<td class="td_mgmt_right3_td1">${resp.state }</td>
-										<td class="td_mgmt_right3_td3"><a href="viewResponseInfo?responseid=${resp.id }"
+										<td class="td_mgmt_right3_td3"><a href="viewResponseInfo?responseid=${resp.responseId }"
 											hidefocus="true">查看</a></td>
-									</c:when>
+									</c:otherwise>
 									<%-- <c:otherwise>
 									<td class="td_mgmt_right3_td1">${resp.state }</td>
 									<td class="td_mgmt_right3_td3"><a

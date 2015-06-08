@@ -12,7 +12,7 @@ public class GoodsResponseView {
 	private String committer;
 	private String clientId;
 	private String carrierId;
-	private String goodsId;
+	private String goodsId;//»õÎïid
 	private String remarks;
 	private String relatedMaterial;
 	private Date relDate;

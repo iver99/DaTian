@@ -193,6 +193,7 @@ public class GoodsInfoController {
 		String userId = (String) request.getSession().getAttribute("userId");
 
 		List responseList = goodsInfoService.getAllResponse(userId);
+		//responseListÖÐµÄidÊÇgoodsid
 
 		mv.addObject("responseList", responseList);
 		mv.setViewName("mgmt_d_response");

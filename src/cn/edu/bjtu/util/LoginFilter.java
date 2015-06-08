@@ -33,10 +33,10 @@ public class LoginFilter extends OncePerRequestFilter {
 		//System.out.println("正在过滤login");
 		// 不过滤的uri
 		String[] notFilter = new String[] { "login", "loginForm", "register","adminLogin" ,
-				"js" ,"images", "css", "Focus", "foucs", 
+				"js" ,"images", "css", /*"Focus", "foucs",*/ 
 				"focusNum", "homepage", "linetransport", "footer", "cityline",
 				"car", "warehouse", "company", "goodsform", "allcomplaint",
-				"city"
+				"city","usercheck"
 		};
 
 		// 请求的uri
@@ -55,12 +55,10 @@ public class LoginFilter extends OncePerRequestFilter {
 				break;
 			}
 		}
-		if(doFilter == true)
-			System.out.println(">>>>" + uri + ">>>>" + doFilter);
-		//filterChain.doFilter(request, response);
 		if (doFilter) {
 			// 执行过滤
 			// 从session中获取登录者实体
+			System.out.println(">>>>" + uri + ">>>>" + doFilter);
 			Object obj = request.getSession().getAttribute(Constant.USER_NAME);
 			if (null == obj) {
 				request.setCharacterEncoding("UTF-8");

@@ -59,7 +59,7 @@ public class ResponseServiceImpl implements ResponseService{
 			responseDao.update(confirmResp);
 		}
 		
-		String hql="from Response where carrierId=:carrierId and goodsId=:goodsId";
+		String hql="from Response where goodsId=:goodsId and carrierId <>:carrierId";
 		Map<String,Object> params=new HashMap<String,Object>();
 		params.put("carrierId", carrierId);
 		params.put("goodsId", goodsId);

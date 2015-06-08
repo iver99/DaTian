@@ -74,7 +74,7 @@
                         </td>
                     </tr>
                 </table>
-                <form action="createneworder?carrierid=${carrierInfo.id }" method="post">
+                <form action="createNewOrderFromGoods?carrierid=${carrierInfo.id }&responseid=${responseId}&goodsid=${goodsId}" method="post">
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
                     <tr>
                         <td class="td_mgmt_right3_td1a">

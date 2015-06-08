@@ -22,8 +22,10 @@ import cn.edu.bjtu.service.CitylineService;
 import cn.edu.bjtu.service.CommentService;
 import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.service.DriverService;
+import cn.edu.bjtu.service.GoodsInfoService;
 import cn.edu.bjtu.service.LinetransportService;
 import cn.edu.bjtu.service.OrderService;
+import cn.edu.bjtu.service.ResponseService;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carinfo;
 import cn.edu.bjtu.vo.Carrierinfo;
@@ -56,6 +58,10 @@ public class OrderController {
 	CompanyService companyService;
 	@Autowired
 	CommentService commentService;
+	@Autowired
+	GoodsInfoService goodsInfoService;
+	@Autowired
+	ResponseService responseService;
 	
 	@Autowired
 	DriverService driverService;
@@ -725,19 +731,10 @@ public class OrderController {
 		//flag和resourceType中标识1为干线，2为城市，3为车辆,4为公司
 		int resourceType = 0;
 		if(flag==4){
-			//Carinfo carInfo = carService.getCarInfo(resourceId);
-			//resourceType = 3;
-			//mv.addObject("resourceType", resourceType);
-			//mv.addObject("carInfo", carInfo);
-			Carrierinfo company=companyService.getCompanyById(carrierid);
-			mv.addObject("companyName", company.getCompanyName());
+			Carrierinfo carrierInfo=companyService.getCompanyById(carrierid);
+			mv.addObject("carrierInfo", carrierInfo);
 			mv.addObject("carrierId", carrierid);
-			List linetransportList=linetransportService.getAllLinetransportWithoutPage();
-			mv.addObject("linetransportList", linetransportList);
-			List citylineList=citylineService.getAllCitylineWithoutPage();
-			mv.addObject("citylineList", citylineList);
-			List carList=carService.getAllCarWithoutPage();
-			mv.addObject("carList", carList);
+			
 			mv.setViewName("mgmt_d_order_s2a");
 			return mv;
 		}
@@ -808,6 +805,64 @@ public class OrderController {
 				contractId, carrierid,isLinkToClientWayBill,clientWayBillNum,resourceName,resourceType,companyName,clientName);
 		if (flag == true) {
 			// mv.setViewName("mgmt_d_order_s");
+			try {
+				response.sendRedirect("sendorderinfo");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		mv.setViewName("mgmt_d_order_s");
+		return mv;
+	}
+	
+	
+	@RequestMapping("createNewOrderFromGoods")
+	/**
+	 * 从货物页面创建新订单
+	 * @param clientName
+	 * @param hasCarrierContract
+	 * @param senderInfo
+	 * @param receiverInfo
+	 * @param remarks
+	 * @param goodsName
+	 * @param goodsWeight
+	 * @param goodsVolume
+	 * @param declaredPrice
+	 * @param expectedPrice
+	 * @param insurance
+	 * @param contractId
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ModelAndView createNewOrderFromGoods(String carrierid, String clientName,
+			String hasCarrierContract, @RequestParam String deliveryName,
+			@RequestParam String recieverName,
+			@RequestParam String deliveryPhone,
+			@RequestParam String recieverPhone,
+			@RequestParam String deliveryAddr,
+			@RequestParam String recieverAddr, String remarks,
+			String goodsName, float goodsWeight, float goodsVolume,
+			float declaredPrice, float expectedPrice, float insurance,
+			String contractId, HttpServletRequest request,
+			HttpServletResponse response,@RequestParam String isLinkToClientWayBill,
+			@RequestParam(required=false) String clientWayBillNum,String resourceName,String resourceType,String companyName,
+			String responseid,String goodsid) {
+		// 页面有许多字段没有传入
+		// clientName参数里有，但是没有使用
+		String userId = (String) request.getSession().getAttribute("userId");
+		boolean flag = orderService.createNewOrder(userId, hasCarrierContract,
+				deliveryName, recieverName, deliveryPhone, recieverPhone,
+				deliveryAddr, recieverAddr, remarks, goodsName, goodsVolume,
+				goodsWeight, expectedPrice, declaredPrice, insurance,
+				contractId, carrierid,isLinkToClientWayBill,clientWayBillNum,resourceName,resourceType,companyName,clientName);
+		if (flag == true) {
+			//反馈表修改状态
+			responseService.confirmResponse(responseid,carrierid,goodsid);//修改确认反馈信息为已确认，其它反馈信息为已取消状态
+			//货物表修改状态
+			goodsInfoService.confirmResponse(goodsid);
+			
 			try {
 				response.sendRedirect("sendorderinfo");
 			} catch (IOException e) {
