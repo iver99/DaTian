@@ -62,13 +62,6 @@ public class RegisterController {
 			response.setContentType("text/html;charset=UTF-8");
 			response.getWriter().print("false");
 		}
-		//System.out.println("username="+username);
 		return null;
 	}
-	/*@RequestMapping("userdetail")
-	public ModelAndView userValidation()
-	{
-		//Œ¥ µœ÷
-		return mv;
-	}*/
 }

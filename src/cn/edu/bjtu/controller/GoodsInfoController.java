@@ -78,9 +78,7 @@ public class GoodsInfoController {
 	 * @return
 	 */
 	public ModelAndView getAllGoodsDetail(@RequestParam String id) {
-		System.out.println(id);
 		GoodsClientView goodsformInfo = goodsInfoService.getAllGoodsDetail(id);
-		// System.out.println(goodsformInfo);
 		mv.addObject("goodsformInfo", goodsformInfo);
 		mv.setViewName("resource_detail6");
 
@@ -104,7 +102,6 @@ public class GoodsInfoController {
 			@RequestParam int Display, @RequestParam int PageNow,
 			HttpServletRequest request, HttpServletResponse response) {
 
-		System.out.println("进入goodsInfo控制器");
 		try {
 			response.setCharacterEncoding("UTF-8");
 			request.setCharacterEncoding("UTF-8");
@@ -139,7 +136,6 @@ public class GoodsInfoController {
 			@RequestParam String VIPService,
 			@RequestParam(required = false) String VIPServiceDetail,
 			@RequestParam String oriented,
-			@RequestParam(required = false) String orientedUser,
 			@RequestParam String limitDate, @RequestParam String invoice,
 			@RequestParam(required = false) String relatedMaterial,
 			@RequestParam String remarks, HttpServletRequest request,
@@ -149,7 +145,6 @@ public class GoodsInfoController {
 		String clientId = (String) request.getSession().getAttribute("userId");
 		String path = null;
 		String fileName = null;
-		// System.out.println("file+"+file+"filename"+file.getOriginalFilename());//不上传文件还是会显示有值
 		if (file.getSize() != 0)// 有上传文件的情况
 		{
 			path = UploadPath.getGoodsPath();// 不同的地方取不同的上传路径
@@ -161,7 +156,6 @@ public class GoodsInfoController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			// System.out.println("path+fileName+" + path + "-" + fileName);
 		}
 		// 没有上传文件的情况path 和 filenName默认为null
 
@@ -259,7 +253,6 @@ public class GoodsInfoController {
 			HttpServletResponse response) {
 		String clientId = (String) request.getSession().getAttribute("userId");
 		GoodsClientView goodsformInfo = goodsInfoService.getAllGoodsDetail(id);
-		// System.out.println(goodsformInfo);
 		mv.addObject("goodsdetail", goodsformInfo);
 
 		if (flag == 1) {
@@ -283,12 +276,10 @@ public class GoodsInfoController {
 			@RequestParam String VIPService,
 			@RequestParam(required = false) String VIPServiceDetail,
 			@RequestParam(required = false) String oriented,
-			@RequestParam(required = false) String orientedUser,
 			@RequestParam String limitDate, @RequestParam String invoice,
 			@RequestParam(required = false) String relatedMaterial,
 			@RequestParam String remarks, HttpServletRequest request,
 			HttpServletResponse response) {
-		System.out.println("进入货物控制器");
 
 		String clientId = (String) request.getSession().getAttribute("userId");
 

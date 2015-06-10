@@ -71,7 +71,6 @@ public class ContractDaoImpl extends BaseDaoImpl<Contract> implements ContractDa
 	@Override
 	public List getFindContract(String hql, int display, int pageNow) {
 		// TODO Auto-generated method stub
-		//System.out.println("hql+"+hql);
 		int page = pageNow;
 		int pageSize = display;
 		
@@ -81,7 +80,6 @@ public class ContractDaoImpl extends BaseDaoImpl<Contract> implements ContractDa
 	public boolean changeStatus(String id) {
 		// TODO Auto-generated method stub
 		Contract contract = (Contract) ht.get(Contract.class, id);
-		//System.out.println("orderEntity+" + order);
 		String temp="";
 		temp=contract.getState();
 		if(temp.equals("´ýÈ·ÈÏ")){

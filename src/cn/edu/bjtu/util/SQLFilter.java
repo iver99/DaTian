@@ -46,10 +46,6 @@ public class SQLFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
 		// TODO Auto-generated method stub
-		// place your code here
-
-		// pass the request along the filter chain
-		//System.out.println("进入sql注入过滤器");
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
 		Iterator values = req.getParameterMap().values().iterator();// 获取所有的表单参数
@@ -58,7 +54,6 @@ public class SQLFilter implements Filter {
 			for (int i = 0; i < value.length; i++) {
 				if (sql_inj(value[i])) {
 					// TODO这里发现sql注入代码的业务逻辑代码
-					System.out.println("发现sql注入");
 					res.sendRedirect("loginForm");
 					return;
 				}

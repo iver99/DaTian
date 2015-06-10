@@ -39,7 +39,6 @@ public class SubAccountController {
 	{
 		String userId=(String)request.getSession().getAttribute("userId");
 		List subAccountList = subAccountService.getSubAccount(userId);
-		System.out.println("subAccountList+" + subAccountList);
 		mv.addObject("subAccountList", subAccountList);
 		mv.setViewName("mgmt_a_subaccount");
 		return mv;
@@ -57,10 +56,8 @@ public class SubAccountController {
 			HttpServletRequest request,HttpServletResponse response){
 		
 		String userId=(String)request.getSession().getAttribute("userId");
-		//System.out.println("已经进入subaccount控制器");
 
 		List subAccountList = subAccountService.getFindSubAccount(userId, username);
-		//System.out.println("subAccountList+" + subAccountList);
 		mv.addObject("subAccountList", subAccountList);
 		mv.setViewName("mgmt_a_subaccount");
 		return mv;
@@ -79,10 +76,8 @@ public class SubAccountController {
 			HttpServletRequest request,HttpServletResponse response){
 		
 		String userId=(String)request.getSession().getAttribute("userId");
-		//System.out.println("已经进入subaccount控制器");
 
 		SubAccount subAccount = subAccountService.getSubAccountDetail(id);
-		//System.out.println("subAccount+" + subAccount);
 		mv.addObject("subAccount", subAccount);
 		mv.setViewName("mgmt_a_subaccount4");
 		return mv;
@@ -190,7 +185,6 @@ public class SubAccountController {
 		 String hostAccountId=(String)request.getSession().getAttribute("userId");
 		 String hostAccountName=(String)request.getSession().getAttribute("username");
 			
-			//System.out.println("已经进入insertsubaccount控制器");
 			
 			boolean flag = subAccountService.insertSubAccount(username,password,resourceManagement,
 					transactionManagement,schemaManagement,statisticsManagement,remarks,

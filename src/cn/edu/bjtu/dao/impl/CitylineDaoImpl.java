@@ -62,7 +62,6 @@ public class CitylineDaoImpl extends BaseDaoImpl<Cityline> implements CitylineDa
 	@Override
 	public List getSelectedCityline(String hql, int display, int pageNow) {
 		// TODO Auto-generated method stub
-		//System.out.println("hql+"+hql);
 		int page = pageNow;
 		int pageSize = display;
 

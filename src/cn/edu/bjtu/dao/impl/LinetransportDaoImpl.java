@@ -67,7 +67,6 @@ public class LinetransportDaoImpl extends BaseDaoImpl<Linetransport> implements 
 	@Override
 	public List getSelectedLine(String hql, int display, int pageNow) {
 		// TODO Auto-generated method stub
-		// System.out.println("hql+"+hql);
 		int page = pageNow;
 		int pageSize = display;
 

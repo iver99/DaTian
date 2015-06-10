@@ -78,7 +78,6 @@ public class LoginValidationFilter implements Filter {
 		/*if(req.getSession().getAttribute("username").equals("") || 
 				req.getSession().getAttribute("userId").equals(""))
 		{
-			System.out.println("Î´µÇÂ¼£¬Ìø×ªµ½µÇÂ¼Ò³Ãæ");
 			res.sendRedirect("loginForm");
 			return;
 		}*/
@@ -114,7 +113,6 @@ public class LoginValidationFilter implements Filter {
 		/*String uri = request.getServletPath()
 				+ (request.getPathInfo() == null ? "" : request.getPathInfo());*/
 		String uri=request.getPathInfo()+"";
-		System.out.println("uri+"+uri);
 		return notCheckURLList.contains(uri);
 	}
 

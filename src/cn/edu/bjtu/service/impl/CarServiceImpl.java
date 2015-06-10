@@ -86,7 +86,6 @@ public class CarServiceImpl implements CarService {
 		String[] valueList = { carLocation, carBase, carLength, carWeight };
 		String hql = "from CarCarrierView ";// 会变化
 		String sql = HQLTool.spellHql2(hql, paramList, valueList);
-		// System.out.println("hql+" + sql);
 		return carDao.getSelectedCar(sql, Display, PageNow);
 	}
 
@@ -102,7 +101,6 @@ public class CarServiceImpl implements CarService {
 		String[] valueList = { carLocation, carBase, carLength, carWeight };
 		String hql = "from CarCarrierView ";// 会变化
 		String sql = HQLTool.spellHql2(hql, paramList, valueList);
-		// System.out.println("hql+"+sql);
 		return hqltool.getTotalRows(sql);// 这里的HQLTool实例千万不能自己new出来，用@Resource
 	}
 
@@ -179,7 +177,6 @@ public class CarServiceImpl implements CarService {
 			String stopPlace,// 缺少参数
 			String carrierId) {
 		// TODO Auto-generated method stub
-		System.out.println("in updateCar");// null
 		carinfo = getCarInfo(id);// 根据id查找到车辆信息
 		carinfo.setCarTeam(carTeam);
 		carinfo.setLocationType(locType);

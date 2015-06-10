@@ -83,6 +83,15 @@
 		<location>/views/405.jsp</location>
 	</error-page> 
 
+	<!-- listerner配置 -->
+	<!-- log4j配置 -->
+	<context-param>
+	<param-name>log4jConfigLocation</param-name>
+	<param-value>/WEB-INF/log4j.properties</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener> 
 
 
 </web-app>

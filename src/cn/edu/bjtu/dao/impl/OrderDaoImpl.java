@@ -32,8 +32,6 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 	 */
 	public List getAllSendOrderInfo(String userId) {
 		// TODO Auto-generated method stub
-		// System.out.println("dao-userid+"+userId);
-		//return ht.find("from OrderCarrierView where clientId='" + userId + "'");
 		return this.find("from OrderCarrierView where clientId='"+userId+"'");
 
 	}
@@ -61,7 +59,6 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 	@Override
 	public List getCargoTrack(String orderNum, String carNum) {
 		// TODO Auto-generated method stub
-		//System.out.println("from Track where orderNum='" + orderNum + "' and carNum='" + carNum + "'");
 		return ht.find("from Track where orderNum='" + orderNum + "' and carNum='" + carNum + "'");
 	}
 
@@ -88,7 +85,6 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 	public boolean acceptOrder(String orderId) {
 		// TODO Auto-generated method stub
 		Orderform order = this.get(Orderform.class, orderId);
-		//System.out.println("orderEntity+" + order);
 		order.setState("´ýÊÕ»õ");// ÐÞ¸Ä×´Ì¬
 
 		this.update(order);

@@ -33,10 +33,10 @@ public class LoginFilter extends OncePerRequestFilter {
 		//System.out.println("正在过滤login");
 		// 不过滤的uri
 		String[] notFilter = new String[] { "login", "loginForm", "register","adminLogin" ,
-				"js" ,"images", "css", /*"Focus", "foucs",*/ 
+				"js" ,"images", "css", "Focus", "focus", 
 				"focusNum", "homepage", "linetransport", "footer", "cityline",
 				"car", "warehouse", "company", "goodsform", "allcomplaint",
-				"city","usercheck"
+				"city","usercheck","goodsdetail"
 		};
 
 		// 请求的uri

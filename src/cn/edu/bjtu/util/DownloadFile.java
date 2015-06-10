@@ -29,7 +29,6 @@ public class DownloadFile {
 			out.flush();
 			out.close();
 		} catch (Exception e) {
-			System.out.println("÷ÿ∂®œÚ ß∞‹");
 			e.printStackTrace();
 		}
 	}

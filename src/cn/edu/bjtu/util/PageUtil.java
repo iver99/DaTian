@@ -9,20 +9,21 @@ import java.util.List;
  */
 public class PageUtil {
 	//public static final int NUMBERS_PER_PAGE = 10;
-	private int numPerPage;//每页数目
+	
+	
+	private int display;//每页数目
 	private int totalRows;//总记录数
 	private int totalPages;//总页数
 	private int currentPage;//当前页
 	private int startIndex;//记录开始
 	private int lastIndex;//记录结束
-	private List resultList;//返回结果list
 	
 	
-	public int getNumPerPage() {
-		return numPerPage;
+	public int getDisplay() {
+		return display;
 	}
-	public void setNumPerPage(int numPerPage) {
-		this.numPerPage = numPerPage;
+	public void setDisplay(int display) {
+		this.display = display;
 	}
 	public int getTotalRows() {
 		return totalRows;
@@ -53,12 +54,6 @@ public class PageUtil {
 	}
 	public void setLastIndex(int lastIndex) {
 		this.lastIndex = lastIndex;
-	}
-	public List getResultList() {
-		return resultList;
-	}
-	public void setResultList(List resultList) {
-		this.resultList = resultList;
 	}
 	
 	

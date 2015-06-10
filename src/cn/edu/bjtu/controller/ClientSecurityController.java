@@ -31,7 +31,6 @@ public class ClientSecurityController {
 	 */
 	public ModelAndView getMySercurityPage(HttpSession session) {
 		String userId = (String) session.getAttribute("userId");
-		// System.out.println("userId+"+userId);
 		Userinfo userinfo = clientSecurityService.getUserById(userId);
 		mv.addObject("userinfo", userinfo);
 		mv.setViewName("mgmt_a_security");

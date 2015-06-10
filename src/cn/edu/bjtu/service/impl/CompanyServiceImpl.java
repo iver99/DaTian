@@ -111,7 +111,6 @@ public class CompanyServiceImpl implements CompanyService{
 			sql=HQLTool.spellHql2(hql,paramList, valueList);
 		}
 		
-		//System.out.println("hql+" + sql);
 		return companyDao.getSelectedCompany(sql,Display,PageNow);
 	}
 	
@@ -172,7 +171,6 @@ public class CompanyServiceImpl implements CompanyService{
 			String hql="from Carrierinfo ";//会变化
 			sql=HQLTool.spellHql2(hql,paramList, valueList);
 		}
-		//System.out.println("hql+"+sql);
 		return hqltool.getTotalRows(sql);//这里的HQLTool实例千万不能自己new出来，用@Resource
 	}
 	

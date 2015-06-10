@@ -120,7 +120,6 @@ public class BusinessClientController {
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				// 此处应该记录日志
-				System.out.println("client插入后重定向失败");
 				e.printStackTrace();
 			}
 		} else
@@ -167,7 +166,6 @@ public class BusinessClientController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			// System.out.println("path+fileName+" + path + "-" + fileName);
 		}
 		// 没有上传文件的情况path 和 filenName默认为null
 
@@ -176,7 +174,6 @@ public class BusinessClientController {
 		
 		boolean flag = clientService.updateBusinessClient(id, account, clientName,
 				clientBusiness, contact, phone, remarks, carrierId,path,fileName);
-		System.out.println("flag+" + flag);
 		if (flag == true) {
 			try {
 				response.sendRedirect("client");// 重定向，显示最新的结果
@@ -184,7 +181,6 @@ public class BusinessClientController {
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				// 此处应该记录日志
-				System.out.println("client更新后重定向失败");
 				e.printStackTrace();
 			}
 		} else
@@ -206,7 +202,6 @@ public class BusinessClientController {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				// 此处应该记录日志
-				System.out.println("删除后重定向失败");
 				e.printStackTrace();
 			}
 		} else

@@ -41,17 +41,21 @@ public class FocusController {
 	public String insertFocus(
 			HttpServletRequest request,HttpServletResponse response) throws Exception{
 			String clientId=(String)request.getSession().getAttribute("userId");
+			//String userKind=(String)request.getSession().getAttribute("useKind");
+			
 			if(clientId==null)
 			{
 				response.setContentType("text/html;charset=UTF-8");
 			    response.getWriter().print("login");
 				return null;
 			}
-			System.out.println(clientId);
+			/*//保险起见 add by RussWest0 at 2015年6月8日,下午11:08:13 
+			if(userKind==null){
+				response.sendRedirect("loginForm");
+			}*/
 			String focusType = request.getParameter("type");
 			String foucsId = request.getParameter("id");
 			List focusJudgement = focusService.getFocusJudgement(clientId,focusType,foucsId);
-			//System.out.println("focusJudgement="+focusJudgement);
 			boolean flag = true;
 			if(focusJudgement.isEmpty())
 			{
@@ -65,21 +69,8 @@ public class FocusController {
 				flag = focusService.deleteFocus(focus.getId());
 				response.setContentType("text/html;charset=UTF-8");
 			    response.getWriter().print("delete");
-				//System.out.println(focus.getId());
 			}
-			//boolean flag = focusService.insertFocus(clientId,focusType,foucsId);
-/*				try {
-					if (flag == true)
-						response.sendRedirect("getaddress");
-					else
-						System.out.println("添加失败");// 应记录日志
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					// 此处应记录日志
-					e.printStackTrace();
-
-				}*/
-				
+			
 			return null;
 		}
 	

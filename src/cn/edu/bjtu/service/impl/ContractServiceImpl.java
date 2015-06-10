@@ -103,12 +103,9 @@ public class ContractServiceImpl implements ContractService{
 	 */
 	public List getFindContract(String clientId,String startDate,String endDate,String name,int Display,int PageNow){
 		String sql="from Contract where clientId='"+clientId+"' and ";
-		System.out.println("name1="+name+"startDate="+startDate+"endDate="+endDate);
 		if(name.equals("合同名称")){
 			//查找时不考虑合同名字
-			System.out.println("name2="+name);
 			name = "";
-			System.out.println("name3="+name);
 		}
 		if(!startDate.equals("开始时间")){
 			if(!endDate.equals("结束时间")){
@@ -140,12 +137,9 @@ public class ContractServiceImpl implements ContractService{
 	 */
 	public List getFindContract2(String carrierId,String startDate,String endDate,String name,int Display,int PageNow){
 		String sql="from Contract where carrierId='"+carrierId+"' and ";
-		System.out.println("name1="+name+"startDate="+startDate+"endDate="+endDate);
 		if(name.equals("合同名称")){
 			//查找时不考虑合同名字
-			System.out.println("name2="+name);
 			name = "";
-			System.out.println("name3="+name);
 		}
 		if(!startDate.equals("开始时间")){
 			if(!endDate.equals("结束时间")){
@@ -177,12 +171,9 @@ public class ContractServiceImpl implements ContractService{
 	 */
 	public int getFindContractTotalRows(String carrierId,String startDate,String endDate,String name,int Display,int PageNow){
 		String sql="from Contract where carrierId='"+carrierId+"' and ";
-		//System.out.println("name1="+name);
 		if(name.equals("合同名称")){
 			//查找时不考虑合同名字
-			//System.out.println("name2="+name);
 			name = "";
-			//System.out.println("name3="+name);
 		}
 		if(!startDate.equals("开始时间")){
 			if(!endDate.equals("结束时间")){

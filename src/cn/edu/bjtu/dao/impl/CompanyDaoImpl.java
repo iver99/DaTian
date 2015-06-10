@@ -59,7 +59,6 @@ public class CompanyDaoImpl extends BaseDaoImpl<Carrierinfo> implements CompanyD
 	 */
 	public List getSelectedCompany(String hql, int display, int pageNow) {
 		// TODO Auto-generated method stub
-		//System.out.println("hql+"+hql);
 		int page = pageNow;
 		int pageSize = display;
 

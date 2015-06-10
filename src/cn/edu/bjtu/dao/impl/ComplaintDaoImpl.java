@@ -37,7 +37,7 @@ public class ComplaintDaoImpl extends BaseDaoImpl<Complaintform> implements Comp
 	
 	@Override
 	public Complaintform getComplaintInfo(String id) {
-		return ht.get(Complaintform.class, id);
+		return this.get(Complaintform.class, id);
 	}
 	
 	@Override

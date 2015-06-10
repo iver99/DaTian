@@ -1,19 +1,15 @@
 package cn.edu.bjtu.service.impl;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import cn.edu.bjtu.dao.BaseDao;
+import cn.edu.bjtu.bean.page.ComplaintBean;
 import cn.edu.bjtu.dao.ComplaintDao;
-import cn.edu.bjtu.dao.ContractDao;
 import cn.edu.bjtu.service.ComplaintService;
 import cn.edu.bjtu.service.OrderService;
 import cn.edu.bjtu.util.IdCreator;
@@ -52,20 +48,20 @@ public class ComplaintServiceImpl implements ComplaintService {
 	/**
 	 * 新增投诉
 	 */
-	public boolean insertComplaint(String type, String theme,
-			String content, String orderNum, String carrierId, String path, String fileName) {
+	public boolean insertComplaint(ComplaintBean complaintBean, String carrierId, String path, String fileName) {
 		// TODO Auto-generated method stub
 
 		complaintform.setId(IdCreator.createCityLineId());
-		complaintform.setType(type);
-		complaintform.setTheme(theme);
-		complaintform.setContent(content);
-
+		complaintform.setType(complaintBean.getType());
+		complaintform.setTheme(complaintBean.getTheme());
+		complaintform.setContent(complaintBean.getContent());
+		complaintform.setOrderId(complaintBean.getOrderId());
+		
 		complaintform.setCarrierId(carrierId);
 		complaintform.setClientId(carrierId);
 		complaintform.setRelDate(new Date());
 		// add by RussWest0 at 2015年5月30日,下午10:05:22
-		complaintform.setOrderId(orderNum);
+		
 		// 保存文件路径
 		if (path != null && fileName != null) {
 			String fileLocation = path + "//" + fileName;

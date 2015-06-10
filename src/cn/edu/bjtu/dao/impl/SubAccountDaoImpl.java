@@ -50,7 +50,6 @@ public class SubAccountDaoImpl extends BaseDaoImpl<SubAccount> implements SubAcc
 	public boolean changeStatus(String id){
 		
 		SubAccount subAccount = (SubAccount) ht.get(SubAccount.class, id);
-		//System.out.println("orderEntity+" + order);
 		String temp="";
 		temp=subAccount.getStatus();
 		if(temp.equals("“—Õ£”√")){

@@ -98,7 +98,6 @@ public class ClientController {
 		// ////////////////////////////////////////////
 		String path = null;
 		String fileName = null;
-		// System.out.println("file+"+file+"filename"+file.getOriginalFilename());//不上传文件还是会显示有值
 		if (file.getSize() != 0)// 有上传文件的情况
 		{
 			path = UploadPath.getClientPath();// 不同的地方取不同的上传路径
@@ -110,7 +109,6 @@ public class ClientController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			// System.out.println("path+fileName+" + path + "-" + fileName);
 		}
 		// 没有上传文件的情况path 和 filenName默认为null
 
@@ -122,7 +120,6 @@ public class ClientController {
 				response.sendRedirect("accountinfo");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				System.out.println("验证账户出错");//logging
 				e.printStackTrace();
 			}
 		}else{//验证账户出错
@@ -215,7 +212,6 @@ public class ClientController {
 			HttpServletRequest request, HttpServletResponse response) {
 			Clientinfo clientinfo = clientService.getClientInfo(id);
 			String file = clientinfo.getIDPicture();
-			System.out.println(file);
 			DownloadFile.downloadFile(file,request,response);
 		return mv;
 

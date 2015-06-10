@@ -78,12 +78,13 @@
 									<td>${complaintInfo.content }</td>
 								</tr>
 								<tr>
-									<td height="40" class="td_mgmt_right3_td1b">订单编号：</td>
-									<td><a href="javascript:;">${orderinfo.orderNum }</a></td>
+									<td height="40" class="td_mgmt_right3_td1b">订单ID/订单编号：</td>
+									<td>${complaintInfo.orderId }/${orderinfo.orderNum }</td>
 								</tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">相关材料：</td>
-                                    <td><a href="javascript:;" hidefocus="true"><img src="images/btn_filetype2.png" /></a></td>
+                                     <td><a href="downloadComplaintMaterial?complaintid=${complaintInfo.id }" hidefocus="true"><img src="images/btn_filetype2.png" /></a></td> 
+                               		<!-- <td><a href="#" hidefocus="true"><img src="images/btn_filetype2.png" /></a></td> -->
                                 </tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b"><span style="color:#f39725;">反馈：</span></td>

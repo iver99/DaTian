@@ -145,19 +145,19 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">发送对象：</td>
                                     <td>
-                                        <select id="valueadd" style="width:110px;" name="oriented" onchange="change1();" required>
+                                        <select id="valueadd" style="width:110px;" name="oriented" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="用户">用户</option>
                                             <option value="平台">平台</option>
                                         </select>
-                                        <div id="v_detail" style="display:none;">
+                                        <!-- <div id="v_detail" style="display:none;">
                                             <select style="width:93px;" name="user">
                                                 <option name="orienteUser" value="" selected="selected">请选择</option>
                                                 <option value="全体用户">全体用户</option>
                                                 <option value="承运方">承运方</option>
                                                 <option value="大田分公司">大田分公司</option>
                                             </select>
-                                        </div>
+                                        </div> -->
                                     </td>
                                 </tr>
                                 <tr>

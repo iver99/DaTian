@@ -119,7 +119,6 @@ public class LoginController {
 		int num = focusList.size();
 		response.setContentType("text/html;charset=UTF-8");
 		response.getWriter().print(num);
-		//System.out.println("username="+username);
 		return null;
 	}
 }

@@ -68,6 +68,9 @@
         <property name="state" type="string">
             <column name="state" />
         </property>
+        <property name="vipServiceDetail" type="string">
+            <column name="VIPServiceDetail" />
+        </property>
         
       <!--   <property name="carrierId" type="string">
             <column name="carrierId" />

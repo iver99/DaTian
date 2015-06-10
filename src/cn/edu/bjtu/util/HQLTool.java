@@ -20,7 +20,6 @@ public class HQLTool {
 	public HibernateTemplate ht;
 	
 	public static HQL_POJO spellHql(HQL_POJO hql) {
-		//System.out.println("flag+" + flag);
 		if (hql.flag == false) {
 			hql.hql = " where ";
 			hql.flag = true;
@@ -39,7 +38,6 @@ public class HQLTool {
 	 */
 	public int getTotalRows(String hql) {
 		int count = 0;
-		//System.out.println("ht+"+ht);
 		List list = ht.find("select count(*) " + hql);
 		if (list != null)
 			count = ((Number) list.get(0)).intValue();

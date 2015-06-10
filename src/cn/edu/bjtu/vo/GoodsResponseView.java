@@ -18,7 +18,7 @@ public class GoodsResponseView {
 	private Date relDate;
 	
 	private String id ;//货物id
-	private String state;//货物状态
+	private String status;//反馈状态
 	private String name;//货物名称
 	
 	
@@ -89,11 +89,12 @@ public class GoodsResponseView {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getState() {
-		return state;
+	public String getStatus() {
+		return status;
 	}
-	public void setState(String state) {
-		this.state = state;
+	public void setStatus(String status) {
+		this.status = status;
 	}
+	
 
 }

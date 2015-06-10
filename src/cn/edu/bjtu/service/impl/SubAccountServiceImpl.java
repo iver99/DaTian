@@ -50,13 +50,10 @@ public class SubAccountServiceImpl implements SubAccountService{
 	@Override
 	public List getFindSubAccount(String userId, String username){
 		String sql="from SubAccount where hostAccountId='"+userId+"' ";
-		System.out.println("name="+username);
 		
 		if(username.equals("账户名称")){
 			//查找时不考虑用户名字
-			System.out.println("name2="+username);
 			username = "";
-			System.out.println("name3="+username);
 			sql+=" and username like '%"+username+"%' ";
 		}
 		else if(username.contains("-")){
@@ -137,10 +134,6 @@ public class SubAccountServiceImpl implements SubAccountService{
 			String transactionManagement,String schemaManagement,
 			String statisticsManagement,String remarks){
 		
-		System.out.println("resourceManagement"+resourceManagement);
-		System.out.println("transactionManagement"+transactionManagement);
-		System.out.println("schemaManagement"+schemaManagement);
-		System.out.println("statisticsManagement"+statisticsManagement);
 		if(resourceManagement==null){
 			resourceManagement = new String("无");}
 		else if (resourceManagement.equals("on"))

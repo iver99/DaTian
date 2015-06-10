@@ -53,7 +53,6 @@ public class ContractController {
 		String clientId=(String)request.getSession().getAttribute("userId");
 		//String carrierId = "C-0002";
 		List contractList = contractService.getCompanyContractForUser(clientId);
-		System.out.println("contractList+" + contractList);
 		mv.addObject("contractList", contractList);
 		
 		List companyList = companyService.getAllCompanyWithoutPage();
@@ -75,7 +74,6 @@ public class ContractController {
 		String carrierId=(String)request.getSession().getAttribute("userId");
 		//String carrierId = "C-0002";
 		List contractList = contractService.getCompanyContract(carrierId);
-		System.out.println("contractList+" + contractList);
 		mv.addObject("contractList", contractList);
 		Carrierinfo carrierInfo = companyService.getCompanyById(carrierId);
 		mv.addObject("carrierInfo", carrierInfo);
@@ -160,7 +158,6 @@ public class ContractController {
 
 		String path = null;
 		String fileName = null;
-		// System.out.println("file+"+file+"filename"+file.getOriginalFilename());//不上传文件还是会显示有值
 		if (file.getSize() != 0)// 有上传文件的情况
 		{
 			path = UploadPath.getContactPath();// 不同的地方取不同的上传路径
@@ -172,7 +169,6 @@ public class ContractController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			// System.out.println("path+fileName+" + path + "-" + fileName);
 		}
 		// 没有上传文件的情况path 和 filenName默认为null
 
@@ -189,7 +185,6 @@ public class ContractController {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				// 此处应该记录日志
-				System.out.println("contract插入后重定向失败");
 				e.printStackTrace();
 			}
 		} else
@@ -216,7 +211,6 @@ public class ContractController {
 				response.sendRedirect("contract");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				System.out.println("终止合同失败");
 				e.printStackTrace();
 			}
 		else if(flag==true&&rorsflag==2)
@@ -224,7 +218,6 @@ public class ContractController {
 				response.sendRedirect("contract2");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				System.out.println("终止合同失败");
 				e.printStackTrace();
 			}
 		return mv;
@@ -241,7 +234,6 @@ public class ContractController {
 		int PageNow=1;//默认的当前页面
 		int Display=10;//默认的每页大小
 		
-		System.out.println("进入contract控制器");
 		try {
 			response.setCharacterEncoding("UTF-8");
 			request.setCharacterEncoding("UTF-8");
@@ -261,10 +253,7 @@ public class ContractController {
 		mv.addObject("carrierInfo", carrierInfo);*/
 		
 		int count = contractService.getFindContractTotalRows(clientId, startDate, endDate, name, Display, PageNow);// 获取查询总记录数
-		System.out.println("coount+"+count);
 		int pageNum = (int) Math.ceil(count * 1.0 / Display);// 页数
-		System.out.println("总记录数+"+count);
-		System.out.println("页数+"+pageNum);
 		mv.addObject("count", count);
 		mv.addObject("pageNum", pageNum);
 		mv.addObject("pageNow", PageNow);
@@ -281,10 +270,7 @@ public class ContractController {
 			mv.addObject("carrierInfo", carrierInfo);*/
 			
 			int count = contractService.getFindContractTotalRows(carrierId, startDate, endDate, name, Display, PageNow);// 获取查询总记录数
-			System.out.println("coount+"+count);
 			int pageNum = (int) Math.ceil(count * 1.0 / Display);// 页数
-			System.out.println("总记录数+"+count);
-			System.out.println("页数+"+pageNum);
 			mv.addObject("count", count);
 			mv.addObject("pageNum", pageNum);
 			mv.addObject("pageNow", PageNow);

@@ -194,19 +194,19 @@
                                     <td>
                                     <c:choose>
                                     <c:when test="${goodsdetail.oriented == '用户' }">
-                       				<select name="oriented" id="valueadd" style="width:110px;" onchange="change1();" required>
+                       				<select name="oriented" id="valueadd" style="width:110px;" required>
                                             <option value="">请选择</option>
                                             <option value="用户" selected="selected">用户</option>
                                             <option value="平台">平台</option>
                                         </select>
-                                        <div id="v_detail" style="display:none;">
+                                        <<!-- div id="v_detail" style="display:none;">
                                             <select name="orientedUser" style="width:93px;">
                                                 <option value="" selected="selected">请选择</option>
                                                 <option value="全体用户">全体用户</option>
                                                 <option value="承运方">承运方</option>
                                                 <option value="大田分公司">大田分公司</option>
                                             </select>
-                                        </div>
+                                        </div> -->
 									</c:when>
 									<c:when test="${goodsdetail.oriented == '平台' }">
                        				<select name="oriented" id="valueadd" style="width:110px;" onchange="change1();" required>

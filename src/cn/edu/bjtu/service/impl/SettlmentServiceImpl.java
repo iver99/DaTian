@@ -26,12 +26,9 @@ public class SettlmentServiceImpl implements SettlementService{
 	public List getFindSettlement(String carrierId, String name, int display, int pageNow) {
 		// TODO Auto-generated method stub
 		String sql="from SettlementCarrierView where carrierId='"+carrierId+"' and ";
-		System.out.println("name1="+name);
 		if(name.equals("承运方名称或承运方合同编号")){
 			//查找时不考虑合同名字
-			System.out.println("name2="+name);
 			name = "";
-			System.out.println("name3="+name);
 		}
 		//没有时间限制
 		sql+=" (companyName like '%"+name+"%' or contractId like '%"+name+"%')";
@@ -43,9 +40,7 @@ public class SettlmentServiceImpl implements SettlementService{
 		String sql="from SettlementCarrierView where carrierId='"+carrierId+"' and ";
 		if(name.equals("承运方名称或承运方合同编号")){
 			//查找时不考虑合同名字
-			System.out.println("name2="+name);
 			name = "";
-			System.out.println("name3="+name);
 		}
 		//没有时间限制
 		sql+=" (companyName like '%"+name+"%' or contractId like '%"+name+"%')";

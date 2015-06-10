@@ -95,7 +95,6 @@ public class OrderController {
 	public ModelAndView getAllRecieveOrderInfo(HttpServletRequest request,
 			HttpServletResponse response) {
 		String userId = (String) request.getSession().getAttribute("userId");
-		// System.out.println("userId+" + userId);
 		List orderList = orderService.getAllRecieveOrderInfo(userId);
 		mv.addObject("receiveOrderList", orderList);
 		mv.setViewName("mgmt_d_order_r");
@@ -110,7 +109,6 @@ public class OrderController {
 	 * @return
 	 */
 	public ModelAndView getSendOrderDetail(@RequestParam String id) {
-		// System.out.println(id);// ///
 		OrderCarrierView sendorderdetail = orderService.getSendOrderDetail(id);
 		mv.addObject("sendorderdetail", sendorderdetail);
 
@@ -126,7 +124,6 @@ public class OrderController {
 	 * @return
 	 */
 	public ModelAndView getAllRecieveOrderDetail(@RequestParam String id) {
-		System.out.println(id);
 		Orderform recieveorderdetail = orderService.getRecieveOrderDetail(id);
 		mv.addObject("recieveorderdetail", recieveorderdetail);
 		mv.setViewName("mgmt_d_order_r3");
@@ -359,8 +356,6 @@ public class OrderController {
 		// 修改订单状态为已完成
 		// 存储评价内容
 		// 评价页面错误
-		System.out.println("service attitude+" + serviceAttitude);
-		System.out.println("cargoSafety+" + cargoSafety);
 
 		return mv;
 	}
@@ -402,7 +397,6 @@ public class OrderController {
 			HttpServletRequest request, HttpServletResponse response
 
 	) {
-		// System.out.println("进入order更新控制器");
 		String carrierId = (String) request.getSession().getAttribute("userId");
 		// 字符串拆解
 		
@@ -418,7 +412,6 @@ public class OrderController {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				// 此处应该记录日志
-				System.out.println("order待受理更新后重定向失败");
 				e.printStackTrace();
 			}
 		} else

@@ -70,7 +70,6 @@ public class GoodsInfoDaoImpl extends BaseDaoImpl<Goodsform> implements GoodsInf
 	@Override
 	public List getSelectedGoodsInfo(String hql, int display, int pageNow) {
 		// TODO Auto-generated method stub
-		// System.out.println("hql+"+hql);
 		int page = pageNow;
 		int pageSize = display;
 

@@ -64,7 +64,6 @@ public class OrderServiceImpl implements OrderService {
 			float goodsWeight, float goodsVolume, float expectedPrice,
 			float insurance, float freight, String contractId, String remarks) {
 		// TODO Auto-generated method stub
-		System.out.println("insertOrder");
 		orderform.setId(IdCreator.createlineTransportId());
 		orderform.setGoodsName(goodsName);
 		// orderform.setContactWaybill(contactWaybill);
@@ -190,7 +189,7 @@ public class OrderServiceImpl implements OrderService {
 		if (isLinkToClientWayBill.contains(",")) {//没有关联客户账单，进来的字符串是"无," 
 			temp = isLinkToClientWayBill.split(",");
 			if (temp.length == 2) {//有关联客户运单
-				clientWayBillNum = temp[2];
+				clientWayBillNum = temp[1];
 			}
 		} 
 

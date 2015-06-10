@@ -87,7 +87,6 @@ public class AuthenticationController {
 			mv.addObject("detailCompanyCertificate", companycertificate);
 			mv.setViewName("mgmt_m_register3");
 		} else if (flag == 32) {//…Û∫À∏ˆ»À
-			System.out.println("feedback"+feedback);
 			boolean judge = authenticationService.updateAuthenticStatus(feedback,
 					clientId, "“—…Û∫À");
 			try {

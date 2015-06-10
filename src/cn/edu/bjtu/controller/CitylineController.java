@@ -95,17 +95,14 @@ public class CitylineController {
 			@RequestParam("carrierId") String carrierId,
 			@RequestParam("flag") int flag,
 			HttpServletRequest request) {
-		System.out.println("citylineid+" + citylineId);
 		Cityline citylineInfo = citylineService.getCitylineInfo(citylineId); // 需要重构,返回一条具体的线路不是list
 		String clientId = (String) request.getSession().getAttribute("userId");
 		List focusList = focusService.getFocusList(clientId,"cityline");
-		System.out.println("focusList+" + focusList);
 		mv.addObject("focusList", focusList);
 		mv.addObject("citylineInfo", citylineInfo);
 		if (flag == 0) {
 			Carrierinfo carrierInfo = companyService.getCompanyById(carrierId);
 			List<Comment> commentList=commentService.getCitylineCommentById(citylineId,carrierId);
-			System.out.println("commentList+" + commentList);
 			mv.addObject("commentList",commentList);
 			mv.addObject("carrierInfo", carrierInfo);
 			mv.setViewName("resource_detail2");// 资源栏点击详情的页面
@@ -133,7 +130,6 @@ public class CitylineController {
 			@RequestParam int Display, @RequestParam int PageNow,
 			HttpServletRequest request, HttpServletResponse response) {
 
-		System.out.println("进入cityline控制器");
 		try {
 			response.setCharacterEncoding("UTF-8");
 			request.setCharacterEncoding("UTF-8");
@@ -141,16 +137,12 @@ public class CitylineController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// System.out.println("已经进入控制器");
 
 		List citylineList = citylineService.getSelectedCityline(cityName,
 				VIPService, refPrice, Display, PageNow);
 		int count = citylineService
 				.getTotalRows(cityName, VIPService, refPrice);// 获取总记录数
-		// System.out.println("coount+"+count);
 		int pageNum = (int) Math.ceil(count * 1.0 / Display);// 页数
-		// System.out.println("总记录数+"+count);
-		// System.out.println("页数+"+pageNum);
 		mv.addObject("citylineList", citylineList);
 		mv.addObject("count", count);
 		mv.addObject("pageNum", pageNum);
@@ -184,13 +176,10 @@ public class CitylineController {
 		 * boolean flag = linetransportService.insertLine(lineName, startPlace,
 		 * endPlace, onWayTime, type, refPrice, remarks, carrierId);
 		 */
-		System.out.println("vipdetail+" + VIPDetail);
 
-		// ////////////////////////////////////////////////////////////////////////
 
 		String path = null;
 		String fileName = null;
-		// System.out.println("file+"+file+"filename"+file.getOriginalFilename());//不上传文件还是会显示有值
 		if (file.getSize() != 0)// 有上传文件的情况
 		{
 			path = UploadPath.getCitylinePath();// 不同的地方取不同的上传路径
@@ -202,7 +191,6 @@ public class CitylineController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			// System.out.println("path+fileName+" + path + "-" + fileName);
 			// //////////////////////////////////////////////////////////////////
 		}
 
@@ -216,7 +204,6 @@ public class CitylineController {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				// 此处应该记录日志
-				System.out.println("cityline插入后重定向失败");
 				e.printStackTrace();
 			}
 		} else
@@ -254,7 +241,6 @@ public class CitylineController {
 		// ////////////////////////////////////////////
 		String path = null;
 		String fileName = null;
-		// System.out.println("file+"+file+"filename"+file.getOriginalFilename());//不上传文件还是会显示有值
 		if (file.getSize() != 0)// 有上传文件的情况
 		{
 			path = UploadPath.getCitylinePath();// 不同的地方取不同的上传路径
@@ -266,7 +252,6 @@ public class CitylineController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			// System.out.println("path+fileName+" + path + "-" + fileName);
 		}
 		// 没有上传文件的情况path 和 filenName默认为null
 
@@ -282,7 +267,6 @@ public class CitylineController {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				// 此处应该记录日志
-				System.out.println("cityline更新后重定向失败");
 				e.printStackTrace();
 			}
 		} else
@@ -297,11 +281,6 @@ public class CitylineController {
 	 */
 	public ModelAndView deleteCityline(@RequestParam String id,// GET方式传入，在action中
 			HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("进入删除控制器");
-		System.out.println(id);
-		// 此处获取session里的carrierid，下面方法增加一个参数
-		// String carrierId=(String)request.getSession().getAttribute("userId");
-		// String carrierId = "C-0002";// 删除
 		boolean flag = citylineService.deleteCityline(id);
 		if (flag == true) {
 			// mv.setViewName("mgmt_r_line");
@@ -310,7 +289,6 @@ public class CitylineController {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				// 此处应该记录日志
-				System.out.println("删除后重定向失败");
 				e.printStackTrace();
 			}
 		} else

@@ -47,7 +47,6 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 		String [] valueList={startPlace,endPlace,transportType};
 		String hql="from GoodsClientView ";//会变化
 		String sql=HQLTool.spellHql2(hql,paramList, valueList);
-		//System.out.println("hql+" + sql);
 		return goodsinfoDao.getSelectedGoodsInfo(sql,Display,PageNow);
 	}
 	
@@ -61,7 +60,6 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 		String [] valueList={startPlace,endPlace,transportType};
 		String hql="from GoodsClientView ";//会变化
 		String sql=HQLTool.spellHql2(hql,paramList, valueList);
-		//System.out.println("hql+"+sql);
 		return hqltool.getTotalRows(sql);//这里的HQLTool实例千万不能自己new出来，用@Resource
 	}
 	

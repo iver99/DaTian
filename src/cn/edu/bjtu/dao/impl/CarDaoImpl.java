@@ -81,7 +81,6 @@ public class CarDaoImpl extends BaseDaoImpl<Carinfo> implements CarDao{
 	@Override
 	public List getSelectedCar(String hql, int display, int pageNow) {
 		// TODO Auto-generated method stub
-		//System.out.println("hql+"+hql);
 		int page = pageNow;
 		int pageSize = display;
 

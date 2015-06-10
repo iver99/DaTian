@@ -54,7 +54,6 @@ public class SettlementController {
 		int PageNow=1;//默认的当前页面
 		int Display=10;//默认的每页大小
 		
-		System.out.println("进入Settlement控制器");
 		try {
 			response.setCharacterEncoding("UTF-8");
 			request.setCharacterEncoding("UTF-8");
@@ -62,7 +61,6 @@ public class SettlementController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//System.out.println("已经进入控制器");
 
 		String carrierId=(String)request.getSession().getAttribute("userId");
 		//String carrierId = "C-0002";
@@ -71,10 +69,7 @@ public class SettlementController {
 		mv.addObject("orderList", settlementList);
 		
 		int count = settlementService.getFindSettlementTotalRows(carrierId, name, Display, PageNow);// 获取查询总记录数
-		System.out.println("coount+"+count);
 		int pageNum = (int) Math.ceil(count * 1.0 / Display);// 页数
-		System.out.println("总记录数+"+count);
-		System.out.println("页数+"+pageNum);
 		mv.addObject("count", count);
 		mv.addObject("pageNum", pageNum);
 		mv.addObject("pageNow", PageNow);

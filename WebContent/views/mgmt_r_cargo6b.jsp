@@ -81,7 +81,7 @@
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">材料：</td>
-                                    <td><a href="javascript:;" hidefocus="true"><img src="images/btn_filetype2.png" /></a></td>
+                                    <td><a href="downloadResponseMaterial?responseid=${response.id }" hidefocus="true"><img src="images/btn_filetype2.png" /></a></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">备注：</td>

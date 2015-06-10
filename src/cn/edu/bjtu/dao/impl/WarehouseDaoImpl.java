@@ -54,7 +54,6 @@ public class WarehouseDaoImpl extends BaseDaoImpl<Warehouse> implements Warehous
 	@Override
 	public List getSelectedWarehouse(String hql, int display, int pageNow) {
 		// TODO Auto-generated method stub
-		//System.out.println("hql+"+hql);
 		int page = pageNow;
 		int pageSize = display;
 

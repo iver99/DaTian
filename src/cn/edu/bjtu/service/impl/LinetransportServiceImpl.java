@@ -125,8 +125,6 @@ public class LinetransportServiceImpl implements LinetransportService {
 			sql = spellHql2(paramList, valueList);
 		}
 
-		System.out.println(sql);
-		// System.out.println("hql+" + sql);
 		return linetransportDao.getSelectedLine(sql, Display, PageNow);
 		// return null;
 

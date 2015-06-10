@@ -1,9 +1,7 @@
 package cn.edu.bjtu.controller;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -18,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.edu.bjtu.bean.page.ComplaintBean;
 import cn.edu.bjtu.service.ComplaintService;
 import cn.edu.bjtu.service.OrderService;
-import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.util.DownloadFile;
-import cn.edu.bjtu.vo.Cityline;
+import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Complaintform;
 import cn.edu.bjtu.vo.OrderCarrierView;
 
@@ -64,7 +62,6 @@ public class ComplaintController {
 		return mv;
 	}
 
-	@RequestMapping(value = "insertComplaint", method = RequestMethod.POST)
 	/**
 	 * * 新增我的投诉
 	 * @param type
@@ -75,18 +72,15 @@ public class ComplaintController {
 	 * @param response
 	 * @return
 	 */
+	@RequestMapping(value = "insertComplaint", method = RequestMethod.POST)
 	public ModelAndView insertComplaint(
 			@RequestParam(required = false) MultipartFile file,
-			@RequestParam String type, @RequestParam String theme,
-			@RequestParam String content, @RequestParam String orderNum,
-			HttpServletRequest request, HttpServletResponse response) {
+			ComplaintBean complaintBean, HttpServletRequest request,
+			HttpServletResponse response) {
 		String carrierId = (String) request.getSession().getAttribute("userId");
-
-		// ////////////////////////////////////////////////////////////////////////
 
 		String path = null;
 		String fileName = null;
-		// System.out.println("file+"+file+"filename"+file.getOriginalFilename());//不上传文件还是会显示有值
 		if (file.getSize() != 0)// 有上传文件的情况
 		{
 			path = UploadPath.getComplaintPath();// 不同的地方取不同的上传路径
@@ -98,12 +92,9 @@ public class ComplaintController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			// System.out.println("path+fileName+" + path + "-" + fileName);
-			// //////////////////////////////////////////////////////////////////
 		}
 
-		boolean flag = complaintService.insertComplaint(type, theme,
-				content, orderNum, carrierId, path, fileName);
+		boolean flag = complaintService.insertComplaint(complaintBean, carrierId, path, fileName);
 		if (flag == true) {
 			// mv.setViewName("mgmt_r_line");
 			try {
@@ -111,7 +102,6 @@ public class ComplaintController {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				// 此处应该记录日志
-				System.out.println("complaint插入后重定向失败");
 				e.printStackTrace();
 			}
 		} else
@@ -182,7 +172,6 @@ public class ComplaintController {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				// 此处应该记录日志
-				System.out.println("complaint受理后重定向失败");
 				e.printStackTrace();
 			}
 		} else
@@ -205,8 +194,6 @@ public class ComplaintController {
 		if (flag == 0) {// 后台管理的搜索
 			List complaintList = complaintService.getFindComplaint(theme, flag,
 					clientId);
-			System.out.println("complaintList+" + complaintList);
-			System.out.println("listsize+" + complaintList.size());
 			mv.addObject("allCompliantList", complaintList);
 			mv.setViewName("mgmt_m_complain");
 		} else if (flag == 1) {// 我的交易-我的投诉的搜索
@@ -221,13 +208,28 @@ public class ComplaintController {
 	@RequestMapping(value = "downloadrelatedmaterial", method = RequestMethod.GET)
 	public ModelAndView downloadRelatedMaterial(@RequestParam String id,// GET方式传入，在action中
 			HttpServletRequest request, HttpServletResponse response) {
-		System.out.println(id);
 		Complaintform complaintInfo = complaintService.getComplaintInfo(id);
 		String file = complaintInfo.getRelatedMaterial();
 		DownloadFile.downloadFile(file,request,response);
 
 		return mv;
 
+	}
+	
+	/**
+	 * 下载投诉文件             
+	 * @param request
+	 * @param response
+	 * @param complaintid
+	 * @return
+	 */
+	@RequestMapping("downloadComplaintMaterial")
+	public ModelAndView downloadComplaintMaterial(HttpServletRequest request,HttpServletResponse response,String complaintid){
+		
+		Complaintform complaint=complaintService.getComplaintInfo(complaintid);
+		String fileLocation=complaint.getRelatedMaterial();
+		DownloadFile.downloadFile(fileLocation, request, response);
+		return mv;
 	}
 
 }

@@ -129,7 +129,6 @@ public class CitylineServiceImpl implements CitylineService {
 
 		}
 		
-		// System.out.println("hql+" + sql);
 		return citylineDao.getSelectedCityline(sql, Display, PageNow);
 	}
 
@@ -209,7 +208,6 @@ public class CitylineServiceImpl implements CitylineService {
 			}
 
 		}
-		// System.out.println("hql+"+sql);
 		return hqltool.getTotalRows(sql);// 这里的HQLTool实例千万不能自己new出来，用@Resource
 	}
 

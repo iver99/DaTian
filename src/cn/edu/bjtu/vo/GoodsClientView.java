@@ -35,6 +35,16 @@ public class GoodsClientView implements java.io.Serializable {
 	private String realName;
 	private String carrierId;
 	private String phone;
+	private String vipServiceDetail;//add by RussWest0 at 2015年6月9日,下午8:51:25 
+
+	
+	public String getVipServiceDetail() {
+		return vipServiceDetail;
+	}
+
+	public void setVipServiceDetail(String vipServiceDetail) {
+		this.vipServiceDetail = vipServiceDetail;
+	}
 
 	public String getPhone() {
 		return phone;
