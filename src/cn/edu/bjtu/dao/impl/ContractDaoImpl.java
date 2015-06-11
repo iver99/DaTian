@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import cn.edu.bjtu.dao.ContractDao;
 import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.vo.Contract;
+import cn.edu.bjtu.vo.SubAccount;
 @Repository
 /**
  * 合同dao层实现
@@ -37,6 +38,13 @@ public class ContractDaoImpl extends BaseDaoImpl<Contract> implements ContractDa
 		// TODO Auto-generated method stub
 		return ht.find("from Contract where carrierId='"+carrierId+"'");
 	}
+	
+	@Override
+	public List getCompanyContractForUser(String clientId) {
+		// TODO Auto-generated method stub
+		return ht.find("from Contract where clientId='"+clientId+"'");
+	}
+	
 	@Override
 	/**
 	 * 返回合同信息
@@ -63,11 +71,24 @@ public class ContractDaoImpl extends BaseDaoImpl<Contract> implements ContractDa
 	@Override
 	public List getFindContract(String hql, int display, int pageNow) {
 		// TODO Auto-generated method stub
-		//System.out.println("hql+"+hql);
 		int page = pageNow;
 		int pageSize = display;
 		
 		return hqltool.getQueryList(hql, page, pageSize);//Dao层分页函数提取到此方法
+	}
+	@Override
+	public boolean changeStatus(String id) {
+		// TODO Auto-generated method stub
+		Contract contract = (Contract) ht.get(Contract.class, id);
+		String temp="";
+		temp=contract.getState();
+		if(temp.equals("待确认")){
+			contract.setState("有效");// 修改状态
+		}
+
+		//return baseDao.update(subAccount);
+		this.update(contract);
+		return true;
 	}
 	
 }

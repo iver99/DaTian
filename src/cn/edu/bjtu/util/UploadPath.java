@@ -194,6 +194,27 @@ public class UploadPath {
 		}
 	}
 	
+	/**
+	 * 提交投诉时提交的文件
+	 * @return
+	 */
+	public static String getComplaintPath(){
+		if (isWindows()) {//windows系统
+			String path = "D://uploadFile//complaint";//上传到D盘
+			file = new File(path);
+			file.mkdirs();//以防文件夹不存在
+			return path;
+		}
+		else//linux系统 (未测试)
+		{
+			//如果文件夹不存在情况没有处理
+			String path= "/usr/local/uploadFile/complaint";
+			file=new File(path);
+			file.mkdirs();//防止文件夹不存在
+			return path;
+		}
+	}
+	
 	
 	// 判断当前系统
 	public static boolean isWindows() {

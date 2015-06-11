@@ -78,7 +78,8 @@ public interface OrderService {
 			String remarks, String goodsName, float goodsVolume,
 			float goodsWeight, float expectedPrice, float declaredPrice,
 			float insurance, String contractId, String carrierId,
-			String isLinkToClientWayBill,String clientWayBillNum, String resourceName, String resourceType,String companyName);
+			String isLinkToClientWayBill,String clientWayBillNum, 
+			String resourceName, String resourceType,String companyName,String clientName);
 
 	public List getCargoTrack(String orderNum, String carNum);
 

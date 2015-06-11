@@ -27,7 +27,7 @@ public class Clientinfo implements java.io.Serializable {
 	private String carrierId;
 	//private String status;
 	private String phone;
-	private String headIcon;
+	//private String headIcon;
 	public String getId() {
 		return id;
 	}
@@ -83,12 +83,7 @@ public class Clientinfo implements java.io.Serializable {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public String getHeadIcon() {
-		return headIcon;
-	}
-	public void setHeadIcon(String headIcon) {
-		this.headIcon = headIcon;
-	}
+
 	
 	public String getEmail() {
 		return email;
@@ -98,22 +93,6 @@ public class Clientinfo implements java.io.Serializable {
 	}
 	public Clientinfo() {
 		super();
-	}
-	public Clientinfo(String id, String realName, String sex, String idcard,
-			Date createDate, String email, String remarks, String iDPicture,
-			String carrierId, String phone, String headIcon) {
-		super();
-		this.id = id;
-		this.realName = realName;
-		this.sex = sex;
-		this.idcard = idcard;
-		this.createDate = createDate;
-		this.email = email;
-		this.remarks = remarks;
-		IDPicture = iDPicture;
-		this.carrierId = carrierId;
-		this.phone = phone;
-		this.headIcon = headIcon;
 	}
 	
 

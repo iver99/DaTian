@@ -78,7 +78,7 @@
                     <tr>
                         <td class="td_mgmt_right3_td1a">
                         	<div class="span_mgmt_right3_text4">物流信息</div>
-                            <div class="span_mgmt_right3_text2a"><a href="mgmt_d_order_s7.htm" hidefocus="true">切换到货物轨迹</a></div>
+                            <!-- <div class="span_mgmt_right3_text2a"><a href="mgmt_d_order_s7.htm" hidefocus="true">切换到货物轨迹</a></div>
                             <table width="90%" border="0" cellspacing="0" cellpadding="0" style="clear:both; margin-left:24px;">
                                 <tr>
                                     <td width="120" height="35" class="td_mgmt_right3_td1c">2014-03-11 12:29:33</td>
@@ -108,7 +108,7 @@
                                     <td height="35" class="td_mgmt_right3_td1c">2014-03-11 18:40:30</td>
                                     <td class="td_mgmt_right3_td1c">货物已经达到济南</td>
                                 </tr>
-                            </table>
+                            </table> -->
                             <br />
                         	<div class="span_mgmt_right3_text4">基本信息</div>      	          
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
@@ -122,7 +122,7 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">关联客户运单：</td>
-                                    <td>(未实现)无</td>
+                                    <td>${orderInfo.isLinkToClientWayBill}--${orderInfo.clientWayBillNum}</td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">承运方：</td>
@@ -138,7 +138,7 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">资源名称：</td>
-									<td>（未实现）</td>
+									<td>${orderInfo.resourceName }</td>
                                 </tr>
                             </table>
                         	<div class="span_mgmt_right3_text4">货物信息</div>      	          
@@ -207,7 +207,7 @@
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">签收图像：</td>
-                                    <td>(未实现)<a href="images/illust_5.png" target="_blank" hidefocus="true"><img src="images/btn_filetype1.png" /></a></td>
+                                    <td><!-- (未实现) --><a href="${orderInfo.acceptPicture }" target="_blank" hidefocus="true"><img src="${orderInfo.acceptPicture }" /></a></td>
                                 </tr>
                             </table>
                         	<div class="span_mgmt_right3_text4">最终运费</div>      	          

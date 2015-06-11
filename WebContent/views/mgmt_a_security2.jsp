@@ -69,15 +69,15 @@
 							<table width="90%" border="0" cellspacing="0" cellpadding="0">
 								<tr>
 									<td width="120" height="40" class="td_mgmt_right3_td1b">原密码：</td>
-									<td><input type="password" class="input_mgmt1" style="width:300px;" value="" name="oldPassword"/></td>
+									<td><input type="password" class="input_mgmt1" style="width:300px;" value="" name="oldPassword" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">新密码：</td>
-									<td><input type="password" class="input_mgmt1" style="width:300px;" value="" name="newPassword"/></td>
+									<td><input type="password" class="input_mgmt1" style="width:300px;" value="" name="newPassword" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">重复新密码：</td>
-									<td><input type="password" class="input_mgmt1" style="width:300px;" value="" name="repeatPassword"/></td>
+									<td><input type="password" class="input_mgmt1" style="width:300px;" value="" name="repeatPassword" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
@@ -126,5 +126,10 @@
 	function OnLoad() {
 		loadFocus();
 	}
+	 $(function(){
+			$('reset:button').click(function(){
+			   $('.input').val("");
+			});
+	})
 </script>
 </html>

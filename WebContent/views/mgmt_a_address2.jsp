@@ -72,19 +72,19 @@
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">姓名：</td>
-                                    <td><input name="name" type="text" class="input_mgmt1" style="width:300px;" /></td>
+                                    <td><input name="name" type="text" class="input_mgmt1" style="width:300px;" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">地址：</td>
-                                    <td><input name="address" type="text" class="input_mgmt1" style="width:300px;" /></td>
+                                    <td><input name="address" type="text" class="input_mgmt1" style="width:300px;" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">联系电话：</td>
-                                    <td><input name="phone" type="text" class="input_mgmt1" style="width:300px;" /></td>
+                                    <td><input name="phone" type="text" class="input_mgmt1" style="width:300px;" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
-                                    <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
+                                    <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true"/></td>
                                 </tr>
                             </table>
                             </form>
@@ -128,5 +128,10 @@
 	function OnLoad() {
 		loadFocus();
 	}
+	 $(function(){
+		$('reset:button').click(function(){
+		   $('.input').val("");
+		});
+	})
 </script>
 </html>

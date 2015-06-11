@@ -18,16 +18,10 @@ public class ParseDate {
 			myDate2 = dateFormat2.parse(date);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
-			System.out.println("解析日期出错");
 			e.printStackTrace();
 			return null;
 		}
 		return myDate2;
 	}
-	//@Test
-	/*public static void main(String [] args)
-	{
-		System.out.println(ParseDate.parseDate("2010-09-13"));
-	}*/
 
 }

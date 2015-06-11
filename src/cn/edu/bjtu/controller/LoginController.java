@@ -27,7 +27,6 @@ public class LoginController {
 	ModelAndView mv = new ModelAndView();
 	@Autowired
 	ComplaintService complaintService;
-	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ModelAndView loginAction(String username, String password,int userkind,
 			HttpServletRequest request,HttpServletResponse response) {
@@ -36,31 +35,43 @@ public class LoginController {
 		mv.addObject("password", psw);
 		
 		Userinfo userinfo = loginService.checkLogin(username, psw,userkind);
-		if (userinfo!=null) {//存入session
-			request.getSession().setAttribute("username", userinfo.getUsername());
-			request.getSession().setAttribute("userId",userinfo.getId());
-			request.getSession().setAttribute("email",userinfo.getEmail());
-			request.getSession().setAttribute("userKind",userinfo.getUserKind());//用户类型
+		if (userinfo != null) {// 登录成功的情况
+			request.getSession().setAttribute("username",userinfo.getUsername());
+			request.getSession().setAttribute("userId", userinfo.getId());
+			request.getSession().setAttribute("email", userinfo.getEmail());
+			request.getSession().setAttribute("userKind",
+					userinfo.getUserKind());// 用户类型
+			if (userinfo.getUserKind() == 1) {// 管理员用户
+				List allCompliantList = complaintService.getAllUserCompliant();
+				mv.addObject("allCompliantList", allCompliantList);
+				mv.setViewName("mgmt_m_complain");
+				return mv;
+			} else {// 其它用户
 				mv.setViewName("mgmt");
-		}
-
-		else{
-			String msg="登录出错，请重新登录!";
+			}
+		}else {//登录失败的情况
+			String msg = "登录出错，请重新登录!";
 			mv.addObject("msg", msg);
-			mv.setViewName("login");
+			if(userkind==1){
+				mv.setViewName("adminLogin");
+			}else{
+				mv.setViewName("login");
+			}
+			
 		}
 		return mv;
 
 	}
-	@RequestMapping("adminLogin")
-	/*
+	/*@RequestMapping("adminLogin")
+	
 	 * 管理员登录
 	 * @param session
 	 * @param response
 	 * @return
-	 */
+	 
 	// add by RussWest0 at 2015年5月30日,上午11:24:12 
 	public ModelAndView adminLogin(Userinfo userinfo,HttpSession session,HttpServletRequest request,HttpServletResponse response){
+		
 		
 		String psw = Encrypt.MD5(userinfo.getPassword());
 		Userinfo user = loginService.checkLogin(userinfo.getUsername(),psw,userinfo.getUserKind());
@@ -80,7 +91,7 @@ public class LoginController {
 			mv.setViewName("adminLogin");
 			return mv;
 		}
-	}
+	}*/
 	
 	@RequestMapping("/logout")
 	/**
@@ -108,7 +119,6 @@ public class LoginController {
 		int num = focusList.size();
 		response.setContentType("text/html;charset=UTF-8");
 		response.getWriter().print(num);
-		//System.out.println("username="+username);
 		return null;
 	}
 }

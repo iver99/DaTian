@@ -39,6 +39,14 @@ public class ContractServiceImpl implements ContractService{
 		
 		return contractDao.getCompanyContract(carrierId);
 	}
+	
+	
+	@Override
+	public List getCompanyContractForUser(String clientId) {
+		// TODO Auto-generated method stub
+		return contractDao.getCompanyContractForUser(clientId);
+	}
+
 	@Override
 	/**
 	 * 获取合同信息
@@ -52,12 +60,13 @@ public class ContractServiceImpl implements ContractService{
 	 * 新增合同
 	 */
 	public boolean insertContract(String id,String name, String caculateType,
-			String carrierAccount, String startDate, String endDate,
-			String contact, String phone, String remarks, String carrierId,
-			String monthlyStatementDays, String path, String fileName) {
+			String carrierAccount, String carrierId, String startDate, String endDate,
+			String contact, String phone, String remarks, String clientId,
+			String monthlyStatementDays,String path, String fileName) {
 		// TODO Auto-generated method stub
 		contract.setCaculateType(caculateType);
 		contract.setCarrierAccount(carrierAccount);
+		contract.setClientId(clientId);
 		contract.setCarrierId(carrierId);
 		contract.setContact(contact);
 		contract.setEndDate(ParseDate.parseDate(startDate));
@@ -90,16 +99,47 @@ public class ContractServiceImpl implements ContractService{
 	
 	@Override
 	/**
-	 * 查询合同
+	 * 查询合同（需求方）
 	 */
-	public List getFindContract(String carrierId,String startDate,String endDate,String name,int Display,int PageNow){
-		String sql="from Contract where carrierId='"+carrierId+"' and ";
-		System.out.println("name1="+name+"startDate="+startDate+"endDate="+endDate);
+	public List getFindContract(String clientId,String startDate,String endDate,String name,int Display,int PageNow){
+		String sql="from Contract where clientId='"+clientId+"' and ";
 		if(name.equals("合同名称")){
 			//查找时不考虑合同名字
-			System.out.println("name2="+name);
 			name = "";
-			System.out.println("name3="+name);
+		}
+		if(!startDate.equals("开始时间")){
+			if(!endDate.equals("结束时间")){
+				//查询时有开始和截止时间
+				sql+=" startDate >= '"+startDate+"' and endDate <= '"+endDate+"' and name like '%"+name+"%'";
+				
+			}
+			else{
+				//只有开始日期没有截止日期
+				sql+=" startDate >= '"+startDate+"' and name like '%"+name+"%'";
+				
+			}
+		}
+		else if(!endDate.equals("结束时间")){
+			//只有结束时间没有开始时间
+			sql+=" endDate <= '"+endDate+"' and name like '%"+name+"%'";
+			
+		}
+		else{
+			//没有时间限制
+			sql+=" name like '%"+name+"%'";
+		}
+		return contractDao.getFindContract(sql, Display, PageNow);
+	}
+	
+	@Override
+	/**
+	 * 查询合同（承运方）
+	 */
+	public List getFindContract2(String carrierId,String startDate,String endDate,String name,int Display,int PageNow){
+		String sql="from Contract where carrierId='"+carrierId+"' and ";
+		if(name.equals("合同名称")){
+			//查找时不考虑合同名字
+			name = "";
 		}
 		if(!startDate.equals("开始时间")){
 			if(!endDate.equals("结束时间")){
@@ -131,12 +171,9 @@ public class ContractServiceImpl implements ContractService{
 	 */
 	public int getFindContractTotalRows(String carrierId,String startDate,String endDate,String name,int Display,int PageNow){
 		String sql="from Contract where carrierId='"+carrierId+"' and ";
-		//System.out.println("name1="+name);
 		if(name.equals("合同名称")){
 			//查找时不考虑合同名字
-			//System.out.println("name2="+name);
 			name = "";
-			//System.out.println("name3="+name);
 		}
 		if(!startDate.equals("开始时间")){
 			if(!endDate.equals("结束时间")){
@@ -161,5 +198,10 @@ public class ContractServiceImpl implements ContractService{
 		}
 		return hqltool.getTotalRows(sql);// 这里的HQLTool实例千万不能自己new出来，用@Resource
 	}
-
+	@Override
+	public boolean changeStatus(String id) {
+		// TODO Auto-generated method stub
+		return contractDao.changeStatus(id);
+	}
+	
 }

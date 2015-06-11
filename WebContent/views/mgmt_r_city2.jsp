@@ -57,8 +57,11 @@
 						<a href="driver?flag=1" class="a_mgmt_leftnav" hidefocus="true">司机信息</a>
                         <a href="client" class="a_mgmt_leftnav" hidefocus="true">客户信息</a>
                         <a href="goodsform?flag=1" class="a_mgmt_leftnav" hidefocus="true">货物信息</a>
+                        <a href="contract2" class="a_mgmt_leftnav" hidefocus="true">合同信息</a>
                         <%} %>
-                        <a href="contract" class="a_mgmt_leftnav" hidefocus="true">合同信息</a>
+                        <% if((Integer)session.getAttribute("userKind") ==2) {%><!-- 个人用户 -->
+                        <a href="contract" class="a_mgmt_leftnav1" hidefocus="true">合同信息</a>
+                        <%} %>
                     </div>
                     <%@ include  file="mysource_leftnav_myplan.jsp"%>
                     <%@ include  file="mysource_leftnav_myanalysis.jsp"%>
@@ -82,12 +85,12 @@
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">网络名称：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="name"/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="name" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">配送城市：</td>
                                     <td id="cityselector">
-                                    	<input id="city1" type="text" value="" class="input_city1" name="cityName"/>
+                                    	<input id="city1" type="text" value="" class="input_city1" name="cityName" required/>
                                         &nbsp;
                                         <!-- <span id="layer_switch"><input type="checkbox" id="subs" onclick="check_sub();" name="range"/>
                                         显示辖区
@@ -154,7 +157,7 @@
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">增值服务：</td>
                                     <td>
-                                        <select id="valueadd" style="width:120px;" onchange="change1(); " name="VIPService">
+                                        <select id="valueadd" style="width:120px;" onchange="change1(); " name="VIPService" required>
                                             <option value="" >请选择</option>
                                             <option value="有">有</option>
                                             <option value="无" selected="selected">无</option>
@@ -166,7 +169,7 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">参考价：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="refPrice"/>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="refPrice" required/>
                                     (元/kg)</td>
                                 </tr>
 								<tr>
@@ -175,7 +178,7 @@
                                     	<div style="position:relative;">
                                         	<input id="apply_attachment1" type="text" class="input_attachment1" style="width:230px;" value="请参照模板格式要求填写后提交..." />
                                         	<input id="upload_btn3" type="button" value="添加" class="input_attachment_btn1" style="width:60px; margin-left:10px;" />
-      <input id="upload_btn4" type="file" name="file" onchange="document.getElementById('apply_attachment1').value=/[^\\]+\.\w+$/.exec(this.value)[0]" class="input_attachment_btn1_hidden" style="width:300px;" hidefocus="true" />
+      <input id="upload_btn4" type="file" name="file" onchange="document.getElementById('apply_attachment1').value=/[^\\]+\.\w+$/.exec(this.value)[0]" class="input_attachment_btn1_hidden" style="width:300px;" hidefocus="true" required/>
                                         </div>
                                     </td>
 								</tr>
@@ -186,12 +189,12 @@
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">补充信息：</td>
 									<td>
-                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="remarks"></textarea>
+                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="remarks" required></textarea>
                                     </td>
 								</tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
-                                    <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="window.location.href='mgmt_r_city.htm'" /><input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
+                                    <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
                                 </tr>
                             </table>
                             </form>
@@ -235,5 +238,11 @@
 	function OnLoad() {
 		loadFocus();
 	}
+	$(function(){
+		$('reset:button').click(function(){
+		   $('.input').val("");
+		   $('.select').val("");
+		});
+    })
 </script>
 </html>

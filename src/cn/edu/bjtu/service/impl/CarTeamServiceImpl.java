@@ -36,10 +36,6 @@ public class CarTeamServiceImpl implements CarTeamService{
 	@Override
 	public boolean insertCarteam(String teamName, String carCount,
 			String chief, String phone, String explaination, String carrierId) {
-		/*System.out.println("insertcarteam " + IdCreator.createCarteamId()
-				+ teamName + carCount + carrierId + chief + phone
-				+ explaination + new Date());// null
-*/		carteam.setId(IdCreator.createCarteamId());
 		carteam.setTeamName(teamName);
 		carteam.setCarCount(carCount);
 		carteam.setCarrierId(carrierId);

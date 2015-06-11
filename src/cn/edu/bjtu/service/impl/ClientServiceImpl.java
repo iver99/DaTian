@@ -6,16 +6,17 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.BusinessClientDao;
 import cn.edu.bjtu.dao.ClientDao;
+import cn.edu.bjtu.dao.UserinfoDao;
 import cn.edu.bjtu.service.ClientService;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.vo.Businessclient;
 import cn.edu.bjtu.vo.Clientinfo;
+import cn.edu.bjtu.vo.Userinfo;
 /**
  * client服务层实现
  * @author RussWest0
@@ -31,6 +32,8 @@ public class ClientServiceImpl implements ClientService{
 	BusinessClientDao businessClientDao;
 	@Resource
 	Businessclient businessClient;
+	@Autowired
+	UserinfoDao userinfoDao;
 	
 	@Override
 	/**
@@ -126,9 +129,20 @@ public class ClientServiceImpl implements ClientService{
 		return clientDao.getBasicUserInfo(userId);
 	}
 	@Override
-	public boolean checkHeadIcon(String userId,int userKind) {
+	/**
+	 * 检查用户头像设置的状态
+	 */
+	public boolean checkHeadIconStatus(String userId) {
 		// TODO Auto-generated method stub
-		return clientDao.checkHeadIcon(userId,userKind);
+		Userinfo userinfo=userinfoDao.get(Userinfo.class, userId);
+		if(userinfo !=null){
+			if(userinfo.getHeadIcon().equals("已设置")){
+				return true;//已设置头像
+			}else 
+				return false;//未设置头像
+		}
+		return false;
+		
 	}
 	@Override
 	public String getStatus(String userId) {
@@ -140,9 +154,9 @@ public class ClientServiceImpl implements ClientService{
 	 * 个人用户信息认证
 	 */
 	public boolean validateUser(String userId, String realName, String phone,
-			String IDCard, String sex) {
+			String IDCard, String sex, String path, String fileName) {
 		// TODO Auto-generated method stub
-		return clientDao.validateUser(userId,realName,phone,IDCard,sex);
+		return clientDao.validateUser(userId,realName,phone,IDCard,sex, path, fileName);
 	}
 	@Override
 	/**
@@ -155,7 +169,13 @@ public class ClientServiceImpl implements ClientService{
 			String fileLocation = path + "//" + fileName;
 			clientinfo.setIDPicture(fileLocation);//设置文件上传路径
 		}
+		Userinfo userinfo=userinfoDao.get(Userinfo.class,userId);
+		// add by RussWest0 at 2015年6月4日,下午8:23:30 
+//		更新后显示审核中
+		userinfo.setStatus("审核中");
 		clientinfo.setId(userId);
+		
+		userinfoDao.update(userinfo);
 		clientDao.update(clientinfo);//更新信息
 		return true;
 	}

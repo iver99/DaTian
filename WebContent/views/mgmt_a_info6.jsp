@@ -77,29 +77,29 @@
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">公司名称：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="${detailCompanyCertificate.companyName }" name="companyName"/></td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" value="${detailCompanyCertificate.companyName }" name="companyName" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">组织机构代码：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="${detailCompanyCertificate.divisionCode }" name="divisionCode"/></td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" value="${detailCompanyCertificate.divisionCode }" name="divisionCode" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">法人姓名：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="${detailCompanyCertificate.legalName }" name="legalName"/></td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" value="${detailCompanyCertificate.legalName }" name="legalName" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">法人身份证号：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="${detailCompanyCertificate.legalIDCard }" name="legalIDCard"/></td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" value="${detailCompanyCertificate.legalIDCard }" name="legalIDCard" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">公司地址：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="${detailCompanyCertificate.companyAddr }" name="companyAddr"/></td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" value="${detailCompanyCertificate.companyAddr }" name="companyAddr" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">公司性质：</td>
 									<td>
-										<select style="width:120px;" name="companyType">
-											<option value="空" selected="selected">请选择</option>
+										<select style="width:120px;" name="companyType" required>
+											<option value="" selected="selected">请选择</option>
                                             <option value="国有企业">国有企业</option>
                                             <option value="外资企业">外资企业</option>
                                             <option value="合资企业">合资企业</option>
@@ -110,8 +110,8 @@
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">公司规模：</td>
 									<td>
-										<select style="width:120px;" name="companyScale">
-											<option value="空" selected="selected">请选择</option>
+										<select style="width:120px;" name="companyScale" required>
+											<option value="" selected="selected">请选择</option>
                                             <option value="1-50人">1-50人</option>
                                             <option value="50-200人">50-200人</option>
                                             <option value="200-500人">200-500人</option>
@@ -123,8 +123,8 @@
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">发票种类：</td>
 									<td>
-										<select style="width:120px;" name="invoiceKind">
-											<option value="空" selected="selected">请选择</option>
+										<select style="width:120px;" name="invoiceKind" required>
+											<option value="" selected="selected">请选择</option>
                                             <option value="增值税发票">增值税发票</option>
                                             <option value="非增值税发票">非增值税发票</option>
                                         </select>
@@ -154,16 +154,16 @@
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">联系人：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="${detailCompanyCertificate.companyContact }" name="companyContact"/></td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" value="${detailCompanyCertificate.companyContact }" name="companyContact" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">手机号：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="${detailCompanyCertificate.phone }" name="phone"/></td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" value="${detailCompanyCertificate.phone }" name="phone" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">公司基本情况：</td>
 									<td>
-                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="basicSituation">${detailCompanyCertificate.basicSituation }</textarea>
+                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="basicSituation" required>${detailCompanyCertificate.basicSituation }</textarea>
                                     </td>
 								</tr>								
 								<tr>
@@ -171,13 +171,13 @@
 									<td>
                                     	<div style="position:relative;">
                                         	<input id="apply_attachment1" type="text" class="input_attachment1" style="width:230px;" value="" /><input id="upload_btn3" type="button" value="添加" class="input_attachment_btn1" style="width:60px; margin-left:10px;" />
-      <input id="upload_btn4" type="file" name="file" onchange="document.getElementById('apply_attachment1').value=/[^\\]+\.\w+$/.exec(this.value)[0]" class="input_attachment_btn1_hidden" style="width:300px;" hidefocus="true" />
+      <input id="upload_btn4" type="file" name="file" onchange="document.getElementById('apply_attachment1').value=/[^\\]+\.\w+$/.exec(this.value)[0]" class="input_attachment_btn1_hidden" style="width:300px;" hidefocus="true" required/>
                                         </div>
                                     </td>
 								</tr>
 								<tr>
 									<td width="120" height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
-									<td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
+									<td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><!-- <input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /> --></td>
 								</tr>
 							</table>
 
@@ -215,7 +215,7 @@
 </div>
 
 <div id="footer_frame">
-	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="footer.htm"></iframe>
+	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="views/footer.jsp"></iframe>
 </div>
 
 </body>

@@ -32,7 +32,6 @@ public class MessageController {
 				return mv;
 			}*/
 			String content = request.getParameter("content");
-			//System.out.println("focusJudgement="+focusJudgement);
 			boolean flag = true;
 			flag = messageService.insertMessage(clientId,content);
 			response.setContentType("text/html;charset=UTF-8");

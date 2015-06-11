@@ -5,11 +5,12 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.AuthenticationDao;
-import cn.edu.bjtu.dao.BaseDao;
+import cn.edu.bjtu.dao.UserinfoDao;
 import cn.edu.bjtu.service.AuthenticationService;
 import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.vo.Clientinfo;
@@ -22,10 +23,15 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 	Userinfo userinfo;
 	@Autowired
 	AuthenticationDao authenticationDao;
+	@Autowired
+	UserinfoDao userinfoDao;	
+	
 	/*@Resource
 	BaseDao baseDao;*/
 	@Resource
 	HQLTool hqltool;
+	@Resource
+	private HibernateTemplate ht;
 
 	private String hql = "";
 	private static boolean flag = false;
@@ -34,7 +40,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 	/**
 	 * 获取所有认证信息
 	 */
-	public List getAllAuthentication() {
+	public List<Userinfo> getAllAuthentication() {
 		// TODO Auto-generated method stub
 		
 		return authenticationDao.getAllAuthentication();
@@ -66,11 +72,81 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 	  * @param clientId
 	  * @param status
 	  */
-	public boolean updateAuthenticStatus(String clientId,String status) {
+	public boolean updateAuthenticStatus(String feedback, String clientId,String status) {
 			// TODO Auto-generated method stub
 		userinfo = getMyUserDetail(clientId);
+		userinfo.setFeedback(feedback);
 		userinfo.setStatus(status);
 		authenticationDao.update(userinfo);//保存实体
 		 return true;
 	}
+	@Override
+	public List getFindUser(String username) {
+		// TODO Auto-generated method stub
+		return authenticationDao.getFindUser(username);
+	}
+	
+	/**
+	 * 个人用户审核拒绝
+	 */
+	@Override
+	public boolean authenUserDeny(String feedback, String user_id) {
+		
+		Userinfo userinfo=userinfoDao.get(Userinfo.class, user_id);
+		
+		userinfo.setStatus("未验证");
+		userinfo.setFeedback(feedback);
+		
+		userinfoDao.update(userinfo);
+		return true;
+	}
+	
+	/**
+	 * 个人用户审合通过
+	 */
+	@Override
+	public boolean authenUserPass(String feedback, String user_id) {
+		
+		Userinfo userinfo = userinfoDao.get(Userinfo.class, user_id);
+
+		userinfo.setStatus("已审核");
+		userinfo.setFeedback(feedback);
+
+		userinfoDao.update(userinfo);
+		return true;
+	}
+	/**
+	 * 公司用户验证拒绝
+	 */
+	@Override
+	public boolean authenCompanyDeny(String feedback, String user_id) {
+		
+		Userinfo userinfo=userinfoDao.get(Userinfo.class, user_id);
+		
+		userinfo.setStatus("未验证");
+		userinfo.setFeedback(feedback);
+		userinfoDao.update(userinfo);
+		
+		return true;
+		
+	}
+	
+	/**
+	 * 公司用户验证通过
+	 */
+	@Override
+	public boolean authenCompanyPass(String feedback, String user_id) {
+
+Userinfo userinfo=userinfoDao.get(Userinfo.class, user_id);
+		
+		userinfo.setStatus("已审核");
+		userinfo.setFeedback(feedback);
+		userinfoDao.update(userinfo);
+		
+		return true;
+	
+	}
+	
+	
+	
 }

@@ -19,13 +19,19 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.CarService;
 import cn.edu.bjtu.service.CitylineService;
+import cn.edu.bjtu.service.CommentService;
 import cn.edu.bjtu.service.CompanyService;
+import cn.edu.bjtu.service.DriverService;
+import cn.edu.bjtu.service.GoodsInfoService;
 import cn.edu.bjtu.service.LinetransportService;
 import cn.edu.bjtu.service.OrderService;
+import cn.edu.bjtu.service.ResponseService;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carinfo;
 import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Cityline;
+import cn.edu.bjtu.vo.Comment;
+import cn.edu.bjtu.vo.Driverinfo;
 import cn.edu.bjtu.vo.Linetransport;
 import cn.edu.bjtu.vo.OrderCarrierView;
 import cn.edu.bjtu.vo.Orderform;
@@ -50,7 +56,15 @@ public class OrderController {
 	CitylineService citylineService;
 	@Autowired
 	CompanyService companyService;
+	@Autowired
+	CommentService commentService;
+	@Autowired
+	GoodsInfoService goodsInfoService;
+	@Autowired
+	ResponseService responseService;
 	
+	@Autowired
+	DriverService driverService;
 	
 	ModelAndView mv = new ModelAndView();
 
@@ -81,7 +95,6 @@ public class OrderController {
 	public ModelAndView getAllRecieveOrderInfo(HttpServletRequest request,
 			HttpServletResponse response) {
 		String userId = (String) request.getSession().getAttribute("userId");
-		// System.out.println("userId+" + userId);
 		List orderList = orderService.getAllRecieveOrderInfo(userId);
 		mv.addObject("receiveOrderList", orderList);
 		mv.setViewName("mgmt_d_order_r");
@@ -96,7 +109,6 @@ public class OrderController {
 	 * @return
 	 */
 	public ModelAndView getSendOrderDetail(@RequestParam String id) {
-		// System.out.println(id);// ///
 		OrderCarrierView sendorderdetail = orderService.getSendOrderDetail(id);
 		mv.addObject("sendorderdetail", sendorderdetail);
 
@@ -112,7 +124,6 @@ public class OrderController {
 	 * @return
 	 */
 	public ModelAndView getAllRecieveOrderDetail(@RequestParam String id) {
-		System.out.println(id);
 		Orderform recieveorderdetail = orderService.getRecieveOrderDetail(id);
 		mv.addObject("recieveorderdetail", recieveorderdetail);
 		mv.setViewName("mgmt_d_order_r3");
@@ -164,15 +175,22 @@ public class OrderController {
 		return mv;
 	}
 
+	/**
+	 * 获取受理表单
+	 * @param orderid
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping("acceptOrderForm")
 	public ModelAndView getAcceptOrderForm(String orderid,
 			HttpServletRequest request, HttpServletResponse response) {
 
-		// 需要查出公司司机列表
+		// 需要查出公司司机列表 add by RussWest0 at 2015年6月7日,下午7:56:32 
 		String carrierId = (String) request.getSession().getAttribute("userId");
-
+		List<Driverinfo> driverList=driverService.getAllDriver(carrierId);
+		mv.addObject("driverList",driverList);
 		// 需要获取车牌号和司机名
-		// System.out.println("获取接收表单-orderid+"+orderid);
 		mv.addObject("orderId", orderid);
 
 		mv.setViewName("mgmt_d_order_r2");
@@ -188,10 +206,11 @@ public class OrderController {
 	 * @return
 	 */
 	public ModelAndView acceptOrder(String orderid, HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response,String driver) {
 
 		// 需要更新订单的司机列表，并且修改订单状态为已受理(待收货)
 		// 需要重定向,用来更新页面
+		//获取到司机，但是未作处理 add by RussWest0 at 2015年6月7日,下午8:03:50 
 		boolean flag = orderService.acceptOrder(orderid);
 		try {
 			if (flag == true)
@@ -323,7 +342,6 @@ public class OrderController {
 	 * @return
 	 */
 	public ModelAndView getCommentForm(String orderid)
-
 	{
 
 		mv.addObject("orderId", orderid);
@@ -338,8 +356,6 @@ public class OrderController {
 		// 修改订单状态为已完成
 		// 存储评价内容
 		// 评价页面错误
-		System.out.println("service attitude+" + serviceAttitude);
-		System.out.println("cargoSafety+" + cargoSafety);
 
 		return mv;
 	}
@@ -381,7 +397,6 @@ public class OrderController {
 			HttpServletRequest request, HttpServletResponse response
 
 	) {
-		// System.out.println("进入order更新控制器");
 		String carrierId = (String) request.getSession().getAttribute("userId");
 		// 字符串拆解
 		
@@ -397,7 +412,6 @@ public class OrderController {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				// 此处应该记录日志
-				System.out.println("order待受理更新后重定向失败");
 				e.printStackTrace();
 			}
 		} else
@@ -414,7 +428,7 @@ public class OrderController {
 	 */
 	public ModelAndView cancelOrder(HttpServletRequest request,
 			HttpServletResponse response, String orderid) {
-		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);// 需要重构，返回一条信息
+		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);
 		mv.addObject("orderInfo", orderInfo);
 		mv.setViewName("mgmt_d_order_s9");
 		return mv;
@@ -429,7 +443,7 @@ public class OrderController {
 	 */
 	public ModelAndView getOrderCancelOrder(HttpServletRequest request,
 			HttpServletResponse response, String orderid) {
-		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);// 需要重构，返回一条信息
+		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);
 		mv.addObject("orderInfo", orderInfo);
 		mv.setViewName("mgmt_d_order_r7");
 		return mv;
@@ -494,7 +508,7 @@ public class OrderController {
 	 */
 	public ModelAndView orderDetail(HttpServletRequest request,
 			HttpServletResponse response, String orderid) {
-		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);// 需要重构，返回一条信息
+		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);
 		mv.addObject("orderInfo", orderInfo);
 		mv.setViewName("mgmt_d_order_s4");
 		return mv;
@@ -509,7 +523,7 @@ public class OrderController {
 	 */
 	public ModelAndView orderDetailWaitToReceive(HttpServletRequest request,
 			HttpServletResponse response, String orderid) {
-		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);// 需要重构，返回一条信息
+		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);
 		mv.addObject("orderInfo", orderInfo);
 		mv.setViewName("mgmt_d_order_s6");
 		return mv;
@@ -524,7 +538,7 @@ public class OrderController {
 	 */
 	public ModelAndView orderDetailAlreadyCancel(HttpServletRequest request,
 			HttpServletResponse response, String orderid) {
-		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);// 需要重构，返回一条信息
+		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);
 		mv.addObject("orderInfo", orderInfo);
 		mv.setViewName("mgmt_d_order_s4a");
 		return mv;
@@ -533,14 +547,17 @@ public class OrderController {
 	@RequestMapping(value = "orderDetailFinish")
 	/**
 	 * 
-	 * 
+	 * 订单完成后查看操作
 	 * @param orderid
 	 * @return
 	 */
 	public ModelAndView orderDetailFinish(HttpServletRequest request,
 			HttpServletResponse response, String orderid) {
-		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);// 需要重构，返回一条信息
+		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);
 		mv.addObject("orderInfo", orderInfo);
+		//页面需要评价信息 add by RussWest0 at 2015年6月7日,下午4:04:16 
+		Comment comment=commentService.getCommentByOrderId(orderid);
+		mv.addObject("comment", comment);
 		mv.setViewName("mgmt_d_order_s6a");
 		return mv;
 	}
@@ -554,7 +571,7 @@ public class OrderController {
 	 */
 	public ModelAndView orderDetailComment(HttpServletRequest request,
 			HttpServletResponse response, String orderid) {
-		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);// 需要重构，返回一条信息
+		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);
 		mv.addObject("orderInfo", orderInfo);
 		mv.setViewName("mgmt_d_order_s6b");
 		return mv;
@@ -569,7 +586,7 @@ public class OrderController {
 	 */
 	public ModelAndView getOrderDetail(HttpServletRequest request,
 			HttpServletResponse response, String orderid) {
-		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);// 需要重构，返回一条信息
+		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);
 		mv.addObject("orderInfo", orderInfo);
 		mv.setViewName("mgmt_d_order_r3");
 		return mv;
@@ -584,7 +601,7 @@ public class OrderController {
 	 */
 	public ModelAndView getOrderDetailCancel(HttpServletRequest request,
 			HttpServletResponse response, String orderid) {
-		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);// 需要重构，返回一条信息
+		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);
 		mv.addObject("orderInfo", orderInfo);
 		mv.setViewName("mgmt_d_order_r3a");
 		return mv;
@@ -599,7 +616,7 @@ public class OrderController {
 	 */
 	public ModelAndView getOrderDetailWaitToReceive(HttpServletRequest request,
 			HttpServletResponse response, String orderid) {
-		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);// 需要重构，返回一条信息
+		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);
 		mv.addObject("orderInfo", orderInfo);
 		mv.setViewName("mgmt_d_order_r4");
 		return mv;
@@ -630,7 +647,7 @@ public class OrderController {
 	 */
 	public ModelAndView getOrderDetailWaitToConfirm(HttpServletRequest request,
 			HttpServletResponse response, String orderid) {
-		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);// 需要重构，返回一条信息
+		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);
 		mv.addObject("orderInfo", orderInfo);
 		mv.setViewName("mgmt_d_order_r4a");
 		return mv;
@@ -645,7 +662,7 @@ public class OrderController {
 	 */
 	public ModelAndView getOrderDetailFinish(HttpServletRequest request,
 			HttpServletResponse response, String orderid) {
-		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);// 需要重构，返回一条信息
+		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);
 		mv.addObject("orderInfo", orderInfo);
 		mv.setViewName("mgmt_d_order_r4b");
 		return mv;
@@ -657,7 +674,7 @@ public class OrderController {
 		// 需要再页面上显示合同规定运费和预期运费,实际运费,原因
 		// 上传图片未实现
 
-		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);// 需要重构，返回一条信息
+		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);
 		mv.addObject("orderInfo", orderInfo);
 		mv.setViewName("mgmt_d_order_r6a");
 		return mv;
@@ -701,10 +718,19 @@ public class OrderController {
 	 * 获取创建订单表单
 	 * @return
 	 */
-	public ModelAndView getNewOrderForm(@RequestParam String carrierid,@RequestParam String resourceId,@RequestParam int flag) {
+	public ModelAndView getNewOrderForm(@RequestParam String carrierid,
+			@RequestParam(required=false) String resourceId,@RequestParam int flag) {
 		// 需要取出承运方公司名称
-		//flag和resourceType中标识1为干线，2为城市，3为车辆
+		//flag和resourceType中标识1为干线，2为城市，3为车辆,4为公司
 		int resourceType = 0;
+		if(flag==4){
+			Carrierinfo carrierInfo=companyService.getCompanyById(carrierid);
+			mv.addObject("carrierInfo", carrierInfo);
+			mv.addObject("carrierId", carrierid);
+			
+			mv.setViewName("mgmt_d_order_s2a");
+			return mv;
+		}
 		if(flag==1){
 			Linetransport linetransportInfo = linetransportService
 					.getLinetransportInfo(resourceId);
@@ -769,7 +795,7 @@ public class OrderController {
 				deliveryName, recieverName, deliveryPhone, recieverPhone,
 				deliveryAddr, recieverAddr, remarks, goodsName, goodsVolume,
 				goodsWeight, expectedPrice, declaredPrice, insurance,
-				contractId, carrierid,isLinkToClientWayBill,clientWayBillNum,resourceName,resourceType,companyName);
+				contractId, carrierid,isLinkToClientWayBill,clientWayBillNum,resourceName,resourceType,companyName,clientName);
 		if (flag == true) {
 			// mv.setViewName("mgmt_d_order_s");
 			try {
@@ -779,6 +805,65 @@ public class OrderController {
 				e.printStackTrace();
 			}
 		}
+		mv.setViewName("mgmt_d_order_s");
+		return mv;
+	}
+	
+	
+	@RequestMapping("createNewOrderFromGoods")
+	/**
+	 * 从货物页面创建新订单
+	 * @param clientName
+	 * @param hasCarrierContract
+	 * @param senderInfo
+	 * @param receiverInfo
+	 * @param remarks
+	 * @param goodsName
+	 * @param goodsWeight
+	 * @param goodsVolume
+	 * @param declaredPrice
+	 * @param expectedPrice
+	 * @param insurance
+	 * @param contractId
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ModelAndView createNewOrderFromGoods(String carrierid, String clientName,
+			String hasCarrierContract, @RequestParam String deliveryName,
+			@RequestParam String recieverName,
+			@RequestParam String deliveryPhone,
+			@RequestParam String recieverPhone,
+			@RequestParam String deliveryAddr,
+			@RequestParam String recieverAddr, String remarks,
+			String goodsName, float goodsWeight, float goodsVolume,
+			float declaredPrice, float expectedPrice, float insurance,
+			String contractId, HttpServletRequest request,
+			HttpServletResponse response,@RequestParam String isLinkToClientWayBill,
+			@RequestParam(required=false) String clientWayBillNum,String resourceName,String resourceType,String companyName,
+			String responseid,String goodsid) {
+		// 页面有许多字段没有传入
+		// clientName参数里有，但是没有使用
+		String userId = (String) request.getSession().getAttribute("userId");
+		boolean flag = orderService.createNewOrder(userId, hasCarrierContract,
+				deliveryName, recieverName, deliveryPhone, recieverPhone,
+				deliveryAddr, recieverAddr, remarks, goodsName, goodsVolume,
+				goodsWeight, expectedPrice, declaredPrice, insurance,
+				contractId, carrierid,isLinkToClientWayBill,clientWayBillNum,resourceName,resourceType,companyName,clientName);
+		if (flag == true) {
+			//反馈表修改状态
+			responseService.confirmResponse(responseid,carrierid,goodsid);//修改确认反馈信息为已确认，其它反馈信息为已取消状态
+			//货物表修改状态
+			goodsInfoService.confirmResponse(goodsid);
+			
+			try {
+				response.sendRedirect("sendorderinfo");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		mv.setViewName("mgmt_d_order_s");
 		return mv;
 	}
 

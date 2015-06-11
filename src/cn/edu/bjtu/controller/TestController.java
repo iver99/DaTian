@@ -25,35 +25,14 @@ public class TestController {
 	@RequestMapping("test")
 	public ModelAndView test()
 	{	
-		System.out.println("½øÈëtest¿ØÖÆÆ÷£¬£¬£¬£¬£¬");
 		ModelAndView mv=new ModelAndView();
 		//BaseDaoImpl dao=new BaseDaoImpl();
 		List list=ht.find("select count(*) from Carinfo");
-		System.out.println("size+"+list.get(0));
 		mv.setViewName("success");
 		return mv;
 		
 	}
 	
-	public static void main(String [] args) throws IOException
-	{
-		File file=new File("datian.txt");
-		file.createNewFile();
-		System.out.println(file.getAbsolutePath());
-	}
 	
-	/*public static void main(String [] args)
-	{
-		List list=new ArrayList();
-		List list2=new ArrayList();
-		
-		list.add(0,"1");
-		list.add(1, "b");
-		
-		list2.add(0,"a");
-		list2.add(1,"2");
-		
-		list.addAll(list2);
-		System.out.println("list+"+list);
-	}*/
+	
 }

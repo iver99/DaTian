@@ -78,5 +78,8 @@
 		<property name="phone" type="string">
 			<column name="phone" />
 		</property>
+		<property name="vipServiceDetail" type="string">
+            <column name="VIPServiceDetail" />
+        </property>
 	</class>
 </hibernate-mapping>

@@ -130,7 +130,7 @@
                                     </td>
 								</tr>								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">相关资质材料：</td>
-									<td><a href="downloadcompanycertificatematerial" hidefocus="true"><img src="images/btn_filetype2.png" /></a></td>
+									<td><a href="downloadcompanycertificatematerial?id=${detailCompanyCertificate.id }" hidefocus="true"><img src="images/btn_filetype2.png" /></a></td>
 								</tr>
 								<tr>
 									<td width="120" height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
@@ -170,7 +170,7 @@
 </div>
 
 <div id="footer_frame">
-	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="footer.htm"></iframe>
+	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="views/footer.jsp"></iframe>
 </div>
 
 </body>

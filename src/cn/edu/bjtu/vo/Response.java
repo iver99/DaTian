@@ -17,9 +17,18 @@ public class Response {
 	private String relatedMaterial;
 	private Date relDate;
 	
+	// add by RussWest0 at 2015年6月4日,下午9:48:49 
+	private String status;
 	
 	
 	
+	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public Date getRelDate() {
 		return relDate;
 	}

@@ -2,6 +2,7 @@ package cn.edu.bjtu.dao.impl;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -21,12 +22,14 @@ public class CompanycertificateDaoImpl extends BaseDaoImpl<Companycertificate> i
 	@Resource
 	HibernateTemplate ht;
 	
+	@Autowired
+	
 	/*@Resource
 	BaseDao baseDao;*/
 	/*@Autowired
 	ClientDao clientDao;*/
-	@Resource
-	Companycertificate companycertificate;
+	/*@Resource
+	Companycertificate companycertificate;*/
 	@Resource
 	RegisterDao registerDao; 
 	
@@ -38,8 +41,9 @@ public class CompanycertificateDaoImpl extends BaseDaoImpl<Companycertificate> i
 			String companyContact, String phone, String basicSituation,
 			String path, String fileName){
 		
-		//Companycertificate companycertificate = null;
-		companycertificate.setId(userId);
+		//更新certificate表 add by RussWest0 at 2015年6月6日,下午2:47:35 
+		//companycertificate.setId(userId);
+		Companycertificate companycertificate=new Companycertificate();
 		companycertificate.setCompanyName(companyName);	
 		companycertificate.setDivisionCode(divisionCode);
 		companycertificate.setLegalName(legalName);
@@ -58,11 +62,8 @@ public class CompanycertificateDaoImpl extends BaseDaoImpl<Companycertificate> i
 					String fileLocation = path + "//" + fileName;
 					companycertificate.setRelatedMaterial(fileLocation);
 				}
-		/*baseDao.update(clientInfo);*/
-		this.save(companycertificate);
-		//修改个人信息状态
-		//if(flag== true)
-	//	{
+		this.update(companycertificate);
+		
 			Userinfo userInfo=ht.get(Userinfo.class, userId);
 			userInfo.setStatus("审核中");
 			/*baseDao.update(userInfo);*/
@@ -85,7 +86,7 @@ public class CompanycertificateDaoImpl extends BaseDaoImpl<Companycertificate> i
 			String companyContact, String phone, String basicSituation,
 			String path, String fileName) {
 		// TODO Auto-generated method stub
-		
+		Companycertificate companycertificate=new Companycertificate();
 		companycertificate = getCompanycertificate(userId);// 根据id查找到车辆信息
 		companycertificate.setCompanyName(companyName);	
 		companycertificate.setDivisionCode(divisionCode);
@@ -107,6 +108,11 @@ public class CompanycertificateDaoImpl extends BaseDaoImpl<Companycertificate> i
 				}
 		/*baseDao.update(clientInfo);*/
 		this.update(companycertificate);
+		
+		Userinfo userInfo=ht.get(Userinfo.class, userId);
+		userInfo.setStatus("审核中");
+		/*baseDao.update(userInfo);*/
+		registerDao.update(userInfo);
 		
 		return true;
 	}

@@ -32,7 +32,7 @@
 
 <%@ include  file="topFrame.jsp"%>
 <div id="main_frame">
-	<span class="text_main_title1">资源</span>&nbsp;&gt;&nbsp;<a href="resource_list.htm" hidefocus="true">公司</a>
+	<span class="text_main_title1">资源</span>&nbsp;&gt;&nbsp;公司
     <table width="100%" border="0" cellpadding="0" cellspacing="0">
 		<tr>
 			<td width="320" class="td_leftnav_top"><img src="images/illust_2f.jpg" /></td>
@@ -63,6 +63,8 @@
 					else
 						document.write( "<input type=\"button\" id=\"btnfav\" value=\"关注\" class=\"input_detail1\" hidefocus=\"true\" onclick=\"loadXMLDoc('${carrierinfo.id }');hidefav(this);\" />" );
 				</script>
+				<input type="button" id="btn2" value="提交订单" class="input_detail2" hidefocus="true" onclick="window.location.href='getneworderform?carrierid=${carrierinfo.id}&flag=4'" />
+				
             </td>
 		</tr>
     </table>
@@ -219,11 +221,17 @@
 <script type="text/javascript">
 function loadXMLDoc(id)
 {
+	var curWwwPath=window.document.location.href;
+    var pathName=window.document.location.pathname;
+    var pos=curWwwPath.indexOf(pathName);
 	$.ajax({
 		   type: "GET",
-		   url: "http://localhost:8585/DaTian/focus",//请求的后台地址
+		   url: curWwwPath.substring(0,pos) + "/DaTian/focus",//请求的后台地址
 		   data: "type=company&id=" + id,//前台传给后台的参数
 		   success: function(msg){//msg:返回值
+			   if(msg == "login"){
+				   location.assign(curWwwPath.substring(0,pos) + "/DaTian/loginForm");
+			   }
 			   loadFocus();
 		   }
 		});

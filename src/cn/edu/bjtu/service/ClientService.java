@@ -27,11 +27,12 @@ public interface ClientService {
 			String contact,String phone,String remarks,String carrierId,String path,String fileName);
 	public boolean deleteBusinessClient(String id);
 	public String getBasicUserInfo(String userId);
-	public boolean checkHeadIcon(String userId,int userKind);
+	public boolean checkHeadIconStatus(String userId);
 	
 	public String getStatus(String userId);
 	
-	public boolean validateUser(String userId,String realName,String phone,String IDCard,String sex);
+	public boolean validateUser(String userId,String realName,String phone,
+			String IDCard,String sex, String path, String fileName);
 	/**
 	 * 更新个人用户信息
 	 * @param clientinfo

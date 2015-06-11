@@ -14,4 +14,5 @@ public interface CompanyDao extends BaseDao<Carrierinfo>{
 	public List getLinetransportByCarrierId(String id);
 	public List getCitylineByCarrierId(String id);
 	public List getwarehouseByCarrierId(String id);
+	public List getAllCompanyWithoutPage();
 }

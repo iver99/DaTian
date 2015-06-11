@@ -78,7 +78,7 @@
                     <tr>
                         <td class="td_mgmt_right3_td1a">
                         	<div class="span_mgmt_right3_text4">物流信息</div>
-                            <div class="span_mgmt_right3_text2a"><a href="mgmt_d_order_s7.htm" hidefocus="true">切换到货物轨迹</a></div>
+                            <!-- <div class="span_mgmt_right3_text2a"><a href="mgmt_d_order_s7.htm" hidefocus="true">切换到货物轨迹</a></div>
                             <table width="90%" border="0" cellspacing="0" cellpadding="0" style="clear:both; margin-left:24px;">
                                 <tr>
                                     <td width="120" height="35" class="td_mgmt_right3_td1c">2014-03-11 12:29:33</td>
@@ -108,7 +108,7 @@
                                     <td height="35" class="td_mgmt_right3_td1c">2014-03-11 18:40:30</td>
                                     <td class="td_mgmt_right3_td1c">货物已经达到济南</td>
                                 </tr>
-                            </table>
+                            </table> -->
                             <br />
                         	<div class="span_mgmt_right3_text4">基本信息</div>      	          
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
@@ -122,7 +122,7 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">关联客户运单：</td>
-                                    <td>(未实现)无</td>
+                                    <td>${orderInfo.isLinkToClientWayBill }--${orderInfo.clientWayBillNum }</td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">承运方：</td>
@@ -138,7 +138,7 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">资源名称：</td>
-									<td>（未实现）</td>
+									<td>${orderInfo.resourceName }</td>
                                 </tr>
                             </table>
                         	<div class="span_mgmt_right3_text4">货物信息</div>      	          
@@ -207,8 +207,10 @@
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">签收图像：</td>
-                                    <td>(未实现)<a href="images/illust_5.png" target="_blank" hidefocus="true"><img src="images/btn_filetype1.png" /></a></td>
+                                    <td><!-- (未实现) --><a href="d:/1.jpg" target="_blank" hidefocus="true">
+                                    <img src="${orderInfo.acceptPicture }" /></a>${orderInfo.acceptPicture }</td>
                                 </tr>
+                                
                             </table>
                         	<div class="span_mgmt_right3_text4">最终运费</div>      	          
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
@@ -229,30 +231,30 @@
 									<td>${orderInfo.explainReason }</td>
 								</tr>
                             </table>
-                        	<div class="span_mgmt_right3_text4">评价信息(未实现)</div>      	          
+                        	<div class="span_mgmt_right3_text4">评价信息</div>      	          
                             <div id="div_rating">
                                 <div class="div_rating_sub">
                                     <div class="div_rating_left">服务态度</div>
                                     <div id="rating1" style="float:left;"></div>
-                                    <div class="div_rating_right"><input id="hint1" type="text" class="input_rating" /></div>
+                                    <div class="div_rating_right"><input id="hint1" type="text" value="${comment.serviceAttitude }" class="input_rating" /></div>
                                 </div>
                                 <div class="div_rating_sub">
                                     <div class="div_rating_left">运输时效</div>
                                     <div id="rating2" style="float:left;"></div>
-                                    <div class="div_rating_right"><input id="hint2" type="text" class="input_rating" /></div>
+                                    <div class="div_rating_right"><input id="hint2" type="text" value="${comment.transportEfficiency }" class="input_rating" /></div>
                                 </div>
                                 <div class="div_rating_sub">
                                     <div class="div_rating_left">货物安全</div>
                                     <div id="rating3" style="float:left;"></div>
-                                    <div class="div_rating_right"><input id="hint3" type="text" class="input_rating" /></div>
+                                    <div class="div_rating_right"><input id="hint3" type="text" value="${comment.cargoSafety }" class="input_rating" /></div>
                                 </div>
                                 <div class="div_rating_sub">
                                     <div class="div_rating_left">总体费用</div>
                                     <div id="rating4" style="float:left;"></div>
-                                    <div class="div_rating_right"><input id="hint4" type="text" class="input_rating" /></div>
+                                    <div class="div_rating_right"><input id="hint4" type="text" value="${comment.totalMoney }" class="input_rating" /></div>
                                 </div>
                                 <div class="div_rating_sub">
-                                	补充：货物运送的很及时，就是费用上略高了，还是不错的！
+                                	补充：${comment.comment }
                                 </div>
                             </div>
                         </td>

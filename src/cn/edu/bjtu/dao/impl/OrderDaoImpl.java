@@ -32,8 +32,6 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 	 */
 	public List getAllSendOrderInfo(String userId) {
 		// TODO Auto-generated method stub
-		// System.out.println("dao-userid+"+userId);
-		//return ht.find("from OrderCarrierView where clientId='" + userId + "'");
 		return this.find("from OrderCarrierView where clientId='"+userId+"'");
 
 	}
@@ -61,7 +59,6 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 	@Override
 	public List getCargoTrack(String orderNum, String carNum) {
 		// TODO Auto-generated method stub
-		//System.out.println("from Track where orderNum='" + orderNum + "' and carNum='" + carNum + "'");
 		return ht.find("from Track where orderNum='" + orderNum + "' and carNum='" + carNum + "'");
 	}
 
@@ -88,7 +85,6 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 	public boolean acceptOrder(String orderId) {
 		// TODO Auto-generated method stub
 		Orderform order = this.get(Orderform.class, orderId);
-		//System.out.println("orderEntity+" + order);
 		order.setState("待收货");// 修改状态
 
 		this.update(order);
@@ -184,7 +180,9 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 			float goodsWeight, float expectedPrice, float declaredPrice,
 			float insurance, String contractId, String deliveryName,
 			String deliveryPhone, String deliveryAddr, String receiverName,
-			String receiverPhone, String receiverAddr,String carrierId,String isLinkToClientWayBill,String clientWayBillNum, String resourceName, String resourceType,String companyName) {
+			String receiverPhone, String receiverAddr, String carrierId,
+			String isLinkToClientWayBill, String clientWayBillNum,
+			String resourceName, String resourceType, String companyName,String clientName) {
 		// TODO Auto-generated method stub
 		Orderform order=new Orderform();
 		order.setClientId(userId);
@@ -214,7 +212,8 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 		order.setId(IdCreator.createOrderId());
 		order.setOrderNum(IdCreator.createOrderNum());
 		order.setCarrierId(carrierId);
-		//order.setClientName(clientName);
+		order.setSettlementState("未生成");// add by RussWest0 at 2015年6月4日,下午8:40:27 
+		order.setClientName(clientName);
 		//order.setResourceType(resourceType);
 		order.setState("待受理");//订单状态
 		order.setCompanyName(companyName);

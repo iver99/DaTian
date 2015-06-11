@@ -82,13 +82,16 @@
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">受理：</td>
                                     <td>
-                                    	<select class="input_mgmt2a">
+                                    	<select class="input_mgmt2a" name="driver" required>
 											<option value="" selected="selected">选择车牌号</option>
-                                            <option value="a">京AB0001</option>
+											 <c:forEach var="driver" items="${driverList }">
+												 <option value="${driver.driverName }">${driver.driverName }</option>
+											</c:forEach>
+                                         <!--    <option value="a">京AB0001</option>
                                             <option value="b">京AB0002</option>
-                                            <option value="c">京AB0003</option>
-                                        </select><span class="span_mgmt_dynamic1">--</span><input type="text" class="input_mgmt2" value="随车司机" readonly="readonly" />
-                                        <img src="images/btn_add2.png" hidefocus="true" style="cursor:pointer;" title="添加" onclick="additem();" />
+                                            <option value="c">京AB0003</option> -->
+                                        </select><span class="span_mgmt_dynamic1"></span><!-- <input type="text" class="input_mgmt2" value="随车司机" readonly="readonly" />
+                                        <img src="images/btn_add2.png" hidefocus="true" style="cursor:pointer;" title="添加" onclick="additem();" /> -->
                                     </td>
                                 </tr>
                                 <tr>
@@ -98,8 +101,8 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
                                     <td>
-                                        <input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="window.location.href='mgmt_d_order_r.htm'" />
-                                        <input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" />
+                                        <input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" />
+                                        <input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" />
                                     </td>
                                 </tr>
                             </table>
@@ -144,5 +147,10 @@
 	function OnLoad() {
 		loadFocus();
 	}
+	$(function(){
+		$('reset:button').click(function(){
+		   $('.select').val("");
+		});
+    })
 </script>
 </html>

@@ -75,13 +75,13 @@
 			<div class="div_login_sub2a">
             	<div class="div_login_sub2as">
             		
-                    <input name="username" type="text" class="input_login1" placeholder="帐户" />
-                    <input name="password" type="password" class="input_login1" placeholder="密码" />   
+                    <input name="username" type="text" class="input_login1" placeholder="帐户" required/>
+                    <input name="password" type="password" class="input_login1" placeholder="密码" required/>   
                     
 				</div>
             </div>
 			<div class="div_login_sub2b">
-            	<input type="submit" id="btn2" value="登&nbsp;录" class="submit_login" hidefocus="true" onclick="document.forms.loginForm.submit();" />          
+            	<input type="submit" id="btn2" value="登&nbsp;录" class="submit_login" hidefocus="true" />          
             </div>
            	
         </div>

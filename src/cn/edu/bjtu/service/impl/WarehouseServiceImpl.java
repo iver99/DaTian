@@ -122,7 +122,6 @@ public class WarehouseServiceImpl implements WarehouseService {
 			sql = HQLTool.spellHql2(hql, paramList, valueList);
 
 		}
-		// System.out.println("hql+" + sql);
 		return warehouseDao.getSelectedWarehouse(sql, Display, PageNow);
 	}
 
@@ -210,7 +209,6 @@ public class WarehouseServiceImpl implements WarehouseService {
 
 		}
 
-		// System.out.println("hql+"+sql);
 		return hqltool.getTotalRows(sql);// 这里的HQLTool实例千万不能自己new出来，用@Resource
 	}
 

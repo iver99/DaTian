@@ -1,9 +1,7 @@
 package cn.edu.bjtu.controller;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.CompanycertificateService;
+import cn.edu.bjtu.util.DownloadFile;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Companycertificate;
 
@@ -42,7 +41,7 @@ public class CompanycertificateController {
 	
 	@RequestMapping("companycertificate")
 	/**
-	 * 验证公司
+	 * 验证公司信息
 	 */
 	public ModelAndView companycertificate(
 			@RequestParam(required = false) MultipartFile file,
@@ -54,13 +53,10 @@ public class CompanycertificateController {
 			@RequestParam(required = false) String companyContact, @RequestParam(required = false) String phone,
 			@RequestParam(required = false) String basicSituation,
 			HttpServletRequest request,	HttpServletResponse response) {
-		System.out.println("进入验证公司控制器");
 		String userId=(String)request.getSession().getAttribute("userId");
 		
-		// ////////////////////////////////////////////
 				String path = null;
 				String fileName = null;
-				// System.out.println("file+"+file+"filename"+file.getOriginalFilename());//不上传文件还是会显示有值
 				if (file.getSize() != 0)// 有上传文件的情况
 				{
 					path = UploadPath.getCompanyCertificatePath();// 不同的地方取不同的上传路径
@@ -72,24 +68,17 @@ public class CompanycertificateController {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-					// System.out.println("path+fileName+" + path + "-" + fileName);
 				}
 				// 没有上传文件的情况path 和 filenName默认为null
 
-				// ////////////////////////////////////////////
-		
 		boolean flag=companycertificateService.validateCompany(userId,companyName,divisionCode,legalName,
 				legalIDCard,companyAddr,companyType,companyScale,invoiceKind,serviceIndustry,
 				businessKind,companyContact,phone,basicSituation,path,fileName);
-		System.out.println(flag);
 		if(flag==true){
 			try {
-				System.out.println("redirect之前");
 				response.sendRedirect("accountinfo");
-				System.out.println("redirect之后");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				System.out.println("验证公司出错");//logging
 				e.printStackTrace();
 			}
 		}
@@ -125,33 +114,11 @@ public class CompanycertificateController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView downloadCompanyCertificateMaterial(
+	public ModelAndView downloadCompanyCertificateMaterial(String id,
 			HttpServletRequest request, HttpServletResponse response) {
-		
-		String companyId=(String)request.getSession().getAttribute("userId");
-		Companycertificate companycertificate = companycertificateService.getCompanycertificate(companyId);
-		try {
+			Companycertificate companycertificate = companycertificateService.getCompanycertificate(id);
 			String file = companycertificate.getRelatedMaterial();
-			/*File tempFile =new File(file.trim());  	          
-	        String fileName = tempFile.getName();  			*/
-			InputStream is = new FileInputStream(file);
-			response.reset(); // 必要地清除response中的缓存信息
-			response.setHeader("Content-Disposition", "attachment; filename="
-					+ file);
-			//response.setContentType("application/vnd.ms-excel");// 根据个人需要,这个是下载文件的类型
-			javax.servlet.ServletOutputStream out = response.getOutputStream();
-			byte[] content = new byte[1024];
-			int length = 0;
-			while ((length = is.read(content)) != -1) {
-				out.write(content, 0, length);
-			}
-			out.write(content);
-			out.flush();
-			out.close();
-		} catch (Exception e) {
-			System.out.println("重定向失败");
-			e.printStackTrace();
-		}
+			DownloadFile.downloadFile(file,request,response);
 		return mv;
 
 	}
@@ -170,13 +137,11 @@ public class CompanycertificateController {
 			@RequestParam(required = false) String companyContact, @RequestParam(required = false) String phone,
 			@RequestParam(required = false) String basicSituation,
 			HttpServletRequest request,	HttpServletResponse response) {
-		System.out.println("进入验证公司更新控制器");
 		String userId=(String)request.getSession().getAttribute("userId");
 		
 		// ////////////////////////////////////////////
 				String path = null;
 				String fileName = null;
-				// System.out.println("file+"+file+"filename"+file.getOriginalFilename());//不上传文件还是会显示有值
 				if (file.getSize() != 0)// 有上传文件的情况
 				{
 					path = UploadPath.getCompanyCertificatePath();// 不同的地方取不同的上传路径
@@ -188,7 +153,6 @@ public class CompanycertificateController {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-					// System.out.println("path+fileName+" + path + "-" + fileName);
 				}
 				// 没有上传文件的情况path 和 filenName默认为null
 
@@ -197,15 +161,11 @@ public class CompanycertificateController {
 		boolean flag=companycertificateService.companycertificateUpdate(userId,companyName,divisionCode,legalName,
 				legalIDCard,companyAddr,companyType,companyScale,invoiceKind,serviceIndustry,
 				businessKind,companyContact,phone,basicSituation,path,fileName);
-		System.out.println(flag);
 		if(flag==true){
 			try {
-				System.out.println("redirect之前");
 				response.sendRedirect("accountinfo");
-				System.out.println("redirect之后");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				System.out.println("验证公司更新出错");//logging
 				e.printStackTrace();
 			}
 		}

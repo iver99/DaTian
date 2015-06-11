@@ -106,7 +106,6 @@ public class CompanyController {
 			@RequestParam int PageNow,
 			HttpServletRequest request, HttpServletResponse response)
 			{
-				System.out.println("进入公司筛选控制器");
 				try {
 					response.setCharacterEncoding("UTF-8");
 					request.setCharacterEncoding("UTF-8");
@@ -114,8 +113,6 @@ public class CompanyController {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				//System.out.println("已经进入控制器");
-				System.out.println("rate+"+creditRate);
 				
 				List companyList = companyService.getSelectedCompany(
 						resourceRate, serviceIndustry, creditRate, business, Display,
@@ -123,8 +120,6 @@ public class CompanyController {
 				int count = companyService.getTotalRows(resourceRate, serviceIndustry, creditRate, business);// 获取总记录数
 
 				int pageNum = (int) Math.ceil(count * 1.0 / Display);// 页数
-				//System.out.println("总记录数+"+count);
-				//System.out.println("页数+"+pageNum);
 				mv.addObject("companyList", companyList);
 				mv.addObject("count", count);
 				mv.addObject("pageNum", pageNum);

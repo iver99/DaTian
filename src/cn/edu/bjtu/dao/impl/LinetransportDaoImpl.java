@@ -34,6 +34,14 @@ public class LinetransportDaoImpl extends BaseDaoImpl<Linetransport> implements 
 	}
 
 	@Override
+	public List getAllLinetransportWithoutPage() {
+		// TODO Auto-generated method stub
+		String hql = " from LineCarrierView";
+
+		return ht.find(hql);// dao层分批取数据方法
+	}
+	
+	@Override
 	/**
 	 * 返回具体干线信息
 	 */
@@ -59,7 +67,6 @@ public class LinetransportDaoImpl extends BaseDaoImpl<Linetransport> implements 
 	@Override
 	public List getSelectedLine(String hql, int display, int pageNow) {
 		// TODO Auto-generated method stub
-		// System.out.println("hql+"+hql);
 		int page = pageNow;
 		int pageSize = display;
 
@@ -79,6 +86,7 @@ public class LinetransportDaoImpl extends BaseDaoImpl<Linetransport> implements 
 			count = ((Number) list.get(0)).intValue();
 		return count;
 	}
+
 
 	
 	

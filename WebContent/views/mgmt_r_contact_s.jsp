@@ -2,6 +2,7 @@
     pageEncoding="utf-8"%>
   
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+        <%@ taglib prefix="d" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -55,6 +56,8 @@
                         <a href="warehouse?flag=1" class="a_mgmt_leftnav" hidefocus="true">仓库信息</a>
 						<a href="driver?flag=1" class="a_mgmt_leftnav" hidefocus="true">司机信息</a>
                         <a href="client" class="a_mgmt_leftnav" hidefocus="true">客户信息</a>
+                        <% } %>
+                        <% if((Integer)session.getAttribute("userKind") ==2) {%><!-- 个人用户 -->
                         <a href="goodsform?flag=1" class="a_mgmt_leftnav" hidefocus="true">货物信息</a>
                         <%} %>
                         <a href="contract" class="a_mgmt_leftnav1" hidefocus="true">合同信息</a>
@@ -66,7 +69,7 @@
 			</td>
 			<td class="td_leftnav_top">
 			
-			 <form action="findcontract" method="post">	          
+			 <form action="findcontract?flag=1" method="post">	          
                         
             	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right2">
                     <tr>
@@ -100,13 +103,16 @@
                         <td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
                         <td class="td_mgmt_right3_td1"><a href="contractdetail?contractId=${contract.id }&flag=1" hidefocus="true">${contract.id }</a></td>
                         <td class="td_mgmt_right3_td1" id="name">${contract.name }</td>
-                        <td class="td_mgmt_right3_td1">${carrierInfo.companyName }</td>
+                        <td class="td_mgmt_right3_td1">${contract.carrierAccount }</td>
                         <td class="td_mgmt_right3_td1">${contract.monthlyStatementDays }</td>
                         <td class="td_mgmt_right3_td1">${contract.startDate }</td>
                         <td class="td_mgmt_right3_td1">${contract.state }</td>
                         <c:choose>
                         <c:when test="${contract.state=='有效' }">
                         <td class="td_mgmt_right3_td3"><a href="contractdetail?contractId=${contract.id }&flag=2" hidefocus="true">终止</a></td>
+						</c:when>
+						<c:when test="${contract.state=='已终止' }">
+                        <td class="td_mgmt_right3_td3"><a href="contractdetail?contractId=${contract.id }&flag=3" hidefocus="true">查看</a></td>
 						</c:when>
 						<c:otherwise>
 						<td class="td_mgmt_right3_td3"><a href="contractdetail?contractId=${contract.id }&flag=1" hidefocus="true">查看</a></td>

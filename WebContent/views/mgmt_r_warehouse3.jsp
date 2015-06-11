@@ -57,8 +57,11 @@
 						<a href="driver?flag=1" class="a_mgmt_leftnav" hidefocus="true">司机信息</a>
                         <a href="client" class="a_mgmt_leftnav" hidefocus="true">客户信息</a>
                         <a href="goodsform?flag=1" class="a_mgmt_leftnav" hidefocus="true">货物信息</a>
+                        <a href="contract2" class="a_mgmt_leftnav" hidefocus="true">合同信息</a>
                         <%} %>
-                        <a href="contract" class="a_mgmt_leftnav" hidefocus="true">合同信息</a>
+                        <% if((Integer)session.getAttribute("userKind") ==2) {%><!-- 个人用户 -->
+                        <a href="contract" class="a_mgmt_leftnav1" hidefocus="true">合同信息</a>
+                        <%} %>
                     </div>
                     <%@ include  file="mysource_leftnav_myplan.jsp"%>
                     <%@ include  file="mysource_leftnav_myanalysis.jsp"%>
@@ -83,36 +86,36 @@
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">仓库名称：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${warehouseInfo.name }" name="name"/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${warehouseInfo.name }" name="name" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">所在城市：</td>
-                                    <td id="cityselector"><input id="city1" type="text" value="${warehouseInfo.city }" class="input_city1" name="city"/></td>
+                                    <td id="cityselector"><input id="city1" type="text" value="${warehouseInfo.city }" class="input_city1" name="city" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">地址：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${warehouseInfo.address }" name="address"/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${warehouseInfo.address }" name="address" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">仓库类型：</td>
                                     <td>
                                     <c:choose>
                                     <c:when test="${warehouseInfo.type == '' }">
-                       					<select style="width:120px;" name="type">
+                       					<select style="width:120px;" name="type" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="保税" >保税</option>
                                             <option value="非保税">非保税</option>
                                         </select>
                                     </c:when>
                                     <c:when test="${warehouseInfo.type == '保税' }">
-                       					<select style="width:120px;" name="type">
+                       					<select style="width:120px;" name="type" required>
                                             <option value="" >请选择</option>
                                             <option value="保税" selected="selected">保税</option>
                                             <option value="非保税">非保税</option>
                                         </select>
                                     </c:when>
                                     <c:when test="${warehouseInfo.type == '非保税' }">
-                       					<select style="width:120px;" name="type">
+                       					<select style="width:120px;" name="type" required>
                                             <option value="" >请选择</option>
                                             <option value="保税" >保税</option>
                                             <option value="非保税" selected="selected">非保税</option>
@@ -126,21 +129,21 @@
                                     <td>
                                     <c:choose>
                                     <c:when test="${warehouseInfo.kind == '' }">
-                       					<select style="width:120px;" name="kind">
+                       					<select style="width:120px;" name="kind" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="自有" >自有</option>
                                             <option value="租用">租用</option>
                                         </select>
                                     </c:when>
                                     <c:when test="${warehouseInfo.kind == '自有' }">
-                       					<select style="width:120px;" name="kind">
+                       					<select style="width:120px;" name="kind" required>
                                             <option value="" >请选择</option>
                                             <option value="自有" selected="selected">自有</option>
                                             <option value="租用">租用</option>
                                         </select>
                                     </c:when>
                                     <c:when test="${warehouseInfo.kind == '租用' }">
-                       					<select style="width:120px;" name="kind">
+                       					<select style="width:120px;" name="kind" required>
                                             <option value="">请选择</option>
                                             <option value="自有" >自有</option>
                                             <option value="租用" selected="selected">租用</option>
@@ -151,17 +154,17 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">仓库面积：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${warehouseInfo.houseArea }" name="houseArea"/>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${warehouseInfo.houseArea }" name="houseArea" required/>
                                     (平方米)</td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">堆场面积：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${warehouseInfo.yardArea }" name="yardArea"/>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${warehouseInfo.yardArea }" name="yardArea" required/>
                                     (平方米)</td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">库层层高：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${warehouseInfo.height }" name="height"/>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${warehouseInfo.height }" name="height" required/>
                                     (米)</td>
                                 </tr>
                                 <tr>
@@ -169,7 +172,7 @@
                                     <td>
                                     <c:choose>
                                     <c:when test="${warehouseInfo.fireRate == '' }">
-                       					<select style="width:120px;" name="fireRate">
+                       					<select style="width:120px;" name="fireRate" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="甲" >甲</option>
                                             <option value="乙">乙</option>
@@ -177,7 +180,7 @@
                                         </select>
                                     </c:when>
                                     <c:when test="${warehouseInfo.fireRate == '甲' }">
-                       					<select style="width:120px;" name="fireRate">
+                       					<select style="width:120px;" name="fireRate" required>
                                             <option value="">请选择</option>
                                             <option value="甲" selected="selected">甲</option>
                                             <option value="乙">乙</option>
@@ -185,7 +188,7 @@
                                         </select>
                                     </c:when>
                                     <c:when test="${warehouseInfo.fireRate == '乙' }">
-                       					<select style="width:120px;" name="fireRate">
+                       					<select style="width:120px;" name="fireRate" required>
                                             <option value="">请选择</option>
                                             <option value="甲" >甲</option>
                                             <option value="乙" selected="selected">乙</option>
@@ -193,7 +196,7 @@
                                         </select>
                                     </c:when>
                                     <c:when test="${warehouseInfo.fireRate == '丙' }">
-                       					<select style="width:120px;" name="fireRate">
+                       					<select style="width:120px;" name="fireRate" required>
                                             <option value="">请选择</option>
                                             <option value="甲" >甲</option>
                                             <option value="乙">乙</option>
@@ -442,30 +445,30 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">联系人：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${warehouseInfo.contact }" name="contact"/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${warehouseInfo.contact }" name="contact" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">联系电话：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${warehouseInfo.phone }" name="phone"/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${warehouseInfo.phone }" name="phone" required/></td>
                                 </tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">详细报价：</td>
 									<td>
                                     	<div style="position:relative;">
                                         	<input id="apply_attachment1" type="text" class="input_attachment1" style="width:230px;" value="请参照模板格式要求填写后提交..." /><input id="upload_btn3" type="button" value="添加" class="input_attachment_btn1" style="width:60px; margin-left:10px;" />
-      <input id="upload_btn4" type="file" name="file" onchange="document.getElementById('apply_attachment1').value=/[^\\]+\.\w+$/.exec(this.value)[0]" class="input_attachment_btn1_hidden" style="width:300px;" hidefocus="true" />
+      <input id="upload_btn4" type="file" name="file" onchange="document.getElementById('apply_attachment1').value=/[^\\]+\.\w+$/.exec(this.value)[0]" class="input_attachment_btn1_hidden" style="width:300px;" hidefocus="true" required/>
                                         </div>
                                     </td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">补充信息：</td>
 									<td>
-                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="remarks">${warehouseInfo.remarks }</textarea>
+                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="remarks" required>${warehouseInfo.remarks }</textarea>
                                     </td>
 								</tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
-                                    <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
+                                    <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><!-- <input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /> --></td>
                                 </tr>
                             </table>
                             </c>

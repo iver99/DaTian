@@ -51,7 +51,9 @@
 							onclick="mgmt_nav_switch5b();"></span>我的帐户</span>
 						<div id="mgmt_nav5">
 							<a href="accountinfo" class="a_mgmt_leftnav1" hidefocus="true">帐户信息</a>
+							<% if((Integer)session.getAttribute("userKind") ==3) {%><!-- 企业用户 -->
                         <a href="getsubaccount" class="a_mgmt_leftnav" hidefocus="true">附属帐户</a>
+                        <% } %>
                         <a href="getaddress" class="a_mgmt_leftnav" hidefocus="true">常用地址</a>
                         <a href="mysecurity" class="a_mgmt_leftnav" hidefocus="true">安全设置</a>
 						</div>
@@ -81,16 +83,10 @@
 								hidefocus="true">查看</a></td>
 						</tr>
 
-						<tr>
+						<%-- <tr>
 							<td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
 							<td class="td_mgmt_right3_td1">用户头像</td>
 							<c:choose>
-								<c:when test="${headCheck==false }">
-									<td class="td_mgmt_right3_td3"><img
-										src="images/btn_hint2.png" />&nbsp;未设置</td>
-									<td class="td_mgmt_right3_td3"><a href="mgmt_a_info5.htm"
-										hidefocus="true">设置</a></td>
-								</c:when>
 								<c:when test="${headCheck==true }">
 									<td class="td_mgmt_right3_td3"><img
 										src="images/btn_hint1.png" />&nbsp;已设置</td>
@@ -103,7 +99,7 @@
 															hidefocus="true">查看</a>
 														<div class="menubd">
 															<div class="menubdpanel">
-																<a href="mgmt_a_info5.htm" class="a_top3"
+																<a href="getSetHeadIconPage" class="a_top3"
 																	hidefocus="true">更新</a>
 															</div>
 														</div>
@@ -113,9 +109,15 @@
 										</div>
 									</td>
 								</c:when>
+								<c:otherwise >
+									<td class="td_mgmt_right3_td3"><img
+										src="images/btn_hint2.png" />&nbsp;未设置</td>
+									<td class="td_mgmt_right3_td3"><a href="getSetHeadIconPage"
+										hidefocus="true">设置</a></td>
+								</c:otherwise>
 							</c:choose>
 
-						</tr>
+						</tr> --%>
 						<% if((Integer)session.getAttribute("userKind") ==2){ %>
 						<tr>
 							<td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>

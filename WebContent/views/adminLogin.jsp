@@ -36,7 +36,7 @@
 <%@ include  file="topFrame.jsp"%>
 
 <div id="main_frame">
-<form action="adminLogin" name="loginForm" method="post">
+<form action="login" name="loginForm" method="post">
 	<div class="div_login_left">
     	<div class="div_login_sub1">
         管理员登录&nbsp;&nbsp;${msg }
@@ -45,8 +45,8 @@
 			<div class="div_login_sub2a">
             	<div class="div_login_sub2as">
             		
-                    <input name="username" type="text" class="input_login1" placeholder="帐户" />
-                    <input name="password" type="password" class="input_login1" placeholder="密码" />   
+                    <input name="username" type="text" class="input_login1" placeholder="帐户" required/>
+                    <input name="password" type="password" class="input_login1" placeholder="密码" required/>   
                     
 				</div>
             </div>
@@ -57,7 +57,7 @@
         </div>
        			<br/>
        	 <div class="div_login_sub3">
-        	<input type="radio" name="userKind" value="1" checked="checked"/>&nbsp;管理员用户
+        	<input type="radio" name="userkind" value="1" checked="checked"/>&nbsp;管理员用户
         </div>
         	<br/>
     	<div class="div_login_sub3">

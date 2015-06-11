@@ -1,5 +1,9 @@
 package cn.edu.bjtu.controller;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.ClientSecurityService;
+import cn.edu.bjtu.util.Encrypt;
 import cn.edu.bjtu.vo.Userinfo;
 
 @Controller
@@ -26,7 +31,6 @@ public class ClientSecurityController {
 	 */
 	public ModelAndView getMySercurityPage(HttpSession session) {
 		String userId = (String) session.getAttribute("userId");
-		// System.out.println("userId+"+userId);
 		Userinfo userinfo = clientSecurityService.getUserById(userId);
 		mv.addObject("userinfo", userinfo);
 		mv.setViewName("mgmt_a_security");
@@ -53,12 +57,16 @@ public class ClientSecurityController {
 			String newPassword, String repeatPassword) {
 		String userId = (String) session.getAttribute("userId");
 		boolean flag = false;
-		flag = clientSecurityService.checkOldPassword(oldPassword, userId);
+		String psw_old = Encrypt.MD5(oldPassword);//add by RussWest0 at 2015年6月7日,上午11:21:01 
+		flag = clientSecurityService.checkOldPassword(psw_old, userId);
 		if (flag == true)// 旧密码正确 的情况
 		{
 			if (newPassword.equals(repeatPassword))// 两次新密码一样
 			{
-				clientSecurityService.changePassword(newPassword, userId);// 修改密码
+				//add by RussWest0 at 2015年6月7日,上午11:19:49 
+//				密码加密
+				String psw = Encrypt.MD5(newPassword);
+				clientSecurityService.changePassword(psw, userId);// 修改密码
 				String msg = "修改密码成功";
 				mv.addObject("msg", msg);
 				mv.setViewName("mgmt_a_security");
@@ -92,11 +100,19 @@ public class ClientSecurityController {
 	}
 
 	@RequestMapping("bindemail")
-	public ModelAndView bindEmail(HttpSession session, String email) {
+	public ModelAndView bindEmail(HttpSession session, String email,
+			HttpServletRequest request, HttpServletResponse response) {
 		String userId = (String) session.getAttribute("userId");
 		boolean flag = clientSecurityService.bindEmail(email, userId);
 		if (flag == true) {
-			mv.setViewName("mgmt_a_security");
+			try {
+				response.sendRedirect("mysecurity");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			// 此处应记录日志
+			e.printStackTrace();
+
+		}
 			String msg = "邮箱绑定成功";
 			mv.addObject("msg", msg);
 			return mv;
@@ -117,28 +133,40 @@ public class ClientSecurityController {
 	 */
 	public ModelAndView gotoChangeEmailPage(HttpSession session) {
 		String userId = (String) session.getAttribute("userId");
-
-		String email = (String) session.getAttribute("email");
-		// System.out.println("email+"+email);////
+		Userinfo userinfo = clientSecurityService.getUserById(userId);
+		String email = userinfo.getEmail();
 		mv.addObject("email", email);
 		mv.setViewName("mgmt_a_security4b");
 		return mv;
 	}
 
 	@RequestMapping("changebindemail")
-	public ModelAndView changeBindEmail(HttpSession session, String newEmail) {
+	public ModelAndView changeBindEmail(HttpSession session, String newEmail,
+			HttpServletRequest request, HttpServletResponse response) {
 		String userId = (String) session.getAttribute("userId");
 		boolean flag = false;
 		flag = clientSecurityService.changeBindEmail(newEmail, userId);
 		if (flag == true) {
 			String msg = "修改绑定邮箱成功";
 			mv.addObject("msg", msg);
-			mv.setViewName("mgmt_a_security");
+			try {
+					response.sendRedirect("mysecurity");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				// 此处应记录日志
+				e.printStackTrace();
+			}
 			return mv;
 		} else {
 			String msg = "修改绑定邮箱错误，请重新填写!";
 			mv.addObject("msg", msg);
-			mv.setViewName("mgmt_a_security4b");
+			try {
+				response.sendRedirect("mysecurity");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				// 此处应记录日志
+				e.printStackTrace();
+			}
 			return mv;
 		}
 	}

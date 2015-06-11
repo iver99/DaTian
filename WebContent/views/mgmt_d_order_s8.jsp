@@ -101,7 +101,7 @@
                                     <div class="div_rating_right"><input id="hint4" type="text" class="input_rating" name="rate4"/></div>
                                 </div>
                                 <div class="div_rating_sub">
-                                	<textarea class="textarea_rating" placeholder="请输入补充内容..." name="remarks"></textarea>
+                                	<textarea class="textarea_rating" placeholder="请输入补充内容..." name="remarks" required></textarea>
                                 </div>
                             </div>
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">

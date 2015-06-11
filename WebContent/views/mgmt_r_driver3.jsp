@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-  
+  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -55,8 +55,11 @@
 						<a href="driver?flag=1" class="a_mgmt_leftnav1" hidefocus="true">司机信息</a>
                         <a href="client" class="a_mgmt_leftnav" hidefocus="true">客户信息</a>
                         <a href="goodsform?flag=1" class="a_mgmt_leftnav" hidefocus="true">货物信息</a>
+                        <a href="contract2" class="a_mgmt_leftnav" hidefocus="true">合同信息</a>
                         <%} %>
-                        <a href="contract" class="a_mgmt_leftnav" hidefocus="true">合同信息</a>
+                        <% if((Integer)session.getAttribute("userKind") ==2) {%><!-- 个人用户 -->
+                        <a href="contract" class="a_mgmt_leftnav1" hidefocus="true">合同信息</a>
+                        <%} %>
                     </div>
                     <%@ include  file="mysource_leftnav_myplan.jsp"%>
                     <%@ include  file="mysource_leftnav_myanalysis.jsp"%>
@@ -77,48 +80,95 @@
                         <td class="td_mgmt_right3_td1a"> 
                             <br />   	          
                               <form action="updateDriver?id=${driver.id }" method="post" name="insertDriver" enctype="multipart/form-data">      
-                          
+                          <c var="driver" items="${driver }">
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">姓名：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${driver.driverName }" name="name"/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${driver.driverName }" name="name" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">性别：</td>
-                                    <td>
-                                    	<select style="width:120px;" name="sex">
+                                     <td>
+                                    <c:choose>
+                                    <c:when test="${driver.sex == '' }">
+                                    <select style="width:120px;" name="sex" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="男" >男</option>
                                             <option value="女">女</option>
                                         </select>
+                                    </c:when>
+                                    <c:when test="${driver.sex == '男' }">
+                                    <select style="width:120px;" name="sex" required>
+                                            <option value="" >请选择</option>
+                                            <option value="男" selected="selected">男</option>
+                                            <option value="女">女</option>
+                                        </select>
+                                    </c:when>
+                                    <c:when test="${driver.sex == '女' }">
+                                    <select style="width:120px;" name="sex" required>
+                                            <option value="">请选择</option>
+                                            <option value="男" >男</option>
+                                            <option value="女" selected="selected">女</option>
+                                        </select>
+                                    </c:when>
+                                    </c:choose>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">身份证号码：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${driver.IDCard }" name="IDCard"/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${driver.IDCard }" name="IDCard" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">驾驶证档案编号：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${driver.licenceNum }" name="licenceNum"/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${driver.licenceNum }" name="licenceNum" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">驾驶证等级：</td>
                                     <td>
-                                        <select style="width:120px;" name="licenceRate">
+                                    
+                                    <c:choose>
+                                    <c:when test="${driver.licenceRate == '' }">
+                                    	<select style="width:120px;" name="licenceRate" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="A">A</option>
                                             <option value="B">B</option>
                                             <option value="C">C</option>
                                         </select>
+                                    </c:when>
+                                    <c:when test="${driver.licenceRate == 'A' }">
+                                    	<select style="width:120px;" name="licenceRate" required>
+                                            <option value="">请选择</option>
+                                            <option value="A" selected="selected">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                        </select>
+                                    </c:when>
+                                    <c:when test="${driver.licenceRate == 'B' }">
+                                    	<select style="width:120px;" name="licenceRate" required>
+                                            <option value="">请选择</option>
+                                            <option value="A">A</option>
+                                            <option value="B" selected="selected">B</option>
+                                            <option value="C">C</option>
+                                        </select>
+                                    </c:when>
+                                    <c:when test="${driver.licenceRate == 'C' }">
+                                    	<select style="width:120px;" name="licenceRate" required>
+                                            <option value="">请选择</option>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C" selected="selected">C</option>
+                                        </select>
+                                    </c:when>
+                                    </c:choose>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">取得驾驶证时间：</td>
-                                    <td><input type="text" class="input_date1" title="点击此处选择" onclick="SelectDate(this,'yyyy-MM-dd')" value="${driver.licenceTime }" readonly="readonly" name="licenceTime"/></td>
+                                    <td><input type="text" class="input_date1" title="点击此处选择" onclick="SelectDate(this,'yyyy-MM-dd')" value="${driver.licenceTime }" readonly="readonly" name="licenceTime" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">联系电话：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${driver.phone }" name="phone"/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${driver.phone }" name="phone" required/></td>
                                 </tr>
                                 <tr>
 									<td height="40" class="td_mgmt_right3_td1b">证件扫描件：</td>
@@ -126,7 +176,7 @@
                                     	<div style="position:relative;">
                                         	<input id="apply_attachment1" type="text" class="input_attachment1" style="width:230px;" value="" />
                                         	<input id="upload_btn3" type="button" value="添加" class="input_attachment_btn1" style="width:60px; margin-left:10px;" />
-     										<input id="upload_btn4" type="file" name="file" onchange="document.getElementById('apply_attachment1').value=/[^\\]+\.\w+$/.exec(this.value)[0]" class="input_attachment_btn1_hidden" style="width:300px;" hidefocus="true" />
+     										<input id="upload_btn4" type="file" name="file" onchange="document.getElementById('apply_attachment1').value=/[^\\]+\.\w+$/.exec(this.value)[0]" class="input_attachment_btn1_hidden" style="width:300px;" hidefocus="true" required/>
                                         </div>
                                     </td>
 								</tr>
@@ -136,9 +186,10 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
-                                    <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="window.location.href='mgmt_r_driver.htm'" /><input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
+                                    <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
                                 </tr>
                             </table>
+                            </c>
                             </form>
                         </td>
                     </tr>

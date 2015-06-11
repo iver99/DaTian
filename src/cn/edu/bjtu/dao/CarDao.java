@@ -15,6 +15,7 @@ public interface CarDao extends BaseDao<Carinfo>{
 	public List getCompanyCar(String carrierId);
 	
 	public List getSelectedCar(String hql,int Display,int PageNow);
+	public List getAllCarWithoutPage();
 	
 	
 }

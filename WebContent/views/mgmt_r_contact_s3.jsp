@@ -54,6 +54,8 @@
                         <a href="warehouse?flag=1" class="a_mgmt_leftnav" hidefocus="true">仓库信息</a>
 						<a href="driver?flag=1" class="a_mgmt_leftnav" hidefocus="true">司机信息</a>
                         <a href="client" class="a_mgmt_leftnav" hidefocus="true">客户信息</a>
+                        <%} %>
+                        <% if((Integer)session.getAttribute("userKind") ==2) {%><!-- 个人用户 -->
                         <a href="goodsform?flag=1" class="a_mgmt_leftnav" hidefocus="true">货物信息</a>
                         <%} %>
                         <a href="contract" class="a_mgmt_leftnav1" hidefocus="true">合同信息</a>
@@ -111,7 +113,7 @@
                             </tr>
                             <tr>
                                 <td height="40" class="td_mgmt_right3_td1b">相关材料：</td>
-                                <td><a href="javascript:;" hidefocus="true"><img src="images/btn_filetype2.png" /></a></td>
+                                <td><a href="downloadcontactrelated?id=${contract.id }" hidefocus="true"><img src="images/btn_filetype2.png" /></a></td>
                             </tr>
                             <tr>
                                 <td height="40" class="td_mgmt_right3_td1b">补充信息：</td>
@@ -162,7 +164,7 @@
             </td>
         </tr>
     </table>
-    <form action="shutdownContract?contractId=${contract.id }" method="post">
+    <form action="shutdownContract?contractId=${contract.id }&rorsflag=1" method="post">
     <table border="0" cellpadding="0" cellspacing="0">
         <tr>
             <td width="540">

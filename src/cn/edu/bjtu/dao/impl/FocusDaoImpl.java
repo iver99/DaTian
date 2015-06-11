@@ -27,7 +27,6 @@ public class FocusDaoImpl extends BaseDaoImpl<Focus> implements FocusDao{
 	 */
 	public List getFocusJudgement(String clientId, String focusType, String focusId) {
 		// TODO Auto-generated method stub
-		//System.out.println("from Focus where clientId='"+clientId+"' and focusType='"+focusType+"' and focusId='"+focusId+"'");
 		return ht.find("from Focus where clientId='"+clientId+"' and focusType='"+focusType+"' and focusId='"+focusId+"'");
 	}
 

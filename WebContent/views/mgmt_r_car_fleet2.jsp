@@ -55,8 +55,11 @@
 						<a href="driver?flag=1" class="a_mgmt_leftnav" hidefocus="true">司机信息</a>
                         <a href="client" class="a_mgmt_leftnav" hidefocus="true">客户信息</a>
                         <a href="goodsform?flag=1" class="a_mgmt_leftnav" hidefocus="true">货物信息</a>
+                        <a href="contract2" class="a_mgmt_leftnav" hidefocus="true">合同信息</a>
                         <%} %>
-                        <a href="contract" class="a_mgmt_leftnav" hidefocus="true">合同信息</a>
+                        <% if((Integer)session.getAttribute("userKind") ==2) {%><!-- 个人用户 -->
+                        <a href="contract" class="a_mgmt_leftnav1" hidefocus="true">合同信息</a>
+                        <%} %>
                     </div>
                     <%@ include  file="mysource_leftnav_myplan.jsp"%>
                     <%@ include  file="mysource_leftnav_myanalysis.jsp"%>
@@ -80,24 +83,24 @@
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">车队名称：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="teamName"/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="teamName" required/></td>
                                 </tr>
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">数量(辆)：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="carCount"/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="carCount" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">车队负责人：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="chief"/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="chief" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">联系电话：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="phone"/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="phone" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">说明：</td>
                                     <td>
-                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="explaination"></textarea>
+                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="explaination" required></textarea>
                                     </td>
                                 </tr>
                                 <tr>
@@ -146,5 +149,10 @@
 	function OnLoad() {
 		loadFocus();
 	}
+	$(function(){
+		$('reset:button').click(function(){
+		   $('.input').val("");
+		});
+    })
 </script>
 </html>

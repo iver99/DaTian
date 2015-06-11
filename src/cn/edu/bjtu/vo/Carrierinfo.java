@@ -38,16 +38,10 @@ public class Carrierinfo implements java.io.Serializable {
 	private String companyContact;
 	private String status;
 	
-	private String headIcon;
+	//private String headIcon;
 	
 
-	public String getHeadIcon() {
-		return headIcon;
-	}
-
-	public void setHeadIcon(String headIcon) {
-		this.headIcon = headIcon;
-	}
+	
 
 	public String getStatus() {
 		return status;

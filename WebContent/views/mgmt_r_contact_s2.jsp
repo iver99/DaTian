@@ -55,6 +55,8 @@
                         <a href="warehouse?flag=1" class="a_mgmt_leftnav" hidefocus="true">仓库信息</a>
 						<a href="driver?flag=1" class="a_mgmt_leftnav" hidefocus="true">司机信息</a>
                         <a href="client" class="a_mgmt_leftnav" hidefocus="true">客户信息</a>
+                       <%} %>
+                        <% if((Integer)session.getAttribute("userKind") ==2) {%><!-- 个人用户 -->
                         <a href="goodsform?flag=1" class="a_mgmt_leftnav" hidefocus="true">货物信息</a>
                         <%} %>
                         <a href="contract" class="a_mgmt_leftnav1" hidefocus="true">合同信息</a>
@@ -85,25 +87,37 @@
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">合同名称：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="name"/></td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="name" required/></td>
 								</tr>
                             <tr>
                                 <td height="40" class="td_mgmt_right3_td1b">承运方帐户：</td>
-                                <td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="carrierAccount"/><a href="javascript:;" hidefocus="true">&nbsp;<img src="images/btn_verify1.png" title="校验" /></td>
+                                <td>
+                                    <select id="abc" name="carrierId" data-placeholder="请选择" style="width:308px;" required>
+                                        <option value=""></option>
+                                            <c:forEach var="companyList" items="${companyList }">
+                                            <option value="${companyList.id }">${companyList.companyName }</option>
+                                            </c:forEach>
+                                    </select>
+                                    <script type="text/javascript">
+                                        $("#abc").chosen({
+                                            no_results_text: "无此信息",
+                                            search_contains: true,
+                                        });
+                                    </script>                                </td>
                             </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">合同开始日期：</td>
-                                    <td><input type="text" class="input_date1" onclick="SelectDate(this,'yyyy-MM-dd')" readonly="readonly" title="点击此处选择" name="startDate"/></td>
+                                    <td><input type="text" class="input_date1" onclick="SelectDate(this,'yyyy-MM-dd')" readonly="readonly" title="点击此处选择" name="startDate" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">合同截止日期：</td>
-                                    <td><input type="text" class="input_date1" onclick="SelectDate(this,'yyyy-MM-dd')" readonly="readonly" title="点击此处选择" name="endDate"/></td>
+                                    <td><input type="text" class="input_date1" onclick="SelectDate(this,'yyyy-MM-dd')" readonly="readonly" title="点击此处选择" name="endDate" required/></td>
                                     
                                 </tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">结算方式：</td>
 									<td>
-                                        <select id="valueadd" style="width:120px;" onchange="change1();" name="caculateType">
+                                        <select id="valueadd" style="width:120px;" onchange="change1();" name="caculateType" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="月结">月结</option>
                                             <option value="现付">现付</option>
@@ -121,30 +135,31 @@
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">联系人：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="contact"/></td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="contact" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">手机号：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="phone"/></td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="phone" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">相关材料：</td>
 									<td>
                                     	<div style="position:relative;">
                                         	<input id="apply_attachment1" type="text" class="input_attachment1" style="width:230px;" value="" /><input id="upload_btn3" type="button" value="添加" class="input_attachment_btn1" style="width:60px; margin-left:10px;" />
-      <input id="upload_btn4" type="file" name="file" onchange="document.getElementById('apply_attachment1').value=/[^\\]+\.\w+$/.exec(this.value)[0]" class="input_attachment_btn1_hidden" style="width:300px;" hidefocus="true" />
+      <input id="upload_btn4" type="file" name="file" onchange="document.getElementById('apply_attachment1').value=/[^\\]+\.\w+$/.exec(this.value)[0]" class="input_attachment_btn1_hidden" style="width:300px;" hidefocus="true" required/>
                                         </div>
                                     </td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">补充信息：</td>
 									<td>
-                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="remarks"></textarea>
+                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="remarks" required></textarea>
                                     </td>
 								</tr>
 								<tr>
 									<td width="120" height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
-									<td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="window.location.href='mgmt_r_contact_s.htm'" /><input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
+									<td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" />
+									<input type="reset" id="reset" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
 								</tr>
 							</table>
 </form>
@@ -189,5 +204,11 @@
 	function OnLoad() {
 		loadFocus();
 	}
+	$(function(){
+		$('reset:button').click(function(){
+		   $('.input').val("");
+		   $('.select').val("");
+		});
+    })
 </script>
 </html>

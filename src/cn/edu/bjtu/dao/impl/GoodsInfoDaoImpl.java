@@ -63,14 +63,13 @@ public class GoodsInfoDaoImpl extends BaseDaoImpl<Goodsform> implements GoodsInf
 	public Goodsform getMyGoodsDetail(String id) {
 		// TODO Auto-generated method stub
 
-		return ht.get(Goodsform.class, id);
+		return this.get(Goodsform.class, id);
 
 	}
 
 	@Override
 	public List getSelectedGoodsInfo(String hql, int display, int pageNow) {
 		// TODO Auto-generated method stub
-		// System.out.println("hql+"+hql);
 		int page = pageNow;
 		int pageSize = display;
 
@@ -99,8 +98,6 @@ public class GoodsInfoDaoImpl extends BaseDaoImpl<Goodsform> implements GoodsInf
 		int feedBackQuantity=goods.getFeedbackQuantity();
 		feedBackQuantity++;//反馈数量加1
 		goods.setFeedbackQuantity(feedBackQuantity);
-		// 不应该修改状态
-		//goods.setState("待确认");
 		this.update(goods);
 		//此处还需要记录到反馈表中
 		Response response=new Response();
@@ -112,6 +109,7 @@ public class GoodsInfoDaoImpl extends BaseDaoImpl<Goodsform> implements GoodsInf
 		response.setPhone(phone);
 		response.setRemarks(remarks);
 		response.setRelDate(new Date());
+		response.setStatus("待确认");//add by RussWest0 at 2015年6月6日,下午3:07:08 
 		// 保存文件路径
 				if (path != null && fileName != null) {
 					String fileLocation = path + "//" + fileName;

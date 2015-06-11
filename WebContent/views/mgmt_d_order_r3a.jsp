@@ -95,7 +95,7 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">资源名称：</td>
-									<td>（未实现）</td>
+									<td>${orderInfo.resourceName }</td>
                                 </tr>
                             </table>
                         	<div class="span_mgmt_right3_text4">货物信息</div>      	          

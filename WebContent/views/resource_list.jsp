@@ -98,7 +98,7 @@
                             </dl>
                         </li>
                         <li>
-                            <input type="button" id="btn2" value="重置" class="btn_resource_search2" hidefocus="true" />
+                            <input type="button" id="btn2" value="重置" class="btn_resource_search2" hidefocus="true" onclick="Reset()"/>
                         	<input type="button" id="btn1" value="筛选" class="btn_resource_search1" hidefocus="true" />
                         </li>
                     </ul>
@@ -306,7 +306,7 @@
 	<div id="footer_frame">
 		<iframe allowtransparency="true" width="100%" frameborder="0"
 			hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0"
-			src="footer.htm"></iframe>
+			src="views/footer.jsp"></iframe>
 	</div>
 	<!-- <div id="myDiv"></div> -->
 </body>
@@ -317,35 +317,28 @@
 	}
 </script>
 <script type="text/javascript">
-/* function loadXMLDoc(id)
+function Reset()
 {
-	var xmlhttp;
-	if (window.XMLHttpRequest)
-	  {// code for IE7+, Firefox, Chrome, Opera, Safari
-	  xmlhttp=new XMLHttpRequest();
-	  }
-	else
-	  {// code for IE6, IE5
-	  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-	  }
-	xmlhttp.onreadystatechange=function()
-	  {
-	  if (xmlhttp.readyState==4 && xmlhttp.status==200)
-	    {
-	    //document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
-	    }
-	  }
-	url = "http://localhost:8585/DaTian/focus?type=linetransport&id=" + id;
-	xmlhttp.open("GET",url,true);
-	xmlhttp.send(null);
-} */
+	document.getElementById("select1_0").click();
+	document.getElementById("select2_0").click();
+	document.getElementById("select3_0").click();
+	document.getElementById("city1").value = "中文或拼音";
+	document.getElementById("city2").value = "中文或拼音";
+}
 function loadXMLDoc(id)
 {
+	var curWwwPath=window.document.location.href;
+    var pathName=window.document.location.pathname;
+    var pos=curWwwPath.indexOf(pathName);
 	$.ajax({
 		   type: "GET",
-		   url: "http://localhost:8585/DaTian/focus",//请求的后台地址
+		   url: curWwwPath.substring(0,pos) + "/DaTian/focus",//请求的后台地址
 		   data: "type=linetransport&id=" + id,//前台传给后台的参数
 		   success: function(msg){//msg:返回值
+			   //alert(msg);
+			   if(msg == "login"){
+				   location.assign(curWwwPath.substring(0,pos) + "/DaTian/loginForm");
+			   }
 			   loadFocus();
 			   //alert(msg);
 		   }
@@ -390,6 +383,10 @@ function loadXMLDoc(id)
 						.split("=")[1]);//city1、city2两个控件是input型，单独处理
 				document.getElementById("city2").value = UrlDecode(strs[1]
 						.split("=")[1]);
+				if(document.getElementById("city1").value == "All")
+					document.getElementById("city1").value = "全国";
+				if(document.getElementById("city2").value == "All")
+					document.getElementById("city2").value = "全国";
 				for (var i = 2; i < strs.length - 2; i++) {
 					for (var j = 0; j < 10; j++)
 						if (carparameter[i - 2][j] != "") {

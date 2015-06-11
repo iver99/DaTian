@@ -48,4 +48,12 @@ public interface CommentService {
 	public List<Comment> getWarehouseCommentById(String warehouseid,String userId);
 	
 	
+	/**
+	 * 根据订单号得到订单评价
+	 * @param orderId
+	 * @return
+	 */
+	public Comment getCommentByOrderId(String orderId);
+	
+	
 }

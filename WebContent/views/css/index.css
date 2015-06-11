@@ -81,7 +81,7 @@ a.link1 {
 	border-bottom:none;
 	}
 .span_top1a {   /*用于顶部导航区域的城市选择，暂时隐藏*/
-	display:none;
+	/* display:none; */
 	}
 
 /*顶部下拉菜单*/
@@ -206,6 +206,18 @@ a.a_top1 {
 	border-left:none;
 	border-right:none;
 	}
+/* add by haochendong */
+.search_input2 {
+	float:left;
+	width:60%;
+	min-width:400px;
+	height:40px;
+	line-height:36px;
+	text-indent:10px;
+	border:2px solid #0e6fb7;
+	border-left:none;
+	border-right:none;
+	}	
 .search_btn {
 	float:left;
 	width:42px;

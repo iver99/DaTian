@@ -12,13 +12,13 @@ public class GoodsResponseView {
 	private String committer;
 	private String clientId;
 	private String carrierId;
-	private String goodsId;
+	private String goodsId;//货物id
 	private String remarks;
 	private String relatedMaterial;
 	private Date relDate;
 	
 	private String id ;//货物id
-	private String state;//货物状态
+	private String status;//反馈状态
 	private String name;//货物名称
 	
 	
@@ -89,11 +89,12 @@ public class GoodsResponseView {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getState() {
-		return state;
+	public String getStatus() {
+		return status;
 	}
-	public void setState(String state) {
-		this.state = state;
+	public void setStatus(String status) {
+		this.status = status;
 	}
+	
 
 }

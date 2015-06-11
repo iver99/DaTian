@@ -26,6 +26,7 @@ import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.service.DriverService;
 import cn.edu.bjtu.service.FocusService;
 import cn.edu.bjtu.service.LinetransportService;
+import cn.edu.bjtu.util.DownloadFile;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carinfo;
 import cn.edu.bjtu.vo.Carrierinfo;
@@ -72,7 +73,6 @@ public class CarController {
 			int count = carService.getTotalRows("All", "All", "All", "All");// 获取总记录数,不需要where子句，所以参数都是All
 			String clientId = (String) request.getSession().getAttribute("userId");
 			List focusList = focusService.getFocusList(clientId,"car");
-			System.out.println("count+" + count);
 			int pageNum = (int) Math.ceil(count * 1.0 / Display);// 页数
 			mv.addObject("count", count);
 			mv.addObject("pageNum", pageNum);
@@ -83,7 +83,6 @@ public class CarController {
 			mv.addObject("locList", locList);
 			mv.setViewName("resource_list3");
 		} else if (flag == 1) {
-			// 这里用session取id
 			String carrierId = (String) request.getSession().getAttribute(
 					"userId");
 			// String carrierId = "C-0002";// 删除
@@ -164,7 +163,6 @@ public class CarController {
 			// @RequestParam String location,
 			@RequestParam int Display, @RequestParam int PageNow,
 			HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("进入筛选车辆的控制器");
 
 		try {
 			response.setCharacterEncoding("UTF-8");
@@ -173,7 +171,6 @@ public class CarController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// System.out.println("已经进入控制器");
 
 		List carList = carService.getSelectedCar(carLocation,
 		// endPlace, 没有目的城市
@@ -187,8 +184,6 @@ public class CarController {
 				);// 获取总记录数
 
 		int pageNum = (int) Math.ceil(count * 1.0 / Display);// 页数
-		// System.out.println("总记录数+"+count);
-		// System.out.println("页数+"+pageNum);
 		mv.addObject("carList", carList);
 		mv.addObject("count", count);
 		mv.addObject("pageNum", pageNum);
@@ -284,17 +279,13 @@ public class CarController {
 				carBase, carBrand, carType, carUse, carLength, carWidth,
 				carHeight, carWeight, driverId, purchaseTime, storage,
 				startPlace, endPlace, stopPlace, carrierId);
-		System.out.println("flag+" + flag);
 		if (flag == true) {
 			try {
-				System.out.println("redirect之前");
 				response.sendRedirect("car?flag=1");// 重定向，显示最新的结果 error,无法重定向
 				// mv.setViewName("mgmt_r_car");
-				System.out.println("redirect之后");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				// 此处应该记录日志
-				System.out.println("car插入后重定向失败");
 				e.printStackTrace();
 			}
 		} else
@@ -330,7 +321,6 @@ public class CarController {
 
 		String path = null;
 		String fileName = null;
-		// System.out.println("file+"+file+"filename"+file.getOriginalFilename());//不上传文件还是会显示有值
 		if (file.getSize() != 0)// 有上传文件的情况
 		{
 			path = UploadPath.getDriverPath();// 不同的地方取不同的上传路径
@@ -342,25 +332,20 @@ public class CarController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			// System.out.println("path+fileName+" + path + "-" + fileName);
 			// //////////////////////////////////////////////////////////////////
 		}
 		// 没有上传文件的情况path 和 filenName默认为null
 
 		boolean flag = driverService.insertDriver(name, sex, licenceRate, phone,
 				IDCard, licenceNum, licenceTime, carrierId, path, fileName);
-		System.out.println("flag+" + flag);
 		if (flag == true) {
 			try {
-				System.out.println("redirect之前");
 				response.sendRedirect("driver?flag=1");// 重定向，显示最新的结果
 														// error,无法重定向
 				// mv.setViewName("mgmt_r_car");
-				System.out.println("redirect之后");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				// 此处应该记录日志
-				System.out.println("driver插入后重定向失败");
 				e.printStackTrace();
 			}
 		} else
@@ -412,14 +397,12 @@ public class CarController {
 		// 此处获取session里的carrierid，下面方法增加一个参数
 		String carrierId = (String) request.getSession().getAttribute("userId");
 		// String carrierId = "C-0002";// 删除
-		System.out.println("in controller");// null
 
 		boolean flag = carService.updateCar(id, carNum, carTeam, locType,
 				terminalId, carType, carBase, carBrand, carUse, carLength,
 				carWidth, carHeight, carWeight, carPurTime, storage, driverId,
 				startPlace, endPlace, stopPlace, carrierId);
 
-		System.out.println("out updateCar");// null
 		if (flag == true) {
 			// mv.setViewName("mgmt_r_line");
 			try {
@@ -427,7 +410,6 @@ public class CarController {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				// 此处应该记录日志
-				System.out.println("car更新后重定向失败");
 				e.printStackTrace();
 			}
 		} else
@@ -459,14 +441,12 @@ public class CarController {
 			@RequestParam String licenceRate, @RequestParam String licenceTime,
 			@RequestParam String phone, HttpServletRequest request,
 			HttpServletResponse response) {
-		System.out.println("进入driver控制器update");
 		String carrierId = (String) request.getSession().getAttribute("userId");
 		// String carrierId = "C-0002";// 删除
 
 		// ////////////////////////////////////////////////////////////////////////
 		String path = null;
 		String fileName = null;
-		// System.out.println("file+"+file+"filename"+file.getOriginalFilename());//不上传文件还是会显示有值
 		if (file.getSize() != 0)// 有上传文件的情况
 		{
 			path = UploadPath.getDriverPath();// 不同的地方取不同的上传路径
@@ -478,24 +458,18 @@ public class CarController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			// System.out.println("path+fileName+" + path + "-" + fileName);
-			// //////////////////////////////////////////////////////////////////
 		}
 		// 没有上传文件的情况path 和 filenName默认为null
 		boolean flag = driverService.updateDriver(id, name, sex, IDCard,
 				licenceNum, licenceRate, licenceTime, phone, carrierId, path, fileName);
-		System.out.println("flag+" + flag);
 		if (flag == true) {
 			try {
-				System.out.println("redirect之前");
 				response.sendRedirect("driver?flag=1");// 重定向，显示最新的结果
 														// error,无法重定向
 				// mv.setViewName("mgmt_r_car");
-				System.out.println("redirect之后");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				// 此处应该记录日志
-				System.out.println("driver更新后重定向失败");
 				e.printStackTrace();
 			}
 		} else
@@ -509,11 +483,6 @@ public class CarController {
 	 */
 	public ModelAndView deleteCar(@RequestParam String id,// GET方式传入，在action中
 			HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("进入删除控制器");
-		System.out.println(id);
-		// 此处获取session里的carrierid，下面方法增加一个参数
-		// String carrierId=(String)request.getSession().getAttribute("userId");
-		// String carrierId = "C-0002";// 删除
 		boolean flag = carService.deleteCar(id);
 		if (flag == true) {
 			// mv.setViewName("mgmt_r_line");
@@ -522,7 +491,6 @@ public class CarController {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				// 此处应该记录日志
-				System.out.println("删除后重定向失败");
 				e.printStackTrace();
 			}
 		} else
@@ -537,11 +505,6 @@ public class CarController {
 	 */
 	public ModelAndView deleteDriver(@RequestParam String id,// GET方式传入，在action中
 			HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("进入删除控制器");
-		System.out.println(id);
-		// 此处获取session里的carrierid，下面方法增加一个参数
-		// String carrierId=(String)request.getSession().getAttribute("userId");
-		// String carrierId = "C-0002";// 删除
 		boolean flag = driverService.deleteDriver(id);
 		if (flag == true) {
 			// mv.setViewName("mgmt_r_line");
@@ -550,7 +513,6 @@ public class CarController {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				// 此处应该记录日志
-				System.out.println("删除后重定向失败");
 				e.printStackTrace();
 			}
 		} else
@@ -604,12 +566,10 @@ public class CarController {
 			@RequestParam String carCount, @RequestParam String chief,
 			@RequestParam String phone, @RequestParam String explaination,
 			HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("进入控制器");
 		String carrierId = (String) request.getSession().getAttribute("userId");
 		boolean flag = carTeamService.insertCarteam(teamName, carCount, chief,
 				phone, explaination, carrierId);
 		// boolean flag=true;
-		System.out.println("flag+" + flag);
 		if (flag == true) {
 			// mv.setViewName("mgmt_r_line");
 			try {
@@ -617,7 +577,6 @@ public class CarController {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				// 此处应该记录日志
-				System.out.println("添加后重定向失败");
 				e.printStackTrace();
 			}
 		} else
@@ -631,7 +590,6 @@ public class CarController {
 	 */
 	public ModelAndView deleteCarteam(@RequestParam String id,// GET方式传入，在action中
 			HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("进入删除控制器");
 
 		boolean flag = carTeamService.deleteCarteam(id);
 		if (flag == true) {
@@ -641,7 +599,6 @@ public class CarController {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				// 此处应该记录日志
-				System.out.println("删除后重定向失败");
 				e.printStackTrace();
 			}
 		} else
@@ -661,7 +618,6 @@ public class CarController {
 		boolean flag = carTeamService.updateCarteam(id, teamName, carCount, chief,
 				phone, explaination);
 		// boolean flag=true;
-		System.out.println("flag+" + flag);
 		if (flag == true) {
 			// mv.setViewName("mgmt_r_line");
 			try {
@@ -669,7 +625,6 @@ public class CarController {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				// 此处应该记录日志
-				System.out.println("更新后重定向失败");
 				e.printStackTrace();
 			}
 		} else
@@ -683,36 +638,9 @@ public class CarController {
 	 */
 	public ModelAndView downloadIdScans(@RequestParam String id,// GET方式传入，在action中
 			HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("进入删除控制器");
-		System.out.println(id);
-		// 此处获取session里的carrierid，下面方法增加一个参数
-		// String carrierId=(String)request.getSession().getAttribute("userId");
-		// String carrierId = "C-0002";// 删除
 		Driverinfo driverinfo = driverService.getDriverInfo(id);
-		try {
 			String file = driverinfo.getIdscans();
-			/*File tempFile =new File(file.trim());  	          
-	        String fileName = tempFile.getName();  			*/
-			InputStream is = new FileInputStream(file);
-			response.reset(); // 必要地清除response中的缓存信息
-			response.setHeader("Content-Disposition", "attachment; filename="
-					+ file);
-			//response.setContentType("application/vnd.ms-excel");// 根据个人需要,这个是下载文件的类型
-			javax.servlet.ServletOutputStream out = response.getOutputStream();
-			byte[] content = new byte[1024];
-			int length = 0;
-			while ((length = is.read(content)) != -1) {
-				out.write(content, 0, length);
-			}
-			out.write(content);
-			out.flush();
-			out.close();
-		} catch (Exception e) {
-			System.out.println("重定向失败");
-			e.printStackTrace();
-		}
-
-		//response.setHeader("Content-disposition", "attachment;filename="+ citylineInfo.getDetailPrice());
+			DownloadFile.downloadFile(file,request,response);
 		return mv;
 
 	}

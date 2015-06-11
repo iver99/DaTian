@@ -25,6 +25,7 @@ import cn.edu.bjtu.service.CommentService;
 import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.service.FocusService;
 import cn.edu.bjtu.service.LinetransportService;
+import cn.edu.bjtu.util.DownloadFile;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Comment;
@@ -38,8 +39,7 @@ import cn.edu.bjtu.vo.Linetransport;
  */
 public class LinetransportController {
 
-/*	@Autowired
-	private Logger logger = Logger.getLogger(LinetransportController.class);*/
+	private Logger logger = Logger.getLogger(LinetransportController.class);
 	
 	
 	@RequestMapping("/linetransport")
@@ -51,6 +51,7 @@ public class LinetransportController {
 			@RequestParam(required = false) Integer Display,
 			@RequestParam(required = false) Integer PageNow,
 			HttpSession session) {
+ 		
 		String userId = (String) session.getAttribute("userId");
 		if (Display == null)
 			Display = 10;// 默认的每页大小
@@ -66,7 +67,6 @@ public class LinetransportController {
 			/*String userId = (String) request.getSession().getAttribute(
 					"userId");*/
 			List focusList = focusService.getFocusList(userId,"linetransport");
-			// System.out.println("count+"+count);
 			int pageNum = (int) Math.ceil(count * 1.0 / Display);// 页数
 			mv.addObject("count", count);
 			mv.addObject("pageNum", pageNum);
@@ -218,7 +218,6 @@ public class LinetransportController {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				// 此处应该记录日志
-				System.out.println("linetransport插入后重定向失败");
 				e.printStackTrace();
 			}
 		} else
@@ -253,7 +252,6 @@ public class LinetransportController {
 		//////////////////////////////////////////////
 		String path = null;
 		String fileName = null;
-		//System.out.println("file+"+file+"filename"+file.getOriginalFilename());//不上传文件还是会显示有值
 		if (file.getSize() != 0)// 有上传文件的情况
 		{
 			path = UploadPath.getLinetransportPath();// 不同的地方取不同的上传路径
@@ -278,7 +276,6 @@ public class LinetransportController {
 				response.sendRedirect("linetransport?flag=1");// 重定向，显示最新的结果
 			} catch (IOException e) {
 				// 此处应该记录日志
-				System.out.println("linetransport更新后重定向失败");
 				e.printStackTrace();
 			}
 		} else
@@ -301,7 +298,6 @@ public class LinetransportController {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				// 此处应该记录日志
-				System.out.println("linetransport删除后重定向失败");
 				e.printStackTrace();
 			}
 		} else
@@ -317,26 +313,8 @@ public class LinetransportController {
 	public ModelAndView downloadLineDetailPrice(@RequestParam String id,// GET方式传入，在action中
 			HttpServletRequest request, HttpServletResponse response) {
 		Linetransport linetransportInfo = linetransportService.getLinetransportInfo(id);
-		try {
 			String file = linetransportInfo.getDetailPrice();
-			File tempFile =new File(file.trim());  	          
-	        String fileName = tempFile.getName();  			
-			InputStream is = new FileInputStream(file);
-			response.reset(); // 必要地清除response中的缓存信息
-			response.setHeader("Content-Disposition", "attachment; filename="
-					+ java.net.URLEncoder.encode(fileName, "UTF-8"));
-			javax.servlet.ServletOutputStream out = response.getOutputStream();
-			byte[] content = new byte[1024];
-			int length = 0;
-			while ((length = is.read(content)) != -1) {
-				out.write(content, 0, length);
-			}
-			out.flush();
-			out.close();
-		} catch (Exception e) {
-			System.out.println("重定向失败");
-			e.printStackTrace();
-		}
+			DownloadFile.downloadFile(file,request,response);
 		return mv;
 
 	}

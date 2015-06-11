@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-  
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -55,8 +54,11 @@
 						<a href="driver?flag=1" class="a_mgmt_leftnav1" hidefocus="true">司机信息</a>
                         <a href="client" class="a_mgmt_leftnav" hidefocus="true">客户信息</a>
                         <a href="goodsform?flag=1" class="a_mgmt_leftnav" hidefocus="true">货物信息</a>
+                        <a href="contract2" class="a_mgmt_leftnav" hidefocus="true">合同信息</a>
                         <%} %>
-                        <a href="contract" class="a_mgmt_leftnav" hidefocus="true">合同信息</a>
+                        <% if((Integer)session.getAttribute("userKind") ==2) {%><!-- 个人用户 -->
+                        <a href="contract" class="a_mgmt_leftnav1" hidefocus="true">合同信息</a>
+                        <%} %>
                     </div>
                     <%@ include  file="mysource_leftnav_myplan.jsp"%>
                     <%@ include  file="mysource_leftnav_myanalysis.jsp"%>
@@ -77,8 +79,8 @@
                         <td width="20" height="40" class="td_mgmt_right3_head1">&nbsp;</td>
                         <td class="td_mgmt_right3_head">姓名</td>
                         <td width="60" class="td_mgmt_right3_head">性别</td>
-                        <td width="60" class="td_mgmt_right3_head">年龄(岁)</td>
-                        <td width="60" class="td_mgmt_right3_head">驾龄(年)</td>
+                        <!-- <td width="60" class="td_mgmt_right3_head">年龄(岁)</td> -->
+                        <td width="60" class="td_mgmt_right3_head">取得驾驶<br>证时间</td>
                         <td width="80" class="td_mgmt_right3_head">驾驶证等级</td>
                         <td width="100" class="td_mgmt_right3_head">联系电话</td>
                         <td width="80" class="td_mgmt_right3_head">发布日期</td>
@@ -89,7 +91,7 @@
                         <td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
                         <td class="td_mgmt_right3_td1"><a href="driverdetail?driverId=${driver.id }&flag=1" hidefocus="true">${driver.driverName }</a></td>
                         <td class="td_mgmt_right3_td1">${driver.sex }</td>
-                        <td class="td_mgmt_right3_td1">${driver.age }</td>
+                        <%-- <td class="td_mgmt_right3_td1">${driver.age }</td> --%>
                         <td class="td_mgmt_right3_td1">${driver.licenceTime }</td>
                         <td class="td_mgmt_right3_td1">${driver.licenceRate }</td>
                         <td class="td_mgmt_right3_td1">${driver.phone }</td>

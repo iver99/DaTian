@@ -19,6 +19,7 @@
 <script type="text/javascript" src="js/popup.js"></script>
 <script type="text/javascript" src="js/backtop.js"></script>
 <script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
+<script type="text/javascript" src="js/focus_load.js"></script>
 <script type="text/javascript"> 
 	$(function() {
 		$('input, textarea').placeholder(); 
@@ -27,7 +28,7 @@
 
 </head>
 
-<body>
+<body onload="OnLoad()">
 
 <div id="backtop_item">
     <div class="qqserver">
@@ -44,7 +45,7 @@
             <div class="qqserver_comment" onclick="showid('popup1');" hidefocus="true">
                 给我留言
             </div>
-            <a href="javascript:;" class="a1" onclick="showid('popup2');" hidefocus="true">查看历史记录</a>
+            <!-- <a href="javascript:;" class="a1" onclick="showid('popup2');" hidefocus="true">查看历史记录</a> -->
         </div>
     </div>
     <a id="backtop" onclick="return false;" title="回到顶部"></a> 
@@ -192,13 +193,20 @@
 
 </body>
 <script type="text/javascript">
+function OnLoad() {
+	//Rescreen();
+	loadFocus();
+}
 function loadXMLDoc()
 {
+	var curWwwPath=window.document.location.href;
+    var pathName=window.document.location.pathname;
+    var pos=curWwwPath.indexOf(pathName);
 	var message = document.getElementById("message").value;
 	//alert(message);
 	$.ajax({
 		   type: "GET",
-		   url: "http://localhost:8585/DaTian/insertmessage",//请求的后台地址
+		   url: curWwwPath.substring(0,pos) + "/DaTian/insertmessage",//请求的后台地址
 		   data: "content=" + message,//前台传给后台的参数
 		   success: function(msg){//msg:返回值
 			   document.getElementById("close").click();

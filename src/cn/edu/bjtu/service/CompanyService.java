@@ -18,4 +18,5 @@ public interface CompanyService {
 	public List getwarehouseByCarrierId(String id);
 
 	public Carrierinfo getCompanyById(String carrierId);
+	public List getAllCompanyWithoutPage();
 }

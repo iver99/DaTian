@@ -7,12 +7,15 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.edu.bjtu.service.RegisterService;
 import cn.edu.bjtu.service.SubAccountService;
+import cn.edu.bjtu.util.Encrypt;
 import cn.edu.bjtu.vo.SubAccount;
 
 @Controller
@@ -22,13 +25,20 @@ public class SubAccountController {
 	
 	@Resource 
 	SubAccountService subAccountService;
+	@Autowired
+	RegisterService registerService;
 	
+	/**
+	 * 获取公司子账户
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping("getsubaccount")
 	public ModelAndView getSubAccount(HttpServletRequest request,HttpServletResponse response)
 	{
 		String userId=(String)request.getSession().getAttribute("userId");
 		List subAccountList = subAccountService.getSubAccount(userId);
-		System.out.println("subAccountList+" + subAccountList);
 		mv.addObject("subAccountList", subAccountList);
 		mv.setViewName("mgmt_a_subaccount");
 		return mv;
@@ -46,10 +56,8 @@ public class SubAccountController {
 			HttpServletRequest request,HttpServletResponse response){
 		
 		String userId=(String)request.getSession().getAttribute("userId");
-		//System.out.println("已经进入subaccount控制器");
 
 		List subAccountList = subAccountService.getFindSubAccount(userId, username);
-		//System.out.println("subAccountList+" + subAccountList);
 		mv.addObject("subAccountList", subAccountList);
 		mv.setViewName("mgmt_a_subaccount");
 		return mv;
@@ -68,10 +76,8 @@ public class SubAccountController {
 			HttpServletRequest request,HttpServletResponse response){
 		
 		String userId=(String)request.getSession().getAttribute("userId");
-		//System.out.println("已经进入subaccount控制器");
 
 		SubAccount subAccount = subAccountService.getSubAccountDetail(id);
-		//System.out.println("subAccount+" + subAccount);
 		mv.addObject("subAccount", subAccount);
 		mv.setViewName("mgmt_a_subaccount4");
 		return mv;
@@ -90,7 +96,6 @@ public class SubAccountController {
 			HttpServletRequest request,HttpServletResponse response){
 		
 		String userId=(String)request.getSession().getAttribute("userId");
-		System.out.println("已经进入subaccount控制器");
 		boolean flag = subAccountService.changeStatus(id);
 		try {
 			if (flag == true)
@@ -109,7 +114,7 @@ public class SubAccountController {
 	
 	@RequestMapping("deletesubaccount")
 	/**
-	 * 删除用户
+	 * 删除子账户 
 	 * @param id
 	 * @param request
 	 * @param response
@@ -120,7 +125,6 @@ public class SubAccountController {
 			HttpServletRequest request,HttpServletResponse response){
 		
 		String userId=(String)request.getSession().getAttribute("userId");
-		//System.out.println("已经进入subaccount控制器");
 		boolean flag = subAccountService.deleteSubAccount(id);
 		try {
 			if (flag == true)
@@ -139,7 +143,7 @@ public class SubAccountController {
 	
 	@RequestMapping("addsubaccount")
 	/**
-	 * 跳转到新增用户界面
+	 * 获取添加附属账户表单 -跳转到新增用户界面
 	 * @param request
 	 * @param response
 	 * @return
@@ -149,7 +153,6 @@ public class SubAccountController {
 		
 		String userId=(String)request.getSession().getAttribute("userId");
 		String username=(String)request.getSession().getAttribute("username");
-		//System.out.println("已经进入subaccount控制器");
 		mv.addObject("username", username);
 		mv.setViewName("mgmt_a_subaccount2");
 		return mv;
@@ -182,11 +185,19 @@ public class SubAccountController {
 		 String hostAccountId=(String)request.getSession().getAttribute("userId");
 		 String hostAccountName=(String)request.getSession().getAttribute("username");
 			
-			//System.out.println("已经进入insertsubaccount控制器");
 			
 			boolean flag = subAccountService.insertSubAccount(username,password,resourceManagement,
 					transactionManagement,schemaManagement,statisticsManagement,remarks,
 					hostAccountId,hostAccountName);
+			
+			//添加附属账户到userinfo表，以后就可以用子账户账号登陆
+			//add by RussWest0 at 2015年6月6日,下午3:55:44 
+			String psw = Encrypt.MD5(password);
+			//验证码未实现 
+//			phone字段默认设为空，userkind默认设置为3-企业用户
+			registerService.registerSubAccount(username, psw,3);
+			
+			
 			try {
 				if (flag == true)
 					response.sendRedirect("getsubaccount");
@@ -216,7 +227,6 @@ public class SubAccountController {
 			System.out.println("已经进入subaccount控制器");
 
 			SubAccount subAccount = subAccountService.getSubAccountDetail(id);
-			System.out.println("subAccount+" + subAccount);
 			mv.addObject("subAccount", subAccount);
 			mv.setViewName("mgmt_a_subaccount3");
 			return mv;

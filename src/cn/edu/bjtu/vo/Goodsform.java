@@ -25,6 +25,7 @@ public class Goodsform implements java.io.Serializable {
 	private String transportReq;
 	private String damageReq;
 	private String vipservice;
+	private String vipServiceDetail;//add by RussWest0 at 2015年6月9日,下午8:51:25 
 	private String oriented;
 	private int feedbackQuantity;
 	private String invoice;
@@ -45,6 +46,14 @@ public class Goodsform implements java.io.Serializable {
 
 	public String getState() {
 		return state;
+	}
+
+	public String getVipServiceDetail() {
+		return vipServiceDetail;
+	}
+
+	public void setVipServiceDetail(String vipServiceDetail) {
+		this.vipServiceDetail = vipServiceDetail;
 	}
 
 	public void setState(String state) {

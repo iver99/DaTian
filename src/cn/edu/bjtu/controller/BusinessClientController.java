@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.ClientService;
+import cn.edu.bjtu.util.DownloadFile;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Businessclient;
 
@@ -119,7 +120,6 @@ public class BusinessClientController {
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				// 此处应该记录日志
-				System.out.println("client插入后重定向失败");
 				e.printStackTrace();
 			}
 		} else
@@ -166,7 +166,6 @@ public class BusinessClientController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			// System.out.println("path+fileName+" + path + "-" + fileName);
 		}
 		// 没有上传文件的情况path 和 filenName默认为null
 
@@ -175,7 +174,6 @@ public class BusinessClientController {
 		
 		boolean flag = clientService.updateBusinessClient(id, account, clientName,
 				clientBusiness, contact, phone, remarks, carrierId,path,fileName);
-		System.out.println("flag+" + flag);
 		if (flag == true) {
 			try {
 				response.sendRedirect("client");// 重定向，显示最新的结果
@@ -183,7 +181,6 @@ public class BusinessClientController {
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				// 此处应该记录日志
-				System.out.println("client更新后重定向失败");
 				e.printStackTrace();
 			}
 		} else
@@ -205,7 +202,6 @@ public class BusinessClientController {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				// 此处应该记录日志
-				System.out.println("删除后重定向失败");
 				e.printStackTrace();
 			}
 		} else
@@ -224,30 +220,9 @@ public class BusinessClientController {
 	public ModelAndView downloadClientRelated(@RequestParam String id,// GET方式传入，在action中
 			HttpServletRequest request, HttpServletResponse response) {
 		Businessclient clientInfo = clientService.getBusinessclientInfo(id);
-		try {
-			String file = clientInfo.getRelatedMaterial();
-			/*File tempFile =new File(file.trim());  	          
-	        String fileName = tempFile.getName();  			*/
-			InputStream is = new FileInputStream(file);
-			response.reset(); // 必要地清除response中的缓存信息
-			response.setHeader("Content-Disposition", "attachment; filename="
-					+ file);
-			//response.setContentType("application/vnd.ms-excel");// 根据个人需要,这个是下载文件的类型
-			javax.servlet.ServletOutputStream out = response.getOutputStream();
-			byte[] content = new byte[1024];
-			int length = 0;
-			while ((length = is.read(content)) != -1) {
-				out.write(content, 0, length);
-			}
-			out.write(content);
-			out.flush();
-			out.close();
-		} catch (Exception e) {
-			System.out.println("重定向失败");
-			e.printStackTrace();
-		}
+		String file = clientInfo.getRelatedMaterial();
+		DownloadFile.downloadFile(file,request,response);
 
-		//response.setHeader("Content-disposition", "attachment;filename="+ citylineInfo.getDetailPrice());
 		return mv;
 	}
 }

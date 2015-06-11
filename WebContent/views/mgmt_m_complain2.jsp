@@ -43,12 +43,12 @@
                         <a href="allcomplaint" class="a_mgmt_leftnav1" hidefocus="true">投诉管理</a>
                         <a href="authentic" class="a_mgmt_leftnav" hidefocus="true">用户验证</a>
                     </div>
-                    <hr class="hr_2" />
+                    <!-- <hr class="hr_2" />
                     <span class="text_mgmt_leftnav1"><span id="mgmt_nav_switch2a" class="span_mgmt_nav1" title="收起" onclick="mgmt_nav_switch2a();"></span><span id="mgmt_nav_switch2b" class="span_mgmt_nav2" title="展开" onclick="mgmt_nav_switch2b();"></span>平台运营</span>
                     <div id="mgmt_nav2">
                         <a href="mgmt_m_pricetemplate.htm" class="a_mgmt_leftnav" hidefocus="true">报价模板信息</a>
                         <a href="mgmt_m_carmonitor.htm" class="a_mgmt_leftnav" hidefocus="true">车辆监控</a>
-                    </div>
+                    </div> -->
                 </div>
 			</td>
             <td class="td_leftnav_top">
@@ -79,22 +79,22 @@
 									<td>${complaintInfo.content }</td>
 								</tr>
 								<tr>
-									<td height="40" class="td_mgmt_right3_td1b">订单编号：</td>
-									<td><a href="javascript:;" hidefocus="true">${orderinfo.orderNum }</a></td>
+									<td height="40" class="td_mgmt_right3_td1b">订单ID/订单编号：</td>
+									<td>${complaintInfo.orderId }/${orderinfo.orderNum }</td>
 								</tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">相关材料：</td>
-                                    <td><a href="javascript:;" hidefocus="true"><img src="images/btn_filetype2.png" /></a></td>
+                                     <td><a href="downloadComplaintMaterial?complaintid=${complaintInfo.id }" hidefocus="true"><img src="images/btn_filetype2.png" /></a></td> 
                                 </tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">反馈：</td>
 									<td>
-                                    	<textarea name="feedback" class="textarea_rating" placeholder="请输入内容...">${complaintInfo.feedback }</textarea>
+                                    	<textarea name="feedback" class="textarea_rating" placeholder="请输入内容..." required>${complaintInfo.feedback }</textarea>
                                     </td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
-									<td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
+									<td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><!-- <input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /> --></td>
 								</tr>
 							</table>
 							</form>

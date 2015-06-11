@@ -34,6 +34,15 @@ public class CompanyServiceImpl implements CompanyService{
 		// TODO Auto-generated method stub
 		return companyDao.getAllCompany(Display,PageNow);
 	}
+	
+
+	@Override
+	/**
+	 * 返回所有公司
+	 */
+	public List getAllCompanyWithoutPage(){
+		return companyDao.getAllCompanyWithoutPage();
+	}
 
 	/*@Override
 	*//**
@@ -102,7 +111,6 @@ public class CompanyServiceImpl implements CompanyService{
 			sql=HQLTool.spellHql2(hql,paramList, valueList);
 		}
 		
-		//System.out.println("hql+" + sql);
 		return companyDao.getSelectedCompany(sql,Display,PageNow);
 	}
 	
@@ -163,7 +171,6 @@ public class CompanyServiceImpl implements CompanyService{
 			String hql="from Carrierinfo ";//会变化
 			sql=HQLTool.spellHql2(hql,paramList, valueList);
 		}
-		//System.out.println("hql+"+sql);
 		return hqltool.getTotalRows(sql);//这里的HQLTool实例千万不能自己new出来，用@Resource
 	}
 	
@@ -182,6 +189,9 @@ public class CompanyServiceImpl implements CompanyService{
 		return companyDao.getwarehouseByCarrierId(id);
 	}
 
+	/**
+	 * 查找Carrierinfo实体
+	 */
 	@Override
 	public Carrierinfo getCompanyById(String carrierId) {
 		// TODO Auto-generated method stub

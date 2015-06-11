@@ -47,8 +47,14 @@ public class CommentServiceImpl implements CommentService{
 		comment.setCargoSafety(rate3);
 		comment.setComment(remarks);
 		
+		//add by RussWest0 at 2015年6月7日,下午4:25:06 
 		Orderform order=orderDao.get(Orderform.class, orderid);
-//		Orderform order=orderDao.get
+		comment.setLinetransportId(order.getLinetransportId());
+		comment.setWarehouseId(order.getWarehouseId());
+		comment.setCarrierId(order.getCarrierId());
+		comment.setCitylineId(order.getCitylineId());
+		comment.setOrderId(order.getId());
+		
 		if(order!= null){
 			order.setState("已完成");
 			order.setCommentId(comment.getId());
@@ -103,6 +109,23 @@ public class CommentServiceImpl implements CommentService{
 		params.put("warehouseid", warehouseid);
 		params.put("carrierId", userId);
 		return commentDao.find(hql, params);
+	}
+
+	/**
+	 * 根据订单id得到订单评价
+	 */
+	@Override
+	public Comment getCommentByOrderId(String orderId) {
+		// TODO Auto-generated method stub
+		String hql="from Comment where orderId=:orderId";
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("orderId", orderId);
+		List<Comment> commentList=commentDao.find(hql, params);
+		
+		if(commentList!=null){
+			return commentList.get(0);
+		}
+		return null;
 	}
 	
 	

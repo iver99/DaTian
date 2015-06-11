@@ -82,35 +82,35 @@
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">所属客户：</td>
 									<td>
-										<select style="width:120px;" name="clientName">
+										<select style="width:120px;" name="clientName" required>
 											<option value="" selected="selected">请选择</option>
-                                            <option value="ABC商贸公司">ABC商贸公司</option>
-                                            <option value="X公司">X公司</option>
-                                            <option value="DEF公司">DEF公司</option>
+                                            <option value="北京索契物流有限公司">北京索契物流有限公司</option>
+                                            <option value="天津友达通有限公司">天津友达通有限公司</option>
+                                            <option value="北京大田物流有限公司">北京大田物流有限公司</option>
                                         </select>
 									</td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">关联客户运单：</td>
                                     <td>
-                                        <select id="psource" style="width:120px;" onchange="change2();" name="isLinkToClientWayBill">
+                                        <select id="psource" style="width:120px;" onchange="change2();" name="isLinkToClientWayBill" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="有">有</option>
                                             <option value="无">无</option>
                                         </select>
                                         <div id="p_detail" style="display:none;">
-                                            <input type="text" name="isLinkToClientWayBill" class="input_mgmt1" style="width:176px;" placeholder="请输入客户运单号..." />
+                                            <input type="text" name="isLinkToClientWayBill" class="input_mgmt1" style="width:176px;" placeholder="请输入客户运单号..."/>
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">承运方：</td>
-                                    <td><input name="companyName" type="text" readonly="readonly" value="${companyName }"/></td>
+                                    <td><input name="companyName" type="text" readonly="readonly" value="${companyName }" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">承运方合同：</td>
                                     <td>
-                                        <select id="city_cert" style="width:120px;" onchange="change_cert();" name="hasCarrierContract">
+                                        <select id="city_cert" style="width:120px;" onchange="change_cert();" name="hasCarrierContract" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="有">有</option>
                                             <option value="无">无</option>
@@ -164,31 +164,31 @@
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">货物名称：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="goodsName"/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="goodsName" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">货物重量：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="goodsWeight"/>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="goodsWeight" required/>
                                     (公斤)</td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">货物体积：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="goodsVolume"/>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="goodsVolume" required/>
                                     (立方米)</td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">货物声明价值：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="declaredPrice"/>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="declaredPrice" required/>
                                     (元)</td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">保险费：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="insurance"/>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="insurance" required/>
                                     (元)</td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">运费：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="expectedPrice"/>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="expectedPrice" required/>
                                     (元)</td>
                                 </tr>
                             </table>
@@ -208,21 +208,21 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">姓名：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:200px;" name="deliveryName"/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:200px;" name="deliveryName" required/></td>
                                     <td class="td_mgmt_right3_td1b">姓名：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:200px;" name="recieverName"/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:200px;" name="recieverName" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">地址：</td>
-                                    <td><textarea class="textarea_rating1" name="deliveryAddr"></textarea></td>
+                                    <td><textarea class="textarea_rating1" name="deliveryAddr" required></textarea></td>
                                     <td class="td_mgmt_right3_td1b">地址：</td>
-                                    <td><textarea class="textarea_rating1" name="recieverAddr"></textarea></td>
+                                    <td><textarea class="textarea_rating1" name="recieverAddr" required></textarea></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">电话：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:200px;" name="deliveryPhone"/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:200px;" name="deliveryPhone" required/></td>
                                     <td class="td_mgmt_right3_td1b">电话：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:200px;" name="recieverPhone"/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:200px;" name="recieverPhone" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="20" class="td_mgmt_right3_td1b">&nbsp;</td>
@@ -236,12 +236,12 @@
 								<tr>
 									<td width="120" height="40" class="td_mgmt_right3_td1b">备注：</td>
 									<td>
-                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="remarks"></textarea>
+                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="remarks" required></textarea>
                                     </td>
 								</tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
-                                    <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="window.location.href='sendorderinfo'" /><input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
+                                    <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
                                 </tr>
                             </table>
                         </td>
@@ -353,5 +353,11 @@
 	function OnLoad() {
 		loadFocus();
 	}
+	$(function(){
+		$('reset:button').click(function(){
+		   $('.input').val("");
+		   $('.select').val("");
+		});
+    })
 </script>
 </html>

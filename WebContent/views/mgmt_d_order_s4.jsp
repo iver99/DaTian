@@ -83,7 +83,15 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">所属客户：</td>
-                                    <td>${orderInfo.clientName }</td>
+                                    <c:choose>
+                                    	<c:when test="${orderInfo.clientName !='' }">
+                                    		 <td>${orderInfo.clientName }</td>
+                                    	</c:when>
+                                    	<c:otherwise>
+                                    		 <td>无</td>
+                                    	</c:otherwise>
+                                    </c:choose>
+                                   
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">关联客户运单：</td>

@@ -10,12 +10,16 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.ClientService;
+import cn.edu.bjtu.util.DownloadFile;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Clientinfo;
+import cn.edu.bjtu.vo.Linetransport;
 
 @Controller
 /**
@@ -38,23 +42,17 @@ public class ClientController {
 	public ModelAndView getAccountInfo(HttpServletRequest request,
 			HttpServletResponse response) {
 		// 此方法内可能需要判断用户种类,因为企业用户和个人用户的验证页面不一样
-		// 当前下考虑个人用户，企业用户先不考虑，（数据库没有表)
 		String userId = (String) request.getSession().getAttribute("userId");
 		if(userId==null)//未登录
 		{
 			mv.setViewName("login");
 			return mv;
 		}
-		int userKind=(Integer)request.getSession().getAttribute("userKind");
-		boolean flag = clientService.checkHeadIcon(userId,userKind);
-		// 个人用户
-		/*if(userKind==2){//普通用户{
-*/		String status = clientService.getStatus(userId);
+		//int userKind=(Integer)request.getSession().getAttribute("userKind");
+		boolean flag = clientService.checkHeadIconStatus(userId);
+		String status = clientService.getStatus(userId);
 		mv.addObject("status", status);
 		mv.addObject("headCheck", flag);
-	/*}else if(userKind==3){//企业用户
-		
-	}*/
 		mv.setViewName("mgmt_a_info");
 		return mv;
 	}
@@ -91,18 +89,37 @@ public class ClientController {
 	}
 
 	@RequestMapping("validateuser")
-	public ModelAndView validateUser(String realName, String phone,
+	public ModelAndView validateUser(@RequestParam(required = false) MultipartFile file,
+			String realName, String phone,
 			String IDCard, String sex, HttpServletRequest request,
 			HttpServletResponse response) {
 		String userId=(String)request.getSession().getAttribute("userId");
 		
-		boolean flag=clientService.validateUser(userId,realName,phone,IDCard,sex);
+		// ////////////////////////////////////////////
+		String path = null;
+		String fileName = null;
+		if (file.getSize() != 0)// 有上传文件的情况
+		{
+			path = UploadPath.getClientPath();// 不同的地方取不同的上传路径
+			fileName = file.getOriginalFilename();
+			fileName = userId + "_" + fileName;// 文件名
+			File targetFile = new File(path, fileName);
+			try { // 保存 文件
+				file.transferTo(targetFile);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		// 没有上传文件的情况path 和 filenName默认为null
+
+		// ////////////////////////////////////////////
+		
+		boolean flag=clientService.validateUser(userId,realName,phone,IDCard,sex,path,fileName);
 		if(flag==true){
 			try {
 				response.sendRedirect("accountinfo");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				System.out.println("验证账户出错");//logging
 				e.printStackTrace();
 			}
 		}else{//验证账户出错
@@ -133,7 +150,7 @@ public class ClientController {
 	 * @param clientinfo
 	 * @return
 	 */
-	public ModelAndView updateClientInfo(HttpSession session,Clientinfo clientinfo,MultipartFile file){
+	public ModelAndView updateClientInfo(HttpServletResponse response,HttpSession session,Clientinfo clientinfo,MultipartFile file){
 		String userId=(String) session.getAttribute("userId");
 		String path = null;
 		String fileName = null;
@@ -152,10 +169,23 @@ public class ClientController {
 		boolean flag=clientService.updateClientinfo(clientinfo,path, fileName,userId);
 		if(flag){
 			mv.addObject("msg", "更新个人信息成功!");
-			mv.setViewName("mgmt_a_info");
+			try {
+				response.sendRedirect("accountinfo");//跳到我的信息页面
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			//mv.setViewName("mgmt_a_info");
+			
 		}else{
 			mv.addObject("msg", "更新个人信息失败！");
-			mv.setViewName("mgmt_a_info3a");
+			try {
+				response.sendRedirect("accountinfo");//跳到我的信息页面 
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			//mv.setViewName("mgmt_a_info3a");
 		}
 		return mv;
 	}
@@ -174,6 +204,17 @@ public class ClientController {
 		return mv;
 	}
 
-	
+	@RequestMapping(value = "downloaduseridpicture", method = RequestMethod.GET)
+	/**
+	 * 下载idpicture
+	 */
+	public ModelAndView downloadUserIDPicture(@RequestParam String id,// GET方式传入，在action中
+			HttpServletRequest request, HttpServletResponse response) {
+			Clientinfo clientinfo = clientService.getClientInfo(id);
+			String file = clientinfo.getIDPicture();
+			DownloadFile.downloadFile(file,request,response);
+		return mv;
+
+	}
 	
 }
