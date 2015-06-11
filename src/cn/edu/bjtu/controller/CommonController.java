@@ -6,16 +6,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.service.DriverService;
+import cn.edu.bjtu.service.LinetransportService;
 import cn.edu.bjtu.util.IdCreator;
+import cn.edu.bjtu.vo.Linetransport;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 @Controller
 /**
@@ -25,12 +32,14 @@ import cn.edu.bjtu.util.IdCreator;
  */
 public class CommonController {
 	
-	/*@Autowired
-	CarService carService;*/
+	private Logger logger=Logger.getLogger(CommonController.class);
 	@Autowired
 	DriverService driverService;
 	@Autowired
 	CompanyService companyService;
+	@Autowired
+	LinetransportService linetransportService;
+	
 	ModelAndView mv = new ModelAndView();
 
 	@RequestMapping("/myinfo")
@@ -112,5 +121,29 @@ public class CommonController {
 	public String gotoHomePage()
 	{
 		return "index";
+	}
+	
+	/**
+	 * 下面方法供测试使用
+	 * @param msg
+	 * @return
+	 */
+	@RequestMapping("/views/testAjax")
+	@ResponseBody
+	public String testAjax(String msg){
+		logger.info(msg+"--");
+		
+		List<Linetransport> lineList=linetransportService.getAllLinetransport(3, 1);
+		
+		JSONArray jsonArray=new JSONArray();
+		for(int i=0;i<lineList.size();i++){
+			JSONObject jsonObject=(JSONObject)JSONObject.toJSON(lineList.get(i));
+			jsonArray.add(jsonObject);
+		}
+		
+		return jsonArray.toString();
+		
+		
+		
 	}
 }

@@ -21,6 +21,8 @@ public class AddressDaoImpl extends BaseDaoImpl<Address> implements AddressDao{
 
 	@Resource
 	HibernateTemplate ht;
+	/*@Autowired
+	AddressDao addressDao;*/
 	/*@Resource
 	BaseDao baseDao;*/
 	/*@Autowired
@@ -29,12 +31,12 @@ public class AddressDaoImpl extends BaseDaoImpl<Address> implements AddressDao{
 	@Override
 	public List getAddress(String userId) {
 		// TODO Auto-generated method stub
-		return ht.find("from Address where clientId='"+userId+"'");
+		return this.find("from Address where clientId='"+userId+"'");
 	}
 	
 	@Override
 	public Address getAddressDetail(String id){
-		return ht.get(Address.class, id);
+		return this.get(Address.class, id);
 	}
 	
 	

@@ -46,6 +46,11 @@ public class LoginFilter extends OncePerRequestFilter {
 			filterChain.doFilter(request, response);
 			return;
 		}
+		//Ajax后最的请求不拦截 add by RussWest0 at 2015年6月12日,上午12:00:40 
+		if(uri.endsWith("Ajax")){
+			filterChain.doFilter(request, response);
+			return ;
+		}
 		// 是否过滤,true时过滤 false不过滤
 		boolean doFilter = true;
 		for (String s : notFilter) {
