@@ -39,9 +39,9 @@ public class ComplaintServiceImpl implements ComplaintService {
 	}
 
 	@Override
-	public Complaintform getComplaintInfo(String id) {
+	public Complaintform getComplaintById(String id) {
 
-		return complaintDao.getComplaintInfo(id);
+		return complaintDao.get(Complaintform.class,id);
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class ComplaintServiceImpl implements ComplaintService {
 		complaintform.setType(complaintBean.getType());
 		complaintform.setTheme(complaintBean.getTheme());
 		complaintform.setContent(complaintBean.getContent());
-		complaintform.setOrderId(complaintBean.getOrderId());
+		complaintform.setOrderNum(complaintBean.getOrderNum());
 		
 		complaintform.setCarrierId(carrierId);
 		complaintform.setClientId(carrierId);
@@ -77,7 +77,7 @@ public class ComplaintServiceImpl implements ComplaintService {
 	@Override
 	public boolean doAcceptComplaint(String id, String feedback) {
 
-		complaintform = getComplaintInfo(id);
+		complaintform = getComplaintById(id);
 		complaintform.setFeedback(feedback);
 		complaintform.setState("“— ‹¿Ì");
 		complaintDao.update(complaintform);

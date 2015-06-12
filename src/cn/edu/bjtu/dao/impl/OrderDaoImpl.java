@@ -1,11 +1,12 @@
 package cn.edu.bjtu.dao.impl;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -13,7 +14,6 @@ import cn.edu.bjtu.dao.OrderDao;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.vo.OrderCarrierView;
 import cn.edu.bjtu.vo.Orderform;
-import cn.edu.bjtu.vo.Track;
 
 @Repository
 public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
@@ -66,10 +66,11 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 	/**
 	 * 通过订单编号获取某订单id
 	 */
-	public List getOrderIdByOrderNum(String orderNum) {
+	public Orderform getOrderByOrderNum(String orderNum) {
 		// TODO Auto-generated method stub
-		return ht.find("select id from Orderform where orderNum='" + orderNum
-				+ "'");
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("orderNum", orderNum);
+		return this.get("from Orderform where orderNum=:orderNum",params);
 	}
 
 	@Override

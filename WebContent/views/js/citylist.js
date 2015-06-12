@@ -42,6 +42,7 @@ cityResource[38]=new Array('mdg','牡丹江','mudanjiang','mdj');
 cityResource[39]=new Array('ynj','延吉','yanji','yj');
 cityResource[40]=new Array('het','呼和浩特','huhehaote','hhht');
 cityResource[41]=new Array('chn','全国','quanguo','qg');
+//cityResource[42]=new Array('py','平遥','pingyao','py');
 
 //初始化国际城市
 //var cityResourceTo=new Array();

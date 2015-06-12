@@ -26,5 +26,8 @@
 		<property name="companyName" type="string">
 			<column name="companyName" />
 		</property>
+		<property name="carrierId" type="string">
+			<column name="carrierId" />
+		</property>
 	</class>
 </hibernate-mapping>

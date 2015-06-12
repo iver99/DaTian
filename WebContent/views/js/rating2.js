@@ -8,7 +8,9 @@ $(function() {
 		target   : '#hint1',
 		targetKeep: true,
 		readOnly : true,
-		score    : 5
+		score: function() { 
+		    return $(this).attr('data-score');
+		}
 	  });
 	  $('#rating2').raty({
 		half     : false,
@@ -18,7 +20,9 @@ $(function() {
 		target   : '#hint2',
 		targetKeep: true,
 		readOnly : true,
-		score    : 5
+		score: function() { 
+		    return $(this).attr('data-score');
+		}
 	  });
 	  $('#rating3').raty({
 		half     : false,
@@ -28,7 +32,9 @@ $(function() {
 		target   : '#hint3',
 		targetKeep: true,
 		readOnly : true,
-		score    : 4
+		score: function() { 
+		    return $(this).attr('data-score');
+		}
 	  });
 	  $('#rating4').raty({
 		half     : false,
@@ -38,6 +44,8 @@ $(function() {
 		target   : '#hint4',
 		targetKeep: true,
 		readOnly : true,
-		score    : 3
+		score: function() { 
+		    return $(this).attr('data-score');
+		}
 	  });
 }); 

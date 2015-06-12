@@ -76,7 +76,7 @@ public class FocusController {
 	
 	@RequestMapping("getallfocus")
 	/**
-	 * 关注页面
+	 *获取当前用户的所有关注
 	 * @param request
 	 * @param response
 	 * @return

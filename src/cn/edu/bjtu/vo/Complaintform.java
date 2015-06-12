@@ -18,7 +18,7 @@ public class Complaintform implements java.io.Serializable {
 	private String content;
 	private Date relDate;
 	private String state;
-	private String orderId;
+	private String orderNum;
 	private String relatedMaterial;
 	private String feedback;
 	private String clientId;
@@ -31,22 +31,7 @@ public class Complaintform implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public Complaintform(String id, String type, String theme, String content,
-			Date relDate, String state, String orderId, String relatedMaterial,
-			String feedback, String clientId, String carrierId) {
-		this.id = id;
-		this.type = type;
-		this.theme = theme;
-		this.content = content;
-		this.relDate = relDate;
-		this.state = state;
-		this.orderId = orderId;
-		this.relatedMaterial = relatedMaterial;
-		this.feedback = feedback;
-		this.clientId = clientId;
-		this.carrierId = carrierId;
-	}
-
+	
 	public String getId() {
 		return this.id;
 	}
@@ -95,12 +80,13 @@ public class Complaintform implements java.io.Serializable {
 		this.state = state;
 	}
 
-	public String getOrderId() {
-		return this.orderId;
+	
+	public String getOrderNum() {
+		return orderNum;
 	}
 
-	public void setOrderId(String orderId) {
-		this.orderId = orderId;
+	public void setOrderNum(String orderNum) {
+		this.orderNum = orderNum;
 	}
 
 	public String getRelatedMaterial() {

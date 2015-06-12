@@ -9,7 +9,7 @@ public interface ComplaintService {
 
 	public List getUserCompliant(String userId);
 	public List getAllUserCompliant();
-	public Complaintform getComplaintInfo(String id);
+	public Complaintform getComplaintById(String id);
 	/*public boolean insertComplaint(String type, String theme,
 			String content, String orderNum, String carrierId,String path,String fileName);*/
 	public boolean insertComplaint(ComplaintBean complaintBean,String carrierId,String path,String fileName);

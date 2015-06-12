@@ -39,11 +39,11 @@ public class ContractDaoImpl extends BaseDaoImpl<Contract> implements ContractDa
 		return ht.find("from Contract where carrierId='"+carrierId+"'");
 	}
 	
-	@Override
+	/*@Override
 	public List getCompanyContractForUser(String clientId) {
 		// TODO Auto-generated method stub
-		return ht.find("from Contract where clientId='"+clientId+"'");
-	}
+		return this.find("from Contract where clientId='"+clientId+"'");
+	}*/
 	
 	@Override
 	/**

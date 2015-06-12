@@ -35,11 +35,11 @@ public class ComplaintDaoImpl extends BaseDaoImpl<Complaintform> implements Comp
 	}
 
 	
-	@Override
+	/*@Override
 	public Complaintform getComplaintInfo(String id) {
 		return this.get(Complaintform.class, id);
 	}
-	
+	*/
 	@Override
 	public List getFindComplaint(String sql){
 		return ht.find(sql);

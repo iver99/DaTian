@@ -723,7 +723,7 @@ public class OrderController {
 		// 需要取出承运方公司名称
 		//flag和resourceType中标识1为干线，2为城市，3为车辆,4为公司
 		int resourceType = 0;
-		if(flag==4){
+		if(flag==4){//从公司页面提交订单
 			Carrierinfo carrierInfo=companyService.getCompanyById(carrierid);
 			mv.addObject("carrierInfo", carrierInfo);
 			mv.addObject("carrierId", carrierid);
@@ -731,20 +731,20 @@ public class OrderController {
 			mv.setViewName("mgmt_d_order_s2a");
 			return mv;
 		}
-		if(flag==1){
+		if(flag==1){//从干线资源提交订单
 			Linetransport linetransportInfo = linetransportService
 					.getLinetransportInfo(resourceId);
 			resourceType = 1;
 			mv.addObject("resourceType", resourceType);
 			mv.addObject("linetransportInfo", linetransportInfo);
 		}
-		if(flag==2){
+		if(flag==2){// 从城市配送提交订单
 			Cityline citylineInfo = citylineService.getCitylineInfo(resourceId);
 			resourceType = 2;
 			mv.addObject("resourceType", resourceType);
 			mv.addObject("citylineInfo", citylineInfo);
 		}
-		if(flag==3){
+		if(flag==3){//从车辆资源提交订单
 			Carinfo carInfo = carService.getCarInfo(resourceId);
 			resourceType = 3;
 			mv.addObject("resourceType", resourceType);

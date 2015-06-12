@@ -242,7 +242,22 @@
                         <c:choose>
                         <c:when test="${focusCompanyList.status == '有效' }">
 						<td class="td_mgmt_right3_td1">有效</td>
-                       <td class="td_mgmt_right3_td3"><a href="deletefocus?id=${focusCompanyList.id }" hidefocus="true">取消关注</a></td>
+                       <td class="td_mgmt_right3_td3">
+                            <div id="handlebox" style="z-index:205;">
+                                <ul class="quickmenu">
+                                    <li class="menuitem">
+                                        <div class="menu">
+                                            <a href="getneworderform?carrierid=${focusCompanyList.carrierId}&flag=4" class="menuhd" hidefocus="true">提交订单</a> 
+                                            <div class="menubd">
+                                                <div class="menubdpanel">
+                                                    <a href="deletefocus?id=${focusCompanyList.id }" class="a_top3" hidefocus="true">取消关注</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
                         </c:when>
                         <c:when test="${focusCompanyList.status == '失效' }">
                         <td class="td_mgmt_right3_td1"><span class="span_mgmt_right3_text3">失效</span></td>

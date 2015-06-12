@@ -1,9 +1,7 @@
 package cn.edu.bjtu.controller;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
@@ -11,10 +9,12 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,7 +24,9 @@ import cn.edu.bjtu.util.DownloadFile;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Contract;
-import cn.edu.bjtu.vo.Driverinfo;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 @Controller
 /**
@@ -38,12 +40,13 @@ public class ContractController {
 	ContractService contractService;
 	@Resource
 	CompanyService companyService;
+	private Logger logger=Logger.getLogger(ContractController.class);
 
 	ModelAndView mv = new ModelAndView();
 
 	@RequestMapping("/contract")
 	/**
-	 * 获取公司所有的合同
+	 * 获取个人用户所有的合同
 	 * @param contractId
 	 * @param flag
 	 * @param request
@@ -52,7 +55,7 @@ public class ContractController {
 	public ModelAndView getCompanyContractForUser(HttpServletRequest request) {
 		String clientId=(String)request.getSession().getAttribute("userId");
 		//String carrierId = "C-0002";
-		List contractList = contractService.getCompanyContractForUser(clientId);
+		List<Contract> contractList = contractService.getContractByClientId(clientId);
 		mv.addObject("contractList", contractList);
 		
 		List companyList = companyService.getAllCompanyWithoutPage();
@@ -313,6 +316,28 @@ public class ContractController {
 
 		}
 		return mv;
+	}
+	
+	/**
+	 * 获取当前用户的合同id
+	 * @param currentUserId
+	 * @return
+	 */
+	@RequestMapping("getUserContractIdAjax")
+	@ResponseBody
+	public String getUserContractId(String currentUserId,HttpServletResponse response){
+		logger.info("正在获取用户contractid");
+		List<Contract> contractList=contractService.getContractByClientId(currentUserId);
+		JSONArray jsonArray=new JSONArray();
+		for(int i=0;i<contractList.size();i++){
+			JSONObject jsonObject=(JSONObject)JSONObject.toJSON(contractList.get(i));
+			jsonArray.add(jsonObject);
+		}
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/json;charset=UTF-8");
+		logger.info(jsonArray.toString());
+		return jsonArray.toString();
+		
 	}
 	
 }

@@ -23,8 +23,8 @@
         <property name="state" type="string">
             <column name="state" />
         </property>
-        <property name="orderId" type="string">
-            <column name="orderId" />
+        <property name="orderNum" type="string">
+            <column name="orderNum" />
         </property>
         <property name="relatedMaterial" type="string">
             <column name="relatedMaterial" />

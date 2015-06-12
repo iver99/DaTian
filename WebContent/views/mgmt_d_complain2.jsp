@@ -104,8 +104,8 @@
                                     </td>
 								</tr>
 								<tr>
-									<td height="40" class="td_mgmt_right3_td1b">订单ID：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="orderId"/> (非必填项)</td>
+									<td height="40" class="td_mgmt_right3_td1b">订单编号：</td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="orderNum"/> (非必填项)</td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">相关材料：</td>
