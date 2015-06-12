@@ -10,7 +10,7 @@ public class LinetransportSearchBean {
 	private String startPlace;//起止城市
 	private String endPlace;//起止城市
 	private String transportType;//运输类型
-	private Float refPrice;//参考报价
+	private String refPrice;//参考报价
 	
 	private String fromPlace;//对应始发城市，可能与startPlace重复，先保留
 
@@ -38,11 +38,11 @@ public class LinetransportSearchBean {
 		this.transportType = transportType;
 	}
 
-	public Float getRefPrice() {
+	public String getRefPrice() {
 		return refPrice;
 	}
 
-	public void setRefPrice(Float refPrice) {
+	public void setRefPrice(String refPrice) {
 		this.refPrice = refPrice;
 	}
 

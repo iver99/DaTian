@@ -17,6 +17,14 @@ public class LineCarrierView {
 	private String remarks;
 	private String type;
 	private String lineName;
+	//focus表内容 add by RussWest0 at 2015年6月12日,下午11:23:15 
+	/*private String focusId;
+	private String clientId;
+	private String focusType;
+	private String resourceId;
+	private String status;*/
+	
+	
 	
 	
 	public LineCarrierView() {

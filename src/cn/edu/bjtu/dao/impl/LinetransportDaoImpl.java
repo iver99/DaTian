@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import cn.edu.bjtu.dao.LinetransportDao;
 import cn.edu.bjtu.util.HQLTool;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Linetransport;
 
 @Repository
@@ -71,6 +72,12 @@ public class LinetransportDaoImpl extends BaseDaoImpl<Linetransport> implements 
 		int pageSize = display;
 
 		return hqltool.getQueryList(hql, page, pageSize);// Dao层分页函数提取到此方法
+
+	}
+	
+	@Override
+	public List getSelectedLineNew(String hql, PageUtil page) {
+		return hqltool.getQueryList(hql, 1, 10);// Dao层分页函数提取到此方法
 
 	}
 

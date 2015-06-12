@@ -15,7 +15,7 @@
 		<script type="text/javascript" src="js/jquery.min.1.7.2.js"></script>
 		<script type="text/javascript" src="js/top_search.js"></script>
 		<script type="text/javascript" src="js/main_nav.js"></script>
-		<script type="text/javascript" src="js/resource_select.js"></script>
+		<script type="text/javascript" src="js/resource_select.js" charset="UTF-8"></script>
 		<script type="text/javascript" src="js/citylist.js"></script>
 		<script type="text/javascript" src="js/cityquery.js"></script>
 		<script type="text/javascript" src="js/jquery.tablesorter.pack.js"></script>
@@ -99,7 +99,7 @@
                         </li>
                         <li>
                             <input type="button" id="btn2" value="重置" class="btn_resource_search2" hidefocus="true" onclick="Reset()"/>
-                        	<input type="button" id="btn1" value="筛选" class="btn_resource_search1" hidefocus="true" />
+                        	<input type="button" id="btn1" value="筛选" class="btn_resource_search1" hidefocus="true"/>
                         </li>
                     </ul>
 				</div>
@@ -162,6 +162,7 @@
 								<td width="45" class="td_main_list_head">关注</td>
 							</tr>
 						</thead>
+						<tbody id="testbody"></tbody>
 						<tbody>
 							<c:forEach var="linetransport" items="${linetransportList }">
 								<tr>
@@ -179,7 +180,7 @@
 									<td class="td_main_list_content">${linetransport.relDate }</td>
 									<input type="button" value="0" style="display:none" id="i"></input>
 									<td class="td_main_list_content">
-										<script>
+	<%-- 									<script>
 											document.getElementById("i").value=0;
 										</script>
 										<c:forEach var="focus" items="${focusList }">
@@ -194,7 +195,7 @@
 												document.write( "<a href=\"javascript:;\" class=\"a_main_list_handle_icon1b\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('${linetransport.id }')\"></a>" );
 											else
 												document.write( "<a href=\"javascript:;\" class=\"a_main_list_handle_icon1a\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('${linetransport.id }')\"></a>" );
-										</script>
+										</script> --%>
 										</td>
 								</tr>
 							</c:forEach>
@@ -313,7 +314,7 @@
 <script type="text/javascript" charset="utf-8">
 	function OnLoad() {
 		loadFocus();
-		GetRequest();
+		//GetRequest();
 	}
 </script>
 <script type="text/javascript">
@@ -345,7 +346,7 @@ function loadXMLDoc(id)
 		});
 }
 </script>
-<Script language="javascript" charset="gb2312">
+<!-- <Script language="javascript" charset="gb2312">
 	function GetRequest() {
 		var url = location.search; //获取url中"?"符后的字串
 				//alert(url)
@@ -435,6 +436,6 @@ function loadXMLDoc(id)
 	function AsciiToString(asccode) { //ASCII转字符串 
 		return String.fromCharCode(asccode);
 	}
-</Script>
+</Script> -->
 
 </html>

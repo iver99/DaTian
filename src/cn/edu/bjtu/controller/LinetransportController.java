@@ -18,14 +18,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSONArray;
+
+import cn.edu.bjtu.bean.search.LinetransportSearchBean;
 import cn.edu.bjtu.service.CommentService;
 import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.service.FocusService;
 import cn.edu.bjtu.service.LinetransportService;
 import cn.edu.bjtu.util.DownloadFile;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Comment;
@@ -165,6 +170,20 @@ public class LinetransportController {
 		mv.setViewName("resource_list");
 
 		return mv;
+	}
+	
+	@RequestMapping("/linetransporttest")
+	@ResponseBody
+	/**
+	 * 返回新干线信息
+	 * @return
+	 */
+	public String getAllLinetransportTest(LinetransportSearchBean linetransportbean,PageUtil page,HttpSession session, HttpServletResponse response) {
+		JSONArray linetransportArray = linetransportService.getSelectedLineNew(
+				linetransportbean,page,session);
+		response.setCharacterEncoding("UTF-8");  
+	    response.setContentType("application/json; charset=utf-8"); 
+		return linetransportArray.toString();
 	}
 
 	@RequestMapping(value = "insertLine", method = RequestMethod.POST)

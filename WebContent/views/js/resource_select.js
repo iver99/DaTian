@@ -1,4 +1,4 @@
-$(document).ready(function(){
+﻿$(document).ready(function(){
 	var urladdtion = new Array([5]);//申请数组存储筛选控件状态
 	
 	urladdtion[0] = "";
@@ -11,10 +11,10 @@ $(document).ready(function(){
 		$(this).addClass("selected").siblings().removeClass("selected");
 		if ($(this).hasClass("resource_all")) {
 			$("#selectA").remove();
-			urladdtion[0] = document.getElementById("select1").getAttribute('value') + "=All";//取消点选是状态恢复为all
+			urladdtion[0] = "All";//取消点选是状态恢复为all
 		} else {
 			var copyThisA = $(this).clone();
-			urladdtion[0] = document.getElementById("select1").getAttribute('value') + "=" + $(this).text();//点选控件时控件value设置为当前text
+			urladdtion[0] = $(this).text();//点选控件时控件value设置为当前text
 			if ($("#selectA").length > 0) {
 				$("#selectA a").html($(this).text());
 			} else {
@@ -27,10 +27,10 @@ $(document).ready(function(){
 		$(this).addClass("selected").siblings().removeClass("selected");
 		if ($(this).hasClass("resource_all")) {
 			$("#selectB").remove();
-			urladdtion[1] = document.getElementById("select2").getAttribute('value') + "=All";
+			urladdtion[1] = "All";
 		} else {
 			var copyThisB = $(this).clone();
-			urladdtion[1] = document.getElementById("select2").getAttribute('value') + "=" + $(this).text();
+			urladdtion[1] = $(this).text();
 			if ($("#selectB").length > 0) {
 				$("#selectB a").html($(this).text());
 			} else {
@@ -43,10 +43,10 @@ $(document).ready(function(){
 		$(this).addClass("selected").siblings().removeClass("selected");
 		if ($(this).hasClass("resource_all")) {
 			$("#selectC").remove();
-			urladdtion[2] = document.getElementById("select3").getAttribute('value') + "=All";
+			urladdtion[2] = "All";
 		} else {
 			var copyThisC = $(this).clone();
-			urladdtion[2] = document.getElementById("select3").getAttribute('value') + "=" + $(this).text();
+			urladdtion[2] = $(this).text();
 			if ($("#selectC").length > 0) {
 				$("#selectC a").html($(this).text());
 			} else {
@@ -59,10 +59,10 @@ $(document).ready(function(){
 		$(this).addClass("selected").siblings().removeClass("selected");
 		if ($(this).hasClass("resource_all")) {
 			$("#selectD").remove();
-			urladdtion[3] = document.getElementById("select4").getAttribute('value') + "=All";
+			urladdtion[3] = "All";
 		} else {
 			var copyThisD = $(this).clone();
-			urladdtion[3] = document.getElementById("select4").getAttribute('value') + "=" + $(this).text();
+			urladdtion[3] = $(this).text();
 			if ($("#selectD").length > 0) {
 				$("#selectD a").html($(this).text());
 			} else {
@@ -76,10 +76,10 @@ $(document).ready(function(){
 		$(this).addClass("selected").siblings().removeClass("selected");
 		if ($(this).hasClass("resource_all")) {
 			$("#selectE").remove();
-			urladdtion[4] = document.getElementById("select5").getAttribute('value') + "=All";
+			urladdtion[4] = "All";
 		} else {
 			var copyThisE = $(this).clone();
-			urladdtion[4] = document.getElementById("select5").getAttribute('value') + "=" + $(this).text();
+			urladdtion[4] = $(this).text();
 			if ($("#selectE").length > 0) {
 				$("#selectE a").html($(this).text());
 			} else {
@@ -88,11 +88,45 @@ $(document).ready(function(){
 		}
 	});
 	
-	function Rescreen()//想做外部调用没成功，目前这段代码没用
-	{
+	$("#btn1").click(function () {//筛选按钮
+		//var div = document.getElementById("zzz");
+		//div.click();
+		var locateurl = "";
+		
+		
+	    //alert(curWwwPath.substring(0,pos) + "/DaTian/linetransporttest");
+	    ajax_post()
+	});
+	//干线筛选
+	function ajax_post(){
+		 // var curWwwPath=window.document.location.href;
+	     // var pathName=window.document.location.pathname;
+	     // var pos=curWwwPath.indexOf(pathName);
+	      //curWwwPath.substring(0,pos) + "/DaTian/linetransporttest"
+	      var url="linetransporttest";
+		  $.post(url,{
+			  startPlace:$('#city1').val(),
+			  endPlace:$('#city2').val(),
+			  transportType:urladdtion[0],
+			  refPrice:urladdtion[2],
+			  fromPlace:urladdtion[1]},
+		  function(data,status){
+			for(var i=0; i<data.length; i++) {
+				$("#testbody").append("<tr>");
+				$("#testbody").append("<td class=\"td_main_list_content\"></td>");
+				$("#testbody").append("<td class=\"td_main_list_content\"><a href=\"linetransportdetail?linetransportid="+data[i].id+"&carrierId="+data[i].carrierId+"&linetransportId="+data[i].carrierid+"&flag=0\" hidefocus=\"true\">"+data[i].startPlace+"→"+data[i].endPlace+"</a><br /><a style=\"color:#717071;\" href=\"companyDetail?id="+data[i].carrierId+"\" hidefocus=\"true\">"+data[i].companyName+"<img src=\"images/btn_level1a.png\" /></a></td>");
+				$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].refPrice+"</td>");
+				$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].type+"</td>");
+				$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].onWayTime+"</td>");
+				$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].relDate+"</td>");
+				$("#testbody").append("<td class=\"td_main_list_content\">");
+				$("#testbody").append("</td>");
+				$("#testbody").append("</tr>");
+			}
+		  },"json");
 	}
 	
-	$("#btn1").click(function () {//筛选按钮
+	/*$("#btn1").click(function () {//筛选按钮
 		//var div = document.getElementById("zzz");
 		//div.click();
 		var locateurl = "";
@@ -150,7 +184,7 @@ $(document).ready(function(){
         //Display是每页显示个数，PageNow是目前在第几页，分页和页面跳转对应的控件变化还没做
 		//alert(locateurl);
 		location.assign(locateurl);//重载新的url，是否能被后台获取未检验
-	});
+	});*/
 
 	$("#selectA").live("click", function () {
 		$(this).remove();

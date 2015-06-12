@@ -2,7 +2,13 @@ package cn.edu.bjtu.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import cn.edu.bjtu.bean.search.LinetransportSearchBean;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Linetransport;
+
+import com.alibaba.fastjson.JSONArray;
 
 public interface LinetransportService {
 
@@ -33,5 +39,8 @@ public interface LinetransportService {
 	public boolean deleteLine(String id);
 
 	public List getAllLinetransportWithoutPage();
+	
+	public JSONArray getSelectedLineNew(LinetransportSearchBean linetransportbean,
+			PageUtil page,HttpSession session);
 	
 }
