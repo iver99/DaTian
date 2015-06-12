@@ -326,7 +326,6 @@ public class ContractController {
 	@RequestMapping("getUserContractIdAjax")
 	@ResponseBody
 	public String getUserContractId(String currentUserId,HttpServletResponse response){
-		logger.info("正在获取用户contractid");
 		List<Contract> contractList=contractService.getContractByClientId(currentUserId);
 		JSONArray jsonArray=new JSONArray();
 		for(int i=0;i<contractList.size();i++){
@@ -335,7 +334,6 @@ public class ContractController {
 		}
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/json;charset=UTF-8");
-		logger.info(jsonArray.toString());
 		return jsonArray.toString();
 		
 	}

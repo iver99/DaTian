@@ -656,7 +656,7 @@ public class OrderController {
 	@RequestMapping(value = "getOrderDetailFinish")
 	/**
 	 * 
-	 * 
+	 * 承运方-我收到的订单-已完成-查看
 	 * @param orderid
 	 * @return
 	 */
@@ -664,6 +664,9 @@ public class OrderController {
 			HttpServletResponse response, String orderid) {
 		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);
 		mv.addObject("orderInfo", orderInfo);
+		//页面需要评价信息
+		Comment comment=commentService.getCommentByOrderId(orderid);
+		mv.addObject("comment",comment);
 		mv.setViewName("mgmt_d_order_r4b");
 		return mv;
 	}

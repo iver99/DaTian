@@ -35,7 +35,7 @@
 			var CONTRACTID=$('#contractId');
 			var option = $("<option>").text("").val("");
 			 for(var i=0;i<data.length;i++) {
-		         option = $("<option>").text(data[i].name).val(data[i].id);
+		         option = $("<option>").text(data[i].id).val(data[i].id);
 		         CONTRACTID.append(option);
 		      }    
 		},"json");
