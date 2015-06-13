@@ -2,9 +2,13 @@ package cn.edu.bjtu.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import cn.edu.bjtu.bean.search.CarSearchBean;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Carinfo;
-import cn.edu.bjtu.vo.Carteam;
-import cn.edu.bjtu.vo.Driverinfo;
+
+import com.alibaba.fastjson.JSONArray;
 
 public interface CarService {
 
@@ -38,6 +42,15 @@ public interface CarService {
 	
 	public boolean deleteCar(String id);
 	public List getAllCarWithoutPage();
+	
+	/**
+	 * 获取资源栏筛选car
+	 * @param carbean
+	 * @param pageUtil
+	 * @param session
+	 * @return
+	 */
+	public JSONArray getSelectedCarNew(CarSearchBean carbean,PageUtil pageUtil,HttpSession session);
 	
 	
 	

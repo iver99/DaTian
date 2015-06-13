@@ -5,10 +5,9 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import cn.edu.bjtu.bean.search.LinetransportSearchBean;
+import cn.edu.bjtu.util.DataModel;
 import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Linetransport;
-
-import com.alibaba.fastjson.JSONArray;
 
 public interface LinetransportService {
 
@@ -40,7 +39,22 @@ public interface LinetransportService {
 
 	public List getAllLinetransportWithoutPage();
 	
-	public JSONArray getSelectedLineNew(LinetransportSearchBean linetransportbean,
+	/**
+	 * 资源栏获取筛选后的城市配送资源
+	 * @param linetransportbean
+	 * @param page
+	 * @param session
+	 * @return
+	 */
+	public DataModel getSelectedLineNew(LinetransportSearchBean linetransportbean,
 			PageUtil page,HttpSession session);
+	
+	
+	/**
+	 * 资源栏筛选总条数
+	 * @param lineBean
+	 * @return
+	 */
+	public Integer getSelectedLineTotalRows(LinetransportSearchBean lineBean);
 	
 }

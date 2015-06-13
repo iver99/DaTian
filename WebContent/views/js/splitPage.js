@@ -1,7 +1,15 @@
 /**
  * 分页操作
  */
-function ChangePage(page){
+//页面 跳转
+/*function ChangeTo(page){
+	alert("change to "+page);
+	$('#currentPage').val(page);
+	$('#btn1').click();
+}*/
+
+
+/*function ChangePage(page){
 		//alert("changepage+"+page);
 		var url = location.search;
 		if (url.indexOf("?") != -1) {
@@ -62,4 +70,4 @@ function ChangePage(page){
 		      document.getElementById("PageNow").setAttribute('value',num.toString());
 		}
 		document.getElementById("btn1").click();
-	}
+	}*/

@@ -3,21 +3,33 @@ package cn.edu.bjtu.service.impl;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+
+import cn.edu.bjtu.bean.search.CarSearchBean;
+import cn.edu.bjtu.bean.search.CityLineSearchBean;
 import cn.edu.bjtu.dao.CarDao;
 import cn.edu.bjtu.dao.CarTeamDao;
 import cn.edu.bjtu.service.CarService;
 import cn.edu.bjtu.service.LinetransportService;
+import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.util.IdCreator;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Carinfo;
 import cn.edu.bjtu.vo.Carteam;
 @Transactional
@@ -29,17 +41,10 @@ public class CarServiceImpl implements CarService {
 	@Resource
 	Carinfo carinfo;
 	
-	/*@Resource
-	BaseDao baseDao;*/
 	@Resource
 	LinetransportService linetransportService;
-	/*@Autowired
-	CarService carService;*/
-	/*@Resource
-	Driverinfo driverinfo;*/
 	@Resource
 	Carteam carteam;
-	// List driverNameList=new ArrayList();
 	@Resource
 	HQLTool hqltool;
 	
@@ -54,6 +59,99 @@ public class CarServiceImpl implements CarService {
 		return carDao.getAllCar(Display, PageNow);
 	}
 	
+	/**
+	 * 返回资源栏筛选car
+	 */
+	@Override
+	public JSONArray getSelectedCarNew(CarSearchBean carbean,
+			PageUtil pageUtil, HttpSession session) {
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+		Map<String,Object> params=new HashMap<String,Object>();
+			String sql = "select t1.id,"
+				+ "t1.carrierId,"
+				+ "t1.carNum,"
+				+ "t1.companyName,"
+				+ "t1.carBase"
+				+ "t1.carState,"
+				+ "t1.carLength,"
+				+ "t1.carWeight,"
+				+ "t1.carLocation,"
+				+ "t1.relDate,"
+				+ "t3.status "
+				+ " from car_carrier_view t1 "
+				+ "left join ("
+				+ "select * from focus t2 ";
+				
+		if(userId!=null){//如果当前有用户登录在条件中加入用户信息
+			sql+=" where t2.focusType='cityline' and t2.clientId=:clientId ";
+			params.put("clientId", userId);
+		}
+		sql+=") t3 on t1.id=t3.focusId ";
+		String wheresql=whereSql(carbean,params);
+		sql+=wheresql;
+		
+		JSONArray jsonArray = new JSONArray();
+		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
+		int display=pageUtil.getDisplay()==0?10:pageUtil.getDisplay();
+		List<Object[]> objectList=carDao.findBySql(sql, params,page,display);
+		
+		List<CarSearchBean> carList=new ArrayList<CarSearchBean>();
+		for(Iterator<Object[]> it=objectList.iterator();it.hasNext();){
+			CarSearchBean carBean=new CarSearchBean();
+			Object[] obj=it.next();
+			carBean.setId((String)obj[0]);
+			carBean.setCarrierId((String)obj[1]);
+			carBean.setCarNum((String)obj[2]);
+			carBean.setCompanyName((String)obj[3]);;
+			carBean.setCarBase((String)obj[4]);
+			carBean.setCarState((String)obj[5]);
+			carBean.setCarLength((Float)obj[6]);
+			carBean.setCarWeight((Float)obj[7]);;
+			carBean.setCarLocation((String)obj[8]);
+			carBean.setRelDate((Date)obj[9]);
+			carBean.setStatus((String)obj[10]);
+			carList.add(carBean);
+		}
+		
+		for(int i=0;i<carList.size();i++){
+			JSONObject jsonObject=(JSONObject)JSONObject.toJSON(carList.get(i));
+			jsonArray.add(jsonObject);
+		}
+		return jsonArray;
+	}
+
+	/**
+	 * where sql
+	 * @param carBean
+	 * @param params
+	 * @return
+	 */
+	private String whereSql(CarSearchBean carBean,Map<String,Object> params){
+		String wheresql=" where 1=1 ";
+		if(carBean.getStartPlace()!=null && !carBean.getStartPlace().trim().equals("中文或拼音")){
+			wheresql+=" and t1.startPlace=:startPlace ";
+			params.put("startPlace", carBean.getStartPlace());
+		}
+		if(carBean.getEndPlace()!=null && !carBean.getEndPlace().trim().equals("中文或拼音")){
+			wheresql+=" and t1.endPlace=:endPlace ";
+			params.put("endPlace", carBean.getEndPlace());
+		}
+		if(carBean.getCarBase()!=null && !carBean.getCarBase().equals("") && !carBean.getCarBase().equals("All")){
+			wheresql+=" and t1.carBase=:carBase ";
+			params.put("carBase", carBean.getCarBase());
+		}
+		if(carBean.getCarLength()!=null && !carBean.getCarLength().equals("All") && carBean.getCarLength().equals("")){
+			wheresql+=" and t1.carLength=:carLength";
+			params.put("carLength", carBean.getCarLength());
+		}
+		if(carBean.getCarWeight()!=null && !carBean.getCarWeight().equals("All")&& carBean.getCarWeight().equals("")){
+			wheresql+=" and t1.carWeight=:carWeight";
+			params.put("carWeight", carBean.getCarWeight());
+		}
+		
+		return wheresql;
+	}
+
 	@Override
 	/**
 	 * 返回所有车辆

@@ -1,7 +1,9 @@
 package cn.edu.bjtu.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +18,7 @@ import cn.edu.bjtu.bean.search.LinetransportSearchBean;
 import cn.edu.bjtu.dao.LinetransportDao;
 import cn.edu.bjtu.service.LinetransportService;
 import cn.edu.bjtu.util.Constant;
+import cn.edu.bjtu.util.DataModel;
 import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.util.HQL_POJO;
 import cn.edu.bjtu.util.IdCreator;
@@ -23,7 +26,6 @@ import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Linetransport;
 
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 
 @Transactional
 @Service
@@ -324,8 +326,8 @@ public class LinetransportServiceImpl implements LinetransportService {
 	/**
 	 * 新条件筛选干线
 	 */
-	public JSONArray getSelectedLineNew(LinetransportSearchBean linetransportbean,
-			PageUtil page,HttpSession session) {
+	public DataModel getSelectedLineNew(LinetransportSearchBean linetransportbean,
+			PageUtil pageUtil,HttpSession session) {
 		// TODO Auto-generated method stub
 		String userId=(String)session.getAttribute(Constant.USER_ID);
 		Map<String,Object> params=new HashMap<String,Object>();
@@ -337,7 +339,9 @@ public class LinetransportServiceImpl implements LinetransportService {
 				+ "t1.refPrice,"
 				+ "t1.relDate,"
 				+ "t1.type,"
-				+ "t1.onWayTime"
+				+ "t1.onWayTime,"
+				+ "t1.companyName,"
+				+ "t3.status "
 				+ " from line_carrier_view t1 "
 				+ "left join ("
 				+ "select * from focus t2 ";
@@ -346,29 +350,41 @@ public class LinetransportServiceImpl implements LinetransportService {
 			sql+=" where t2.focusType='linetransport' and t2.clientId=:clientId ";
 			params.put("clientId", userId);
 		}
-		
 		sql+=") t3 on t1.id=t3.focusId ";
-		
 		String wheresql=whereSql(linetransportbean,params);
 		sql+=wheresql;
 		
-		
 		JSONArray jsonArray = new JSONArray();
-		List<Object[]> objectList=linetransportDao.findBySql(sql, params);
-		//List<LineCarrierView> linetransportList = linetransportDao.getSelectedLineNew(sql, page);
-		//System.out.println(linetransportList);
+		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
+		int display=pageUtil.getDisplay()==0?10:pageUtil.getDisplay();
+		List<Object[]> objectList=linetransportDao.findBySql(sql, params,page,display);
 		
-		/*for(int i=0;i<linetransportList.size();i++){
-			JSONObject jsonObject=(JSONObject)JSONObject.toJSON(linetransportList.get(i));
-			jsonArray.add(jsonObject);
-		}*/
-		for(int i=0;i<objectList.size();i++){
-			JSONObject jsonObject=(JSONObject)JSONObject.toJSON(objectList.get(i));
-			jsonArray.add(jsonObject);
+		List<LinetransportSearchBean> lineList=new ArrayList<LinetransportSearchBean>();
+		for(Iterator<Object[]> it=objectList.iterator();it.hasNext();){
+			LinetransportSearchBean lineBean=new LinetransportSearchBean();
+			
+			Object[] obj=it.next();
+			lineBean.setId((String)obj[0]);
+			lineBean.setCarrierId((String)obj[1]);
+			lineBean.setLineName((String)obj[2]);
+			lineBean.setStartPlace((String)obj[3]);
+			lineBean.setEndPlace((String)obj[4]);
+			lineBean.setRefPrice(((Float)obj[5])+"");
+			lineBean.setRelDate((Date)obj[6]);
+			lineBean.setTransportType((String)obj[7]);
+			lineBean.setOnWayTime((Integer)obj[8]);
+			lineBean.setCompanyName((String)obj[9]);
+			lineBean.setStatus((String)obj[10]);
+			lineList.add(lineBean);
 		}
-		//JSONArray jsonArray = JSONArray.fromObject( linetransportList );
-		return jsonArray;
-		// return null;
+		//计算总条数
+		DataModel dataModel=new DataModel();
+		/*String countsql="select count(t1.id) from line_carrier_view t1"+whereSql(linetransportbean,params);
+		//Long count=linetransportDao.countBySql(countsql, params);
+		Long count=linetransportDao.countBySql("select count(*) from linetransport");
+		dataModel.setTotal(count);*/
+		dataModel.setRows(lineList);
+		return dataModel;
 	}
 	
 	/**
@@ -381,11 +397,13 @@ public class LinetransportServiceImpl implements LinetransportService {
 	private String whereSql(LinetransportSearchBean linetransportBean,Map<String,Object> params){
 		
 		String wheresql=" where 1=1 ";
-		if(linetransportBean.getStartPlace()!=null && !linetransportBean.getStartPlace().trim().equals("中文或拼音")){
+		if(linetransportBean.getStartPlace()!=null && !linetransportBean.getStartPlace().trim().equals("中文或拼音")&&
+				!linetransportBean.getStartPlace().trim().equals("全国")){
 			wheresql+=" and t1.startPlace=:startPlace";
 			params.put("startPlace", linetransportBean.getStartPlace());
 		}
-		if(linetransportBean.getEndPlace()!=null && !linetransportBean.getEndPlace().trim().equals("中文或拼音")){
+		if(linetransportBean.getEndPlace()!=null && !linetransportBean.getEndPlace().trim().equals("中文或拼音")&&
+				!linetransportBean.getEndPlace().trim().equals("全国")){
 			wheresql+=" and t1.endPlace=:endPlace";
 			params.put("endPlace", linetransportBean.getEndPlace());
 		}
@@ -413,5 +431,22 @@ public class LinetransportServiceImpl implements LinetransportService {
 		return wheresql;
 		
 	}
+	/**
+	 * 干线筛选总条数
+	 */
+	@Override
+	public Integer getSelectedLineTotalRows(LinetransportSearchBean lineBean) {
+		// TODO Auto-generated method stub
+		Map<String,Object> params=new HashMap<String,Object>();
+		//String countsql="select count(t1.id) from line_carrier_view t1"+whereSql(lineBean,params);
+		String hql="select count(*) from LineCarrierView t1"+whereSql(lineBean, params);
+		//Long count=linetransportDao.countBySql(countsql, params);
+		//Long count=linetransportDao.countBySql("select count(*) from linetransport");
+		Long count=linetransportDao.count(hql, params);
+		
+		return count.intValue();
+		
+	}
+	
 
 }

@@ -1,6 +1,8 @@
 ﻿<%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
-
+<%-- <%
+	int count=(Integer)request.getAttribute("count");
+%> --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
@@ -23,7 +25,7 @@
 		<script type="text/javascript" src="js/popup.js"></script>
 		<script type="text/javascript" src="js/backtop.js"></script>
 		<script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
-		<script type="text/javascript" src="js/splitPage.js"></script><!-- 新增 -->
+		<!-- <script type="text/javascript" src="js/splitPage.js"></script> <!-- 新增 -->
 		<script type="text/javascript" src="js/focus_load.js"></script>
 		<script type="text/javascript">
 			$(function() {
@@ -38,7 +40,7 @@
 
 <%@ include  file="topFrame.jsp"%>
 	<div id="main_frame">
-		<span class="text_main_title1">资源</span>&nbsp;&gt;&nbsp;运输线路
+		<span class="text_main_title1">资源</span>&nbsp;&gt;&nbsp;运输线路<input type="hidden" id="page_info" value="运输线路"/>
 		<table width="100%" border="0" cellpadding="0" cellspacing="0">
 			<tr>
 				<td width="230" class="td_leftnav_top">
@@ -104,10 +106,11 @@
                     </ul>
 				</div>
 					<div id="div_resource_list_head">
-						<div id="div_resource_list_head1">共 ${count } 条记录</div>
-						<input id="count" value="${count }" type="hidden"/>
-						<input id="count" value="${pageNum }" type="hidden"/>
-						<input id="count" value="${pageNow }" type="hidden"/>
+						<div id="div_resource_list_head1"><!-- 共  条记录 --></div>
+						<input id="count" value="" type="text"/>
+						<input id="display" value="10" type="text"/>
+						<input id="currentPage" value="1" type="text"/>
+						
 						<div id="middlesort">
 							<ul class="quickmenu">
 								<li class="menuitem">
@@ -164,41 +167,7 @@
 						</thead>
 						<tbody id="testbody"></tbody>
 						<tbody>
-							<c:forEach var="linetransport" items="${linetransportList }">
-								<tr>
-									<td class="td_main_list_content"></td>
-									<td class="td_main_list_content"><a
-										href="linetransportdetail?linetransportid=${linetransport.id }&carrierId=${linetransport.carrierId}&linetransportId=${linetransport.id }&flag=0"
-										hidefocus="true">${linetransport.startPlace }→${linetransport.endPlace }</a>
-										<br />
-										 <a style="color:#717071;" href="companyDetail?id=${linetransport.carrierId }" hidefocus="true">${linetransport.companyName }<img
-											src="images/btn_level1a.png" /></a>
-								</td>
-									<td class="td_main_list_content">${linetransport.refPrice }</td>
-									<td class="td_main_list_content">${linetransport.type }</td>
-									<td class="td_main_list_content">${linetransport.onWayTime }</td>
-									<td class="td_main_list_content">${linetransport.relDate }</td>
-									<input type="button" value="0" style="display:none" id="i"></input>
-									<td class="td_main_list_content">
-	<%-- 									<script>
-											document.getElementById("i").value=0;
-										</script>
-										<c:forEach var="focus" items="${focusList }">
-										<c:if test="${linetransport.id==focus.focusId}">
-											<script>
-												document.getElementById("i").value=1;
-											</script>
-										</c:if>
-										</c:forEach>
-										<script type="text/javascript">
-											if(document.getElementById("i").value==1)
-												document.write( "<a href=\"javascript:;\" class=\"a_main_list_handle_icon1b\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('${linetransport.id }')\"></a>" );
-											else
-												document.write( "<a href=\"javascript:;\" class=\"a_main_list_handle_icon1a\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('${linetransport.id }')\"></a>" );
-										</script> --%>
-										</td>
-								</tr>
-							</c:forEach>
+							<!-- 资源位置 -->
 						</tbody>
 					</table>
 					<table border="0" cellpadding="0" cellspacing="0"
@@ -212,68 +181,8 @@
 							</td>
 						</tr>
 					</table>
-					<table border="0" cellpadding="0" cellspacing="0" class="table_pagenumber" id="PageNow" value="1">
-                    <tr>
-	                    <td width="45" class="td_pagenumber" onclick="ChangeTo('first')"><a href="javascript:;" class="a_pagenumber" hidefocus="true">首页</a></td>
-                        <td width="45" class="td_pagenumber" onclick="ChangeTo('previous')"><a href="javascript:;" class="a_pagenumber" hidefocus="true">上页</a></td>
-                        <!-- <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">1</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">2</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">3</a></td> -->
-                        <c:if test="${pageNum < 8}">
-                        	<c:forEach begin="1" end="${pageNum }" var="i">
-                        	    <td width="30" class="td_pagenumber" onclick="ChangePage(${i })"><a href="javascript:;" class="a_pagenumber" hidefocus="true">${i }</a></td>
-                        	</c:forEach>
-                        </c:if>
-                        <c:if test="${pageNum >= 8}">
-                        	<c:choose>
-                        		<c:when test="${pageNow <= 3}">
-                        			<c:forEach begin="1" end="5" var="i">
-                        				<td width="30" class="td_pagenumber" onclick="ChangePage(${i })"><a href="javascript:;" class="a_pagenumber" hidefocus="true">${i }</a></td>
-                        			</c:forEach>
-                        			...
-                        		</c:when>
-                        		<c:when test="${pageNow == 4}">
-                        			<c:forEach begin="1" end="6" var="i">
-                        				<td width="30" class="td_pagenumber" onclick="ChangePage(${i })"><a href="javascript:;" class="a_pagenumber" hidefocus="true">${i }</a></td>
-                        			</c:forEach>
-                        			...
-                        		</c:when>
-                        		<c:when test="${pageNow == 5}">
-                        			<c:forEach begin="1" end="7" var="i">
-                        				<td width="30" class="td_pagenumber" onclick="ChangePage(${i })"><a href="javascript:;" class="a_pagenumber" hidefocus="true">${i }</a></td>
-                        			</c:forEach>
-                        			...
-                        		</c:when>
-                        		<c:when test="${pageNow > 5 && pageNow < pageNum - 3}">
-                        		    <td width="30" class="td_pagenumber" onclick="ChangePage('1')"><a href="javascript:;" class="a_pagenumber" hidefocus="true">1</a></td>
-                        		    <td width="30" class="td_pagenumber" onclick="ChangePage('2')"><a href="javascript:;" class="a_pagenumber" hidefocus="true">2</a></td>
-                        		    ...
-                        			<c:forEach begin="${pageNow-2 }" end="${pageNow+2 }" var="i">
-                        				<td width="30" class="td_pagenumber" onclick="ChangePage(${i })"><a href="javascript:;" class="a_pagenumber" hidefocus="true">${i }</a></td>
-                        			</c:forEach>
-                        			...
-                        		</c:when>
-                        		<c:when test="${pageNow == pageNum - 3}">
-                        		    <td width="30" class="td_pagenumber" onclick="ChangePage('1')"><a href="javascript:;" class="a_pagenumber" hidefocus="true">1</a></td>
-                        		    <td width="30" class="td_pagenumber" onclick="ChangePage('2')"><a href="javascript:;" class="a_pagenumber" hidefocus="true">2</a></td>
-                        		    ...
-                        			<c:forEach begin="${pageNow-5 }" end="${pageNow }" var="i">
-                        				<td width="30" class="td_pagenumber" onclick="ChangePage(${i })"><a href="javascript:;" class="a_pagenumber" hidefocus="true">${i }</a></td>
-                        			</c:forEach>
-                        		</c:when>
-                        		<c:when test="${pageNow >= pageNum - 2}">
-                        		    <td width="30" class="td_pagenumber" onclick="ChangePage('1')"><a href="javascript:;" class="a_pagenumber" hidefocus="true">1</a></td>
-                        		    <td width="30" class="td_pagenumber" onclick="ChangePage('2')"><a href="javascript:;" class="a_pagenumber" hidefocus="true">2</a></td>
-                        		    ...
-                        			<c:forEach begin="${pageNow-4 }" end="${pageNow }" var="i">
-                        				<td width="30" class="td_pagenumber" onclick="ChangePage(${i })"><a href="javascript:;" class="a_pagenumber" hidefocus="true">${i }</a></td>
-                        			</c:forEach>
-                        		</c:when>
-                        	</c:choose>
-                        </c:if>
-                        <td width="45" class="td_pagenumber" onclick="ChangeTo('next')"><a href="javascript:;" class="a_pagenumber" hidefocus="true">下页</a></td>
-                        <td width="45" class="td_pagenumber" onclick="ChangeTo('last')"><a href="javascript:;" class="a_pagenumber" hidefocus="true">末页</a></td>
-                    </tr>
+					<table border="0" cellpadding="0" cellspacing="0" class="table_pagenumber" id="page_layout" value="1">
+          <!--        页码位置 -->
 				</table>
 				</td>
 			</tr>
@@ -313,7 +222,10 @@
 </body>
 <script type="text/javascript" charset="utf-8">
 	function OnLoad() {
+		/* ajax_post(); */
 		loadFocus();
+		getSelectedLineAjax("中文或拼音","中文或拼音","All","All","All",10,1);
+		getSelectedLineTotalRowsAjax("中文或拼音","中文或拼音","All","All","All",10,1);
 		//GetRequest();
 	}
 </script>
@@ -345,97 +257,141 @@ function loadXMLDoc(id)
 		   }
 		});
 }
+
+
+//干线筛选
+function getSelectedLineAjax(startPlace,
+		endPlace,
+		transportType,
+		refPrice,
+		fromPlace,
+		display,
+		currentPage){
+	//alert("ajax_post");
+      var url="linetransporttest";
+	  $.post(url,{
+		  startPlace:startPlace,
+		  endPlace:endPlace,
+		  transportType:transportType,
+		  refPrice:refPrice,
+		  fromPlace:fromPlace,
+		  display:display,
+		  currentPage:currentPage},
+	  function(data,status){
+			  //alert(data);
+			  $("#testbody").empty();
+		for(var i=0; i<data.length; i++) {
+			$("#testbody").append("<tr>");
+			$("#testbody").append("<td class=\"td_main_list_content\"></td>");
+			$("#testbody").append("<td class=\"td_main_list_content\"><a href=\"linetransportdetail?linetransportid="+data[i].id+"&carrierId="+data[i].carrierId+"&linetransportId="+data[i].carrierid+"&flag=0\" hidefocus=\"true\">"+data[i].startPlace+"→"+data[i].endPlace+"</a><br /><a style=\"color:#717071;\" href=\"companyDetail?id="+data[i].carrierId+"\" hidefocus=\"true\">"+data[i].companyName+"<img src=\"images/btn_level1a.png\" /></a></td>");
+			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].refPrice+"</td>");
+			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].transportType+"</td>");
+			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].onWayTime+"</td>");
+			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].relDate+"</td>");
+			$("#testbody").append("<td class=\"td_main_list_content\">");
+			$("#testbody").append("</td>");
+			$("#testbody").append("</tr>");
+		}
+	  },"json");
+}
+//获取所有干线筛选的总条数
+function getSelectedLineTotalRowsAjax(startPlace,
+		endPlace,
+		transportType,
+		refPrice,
+		fromPlace,
+		display,
+		currentPage){
+	var url="getSelectedLineTotalRowsAjax";
+	  $.post(url,{
+		  startPlace:startPlace,
+		  endPlace:endPlace,
+		  transportType:transportType,
+		  refPrice:refPrice,
+		  fromPlace:fromPlace,
+		  display:display,
+		  currentPage:currentPage},
+	  function(data,status){
+			  //返回总记录数
+			  $('#div_resource_list_head1').text("共"+data+"条记录");
+			  $('#count').val(data);
+			  pageLayout(data);//页面布局
+	  },"text");
+	
+}
+
+//控制页码显示
+function pageLayout(totalRows){
+	var display=parseInt($('#display').val());
+	var currentPage=parseInt($('#currentPage').val());
+	var pageNum=Math.ceil(totalRows/display);
+	//alert(pageNum);
+	var page_layout=$('#page_layout');//onclick='ChangeTo("+pageNum+")'
+	page_layout.append("<tr>");
+	page_layout.append("<td width='45' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+1+");' class='a_pagenumber' hidefocus='true'>首页</a></td>");
+	var pre=currentPage==1?1:currentPage-1;
+	page_layout.append("<td width='45' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+pre+");' class='a_pagenumber' hidefocus='true'>上页</a></td>");
+	if(pageNum< 8){
+		for(var i=1;i<=pageNum;i++){
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+i+");' class='a_pagenumber' hidefocus='true'>"+i+"</a></td>");
+		}
+	}
+	if(pageNum>=8){
+		if(currentPage<=3){
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+i+");' class='a_pagenumber' hidefocus='true'>"+i+"</a></td>");
+			page_layout.append("...");
+		}
+		if(currentPage==4){
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+i+");' class='a_pagenumber' hidefocus='true'>"+i+"</a></td>");
+			page_layout.append("...")
+		}
+		if(currentPage==5){
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+i+");' class='a_pagenumber' hidefocus='true'>"+i+"</a></td>");
+			page_layout.append("...");
+		}
+		if(currentPage>5 && currentPage<=pageNum-3){
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo('1');' class='a_pagenumber' hidefocus='true'>1</a></td>");
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo('2');' class='a_pagenumber' hidefocus='true'>2</a></td>");
+			page_layout.append("...");
+			for(var j=currentPage-2;j<currentPage+2;j++){
+				page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+j+");' class='a_pagenumber' hidefocus='true'>"+j+"</a></td>");
+			}
+			page_layout.append("...");
+		}
+		if(currentPage==pageNum-3){
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo('1');' class='a_pagenumber' hidefocus='true'>1</a></td>");
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo('2');' class='a_pagenumber' hidefocus='true'>2</a></td>");
+			page_layout.append("...");
+			for(var i=currentPage-5;i<=currentPage;i++){
+				page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+i+");' class='a_pagenumber' hidefocus='true'>"+i+"</a></td>");
+			}
+		}
+		if(currentPage==pageNum-2){
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo('1');' class='a_pagenumber' hidefocus='true'>1</a></td>");
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo('2');' class='a_pagenumber' hidefocus='true'>2</a></td>");
+			page_layout.append("...");
+			for(var i=currentPage-4;i<=currentPage;i++){
+				page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+i+");' class='a_pagenumber' hidefocus='true'>"+i+"</a></td>");
+			}
+		}
+	}
+	var lat=currentPage==pageNum?pageNum:currentPage+1;
+	//alert(lat);
+	page_layout.append("<td width='45' class='td_pagenumber' ><a href='javascript:ChangeTo("+lat+");' class='a_pagenumber' hidefocus='true'>下页</a></td>");
+	page_layout.append("<td width='45' class='td_pagenumber' ><a href='javascript:ChangeTo("+pageNum+");' class='a_pagenumber' hidefocus='true'>末页</a></td>");
+	page_layout.append("</tr>");
+   
+}
+//页面 跳转
+function ChangeTo(page){
+	//alert("change to "+page);
+	var page_layout=$('#page_layout');
+	page_layout.empty();
+	$('#currentPage').val(page);
+	$('#btn1').click();
+}
+
 </script>
-<!-- <Script language="javascript" charset="gb2312">
-	function GetRequest() {
-		var url = location.search; //获取url中"?"符后的字串
-				//alert(url)
-		if (url == "?flag=0") {//若当前没有任何控件被点选,模拟初始点选状态
-			document.getElementById("select1_0").click();
-			document.getElementById("select2_0").click();
-			document.getElementById("select3_0").click();
-		} else {
-			var carparameter = new Array(); //先声明一维
-			for (var i = 0; i < 5; i++) { //一维长度为5
-				carparameter[i] = new Array(); //在声明二维
-				for (var j = 0; j < 10; j++) { //二维长度为10
-					carparameter[i][j] = "";
-				}
-			}
-			//对应筛选页面，所有筛选项组成二维矩阵
-			carparameter[0][0] = "All";
-			carparameter[0][1] = "整车";
-			carparameter[0][2] = "零担";
-			carparameter[1][0] = "All";
-			carparameter[1][1] = "北京始发";
-			carparameter[1][2] = "天津始发";
-			carparameter[1][3] = "上海始发";
-			carparameter[1][4] = "武汉始发";
-			carparameter[1][5] = "广州始发";
-			carparameter[2][0] = "All";
-			carparameter[2][1] = "大于2元/kg";
-			carparameter[2][2] = "1至2元/kg";
-			carparameter[2][3] = "小于1元/kg";
-			var theRequest = new Object();
-			if (url.indexOf("?") != -1) {
-				var str = url.substr(1);//取?后的部分
-				strs = str.split("&");//按&划分
-				document.getElementById("city1").value = UrlDecode(strs[0]
-						.split("=")[1]);//city1、city2两个控件是input型，单独处理
-				document.getElementById("city2").value = UrlDecode(strs[1]
-						.split("=")[1]);
-				if(document.getElementById("city1").value == "All")
-					document.getElementById("city1").value = "全国";
-				if(document.getElementById("city2").value == "All")
-					document.getElementById("city2").value = "全国";
-				for (var i = 2; i < strs.length - 2; i++) {
-					for (var j = 0; j < 10; j++)
-						if (carparameter[i - 2][j] != "") {
-							if (carparameter[i - 2][j] == UrlDecode(strs[i]
-									.split("=")[1])) {//url中的每一项和筛选矩阵对比，确定控件点选状态
-								var locate = "select" + (i - 1) + "_" + j;//定位控件id
-								document.getElementById(locate).click();//模拟点选
-							}
-						}
-				}
-				//alert(UrlDecode(strs[strs.length-2].split("=")[1]));
-				//document.getElemtById("Display").options[UrlDecode(strs[strs.length-2].split("=")[1])].selected = "selected";
-				document.all.Display.value = UrlDecode(strs[strs.length - 2]
-						.split("=")[1]);//每页显示多少条数据
-			}
-		}
-	}
 
-	function UrlDecode(zipStr) {//将utf-8转回汉字的代码  
-		var uzipStr = "";
-		for (var i = 0; i < zipStr.length; i++) {
-			var chr = zipStr.charAt(i);
-			if (chr == "+") {
-				uzipStr += " ";
-			} else if (chr == "%") {
-				var asc = zipStr.substring(i + 1, i + 3);
-				if (parseInt("0x" + asc) > 0x7f) {
-					uzipStr += decodeURI("%" + asc.toString()
-							+ zipStr.substring(i + 3, i + 9).toString());
-					i += 8;
-				} else {
-					uzipStr += AsciiToString(parseInt("0x" + asc));
-					i += 2;
-				}
-			} else {
-				uzipStr += chr;
-			}
-		}
-
-		return uzipStr;
-	}
-
-	function StringToAscii(str) { //字符串转ASCII
-		return str.charCodeAt(0).toString(16);
-	}
-	function AsciiToString(asccode) { //ASCII转字符串 
-		return String.fromCharCode(asccode);
-	}
-</Script> -->
 
 </html>

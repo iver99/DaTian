@@ -1,24 +1,25 @@
 package cn.edu.bjtu.controller;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.edu.bjtu.bean.search.CarSearchBean;
 import cn.edu.bjtu.service.CarService;
 import cn.edu.bjtu.service.CarTeamService;
 import cn.edu.bjtu.service.CommentService;
@@ -27,6 +28,7 @@ import cn.edu.bjtu.service.DriverService;
 import cn.edu.bjtu.service.FocusService;
 import cn.edu.bjtu.service.LinetransportService;
 import cn.edu.bjtu.util.DownloadFile;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carinfo;
 import cn.edu.bjtu.vo.Carrierinfo;
@@ -34,6 +36,8 @@ import cn.edu.bjtu.vo.Carteam;
 import cn.edu.bjtu.vo.Comment;
 import cn.edu.bjtu.vo.Driverinfo;
 import cn.edu.bjtu.vo.Linetransport;
+
+import com.alibaba.fastjson.JSONArray;
 
 @Controller
 public class CarController {
@@ -93,6 +97,20 @@ public class CarController {
 			mv.setViewName("mgmt_r_car");// 后台还没实现
 		}
 		return mv;
+	}
+	
+	/**
+	 * 资源栏获取筛选后的车辆信息
+	 * @return
+	 */
+	@RequestMapping(value="getCarAjax",produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String getCarSelected(CarSearchBean carBean,PageUtil pageUtil,HttpSession session){
+		
+		JSONArray jsonArray = carService.getSelectedCarNew(carBean, pageUtil,
+				session);
+		
+		return jsonArray.toString();
 	}
 
 	@RequestMapping(value = "/cardetail", method = RequestMethod.GET)

@@ -14,7 +14,7 @@
 			urladdtion[0] = "All";//取消点选是状态恢复为all
 		} else {
 			var copyThisA = $(this).clone();
-			urladdtion[0] = $(this).text();//点选控件时控件value设置为当前text
+			urladdtion[0] = $(this).text().trim();//点选控件时控件value设置为当前text
 			if ($("#selectA").length > 0) {
 				$("#selectA a").html($(this).text());
 			} else {
@@ -30,7 +30,7 @@
 			urladdtion[1] = "All";
 		} else {
 			var copyThisB = $(this).clone();
-			urladdtion[1] = $(this).text();
+			urladdtion[1] = $(this).text().trim();
 			if ($("#selectB").length > 0) {
 				$("#selectB a").html($(this).text());
 			} else {
@@ -46,7 +46,7 @@
 			urladdtion[2] = "All";
 		} else {
 			var copyThisC = $(this).clone();
-			urladdtion[2] = $(this).text();
+			urladdtion[2] = $(this).text().trim();
 			if ($("#selectC").length > 0) {
 				$("#selectC a").html($(this).text());
 			} else {
@@ -62,7 +62,7 @@
 			urladdtion[3] = "All";
 		} else {
 			var copyThisD = $(this).clone();
-			urladdtion[3] = $(this).text();
+			urladdtion[3] = $(this).text().trim();
 			if ($("#selectD").length > 0) {
 				$("#selectD a").html($(this).text());
 			} else {
@@ -79,7 +79,7 @@
 			urladdtion[4] = "All";
 		} else {
 			var copyThisE = $(this).clone();
-			urladdtion[4] = $(this).text();
+			urladdtion[4] = $(this).text().trim();
 			if ($("#selectE").length > 0) {
 				$("#selectE a").html($(this).text());
 			} else {
@@ -89,34 +89,88 @@
 	});
 	
 	$("#btn1").click(function () {//筛选按钮
-		//var div = document.getElementById("zzz");
-		//div.click();
 		var locateurl = "";
+		//清空页码
+		var page_layout=$('#page_layout');
+		page_layout.empty();
+		var page_info=$('#page_info').val();
+		if(page_info=='运输线路'){
+			//筛选资源
+			getSelectedLineAjax(
+					$('#city1').val(),
+					$('#city2').val(),
+					urladdtion[0],
+					urladdtion[2],
+					urladdtion[1],
+					$('#display').val(),
+					$('#currentPage').val());
+			//总条数
+		    getSelectedLineTotalRowsAjax(
+		    		$('#city1').val(),
+		    		urladdtion[0],
+					urladdtion[2],
+					urladdtion[1],
+					$('#display').val(),
+					$('#currentPage').val());
+		}
+		if(page_info=='配送网络'){
+			//alert($('#currentPage').val());
+			//筛选资源
+			//alert("city+"+$('#city1').val());
+			//alert("vipser+"+urladdtion[0]);
+			//alert("refprice+"+urladdtion[1]);
+			getSelectedLineAjax(
+					$('#city1').val(),
+					urladdtion[0],
+					urladdtion[1],
+					$('#display').val(),
+					$('#currentPage').val());
+			//总条数
+			getSelectedCityLineTotalRowsAjax(
+		    		$('#city1').val(),
+					$('#city2').val(),
+					urladdtion[0],
+					urladdtion[1],
+					$('#display').val(),
+					$('#currentPage').val());
+		}
+		if(page_info=='车辆'){
+			
+		}
+		if(page_info=='仓库'){
+			
+		}
+		if(page_info=='公司'){
+			
+		}
+		if(page_info=='货物'){
+			
+		}
 		
 		
-	    //alert(curWwwPath.substring(0,pos) + "/DaTian/linetransporttest");
-	    ajax_post()
+	    
 	});
-	//干线筛选
-	function ajax_post(){
-		 // var curWwwPath=window.document.location.href;
-	     // var pathName=window.document.location.pathname;
-	     // var pos=curWwwPath.indexOf(pathName);
-	      //curWwwPath.substring(0,pos) + "/DaTian/linetransporttest"
+	/*//干线筛选
+	function getSelectedLineAjax(){
+		//alert("ajax_post");
 	      var url="linetransporttest";
 		  $.post(url,{
 			  startPlace:$('#city1').val(),
 			  endPlace:$('#city2').val(),
 			  transportType:urladdtion[0],
 			  refPrice:urladdtion[2],
-			  fromPlace:urladdtion[1]},
+			  fromPlace:urladdtion[1],
+			  display:$('#display').val(),
+			  currentPage:$('#currentPage').val()},
 		  function(data,status){
+				  //alert(data);
+				  $("#testbody").empty();
 			for(var i=0; i<data.length; i++) {
 				$("#testbody").append("<tr>");
 				$("#testbody").append("<td class=\"td_main_list_content\"></td>");
 				$("#testbody").append("<td class=\"td_main_list_content\"><a href=\"linetransportdetail?linetransportid="+data[i].id+"&carrierId="+data[i].carrierId+"&linetransportId="+data[i].carrierid+"&flag=0\" hidefocus=\"true\">"+data[i].startPlace+"→"+data[i].endPlace+"</a><br /><a style=\"color:#717071;\" href=\"companyDetail?id="+data[i].carrierId+"\" hidefocus=\"true\">"+data[i].companyName+"<img src=\"images/btn_level1a.png\" /></a></td>");
 				$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].refPrice+"</td>");
-				$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].type+"</td>");
+				$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].transportType+"</td>");
 				$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].onWayTime+"</td>");
 				$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].relDate+"</td>");
 				$("#testbody").append("<td class=\"td_main_list_content\">");
@@ -125,66 +179,43 @@
 			}
 		  },"json");
 	}
+	//获取所有干线筛选的总条数
+	function getSelectedLineTotalRowsAjax(){
+		var url="getSelectedLineTotalRowsAjax";
+		  $.post(url,{
+			  startPlace:$('#city1').val(),
+			  endPlace:$('#city2').val(),
+			  transportType:urladdtion[0],
+			  refPrice:urladdtion[2],
+			  fromPlace:urladdtion[1],
+			  display:$('#display').val(),
+			  currentPage:$('#currentPage').val()},
+		  function(data,status){
+				  //alert(data);
+				  $('#div_resource_list_head1').text("共"+data+"条记录");
+				  $('#count').val(data);
+				  //pageLayout(data);//页面布局
+		  },"text");
+		
+	}
 	
-	/*$("#btn1").click(function () {//筛选按钮
-		//var div = document.getElementById("zzz");
-		//div.click();
-		var locateurl = "";
+	//控制页码显示
+	function pageLayout(totalRows){
+		var display=$('#display').val();
+		var currentPage=$('#currentPage').val();
+//		alert(display);
+//		alert(totalRows);
+		var pageNum=Math.ceil(totalRows/display);
+		//alert(pageNum);
+		var page_layout=$('#page_layout');
+		page_layout.append("<tr>");
+		page_layout.append("<td width='45' class='td_pagenumber' onclick='changeTo("+1+")'><a href='javascript:;' class='a_pagenumber' hidefocus='true'>首页</a></td>");
+		page_layout.append("<td width='45' class='td_pagenumber' onclick='changeTo("	+currentPage==1?1:currentPage-1+	")'><a href='javascript:;' class='a_pagenumber' hidefocus='true'>上页</a></td>");
+		<td width="45" class="td_pagenumber" onclick="ChangeTo('first')"><a href="javascript:;" class="a_pagenumber" hidefocus="true">首页</a></td>
+        <td width="45" class="td_pagenumber" onclick="ChangeTo('previous')"><a href="javascript:;" class="a_pagenumber" hidefocus="true">上页</a></td>
 		
-		var curWwwPath=window.document.location.href;
-	    var pathName=window.document.location.pathname;
-	    var pos=curWwwPath.indexOf(pathName);
-		
-		//alert(location.host);
-		if(location.pathname.indexOf("selected")>0){//判断是否需要再加selected
-			locateurl = curWwwPath.substring(0,pos) + location.pathname+"?";
-			//alert(locateurl);
-		}
-		else
-			//alert(location.pathname.indexOf("selected"));
-			locateurl = curWwwPath.substring(0,pos) + location.pathname + "selected?";//重组url前缀
-			//alert(locateurl);
-		
-		if(document.getElementById("city1") != null)//判断某页面是否存在id为city1的控件
-		{
-			if(document.getElementById("city1").value == "中文或拼音" || document.getElementById("city1").value == "全国")//city1控件状态是否为默认状态
-				locateurl += document.getElementById("city1").getAttribute('text') + "=All" + "&";//若是，则设定为All
-			else
-				locateurl += document.getElementById("city1").getAttribute('text') + "=" + document.getElementById("city1").value + "&";//否则将value值写入url
-		}
-		
-		if(document.getElementById("city2") != null)
-		{
-			if(document.getElementById("city2").value == "中文或拼音" || document.getElementById("city2").value == "全国")
-				locateurl += document.getElementById("city2").getAttribute('text') + "=All" + "&";
-			else
-				locateurl += document.getElementById("city2").getAttribute('text') + "=" + document.getElementById("city2").value + "&";
-		}
-		
-		for (var i=0;i<5;i++)//对应五个控件
-		{
-		    if(urladdtion[i] != "")//若控件存在
-		    {
-		    	if(i == 0)
-		    		locateurl += urladdtion[i];//首个控件没有&做前缀
-		    	else
-		    		locateurl += "&" + urladdtion[i];
-		    }
-		}
-		
-		if(document.getElementById("location1") != null)
-		{
-			if(document.getElementById("location1").value == "点击此处定位...")
-				locateurl += "&carLocation=All";
-			else
-				locateurl += "&carLocation=" + document.getElementById("location1").value;
-		}
-
-		locateurl += "&Display=" + document.getElementById("Display").options[document.getElementById("Display").selectedIndex].value + "&PageNow=" + document.getElementById("PageNow").getAttribute('value');
-        //Display是每页显示个数，PageNow是目前在第几页，分页和页面跳转对应的控件变化还没做
-		//alert(locateurl);
-		location.assign(locateurl);//重载新的url，是否能被后台获取未检验
-	});*/
+}*/
+	
 
 	$("#selectA").live("click", function () {
 		$(this).remove();

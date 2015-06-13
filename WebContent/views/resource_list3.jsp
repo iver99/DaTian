@@ -52,7 +52,7 @@
 
 <%@ include  file="topFrame.jsp"%>
 	<div id="main_frame">
-		<span class="text_main_title1">资源</span>&nbsp;&gt;&nbsp;车辆
+		<span class="text_main_title1">资源</span>&nbsp;&gt;&nbsp;车辆<input type="hidden" id="page_info" value="车辆 "/>
 		<table width="100%" border="0" cellpadding="0" cellspacing="0">
 			<tr>
 				<td width="230" class="td_leftnav_top">
