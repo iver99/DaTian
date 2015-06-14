@@ -71,19 +71,20 @@ public class CarServiceImpl implements CarService {
 				+ "t1.carrierId,"
 				+ "t1.carNum,"
 				+ "t1.companyName,"
-				+ "t1.carBase"
+				+ "t1.carBase,"
 				+ "t1.carState,"
 				+ "t1.carLength,"
 				+ "t1.carWeight,"
 				+ "t1.carLocation,"
 				+ "t1.relDate,"
+				+ "t1.linetransportId,"
 				+ "t3.status "
 				+ " from car_carrier_view t1 "
 				+ "left join ("
 				+ "select * from focus t2 ";
 				
 		if(userId!=null){//如果当前有用户登录在条件中加入用户信息
-			sql+=" where t2.focusType='cityline' and t2.clientId=:clientId ";
+			sql+=" where t2.focusType='car' and t2.clientId=:clientId ";
 			params.put("clientId", userId);
 		}
 		sql+=") t3 on t1.id=t3.focusId ";
@@ -105,11 +106,12 @@ public class CarServiceImpl implements CarService {
 			carBean.setCompanyName((String)obj[3]);;
 			carBean.setCarBase((String)obj[4]);
 			carBean.setCarState((String)obj[5]);
-			carBean.setCarLength((Float)obj[6]);
-			carBean.setCarWeight((Float)obj[7]);;
+			carBean.setCarLength((Double)obj[6]+"");
+			carBean.setCarWeight((Double)obj[7]+"");;
 			carBean.setCarLocation((String)obj[8]);
 			carBean.setRelDate((Date)obj[9]);
-			carBean.setStatus((String)obj[10]);
+			carBean.setLinetransportId((String)obj[10]);;
+			carBean.setStatus((String)obj[11]);
 			carList.add(carBean);
 		}
 		
@@ -128,11 +130,11 @@ public class CarServiceImpl implements CarService {
 	 */
 	private String whereSql(CarSearchBean carBean,Map<String,Object> params){
 		String wheresql=" where 1=1 ";
-		if(carBean.getStartPlace()!=null && !carBean.getStartPlace().trim().equals("中文或拼音")){
+		if(carBean.getStartPlace()!=null && !carBean.getStartPlace().trim().equals("中文或拼音")&&!carBean.getStartPlace().trim().equals("")){
 			wheresql+=" and t1.startPlace=:startPlace ";
 			params.put("startPlace", carBean.getStartPlace());
 		}
-		if(carBean.getEndPlace()!=null && !carBean.getEndPlace().trim().equals("中文或拼音")){
+		if(carBean.getEndPlace()!=null && !carBean.getEndPlace().trim().equals("中文或拼音")&&!carBean.getStartPlace().trim().equals("")){
 			wheresql+=" and t1.endPlace=:endPlace ";
 			params.put("endPlace", carBean.getEndPlace());
 		}
@@ -140,13 +142,37 @@ public class CarServiceImpl implements CarService {
 			wheresql+=" and t1.carBase=:carBase ";
 			params.put("carBase", carBean.getCarBase());
 		}
-		if(carBean.getCarLength()!=null && !carBean.getCarLength().equals("All") && carBean.getCarLength().equals("")){
-			wheresql+=" and t1.carLength=:carLength";
-			params.put("carLength", carBean.getCarLength());
+		if(carBean.getCarLength()!=null && !carBean.getCarLength().trim().equals("All") && carBean.getCarLength().trim().equals("")){
+			String carLength=carBean.getCarLength();
+			if (carLength.equals("10米")) {
+				wheresql+=" and t1.carLength=10";
+			}
+			if (carLength.equals("12米")) {
+				wheresql+=" and t1.carLength=12";
+			}
+			if (carLength.equals("14米")) {
+				wheresql+=" and t1.carLength=14";
+			}
+			//wheresql+=" and t1.carLength=:carLength";
+			//params.put("carLength", carBean.getCarLength());
 		}
-		if(carBean.getCarWeight()!=null && !carBean.getCarWeight().equals("All")&& carBean.getCarWeight().equals("")){
-			wheresql+=" and t1.carWeight=:carWeight";
-			params.put("carWeight", carBean.getCarWeight());
+		if(carBean.getCarWeight()!=null && !carBean.getCarWeight().trim().equals("All")&& carBean.getCarWeight().trim().equals("")){
+			
+			String carWeight=carBean.getCarWeight();
+			if (carWeight.equals("8吨")) {
+				wheresql+=" and t1.carWeight=8";
+			}
+			if (carWeight.equals("12吨")) {
+				wheresql+=" and t1.carWeight=10";
+			}
+			if (carWeight.equals("16吨")) {
+				wheresql+=" and t1.carWeight=16";
+			}
+			if (carWeight.equals("20吨")) {
+				wheresql+=" and t1.carWeight=20";
+			}
+
+			//params.put("carWeight", carBean.getCarWeight());
 		}
 		
 		return wheresql;
@@ -327,6 +353,21 @@ public class CarServiceImpl implements CarService {
 		carDao.delete(carinfo);
 		return true;
 	}
+
+	/**
+	 * 返回资源栏-车辆筛选记录总条数
+	 */
+	@Override
+	public Integer getSelectedCarTotalRows(CarSearchBean carBean) {
+		// TODO Auto-generated method stub
+		Map<String,Object> params=new HashMap<String,Object>();
+		String hql="select count(*) from CarCarrierView t1"+whereSql(carBean, params);
+		Long count=carDao.count(hql, params);
+		
+		return count.intValue();
+	}
+	
+	
 
 	
 }

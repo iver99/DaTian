@@ -18,13 +18,25 @@ public class CarSearchBean {
 	private String startPlace;
 	private String endPlace;
 	private String carBase;
-	private Float carLength;
-	private Float carWeight;
+	private String carLength;
+	private String carWeight;
 		
 	private String status;//¹Ø×¢×´Ì¬
+	
+	private String linetransportId;
+	
+	
 
 	
 	
+	public String getLinetransportId() {
+		return linetransportId;
+	}
+
+	public void setLinetransportId(String linetransportId) {
+		this.linetransportId = linetransportId;
+	}
+
 	public String getCarNum() {
 		return carNum;
 	}
@@ -105,19 +117,21 @@ public class CarSearchBean {
 		this.carBase = carBase;
 	}
 
-	public Float getCarLength() {
+	
+
+	public String getCarLength() {
 		return carLength;
 	}
 
-	public void setCarLength(Float carLength) {
+	public void setCarLength(String carLength) {
 		this.carLength = carLength;
 	}
 
-	public Float getCarWeight() {
+	public String getCarWeight() {
 		return carWeight;
 	}
 
-	public void setCarWeight(Float carWeight) {
+	public void setCarWeight(String carWeight) {
 		this.carWeight = carWeight;
 	}
 

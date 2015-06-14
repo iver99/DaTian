@@ -16,7 +16,7 @@ public class WarehouseSearchBean {
 	private String type;//仓库类型
 //	private String kind;
 	private String storageForm;//保管心态
-	private Float houseArea;//仓库面积 
+	private String houseArea;//仓库面积 
 	private String status;//关注状态  
 	
 	private String name;
@@ -113,14 +113,12 @@ public class WarehouseSearchBean {
 	public void setStorageForm(String storageForm) {
 		this.storageForm = storageForm;
 	}
-
-
-	public Float getHouseArea() {
+	public String getHouseArea() {
 		return houseArea;
 	}
 
 
-	public void setHouseArea(Float houseArea) {
+	public void setHouseArea(String houseArea) {
 		this.houseArea = houseArea;
 	}
 

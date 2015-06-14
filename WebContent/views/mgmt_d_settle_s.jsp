@@ -66,7 +66,7 @@
                     <tr>
                     	<td>
                         	<span class="span_mgmt_right2_text1">我的结算(需求方)</span>
-                            <span class="span_mgmt_right2_text2"><!-- <a href="javascript:;" hidefocus="true" class="a_btn_mgmt4">批量生成对账单</a> --></span>
+                            <span class="span_mgmt_right2_text2"> <a href="javascript:;" hidefocus="true" class="a_btn_mgmt4">批量生成对账单</a></span>
                             <div class="div_mgmt_s1">
                                 <!-- <input type="text" class="input_date1" onclick="SelectDate(this,'yyyy-MM-dd')" value="开始时间" readonly="readonly" title="点击选择" />
                                 &nbsp;&nbsp;至&nbsp;&nbsp;

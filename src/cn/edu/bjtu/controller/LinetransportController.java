@@ -157,12 +157,12 @@ public class LinetransportController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/linetransporttest",produces = "text/html;charset=UTF-8")
-	@ResponseBody
 	/**
 	 * 返回新干线信息
 	 * @return
 	 */
+	@RequestMapping(value="/linetransporttest",produces = "text/html;charset=UTF-8")
+	@ResponseBody
 	public String getAllLinetransportTest(
 			LinetransportSearchBean linetransportbean, PageUtil page,
 			HttpSession session, HttpServletResponse response,HttpServletRequest request) {

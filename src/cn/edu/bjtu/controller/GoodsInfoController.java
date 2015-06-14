@@ -1,9 +1,7 @@
 package cn.edu.bjtu.controller;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
@@ -17,14 +15,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.edu.bjtu.bean.search.CargoSearchBean;
+import cn.edu.bjtu.bean.search.WarehouseSearchBean;
 import cn.edu.bjtu.service.FocusService;
 import cn.edu.bjtu.service.GoodsInfoService;
 import cn.edu.bjtu.util.DownloadFile;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.GoodsClientView;
+
+import com.alibaba.fastjson.JSONArray;
 
 @Controller
 public class GoodsInfoController {
@@ -35,38 +39,58 @@ public class GoodsInfoController {
 	FocusService focusService;
 	ModelAndView mv = new ModelAndView();
 
-	@RequestMapping("/goodsform")
 	/**
 	 * 资源栏货物
 	 * @param flag
 	 * @param request
 	 * @return
 	 */
-	public ModelAndView getAllGoodsInfo(@RequestParam int flag,
+	@RequestMapping(value="/goodsform",params="flag=0")
+	public String getAllGoodsInfo() {
+		return "resource_list6";
+	}
+	
+	/**
+	 * 资源栏-货物筛选
+	 * @param cargoBean
+	 * @param pageUtil
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value="getSelectedCargoAjax",produces="text/html;charset=UTF-8")
+	@ResponseBody
+	public String getSelectedCargoAjax(CargoSearchBean cargoBean,PageUtil pageUtil,HttpSession session){
+		JSONArray jsonArray = goodsInfoService.getSelectedCargoNew(cargoBean, pageUtil,
+				session);
+		
+		return jsonArray.toString();
+	}
+	/**
+	 * 返回货物筛选页面总记录数
+	 * @param warehouseBean
+	 * @return
+	 */
+	@RequestMapping("getSelectedCargoTotalRowsAjax")
+	@ResponseBody
+	public Integer getSelectedCargoTotalRowsAjax(CargoSearchBean cargoBean){
+		Integer count=goodsInfoService.getSelectedCargoTotalRows(cargoBean);
+		return count;
+	}
+	
+	/**
+	 * 我的信息-货物信息
+	 * @param flag
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/goodsform",params="flag=1")
+	public ModelAndView getMyInfoGoods(@RequestParam int flag,
 			HttpSession session) {
-		int Display = 10;// 默认的每页大小
-		int PageNow = 1;// 默认的当前页面
-
-		if (flag == 0) {
-			List goodsInfoList = goodsInfoService.getAllGoodsInfo(Display,
-					PageNow);
-			int count = goodsInfoService.getTotalRows("All", "All", "All");// 获取总记录数,不需要where子句，所以参数都是All
-			String clientId = (String) session.getAttribute("userId");
-			List focusList = focusService.getFocusList(clientId,"goods");
-			int pageNum = (int) Math.ceil(count * 1.0 / Display);// 页数
-			mv.addObject("count", count);
-			mv.addObject("pageNum", pageNum);
-			mv.addObject("pageNow", PageNow);
-			mv.addObject("focusList", focusList);
-			mv.addObject("goodsformInfo", goodsInfoList);
-			mv.setViewName("resource_list6");// 点击资源栏城市配送显示所有信息
-		} else if (flag == 1) {
 			String clientId = (String) session.getAttribute(
 					"userId");
 			List goodsList = goodsInfoService.getUserGoodsInfo(clientId);
 			mv.addObject("goodsList", goodsList);
 			mv.setViewName("mgmt_r_cargo");
-		}
 
 		return mv;
 	}

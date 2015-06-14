@@ -52,6 +52,13 @@ public interface CarService {
 	 */
 	public JSONArray getSelectedCarNew(CarSearchBean carbean,PageUtil pageUtil,HttpSession session);
 	
+	/**
+	 * 获取资源栏-车辆筛选记录总条数
+	 * @param carBean
+	 * @return
+	 */
+	public Integer getSelectedCarTotalRows(CarSearchBean carBean);
+	
 	
 	
 }

@@ -89,55 +89,179 @@
 	});
 	
 	$("#btn1").click(function () {//筛选按钮
-		var locateurl = "";
 		//清空页码
 		var page_layout=$('#page_layout');
 		page_layout.empty();
-		var page_info=$('#page_info').val();
+		var page_info=$('#page_info').val().trim();
 		if(page_info=='运输线路'){
 			//筛选资源
-			getSelectedLineAjax(
-					$('#city1').val(),
-					$('#city2').val(),
-					urladdtion[0],
-					urladdtion[2],
-					urladdtion[1],
-					$('#display').val(),
-					$('#currentPage').val());
-			//总条数
-		    getSelectedLineTotalRowsAjax(
-		    		$('#city1').val(),
-		    		urladdtion[0],
-					urladdtion[2],
-					urladdtion[1],
-					$('#display').val(),
-					$('#currentPage').val());
+			if($('#flag').val() == '0'){//直接点击筛选
+				//currentPage置为1
+				$('#currentPage').val(1);
+				
+				getSelectedLineAjax(
+						$('#city1').val(),
+						$('#city2').val(),
+						urladdtion[0],
+						urladdtion[2],
+						urladdtion[1],
+						$('#display').val(),
+						$('#currentPage').val());
+				//总条数
+			    getSelectedLineTotalRowsAjax(
+			    		$('#city1').val(),
+			    		$('#city2').val(),
+			    		urladdtion[0],
+						urladdtion[2],
+						urladdtion[1],
+						$('#display').val(),
+						$('#currentPage').val());
+			}else{//点击页码调用筛选按钮
+				getSelectedLineAjax(
+						$('#city1').val(),
+						$('#city2').val(),
+						urladdtion[0],
+						urladdtion[2],
+						urladdtion[1],
+						$('#display').val(),
+						$('#currentPage').val());
+				//总条数
+			    getSelectedLineTotalRowsAjax(
+			    		$('#city1').val(),
+			    		$('#city2').val(),
+			    		urladdtion[0],
+						urladdtion[2],
+						urladdtion[1],
+						$('#display').val(),
+						$('#currentPage').val());
+			    
+			    //flag重置为0
+			    $('#flag').val(0);
+			}
+			
 		}
+		//配送网络筛选
 		if(page_info=='配送网络'){
-			//alert($('#currentPage').val());
-			//筛选资源
-			//alert("city+"+$('#city1').val());
-			//alert("vipser+"+urladdtion[0]);
-			//alert("refprice+"+urladdtion[1]);
-			getSelectedLineAjax(
-					$('#city1').val(),
-					urladdtion[0],
-					urladdtion[1],
-					$('#display').val(),
-					$('#currentPage').val());
-			//总条数
-			getSelectedCityLineTotalRowsAjax(
-		    		$('#city1').val(),
-					$('#city2').val(),
-					urladdtion[0],
-					urladdtion[1],
-					$('#display').val(),
-					$('#currentPage').val());
+			if($('#flag').val() == '0'){//直接点击筛选
+				$('#currentPage').val(1);
+				getSelectedLineAjax(
+						$('#city1').val(),
+						urladdtion[0],
+						urladdtion[1],
+						$('#display').val(),
+						$('#currentPage').val());
+				//总条数
+				getSelectedCityLineTotalRowsAjax(
+			    		$('#city1').val(),
+						urladdtion[0],
+						urladdtion[1],
+						$('#display').val(),
+						$('#currentPage').val());
+			}else{//点击页码
+				getSelectedLineAjax(
+						$('#city1').val(),
+						urladdtion[0],
+						urladdtion[1],
+						$('#display').val(),
+						$('#currentPage').val());
+				//总条数
+				getSelectedCityLineTotalRowsAjax(
+			    		$('#city1').val(),
+						urladdtion[0],
+						urladdtion[1],
+						$('#display').val(),
+						$('#currentPage').val());
+			    //flag重置为0
+			    $('#flag').val(0);
+			}
+			
 		}
 		if(page_info=='车辆'){
+			//车辆筛选
+			//alert("carlength+"+urladdtion[1]);
+			if($('#flag').val() == '0'){//直接点击筛选
+				
+				$('#currentPage').val(1);
+				getSelectedCarAjax(
+						$('#city1').val(),
+						$('#city2').val(),
+						urladdtion[0],
+						urladdtion[1],
+						urladdtion[2],
+						$('#display').val(),
+						$('#currentPage').val());
+				
+				getSelectedCarTotalRows(
+						$('#city1').val(),
+						$('#city2').val(),
+						urladdtion[0],
+						urladdtion[1],
+						urladdtion[2],
+						$('#display').val(),
+						$('#currentPage').val()
+				);
+			}else{
+				getSelectedCarAjax(
+						$('#city1').val(),
+						$('#city2').val(),
+						urladdtion[0],
+						urladdtion[1],
+						urladdtion[2],
+						$('#display').val(),
+						$('#currentPage').val());
+				
+				getSelectedCarTotalRows(
+						$('#city1').val(),
+						$('#city2').val(),
+						urladdtion[0],
+						urladdtion[1],
+						urladdtion[2],
+						$('#display').val(),
+						$('#currentPage').val()
+				);
+				
+				//flag重置为0
+			    $('#flag').val(0);
+			}
 			
 		}
 		if(page_info=='仓库'){
+			if($('#flag').val() == '0'){//直接点击筛选
+				
+				$('#currentPage').val(1);
+				getSelectedWarehouseAjax(
+						$('#city1').val(),
+						urladdtion[0],
+						urladdtion[1],
+						urladdtion[2],
+						$('#display').val(),
+						$('#currentPage').val());
+				getSelectedWarehouseTotalRows(
+						$('#city1').val(),
+						urladdtion[0],
+						urladdtion[1],
+						urladdtion[2],
+						$('#display').val(),
+						$('#currentPage').val());
+			}else{//点击页码
+				getSelectedWarehouseAjax(
+						$('#city1').val(),
+						urladdtion[0],
+						urladdtion[1],
+						urladdtion[2],
+						$('#display').val(),
+						$('#currentPage').val());
+				getSelectedWarehouseTotalRows(
+						$('#city1').val(),
+						urladdtion[0],
+						urladdtion[1],
+						urladdtion[2],
+						$('#display').val(),
+						$('#currentPage').val());
+				
+				//flag重置为0
+			    $('#flag').val(0);
+			}
 			
 		}
 		if(page_info=='公司'){

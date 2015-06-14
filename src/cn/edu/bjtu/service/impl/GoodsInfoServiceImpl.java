@@ -3,18 +3,30 @@ package cn.edu.bjtu.service.impl;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+
+import cn.edu.bjtu.bean.search.CargoSearchBean;
+import cn.edu.bjtu.bean.search.WarehouseSearchBean;
 import cn.edu.bjtu.dao.GoodsInfoDao;
 import cn.edu.bjtu.service.GoodsInfoService;
+import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.util.IdCreator;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.GoodsClientView;
 import cn.edu.bjtu.vo.Goodsform;
 @Transactional
@@ -201,10 +213,129 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 		}
 		
 		return true;
+	}
 
+	/**
+	 * 资源栏-货物-筛选
+	 */
+	@Override
+	public JSONArray getSelectedCargoNew(CargoSearchBean cargoBean,
+			PageUtil pageUtil, HttpSession session) {
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+		Map<String,Object> params=new HashMap<String,Object>();
+			String sql = "select t1.id,"
+				+ "t1.name,"
+				+ "t1.transportType,"
+				+ "t1.weight,"
+				+ "t1.relDate,"
+				+ "t1.limitDate,"
+				+ "t3.status "
+				+ " from goodsform t1 "
+				+ "left join ("
+				+ "select * from focus t2 ";
+				
+		if(userId!=null){//如果当前有用户登录在条件中加入用户信息
+			sql+=" where t2.focusType='goods' and t2.clientId=:clientId ";
+			params.put("clientId", userId);
+		}
+		sql+=") t3 on t1.id=t3.focusId ";
+		String wheresql=whereSql(cargoBean,params);
+		sql+=wheresql;asdfafasf a
+		
+		JSONArray jsonArray = new JSONArray();
+		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
+		int display=pageUtil.getDisplay()==0?10:pageUtil.getDisplay();
+		List<Object[]> objectList=warehouseDao.findBySql(sql, params,page,display);
+		
+		List<WarehouseSearchBean> warehouseList=new ArrayList<WarehouseSearchBean>();
+		for(Iterator<Object[]> it=objectList.iterator();it.hasNext();){
+			WarehouseSearchBean instanceBean=new WarehouseSearchBean();
+			Object[] obj=it.next();
+			instanceBean.setId((String)obj[0]);
+			instanceBean.setCarrierId((String)obj[1]);
+			instanceBean.setName((String)obj[2]);;
+			instanceBean.setCompanyName((String)obj[3]);;
+			instanceBean.setFireRate((String)obj[4]);
+			instanceBean.setType((String)obj[5]);
+			instanceBean.setHouseArea((Float)obj[6]+"");
+			instanceBean.setRelDate((Date)obj[7]);;
+			instanceBean.setStatus((String)obj[8]);
+			warehouseList.add(instanceBean);
+		}
+		
+		for(int i=0;i<warehouseList.size();i++){
+			JSONObject jsonObject=(JSONObject)JSONObject.toJSON(warehouseList.get(i));
+			jsonArray.add(jsonObject);
+		}
+		return jsonArray;
+	}
+	
+	/**
+	 * 资源栏-货物-筛选-总记录数 
+	 */
+	@Override
+	public Integer getSelectedCargoTotalRows(CargoSearchBean cargoBean) {
 		
 	}
 	 
+	/**
+	 * where sql
+	 * @param cargoBean
+	 * @return
+	 */
+	public String whereSql(CargoSearchBean cargoBean,Map<String,Object> params){
+		String wheresql=" where 1=1 ";
+		if (cargoBean.getStartPlace() != null
+				&& !cargoBean.getStartPlace().equals("全国")
+				&& !cargoBean.getStartPlace().equals("中文或拼音")
+				&& !cargoBean.getStartPlace().equals("All")
+				&& !cargoBean.getStartPlace().equals("")) {
+			wheresql+=" and t1.startPlace:=startPlace ";
+			params.put("startPlace", cargoBean.getStartPlace());
+		}
+		if(cargoBean.getEndPlace()!=null && !cargoBean.getEndPlace().equals("")
+				&& !cargoBean.getEndPlace().equals("中文或拼音")
+				&& !cargoBean.getEndPlace().equals("全国")
+				&& !cargoBean.getEndPlace().equals("All")){
+			wheresql+=" and t1.endPlace=:endPlace ";
+			params.put("endPlace", cargoBean.getEndPlace());
+		}
+		if(cargoBean.getTransportType()!=null && !cargoBean.getTransportReq().equals("")&& !cargoBean.getTransportType().equals("All")){
+			wheresql+=" and t1.transportType=:t1.transportType ";
+			params.put("transportType", cargoBean.getTransportType());
+		}
+		if (cargoBean.getWeight() != null && cargoBean.getWeight().equals("")
+				&& cargoBean.getWeight().equals("All")) {
+			String weight = cargoBean.getWeight().trim();
+			if (weight.equals("10吨")) {	
+				wheresql+=" and t1.weight=10 ";
+			}
+			if (weight.equals("15吨")) {
+				wheresql+=" and t1.weight=15 ";
+			}
+			if (weight.equals("20吨")) {
+				wheresql+=" and t1.weight=20 ";
+			}
+			if (weight.equals("35吨")) {
+				wheresql+=" and t1.weight=35 ";
+			}
+		}
+		if (cargoBean.getTransportReq() != null
+				&& cargoBean.getTransportReq().equals("")
+				&& cargoBean.getTransportReq().equals("All")) {
+			String transportReq=cargoBean.getTransportReq();
+			if (transportReq.equals("高栏货车")) {
+				wheresql+=" and t1.transportReq like '%高栏%' ";
+			}
+			if (transportReq.equals("厢式货车")) {
+				wheresql+=" and t1.transportReq like '%厢式%' ";
+			}
+			if (transportReq.equals("平板货车")) {
+				wheresql+=" and t1.transportReq like '%平板%' ";
+}
+		}
+		return wheresql;
+	}
 	 
 	 
 	 

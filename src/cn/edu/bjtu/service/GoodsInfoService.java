@@ -2,8 +2,14 @@ package cn.edu.bjtu.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import cn.edu.bjtu.bean.search.CargoSearchBean;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.GoodsClientView;
 import cn.edu.bjtu.vo.Goodsform;
+
+import com.alibaba.fastjson.JSONArray;
 
 public interface GoodsInfoService {
 
@@ -63,4 +69,19 @@ public interface GoodsInfoService {
 	 */
 	public boolean confirmResponse(String goodsId);
 	
+	/**
+	 * 资源栏-货物-筛选
+	 * @param cargoBean
+	 * @param pageUtil
+	 * @param session
+	 * @return
+	 */
+	public JSONArray getSelectedCargoNew(CargoSearchBean cargoBean,PageUtil pageUtil,HttpSession session);
+	
+	/**
+	 * 资源栏-货物总记录数
+	 * @param cargoBean
+	 * @return
+	 */
+	public Integer getSelectedCargoTotalRows(CargoSearchBean cargoBean);
 }

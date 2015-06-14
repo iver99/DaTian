@@ -134,7 +134,7 @@ public class CitylineServiceImpl implements CitylineService {
 				wheresql+=" and t1.refPrice > 2 ";
 			}
 			if(refPrice.equals("1至2元/kg")){
-				wheresql+=" and t1.refPrice > 1 and t1.refPrice < 1 ";
+				wheresql+=" and t1.refPrice > 1 and t1.refPrice < 2 ";
 			}
 			if(refPrice.equals("小于1元/kg")){
 				wheresql+=" and t1.refPrice <1 ";
@@ -143,10 +143,10 @@ public class CitylineServiceImpl implements CitylineService {
 		if(citylineBean.getVIPService()!=null && !citylineBean.getVIPService().trim().equals("") && !citylineBean.getVIPService().equals("All")){
 			String VIPService=citylineBean.getVIPService().trim();
 			if(VIPService.equals("有增值服务")){
-				wheresql+=" and VIPService='有' ";
+				wheresql+=" and t1.VIPService='有' ";
 			}
 			if(VIPService.equals("无增值服务")){
-				wheresql+=" and VIPService='无' ";
+				wheresql+=" and t1.VIPService='无' ";
 			}
 		}
 		return wheresql;
@@ -414,7 +414,7 @@ public class CitylineServiceImpl implements CitylineService {
 	public Integer getSelectedCityLineTotalRows(CityLineSearchBean citylineBean) {
 		// TODO Auto-generated method stub
 				Map<String,Object> params=new HashMap<String,Object>();
-				String hql="select count(*) from LineCarrierView t1"+whereSql(citylineBean, params);
+				String hql="select count(*) from CityCarrierView t1"+whereSql(citylineBean, params);
 				Long count=citylineDao.count(hql, params);
 				
 				return count.intValue();

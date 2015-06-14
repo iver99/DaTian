@@ -1,19 +1,29 @@
 package cn.edu.bjtu.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import cn.edu.bjtu.dao.BaseDao;
+import cn.edu.bjtu.bean.search.WarehouseSearchBean;
 import cn.edu.bjtu.dao.WarehouseDao;
 import cn.edu.bjtu.service.WarehouseService;
+import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.util.IdCreator;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Warehouse;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 @Repository
 /**
@@ -302,4 +312,130 @@ public class WarehouseServiceImpl implements WarehouseService {
 		warehouseDao.delete(warehouse);
 		return true;
 	}
+
+	/**
+	 * 资源栏-仓库筛选
+	 */
+	@Override
+	public JSONArray getSelectedWarehouseNew(WarehouseSearchBean warehouseBean,
+			PageUtil pageUtil, HttpSession session) {
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+		Map<String,Object> params=new HashMap<String,Object>();
+			String sql = "select t1.id,"
+				+ "t1.carrierId,"
+				+ "t1.name,"
+				+ "t1.companyName,"
+				+ "t1.fireRate,"
+				+ "t1.type,"
+				+ "t1.houseArea,"
+				+ "t1.relDate,"
+				+ "t3.status "
+				+ " from warehouse_carrier_view t1 "
+				+ "left join ("
+				+ "select * from focus t2 ";
+				
+		if(userId!=null){//如果当前有用户登录在条件中加入用户信息
+			sql+=" where t2.focusType='warehouse' and t2.clientId=:clientId ";
+			params.put("clientId", userId);
+		}
+		sql+=") t3 on t1.id=t3.focusId ";
+		String wheresql=whereSql(warehouseBean,params);
+		sql+=wheresql;
+		
+		JSONArray jsonArray = new JSONArray();
+		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
+		int display=pageUtil.getDisplay()==0?10:pageUtil.getDisplay();
+		List<Object[]> objectList=warehouseDao.findBySql(sql, params,page,display);
+		
+		List<WarehouseSearchBean> warehouseList=new ArrayList<WarehouseSearchBean>();
+		for(Iterator<Object[]> it=objectList.iterator();it.hasNext();){
+			WarehouseSearchBean instanceBean=new WarehouseSearchBean();
+			Object[] obj=it.next();
+			instanceBean.setId((String)obj[0]);
+			instanceBean.setCarrierId((String)obj[1]);
+			instanceBean.setName((String)obj[2]);;
+			instanceBean.setCompanyName((String)obj[3]);;
+			instanceBean.setFireRate((String)obj[4]);
+			instanceBean.setType((String)obj[5]);
+			instanceBean.setHouseArea((Float)obj[6]+"");
+			instanceBean.setRelDate((Date)obj[7]);;
+			instanceBean.setStatus((String)obj[8]);
+			warehouseList.add(instanceBean);
+		}
+		
+		for(int i=0;i<warehouseList.size();i++){
+			JSONObject jsonObject=(JSONObject)JSONObject.toJSON(warehouseList.get(i));
+			jsonArray.add(jsonObject);
+		}
+		return jsonArray;
+	}
+	
+	/**
+	 * where sql
+	 * @param warehouseBean
+	 * @param params
+	 * @return
+	 */
+	private String whereSql(WarehouseSearchBean warehouseBean,Map<String,Object> params){
+		String wheresql=" where 1=1 ";
+		if(warehouseBean.getCity()!=null && !warehouseBean.getCity().equals("中文或拼音") && !warehouseBean.getCity().equals("All") && !warehouseBean.getCity().equals("")){
+			wheresql+=" and t1.city=:city";
+			params.put("city", warehouseBean.getCity());
+		}
+		if(warehouseBean.getType()!=null && !warehouseBean.getType().equals("") && !warehouseBean.getType().equals("All")&& !warehouseBean.getType().equals("")){
+			String type=warehouseBean.getType();
+			if(type.equals("保税仓库")){
+				wheresql+=" and t1.type='保税'";
+			}
+			if(type.equals("非保税仓库")){
+				wheresql+=" and t1.type='非保税'";
+			}
+		}
+		if(warehouseBean.getStorageForm()!= null && !warehouseBean.getStorageForm().equals("") &&!warehouseBean.getStorageForm().equals("All")){
+			String storageForm=warehouseBean.getStorageForm();
+			if(storageForm.equals("普通仓库")){
+				wheresql+=" and t1.storageForm='普通'";
+			}
+			if(storageForm.equals("冷藏仓库")){
+				wheresql+=" and t1.storageForm='冷藏'";
+			}
+			if(storageForm.equals("恒温仓库")){
+				wheresql+=" and t1.storageForm='恒温'";
+			}
+			if(storageForm.equals("露天仓库")){
+				wheresql+=" and t1.storageForm='露天'";
+			}
+			if(storageForm.equals("危险品仓库")){
+				wheresql+=" and t1.storageForm='危险品'";
+			}
+		}
+		if(warehouseBean.getHouseArea()!=null && !warehouseBean.getHouseArea().equals("") && !warehouseBean.getHouseArea().equals("All")){
+			String houseArea=warehouseBean.getHouseArea();
+			if (houseArea.equals("大于1万平方米")) {
+				wheresql+=" and t1.houseArea>1=0000";
+			}
+			if (houseArea.equals("大于2万平方米")) {
+				wheresql+=" and t1.houseArea>=20000";
+			}
+			if (houseArea.equals("大于5万平方米")) {
+				wheresql+=" and t1.houseArea>=50000";
+			}
+		}
+		
+		return wheresql;
+	}
+
+	/**
+	 * 资源栏-仓库筛选总记录数
+	 */
+	@Override
+	public Integer getSelectedWarehouseTotalRows(
+			WarehouseSearchBean warehouseBean) {
+		Map<String,Object> params=new HashMap<String,Object>();
+		String hql="select count(*) from WarehouseCarrierView t1"+whereSql(warehouseBean, params);
+		Long count=warehouseDao.count(hql, params);
+		
+		return count.intValue();
+	}
+	
 }

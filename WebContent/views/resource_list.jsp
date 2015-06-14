@@ -110,6 +110,7 @@
 						<input id="count" value="" type="text"/>
 						<input id="display" value="10" type="text"/>
 						<input id="currentPage" value="1" type="text"/>
+						<input id="flag" value=0 type="text"/><!-- 点击页码和点击筛选标识位 -->
 						
 						<div id="middlesort">
 							<ul class="quickmenu">
@@ -322,6 +323,7 @@ function getSelectedLineTotalRowsAjax(startPlace,
 
 //控制页码显示
 function pageLayout(totalRows){
+	//alert(totalRows);
 	var display=parseInt($('#display').val());
 	var currentPage=parseInt($('#currentPage').val());
 	var pageNum=Math.ceil(totalRows/display);
@@ -388,6 +390,8 @@ function ChangeTo(page){
 	var page_layout=$('#page_layout');
 	page_layout.empty();
 	$('#currentPage').val(page);
+	//点击页码，标志位置为1
+	$('#flag').val(1);
 	$('#btn1').click();
 }
 
