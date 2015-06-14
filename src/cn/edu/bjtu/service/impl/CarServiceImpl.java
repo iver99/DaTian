@@ -130,11 +130,11 @@ public class CarServiceImpl implements CarService {
 	 */
 	private String whereSql(CarSearchBean carBean,Map<String,Object> params){
 		String wheresql=" where 1=1 ";
-		if(carBean.getStartPlace()!=null && !carBean.getStartPlace().trim().equals("中文或拼音")&&!carBean.getStartPlace().trim().equals("")){
+		if(carBean.getStartPlace()!=null && !carBean.getStartPlace().trim().equals("中文或拼音")&&!carBean.getStartPlace().trim().equals("")&&!carBean.getStartPlace().trim().equals("全国")){
 			wheresql+=" and t1.startPlace=:startPlace ";
 			params.put("startPlace", carBean.getStartPlace());
 		}
-		if(carBean.getEndPlace()!=null && !carBean.getEndPlace().trim().equals("中文或拼音")&&!carBean.getStartPlace().trim().equals("")){
+		if(carBean.getEndPlace()!=null && !carBean.getEndPlace().trim().equals("中文或拼音")&&!carBean.getStartPlace().trim().equals("")&&!carBean.getStartPlace().trim().equals("全国")){
 			wheresql+=" and t1.endPlace=:endPlace ";
 			params.put("endPlace", carBean.getEndPlace());
 		}

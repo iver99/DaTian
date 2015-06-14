@@ -24,27 +24,27 @@
 	src="http://api.map.baidu.com/api?v=2.0&ak=osuO3WDtmGYEK9nMYGZimjkb"></script>
 
 <link rel="shortcut icon" href="/images/fav.ico" type="image/x-icon" />
-<link rel="icon" href="/images/fav.ico" type="image/x-icon" />
-<link rel="bookmark" href="/images/fav.ico" type="image/x-icon" />
-<link type="text/css" rel="stylesheet" href="css/index.css">
-<script type="text/javascript" src="js/jquery.min.1.7.2.js"></script>
-<script type="text/javascript" src="js/top_search.js"></script>
-<script type="text/javascript" src="js/main_nav.js"></script>
-<script type="text/javascript" src="js/resource_select.js"></script>
-<script type="text/javascript" src="js/jquery.tablesorter.pack.js"></script>
-<script type="text/javascript" src="js/table_sort.js"></script>
-<script type="text/javascript" src="js/citylist.js"></script>
-<script type="text/javascript" src="js/cityquery.js"></script>
-<script type="text/javascript" src="js/backtop.js"></script>
-<script type="text/javascript" src="js/popup.js"></script>
-<script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
-<script type="text/javascript" src="js/splitPage.js"></script><!-- 新增 -->	
-<script type="text/javascript" src="js/focus_load.js"></script>	
-<script type="text/javascript">
-	$(function() {
-		$('input, textarea').placeholder();
-	});
-</script>
+	<link rel="icon" href="/images/fav.ico" type="image/x-icon" />
+	<link rel="bookmark" href="/images/fav.ico" type="image/x-icon" />
+	<link type="text/css" rel="stylesheet" href="css/index.css">
+		<script type="text/javascript" src="js/jquery.min.1.7.2.js"></script>
+		<script type="text/javascript" src="js/top_search.js"></script>
+		<script type="text/javascript" src="js/main_nav.js"></script>
+		<script type="text/javascript" src="js/resource_select.js" charset="UTF-8"></script>
+		<script type="text/javascript" src="js/citylist.js"></script>
+		<script type="text/javascript" src="js/cityquery.js"></script>
+		<script type="text/javascript" src="js/jquery.tablesorter.pack.js"></script>
+		<script type="text/javascript" src="js/table_sort.js"></script>
+		<script type="text/javascript" src="js/popup.js"></script>
+		<script type="text/javascript" src="js/backtop.js"></script>
+		<script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
+		<!-- <script type="text/javascript" src="js/splitPage.js"></script> <!-- 新增 -->
+		<script type="text/javascript" src="js/focus_load.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				$('input, textarea').placeholder();
+			});
+		</script>
 </head>
 
 <body onload="OnLoad()">
@@ -457,7 +457,7 @@ function Reset()
 							//alert('你点击的是覆盖物：'+e.overlay.toString());   
 						}
 					});
-
+	//车辆位置-范围-圈
 	function search() {
 		//deletePoint();
 		map.clearOverlays();
