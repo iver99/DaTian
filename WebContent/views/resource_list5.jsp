@@ -154,12 +154,11 @@
 					</form> <input type="hidden" id="hiddenUrl" name="hiddenUrl" />
 
 					<div id="div_resource_list_head">
-					
-					
-						<div id="div_resource_list_head1">共 ${count } 条记录</div>
-						<input id="count" value="${count }" type="hidden"/>
-						<input id="count" value="${pageNum }" type="hidden"/>
-						<input id="count" value="${pageNow }" type="hidden"/>
+					<div id="div_resource_list_head1"><!-- 共  条记录 --></div>
+						<input id="count" value="" type="text"/>
+						<input id="display" value="10" type="text"/>
+						<input id="currentPage" value="1" type="text"/>
+						<input id="flag" value=0 type="text"/><!-- 点击页码和点击筛选标识位 -->
 						<div id="middlesort">
 							<ul class="quickmenu">
 								<li class="menuitem">
@@ -215,8 +214,8 @@
 								<td class="td_main_list_head" width="45">关注</td>
 							</tr>
 						</thead>
-						<tbody>
-							<c:forEach var="company" items="${companyList }">
+						<tbody id="testbody">
+							<%-- <c:forEach var="company" items="${companyList }">
 								<tr>
 									<td class="td_main_list_content"></td>
 									<td class="td_main_list_content"><a
@@ -246,7 +245,7 @@
 										</script>
 									</td>
 								</tr>
-							</c:forEach>
+							</c:forEach> --%>
 						</tbody>
 					</table>
 					<table border="0" cellpadding="0" cellspacing="0"
@@ -261,68 +260,8 @@
 						</tr>
 					</table>
 					<table border="0" cellpadding="0" cellspacing="0"
-						class="table_pagenumber" id="PageNow" value="1">
-						<tr>
-							<td width="45" class="td_pagenumber" onclick="ChangeTo('first')"><a href="javascript:;" class="a_pagenumber" hidefocus="true">首页</td>
-                        <td width="45" class="td_pagenumber" onclick="ChangeTo('previous')"><a href="javascript:;" class="a_pagenumber" hidefocus="true">上页</a></td>
-                        <!-- <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">1</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">2</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">3</a></td> -->
-                        <c:if test="${pageNum < 8}">
-                        	<c:forEach begin="1" end="${pageNum }" var="i">
-                        	    <td width="30" class="td_pagenumber" onclick="ChangePage(${i })"><a href="javascript:;" class="a_pagenumber" hidefocus="true">${i }</a></td>
-                        	</c:forEach>
-                        </c:if>
-                        <c:if test="${pageNum >= 8}">
-                        	<c:choose>
-                        		<c:when test="${pageNow <= 3}">
-                        			<c:forEach begin="1" end="5" var="i">
-                        				<td width="30" class="td_pagenumber" onclick="ChangePage(${i })"><a href="javascript:;" class="a_pagenumber" hidefocus="true">${i }</a></td>
-                        			</c:forEach>
-                        			...
-                        		</c:when>
-                        		<c:when test="${pageNow == 4}">
-                        			<c:forEach begin="1" end="6" var="i">
-                        				<td width="30" class="td_pagenumber" onclick="ChangePage(${i })"><a href="javascript:;" class="a_pagenumber" hidefocus="true">${i }</a></td>
-                        			</c:forEach>
-                        			...
-                        		</c:when>
-                        		<c:when test="${pageNow == 5}">
-                        			<c:forEach begin="1" end="7" var="i">
-                        				<td width="30" class="td_pagenumber" onclick="ChangePage(${i })"><a href="javascript:;" class="a_pagenumber" hidefocus="true">${i }</a></td>
-                        			</c:forEach>
-                        			...
-                        		</c:when>
-                        		<c:when test="${pageNow > 5 && pageNow < pageNum - 3}">
-                        		    <td width="30" class="td_pagenumber" onclick="ChangePage('1')"><a href="javascript:;" class="a_pagenumber" hidefocus="true">1</a></td>
-                        		    <td width="30" class="td_pagenumber" onclick="ChangePage('2')"><a href="javascript:;" class="a_pagenumber" hidefocus="true">2</a></td>
-                        		    ...
-                        			<c:forEach begin="${pageNow-2 }" end="${pageNow+2 }" var="i">
-                        				<td width="30" class="td_pagenumber" onclick="ChangePage(${i })"><a href="javascript:;" class="a_pagenumber" hidefocus="true">${i }</a></td>
-                        			</c:forEach>
-                        			...
-                        		</c:when>
-                        		<c:when test="${pageNow == pageNum - 3}">
-                        		    <td width="30" class="td_pagenumber" onclick="ChangePage('1')"><a href="javascript:;" class="a_pagenumber" hidefocus="true">1</a></td>
-                        		s    <td width="30" class="td_pagenumber" onclick="ChangePage('2')"><a href="javascript:;" class="a_pagenumber" hidefocus="true">2</a></td>
-                        		    ...
-                        			<c:forEach begin="${pageNow-5 }" end="${pageNow }" var="i">
-                        				<td width="30" class="td_pagenumber" onclick="ChangePage(${i })"><a href="javascript:;" class="a_pagenumber" hidefocus="true">${i }</a></td>
-                        			</c:forEach>
-                        		</c:when>
-                        		<c:when test="${pageNow >= pageNum - 2}">
-                        		    <td width="30" class="td_pagenumber" onclick="ChangePage('1')"><a href="javascript:;" class="a_pagenumber" hidefocus="true">1</a></td>
-                        		    <td width="30" class="td_pagenumber" onclick="ChangePage('2')"><a href="javascript:;" class="a_pagenumber" hidefocus="true">2</a></td>
-                        		    ...
-                        			<c:forEach begin="${pageNow-4 }" end="${pageNow }" var="i">
-                        				<td width="30" class="td_pagenumber" onclick="ChangePage(${i })"><a href="javascript:;" class="a_pagenumber" hidefocus="true">${i }</a></td>
-                        			</c:forEach>
-                        		</c:when>
-                        	</c:choose>
-                        </c:if>
-                        <td width="45" class="td_pagenumber" onclick="ChangeTo('next')"><a href="javascript:;" class="a_pagenumber" hidefocus="true">下页</a></td>
-                        <td width="45" class="td_pagenumber" onclick="ChangeTo('last')"><a href="javascript:;" class="a_pagenumber" hidefocus="true">末页</a></td>
-                    </tr>
+						class="table_pagenumber" id="page_layout" value="1">
+						<!-- 页码显示部分 -->
 					</table>
 				</td>
 			</tr>
@@ -365,134 +304,13 @@
 	function OnLoad() {
 		//Rescreen();
 		loadFocus();
-		GetRequest();
-	}
-	function ChangePage(page){
-		var url = location.search;
-		if (url.indexOf("?") != -1) {
-		      var str = url.substr(1);
-		      strs = str.split("&");
-		      var pageNum = Math.ceil(document.getElementById("count").value / Number(UrlDecode(strs[strs.length-2].split("=")[1])));
-		      document.getElementById("PageNow").setAttribute('value',page);
-		}
-		document.getElementById("btn1").click();
-	}
-	
-	function ChangeTo(operate){	
-		var url = location.search;
-		if (url.indexOf("?") != -1) {
-		      var str = url.substr(1);
-		      strs = str.split("&");
-		      var num;
-		      var pageNum = Math.ceil(document.getElementById("count").value / Number(UrlDecode(strs[strs.length-2].split("=")[1])));
-		      switch(operate)
-		      {
-		      case "first": num = 1;break;
-		      case "previous": num = Number(UrlDecode(strs[strs.length-1].split("=")[1])) - 1;break;
-		      case "next": num = Number(UrlDecode(strs[strs.length-1].split("=")[1])) + 1;break;
-		      case "last": num = pageNum;break;
-		      }
-		      if(num <= 0)
-		    	  num = 1;
-		      else if(num > pageNum)
-		    	  num = pageNum;
-		      document.getElementById("PageNow").setAttribute('value',num.toString());
-		}
-		document.getElementById("btn1").click();
+		//页面加载完成执行默认的筛选
+		getSelectedCompanyAjax("中文或拼音","All","All","All","All");
+		getSelectedCompanyTotalRowsAjax("中文或拼音","All","All","All","All");
 	}
 </script>
 
-<Script language="javascript" charset="gb2312">
-	function GetRequest() {
-		var url = location.search; //获取url中"?"符后的字串
-		if (url == "") {
-			document.getElementById("select1_0").click();
-			document.getElementById("select2_0").click();
-			document.getElementById("select3_0").click();
-			document.getElementById("select4_0").click();
-		} else {
-			var carparameter = new Array(); //先声明一维
-			for (var i = 0; i < 5; i++) { //一维长度为5
-				carparameter[i] = new Array(); //在声明二维
-				for (var j = 0; j < 10; j++) { //二维长度为10
-					carparameter[i][j] = "";
-				}
-			}
 
-			carparameter[0][0] = "All";
-			carparameter[0][1] = "自有资源";
-			carparameter[0][2] = "核心资源";
-			carparameter[0][3] = "外围资源";
-			carparameter[1][0] = "All";
-			carparameter[1][1] = "医药行业";
-			carparameter[1][2] = "电子行业";
-			carparameter[1][3] = "汽车行业";
-			carparameter[2][0] = "All";
-			carparameter[2][1] = "1级信用等级";
-			carparameter[2][2] = "2级信用等级";
-			carparameter[2][3] = "3级信用等级";
-			carparameter[3][0] = "All";
-			carparameter[3][1] = "干线运输业务";
-			carparameter[3][2] = "城市配送业务";
-			carparameter[3][3] = "仓储业务";
-			var theRequest = new Object();
-			if (url.indexOf("?") != -1) {
-				var str = url.substr(1);
-				strs = str.split("&");
-				document.getElementById("city1").value = UrlDecode(strs[0]
-						.split("=")[1]);
-				if(document.getElementById("city1").value == "All")
-					document.getElementById("city1").value = "全国";
-				for (var i = 1; i < strs.length - 2; i++) {
-					for (var j = 0; j < 10; j++)
-						if (carparameter[i - 1][j] != "") {
-							//alert(carparameter[i-1][j]+" "+UrlDecode(strs[i].split("=")[1]));
-							if (carparameter[i - 1][j] == UrlDecode(strs[i]
-									.split("=")[1])) {
-								var locate = "select" + (i) + "_" + j;
-								document.getElementById(locate).click();
-							}
-						}
-				}
-				//alert(UrlDecode(strs[strs.length-2].split("=")[1]));
-				//document.getElemtById("Display").options[UrlDecode(strs[strs.length-2].split("=")[1])].selected = "selected";
-				document.all.Display.value = UrlDecode(strs[strs.length - 2]
-						.split("=")[1]);
-			}
-		}
-	}
-
-	function UrlDecode(zipStr) {
-		var uzipStr = "";
-		for (var i = 0; i < zipStr.length; i++) {
-			var chr = zipStr.charAt(i);
-			if (chr == "+") {
-				uzipStr += " ";
-			} else if (chr == "%") {
-				var asc = zipStr.substring(i + 1, i + 3);
-				if (parseInt("0x" + asc) > 0x7f) {
-					uzipStr += decodeURI("%" + asc.toString()
-							+ zipStr.substring(i + 3, i + 9).toString());
-					i += 8;
-				} else {
-					uzipStr += AsciiToString(parseInt("0x" + asc));
-					i += 2;
-				}
-			} else {
-				uzipStr += chr;
-			}
-		}
-
-		return uzipStr;
-	}
-
-	function StringToAscii(str) {
-		return str.charCodeAt(0).toString(16);
-	}
-	function AsciiToString(asccode) {
-		return String.fromCharCode(asccode);
-	}
-</Script>
 <script type="text/javascript">
 function loadXMLDoc(id)
 {
@@ -519,5 +337,142 @@ function Reset()
 	document.getElementById("select4_0").click();
 	document.getElementById("city1").value = "中文或拼音";
 }
+
+//公司筛选
+function getSelectedCompanyAjax(
+		city,
+		resourceRate,
+		serviceIndustry,
+		creditRate,
+		serviceKind,
+		display,
+		currentPage){
+	//alert("ajax_post");
+      var url="getSelectedCompanyAjax";
+	  $.post(url,{
+		  city:city,
+		  resourceRate:resourceRate,
+		  serviceIndustry:serviceIndustry,
+		  creditRate:creditRate,
+		  serviceKind:serviceKind,
+		  display:display,
+		  currentPage:currentPage},
+	  function(data,status){
+			  //alert(data);
+			  $("#testbody").empty();
+		for(var i=0; i<data.length; i++) {
+			$("#testbody").append("<tr>");
+			$("#testbody").append("<td class=\"td_main_list_content\"></td>");
+			$("#testbody").append("<td class=\"td_main_list_content\"><a href=\"companyDetail?id="+data[i].id+" hidefocus=\"true\">"+data[i].companyName+"<img src=\"images/btn_level1a.png\" /></a></td>");
+			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].resourceRate+"</td>");
+			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].companyType+"</td>");
+			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].creditRate+"</td>");
+			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].relDate+"</td>");
+			$("#testbody").append("<td class=\"td_main_list_content\">");
+			$("#testbody").append("</td>");
+			$("#testbody").append("</tr>");
+		}
+	  },"json");
+}
+//获取所有公司筛选的总条数
+function getSelectedCompanyTotalRowsAjax(city,
+		resourceRate,
+		serviceIndustry,
+		creditRate,
+		serviceKind,
+		display,
+		currentPage){
+	var url="getSelectedCompanyTotalRowsAjax";
+	  $.post(url,{
+		  city:city,
+		  resourceRate:resourceRate,
+		  serviceIndustry:serviceIndustry,
+		  creditRate:creditRate,
+		  serviceKind:serviceKind,
+		  display:display,
+		  currentPage:currentPage},
+	  function(data,status){
+			  //返回总记录数
+			  $('#div_resource_list_head1').text("共"+data+"条记录");
+			  $('#count').val(data);
+			  pageLayout(data);//页面布局
+	  },"text");
+	
+}
+
+//控制页码显示
+function pageLayout(totalRows){
+	//alert(totalRows);
+	var display=parseInt($('#display').val());
+	var currentPage=parseInt($('#currentPage').val());
+	var pageNum=Math.ceil(totalRows/display);
+	//alert(pageNum);
+	var page_layout=$('#page_layout');//onclick='ChangeTo("+pageNum+")'
+	page_layout.append("<tr>");
+	page_layout.append("<td width='45' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+1+");' class='a_pagenumber' hidefocus='true'>首页</a></td>");
+	var pre=currentPage==1?1:currentPage-1;
+	page_layout.append("<td width='45' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+pre+");' class='a_pagenumber' hidefocus='true'>上页</a></td>");
+	if(pageNum< 8){
+		for(var i=1;i<=pageNum;i++){
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+i+");' class='a_pagenumber' hidefocus='true'>"+i+"</a></td>");
+		}
+	}
+	if(pageNum>=8){
+		if(currentPage<=3){
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+i+");' class='a_pagenumber' hidefocus='true'>"+i+"</a></td>");
+			page_layout.append("...");
+		}
+		if(currentPage==4){
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+i+");' class='a_pagenumber' hidefocus='true'>"+i+"</a></td>");
+			page_layout.append("...")
+		}
+		if(currentPage==5){
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+i+");' class='a_pagenumber' hidefocus='true'>"+i+"</a></td>");
+			page_layout.append("...");
+		}
+		if(currentPage>5 && currentPage<=pageNum-3){
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo('1');' class='a_pagenumber' hidefocus='true'>1</a></td>");
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo('2');' class='a_pagenumber' hidefocus='true'>2</a></td>");
+			page_layout.append("...");
+			for(var j=currentPage-2;j<currentPage+2;j++){
+				page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+j+");' class='a_pagenumber' hidefocus='true'>"+j+"</a></td>");
+			}
+			page_layout.append("...");
+		}
+		if(currentPage==pageNum-3){
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo('1');' class='a_pagenumber' hidefocus='true'>1</a></td>");
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo('2');' class='a_pagenumber' hidefocus='true'>2</a></td>");
+			page_layout.append("...");
+			for(var i=currentPage-5;i<=currentPage;i++){
+				page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+i+");' class='a_pagenumber' hidefocus='true'>"+i+"</a></td>");
+			}
+		}
+		if(currentPage==pageNum-2){
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo('1');' class='a_pagenumber' hidefocus='true'>1</a></td>");
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo('2');' class='a_pagenumber' hidefocus='true'>2</a></td>");
+			page_layout.append("...");
+			for(var i=currentPage-4;i<=currentPage;i++){
+				page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+i+");' class='a_pagenumber' hidefocus='true'>"+i+"</a></td>");
+			}
+		}
+	}
+	var lat=currentPage==pageNum?pageNum:currentPage+1;
+	//alert(lat);
+	page_layout.append("<td width='45' class='td_pagenumber' ><a href='javascript:ChangeTo("+lat+");' class='a_pagenumber' hidefocus='true'>下页</a></td>");
+	page_layout.append("<td width='45' class='td_pagenumber' ><a href='javascript:ChangeTo("+pageNum+");' class='a_pagenumber' hidefocus='true'>末页</a></td>");
+	page_layout.append("</tr>");
+   
+}
+//页面 跳转
+function ChangeTo(page){
+	//alert("change to "+page);
+	var page_layout=$('#page_layout');
+	page_layout.empty();
+	$('#currentPage').val(page);
+	//点击页码，标志位置为1
+	$('#flag').val(1);
+	$('#btn1').click();
+}
+
 </script>
 </html>

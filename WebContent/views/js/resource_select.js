@@ -265,80 +265,96 @@
 			
 		}
 		if(page_info=='公司'){
-			
+			if($('#flag').val() == '0'){//直接点击筛选
+				
+				$('#currentPage').val(1);
+				
+				getSelectedCompanyAjax(
+						$('#city1').val(),
+						urladdtion[0],
+						urladdtion[1],
+						urladdtion[2],
+						urladdtion[3],
+						$('#display').val(),
+						$('#currentPage').val());
+				getSelectedCompanyTotalRowsAjax(
+						$('#city1').val(),
+						urladdtion[0],
+						urladdtion[1],
+						urladdtion[2],
+						urladdtion[3],
+						$('#display').val(),
+						$('#currentPage').val());
+			}else{//点击页码
+				getSelectedCompanyAjax(
+						$('#city1').val(),
+						urladdtion[0],
+						urladdtion[1],
+						urladdtion[2],
+						urladdtion[3],
+						$('#display').val(),
+						$('#currentPage').val());
+				getSelectedCompanyTotalRowsAjax(
+						$('#city1').val(),
+						urladdtion[0],
+						urladdtion[1],
+						urladdtion[2],
+						urladdtion[3],
+						$('#display').val(),
+						$('#currentPage').val());
+				
+				//flag重置为0
+			    $('#flag').val(0);
+			}
 		}
 		if(page_info=='货物'){
-			
+			if($('#flag').val() == '0'){//直接点击筛选
+				//alert(urladdtion[0]);
+				//alert(urladdtion[1]);
+				//alert(urladdtion[2]);
+				
+				$('#currentPage').val(1);
+				
+				getSelectedCargoAjax(
+						$('#city1').val(),
+						$('#city2').val(),
+						urladdtion[0],
+						urladdtion[1],
+						urladdtion[2],
+						$('#display').val(),
+						$('#currentPage').val());
+				getSelectedCargoTotalRows(
+						$('#city1').val(),
+						$('#city2').val(),
+						urladdtion[0],
+						urladdtion[1],
+						urladdtion[2],
+						$('#display').val(),
+						$('#currentPage').val());
+			}else{//点击页码
+				getSelectedCargoAjax(
+						$('#city1').val(),
+						$('#city2').val(),
+						urladdtion[0],
+						urladdtion[1],
+						urladdtion[2],
+						$('#display').val(),
+						$('#currentPage').val());
+				getSelectedCargoTotalRows(
+						$('#city1').val(),
+						$('#city2').val(),
+						urladdtion[0],
+						urladdtion[1],
+						urladdtion[2],
+						$('#display').val(),
+						$('#currentPage').val());
+				
+				//flag重置为0
+			    $('#flag').val(0);
+			}
 		}
-		
-		
 	    
 	});
-	/*//干线筛选
-	function getSelectedLineAjax(){
-		//alert("ajax_post");
-	      var url="linetransporttest";
-		  $.post(url,{
-			  startPlace:$('#city1').val(),
-			  endPlace:$('#city2').val(),
-			  transportType:urladdtion[0],
-			  refPrice:urladdtion[2],
-			  fromPlace:urladdtion[1],
-			  display:$('#display').val(),
-			  currentPage:$('#currentPage').val()},
-		  function(data,status){
-				  //alert(data);
-				  $("#testbody").empty();
-			for(var i=0; i<data.length; i++) {
-				$("#testbody").append("<tr>");
-				$("#testbody").append("<td class=\"td_main_list_content\"></td>");
-				$("#testbody").append("<td class=\"td_main_list_content\"><a href=\"linetransportdetail?linetransportid="+data[i].id+"&carrierId="+data[i].carrierId+"&linetransportId="+data[i].carrierid+"&flag=0\" hidefocus=\"true\">"+data[i].startPlace+"→"+data[i].endPlace+"</a><br /><a style=\"color:#717071;\" href=\"companyDetail?id="+data[i].carrierId+"\" hidefocus=\"true\">"+data[i].companyName+"<img src=\"images/btn_level1a.png\" /></a></td>");
-				$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].refPrice+"</td>");
-				$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].transportType+"</td>");
-				$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].onWayTime+"</td>");
-				$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].relDate+"</td>");
-				$("#testbody").append("<td class=\"td_main_list_content\">");
-				$("#testbody").append("</td>");
-				$("#testbody").append("</tr>");
-			}
-		  },"json");
-	}
-	//获取所有干线筛选的总条数
-	function getSelectedLineTotalRowsAjax(){
-		var url="getSelectedLineTotalRowsAjax";
-		  $.post(url,{
-			  startPlace:$('#city1').val(),
-			  endPlace:$('#city2').val(),
-			  transportType:urladdtion[0],
-			  refPrice:urladdtion[2],
-			  fromPlace:urladdtion[1],
-			  display:$('#display').val(),
-			  currentPage:$('#currentPage').val()},
-		  function(data,status){
-				  //alert(data);
-				  $('#div_resource_list_head1').text("共"+data+"条记录");
-				  $('#count').val(data);
-				  //pageLayout(data);//页面布局
-		  },"text");
-		
-	}
-	
-	//控制页码显示
-	function pageLayout(totalRows){
-		var display=$('#display').val();
-		var currentPage=$('#currentPage').val();
-//		alert(display);
-//		alert(totalRows);
-		var pageNum=Math.ceil(totalRows/display);
-		//alert(pageNum);
-		var page_layout=$('#page_layout');
-		page_layout.append("<tr>");
-		page_layout.append("<td width='45' class='td_pagenumber' onclick='changeTo("+1+")'><a href='javascript:;' class='a_pagenumber' hidefocus='true'>首页</a></td>");
-		page_layout.append("<td width='45' class='td_pagenumber' onclick='changeTo("	+currentPage==1?1:currentPage-1+	")'><a href='javascript:;' class='a_pagenumber' hidefocus='true'>上页</a></td>");
-		<td width="45" class="td_pagenumber" onclick="ChangeTo('first')"><a href="javascript:;" class="a_pagenumber" hidefocus="true">首页</a></td>
-        <td width="45" class="td_pagenumber" onclick="ChangeTo('previous')"><a href="javascript:;" class="a_pagenumber" hidefocus="true">上页</a></td>
-		
-}*/
 	
 
 	$("#selectA").live("click", function () {

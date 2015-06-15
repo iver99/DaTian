@@ -1,16 +1,28 @@
 package cn.edu.bjtu.service.impl;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import cn.edu.bjtu.bean.search.CompanySearchBean;
 import cn.edu.bjtu.dao.CompanyDao;
 import cn.edu.bjtu.service.CompanyService;
+import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.HQLTool;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Carrierinfo;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * 
@@ -28,7 +40,7 @@ public class CompanyServiceImpl implements CompanyService{
 	
 	@Override
 	/**
-	 * ·µ»ØËùÓĞ¹«Ë¾
+	 * è¿”å›æ‰€æœ‰å…¬å¸
 	 */
 	public List getAllCompany(int Display,int PageNow)  {
 		// TODO Auto-generated method stub
@@ -38,7 +50,7 @@ public class CompanyServiceImpl implements CompanyService{
 
 	@Override
 	/**
-	 * ·µ»ØËùÓĞ¹«Ë¾
+	 * è¿”å›æ‰€æœ‰å…¬å¸
 	 */
 	public List getAllCompanyWithoutPage(){
 		return companyDao.getAllCompanyWithoutPage();
@@ -46,7 +58,7 @@ public class CompanyServiceImpl implements CompanyService{
 
 	/*@Override
 	*//**
-	 * ·µ»Ø¹«Ë¾ĞÅÏ¢
+	 * è¿”å›å…¬å¸ä¿¡æ¯
 	 *//*
 	public Carrierinfo getCarrierInfo(String id) {
 		// TODO Auto-generated method stub
@@ -55,59 +67,59 @@ public class CompanyServiceImpl implements CompanyService{
 	
 	@Override
 	/**
-	 * Ìõ¼şÉ¸Ñ¡¹«Ë¾
+	 * æ¡ä»¶ç­›é€‰å…¬å¸
 	 */
 	public List getSelectedCompany(String resourceRate, String serviceIndustry, 
 			String creditRate, String business, int Display,int PageNow) {
 		String sql="";
-		if(resourceRate.equals("×ÔÓĞ×ÊÔ´")){
-			resourceRate="×ÔÓĞ";
+		if(resourceRate.equals("è‡ªæœ‰èµ„æº")){
+			resourceRate="è‡ªæœ‰";
 		}
-		else if(resourceRate.equals("ºËĞÄ×ÊÔ´")){
-			resourceRate="ºËĞÄ";
+		else if(resourceRate.equals("æ ¸å¿ƒèµ„æº")){
+			resourceRate="æ ¸å¿ƒ";
 		}
-		else if(resourceRate.equals("ÍâÎ§×ÊÔ´")){
-			resourceRate="ÍâÎ§";
+		else if(resourceRate.equals("å¤–å›´èµ„æº")){
+			resourceRate="å¤–å›´";
 		}
 		
-		if(serviceIndustry.equals("Ò½Ò©ĞĞÒµ")){
-			serviceIndustry="Ò½Ò©";
+		if(serviceIndustry.equals("åŒ»è¯è¡Œä¸š")){
+			serviceIndustry="åŒ»è¯";
 		}
-		else if(serviceIndustry.equals("µç×ÓĞĞÒµ")){
-			serviceIndustry="µç×Ó";
+		else if(serviceIndustry.equals("ç”µå­è¡Œä¸š")){
+			serviceIndustry="ç”µå­";
 		}
-		else if(serviceIndustry.equals("Æû³µĞĞÒµ")){
-			serviceIndustry="Æû³µ";
+		else if(serviceIndustry.equals("æ±½è½¦è¡Œä¸š")){
+			serviceIndustry="æ±½è½¦";
 		}
-		if(business.equals("¸ÉÏßÔËÊäÒµÎñ"))
+		if(business.equals("å¹²çº¿è¿è¾“ä¸šåŠ¡"))
 		{
 			String line="1";
-			String [] paramList={"resourceRate","serviceIndustry","creditRate","line"};//Ã»startplace1 
+			String [] paramList={"resourceRate","serviceIndustry","creditRate","line"};//æ²¡startplace1 
 			String [] valueList={resourceRate,serviceIndustry,creditRate,line};
-			String hql="from Carrierinfo ";//»á±ä»¯
+			String hql="from Carrierinfo ";//ä¼šå˜åŒ–
 			sql=HQLTool.spellHql2(hql,paramList, valueList);
 		}
-		else if(business.equals("³ÇÊĞÅäËÍÒµÎñ"))
+		else if(business.equals("åŸå¸‚é…é€ä¸šåŠ¡"))
 		{
 			String city="1";
-			String [] paramList={"resourceRate","serviceIndustry","creditRate","city"};//Ã»startplace1 
+			String [] paramList={"resourceRate","serviceIndustry","creditRate","city"};//æ²¡startplace1 
 			String [] valueList={resourceRate,serviceIndustry,creditRate,city};
-			String hql="from Carrierinfo ";//»á±ä»¯
+			String hql="from Carrierinfo ";//ä¼šå˜åŒ–
 			sql=HQLTool.spellHql2(hql,paramList, valueList);
 		}
-		else if(business.equals("²Ö´¢ÒµÎñ"))
+		else if(business.equals("ä»“å‚¨ä¸šåŠ¡"))
 		{
 			String warehouse="1";
-			String [] paramList={"resourceRate","serviceIndustry","creditRate","warehouse"};//Ã»startplace1 
+			String [] paramList={"resourceRate","serviceIndustry","creditRate","warehouse"};//æ²¡startplace1 
 			String [] valueList={resourceRate,serviceIndustry,creditRate,warehouse};
-			String hql="from Carrierinfo ";//»á±ä»¯
+			String hql="from Carrierinfo ";//ä¼šå˜åŒ–
 			sql=HQLTool.spellHql2(hql,paramList, valueList);
 		}
 		else
 		{
-			String [] paramList={"resourceRate","serviceIndustry","creditRate"};//Ã»startplace1 
+			String [] paramList={"resourceRate","serviceIndustry","creditRate"};//æ²¡startplace1 
 			String [] valueList={resourceRate,serviceIndustry,creditRate};
-			String hql="from Carrierinfo ";//»á±ä»¯
+			String hql="from Carrierinfo ";//ä¼šå˜åŒ–
 			sql=HQLTool.spellHql2(hql,paramList, valueList);
 		}
 		
@@ -116,62 +128,62 @@ public class CompanyServiceImpl implements CompanyService{
 	
 	@Override
 	/**
-	 * »ñÈ¡×Ü¼ÇÂ¼ÌõÊı 
+	 * è·å–æ€»è®°å½•æ¡æ•° 
 	 */
 	public int getTotalRows(String resourceRate, String serviceIndustry, String creditRate, String business) {
 		// TODO Auto-generated method stub
 		String sql="";
-		if(resourceRate.equals("×ÔÓĞ×ÊÔ´")){
-			resourceRate="×ÔÓĞ";
+		if(resourceRate.equals("è‡ªæœ‰èµ„æº")){
+			resourceRate="è‡ªæœ‰";
 		}
-		else if(resourceRate.equals("ºËĞÄ×ÊÔ´")){
-			resourceRate="ºËĞÄ";
+		else if(resourceRate.equals("æ ¸å¿ƒèµ„æº")){
+			resourceRate="æ ¸å¿ƒ";
 		}
-		else if(resourceRate.equals("ÍâÎ§×ÊÔ´")){
-			resourceRate="ÍâÎ§";
+		else if(resourceRate.equals("å¤–å›´èµ„æº")){
+			resourceRate="å¤–å›´";
 		}
 		
-		if(serviceIndustry.equals("Ò½Ò©ĞĞÒµ")){
-			serviceIndustry="Ò½Ò©";
+		if(serviceIndustry.equals("åŒ»è¯è¡Œä¸š")){
+			serviceIndustry="åŒ»è¯";
 		}
-		else if(serviceIndustry.equals("µç×ÓĞĞÒµ")){
-			serviceIndustry="µç×Ó";
+		else if(serviceIndustry.equals("ç”µå­è¡Œä¸š")){
+			serviceIndustry="ç”µå­";
 		}
-		else if(serviceIndustry.equals("Æû³µĞĞÒµ")){
-			serviceIndustry="Æû³µ";
+		else if(serviceIndustry.equals("æ±½è½¦è¡Œä¸š")){
+			serviceIndustry="æ±½è½¦";
 		}
-		if(business.equals("¸ÉÏßÔËÊäÒµÎñ"))
+		if(business.equals("å¹²çº¿è¿è¾“ä¸šåŠ¡"))
 		{
 			String line="1";
-			String [] paramList={"resourceRate","serviceIndustry","creditRate","line"};//Ã»startplace1 
+			String [] paramList={"resourceRate","serviceIndustry","creditRate","line"};//æ²¡startplace1 
 			String [] valueList={resourceRate,serviceIndustry,creditRate,line};
-			String hql="from Carrierinfo ";//»á±ä»¯
+			String hql="from Carrierinfo ";//ä¼šå˜åŒ–
 			sql=HQLTool.spellHql2(hql,paramList, valueList);
 		}
-		else if(business.equals("³ÇÊĞÅäËÍÒµÎñ"))
+		else if(business.equals("åŸå¸‚é…é€ä¸šåŠ¡"))
 		{
 			String city="1";
-			String [] paramList={"resourceRate","serviceIndustry","creditRate","city"};//Ã»startplace1 
+			String [] paramList={"resourceRate","serviceIndustry","creditRate","city"};//æ²¡startplace1 
 			String [] valueList={resourceRate,serviceIndustry,creditRate,city};
-			String hql="from Carrierinfo ";//»á±ä»¯
+			String hql="from Carrierinfo ";//ä¼šå˜åŒ–
 			sql=HQLTool.spellHql2(hql,paramList, valueList);
 		}
-		else if(business.equals("²Ö´¢ÒµÎñ"))
+		else if(business.equals("ä»“å‚¨ä¸šåŠ¡"))
 		{
 			String warehouse="1";
-			String [] paramList={"resourceRate","serviceIndustry","creditRate","warehouse"};//Ã»startplace1 
+			String [] paramList={"resourceRate","serviceIndustry","creditRate","warehouse"};//æ²¡startplace1 
 			String [] valueList={resourceRate,serviceIndustry,creditRate,warehouse};
-			String hql="from Carrierinfo ";//»á±ä»¯
+			String hql="from Carrierinfo ";//ä¼šå˜åŒ–
 			sql=HQLTool.spellHql2(hql,paramList, valueList);
 		}
 		else
 		{
-			String [] paramList={"resourceRate","serviceIndustry","creditRate"};//Ã»startplace1 
+			String [] paramList={"resourceRate","serviceIndustry","creditRate"};//æ²¡startplace1 
 			String [] valueList={resourceRate,serviceIndustry,creditRate};
-			String hql="from Carrierinfo ";//»á±ä»¯
+			String hql="from Carrierinfo ";//ä¼šå˜åŒ–
 			sql=HQLTool.spellHql2(hql,paramList, valueList);
 		}
-		return hqltool.getTotalRows(sql);//ÕâÀïµÄHQLToolÊµÀıÇ§Íò²»ÄÜ×Ô¼ºnew³öÀ´£¬ÓÃ@Resource
+		return hqltool.getTotalRows(sql);//è¿™é‡Œçš„HQLToolå®ä¾‹åƒä¸‡ä¸èƒ½è‡ªå·±newå‡ºæ¥ï¼Œç”¨@Resource
 	}
 	
 	@Override
@@ -190,7 +202,7 @@ public class CompanyServiceImpl implements CompanyService{
 	}
 
 	/**
-	 * ²éÕÒCarrierinfoÊµÌå
+	 * æŸ¥æ‰¾Carrierinfoå®ä½“
 	 */
 	@Override
 	public Carrierinfo getCompanyById(String carrierId) {
@@ -198,6 +210,148 @@ public class CompanyServiceImpl implements CompanyService{
 		return companyDao.get(Carrierinfo.class, carrierId);
 	}
 	
+	/**
+	 * èµ„æºæ -å…¬å¸ç­›é€‰
+	 */
+	@Override
+	public JSONArray getSelectedCompanyNew(CompanySearchBean companyBean,
+			PageUtil pageUtil, HttpSession session) {
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+		Map<String,Object> params=new HashMap<String,Object>();
+			String sql = "select t1.id,"
+				+ "t1.companyName,"
+				+ "t1.resourceRate,"
+				+ "t1.companyKind,"
+				+ "t1.creditRate,"
+				+ "t1.relDate,"
+				+ "t3.status "
+				+ " from carrierinfo t1 "
+				+ "left join ("
+				+ "select * from focus t2 ";
+		if(userId!=null){//ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¼ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Ï¢
+			sql+=" where t2.focusType='company' and t2.clientId=:clientId ";
+			params.put("clientId", userId);
+		}
+		sql+=") t3 on t1.id=t3.focusId ";
+		String wheresql=whereSql(companyBean,params);
+		sql+=wheresql;
+		
+		JSONArray jsonArray = new JSONArray();
+		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
+		int display=pageUtil.getDisplay()==0?10:pageUtil.getDisplay();
+		List<Object[]> objectList=companyDao.findBySql(sql, params,page,display);
+		
+		List<CompanySearchBean> companyList=new ArrayList<CompanySearchBean>();
+		for(Iterator<Object[]> it=objectList.iterator();it.hasNext();){
+			CompanySearchBean instanceBean=new CompanySearchBean();
+			Object[] obj=it.next();
+			instanceBean.setId((String)obj[0]);
+			instanceBean.setCompanyName((String)obj[1]);;
+			instanceBean.setResourceRate((String)obj[2]);;
+			instanceBean.setCompanyKind((String)obj[3]);;;
+			instanceBean.setCreditRate((String)obj[4]);;
+			instanceBean.setRelDate((Date)obj[5]);
+			instanceBean.setStatus((String)obj[6]);
+			companyList.add(instanceBean);
+		}
+		
+		for(int i=0;i<companyList.size();i++){
+			JSONObject jsonObject=(JSONObject)JSONObject.toJSON(companyList.get(i));
+			jsonArray.add(jsonObject);
+		}
+		return jsonArray;
+	}
+
+	/**
+	 * èµ„æºæ -å…¬å¸ç­›é€‰æ€»è®°å½•æ•°
+	 */
+	@Override
+	public Integer getSelectedCompanyTotalRows(CompanySearchBean companyBean) {
+		Map<String,Object> params=new HashMap<String,Object>();
+		String hql="select count(*) from carrierinfo t1"+whereSql(companyBean, params);
+		Long count=companyDao.count(hql, params);
+		
+		return count.intValue();
+	}
+	
+	/**
+	 * where sql
+	 * @Title: whereSql 
+	 * @Description: TODO 
+	 * @param: @param companyBean
+	 * @param: @param params
+	 * @param: @return 
+	 * @return: String 
+	 * @throws: å¼‚å¸¸ 
+	 * @author: chendonghao 
+	 * @date: 2015å¹´6æœˆ15æ—¥ ä¸‹åˆ4:51:20
+	 */
+	private String whereSql(CompanySearchBean companyBean,Map<String ,Object> params){
+		String wheresql="where 1=1 ";
+		if (companyBean.getCity() != null
+				&& !companyBean.getCity().equals("ä¸­æ–‡æˆ–æ‹¼éŸ³")
+				&& !companyBean.getCity().equals("All")
+				&& !companyBean.getCity().equals("")){
+			wheresql+=" and ( t1.companyName like '%"+companyBean.getCity()+"%' "
+					+ "or t1.companyAddr like '%"+companyBean.getCity()+"%' ) ";
+		}
+		if (companyBean.getResourceRate() != null
+				&& !companyBean.getResourceRate().equals("All")
+				&& !companyBean.getResourceRate().equals("")){
+			String resourceRate=companyBean.getResourceRate().trim();
+			if (resourceRate.equals("è‡ªæœ‰èµ„æº")) {
+				wheresql+=" and t1.resourceRate='è‡ªæœ‰' ";
+			}
+			if (resourceRate.equals("æ ¸å¿ƒèµ„æº")) {
+				wheresql+=" and t1.resourceRate='æ ¸å¿ƒ' ";
+			}
+			if (resourceRate.equals("å¤–å›´èµ„æº")) {
+				wheresql+=" and t1.resourceRate='å¤–å›´ ' ";
+			}
+		}
+		if (companyBean.getServiceIndustry() != null
+				&& !companyBean.getServiceIndustry().equals("")
+				&& !companyBean.getServiceIndustry().equals("All")){
+			String serviceIndustry=companyBean.getServiceIndustry().trim();
+			if(serviceIndustry.equals("åŒ»è¯è¡Œä¸š")){
+				wheresql+=" and t1.serviceIndustry='åŒ»è¯' ";
+			}
+			if(serviceIndustry.equals("ç”µå­è¡Œä¸š")){
+				wheresql+=" and t1.serviceIndustry='ç”µå­' ";
+			}
+			if(serviceIndustry.equals("æ±½è½¦è¡Œä¸š")){
+				wheresql+=" and t1.serviceIndustry='æ±½è½¦' ";
+			}
+		}
+		if (companyBean.getCreditRate() != null
+				&& !companyBean.getCreditRate().equals("")
+				&& !companyBean.getCreditRate().equals("All")) {
+			String creditRate=companyBean.getCreditRate().trim();
+			if(creditRate.equals("1çº§ä¿¡ç”¨ç­‰çº§")){
+				wheresql+=" and t1.creditRate=1 ";
+			}
+			if(creditRate.equals("2çº§ä¿¡ç”¨ç­‰çº§")){
+				wheresql+=" and t1.creditRate=2 ";
+			}
+			if(creditRate.equals("3çº§ä¿¡ç”¨ç­‰çº§")){
+				wheresql+=" and t1.creditRate=3 ";
+			}
+		}
+		if (companyBean.getServiceKind() != null
+				&& !companyBean.getServiceKind().equals("")
+				&& !companyBean.getServiceKind().equals("All")) {
+			String serviceKind=companyBean.getServiceKind().trim();
+			if(serviceKind.equals("å¹²çº¿è¿è¾“ä¸šåŠ¡")){
+				wheresql+=" and t1.line=1";
+			}if(serviceKind.equals("åŸå¸‚é…é€ä¸šåŠ¡")){
+				wheresql+=" and t1.city=1";
+			}if(serviceKind.equals("ä»“å‚¨ä¸šåŠ¡")){
+				wheresql+=" and t1.warehouse=1";
+			}
+		}
+		
+		return wheresql;
+	}
 	
 	
 }

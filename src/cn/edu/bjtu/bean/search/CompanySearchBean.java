@@ -1,20 +1,120 @@
 package cn.edu.bjtu.bean.search;
+
+import java.util.Date;
+
 /**
- * ×ÊÔ´-¹«Ë¾É¸Ñ¡pagebean
+ * å…¬å¸ç­›é€‰pagebean
  * @author RussWest0
- * @date   2015Äê6ÔÂ14ÈÕ ÏÂÎç10:41:53
+ * @date   2015å¹´6æœˆ15æ—¥ ä¸‹åˆ8:23:37
  */
 public class CompanySearchBean {
 	private String id;
-	//ÏÂÃæÁ½¸ö×Ö¶ÎÓÃÓÚÒ³ÃæÉÏ³ÇÊĞÌõ¼şÉ¸Ñ¡ 
+	//ä»¥ä¸‹ä¸¤ä¸ªå­—æ®µç”¨äºç­›é€‰é¡µåŸå¸‚çš„æ¨¡ç³ŠæŸ¥è¯¢î‡—
 	private String companyName;
 	private String companyAddr;
 	
 	private String resourceRate;
 	private String serviceIndustry;
 	private String creditRate;
+	private String companyKind;
+	private Date relDate;
 	
-	private String status;//¹Ø×¢×´Ì¬
-	/*private String */
+	private String city;//å¯¹åº”é¡µé¢ä¸Šç­›é€‰æ¡ä»¶çš„åŸå¸‚
+	private String serviceKind;//ä¸šåŠ¡ç§ç±»,å¯¹åº”èµ„æºæ é¡µé¢ä¸Šå¯¹åº”çš„ä¸šåŠ¡ç§ç±»
+	
+	private String status;//å…³æ³¨çŠ¶æ€
+
+	
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
+	public String getCompanyAddr() {
+		return companyAddr;
+	}
+
+	public void setCompanyAddr(String companyAddr) {
+		this.companyAddr = companyAddr;
+	}
+
+	public String getResourceRate() {
+		return resourceRate;
+	}
+
+	public void setResourceRate(String resourceRate) {
+		this.resourceRate = resourceRate;
+	}
+
+	public String getServiceIndustry() {
+		return serviceIndustry;
+	}
+
+	public void setServiceIndustry(String serviceIndustry) {
+		this.serviceIndustry = serviceIndustry;
+	}
+
+	public String getCreditRate() {
+		return creditRate;
+	}
+
+	public void setCreditRate(String creditRate) {
+		this.creditRate = creditRate;
+	}
+
+	public String getCompanyKind() {
+		return companyKind;
+	}
+
+	public void setCompanyKind(String companyKind) {
+		this.companyKind = companyKind;
+	}
+
+	
+
+	public Date getRelDate() {
+		return relDate;
+	}
+
+	public void setRelDate(Date relDate) {
+		this.relDate = relDate;
+	}
+
+	public String getServiceKind() {
+		return serviceKind;
+	}
+
+	public void setServiceKind(String serviceKind) {
+		this.serviceKind = serviceKind;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	
 
 }

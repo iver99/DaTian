@@ -50,29 +50,29 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 	
 	@Override
 	/**
-	 * Ìõ¼şÉ¸Ñ¡¸ÉÏßÏßÂ·
+	 * æ¡ä»¶ç­›é€‰å¹²çº¿çº¿è·¯
 	 */
 	public List getSelectedGoodsInfo(String startPlace, String endPlace,
 			String transportType, int Display,int PageNow) {
 		
-		String [] paramList={"startPlace","endPlace","transportType"};//Ã»startplace1 
+		String [] paramList={"startPlace","endPlace","transportType"};//æ²¡startplace1 
 		String [] valueList={startPlace,endPlace,transportType};
-		String hql="from GoodsClientView ";//»á±ä»¯
+		String hql="from GoodsClientView ";//ä¼šå˜åŒ–
 		String sql=HQLTool.spellHql2(hql,paramList, valueList);
 		return goodsinfoDao.getSelectedGoodsInfo(sql,Display,PageNow);
 	}
 	
 	@Override
 	/**
-	 * »ñÈ¡×Ü¼ÇÂ¼ÌõÊı 
+	 * è·å–æ€»è®°å½•æ¡æ•° 
 	 */
 	public int getTotalRows(String startPlace, String endPlace, String transportType) {
 		// TODO Auto-generated method stub
-		String [] paramList={"startPlace","endPlace","transportType"};//Ã»startplace1 
+		String [] paramList={"startPlace","endPlace","transportType"};//æ²¡startplace1 
 		String [] valueList={startPlace,endPlace,transportType};
-		String hql="from GoodsClientView ";//»á±ä»¯
+		String hql="from GoodsClientView ";//ä¼šå˜åŒ–
 		String sql=HQLTool.spellHql2(hql,paramList, valueList);
-		return hqltool.getTotalRows(sql);//ÕâÀïµÄHQLToolÊµÀıÇ§Íò²»ÄÜ×Ô¼ºnew³öÀ´£¬ÓÃ@Resource
+		return hqltool.getTotalRows(sql);//è¿™é‡Œçš„HQLToolå®ä¾‹åƒä¸‡ä¸èƒ½è‡ªå·±newå‡ºæ¥ï¼Œç”¨@Resource
 	}
 	
 	@Override
@@ -83,7 +83,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 	
 	@Override
 	/**
-	 * ¸ù¾İgoodsidµÃµ½»õÎïĞÅÏ¢
+	 * æ ¹æ®goodsidå¾—åˆ°è´§ç‰©ä¿¡æ¯
 	 */
 	public Goodsform getMyGoodsDetail(String id) {
 		// TODO Auto-generated method stub
@@ -115,15 +115,15 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 		goodsform.setRemarks(remarks);
 		
 		goodsform.setRelDate(new Date());
-		goodsform.setState("´ıÈ·ÈÏ");
+		goodsform.setState("å¾…ç¡®è®¤");
 		goodsform.setClientId(clientId);
 		
-		// ±£´æÎÄ¼şÂ·¾¶
+		// ä¿å­˜æ–‡ä»¶è·¯å¾„
 		if (path != null && fileName != null) {
 			String fileLocation = path + "//" + fileName;
 			goodsform.setRelatedMaterial(fileLocation);
 		}
-		goodsinfoDao.save(goodsform);//±£´æÊµÌå
+		goodsinfoDao.save(goodsform);//ä¿å­˜å®ä½“
 		return true;
 		
 	}
@@ -183,12 +183,12 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 			goodsform.setLimitDate(stringToDate(limitDate));
 			goodsform.setInvoice(invoice);
 			goodsform.setRemarks(remarks);
-			// ±£´æÎÄ¼şÂ·¾¶
+			// ä¿å­˜æ–‡ä»¶è·¯å¾„
 			if (path != null && fileName != null) {
 				String fileLocation = path + "//" + fileName;
 				goodsform.setRelatedMaterial(fileLocation);
 			}
-			goodsinfoDao.update(goodsform);//±£´æÊµÌå
+			goodsinfoDao.update(goodsform);//ä¿å­˜å®ä½“
 			return true;
 			
 		}
@@ -200,15 +200,15 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 
 	@Override
 	/**
-	 * È·ÈÏ·´À¡Ê±ĞŞ¸Ä»õÎï×´Ì¬ÎªÒÑÈ·ÈÏ
+	 * ç¡®è®¤åé¦ˆæ—¶ä¿®æ”¹è´§ç‰©çŠ¶æ€ä¸ºå·²ç¡®è®¤
 	 */
 	public boolean confirmResponse(String goodsId) {
 		// TODO Auto-generated method stub
 		Goodsform goodsinfo=goodsinfoDao.getMyGoodsDetail(goodsId);	
 		
 		if(goodsinfo!=null){
-			//ĞŞ¸Ä»õÎï×´Ì¬ÎªÒÑÈ·ÈÏ
-			goodsinfo.setState("ÒÑÈ·ÈÏ");
+			//ä¿®æ”¹è´§ç‰©çŠ¶æ€ä¸ºå·²ç¡®è®¤
+			goodsinfo.setState("å·²ç¡®è®¤");
 			goodsinfoDao.update(goodsinfo);
 		}
 		
@@ -216,14 +216,14 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 	}
 
 	/**
-	 * ×ÊÔ´À¸-»õÎï-É¸Ñ¡
+	 * èµ„æºæ -è´§ç‰©-ç­›é€‰
 	 */
 	@Override
 	public JSONArray getSelectedCargoNew(CargoSearchBean cargoBean,
 			PageUtil pageUtil, HttpSession session) {
 		String userId=(String)session.getAttribute(Constant.USER_ID);
 		Map<String,Object> params=new HashMap<String,Object>();
-			String sql = "select t1.id,"
+		String sql = "select t1.id,"
 				+ "t1.name,"
 				+ "t1.transportType,"
 				+ "t1.weight,"
@@ -234,48 +234,50 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 				+ "left join ("
 				+ "select * from focus t2 ";
 				
-		if(userId!=null){//Èç¹ûµ±Ç°ÓĞÓÃ»§µÇÂ¼ÔÚÌõ¼şÖĞ¼ÓÈëÓÃ»§ĞÅÏ¢
+		if(userId!=null){//
 			sql+=" where t2.focusType='goods' and t2.clientId=:clientId ";
 			params.put("clientId", userId);
 		}
 		sql+=") t3 on t1.id=t3.focusId ";
 		String wheresql=whereSql(cargoBean,params);
-		sql+=wheresql;asdfafasf a
+		sql+=wheresql;
 		
 		JSONArray jsonArray = new JSONArray();
 		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
 		int display=pageUtil.getDisplay()==0?10:pageUtil.getDisplay();
-		List<Object[]> objectList=warehouseDao.findBySql(sql, params,page,display);
+		List<Object[]> objectList=goodsinfoDao.findBySql(sql, params,page,display);
 		
-		List<WarehouseSearchBean> warehouseList=new ArrayList<WarehouseSearchBean>();
+		List<CargoSearchBean> cargoList=new ArrayList<CargoSearchBean>();
 		for(Iterator<Object[]> it=objectList.iterator();it.hasNext();){
-			WarehouseSearchBean instanceBean=new WarehouseSearchBean();
+			CargoSearchBean instanceBean=new CargoSearchBean();
 			Object[] obj=it.next();
 			instanceBean.setId((String)obj[0]);
-			instanceBean.setCarrierId((String)obj[1]);
-			instanceBean.setName((String)obj[2]);;
-			instanceBean.setCompanyName((String)obj[3]);;
-			instanceBean.setFireRate((String)obj[4]);
-			instanceBean.setType((String)obj[5]);
-			instanceBean.setHouseArea((Float)obj[6]+"");
-			instanceBean.setRelDate((Date)obj[7]);;
-			instanceBean.setStatus((String)obj[8]);
-			warehouseList.add(instanceBean);
+			instanceBean.setName((String)obj[1]);
+			instanceBean.setTransportType((String)obj[2]);
+			instanceBean.setWeight((Float)obj[3]+"");;
+			instanceBean.setRelDate((Date)obj[4]);;
+			instanceBean.setLimitDate((Date)obj[5]);;
+			instanceBean.setStatus((String)obj[6]);
+			cargoList.add(instanceBean);
 		}
 		
-		for(int i=0;i<warehouseList.size();i++){
-			JSONObject jsonObject=(JSONObject)JSONObject.toJSON(warehouseList.get(i));
+		for(int i=0;i<cargoList.size();i++){
+			JSONObject jsonObject=(JSONObject)JSONObject.toJSON(cargoList.get(i));
 			jsonArray.add(jsonObject);
 		}
 		return jsonArray;
 	}
 	
 	/**
-	 * ×ÊÔ´À¸-»õÎï-É¸Ñ¡-×Ü¼ÇÂ¼Êı 
+	 * èµ„æºæ -è´§ç‰©-ç­›é€‰-æ€»è®°å½•æ•° 
 	 */
 	@Override
 	public Integer getSelectedCargoTotalRows(CargoSearchBean cargoBean) {
+		Map<String,Object> params=new HashMap<String,Object>();
+		String hql="select count(*) from Goodsform t1"+whereSql(cargoBean, params);
+		Long count=goodsinfoDao.count(hql, params);
 		
+		return count.intValue();
 	}
 	 
 	/**
@@ -286,53 +288,53 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 	public String whereSql(CargoSearchBean cargoBean,Map<String,Object> params){
 		String wheresql=" where 1=1 ";
 		if (cargoBean.getStartPlace() != null
-				&& !cargoBean.getStartPlace().equals("È«¹ú")
-				&& !cargoBean.getStartPlace().equals("ÖĞÎÄ»òÆ´Òô")
+				&& !cargoBean.getStartPlace().equals("å…¨å›½")
+				&& !cargoBean.getStartPlace().equals("ä¸­æ–‡æˆ–æ‹¼éŸ³")
 				&& !cargoBean.getStartPlace().equals("All")
 				&& !cargoBean.getStartPlace().equals("")) {
 			wheresql+=" and t1.startPlace:=startPlace ";
 			params.put("startPlace", cargoBean.getStartPlace());
 		}
 		if(cargoBean.getEndPlace()!=null && !cargoBean.getEndPlace().equals("")
-				&& !cargoBean.getEndPlace().equals("ÖĞÎÄ»òÆ´Òô")
-				&& !cargoBean.getEndPlace().equals("È«¹ú")
+				&& !cargoBean.getEndPlace().equals("ä¸­æ–‡æˆ–æ‹¼éŸ³")
+				&& !cargoBean.getEndPlace().equals("å…¨å›½")
 				&& !cargoBean.getEndPlace().equals("All")){
 			wheresql+=" and t1.endPlace=:endPlace ";
 			params.put("endPlace", cargoBean.getEndPlace());
 		}
 		if(cargoBean.getTransportType()!=null && !cargoBean.getTransportReq().equals("")&& !cargoBean.getTransportType().equals("All")){
-			wheresql+=" and t1.transportType=:t1.transportType ";
+			wheresql+=" and t1.transportType=:transportType ";
 			params.put("transportType", cargoBean.getTransportType());
 		}
-		if (cargoBean.getWeight() != null && cargoBean.getWeight().equals("")
-				&& cargoBean.getWeight().equals("All")) {
+		if (cargoBean.getWeight() != null && !cargoBean.getWeight().equals("")
+				&& !cargoBean.getWeight().equals("All")) {
 			String weight = cargoBean.getWeight().trim();
-			if (weight.equals("10¶Ö")) {	
+			if (weight.equals("10å¨")) {	
 				wheresql+=" and t1.weight=10 ";
 			}
-			if (weight.equals("15¶Ö")) {
+			if (weight.equals("15å¨")) {
 				wheresql+=" and t1.weight=15 ";
 			}
-			if (weight.equals("20¶Ö")) {
+			if (weight.equals("20å¨")) {
 				wheresql+=" and t1.weight=20 ";
 			}
-			if (weight.equals("35¶Ö")) {
+			if (weight.equals("35å¨")) {
 				wheresql+=" and t1.weight=35 ";
 			}
 		}
 		if (cargoBean.getTransportReq() != null
-				&& cargoBean.getTransportReq().equals("")
-				&& cargoBean.getTransportReq().equals("All")) {
+				&& !cargoBean.getTransportReq().equals("")
+				&& !cargoBean.getTransportReq().equals("All")) {
 			String transportReq=cargoBean.getTransportReq();
-			if (transportReq.equals("¸ßÀ¸»õ³µ")) {
-				wheresql+=" and t1.transportReq like '%¸ßÀ¸%' ";
+			if (transportReq.equals("é«˜æ è´§è½¦")) {
+				wheresql+=" and t1.transportReq like '%é«˜æ %' ";
 			}
-			if (transportReq.equals("ÏáÊ½»õ³µ")) {
-				wheresql+=" and t1.transportReq like '%ÏáÊ½%' ";
+			if (transportReq.equals("å¢å¼è´§è½¦")) {
+				wheresql+=" and t1.transportReq like '%å¢å¼%' ";
 			}
-			if (transportReq.equals("Æ½°å»õ³µ")) {
-				wheresql+=" and t1.transportReq like '%Æ½°å%' ";
-}
+			if (transportReq.equals("å¹³æ¿è´§è½¦")) {
+				wheresql+=" and t1.transportReq like '%å¹³æ¿%' ";
+			}
 		}
 		return wheresql;
 	}

@@ -14,11 +14,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.edu.bjtu.bean.search.CompanySearchBean;
 import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.service.FocusService;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Carrierinfo;
+
+import com.alibaba.fastjson.JSONArray;
 /**
  * 公司相关控制器
  * @author RussWest0
@@ -40,6 +45,7 @@ public class CompanyController {
 	 * 返回所有公司信息
 	 * @return
 	 */
+	@Deprecated
 	public ModelAndView getAllCompany(HttpSession session)
 	{	
 		int Display=10;//默认的每页大小
@@ -56,6 +62,33 @@ public class CompanyController {
 		mv.addObject("companyList", companyList);
 		mv.setViewName("resource_list5");// 点击资源栏城市配送显示所有信息
 		return mv;
+	}
+	/**
+	 * 资源栏-公司筛选
+	 * @param companyBean
+	 * @param pageUtil
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("getSelectedCompanyAjax")
+	@ResponseBody
+	public String getSelectedCompanyAjax(CompanySearchBean companyBean,PageUtil pageUtil,HttpSession session){
+		JSONArray jsonArray = companyService.getSelectedCompanyNew(companyBean, pageUtil,
+				session);
+		
+		return jsonArray.toString();
+	}
+	
+	/**
+	 * 资源栏-公司筛选-总记录条数
+	 * @param companyBean
+	 * @return
+	 */
+	@RequestMapping("getSelectedCompanyTotalRowsAjax")
+	@ResponseBody
+	public Integer getSelectedCompanyTotalRowsAjax(CompanySearchBean companyBean){
+		Integer count=companyService.getSelectedCompanyTotalRows(companyBean);
+		return count;
 	}
 	
 	
@@ -97,6 +130,7 @@ public class CompanyController {
 	 * @param PageNow
 	 * @return
 	 */
+	@Deprecated
 	public ModelAndView getSelectedCompany(@RequestParam String city,
 			@RequestParam String resourceRate,
 			@RequestParam String serviceIndustry,
