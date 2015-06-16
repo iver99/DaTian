@@ -70,7 +70,7 @@ public class CompanyController {
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping("getSelectedCompanyAjax")
+	@RequestMapping(value="getSelectedCompanyAjax",produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String getSelectedCompanyAjax(CompanySearchBean companyBean,PageUtil pageUtil,HttpSession session){
 		JSONArray jsonArray = companyService.getSelectedCompanyNew(companyBean, pageUtil,

@@ -142,7 +142,7 @@ public class CarServiceImpl implements CarService {
 			wheresql+=" and t1.carBase=:carBase ";
 			params.put("carBase", carBean.getCarBase());
 		}
-		if(carBean.getCarLength()!=null && !carBean.getCarLength().trim().equals("All") && carBean.getCarLength().trim().equals("")){
+		if(carBean.getCarLength()!=null && !carBean.getCarLength().trim().equals("All") && !carBean.getCarLength().trim().equals("")){
 			String carLength=carBean.getCarLength();
 			if (carLength.equals("10รื")) {
 				wheresql+=" and t1.carLength=10";
@@ -153,10 +153,8 @@ public class CarServiceImpl implements CarService {
 			if (carLength.equals("14รื")) {
 				wheresql+=" and t1.carLength=14";
 			}
-			//wheresql+=" and t1.carLength=:carLength";
-			//params.put("carLength", carBean.getCarLength());
 		}
-		if(carBean.getCarWeight()!=null && !carBean.getCarWeight().trim().equals("All")&& carBean.getCarWeight().trim().equals("")){
+		if(carBean.getCarWeight()!=null && !carBean.getCarWeight().trim().equals("All")&& !carBean.getCarWeight().trim().equals("")){
 			
 			String carWeight=carBean.getCarWeight();
 			if (carWeight.equals("8ถึ")) {
@@ -171,8 +169,6 @@ public class CarServiceImpl implements CarService {
 			if (carWeight.equals("20ถึ")) {
 				wheresql+=" and t1.carWeight=20";
 			}
-
-			//params.put("carWeight", carBean.getCarWeight());
 		}
 		
 		return wheresql;

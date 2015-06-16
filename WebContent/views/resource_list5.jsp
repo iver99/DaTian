@@ -6,25 +6,23 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>资源-公司</title>
 <META HTTP-EQUIV="imagetoolbar" CONTENT="no">
 	<link rel="shortcut icon" href="/images/fav.ico" type="image/x-icon" />
 	<link rel="icon" href="/images/fav.ico" type="image/x-icon" />
 	<link rel="bookmark" href="/images/fav.ico" type="image/x-icon" />
-
 	<link type="text/css" rel="stylesheet" href="css/index.css">
 		<script type="text/javascript" src="js/jquery.min.1.7.2.js"></script>
 		<script type="text/javascript" src="js/top_search.js"></script>
 		<script type="text/javascript" src="js/main_nav.js"></script>
-		<script type="text/javascript" src="js/resource_select.js"></script>
-		<script type="text/javascript" src="js/jquery.tablesorter.pack.js"></script>
-		<script type="text/javascript" src="js/table_sort.js"></script>
+		<script type="text/javascript" src="js/resource_select.js" charset="UTF-8"></script>
 		<script type="text/javascript" src="js/citylist.js"></script>
 		<script type="text/javascript" src="js/cityquery.js"></script>
-		<script type="text/javascript" src="js/backtop.js"></script>
+		<script type="text/javascript" src="js/jquery.tablesorter.pack.js"></script>
+		<script type="text/javascript" src="js/table_sort.js"></script>
 		<script type="text/javascript" src="js/popup.js"></script>
+		<script type="text/javascript" src="js/backtop.js"></script>
 		<script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
-		<script type="text/javascript" src="js/splitPage.js"></script><!-- 新增 -->
+		<!-- <script type="text/javascript" src="js/splitPage.js"></script> <!-- 新增 -->
 		<script type="text/javascript" src="js/focus_load.js"></script>
 		<script type="text/javascript">
 			$(function() {
@@ -365,7 +363,7 @@ function getSelectedCompanyAjax(
 			$("#testbody").append("<td class=\"td_main_list_content\"></td>");
 			$("#testbody").append("<td class=\"td_main_list_content\"><a href=\"companyDetail?id="+data[i].id+" hidefocus=\"true\">"+data[i].companyName+"<img src=\"images/btn_level1a.png\" /></a></td>");
 			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].resourceRate+"</td>");
-			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].companyType+"</td>");
+			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].companyKind+"</td>");
 			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].creditRate+"</td>");
 			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].relDate+"</td>");
 			$("#testbody").append("<td class=\"td_main_list_content\">");

@@ -221,7 +221,7 @@ public class CompanyServiceImpl implements CompanyService{
 			String sql = "select t1.id,"
 				+ "t1.companyName,"
 				+ "t1.resourceRate,"
-				+ "t1.companyKind,"
+				+ "t1.companyType,"
 				+ "t1.creditRate,"
 				+ "t1.relDate,"
 				+ "t3.status "
@@ -249,7 +249,7 @@ public class CompanyServiceImpl implements CompanyService{
 			instanceBean.setCompanyName((String)obj[1]);;
 			instanceBean.setResourceRate((String)obj[2]);;
 			instanceBean.setCompanyKind((String)obj[3]);;;
-			instanceBean.setCreditRate((String)obj[4]);;
+			instanceBean.setCreditRate((Integer)obj[4]+"");;
 			instanceBean.setRelDate((Date)obj[5]);
 			instanceBean.setStatus((String)obj[6]);
 			companyList.add(instanceBean);
@@ -268,7 +268,7 @@ public class CompanyServiceImpl implements CompanyService{
 	@Override
 	public Integer getSelectedCompanyTotalRows(CompanySearchBean companyBean) {
 		Map<String,Object> params=new HashMap<String,Object>();
-		String hql="select count(*) from carrierinfo t1"+whereSql(companyBean, params);
+		String hql="select count(*) from Carrierinfo t1 "+whereSql(companyBean, params);
 		Long count=companyDao.count(hql, params);
 		
 		return count.intValue();

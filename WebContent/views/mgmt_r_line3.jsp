@@ -108,32 +108,12 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">运输类型：</td>
-                                    <c:choose>
-                                    <c:when test="${linetransportInfo.type == '整车' }">
                        				<td>
-                                        <input type="checkbox" name="type" id="checkbox" checked="checked" value="整车"/>
+                                        <input type="checkbox" name="type" id="checkbox" value="整车"/>
                                         整车&nbsp;&nbsp;&nbsp;
                                         <input type="checkbox" name="type" id="checkbox" value="零担"/>
                                         零担
                                     </td>
-                                    </c:when>
-                                     <c:when test="${linetransportInfo.type == '零担' }">
-                       				<td>
-                                        <input type="checkbox" name="type" id="checkbox" value="整车"/>
-                                        整车&nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox" name="type" id="checkbox" checked="checked" value="零担"/>
-                                        零担
-                                    </td>
-                                    </c:when>
-                                    <c:when test="${linetransportInfo.type == '整车,零担' }">
-                       				<td>
-                                        <input type="checkbox" name="type" id="checkbox" checked="checked" value="整车"/>
-                                        整车&nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox" name="type" id="checkbox" checked="checked" value="零担"/>
-                                        零担
-                                    </td>
-                                    </c:when>
-                                    </c:choose>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">参考价：</td>
