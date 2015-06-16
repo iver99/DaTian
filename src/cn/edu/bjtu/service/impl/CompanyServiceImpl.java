@@ -42,6 +42,7 @@ public class CompanyServiceImpl implements CompanyService{
 	/**
 	 * 返回所有公司
 	 */
+	@Deprecated
 	public List getAllCompany(int Display,int PageNow)  {
 		// TODO Auto-generated method stub
 		return companyDao.getAllCompany(Display,PageNow);
@@ -52,6 +53,7 @@ public class CompanyServiceImpl implements CompanyService{
 	/**
 	 * 返回所有公司
 	 */
+	@Deprecated
 	public List getAllCompanyWithoutPage(){
 		return companyDao.getAllCompanyWithoutPage();
 	}
@@ -69,6 +71,7 @@ public class CompanyServiceImpl implements CompanyService{
 	/**
 	 * 条件筛选公司
 	 */
+	@Deprecated
 	public List getSelectedCompany(String resourceRate, String serviceIndustry, 
 			String creditRate, String business, int Display,int PageNow) {
 		String sql="";
@@ -130,6 +133,7 @@ public class CompanyServiceImpl implements CompanyService{
 	/**
 	 * 获取总记录条数 
 	 */
+	@Deprecated
 	public int getTotalRows(String resourceRate, String serviceIndustry, String creditRate, String business) {
 		// TODO Auto-generated method stub
 		String sql="";

@@ -35,14 +35,6 @@ public class LinetransportDaoImpl extends BaseDaoImpl<Linetransport> implements 
 	}
 
 	@Override
-	public List getAllLinetransportWithoutPage() {
-		// TODO Auto-generated method stub
-		String hql = " from LineCarrierView";
-
-		return ht.find(hql);// dao层分批取数据方法
-	}
-	
-	@Override
 	/**
 	 * 返回具体干线信息
 	 */
@@ -75,16 +67,12 @@ public class LinetransportDaoImpl extends BaseDaoImpl<Linetransport> implements 
 
 	}
 	
-	@Override
-	public List getSelectedLineNew(String hql, PageUtil page) {
-		return hqltool.getQueryList(hql, 1, 10);// Dao层分页函数提取到此方法
-
-	}
 
 	@Override
 	/**
 	 * 返回公司干线总条数
 	 */
+	@Deprecated
 	public int getCompanyTotalRows(String carrierId) {
 		// TODO Auto-generated method stub
 		int count = 0;

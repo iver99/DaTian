@@ -49,16 +49,6 @@ public class CarServiceImpl implements CarService {
 	HQLTool hqltool;
 	
 	
-	@Override
-	/**
-	 * 返回所有车辆
-	 */
-	public List getAllCar(int Display, int PageNow) {
-		// TODO Auto-generated method stub
-
-		return carDao.getAllCar(Display, PageNow);
-	}
-	
 	/**
 	 * 返回资源栏筛选car
 	 */
@@ -174,30 +164,12 @@ public class CarServiceImpl implements CarService {
 		return wheresql;
 	}
 
-	@Override
-	/**
-	 * 返回所有车辆
-	 */
-	public List getAllCarWithoutPage() {
-		// TODO Auto-generated method stub
-
-		return carDao.getAllCarWithoutPage();
-	}
-	
-	@Override
-	/**
-	 * 返回车辆位置
-	 */
-	public List getAllLocation() {
-		// TODO Auto-generated method stub
-
-		return carDao.getAllLocation();
-	}
 
 	@Override
 	/**
 	 * 条件筛选车辆
 	 */
+	@Deprecated
 	public List getSelectedCar(String carLocation, String carBase,
 			String carLength, String carWeight, int Display, int PageNow) {
 
@@ -213,6 +185,7 @@ public class CarServiceImpl implements CarService {
 	/**
 	 * 获取总记录条数 
 	 */
+	@Deprecated
 	public int getTotalRows(String carLocation, String carBase,
 			String carLength, String carWeight) {
 		// TODO Auto-generated method stub
@@ -319,7 +292,12 @@ public class CarServiceImpl implements CarService {
 		return true;
 
 	}
-
+	
+	/**
+	 * 字符创转为日期类型
+	 * @param str
+	 * @return
+	 */
 	private static Date stringToDate(String str) {  
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");  
         Date date = null;  

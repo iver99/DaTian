@@ -15,10 +15,11 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
+@Deprecated
 public class HQLTool {
 	@Resource
 	public HibernateTemplate ht;
-	
+	@Deprecated
 	public static HQL_POJO spellHql(HQL_POJO hql) {
 		if (hql.flag == false) {
 			hql.hql = " where ";
@@ -36,6 +37,7 @@ public class HQLTool {
 	 * @param hql
 	 * @return
 	 */
+	@Deprecated
 	public int getTotalRows(String hql) {
 		int count = 0;
 		List list = ht.find("select count(*) " + hql);
@@ -43,7 +45,7 @@ public class HQLTool {
 			count = ((Number) list.get(0)).intValue();
 		return count;
 	}
-	
+	@Deprecated
 	public List getQueryList(String hql,int page,int pageSize)
 	{
 		Session session = ht.getSessionFactory().openSession();
@@ -55,7 +57,7 @@ public class HQLTool {
 		
 		return list;
 	}
-	
+	@Deprecated
 	public List getQueryListSubAccount(String sql)
 	{
 		Session session = ht.getSessionFactory().openSession();
@@ -65,7 +67,7 @@ public class HQLTool {
 		
 		return list;
 	}
-	
+	@Deprecated
 	public static String spellHql2(String hql,String[] paramList,String[] valueList)
 	{
 		HQL_POJO hqlobj=new HQL_POJO();

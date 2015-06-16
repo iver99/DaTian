@@ -58,14 +58,6 @@ public class LinetransportServiceImpl implements LinetransportService {
 		return linetransportDao.getAllLinetransport(Display, PageNow);
 	}
 	
-	@Override
-	/**
-	 * 返回所有干线列表
-	 */
-	public List getAllLinetransportWithoutPage() {
-		// TODO Auto-generated method stub
-		return linetransportDao.getAllLinetransportWithoutPage();
-	}
 
 	@Override
 	/**
@@ -76,6 +68,7 @@ public class LinetransportServiceImpl implements LinetransportService {
 		return linetransportDao.getLinetransportInfo(linetransportid);
 	}
 
+	@Deprecated
 	@Override
 	/**
 	 * 条件筛选干线
@@ -146,6 +139,7 @@ public class LinetransportServiceImpl implements LinetransportService {
 	/**
 	 * 获取总记录条数 
 	 */
+	@Deprecated
 	public int getTotalRows(String startPlace, String endPlace, String type,
 			String startPlace1, String refPrice) {
 		// TODO Auto-generated method stub
@@ -211,6 +205,7 @@ public class LinetransportServiceImpl implements LinetransportService {
 	 * @param valueList
 	 * @return 返回拼接好的hql语句
 	 */
+	@Deprecated
 	private String spellHql2(String[] paramList, String[] valueList) {
 		HQL_POJO hqlobj = new HQL_POJO();
 		hqlobj.hql = "from LineCarrierView ";// 会变化
@@ -275,6 +270,7 @@ public class LinetransportServiceImpl implements LinetransportService {
 	}
 
 	@Override
+	@Deprecated
 	public int getCompanyTotalRows(String carrierId) {
 		// TODO Auto-generated method stub
 		return linetransportDao.getCompanyTotalRows(carrierId);

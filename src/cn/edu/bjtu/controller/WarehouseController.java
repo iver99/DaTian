@@ -139,7 +139,6 @@ public class WarehouseController {
 						break;
 					}
 				}
-				System.out.println(j);
 				if(j==storageFormSpl.length){
 					everystorageForm[i]="";
 				}
@@ -157,7 +156,6 @@ public class WarehouseController {
 						break;
 					}
 				}
-				System.out.println(j);
 				if(j==fireSecuritySpl.length){
 					everyfireSecurity[i]="";
 				}
@@ -175,7 +173,6 @@ public class WarehouseController {
 						break;
 					}
 				}
-				System.out.println(j);
 				if(j==environmentSpl.length){
 					everyenvironment[i]="";
 				}
@@ -202,8 +199,6 @@ public class WarehouseController {
 			
 			mv.setViewName("mgmt_r_warehouse3");
 		}
-			
-
 		return mv;
 	}
 
@@ -218,13 +213,13 @@ public class WarehouseController {
 	 * @param PageNow
 	 * @return
 	 */
+	@Deprecated
 	public ModelAndView getSelectedWarehouse(@RequestParam String city,
 			@RequestParam String type, @RequestParam String storageForm,
 			@RequestParam String houseArea, @RequestParam int Display,
 			@RequestParam int PageNow,
 			HttpServletRequest request, HttpServletResponse response) {
 		
-		System.out.println("进入仓库筛选控制器");
 		try {
 			response.setCharacterEncoding("UTF-8");
 			request.setCharacterEncoding("UTF-8");
@@ -232,7 +227,6 @@ public class WarehouseController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//System.out.println("已经进入控制器");
 
 		List warehouseList = warehouseService.getSelectedWarehouse(
 				city, type, storageForm, houseArea,

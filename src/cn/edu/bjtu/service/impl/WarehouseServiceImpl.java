@@ -43,16 +43,12 @@ public class WarehouseServiceImpl implements WarehouseService {
 	@Resource
 	HQLTool hqltool;
 
-	@Override
-	public List getAllWarehouse(int Display, int PageNow) {
-		// TODO Auto-generated method stub
-		return warehouseDao.getAllWarehouse(Display, PageNow);
-	}
 
 	@Override
 	/**
 	 * 条件筛选车辆
 	 */
+	@Deprecated
 	public List getSelectedWarehouse(String city, String type,
 			String storageForm, String houseArea, int Display, int PageNow) {
 
@@ -139,6 +135,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 	/**
 	 * 获取总记录条数 
 	 */
+	@Deprecated
 	public int getTotalRows(String city, String type, String storageForm,
 			String houseArea) {
 		// TODO Auto-generated method stub

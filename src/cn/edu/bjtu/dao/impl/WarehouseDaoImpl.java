@@ -19,21 +19,6 @@ public class WarehouseDaoImpl extends BaseDaoImpl<Warehouse> implements Warehous
 	@Resource 
 	private HQLTool hqltool;
 	
-	@Override
-	/**
-	 * 返回所有仓库信息
-	 * 视图查询
-	 * 
-	 */
-	public List getAllWarehouse(int Display,int PageNow) {
-		// TODO Auto-generated method stub
-		int page = PageNow;
-		int pageSize = Display;
-		String hql=" from WarehouseCarrierView";
-		
-		return hqltool.getQueryList(hql, page, pageSize);//dao层分批取数据方法
-
-	}
 	
 	@Override
 	/**
@@ -52,6 +37,7 @@ public class WarehouseDaoImpl extends BaseDaoImpl<Warehouse> implements Warehous
 	}
 	
 	@Override
+	@Deprecated
 	public List getSelectedWarehouse(String hql, int display, int pageNow) {
 		// TODO Auto-generated method stub
 		int page = pageNow;

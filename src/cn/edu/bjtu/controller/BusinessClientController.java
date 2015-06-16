@@ -92,7 +92,6 @@ public class BusinessClientController {
 			@RequestParam String phone, @RequestParam String remarks,
 			HttpServletRequest request, HttpServletResponse response) {
 		String carrierId = (String) request.getSession().getAttribute("userId");
-		// String carrierId = "C-0002";// 删除
 
 		String path = null;
 		String fileName = null;
@@ -116,7 +115,6 @@ public class BusinessClientController {
 			try {
 				response.sendRedirect("client");// 重定向，显示最新的结果
 												// error,无法重定向
-				// mv.setViewName("mgmt_r_car");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				// 此处应该记录日志

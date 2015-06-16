@@ -11,8 +11,9 @@ import cn.edu.bjtu.vo.Cityline;
 import com.alibaba.fastjson.JSONArray;
 
 public interface CitylineService {
-	public List getAllCityline(int Display,int PageNow);
+	@Deprecated
 	public List getSelectedCityline(String resourceRate, String serviceIndustry, String creditRate, int Display,int PageNow);
+	@Deprecated
 	public int getTotalRows(String resourceRate, String serviceIndustry, String creditRate);
 	
 	public Cityline getCitylineInfo(String citylineid);
@@ -24,7 +25,6 @@ public interface CitylineService {
 			String VIPDetail,float refPrice, String remarks, String carrierId,
 			String path,String fileName);
 	public boolean deleteCityline(String id);
-	public List getAllCitylineWithoutPage();
 	
 	/**
 	 * 资源栏获取筛选城市配送

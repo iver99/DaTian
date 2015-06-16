@@ -11,14 +11,12 @@ import cn.edu.bjtu.vo.Carinfo;
 import com.alibaba.fastjson.JSONArray;
 
 public interface CarService {
-
-	public List getAllCar(int Display,int PageNow);
-	public List getAllLocation();
+	@Deprecated
 	public List getSelectedCar(String carLocation, String carBase, String carLength, String carWeight, int Display,int PageNow);
+	@Deprecated
 	public int getTotalRows(String carLocation, String carBase, String carLength, String carWeight);
 	
 	public Carinfo getCarInfo(String carid);
-
 
 
 	public List getCompanyCar(String carrierId);
@@ -41,7 +39,6 @@ public interface CarService {
 	
 	
 	public boolean deleteCar(String id);
-	public List getAllCarWithoutPage();
 	
 	/**
 	 * 获取资源栏筛选car

@@ -19,26 +19,7 @@ public class CitylineDaoImpl extends BaseDaoImpl<Cityline> implements CitylineDa
 	@Resource 
 	private HQLTool hqltool;
 	
-	@Override
-	/**
-	 * 返回所有城市信息
-	 */
-	public List getAllCityline(int Display,int PageNow) {
-		// TODO Auto-generated method stub
-		
-		int page = PageNow;
-		int pageSize = Display;
-		String hql=" from CityCarrierView";
-		
-		return hqltool.getQueryList(hql, page, pageSize);//dao层分批取数据方法
-		
-	}
 
-	@Override
-	public List getAllCitylineWithoutPage() {
-		// TODO Auto-generated method stub
-		return ht.find(" from CityCarrierView");
-	}
 	
 	@Override
 	/**

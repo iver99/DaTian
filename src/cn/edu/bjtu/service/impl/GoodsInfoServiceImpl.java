@@ -43,12 +43,6 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 	GoodsClientView goodsClientView;
 	
 	@Override
-	public List getAllGoodsInfo(int Display,int PageNow) {
-		// TODO Auto-generated method stub
-		return goodsinfoDao.getAllGoodsInfo(Display, PageNow);
-	}
-	
-	@Override
 	/**
 	 * 条件筛选干线线路
 	 */

@@ -12,12 +12,12 @@ import cn.edu.bjtu.vo.Goodsform;
 import com.alibaba.fastjson.JSONArray;
 
 public interface GoodsInfoService {
-
-	public List getAllGoodsInfo(int Display,int PageNow);
+	
 	public GoodsClientView getAllGoodsDetail(String id);
 	public Goodsform getMyGoodsDetail(String id);
-	
+	@Deprecated
 	public List getSelectedGoodsInfo(String startPlace, String endPlace, String transportType, int Display,int PageNow);
+	@Deprecated
 	public int getTotalRows(String startPlace, String endPlace, String transportType);
 	
 	public boolean insertGoods(String name,

@@ -155,6 +155,7 @@ public class CitylineController {
 	 * @param PageNow
 	 * @return
 	 */
+	@Deprecated
 	public ModelAndView getSelectedCityLine(@RequestParam String cityName,
 			@RequestParam String VIPService, @RequestParam String refPrice,
 			@RequestParam int Display, @RequestParam int PageNow,

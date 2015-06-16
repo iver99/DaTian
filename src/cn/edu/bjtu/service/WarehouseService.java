@@ -12,8 +12,9 @@ import com.alibaba.fastjson.JSONArray;
 
 public interface WarehouseService {
 
-	public List getAllWarehouse(int Display,int PageNow);
+	@Deprecated
 	public List getSelectedWarehouse(String city, String type, String storageForm, String houseArea, int Display,int PageNow);
+	@Deprecated
 	public int getTotalRows(String city, String type, String storageForm, String houseArea);
 	
 	public Warehouse getWarehouseInfo(String warehouseid);

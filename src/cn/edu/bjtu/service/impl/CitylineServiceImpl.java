@@ -44,15 +44,6 @@ public class CitylineServiceImpl implements CitylineService {
 	@Resource
 	HQLTool hqltool;
 
-	@Override
-	/**
-	 * 获取所有城市配送线路
-	 */
-	public List getAllCityline(int Display, int PageNow) {
-		// TODO Auto-generated method stub
-
-		return citylineDao.getAllCityline(Display, PageNow);
-	}
 	
 	
 	/**
@@ -152,20 +143,12 @@ public class CitylineServiceImpl implements CitylineService {
 		return wheresql;
 	}
 
-	@Override
-	/**
-	 * 获取所有城市配送线路
-	 */
-	public List getAllCitylineWithoutPage() {
-		// TODO Auto-generated method stub
-
-		return citylineDao.getAllCitylineWithoutPage();
-	}
 
 	@Override
 	/**
 	 * 条件筛选城市配送线路
 	 */
+	@Deprecated
 	public List getSelectedCityline(String cityName, String VIPService,
 			String refPrice, int Display, int PageNow) {
 		String sql = "";
@@ -246,6 +229,7 @@ public class CitylineServiceImpl implements CitylineService {
 	/**
 	 * 获取总记录条数 
 	 */
+	@Deprecated
 	public int getTotalRows(String cityName, String VIPService, String refPrice) {
 		// TODO Auto-generated method stub
 		String sql = "";

@@ -175,6 +175,7 @@ public class CarController {
 	 * @param PageNow
 	 * @return
 	 */
+	@Deprecated
 	public ModelAndView getSelectedCar(@RequestParam String carLocation,
 			@RequestParam String endPlace, @RequestParam String carBase,
 			@RequestParam String carLength, @RequestParam String carWeight,

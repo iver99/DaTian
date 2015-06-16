@@ -121,6 +121,7 @@ public class GoodsInfoController {
 	 * @param response
 	 * @return
 	 */
+	@Deprecated
 	public ModelAndView getSelectedGoodsInfo(@RequestParam String startPlace,
 			@RequestParam String endPlace, @RequestParam String transportType,
 			@RequestParam int Display, @RequestParam int PageNow,

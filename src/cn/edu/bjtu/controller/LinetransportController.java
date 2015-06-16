@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -113,20 +112,20 @@ public class LinetransportController {
 		}
 		return mv;
 	}
-
-	@RequestMapping(value = { "linetransportselected", "searchResourceselected" })
 	// 同时拦截两种请求
-	/**              
-	 * 返回干线符合筛选的条件的信息
-	 * @param startPlace
-	 * @param endPlace
-	 * @param type
-	 * @param startPlace
-	 * @param refPrice
-	 * @param Display
-	 * @param PageNow
-	 * @return
-	 */
+		/**              
+		 * 返回干线符合筛选的条件的信息
+		 * @param startPlace
+		 * @param endPlace
+		 * @param type
+		 * @param startPlace
+		 * @param refPrice
+		 * @param Display
+		 * @param PageNow
+		 * @return
+		 */
+	@Deprecated
+	@RequestMapping(value = { "linetransportselected", "searchResourceselected" })
 	public ModelAndView getSelectedLine(@RequestParam String startPlace,
 			@RequestParam String endPlace, @RequestParam String type,
 			@RequestParam String startPlace1, @RequestParam String refPrice,

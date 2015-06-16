@@ -91,7 +91,6 @@ public class CompanyController {
 		return count;
 	}
 	
-	
 
 	@RequestMapping(value="/companyDetail",method=RequestMethod.GET)
 	/**
