@@ -55,8 +55,12 @@
                         <a href="car?flag=1" class="a_mgmt_leftnav" hidefocus="true">车辆信息</a>
                         <a href="warehouse?flag=1" class="a_mgmt_leftnav" hidefocus="true">仓库信息</a>
 						<a href="driver?flag=1" class="a_mgmt_leftnav" hidefocus="true">司机信息</a>
+						 <%} %>
+						<% if((Integer)session.getAttribute("userKind") ==2) {%><!-- 个人用户 -->
                         <a href="client" class="a_mgmt_leftnav" hidefocus="true">客户信息</a>
                         <a href="goodsform?flag=1" class="a_mgmt_leftnav" hidefocus="true">货物信息</a>
+                        <%} %>
+                        <% if((Integer)session.getAttribute("userKind") ==3) {%><!-- 企业用户 -->
                        <a href="contract2" class="a_mgmt_leftnav" hidefocus="true">合同信息</a>
                         <%} %>
                         <% if((Integer)session.getAttribute("userKind") ==2) {%><!-- 个人用户 -->
@@ -158,33 +162,16 @@
                                 </tr> -->
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">增值服务：</td>
-                                    <c var="citylineInfo" items="${citylineInfo }">
-                                     <c:choose>
-                                    <c:when test="${citylineInfo.VIPService == '无' }">
                                     <td>
                                         <select id="valueadd" style="width:120px;" onchange="change1();" name="VIPService" required>
-                                        <option value="">请选择</option>
+                                        <option value="" selected="selected">请选择</option>
                                         <option value="有">有</option>
-                                        <option value="无" selected="selected">无</option>
+                                        <option value="无" >无</option>
                                         </select>
                                         <div id="v_detail" style="display:none;">
                                         <input type="text" class="input_mgmt1" style="width:176px;" value="${citylineInfo.VIPDetail }" name="VIPDetail"/>
                                         </div>
                                     </td>
-                                    </c:when>
-                                     <c:when test="${citylineInfo.VIPService == '有' }">
-                                    <td>
-                                        <select id="valueadd" style="width:120px;" onchange="change1();" name="VIPService" required>
-                                        <option value="">请选择</option>
-                                        <option value="有" selected="selected">有</option>
-                                        <option value="无">无</option>
-                                        </select>
-                                        <div id="v_detail" style="display:inline;">
-                                        <input type="text" class="input_mgmt1" style="width:176px;" value="${citylineInfo.VIPDetail }" name="VIPDetail"/>
-                                        </div>
-                                    </td>
-                                    </c:when>
-                                    </c:choose>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">参考价：</td>

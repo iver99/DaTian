@@ -106,7 +106,7 @@
                          <td class="td_mgmt_right3_td2">${complain.state }</td>
                         </c:otherwise>
                         </c:choose>
-                        <td class="td_mgmt_right3_td3"><a href="complaintdetail?id=${complain.id }&orderId=${complain.orderId }" hidefocus="true">查看</a></td>
+                        <td class="td_mgmt_right3_td3"><a href="complaintdetail?complaintid=${complain.id }&ordernum=${complain.orderNum }" hidefocus="true">查看</a></td>
                     </tr>
                     </c:forEach>
                     

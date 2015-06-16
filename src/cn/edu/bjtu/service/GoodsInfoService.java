@@ -2,16 +2,22 @@ package cn.edu.bjtu.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import cn.edu.bjtu.bean.search.CargoSearchBean;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.GoodsClientView;
 import cn.edu.bjtu.vo.Goodsform;
 
-public interface GoodsInfoService {
+import com.alibaba.fastjson.JSONArray;
 
-	public List getAllGoodsInfo(int Display,int PageNow);
+public interface GoodsInfoService {
+	
 	public GoodsClientView getAllGoodsDetail(String id);
 	public Goodsform getMyGoodsDetail(String id);
-	
+	@Deprecated
 	public List getSelectedGoodsInfo(String startPlace, String endPlace, String transportType, int Display,int PageNow);
+	@Deprecated
 	public int getTotalRows(String startPlace, String endPlace, String transportType);
 	
 	public boolean insertGoods(String name,
@@ -63,4 +69,19 @@ public interface GoodsInfoService {
 	 */
 	public boolean confirmResponse(String goodsId);
 	
+	/**
+	 * 资源栏-货物-筛选
+	 * @param cargoBean
+	 * @param pageUtil
+	 * @param session
+	 * @return
+	 */
+	public JSONArray getSelectedCargoNew(CargoSearchBean cargoBean,PageUtil pageUtil,HttpSession session);
+	
+	/**
+	 * 资源栏-货物总记录数
+	 * @param cargoBean
+	 * @return
+	 */
+	public Integer getSelectedCargoTotalRows(CargoSearchBean cargoBean);
 }

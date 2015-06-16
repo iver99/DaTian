@@ -8,6 +8,6 @@ public interface ComplaintDao extends BaseDao<Complaintform>{
 	
 	public List getUserCompliant(String userId);
 	public List getAllUserCompliant();
-	public Complaintform getComplaintInfo(String id);
+	/*public Complaintform getComplaintInfo(String id);*/
 	public List getFindComplaint(String sql);
 }

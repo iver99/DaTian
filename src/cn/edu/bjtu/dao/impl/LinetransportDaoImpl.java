@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import cn.edu.bjtu.dao.LinetransportDao;
 import cn.edu.bjtu.util.HQLTool;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Linetransport;
 
 @Repository
@@ -33,14 +34,6 @@ public class LinetransportDaoImpl extends BaseDaoImpl<Linetransport> implements 
 
 	}
 
-	@Override
-	public List getAllLinetransportWithoutPage() {
-		// TODO Auto-generated method stub
-		String hql = " from LineCarrierView";
-
-		return ht.find(hql);// dao层分批取数据方法
-	}
-	
 	@Override
 	/**
 	 * 返回具体干线信息
@@ -73,11 +66,13 @@ public class LinetransportDaoImpl extends BaseDaoImpl<Linetransport> implements 
 		return hqltool.getQueryList(hql, page, pageSize);// Dao层分页函数提取到此方法
 
 	}
+	
 
 	@Override
 	/**
 	 * 返回公司干线总条数
 	 */
+	@Deprecated
 	public int getCompanyTotalRows(String carrierId) {
 		// TODO Auto-generated method stub
 		int count = 0;

@@ -16,10 +16,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.ClientService;
+import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.DownloadFile;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Clientinfo;
-import cn.edu.bjtu.vo.Linetransport;
 
 @Controller
 /**
@@ -42,7 +42,7 @@ public class ClientController {
 	public ModelAndView getAccountInfo(HttpServletRequest request,
 			HttpServletResponse response) {
 		// 此方法内可能需要判断用户种类,因为企业用户和个人用户的验证页面不一样
-		String userId = (String) request.getSession().getAttribute("userId");
+		String userId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		if(userId==null)//未登录
 		{
 			mv.setViewName("login");
@@ -66,7 +66,7 @@ public class ClientController {
 	 */
 	public ModelAndView getBasicUserInfo(HttpServletRequest request,
 			HttpServletResponse response) {
-		String userId = (String) request.getSession().getAttribute("userId");
+		String userId = (String) request.getSession().getAttribute(Constant.USER_ID);
 
 		String email = clientService.getBasicUserInfo(userId);
 		mv.addObject("email", email);
@@ -93,7 +93,7 @@ public class ClientController {
 			String realName, String phone,
 			String IDCard, String sex, HttpServletRequest request,
 			HttpServletResponse response) {
-		String userId=(String)request.getSession().getAttribute("userId");
+		String userId=(String)request.getSession().getAttribute(Constant.USER_ID);
 		
 		// ////////////////////////////////////////////
 		String path = null;
@@ -136,7 +136,7 @@ public class ClientController {
 	@RequestMapping("getupdateUserinfoForm")
 	public ModelAndView getUpdateUserInfoForm(HttpSession session){
 		
-		String userId=(String)session.getAttribute("userId");
+		String userId=(String)session.getAttribute(Constant.USER_ID);
 		Clientinfo clientinfo=clientService.getClientInfo(userId);//根据id获取clientinfo
 		mv.addObject("clientinfo", clientinfo);
 		mv.setViewName("mgmt_a_info3a");
@@ -151,7 +151,7 @@ public class ClientController {
 	 * @return
 	 */
 	public ModelAndView updateClientInfo(HttpServletResponse response,HttpSession session,Clientinfo clientinfo,MultipartFile file){
-		String userId=(String) session.getAttribute("userId");
+		String userId=(String) session.getAttribute(Constant.USER_ID);
 		String path = null;
 		String fileName = null;
 		if (file.getSize() != 0)// 有上传文件的情况
@@ -196,7 +196,7 @@ public class ClientController {
 	 * @return
 	 */
 	public ModelAndView viewClientInfoDetail(HttpSession session){
-		String userId=(String )session.getAttribute("userId");
+		String userId=(String )session.getAttribute(Constant.USER_ID);
 		Clientinfo clientinfo=clientService.getClientInfo(userId);
 		
 		mv.addObject("clientinfo", clientinfo);

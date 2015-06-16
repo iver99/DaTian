@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.SettlementService;
-import cn.edu.bjtu.vo.Carrierinfo;
+import cn.edu.bjtu.util.Constant;
 
 /**
  * 我的结算-控制器
@@ -36,7 +36,7 @@ public class SettlementController {
 	 */
 	public ModelAndView getMySettlement(HttpServletRequest request,HttpServletResponse response)
 	{
-		String userId=(String )request.getSession().getAttribute("userId");
+		String userId=(String )request.getSession().getAttribute(Constant.USER_ID);
 		
 		List orderList=settlementService.getUserOrder(userId);
 		mv.addObject("orderList", orderList);
@@ -62,7 +62,7 @@ public class SettlementController {
 			e.printStackTrace();
 		}
 
-		String carrierId=(String)request.getSession().getAttribute("userId");
+		String carrierId=(String)request.getSession().getAttribute(Constant.USER_ID);
 		//String carrierId = "C-0002";
 		List settlementList = settlementService.getFindSettlement(carrierId, name, Display, PageNow);
 		System.out.println("settlementList+" + settlementList);

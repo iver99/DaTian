@@ -26,6 +26,7 @@ import cn.edu.bjtu.service.GoodsInfoService;
 import cn.edu.bjtu.service.LinetransportService;
 import cn.edu.bjtu.service.OrderService;
 import cn.edu.bjtu.service.ResponseService;
+import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carinfo;
 import cn.edu.bjtu.vo.Carrierinfo;
@@ -75,7 +76,7 @@ public class OrderController {
 	 */
 	public ModelAndView getAllSendOrderInfo(HttpSession session) {
 		// 从session获取用户Id
-		String userId = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute(Constant.USER_ID);
 		List orderList = orderService.getAllSendOrderInfo(userId);
 		mv.addObject("orderList", orderList);
 		if (userId == null){
@@ -94,7 +95,7 @@ public class OrderController {
 	 */
 	public ModelAndView getAllRecieveOrderInfo(HttpServletRequest request,
 			HttpServletResponse response) {
-		String userId = (String) request.getSession().getAttribute("userId");
+		String userId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		List orderList = orderService.getAllRecieveOrderInfo(userId);
 		mv.addObject("receiveOrderList", orderList);
 		mv.setViewName("mgmt_d_order_r");
@@ -187,7 +188,7 @@ public class OrderController {
 			HttpServletRequest request, HttpServletResponse response) {
 
 		// 需要查出公司司机列表 add by RussWest0 at 2015年6月7日,下午7:56:32 
-		String carrierId = (String) request.getSession().getAttribute("userId");
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		List<Driverinfo> driverList=driverService.getAllDriver(carrierId);
 		mv.addObject("driverList",driverList);
 		// 需要获取车牌号和司机名
@@ -249,7 +250,7 @@ public class OrderController {
 	public ModelAndView SignBill(@RequestParam(required = false) MultipartFile file,String orderid, float actualPrice,
 			String explainReason, HttpServletRequest request,
 			HttpServletResponse response) {
-		String carrierId = (String) request.getSession().getAttribute("userId");
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		// ////////////////////////////////////////////////////////////////////////
 
 		String path = null;
@@ -397,7 +398,7 @@ public class OrderController {
 			HttpServletRequest request, HttpServletResponse response
 
 	) {
-		String carrierId = (String) request.getSession().getAttribute("userId");
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		// 字符串拆解
 		
 		boolean flag = orderService.updateOrder(orderid, clientName,
@@ -656,7 +657,7 @@ public class OrderController {
 	@RequestMapping(value = "getOrderDetailFinish")
 	/**
 	 * 
-	 * 
+	 * 承运方-我收到的订单-已完成-查看
 	 * @param orderid
 	 * @return
 	 */
@@ -664,6 +665,9 @@ public class OrderController {
 			HttpServletResponse response, String orderid) {
 		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);
 		mv.addObject("orderInfo", orderInfo);
+		//页面需要评价信息
+		Comment comment=commentService.getCommentByOrderId(orderid);
+		mv.addObject("comment",comment);
 		mv.setViewName("mgmt_d_order_r4b");
 		return mv;
 	}
@@ -684,7 +688,7 @@ public class OrderController {
 	public ModelAndView updateSignBill(String orderid,
 			float actualPrice, String explainReason,
 			HttpServletRequest request, HttpServletResponse response,@RequestParam(required = false) MultipartFile file) {
-		String carrierId = (String) request.getSession().getAttribute("userId");
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		String path = null;
 		String fileName = null;
 		if (file.getSize() != 0)// 有上传文件的情况
@@ -723,7 +727,7 @@ public class OrderController {
 		// 需要取出承运方公司名称
 		//flag和resourceType中标识1为干线，2为城市，3为车辆,4为公司
 		int resourceType = 0;
-		if(flag==4){
+		if(flag==4){//从公司页面提交订单
 			Carrierinfo carrierInfo=companyService.getCompanyById(carrierid);
 			mv.addObject("carrierInfo", carrierInfo);
 			mv.addObject("carrierId", carrierid);
@@ -731,20 +735,20 @@ public class OrderController {
 			mv.setViewName("mgmt_d_order_s2a");
 			return mv;
 		}
-		if(flag==1){
+		if(flag==1){//从干线资源提交订单
 			Linetransport linetransportInfo = linetransportService
 					.getLinetransportInfo(resourceId);
 			resourceType = 1;
 			mv.addObject("resourceType", resourceType);
 			mv.addObject("linetransportInfo", linetransportInfo);
 		}
-		if(flag==2){
+		if(flag==2){// 从城市配送提交订单
 			Cityline citylineInfo = citylineService.getCitylineInfo(resourceId);
 			resourceType = 2;
 			mv.addObject("resourceType", resourceType);
 			mv.addObject("citylineInfo", citylineInfo);
 		}
-		if(flag==3){
+		if(flag==3){//从车辆资源提交订单
 			Carinfo carInfo = carService.getCarInfo(resourceId);
 			resourceType = 3;
 			mv.addObject("resourceType", resourceType);
@@ -790,7 +794,7 @@ public class OrderController {
 			@RequestParam(required=false) String clientWayBillNum,String resourceName,String resourceType,String companyName) {
 		// 页面有许多字段没有传入
 		// clientName参数里有，但是没有使用
-		String userId = (String) request.getSession().getAttribute("userId");
+		String userId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		boolean flag = orderService.createNewOrder(userId, hasCarrierContract,
 				deliveryName, recieverName, deliveryPhone, recieverPhone,
 				deliveryAddr, recieverAddr, remarks, goodsName, goodsVolume,
@@ -844,7 +848,7 @@ public class OrderController {
 			String responseid,String goodsid) {
 		// 页面有许多字段没有传入
 		// clientName参数里有，但是没有使用
-		String userId = (String) request.getSession().getAttribute("userId");
+		String userId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		boolean flag = orderService.createNewOrder(userId, hasCarrierContract,
 				deliveryName, recieverName, deliveryPhone, recieverPhone,
 				deliveryAddr, recieverAddr, remarks, goodsName, goodsVolume,

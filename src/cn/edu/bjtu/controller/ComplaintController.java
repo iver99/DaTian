@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,10 +20,11 @@ import org.springframework.web.servlet.ModelAndView;
 import cn.edu.bjtu.bean.page.ComplaintBean;
 import cn.edu.bjtu.service.ComplaintService;
 import cn.edu.bjtu.service.OrderService;
+import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.DownloadFile;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Complaintform;
-import cn.edu.bjtu.vo.OrderCarrierView;
+import cn.edu.bjtu.vo.Orderform;
 
 @Controller
 /**
@@ -36,13 +38,15 @@ public class ComplaintController {
 	ComplaintService complaintService;
 	@Resource
 	OrderService orderService;
+	
+	private Logger logger=Logger.getLogger(ComplaintController.class);
 
 	ModelAndView mv = new ModelAndView();
 
 	@RequestMapping("/mycomplaint")
 	public ModelAndView getUserComplaint(HttpServletRequest request,
 			HttpServletResponse response) {
-		String userId = (String) request.getSession().getAttribute("userId");
+		String userId = (String) request.getSession().getAttribute(Constant.USER_ID);
 
 		List compliantList = complaintService.getUserCompliant(userId);
 		mv.addObject("compliantList", compliantList);
@@ -50,13 +54,27 @@ public class ComplaintController {
 		return mv;
 	}
 
+	/**
+	 * 用户登录-我的投诉-查看操作
+	 * @param complaintid
+	 * @param ordernum
+	 * @return
+	 */
 	@RequestMapping("/complaintdetail")
-	public ModelAndView getcomplaintInfo(@RequestParam("id") String id,
-			@RequestParam("orderId") String orderId) {
-		Complaintform complaintInfo = complaintService.getComplaintInfo(id);
+	public ModelAndView getcomplaintInfo(String complaintid,
+			 String ordernum) {
+		logger.info("开始查看投诉详情");
+		
+		Complaintform complaintInfo = complaintService.getComplaintById(complaintid);
 		mv.addObject("complaintInfo", complaintInfo);
-		OrderCarrierView orderInfo = orderService.getSendOrderDetail(orderId);
-		mv.addObject("orderInfo", orderInfo);
+		//OrderCarrierView orderInfo = orderService.getSendOrderDetail(ordernum);
+		Orderform order=orderService.getOrderByOrderNum(ordernum);
+		if(order==null){
+			mv.addObject("orderNum", "订单编号不存在");
+		}else{
+			mv.addObject("orderNum", order.getOrderNum());
+		}
+		
 		mv.setViewName("mgmt_d_complain3");
 
 		return mv;
@@ -77,7 +95,7 @@ public class ComplaintController {
 			@RequestParam(required = false) MultipartFile file,
 			ComplaintBean complaintBean, HttpServletRequest request,
 			HttpServletResponse response) {
-		String carrierId = (String) request.getSession().getAttribute("userId");
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
 
 		String path = null;
 		String fileName = null;
@@ -117,7 +135,7 @@ public class ComplaintController {
 	 * @return
 	 */
 	public ModelAndView getAllUserComplaint(HttpSession session) {
-		String userId = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute(Constant.USER_ID);
 		// add by RussWest0 at 2015年5月30日,上午10:40:43
 		if (userId == null) {// 未登录
 			mv.setViewName("adminLogin");
@@ -136,12 +154,18 @@ public class ComplaintController {
 
 	@RequestMapping("/getcomplaintdetail")
 	public ModelAndView getComplaintDetail(@RequestParam String id,
-			@RequestParam String orderid, @RequestParam int flag,
+			@RequestParam String ordernum, @RequestParam int flag,
 			HttpServletRequest request, HttpServletResponse response) {
-		Complaintform complaintInfo = complaintService.getComplaintInfo(id);
+		Complaintform complaintInfo = complaintService.getComplaintById(id);
 		mv.addObject("complaintInfo", complaintInfo);
-		OrderCarrierView orderInfo = orderService.getSendOrderDetail(orderid);
-		mv.addObject("orderinfo", orderInfo);
+		//OrderCarrierView orderInfo = orderService.getSendOrderDetail(orderNum);
+		Orderform orderInfo=orderService.getOrderByOrderNum(ordernum);
+		if(orderInfo==null){
+			mv.addObject("orderNum", "没有此订单编号");
+		}else{
+			
+			mv.addObject("orderNum", orderInfo.getOrderNum());
+		}
 		if (flag == 0) {
 
 			mv.setViewName("mgmt_m_complain2");
@@ -190,7 +214,7 @@ public class ComplaintController {
 			@RequestParam int flag, HttpServletRequest request,
 			HttpServletResponse response) {
 
-		String clientId = (String) request.getSession().getAttribute("userId");
+		String clientId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		if (flag == 0) {// 后台管理的搜索
 			List complaintList = complaintService.getFindComplaint(theme, flag,
 					clientId);
@@ -208,7 +232,7 @@ public class ComplaintController {
 	@RequestMapping(value = "downloadrelatedmaterial", method = RequestMethod.GET)
 	public ModelAndView downloadRelatedMaterial(@RequestParam String id,// GET方式传入，在action中
 			HttpServletRequest request, HttpServletResponse response) {
-		Complaintform complaintInfo = complaintService.getComplaintInfo(id);
+		Complaintform complaintInfo = complaintService.getComplaintById(id);
 		String file = complaintInfo.getRelatedMaterial();
 		DownloadFile.downloadFile(file,request,response);
 
@@ -226,7 +250,7 @@ public class ComplaintController {
 	@RequestMapping("downloadComplaintMaterial")
 	public ModelAndView downloadComplaintMaterial(HttpServletRequest request,HttpServletResponse response,String complaintid){
 		
-		Complaintform complaint=complaintService.getComplaintInfo(complaintid);
+		Complaintform complaint=complaintService.getComplaintById(complaintid);
 		String fileLocation=complaint.getRelatedMaterial();
 		DownloadFile.downloadFile(fileLocation, request, response);
 		return mv;

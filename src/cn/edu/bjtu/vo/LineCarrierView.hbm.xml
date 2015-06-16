@@ -41,5 +41,21 @@
 		<property name="lineName" type="string">
                 <column name="lineName" />
             </property>
+        <!--     focus表  -->
+      <!--   <property name="focusId" type="string">
+                <column name="focusId" />
+            </property>
+            <property name="resourceId" type="string">
+                <column name="resourceId" />
+            </property>
+            <property name="clientId" type="string">
+                <column name="clientId" />
+            </property>
+            <property name="focusType" type="string">
+                <column name="focusType" />
+            </property>
+            <property name="status" type="string">
+                <column name="status" />
+            </property> -->
 	</class>
 </hibernate-mapping>

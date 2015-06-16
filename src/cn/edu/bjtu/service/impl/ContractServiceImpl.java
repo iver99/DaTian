@@ -1,10 +1,11 @@
 package cn.edu.bjtu.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,9 +43,12 @@ public class ContractServiceImpl implements ContractService{
 	
 	
 	@Override
-	public List getCompanyContractForUser(String clientId) {
+	public List<Contract> getContractByClientId(String clientId) {
 		// TODO Auto-generated method stub
-		return contractDao.getCompanyContractForUser(clientId);
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("clientId", clientId);
+		String hql="from Contract where clientId=:clientId";
+		return contractDao.find(hql,params);
 	}
 
 	@Override

@@ -1,9 +1,7 @@
 ﻿package cn.edu.bjtu.controller;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
@@ -18,18 +16,26 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.edu.bjtu.bean.search.LinetransportSearchBean;
 import cn.edu.bjtu.service.CommentService;
 import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.service.FocusService;
 import cn.edu.bjtu.service.LinetransportService;
+import cn.edu.bjtu.util.Constant;
+import cn.edu.bjtu.util.DataModel;
 import cn.edu.bjtu.util.DownloadFile;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Comment;
 import cn.edu.bjtu.vo.Linetransport;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 @Controller
 /**
@@ -42,55 +48,39 @@ public class LinetransportController {
 	private Logger logger = Logger.getLogger(LinetransportController.class);
 	
 	
-	@RequestMapping("/linetransport")
+	@RequestMapping(value="/linetransport",params="flag=0",produces = "text/html;charset=UTF-8")
 	/**
-	 * 返回所有干线信息
+	 * 资源栏所有干线信息
 	 * @return
 	 */
-	public ModelAndView getAllLinetransport(@RequestParam int flag,
-			@RequestParam(required = false) Integer Display,
-			@RequestParam(required = false) Integer PageNow,
-			HttpSession session) {
+	public String getAllLinetransport() {
  		
-		String userId = (String) session.getAttribute("userId");
-		if (Display == null)
-			Display = 10;// 默认的每页大小
-		if (PageNow == null)
-			PageNow = 1;// 默认的当前页面
-
-		if (flag == 0) {
-			List linetransportList = linetransportService.getAllLinetransport(
-					Display, PageNow);
-			int count = linetransportService.getTotalRows("All", "All", "All",
-					"All", "All");// 获取总记录数,不需要where子句，所以参数都是All
-			
-			/*String userId = (String) request.getSession().getAttribute(
-					"userId");*/
-			List focusList = focusService.getFocusList(userId,"linetransport");
-			int pageNum = (int) Math.ceil(count * 1.0 / Display);// 页数
-			mv.addObject("count", count);
-			mv.addObject("pageNum", pageNum);
-			mv.addObject("pageNow", PageNow);
-			mv.addObject("focusList", focusList);
-			mv.addObject("linetransportList", linetransportList);
-			mv.setViewName("resource_list");
-		} else if (flag == 1) {
-			// 这里从session取出id，查询指定的line
-			
-			if(userId==null)
-			{
-				mv.setViewName("login");
-				return mv;
-			}
-			List linetransportList = linetransportService.getCompanyLine(
-					userId, Display, PageNow);// 新增两个参数
-
-			mv.addObject("linetransportList", linetransportList);
-				mv.setViewName("mgmt_r_line");
-		}
-		return mv;
+		return "resource_list";
 	}
+	/**
+	 * 我的信息-我的干线资源
+	 * @param flag
+	 * @param page
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value="/linetransport",params="flag=1")
+	public ModelAndView getAllCompanyLine(@RequestParam int flag,
+			PageUtil page, HttpSession session) {
+		String userId = (String) session.getAttribute(Constant.USER_ID);
+		if(userId==null)
+		{
+			mv.setViewName("login");
+			return mv;
+		}
+		List linetransportList = linetransportService.getCompanyLine(
+				userId, 10, 1);// 新增两个参数
 
+		mv.addObject("linetransportList", linetransportList);
+			mv.setViewName("mgmt_r_line");
+			return mv;
+	}
+	
 	@RequestMapping(value = "/linetransportdetail", method = RequestMethod.GET)
 	/**
 	 * 获取特定的干线信息
@@ -104,7 +94,7 @@ public class LinetransportController {
 		Linetransport linetransportInfo = linetransportService
 				.getLinetransportInfo(linetransportid);// 需要重构，返回一条线路信息
 		mv.addObject("linetransportInfo", linetransportInfo);
-		String userId = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute(Constant.USER_ID);
 		List focusList = focusService.getFocusList(userId,"linetransport");
 		mv.addObject("focusList", focusList);
 		if (flag == 0) {
@@ -123,20 +113,20 @@ public class LinetransportController {
 		}
 		return mv;
 	}
-
-	@RequestMapping(value = { "linetransportselected", "searchResourceselected" })
 	// 同时拦截两种请求
-	/**              
-	 * 返回干线符合筛选的条件的信息
-	 * @param startPlace
-	 * @param endPlace
-	 * @param type
-	 * @param startPlace
-	 * @param refPrice
-	 * @param Display
-	 * @param PageNow
-	 * @return
-	 */
+		/**              
+		 * 返回干线符合筛选的条件的信息
+		 * @param startPlace
+		 * @param endPlace
+		 * @param type
+		 * @param startPlace
+		 * @param refPrice
+		 * @param Display
+		 * @param PageNow
+		 * @return
+		 */
+	@Deprecated
+	@RequestMapping(value = { "linetransportselected", "searchResourceselected" })
 	public ModelAndView getSelectedLine(@RequestParam String startPlace,
 			@RequestParam String endPlace, @RequestParam String type,
 			@RequestParam String startPlace1, @RequestParam String refPrice,
@@ -166,6 +156,42 @@ public class LinetransportController {
 
 		return mv;
 	}
+	
+	/**
+	 * 返回新干线信息
+	 * @return
+	 */
+	@RequestMapping(value="/linetransporttest",produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String getAllLinetransportTest(
+			LinetransportSearchBean linetransportbean, PageUtil page,
+			HttpSession session, HttpServletResponse response,HttpServletRequest request) {
+		DataModel dataModel = linetransportService.getSelectedLineNew(
+				linetransportbean,page,session);
+		/*response.setCharacterEncoding("UTF-8");  
+	    response.setContentType("application/json; charset=utf-8"); */
+		JSONArray jsonArray=new JSONArray();
+		for(int i=0;i<dataModel.getRows().size();i++){
+			JSONObject jsonObject=(JSONObject)JSONObject.toJSON(dataModel.getRows().get(i));
+			jsonArray.add(jsonObject);
+		}
+		//request.setAttribute("count", 66);
+		dataModel.setTotal(66L);
+		//return dataModel;
+		return jsonArray.toString();
+	}
+	
+	/**
+	 * 获取干线筛选总条数
+	 * @param lineBean
+	 * @return
+	 */
+	@RequestMapping("getSelectedLineTotalRowsAjax")
+	@ResponseBody
+	public Integer getSelectedLineTotalRows(LinetransportSearchBean lineBean){
+		Integer count=linetransportService.getSelectedLineTotalRows(lineBean);
+		return count;
+	}
 
 	@RequestMapping(value = "insertLine", method = RequestMethod.POST)
 	/**
@@ -189,7 +215,7 @@ public class LinetransportController {
 			@RequestParam float refPrice,// 缺少详细报价参数
 			@RequestParam String remarks, HttpServletRequest request,
 			HttpServletResponse response) {
-		String carrierId = (String) request.getSession().getAttribute("userId");
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		// ////////////////////////////////////////////////////////////////////////
 
 		String path = null;
@@ -248,7 +274,7 @@ public class LinetransportController {
 			@RequestParam float refPrice,// 缺少详细报价参数
 			@RequestParam String remarks, HttpServletRequest request,
 			HttpServletResponse response) {
-		String carrierId = (String) request.getSession().getAttribute("userId");
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		//////////////////////////////////////////////
 		String path = null;
 		String fileName = null;

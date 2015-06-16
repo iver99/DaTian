@@ -1,24 +1,25 @@
 package cn.edu.bjtu.controller;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.edu.bjtu.bean.search.CarSearchBean;
 import cn.edu.bjtu.service.CarService;
 import cn.edu.bjtu.service.CarTeamService;
 import cn.edu.bjtu.service.CommentService;
@@ -26,7 +27,9 @@ import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.service.DriverService;
 import cn.edu.bjtu.service.FocusService;
 import cn.edu.bjtu.service.LinetransportService;
+import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.DownloadFile;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carinfo;
 import cn.edu.bjtu.vo.Carrierinfo;
@@ -34,6 +37,8 @@ import cn.edu.bjtu.vo.Carteam;
 import cn.edu.bjtu.vo.Comment;
 import cn.edu.bjtu.vo.Driverinfo;
 import cn.edu.bjtu.vo.Linetransport;
+
+import com.alibaba.fastjson.JSONArray;
 
 @Controller
 public class CarController {
@@ -57,42 +62,56 @@ public class CarController {
 
 	ModelAndView mv = new ModelAndView();
 
-	@RequestMapping("/car")
+	@RequestMapping(value="/car",params="flag=0")
 	/**
-	 * 返回所有车辆信息（视图查询）
+	 * 资源栏-车辆信息
 	 * @return
 	 */
-	public ModelAndView getAllCar(@RequestParam int flag,
-			HttpServletRequest request) {
-		int Display = 10;// 默认的每页大小
-		int PageNow = 1;// 默认的当前页面
-
-		if (flag == 0) {
-			List carList = carService.getAllCar(Display, PageNow);
-			List locList = carService.getAllLocation();
-			int count = carService.getTotalRows("All", "All", "All", "All");// 获取总记录数,不需要where子句，所以参数都是All
-			String clientId = (String) request.getSession().getAttribute("userId");
-			List focusList = focusService.getFocusList(clientId,"car");
-			int pageNum = (int) Math.ceil(count * 1.0 / Display);// 页数
-			mv.addObject("count", count);
-			mv.addObject("pageNum", pageNum);
-			mv.addObject("pageNow", PageNow);	
-			mv.addObject("focusList", focusList);
-
-			mv.addObject("carList", carList);
-			mv.addObject("locList", locList);
-			mv.setViewName("resource_list3");
-		} else if (flag == 1) {
-			String carrierId = (String) request.getSession().getAttribute(
-					"userId");
-			// String carrierId = "C-0002";// 删除
-			List carList = carService.getCompanyCar(carrierId);
-			mv.addObject("carList", carList);
-			List driverList = driverService.getAllDriverName(carrierId);
-			mv.addObject("driverList", driverList);
-			mv.setViewName("mgmt_r_car");// 后台还没实现
-		}
+	public String getAllCar() {
+		return "resource_list3";
+	}
+	
+	/**
+	 * 获取我的信息-车辆信息
+	 * @return
+	 */
+	@RequestMapping(value="car",params="flag=1")
+	public ModelAndView getMyInfoCar(HttpServletRequest request){
+		String carrierId = (String) request.getSession().getAttribute(
+				"userId");
+		// String carrierId = "C-0002";// 删除
+		List carList = carService.getCompanyCar(carrierId);
+		mv.addObject("carList", carList);
+		List driverList = driverService.getAllDriverName(carrierId);
+		mv.addObject("driverList", driverList);
+		mv.setViewName("mgmt_r_car");// 后台还没实现
 		return mv;
+		
+	}
+	
+	/**
+	 * 资源栏获取筛选后的车辆信息
+	 * @return
+	 */
+	@RequestMapping(value="getSelectedCarAjax",produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String getCarSelected(CarSearchBean carBean,PageUtil pageUtil,HttpSession session){
+		
+		JSONArray jsonArray = carService.getSelectedCarNew(carBean, pageUtil,
+				session);
+		
+		return jsonArray.toString();
+	}
+	
+	/**
+	 * 返回资源-车辆筛选记录总条数
+	 * @return
+	 */
+	@RequestMapping(value="getSelectedCarTotalRowsAjax",method = RequestMethod.POST)
+	@ResponseBody
+	public Integer getSelectedCarTotalRows(CarSearchBean carBean){
+		Integer count=carService.getSelectedCarTotalRows(carBean);
+		return count;
 	}
 
 	@RequestMapping(value = "/cardetail", method = RequestMethod.GET)
@@ -108,7 +127,7 @@ public class CarController {
 			@RequestParam("flag") int flag, HttpServletRequest request) {
 		Carinfo carInfo = carService.getCarInfo(carId);// 车辆信息
 		mv.addObject("carInfo", carInfo);
-		String clientId = (String) request.getSession().getAttribute("userId");
+		String clientId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		List focusList = focusService.getFocusList(clientId,"car");
 		Linetransport line = linetransportService
 				.getLinetransportInfo(linetransportId);// 干线信息
@@ -157,6 +176,7 @@ public class CarController {
 	 * @param PageNow
 	 * @return
 	 */
+	@Deprecated
 	public ModelAndView getSelectedCar(@RequestParam String carLocation,
 			@RequestParam String endPlace, @RequestParam String carBase,
 			@RequestParam String carLength, @RequestParam String carWeight,
@@ -274,7 +294,7 @@ public class CarController {
 			@RequestParam String storage, @RequestParam String startPlace,
 			@RequestParam String endPlace, @RequestParam String stopPlace,
 			HttpServletRequest request,	HttpServletResponse response) {
-		String carrierId = (String) request.getSession().getAttribute("userId");
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		boolean flag = carService.insertCar(carNum, carTeam, locationType, terminalId,
 				carBase, carBrand, carType, carUse, carLength, carWidth,
 				carHeight, carWeight, driverId, purchaseTime, storage,
@@ -315,7 +335,7 @@ public class CarController {
 			@RequestParam String licenceTime,
 
 			HttpServletRequest request, HttpServletResponse response) {
-		String carrierId = (String) request.getSession().getAttribute("userId");
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		// String carrierId = "C-0002";// 删除
 		// ////////////////////////////////////////////////////////////////////////
 
@@ -395,7 +415,7 @@ public class CarController {
 			HttpServletRequest request, HttpServletResponse response) {
 
 		// 此处获取session里的carrierid，下面方法增加一个参数
-		String carrierId = (String) request.getSession().getAttribute("userId");
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		// String carrierId = "C-0002";// 删除
 
 		boolean flag = carService.updateCar(id, carNum, carTeam, locType,
@@ -441,7 +461,7 @@ public class CarController {
 			@RequestParam String licenceRate, @RequestParam String licenceTime,
 			@RequestParam String phone, HttpServletRequest request,
 			HttpServletResponse response) {
-		String carrierId = (String) request.getSession().getAttribute("userId");
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		// String carrierId = "C-0002";// 删除
 
 		// ////////////////////////////////////////////////////////////////////////
@@ -530,7 +550,7 @@ public class CarController {
 			HttpServletResponse response) {
 		// 从session里取出id查询
 		// 这里用session取id
-		String carrierId = (String) request.getSession().getAttribute("userId");
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		// String carrierId = "C-0002";// 删除
 		List carteamList = carTeamService.getCarteam(carrierId);
 		mv.addObject("carteamList", carteamList);
@@ -566,7 +586,7 @@ public class CarController {
 			@RequestParam String carCount, @RequestParam String chief,
 			@RequestParam String phone, @RequestParam String explaination,
 			HttpServletRequest request, HttpServletResponse response) {
-		String carrierId = (String) request.getSession().getAttribute("userId");
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		boolean flag = carTeamService.insertCarteam(teamName, carCount, chief,
 				phone, explaination, carrierId);
 		// boolean flag=true;

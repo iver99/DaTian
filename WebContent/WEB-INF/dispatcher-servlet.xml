@@ -106,6 +106,8 @@
 					org.hibernate.dialect.MySQLInnoDBDialect
 				</prop>
 				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.use_sql_comments">true</prop> 
 			</props>
 		</property>
 	</bean>
@@ -119,13 +121,18 @@
     </bean>
     <tx:annotation-driven transaction-manager="txManager"/> 
 	
-	<!-- 配置登录拦截器 -->
-	<!-- <mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <bean id="loginInterceptor" class="cn.edu.bjtu.util.LoginInterceptor"/>
-        </mvc:interceptor>
-    </mvc:interceptors> -->
+	
+	<bean
+	class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+	<property name="messageConverters">
+		<list>
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="supportedMediaTypes" value="text/plain;charset=UTF-8">
+				</property>
+			</bean>
+		</list>
+	</property>
+</bean>
 	
 	<!-- 支持上传文件 -->  
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

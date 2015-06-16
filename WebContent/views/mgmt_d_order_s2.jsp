@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-  
+  	<%
+  		String currentUserId=(String)session.getAttribute("userId");
+  	%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -24,6 +26,20 @@
 	$(function() {
 		$('input, textarea').placeholder(); 
 	});
+	//获取用户的合同id
+	$(function(){
+		//alert("test");
+		var url="getUserContractIdAjax";
+		$.post(url,{currentUserId:$('#currentUserId').val()},function(data,status){
+			//alert(data);
+			var CONTRACTID=$('#contractId');
+			var option = $("<option>").text("").val("");
+			 for(var i=0;i<data.length;i++) {
+		         option = $("<option>").text(data[i].id).val(data[i].id);
+		         CONTRACTID.append(option);
+		      }    
+		},"json");
+	}); 
 </script>
 </head>
 
@@ -75,7 +91,8 @@
                 </table>
                 <form action="createneworder?carrierid=${carrierId }" method="post">
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
-                    <tr>
+                    <tr><!-- 隐藏字段，用于存储当前用户id -->
+                    	<td><input type="hidden" id="currentUserId" name="currentUserId" value="<%=currentUserId %>"/></td>
                         <td class="td_mgmt_right3_td1a">
                             <div class="span_mgmt_right3_text4">基本信息</div>      	          
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
@@ -116,11 +133,11 @@
                                             <option value="无">无</option>
                                         </select>
                                         <div id="c_detail" style="display:none;">
-                                            <select style="width:93px;" name="contractId">
+                                            <select style="width:93px;" name="contractId" id="contractId">
                                                 <option value="" selected="selected">请选择</option>
-                                                <option value="C0001">C0001</option>
+                                                <!-- <option value="C0001">C0001</option>
                                                 <option value="C0002">C0002</option>
-                                                <option value="C0003">C0003</option>
+                                                <option value="C0003">C0003</option> -->
                                             </select>
                                         </div>
                                     </td>

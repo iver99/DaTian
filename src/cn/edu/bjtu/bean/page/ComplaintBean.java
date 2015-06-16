@@ -18,7 +18,7 @@ public class ComplaintBean {
 	private String type;
 	private String theme;
 	private String content;
-	private String orderId;
+	private String orderNum;
 	public String getType() {
 		return type;
 	}
@@ -37,12 +37,13 @@ public class ComplaintBean {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getOrderId() {
-		return orderId;
+	public String getOrderNum() {
+		return orderNum;
 	}
-	public void setOrderId(String orderId) {
-		this.orderId = orderId;
+	public void setOrderNum(String orderNum) {
+		this.orderNum = orderNum;
 	}
+	
 	
 	
 	

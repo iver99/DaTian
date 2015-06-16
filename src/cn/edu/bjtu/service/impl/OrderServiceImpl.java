@@ -87,8 +87,8 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List getOrderIdByOrderNum(String orderNum) {
-		return orderDao.getOrderIdByOrderNum(orderNum);
+	public Orderform getOrderByOrderNum(String orderNum) {
+		return orderDao.getOrderByOrderNum(orderNum);
 	}
 
 	@Override

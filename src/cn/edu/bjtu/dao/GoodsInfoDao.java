@@ -7,7 +7,7 @@ import cn.edu.bjtu.vo.Goodsform;
 
 public interface GoodsInfoDao extends BaseDao<Goodsform>{
 	
-	public List getAllGoodsInfo(int Display,int PageNow);
+	@Deprecated
 	public List getSelectedGoodsInfo(String hql,int Display,int PageNow);
 	
 	public GoodsClientView getAllGoodsDetail(String id);

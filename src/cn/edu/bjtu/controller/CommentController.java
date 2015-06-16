@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.CommentService;
+import cn.edu.bjtu.util.Constant;
 
 
 @Controller
@@ -42,7 +43,7 @@ public class CommentController {
 			String rate1,String rate2,String rate3,String rate4,
 			String remarks,String orderid,HttpServletResponse response)
 	{
-		String userId=(String)session.getAttribute("userId");
+		String userId=(String)session.getAttribute(Constant.USER_ID);
 		if(userId==null)//Î´µÇÂ¼
 		{
 			mv.setViewName("login");

@@ -24,7 +24,7 @@ public interface ContractService {
 
 	public boolean changeStatus(String id);
 
-	public List getCompanyContractForUser(String clientId);
+	public List<Contract> getContractByClientId(String clientId);
 
 	List getFindContract2(String carrierId, String startDate, String endDate,
 			String name, int Display, int PageNow);

@@ -1,33 +1,38 @@
 package cn.edu.bjtu.controller;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.edu.bjtu.bean.search.WarehouseSearchBean;
 import cn.edu.bjtu.service.CommentService;
 import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.service.FocusService;
 import cn.edu.bjtu.service.WarehouseService;
+import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.DownloadFile;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Comment;
 import cn.edu.bjtu.vo.Warehouse;
+
+import com.alibaba.fastjson.JSONArray;
 
 @Controller
 public class WarehouseController {
@@ -41,37 +46,57 @@ public class WarehouseController {
 	FocusService focusService;
 	ModelAndView mv = new ModelAndView();
 
-	@RequestMapping("/warehouse")
+	
 	/**
 	 * 返回所有仓库信息（视图查询）
 	 * @return
 	 */
-	public ModelAndView getAllWarehouse(@RequestParam int flag,
-			HttpServletRequest request) {
-		int Display=10;//默认的每页大小
-		int PageNow=1;//默认的当前页面
+	@RequestMapping(value="/warehouse",params="flag=0")
+	public String getAllWarehouse() {
+		return "resource_list4";
+	}
+	
+	/**
+	 * 返回仓库筛选结果
+	 * @param warehouseBean
+	 * @param pageUtil
+	 * @param sesion
+	 * @return
+	 */
+	@RequestMapping(value="getSelectedWarehouseAjax",produces="text/html;charset=UTF-8")
+	@ResponseBody
+	public String getSelectedWarehouseAjax(WarehouseSearchBean warehouseBean,PageUtil pageUtil,HttpSession session){
+		JSONArray jsonArray = warehouseService.getSelectedWarehouseNew(warehouseBean, pageUtil,
+				session);
 		
-		
-		if (flag == 0) {// 对应资源栏点击车辆
-			List warehouseList = warehouseService.getAllWarehouse(Display,PageNow);
-			int count = warehouseService.getTotalRows("All", "All", "All", "All");// 获取总记录数,不需要where子句，所以参数都是All
-			String clientId = (String) request.getSession().getAttribute("userId");
-			List focusList = focusService.getFocusList(clientId,"warehouse");
-			int pageNum = (int) Math.ceil(count * 1.0 / Display);// 页数
-			mv.addObject("count", count);
-			mv.addObject("pageNum", pageNum);
-			mv.addObject("pageNow", PageNow);
-			mv.addObject("focusList", focusList);
-			mv.addObject("warehouseList", warehouseList);
-			mv.setViewName("resource_list4");
-		} else if (flag == 1) {// 对应我的信息栏点击车辆信息
-			String carrierId=(String)request.getSession().getAttribute("userId");
-			// carrierId = "C-0002";// 需要删除
-			List warehouseList = warehouseService
-					.getCompanyWarehouse(carrierId);
-			mv.addObject("warehouseList", warehouseList);
-			mv.setViewName("mgmt_r_warehouse");
-		}
+		return jsonArray.toString();
+	}
+	
+	/**
+	 * 返回仓库筛选页面总记录数
+	 * @param warehouseBean
+	 * @return
+	 */
+	@RequestMapping("getSelectedWarehouseTotalRowsAjax")
+	@ResponseBody
+	public Integer getSelectedWarehouseTotalRowsAjax(WarehouseSearchBean warehouseBean){
+		Integer count=warehouseService.getSelectedWarehouseTotalRows(warehouseBean);
+		return count;
+	}
+	
+	/**
+	 * 我的信息-仓库信息
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/warehouse",params="flag=1")
+	public ModelAndView getMyInfoWarehouse(HttpServletRequest request){
+		String carrierId=(String)request.getSession().getAttribute(Constant.USER_ID);
+		// carrierId = "C-0002";// 需要删除
+		List warehouseList = warehouseService
+				.getCompanyWarehouse(carrierId);
+		mv.addObject("warehouseList", warehouseList);
+		mv.setViewName("mgmt_r_warehouse");
 		return mv;
 	}
 
@@ -89,7 +114,7 @@ public class WarehouseController {
 			HttpServletRequest request) {
 		Warehouse warehouseInfo = warehouseService
 				.getWarehouseInfo(warehouseid);
-		String clientId = (String) request.getSession().getAttribute("userId");
+		String clientId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		List focusList = focusService.getFocusList(clientId,"warehouse");
 		mv.addObject("focusList", focusList);
 		mv.addObject("warehouseInfo", warehouseInfo);
@@ -115,7 +140,6 @@ public class WarehouseController {
 						break;
 					}
 				}
-				System.out.println(j);
 				if(j==storageFormSpl.length){
 					everystorageForm[i]="";
 				}
@@ -133,7 +157,6 @@ public class WarehouseController {
 						break;
 					}
 				}
-				System.out.println(j);
 				if(j==fireSecuritySpl.length){
 					everyfireSecurity[i]="";
 				}
@@ -151,7 +174,6 @@ public class WarehouseController {
 						break;
 					}
 				}
-				System.out.println(j);
 				if(j==environmentSpl.length){
 					everyenvironment[i]="";
 				}
@@ -178,8 +200,6 @@ public class WarehouseController {
 			
 			mv.setViewName("mgmt_r_warehouse3");
 		}
-			
-
 		return mv;
 	}
 
@@ -194,13 +214,13 @@ public class WarehouseController {
 	 * @param PageNow
 	 * @return
 	 */
+	@Deprecated
 	public ModelAndView getSelectedWarehouse(@RequestParam String city,
 			@RequestParam String type, @RequestParam String storageForm,
 			@RequestParam String houseArea, @RequestParam int Display,
 			@RequestParam int PageNow,
 			HttpServletRequest request, HttpServletResponse response) {
 		
-		System.out.println("进入仓库筛选控制器");
 		try {
 			response.setCharacterEncoding("UTF-8");
 			request.setCharacterEncoding("UTF-8");
@@ -208,7 +228,6 @@ public class WarehouseController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//System.out.println("已经进入控制器");
 
 		List warehouseList = warehouseService.getSelectedWarehouse(
 				city, type, storageForm, houseArea,
@@ -263,7 +282,7 @@ public class WarehouseController {
 			HttpServletResponse response) {
 		// 此处获取session里的carrierid，下面方法增加一个参数
 		// String
-		String carrierId=(String)request.getSession().getAttribute("userId");
+		String carrierId=(String)request.getSession().getAttribute(Constant.USER_ID);
 		
 		String path = null;
 		String fileName = null;
@@ -349,7 +368,7 @@ public class WarehouseController {
 
 		// 此处获取session里的carrierid，下面方法增加一个参数
 		// String
-		String carrierId=(String)request.getSession().getAttribute("userId");
+		String carrierId=(String)request.getSession().getAttribute(Constant.USER_ID);
 
 		String path = null;
 		String fileName = null;
@@ -401,7 +420,7 @@ public class WarehouseController {
 		System.out.println("进入删除控制器");
 		System.out.println(id);
 		// 此处获取session里的carrierid，下面方法增加一个参数
-		//String carrierId=(String)request.getSession().getAttribute("userId");
+		//String carrierId=(String)request.getSession().getAttribute(Constant.USER_ID);
 		// String carrierId = "C-0002";// 删除
 		boolean flag = warehouseService.deleteWarehouse(id);
 		if (flag == true) {

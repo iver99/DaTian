@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.service.DriverService;
 import cn.edu.bjtu.service.LinetransportService;
+import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.vo.Linetransport;
 
@@ -44,7 +45,7 @@ public class CommonController {
 
 	@RequestMapping("/myinfo")
 	public ModelAndView getMyInfo(HttpSession session) {
-		String userId=(String)session.getAttribute("userId");
+		String userId=(String)session.getAttribute(Constant.USER_ID);
 		// add by RussWest0 at 2015年5月30日,下午7:09:34 
 		if(userId==null){
 			mv.setViewName("login");
@@ -67,7 +68,7 @@ public class CommonController {
 		else if (flag == 2)
 			mv.setViewName("mgmt_r_city2");// 城市配送
 		else if (flag == 3){
-			String carrierId=(String)request.getSession().getAttribute("userId");
+			String carrierId=(String)request.getSession().getAttribute(Constant.USER_ID);
 			List driverList = driverService.getAllDriver(carrierId);
 			mv.addObject("driverList", driverList);
 			mv.setViewName("mgmt_r_car2");// 车辆
@@ -82,7 +83,7 @@ public class CommonController {
 		{
 			String id=IdCreator.createContractId();
 			mv.addObject("id", id);
-			String clientId=(String)request.getSession().getAttribute("userId");
+			String clientId=(String)request.getSession().getAttribute(Constant.USER_ID);
 			List companyList = companyService.getAllCompanyWithoutPage();
 			mv.addObject("companyList", companyList);
 			mv.setViewName("mgmt_r_contact_s2");//合同

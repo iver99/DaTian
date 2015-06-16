@@ -235,22 +235,86 @@
                             <div id="div_rating">
                                 <div class="div_rating_sub">
                                     <div class="div_rating_left">服务态度</div>
-                                    <div id="rating1" style="float:left;"></div>
+                                    <c:choose>
+                                    	<c:when test="${comment.serviceAttitude == '很好'}">
+                                    		<div id="rating1" style="float:left;" data-score="5"></div>
+                                    	</c:when>
+                                    	<c:when test="${comment.serviceAttitude == '好'}">
+                                    		<div id="rating1" style="float:left;" data-score="4"></div>
+                                    	</c:when>
+                                    	<c:when test="${comment.serviceAttitude == '一般'}">
+                                    		<div id="rating1" style="float:left;" data-score="3"></div>
+                                    	</c:when>
+                                    	<c:when test="${comment.serviceAttitude == '差'}">
+                                    		<div id="rating1" style="float:left;" data-score="2"></div>
+                                    	</c:when>
+                                    	<c:when test="${comment.serviceAttitude == '很差'}">
+                                    		<div id="rating1" style="float:left;" data-score="1"></div>
+                                    	</c:when>
+                                    </c:choose>
                                     <div class="div_rating_right"><input id="hint1" type="text" value="${comment.serviceAttitude }" class="input_rating" /></div>
                                 </div>
                                 <div class="div_rating_sub">
                                     <div class="div_rating_left">运输时效</div>
-                                    <div id="rating2" style="float:left;"></div>
+                                    <c:choose>
+                                    	<c:when test="${comment.transportEfficiency == '很好'}">
+                                    		<div id="rating2" style="float:left;" data-score="5"></div>
+                                    	</c:when>
+                                    	<c:when test="${comment.transportEfficiency == '好'}">
+                                    		<div id="rating2" style="float:left;" data-score="4"></div>
+                                    	</c:when>
+                                    	<c:when test="${comment.transportEfficiency == '一般'}">
+                                    		<div id="rating2" style="float:left;" data-score="3"></div>
+                                    	</c:when>
+                                    	<c:when test="${comment.transportEfficiency == '差'}">
+                                    		<div id="rating2" style="float:left;" data-score="2"></div>
+                                    	</c:when>
+                                    	<c:when test="${comment.transportEfficiency == '很差'}">
+                                    		<div id="rating2" style="float:left;" data-score="1"></div>
+                                    	</c:when>
+                                    </c:choose>
                                     <div class="div_rating_right"><input id="hint2" type="text" value="${comment.transportEfficiency }" class="input_rating" /></div>
                                 </div>
                                 <div class="div_rating_sub">
                                     <div class="div_rating_left">货物安全</div>
-                                    <div id="rating3" style="float:left;"></div>
+                                    <c:choose>
+                                    	<c:when test="${comment.cargoSafety == '很好'}">
+                                    		<div id="rating3" style="float:left;" data-score="5"></div>
+                                    	</c:when>
+                                    	<c:when test="${comment.cargoSafety == '好'}">
+                                    		<div id="rating3" style="float:left;" data-score="4"></div>
+                                    	</c:when>
+                                    	<c:when test="${comment.cargoSafety == '一般'}">
+                                    		<div id="rating3" style="float:left;" data-score="3"></div>
+                                    	</c:when>
+                                    	<c:when test="${comment.cargoSafety == '差'}">
+                                    		<div id="rating3" style="float:left;" data-score="2"></div>
+                                    	</c:when>
+                                    	<c:when test="${comment.cargoSafety == '很差'}">
+                                    		<div id="rating3" style="float:left;" data-score="1"></div>
+                                    	</c:when>
+                                    </c:choose>
                                     <div class="div_rating_right"><input id="hint3" type="text" value="${comment.cargoSafety }" class="input_rating" /></div>
                                 </div>
                                 <div class="div_rating_sub">
                                     <div class="div_rating_left">总体费用</div>
-                                    <div id="rating4" style="float:left;"></div>
+                                    <c:choose>
+                                    	<c:when test="${comment.totalMoney == '很好'}">
+                                    		<div id="rating4" style="float:left;" data-score="5"></div>
+                                    	</c:when>
+                                    	<c:when test="${comment.totalMoney == '好'}">
+                                    		<div id="rating4" style="float:left;" data-score="4"></div>
+                                    	</c:when>
+                                    	<c:when test="${comment.totalMoney == '一般'}">
+                                    		<div id="rating4" style="float:left;" data-score="3"></div>
+                                    	</c:when>
+                                    	<c:when test="${comment.totalMoney == '差'}">
+                                    		<div id="rating4" style="float:left;" data-score="2"></div>
+                                    	</c:when>
+                                    	<c:when test="${comment.totalMoney == '很差'}">
+                                    		<div id="rating4" style="float:left;" data-score="1"></div>
+                                    	</c:when>
+                                    </c:choose>
                                     <div class="div_rating_right"><input id="hint4" type="text" value="${comment.totalMoney }" class="input_rating" /></div>
                                 </div>
                                 <div class="div_rating_sub">

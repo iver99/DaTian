@@ -12,7 +12,12 @@ public interface OrderDao extends BaseDao<Orderform> {
 	public List getAllRecieveOrderInfo(String userId);
 	public OrderCarrierView getSendOrderDetail(String id);
 	public Orderform getRecieveOrderDetail(String id);
-	public List getOrderIdByOrderNum(String orderNum);
+	/**
+	 * 根据订单编号获取订单
+	 * @param orderNum
+	 * @return
+	 */
+	public Orderform getOrderByOrderNum(String orderNum);
 	
 	public OrderCarrierView getOrderByOrderId(String orderId);
 	

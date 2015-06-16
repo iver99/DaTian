@@ -89,29 +89,11 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">性别：</td>
                                      <td>
-                                    <c:choose>
-                                    <c:when test="${driver.sex == '' }">
                                     <select style="width:120px;" name="sex" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="男" >男</option>
                                             <option value="女">女</option>
                                         </select>
-                                    </c:when>
-                                    <c:when test="${driver.sex == '男' }">
-                                    <select style="width:120px;" name="sex" required>
-                                            <option value="" >请选择</option>
-                                            <option value="男" selected="selected">男</option>
-                                            <option value="女">女</option>
-                                        </select>
-                                    </c:when>
-                                    <c:when test="${driver.sex == '女' }">
-                                    <select style="width:120px;" name="sex" required>
-                                            <option value="">请选择</option>
-                                            <option value="男" >男</option>
-                                            <option value="女" selected="selected">女</option>
-                                        </select>
-                                    </c:when>
-                                    </c:choose>
                                     </td>
                                 </tr>
                                 <tr>

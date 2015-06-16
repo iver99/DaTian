@@ -91,10 +91,10 @@
                                 <ul class="quickmenu">
                                     <li class="menuitem">
                                         <div class="menu">
-                                            <a href="getcomplaintdetail?id=${complain.id }&orderid=${complain.orderId }&flag=0" class="menuhd" hidefocus="true">受理</a>
+                                            <a href="getcomplaintdetail?id=${complain.id }&ordernum=${complain.orderNum }&flag=0" class="menuhd" hidefocus="true">受理</a>
                                             <div class="menubd">
                                                 <div class="menubdpanel">
-                                                    <a href="getcomplaintdetail?id=${complain.id }&orderid=${complain.orderId }&flag=1" class="a_top3" hidefocus="true">查看</a>
+                                                    <a href="getcomplaintdetail?id=${complain.id }&ordernum=${complain.orderNum }&flag=1" class="a_top3" hidefocus="true">查看</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -105,7 +105,7 @@
                         </c:when>
                         <c:when test="${complain.state == '已受理' }">
                         <td class="td_mgmt_right3_td1">已受理</td>
-                        <td class="td_mgmt_right3_td3"><a href="getcomplaintdetail?id=${complain.id }&orderid=${complain.orderId }&flag=1" hidefocus="true">查看</a></td>
+                        <td class="td_mgmt_right3_td3"><a href="getcomplaintdetail?id=${complain.id }&ordernum=${complain.orderNum }&flag=1" hidefocus="true">查看</a></td>
                         </c:when>
                         </c:choose>
 					</tr>

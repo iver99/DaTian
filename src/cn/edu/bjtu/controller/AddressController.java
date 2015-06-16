@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.AddressService;
+import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.vo.Address;
 
 
@@ -30,7 +31,7 @@ public class AddressController {
 	@RequestMapping("getaddress")
 	public ModelAndView getAddress(HttpServletRequest request,HttpServletResponse response)
 	{
-		String userId=(String)request.getSession().getAttribute("userId");
+		String userId=(String)request.getSession().getAttribute(Constant.USER_ID);
 		List addressList = addressService.getAddress(userId);
 		mv.addObject("addressList", addressList);
 		mv.setViewName("mgmt_a_address");
@@ -76,7 +77,7 @@ public class AddressController {
 	public ModelAndView addAddress(
 			HttpServletRequest request,HttpServletResponse response){
 		
-		String userId=(String)request.getSession().getAttribute("userId");
+		String userId=(String)request.getSession().getAttribute(Constant.USER_ID);
 		mv.setViewName("mgmt_a_address2");
 		return mv;
 	}
@@ -94,7 +95,7 @@ public class AddressController {
 		@RequestParam String phone,
 		HttpServletRequest request,HttpServletResponse response){
 		
-		String clientId=(String)request.getSession().getAttribute("userId");
+		String clientId=(String)request.getSession().getAttribute(Constant.USER_ID);
 		boolean flag = addressService.insertAddress(name,address,phone,clientId);
 			try {
 				if (flag == true)
@@ -121,7 +122,7 @@ public class AddressController {
 	 			@RequestParam String id,
 				HttpServletRequest request,HttpServletResponse response){
 			
-			String userId=(String)request.getSession().getAttribute("userId");
+			String userId=(String)request.getSession().getAttribute(Constant.USER_ID);
 			System.out.println("已经进入address控制器");
 
 			Address address = addressService.getAddressDetail(id);

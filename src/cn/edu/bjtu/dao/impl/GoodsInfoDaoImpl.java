@@ -37,19 +37,6 @@ public class GoodsInfoDaoImpl extends BaseDaoImpl<Goodsform> implements GoodsInf
 	/*@Autowired
 	GoodsInfoDao goodsInfoDao;*/
 
-	@Override
-	/**
-	 * 返回所有城市信息
-	 */
-	public List getAllGoodsInfo(int Display, int PageNow) {
-		// TODO Auto-generated method stub
-
-		int page = PageNow;
-		int pageSize = Display;
-		String hql = " from GoodsClientView t where t.state='待确认'";
-		return hqltool.getQueryList(hql, page, pageSize);// dao层分批取数据方法
-
-	}
 
 	@Override
 	public GoodsClientView getAllGoodsDetail(String id) {
@@ -68,6 +55,7 @@ public class GoodsInfoDaoImpl extends BaseDaoImpl<Goodsform> implements GoodsInf
 	}
 
 	@Override
+	@Deprecated
 	public List getSelectedGoodsInfo(String hql, int display, int pageNow) {
 		// TODO Auto-generated method stub
 		int page = pageNow;

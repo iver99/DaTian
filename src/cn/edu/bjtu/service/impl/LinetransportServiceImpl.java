@@ -1,20 +1,31 @@
 package cn.edu.bjtu.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import cn.edu.bjtu.bean.search.LinetransportSearchBean;
 import cn.edu.bjtu.dao.LinetransportDao;
 import cn.edu.bjtu.service.LinetransportService;
+import cn.edu.bjtu.util.Constant;
+import cn.edu.bjtu.util.DataModel;
 import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.util.HQL_POJO;
 import cn.edu.bjtu.util.IdCreator;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Linetransport;
+
+import com.alibaba.fastjson.JSONArray;
 
 @Transactional
 @Service
@@ -33,6 +44,7 @@ public class LinetransportServiceImpl implements LinetransportService {
 	BaseDao baseDao;*/
 	@Resource
 	HQLTool hqltool;
+	private Logger logger=Logger.getLogger(LinetransportServiceImpl.class);
 
 	private String hql = "";
 	private static boolean flag = false;
@@ -46,14 +58,6 @@ public class LinetransportServiceImpl implements LinetransportService {
 		return linetransportDao.getAllLinetransport(Display, PageNow);
 	}
 	
-	@Override
-	/**
-	 * 返回所有干线列表
-	 */
-	public List getAllLinetransportWithoutPage() {
-		// TODO Auto-generated method stub
-		return linetransportDao.getAllLinetransportWithoutPage();
-	}
 
 	@Override
 	/**
@@ -64,6 +68,7 @@ public class LinetransportServiceImpl implements LinetransportService {
 		return linetransportDao.getLinetransportInfo(linetransportid);
 	}
 
+	@Deprecated
 	@Override
 	/**
 	 * 条件筛选干线
@@ -134,6 +139,7 @@ public class LinetransportServiceImpl implements LinetransportService {
 	/**
 	 * 获取总记录条数 
 	 */
+	@Deprecated
 	public int getTotalRows(String startPlace, String endPlace, String type,
 			String startPlace1, String refPrice) {
 		// TODO Auto-generated method stub
@@ -199,11 +205,12 @@ public class LinetransportServiceImpl implements LinetransportService {
 	 * @param valueList
 	 * @return 返回拼接好的hql语句
 	 */
+	@Deprecated
 	private String spellHql2(String[] paramList, String[] valueList) {
 		HQL_POJO hqlobj = new HQL_POJO();
 		hqlobj.hql = "from LineCarrierView ";// 会变化
 		for (int i = 0; i < paramList.length; i++) {
-			if (!(valueList[i].equals("All")))// 要是等于all，说明是默认的，即不写到where子句
+			if (!(valueList[i].equals("All")||valueList[i].equals("中文或拼音")||valueList[i].equals("")))// 要是等于all，说明是默认的，即不写到where子句
 			{
 				hqlobj.hql += HQLTool.spellHql(hqlobj).hql;
 				hqlobj.hql += paramList[i] + "='" + valueList[i] + "' ";
@@ -263,6 +270,7 @@ public class LinetransportServiceImpl implements LinetransportService {
 	}
 
 	@Override
+	@Deprecated
 	public int getCompanyTotalRows(String carrierId) {
 		// TODO Auto-generated method stub
 		return linetransportDao.getCompanyTotalRows(carrierId);
@@ -308,5 +316,133 @@ public class LinetransportServiceImpl implements LinetransportService {
 		
 		return true;
 	}
+	
+	
+	@Override
+	/**
+	 * 新条件筛选干线
+	 */
+	public DataModel getSelectedLineNew(LinetransportSearchBean linetransportbean,
+			PageUtil pageUtil,HttpSession session) {
+		// TODO Auto-generated method stub
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+		Map<String,Object> params=new HashMap<String,Object>();
+		String sql = "select t1.id,"
+				+ "t1.carrierId,"
+				+ "t1.lineName,"
+				+ "t1.startPlace,"
+				+ "t1.endPlace,"
+				+ "t1.refPrice,"
+				+ "t1.relDate,"
+				+ "t1.type,"
+				+ "t1.onWayTime,"
+				+ "t1.companyName,"
+				+ "t3.status "
+				+ " from line_carrier_view t1 "
+				+ "left join ("
+				+ "select * from focus t2 ";
+				
+		if(userId!=null){//如果当前有用户登录在条件中加入用户信息
+			sql+=" where t2.focusType='linetransport' and t2.clientId=:clientId ";
+			params.put("clientId", userId);
+		}
+		sql+=") t3 on t1.id=t3.focusId ";
+		String wheresql=whereSql(linetransportbean,params);
+		sql+=wheresql;
+		
+		JSONArray jsonArray = new JSONArray();
+		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
+		int display=pageUtil.getDisplay()==0?10:pageUtil.getDisplay();
+		List<Object[]> objectList=linetransportDao.findBySql(sql, params,page,display);
+		
+		List<LinetransportSearchBean> lineList=new ArrayList<LinetransportSearchBean>();
+		for(Iterator<Object[]> it=objectList.iterator();it.hasNext();){
+			LinetransportSearchBean lineBean=new LinetransportSearchBean();
+			
+			Object[] obj=it.next();
+			lineBean.setId((String)obj[0]);
+			lineBean.setCarrierId((String)obj[1]);
+			lineBean.setLineName((String)obj[2]);
+			lineBean.setStartPlace((String)obj[3]);
+			lineBean.setEndPlace((String)obj[4]);
+			lineBean.setRefPrice(((Float)obj[5])+"");
+			lineBean.setRelDate((Date)obj[6]);
+			lineBean.setTransportType((String)obj[7]);
+			lineBean.setOnWayTime((Integer)obj[8]);
+			lineBean.setCompanyName((String)obj[9]);
+			lineBean.setStatus((String)obj[10]);
+			lineList.add(lineBean);
+		}
+		//计算总条数
+		DataModel dataModel=new DataModel();
+		/*String countsql="select count(t1.id) from line_carrier_view t1"+whereSql(linetransportbean,params);
+		//Long count=linetransportDao.countBySql(countsql, params);
+		Long count=linetransportDao.countBySql("select count(*) from linetransport");
+		dataModel.setTotal(count);*/
+		dataModel.setRows(lineList);
+		return dataModel;
+	}
+	
+	/**
+	 * 拼接where
+	 * @param linetransportBean
+	 * @param page
+	 * @param params
+	 * @return
+	 */
+	private String whereSql(LinetransportSearchBean linetransportBean,Map<String,Object> params){
+		
+		String wheresql=" where 1=1 ";
+		if(linetransportBean.getStartPlace()!=null && !linetransportBean.getStartPlace().trim().equals("中文或拼音")&&
+				!linetransportBean.getStartPlace().trim().equals("全国") && !linetransportBean.getStartPlace().trim().equals("")){
+			wheresql+=" and t1.startPlace=:startPlace";
+			params.put("startPlace", linetransportBean.getStartPlace());
+		}
+		if(linetransportBean.getEndPlace()!=null && !linetransportBean.getEndPlace().trim().equals("中文或拼音")&&
+				!linetransportBean.getEndPlace().trim().equals("全国") && !linetransportBean.getStartPlace().trim().equals("")){
+			wheresql+=" and t1.endPlace=:endPlace";
+			params.put("endPlace", linetransportBean.getEndPlace());
+		}
+		if(linetransportBean.getRefPrice()!=null && !linetransportBean.getRefPrice().trim().equals("All") && !linetransportBean.getRefPrice().trim().equals("")){
+			String refPrice=linetransportBean.getRefPrice().trim();
+			if(refPrice.equals("大于2元/kg")){
+				wheresql+=" and t1.refPrice > 2 ";
+			}
+			if(refPrice.equals("1至2元/kg")){
+				wheresql+=" and t1.refPrice > 1 and t1.refPrice < 1 ";
+			}
+			if(refPrice.equals("小于1元/kg")){
+				wheresql+=" and t1.refPrice <1 ";
+			}
+		}
+		if(linetransportBean.getTransportType()!=null && !linetransportBean.getTransportType().trim().equals("All") && !linetransportBean.getTransportType().trim().equals("")){
+			wheresql+=" and t1.type=:transportType ";
+			params.put("transportType", linetransportBean.getTransportType());
+		}
+		//始发城市先不实现
+		/*if(linetransportBean.getFromPlace() != null && linetr linetransportBean.getFromPlace().trim().equals("All")){
+			
+		}*/
+		
+		return wheresql;
+		
+	}
+	/**
+	 * 干线筛选总条数
+	 */
+	@Override
+	public Integer getSelectedLineTotalRows(LinetransportSearchBean lineBean) {
+		// TODO Auto-generated method stub
+		Map<String,Object> params=new HashMap<String,Object>();
+		//String countsql="select count(t1.id) from line_carrier_view t1"+whereSql(lineBean,params);
+		String hql="select count(*) from LineCarrierView t1"+whereSql(lineBean, params);
+		//Long count=linetransportDao.countBySql(countsql, params);
+		//Long count=linetransportDao.countBySql("select count(*) from linetransport");
+		Long count=linetransportDao.count(hql, params);
+		
+		return count.intValue();
+		
+	}
+	
 
 }

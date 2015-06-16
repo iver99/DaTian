@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.CompanycertificateService;
+import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.DownloadFile;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Companycertificate;
@@ -53,7 +54,7 @@ public class CompanycertificateController {
 			@RequestParam(required = false) String companyContact, @RequestParam(required = false) String phone,
 			@RequestParam(required = false) String basicSituation,
 			HttpServletRequest request,	HttpServletResponse response) {
-		String userId=(String)request.getSession().getAttribute("userId");
+		String userId=(String)request.getSession().getAttribute(Constant.USER_ID);
 		
 				String path = null;
 				String fileName = null;
@@ -95,11 +96,11 @@ public class CompanycertificateController {
 			@RequestParam int flag,
 			HttpServletRequest request, HttpServletResponse response) {
 
-		String companyId = (String) request.getSession().getAttribute("userId");
+		String companyId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		Companycertificate companycertificate = companycertificateService.getCompanycertificate(companyId);
 		mv.addObject("detailCompanyCertificate", companycertificate);
 		if (flag == 0) {// 对应公司验证查看详情
-			mv.setViewName("mgmt_a_info5");
+			mv.setViewName("mgmt_a_info6a");
 		} else if (flag == 1)// 对应公司验证更新
 		{
 			mv.setViewName("mgmt_a_info6");
@@ -137,7 +138,7 @@ public class CompanycertificateController {
 			@RequestParam(required = false) String companyContact, @RequestParam(required = false) String phone,
 			@RequestParam(required = false) String basicSituation,
 			HttpServletRequest request,	HttpServletResponse response) {
-		String userId=(String)request.getSession().getAttribute("userId");
+		String userId=(String)request.getSession().getAttribute(Constant.USER_ID);
 		
 		// ////////////////////////////////////////////
 				String path = null;

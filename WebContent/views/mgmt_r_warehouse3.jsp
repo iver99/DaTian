@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    <%@ taglib prefix="d" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -99,57 +98,21 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">仓库类型：</td>
                                     <td>
-                                    <c:choose>
-                                    <c:when test="${warehouseInfo.type == '' }">
                        					<select style="width:120px;" name="type" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="保税" >保税</option>
                                             <option value="非保税">非保税</option>
                                         </select>
-                                    </c:when>
-                                    <c:when test="${warehouseInfo.type == '保税' }">
-                       					<select style="width:120px;" name="type" required>
-                                            <option value="" >请选择</option>
-                                            <option value="保税" selected="selected">保税</option>
-                                            <option value="非保税">非保税</option>
-                                        </select>
-                                    </c:when>
-                                    <c:when test="${warehouseInfo.type == '非保税' }">
-                       					<select style="width:120px;" name="type" required>
-                                            <option value="" >请选择</option>
-                                            <option value="保税" >保税</option>
-                                            <option value="非保税" selected="selected">非保税</option>
-                                        </select>
-                                    </c:when>
-                                    </c:choose>    
                                     </td>
                                 </tr>
                                 <tr>
                                 <td height="40" class="td_mgmt_right3_td1b">所属性质：</td>
                                     <td>
-                                    <c:choose>
-                                    <c:when test="${warehouseInfo.kind == '' }">
                        					<select style="width:120px;" name="kind" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="自有" >自有</option>
                                             <option value="租用">租用</option>
                                         </select>
-                                    </c:when>
-                                    <c:when test="${warehouseInfo.kind == '自有' }">
-                       					<select style="width:120px;" name="kind" required>
-                                            <option value="" >请选择</option>
-                                            <option value="自有" selected="selected">自有</option>
-                                            <option value="租用">租用</option>
-                                        </select>
-                                    </c:when>
-                                    <c:when test="${warehouseInfo.kind == '租用' }">
-                       					<select style="width:120px;" name="kind" required>
-                                            <option value="">请选择</option>
-                                            <option value="自有" >自有</option>
-                                            <option value="租用" selected="selected">租用</option>
-                                        </select>
-                                    </c:when>
-                                    </c:choose>
                                     </td>
                                 </tr>
                                 <tr>
@@ -170,47 +133,17 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">消防等级：</td>
                                     <td>
-                                    <c:choose>
-                                    <c:when test="${warehouseInfo.fireRate == '' }">
                        					<select style="width:120px;" name="fireRate" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="甲" >甲</option>
                                             <option value="乙">乙</option>
                                             <option value="丙">丙</option>
                                         </select>
-                                    </c:when>
-                                    <c:when test="${warehouseInfo.fireRate == '甲' }">
-                       					<select style="width:120px;" name="fireRate" required>
-                                            <option value="">请选择</option>
-                                            <option value="甲" selected="selected">甲</option>
-                                            <option value="乙">乙</option>
-                                            <option value="丙">丙</option>
-                                        </select>
-                                    </c:when>
-                                    <c:when test="${warehouseInfo.fireRate == '乙' }">
-                       					<select style="width:120px;" name="fireRate" required>
-                                            <option value="">请选择</option>
-                                            <option value="甲" >甲</option>
-                                            <option value="乙" selected="selected">乙</option>
-                                            <option value="丙">丙</option>
-                                        </select>
-                                    </c:when>
-                                    <c:when test="${warehouseInfo.fireRate == '丙' }">
-                       					<select style="width:120px;" name="fireRate" required>
-                                            <option value="">请选择</option>
-                                            <option value="甲" >甲</option>
-                                            <option value="乙">乙</option>
-                                            <option value="丙" selected="selected">丙</option>
-                                        </select>
-                                    </c:when>
-                                    </c:choose>
-                                        
                                     </td>
                                 </tr>
-                                <tr>
+                               <%--  <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">保管形态：</td>
                                     <td>
-                                    <d var="everystorageForm" items="${everystorageForm }">
                                     <d:choose>
                                     <d:when test="${everystorageForm[0] == '普通' }">
                                     	<input type="checkbox" id="checkbox" checked="checked" value="普通" name="storageForm" />
@@ -441,6 +374,62 @@
                                     </d:when>
                                     </d:choose> 
                                     </d>
+                                    </td>
+                                </tr> --%>
+                                  <tr>
+                                    <td height="40" class="td_mgmt_right3_td1b">保管形态：</td>
+                                    <td>
+                                        <input type="checkbox" id="checkbox" name="storageForm"/>
+                                        普通仓库&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" id="checkbox" name="storageForm"/>
+                                        冷藏仓库&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" id="checkbox" name="storageForm"/>
+                                        恒温仓库&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" id="checkbox" name="storageForm"/>
+                                        露天仓库&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" id="checkbox" name="storageForm"/>
+                                        危险品仓库
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="40" class="td_mgmt_right3_td1b">防火安保：</td>
+                                    <td>
+                                        <input type="checkbox" id="checkbox" name="fireSecurity"/>
+                                        烟感&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" id="checkbox" name="fireSecurity"/>
+                                        自动喷淋&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" id="checkbox" name="fireSecurity"/>
+                                        24小时摄像监控&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" id="checkbox" name="fireSecurity"/>
+                                        无
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="40" class="td_mgmt_right3_td1b">IT环境：</td>
+                                    <td>
+                                        <input type="checkbox" id="checkbox" name="environment"/>
+                                        Internet宽带接入&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" id="checkbox"  name="environment"/>
+                                        仓库信息管理系统&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" id="checkbox" name="environment"/>
+                                        无
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="40" class="td_mgmt_right3_td1b">服务内容：</td>
+                                    <td>
+                                        <input type="checkbox" id="checkbox" name="serviceContent"/>
+                                        机械出入库搬运&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" id="checkbox" name="serviceContent"/>
+                                        分拣&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" id="checkbox" name="serviceContent"/>
+                                        包装&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" id="checkbox" name="serviceContent"/>
+                                        打托盘&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" id="checkbox"  name="serviceContent"/>
+                                        地面存储&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" id="checkbox" name="serviceContent"/>
+                                        货架存储
                                     </td>
                                 </tr>
                                 <tr>

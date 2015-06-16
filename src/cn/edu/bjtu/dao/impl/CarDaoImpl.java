@@ -21,39 +21,7 @@ public class CarDaoImpl extends BaseDaoImpl<Carinfo> implements CarDao{
 	@Resource 
 	private HQLTool hqltool;
 	
-	@Override
-	/**
-	 * 返回所有车辆信息
-	 * 视图查询
-	 * 
-	 */
-	public List getAllCar(int Display,int PageNow) {
-		// TODO Auto-generated method stub
-		int page = PageNow;
-		int pageSize = Display;
-		String hql=" from CarCarrierView";
-		
-		return hqltool.getQueryList(hql, page, pageSize);//dao层分批取数据方法
-		
-	}
 	
-
-	@Override
-	public List getAllCarWithoutPage() {
-		// TODO Auto-generated method stub
-		return ht.find(" from CarCarrierView");
-	}
-	
-	@Override
-	/**
-	 * 返回所有车辆经纬度信息
-	 * 视图查询
-	 * 
-	 */
-	public List getAllLocation() {
-		// TODO Auto-generated method stub
-		return ht.find("from Carinfo");
-	}
 	
 	@Override
 	/**
@@ -79,6 +47,7 @@ public class CarDaoImpl extends BaseDaoImpl<Carinfo> implements CarDao{
 	
 	
 	@Override
+	@Deprecated
 	public List getSelectedCar(String hql, int display, int pageNow) {
 		// TODO Auto-generated method stub
 		int page = pageNow;

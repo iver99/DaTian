@@ -19,7 +19,17 @@ public class FocusCompanyView implements java.io.Serializable {
 	private String status;
 	private String companyName;
 	private Date relDate;
+	private String carrierId;// add by RussWest0 at 2015年6月12日,下午1:19:07 
 	
+	
+	public String getCarrierId() {
+		return carrierId;
+	}
+
+	public void setCarrierId(String carrierId) {
+		this.carrierId = carrierId;
+	}
+
 	public FocusCompanyView() {
 	}
 

@@ -55,8 +55,12 @@
                         <a href="car?flag=1" class="a_mgmt_leftnav" hidefocus="true">车辆信息</a>
                         <a href="warehouse?flag=1" class="a_mgmt_leftnav" hidefocus="true">仓库信息</a>
 						<a href="driver?flag=1" class="a_mgmt_leftnav" hidefocus="true">司机信息</a>
+						 <%} %>
+						 <% if((Integer)session.getAttribute("userKind") ==2) {%><!-- 个人用户 -->
                         <a href="client" class="a_mgmt_leftnav" hidefocus="true">客户信息</a>
                         <a href="goodsform?flag=1" class="a_mgmt_leftnav" hidefocus="true">货物信息</a>
+                        <%} %>
+                         <% if((Integer)session.getAttribute("userKind") ==3) {%><!-- 企业用户 -->
                         <a href="contract2" class="a_mgmt_leftnav" hidefocus="true">合同信息</a>
                         <%} %>
                         <% if((Integer)session.getAttribute("userKind") ==2) {%><!-- 个人用户 -->
@@ -104,32 +108,12 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">运输类型：</td>
-                                    <c:choose>
-                                    <c:when test="${linetransportInfo.type == '整车' }">
                        				<td>
-                                        <input type="checkbox" name="type" id="checkbox" checked="checked" value="整车"/>
+                                        <input type="checkbox" name="type" id="checkbox" value="整车"/>
                                         整车&nbsp;&nbsp;&nbsp;
                                         <input type="checkbox" name="type" id="checkbox" value="零担"/>
                                         零担
                                     </td>
-                                    </c:when>
-                                     <c:when test="${linetransportInfo.type == '零担' }">
-                       				<td>
-                                        <input type="checkbox" name="type" id="checkbox" value="整车"/>
-                                        整车&nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox" name="type" id="checkbox" checked="checked" value="零担"/>
-                                        零担
-                                    </td>
-                                    </c:when>
-                                    <c:when test="${linetransportInfo.type == '整车,零担' }">
-                       				<td>
-                                        <input type="checkbox" name="type" id="checkbox" checked="checked" value="整车"/>
-                                        整车&nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox" name="type" id="checkbox" checked="checked" value="零担"/>
-                                        零担
-                                    </td>
-                                    </c:when>
-                                    </c:choose>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">参考价：</td>

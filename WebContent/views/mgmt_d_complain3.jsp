@@ -95,7 +95,7 @@
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">订单编号：</td>
-									<td><a href="resource_detail1.htm">${orderInfo.orderNum }</a></td>
+									<td><a href="resource_detail1.htm">${orderNum }</a></td>
 								</tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">相关材料：</td>

@@ -22,7 +22,7 @@ public interface OrderService {
 			float goodsWeight, float goodsVolume, float expectedPrice,
 			float insurance, float freight, String contractId, String remarks);
 
-	public List getOrderIdByOrderNum(String orderNum);
+	public Orderform getOrderByOrderNum(String orderNum);
 
 	public OrderCarrierView getOrderByOrderId(String orderId);
 

@@ -79,8 +79,8 @@
 									<td>${complaintInfo.content }</td>
 								</tr>
 								<tr>
-									<td height="40" class="td_mgmt_right3_td1b">订单ID/订单编号：</td>
-									<td>${complaintInfo.orderId }/${orderinfo.orderNum }</td>
+									<td height="40" class="td_mgmt_right3_td1b">订单编号：</td>
+									<td>${orderNum }</td>
 								</tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">相关材料：</td>
