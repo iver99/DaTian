@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import cn.edu.bjtu.bean.search.CompanySearchBean;
 import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.service.FocusService;
+import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Carrierinfo;
 
@@ -52,7 +53,7 @@ public class CompanyController {
 		int PageNow=1;//默认的当前页面
 		List companyList = companyService.getAllCompany(Display,PageNow);
 		int count = companyService.getTotalRows("All", "All", "All", "All");// 获取总记录数,不需要where子句，所以参数都是All
-		String clientId = (String) session.getAttribute("userId");
+		String clientId = (String) session.getAttribute(Constant.USER_ID);
 		List focusList = focusService.getFocusList(clientId,"company");
 		int pageNum = (int) Math.ceil(count * 1.0 / Display);// 页数
 		mv.addObject("count", count);
@@ -106,7 +107,7 @@ public class CompanyController {
 		List linetransportList = companyService.getLinetransportByCarrierId(id);
 		List citylineList = companyService.getCitylineByCarrierId(id);
 		List warehouseList = companyService.getwarehouseByCarrierId(id);
-		String clientId = (String) session.getAttribute("userId");
+		String clientId = (String) session.getAttribute(Constant.USER_ID);
 		List focusList = focusService.getFocusList(clientId,"company");
 		mv.addObject("carrierinfo", carrierinfo);
 		mv.addObject("linetransportList", linetransportList);

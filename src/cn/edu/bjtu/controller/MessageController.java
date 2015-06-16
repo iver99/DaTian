@@ -1,7 +1,5 @@
 package cn.edu.bjtu.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.edu.bjtu.service.MessageService;
+import cn.edu.bjtu.util.Constant;
 
 @Controller
 public class MessageController {
@@ -25,7 +24,7 @@ public class MessageController {
  	  */
 	public String insertMessage(
 			HttpServletRequest request,HttpServletResponse response) throws Exception{
-			String clientId=(String)request.getSession().getAttribute("userId");
+			String clientId=(String)request.getSession().getAttribute(Constant.USER_ID);
 			/*if(clientId==null)
 			{
 				mv.setViewName("login");

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.FocusService;
+import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.vo.Focus;
 
 @Controller
@@ -40,7 +41,7 @@ public class FocusController {
  	  */
 	public String insertFocus(
 			HttpServletRequest request,HttpServletResponse response) throws Exception{
-			String clientId=(String)request.getSession().getAttribute("userId");
+			String clientId=(String)request.getSession().getAttribute(Constant.USER_ID);
 			//String userKind=(String)request.getSession().getAttribute("useKind");
 			
 			if(clientId==null)
@@ -83,7 +84,7 @@ public class FocusController {
 	 */
 	public ModelAndView getAllFocus(HttpServletRequest request,
 			HttpServletResponse response) {
-		String clientId = (String) request.getSession().getAttribute("userId");
+		String clientId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		if (clientId == null) {
 			mv.setViewName("login");
 			return mv;
@@ -114,7 +115,7 @@ public class FocusController {
 	 */
 	public ModelAndView deleteFocus(HttpServletRequest request,
 			HttpServletResponse response,@RequestParam String id) {
-		String clientId = (String) request.getSession().getAttribute("userId");
+		String clientId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		if (clientId == null) {
 			mv.setViewName("login");
 			return mv;
@@ -147,7 +148,7 @@ public class FocusController {
 			@RequestParam String text,
 			HttpServletRequest request,HttpServletResponse response){
 		
-		String clientId=(String)request.getSession().getAttribute("userId");	
+		String clientId=(String)request.getSession().getAttribute(Constant.USER_ID);	
 		
 		List focusLineList = focusService.findFocusLine(text,clientId);
 		mv.addObject("focusLineList", focusLineList);

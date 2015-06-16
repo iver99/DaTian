@@ -25,6 +25,7 @@ import cn.edu.bjtu.service.CommentService;
 import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.service.FocusService;
 import cn.edu.bjtu.service.LinetransportService;
+import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.DataModel;
 import cn.edu.bjtu.util.DownloadFile;
 import cn.edu.bjtu.util.PageUtil;
@@ -66,7 +67,7 @@ public class LinetransportController {
 	@RequestMapping(value="/linetransport",params="flag=1")
 	public ModelAndView getAllCompanyLine(@RequestParam int flag,
 			PageUtil page, HttpSession session) {
-		String userId = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute(Constant.USER_ID);
 		if(userId==null)
 		{
 			mv.setViewName("login");
@@ -93,7 +94,7 @@ public class LinetransportController {
 		Linetransport linetransportInfo = linetransportService
 				.getLinetransportInfo(linetransportid);// 需要重构，返回一条线路信息
 		mv.addObject("linetransportInfo", linetransportInfo);
-		String userId = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute(Constant.USER_ID);
 		List focusList = focusService.getFocusList(userId,"linetransport");
 		mv.addObject("focusList", focusList);
 		if (flag == 0) {
@@ -214,7 +215,7 @@ public class LinetransportController {
 			@RequestParam float refPrice,// 缺少详细报价参数
 			@RequestParam String remarks, HttpServletRequest request,
 			HttpServletResponse response) {
-		String carrierId = (String) request.getSession().getAttribute("userId");
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		// ////////////////////////////////////////////////////////////////////////
 
 		String path = null;
@@ -273,7 +274,7 @@ public class LinetransportController {
 			@RequestParam float refPrice,// 缺少详细报价参数
 			@RequestParam String remarks, HttpServletRequest request,
 			HttpServletResponse response) {
-		String carrierId = (String) request.getSession().getAttribute("userId");
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		//////////////////////////////////////////////
 		String path = null;
 		String fileName = null;

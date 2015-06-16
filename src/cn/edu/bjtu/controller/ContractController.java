@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.service.ContractService;
+import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.DownloadFile;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carrierinfo;
@@ -53,7 +54,7 @@ public class ContractController {
 	 * @return
 	 */
 	public ModelAndView getCompanyContractForUser(HttpServletRequest request) {
-		String clientId=(String)request.getSession().getAttribute("userId");
+		String clientId=(String)request.getSession().getAttribute(Constant.USER_ID);
 		//String carrierId = "C-0002";
 		List<Contract> contractList = contractService.getContractByClientId(clientId);
 		mv.addObject("contractList", contractList);
@@ -74,7 +75,7 @@ public class ContractController {
 	 * @return
 	 */
 	public ModelAndView getCompanyContractForCompany(HttpServletRequest request) {
-		String carrierId=(String)request.getSession().getAttribute("userId");
+		String carrierId=(String)request.getSession().getAttribute(Constant.USER_ID);
 		//String carrierId = "C-0002";
 		List contractList = contractService.getCompanyContract(carrierId);
 		mv.addObject("contractList", contractList);
@@ -94,7 +95,7 @@ public class ContractController {
 	 */
 	public ModelAndView getContractInfo(@RequestParam String contractId,
 			@RequestParam int flag, HttpServletRequest request) {
-		String carrierId=(String)request.getSession().getAttribute("userId");
+		String carrierId=(String)request.getSession().getAttribute(Constant.USER_ID);
 		//String carrierId = "C-0002";
 		Contract contract = contractService.getContractInfo(contractId);
 		mv.addObject("contract", contract);
@@ -157,7 +158,7 @@ public class ContractController {
 			@RequestParam String remarks,
 			@RequestParam(required=false) String monthlyStatementDays, 
 			HttpServletRequest request,	HttpServletResponse response) {
-		String clientId=(String)request.getSession().getAttribute("userId");
+		String clientId=(String)request.getSession().getAttribute(Constant.USER_ID);
 
 		String path = null;
 		String fileName = null;
@@ -248,7 +249,7 @@ public class ContractController {
 		
 		if(flag==1){//需求方
 
-		String clientId=(String)request.getSession().getAttribute("userId");
+		String clientId=(String)request.getSession().getAttribute(Constant.USER_ID);
 		//String carrierId = "C-0002";
 		List contractList = contractService.getFindContract(clientId, startDate, endDate, name, Display, PageNow);
 		mv.addObject("contractList", contractList);
@@ -265,7 +266,7 @@ public class ContractController {
 		}
 		if(flag==2){//承运方
 
-			String carrierId=(String)request.getSession().getAttribute("userId");
+			String carrierId=(String)request.getSession().getAttribute(Constant.USER_ID);
 			//String carrierId = "C-0002";
 			List contractList = contractService.getFindContract2(carrierId, startDate, endDate, name, Display, PageNow);
 			mv.addObject("contractList", contractList);
@@ -302,7 +303,7 @@ public class ContractController {
 	@RequestMapping(value = "confirmcontract", method = RequestMethod.POST)
 	public ModelAndView confirmContract(@RequestParam String id,// GET方式传入，在action中
 			HttpServletRequest request, HttpServletResponse response) {
-		String userId=(String)request.getSession().getAttribute("userId");
+		String userId=(String)request.getSession().getAttribute(Constant.USER_ID);
 		boolean flag = contractService.changeStatus(id);
 		try {
 			if (flag == true)

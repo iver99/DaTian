@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.RegisterService;
 import cn.edu.bjtu.service.SubAccountService;
+import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.Encrypt;
 import cn.edu.bjtu.vo.SubAccount;
 
@@ -37,7 +38,7 @@ public class SubAccountController {
 	@RequestMapping("getsubaccount")
 	public ModelAndView getSubAccount(HttpServletRequest request,HttpServletResponse response)
 	{
-		String userId=(String)request.getSession().getAttribute("userId");
+		String userId=(String)request.getSession().getAttribute(Constant.USER_ID);
 		List subAccountList = subAccountService.getSubAccount(userId);
 		mv.addObject("subAccountList", subAccountList);
 		mv.setViewName("mgmt_a_subaccount");
@@ -55,7 +56,7 @@ public class SubAccountController {
 			@RequestParam String username,
 			HttpServletRequest request,HttpServletResponse response){
 		
-		String userId=(String)request.getSession().getAttribute("userId");
+		String userId=(String)request.getSession().getAttribute(Constant.USER_ID);
 
 		List subAccountList = subAccountService.getFindSubAccount(userId, username);
 		mv.addObject("subAccountList", subAccountList);
@@ -75,7 +76,7 @@ public class SubAccountController {
 			@RequestParam String id,
 			HttpServletRequest request,HttpServletResponse response){
 		
-		String userId=(String)request.getSession().getAttribute("userId");
+		String userId=(String)request.getSession().getAttribute(Constant.USER_ID);
 
 		SubAccount subAccount = subAccountService.getSubAccountDetail(id);
 		mv.addObject("subAccount", subAccount);
@@ -95,7 +96,7 @@ public class SubAccountController {
 			@RequestParam String id,
 			HttpServletRequest request,HttpServletResponse response){
 		
-		String userId=(String)request.getSession().getAttribute("userId");
+		String userId=(String)request.getSession().getAttribute(Constant.USER_ID);
 		boolean flag = subAccountService.changeStatus(id);
 		try {
 			if (flag == true)
@@ -124,7 +125,7 @@ public class SubAccountController {
 			@RequestParam String id,
 			HttpServletRequest request,HttpServletResponse response){
 		
-		String userId=(String)request.getSession().getAttribute("userId");
+		String userId=(String)request.getSession().getAttribute(Constant.USER_ID);
 		boolean flag = subAccountService.deleteSubAccount(id);
 		try {
 			if (flag == true)
@@ -151,7 +152,7 @@ public class SubAccountController {
 	public ModelAndView addSubAccount(
 			HttpServletRequest request,HttpServletResponse response){
 		
-		String userId=(String)request.getSession().getAttribute("userId");
+		String userId=(String)request.getSession().getAttribute(Constant.USER_ID);
 		String username=(String)request.getSession().getAttribute("username");
 		mv.addObject("username", username);
 		mv.setViewName("mgmt_a_subaccount2");
@@ -182,7 +183,7 @@ public class SubAccountController {
 		@RequestParam String remarks,
 		HttpServletRequest request,HttpServletResponse response){
 		
-		 String hostAccountId=(String)request.getSession().getAttribute("userId");
+		 String hostAccountId=(String)request.getSession().getAttribute(Constant.USER_ID);
 		 String hostAccountName=(String)request.getSession().getAttribute("username");
 			
 			
@@ -223,7 +224,7 @@ public class SubAccountController {
 	 			@RequestParam String id,
 				HttpServletRequest request,HttpServletResponse response){
 			
-			String userId=(String)request.getSession().getAttribute("userId");
+			String userId=(String)request.getSession().getAttribute(Constant.USER_ID);
 			System.out.println("已经进入subaccount控制器");
 
 			SubAccount subAccount = subAccountService.getSubAccountDetail(id);

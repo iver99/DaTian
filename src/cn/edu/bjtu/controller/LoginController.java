@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import cn.edu.bjtu.service.ComplaintService;
 import cn.edu.bjtu.service.FocusService;
 import cn.edu.bjtu.service.LoginService;
+import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.Encrypt;
 import cn.edu.bjtu.vo.Userinfo;
 
@@ -114,7 +115,7 @@ public class LoginController {
 	@RequestMapping("focusNum")
 	public String focusNum(
 			HttpSession session,HttpServletResponse response) throws Exception{
-		String userId = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute(Constant.USER_ID);
 		List focusList = focusService.getFocusList(userId,"");
 		int num = focusList.size();
 		response.setContentType("text/html;charset=UTF-8");

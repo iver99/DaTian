@@ -21,11 +21,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.bean.search.CityLineSearchBean;
-import cn.edu.bjtu.bean.search.LinetransportSearchBean;
 import cn.edu.bjtu.service.CitylineService;
 import cn.edu.bjtu.service.CommentService;
 import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.service.FocusService;
+import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.DownloadFile;
 import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.util.UploadPath;
@@ -104,7 +104,7 @@ public class CitylineController {
 	public ModelAndView getUserCityline(@RequestParam int flag,
 			HttpServletRequest request) {
 		// 这里用session取id
-		String carrierId = (String) request.getSession().getAttribute("userId");
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		// String carrierId = "C-0002";// 删除
 		List citylineList = citylineService.getCompanyCityline(carrierId);
 		mv.addObject("citylineList", citylineList);
@@ -126,7 +126,7 @@ public class CitylineController {
 			@RequestParam("flag") int flag,
 			HttpServletRequest request) {
 		Cityline citylineInfo = citylineService.getCitylineInfo(citylineId); // 需要重构,返回一条具体的线路不是list
-		String clientId = (String) request.getSession().getAttribute("userId");
+		String clientId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		List focusList = focusService.getFocusList(clientId,"cityline");
 		mv.addObject("focusList", focusList);
 		mv.addObject("citylineInfo", citylineInfo);
@@ -201,7 +201,7 @@ public class CitylineController {
 			@RequestParam String remarks,
 			@RequestParam(required = false) String VIPDetail,
 			HttpServletRequest request, HttpServletResponse response) {
-		String carrierId = (String) request.getSession().getAttribute("userId");
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		// carrierId = "C-0002";// 删除
 		/*
 		 * boolean flag = linetransportService.insertLine(lineName, startPlace,
@@ -266,7 +266,7 @@ public class CitylineController {
 			HttpServletRequest request, HttpServletResponse response) {
 
 		// 此处获取session里的carrierid，下面方法增加一个参数
-		String carrierId = (String) request.getSession().getAttribute("userId");
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		// String carrierId = "C-0002";// 删除
 
 		// ////////////////////////////////////////////

@@ -24,6 +24,7 @@ import cn.edu.bjtu.service.CommentService;
 import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.service.FocusService;
 import cn.edu.bjtu.service.WarehouseService;
+import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.DownloadFile;
 import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.util.UploadPath;
@@ -90,7 +91,7 @@ public class WarehouseController {
 	 */
 	@RequestMapping(value="/warehouse",params="flag=1")
 	public ModelAndView getMyInfoWarehouse(HttpServletRequest request){
-		String carrierId=(String)request.getSession().getAttribute("userId");
+		String carrierId=(String)request.getSession().getAttribute(Constant.USER_ID);
 		// carrierId = "C-0002";// 需要删除
 		List warehouseList = warehouseService
 				.getCompanyWarehouse(carrierId);
@@ -113,7 +114,7 @@ public class WarehouseController {
 			HttpServletRequest request) {
 		Warehouse warehouseInfo = warehouseService
 				.getWarehouseInfo(warehouseid);
-		String clientId = (String) request.getSession().getAttribute("userId");
+		String clientId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		List focusList = focusService.getFocusList(clientId,"warehouse");
 		mv.addObject("focusList", focusList);
 		mv.addObject("warehouseInfo", warehouseInfo);
@@ -281,7 +282,7 @@ public class WarehouseController {
 			HttpServletResponse response) {
 		// 此处获取session里的carrierid，下面方法增加一个参数
 		// String
-		String carrierId=(String)request.getSession().getAttribute("userId");
+		String carrierId=(String)request.getSession().getAttribute(Constant.USER_ID);
 		
 		String path = null;
 		String fileName = null;
@@ -367,7 +368,7 @@ public class WarehouseController {
 
 		// 此处获取session里的carrierid，下面方法增加一个参数
 		// String
-		String carrierId=(String)request.getSession().getAttribute("userId");
+		String carrierId=(String)request.getSession().getAttribute(Constant.USER_ID);
 
 		String path = null;
 		String fileName = null;
@@ -419,7 +420,7 @@ public class WarehouseController {
 		System.out.println("进入删除控制器");
 		System.out.println(id);
 		// 此处获取session里的carrierid，下面方法增加一个参数
-		//String carrierId=(String)request.getSession().getAttribute("userId");
+		//String carrierId=(String)request.getSession().getAttribute(Constant.USER_ID);
 		// String carrierId = "C-0002";// 删除
 		boolean flag = warehouseService.deleteWarehouse(id);
 		if (flag == true) {

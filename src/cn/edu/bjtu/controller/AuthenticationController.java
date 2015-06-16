@@ -67,7 +67,7 @@ public class AuthenticationController {
 			@RequestParam(required=false) String feedback,
 			@RequestParam int flag, HttpServletRequest request,
 			HttpServletResponse response) {
-		// String carrierId=(String)request.getSession().getAttribute("userId");
+		// String carrierId=(String)request.getSession().getAttribute(Constant.USER_ID);
 		// String carrierId = "C-0002";
 		Clientinfo clientinfo = authenticationService
 				.getAuthenticationInfo(clientId);

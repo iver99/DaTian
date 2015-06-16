@@ -20,10 +20,10 @@ import org.springframework.web.servlet.ModelAndView;
 import cn.edu.bjtu.bean.page.ComplaintBean;
 import cn.edu.bjtu.service.ComplaintService;
 import cn.edu.bjtu.service.OrderService;
+import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.DownloadFile;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Complaintform;
-import cn.edu.bjtu.vo.OrderCarrierView;
 import cn.edu.bjtu.vo.Orderform;
 
 @Controller
@@ -46,7 +46,7 @@ public class ComplaintController {
 	@RequestMapping("/mycomplaint")
 	public ModelAndView getUserComplaint(HttpServletRequest request,
 			HttpServletResponse response) {
-		String userId = (String) request.getSession().getAttribute("userId");
+		String userId = (String) request.getSession().getAttribute(Constant.USER_ID);
 
 		List compliantList = complaintService.getUserCompliant(userId);
 		mv.addObject("compliantList", compliantList);
@@ -95,7 +95,7 @@ public class ComplaintController {
 			@RequestParam(required = false) MultipartFile file,
 			ComplaintBean complaintBean, HttpServletRequest request,
 			HttpServletResponse response) {
-		String carrierId = (String) request.getSession().getAttribute("userId");
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
 
 		String path = null;
 		String fileName = null;
@@ -135,7 +135,7 @@ public class ComplaintController {
 	 * @return
 	 */
 	public ModelAndView getAllUserComplaint(HttpSession session) {
-		String userId = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute(Constant.USER_ID);
 		// add by RussWest0 at 2015年5月30日,上午10:40:43
 		if (userId == null) {// 未登录
 			mv.setViewName("adminLogin");
@@ -214,7 +214,7 @@ public class ComplaintController {
 			@RequestParam int flag, HttpServletRequest request,
 			HttpServletResponse response) {
 
-		String clientId = (String) request.getSession().getAttribute("userId");
+		String clientId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		if (flag == 0) {// 后台管理的搜索
 			List complaintList = complaintService.getFindComplaint(theme, flag,
 					clientId);

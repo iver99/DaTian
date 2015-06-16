@@ -20,9 +20,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.bean.search.CargoSearchBean;
-import cn.edu.bjtu.bean.search.WarehouseSearchBean;
 import cn.edu.bjtu.service.FocusService;
 import cn.edu.bjtu.service.GoodsInfoService;
+import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.DownloadFile;
 import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.util.UploadPath;
@@ -167,7 +167,7 @@ public class GoodsInfoController {
 			HttpServletResponse response) {
 		System.out.println("进入货物控制器");
 
-		String clientId = (String) request.getSession().getAttribute("userId");
+		String clientId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		String path = null;
 		String fileName = null;
 		if (file.getSize() != 0)// 有上传文件的情况
@@ -209,7 +209,7 @@ public class GoodsInfoController {
 	 */
 	public ModelAndView getAllResponse(HttpServletRequest request,
 			HttpServletResponse response) {
-		String userId = (String) request.getSession().getAttribute("userId");
+		String userId = (String) request.getSession().getAttribute(Constant.USER_ID);
 
 		List responseList = goodsInfoService.getAllResponse(userId);
 		//responseList中的id是goodsid
@@ -242,7 +242,7 @@ public class GoodsInfoController {
 	public ModelAndView commitResponse(MultipartFile file,String goodsid, String remarks,
 			HttpServletRequest request, HttpServletResponse response) {
 
-		String carrierId = (String) request.getSession().getAttribute("userId");
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		String path = null;
 		String fileName = null;
 		if (file.getSize() != 0)// 有上传文件的情况
@@ -276,7 +276,7 @@ public class GoodsInfoController {
 	public ModelAndView myGoodsDetail(@RequestParam String id,
 			@RequestParam int flag, HttpServletRequest request,
 			HttpServletResponse response) {
-		String clientId = (String) request.getSession().getAttribute("userId");
+		String clientId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		GoodsClientView goodsformInfo = goodsInfoService.getAllGoodsDetail(id);
 		mv.addObject("goodsdetail", goodsformInfo);
 
@@ -306,7 +306,7 @@ public class GoodsInfoController {
 			@RequestParam String remarks, HttpServletRequest request,
 			HttpServletResponse response) {
 
-		String clientId = (String) request.getSession().getAttribute("userId");
+		String clientId = (String) request.getSession().getAttribute(Constant.USER_ID);
 
 		String path = null;
 		String fileName = null;

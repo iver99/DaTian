@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.ClientSecurityService;
+import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.Encrypt;
 import cn.edu.bjtu.vo.Userinfo;
 
@@ -30,7 +31,7 @@ public class ClientSecurityController {
 	 * @return
 	 */
 	public ModelAndView getMySercurityPage(HttpSession session) {
-		String userId = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute(Constant.USER_ID);
 		Userinfo userinfo = clientSecurityService.getUserById(userId);
 		mv.addObject("userinfo", userinfo);
 		mv.setViewName("mgmt_a_security");
@@ -55,7 +56,7 @@ public class ClientSecurityController {
 	 */
 	public ModelAndView changePassword(HttpSession session, String oldPassword,
 			String newPassword, String repeatPassword) {
-		String userId = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute(Constant.USER_ID);
 		boolean flag = false;
 		String psw_old = Encrypt.MD5(oldPassword);//add by RussWest0 at 2015年6月7日,上午11:21:01 
 		flag = clientSecurityService.checkOldPassword(psw_old, userId);
@@ -102,7 +103,7 @@ public class ClientSecurityController {
 	@RequestMapping("bindemail")
 	public ModelAndView bindEmail(HttpSession session, String email,
 			HttpServletRequest request, HttpServletResponse response) {
-		String userId = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute(Constant.USER_ID);
 		boolean flag = clientSecurityService.bindEmail(email, userId);
 		if (flag == true) {
 			try {
@@ -132,7 +133,7 @@ public class ClientSecurityController {
 	 * @return
 	 */
 	public ModelAndView gotoChangeEmailPage(HttpSession session) {
-		String userId = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute(Constant.USER_ID);
 		Userinfo userinfo = clientSecurityService.getUserById(userId);
 		String email = userinfo.getEmail();
 		mv.addObject("email", email);
@@ -143,7 +144,7 @@ public class ClientSecurityController {
 	@RequestMapping("changebindemail")
 	public ModelAndView changeBindEmail(HttpSession session, String newEmail,
 			HttpServletRequest request, HttpServletResponse response) {
-		String userId = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute(Constant.USER_ID);
 		boolean flag = false;
 		flag = clientSecurityService.changeBindEmail(newEmail, userId);
 		if (flag == true) {
@@ -180,7 +181,7 @@ public class ClientSecurityController {
 	@RequestMapping("getchangequestionpage")
 	public ModelAndView gotoChangeSecurityQuestionPage(HttpSession session)
 	{
-		String userId=(String )session.getAttribute("userId");
+		String userId=(String )session.getAttribute(Constant.USER_ID);
 		Userinfo userinfo=clientSecurityService.getUserById(userId);
 		
 		mv.addObject("userinfo", userinfo);
@@ -191,7 +192,7 @@ public class ClientSecurityController {
 	public ModelAndView setSecurityQuestion(String question1,String question2,String question3,
 			String answer1,String answer2,String answer3,HttpSession session)
 	{
-		String userId=(String )session.getAttribute("userId");
+		String userId=(String )session.getAttribute(Constant.USER_ID);
 		boolean flag=clientSecurityService.setSecurityQuestion(question1,question2,question3,answer1,answer2,answer3,userId);
 		if(flag== true)
 		{
@@ -213,7 +214,7 @@ public class ClientSecurityController {
 	@RequestMapping("checkanswer")
 	public ModelAndView checkSecurityQuestion(String answer1,String answer2,String answer3,HttpSession session)
 	{
-		String userId=(String )session.getAttribute("userId");
+		String userId=(String )session.getAttribute(Constant.USER_ID);
 		boolean flag=clientSecurityService.checkAnswer(answer1,answer2,answer3,userId);
 		if(flag==true)
 		{

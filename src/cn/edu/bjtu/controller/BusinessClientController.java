@@ -1,9 +1,7 @@
 package cn.edu.bjtu.controller;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -18,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.ClientService;
+import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.DownloadFile;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Businessclient;
@@ -43,7 +42,7 @@ public class BusinessClientController {
 	 * @return
 	 */
 	public ModelAndView getCompanyClient(HttpServletRequest request) {
-		String carrierId = (String) request.getSession().getAttribute("userId");
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		// String carrierId = "C-0002";// 删除
 		List clientList = clientService.getCompanyClient(carrierId);// 获取businessclient，不是user
 																	// client
@@ -91,7 +90,7 @@ public class BusinessClientController {
 			@RequestParam String clientBusiness, @RequestParam String contact,
 			@RequestParam String phone, @RequestParam String remarks,
 			HttpServletRequest request, HttpServletResponse response) {
-		String carrierId = (String) request.getSession().getAttribute("userId");
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
 
 		String path = null;
 		String fileName = null;
@@ -148,7 +147,7 @@ public class BusinessClientController {
 			@RequestParam String clientBusiness, @RequestParam String contact,
 			@RequestParam String phone, @RequestParam String remarks,
 			HttpServletRequest request, HttpServletResponse response) {
-		String carrierId = (String) request.getSession().getAttribute("userId");
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		// String carrierId = "C-0002";// 删除
 
 		String path = null;

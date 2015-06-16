@@ -27,6 +27,7 @@ import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.service.DriverService;
 import cn.edu.bjtu.service.FocusService;
 import cn.edu.bjtu.service.LinetransportService;
+import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.DownloadFile;
 import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.util.UploadPath;
@@ -126,7 +127,7 @@ public class CarController {
 			@RequestParam("flag") int flag, HttpServletRequest request) {
 		Carinfo carInfo = carService.getCarInfo(carId);// 车辆信息
 		mv.addObject("carInfo", carInfo);
-		String clientId = (String) request.getSession().getAttribute("userId");
+		String clientId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		List focusList = focusService.getFocusList(clientId,"car");
 		Linetransport line = linetransportService
 				.getLinetransportInfo(linetransportId);// 干线信息
@@ -293,7 +294,7 @@ public class CarController {
 			@RequestParam String storage, @RequestParam String startPlace,
 			@RequestParam String endPlace, @RequestParam String stopPlace,
 			HttpServletRequest request,	HttpServletResponse response) {
-		String carrierId = (String) request.getSession().getAttribute("userId");
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		boolean flag = carService.insertCar(carNum, carTeam, locationType, terminalId,
 				carBase, carBrand, carType, carUse, carLength, carWidth,
 				carHeight, carWeight, driverId, purchaseTime, storage,
@@ -334,7 +335,7 @@ public class CarController {
 			@RequestParam String licenceTime,
 
 			HttpServletRequest request, HttpServletResponse response) {
-		String carrierId = (String) request.getSession().getAttribute("userId");
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		// String carrierId = "C-0002";// 删除
 		// ////////////////////////////////////////////////////////////////////////
 
@@ -414,7 +415,7 @@ public class CarController {
 			HttpServletRequest request, HttpServletResponse response) {
 
 		// 此处获取session里的carrierid，下面方法增加一个参数
-		String carrierId = (String) request.getSession().getAttribute("userId");
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		// String carrierId = "C-0002";// 删除
 
 		boolean flag = carService.updateCar(id, carNum, carTeam, locType,
@@ -460,7 +461,7 @@ public class CarController {
 			@RequestParam String licenceRate, @RequestParam String licenceTime,
 			@RequestParam String phone, HttpServletRequest request,
 			HttpServletResponse response) {
-		String carrierId = (String) request.getSession().getAttribute("userId");
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		// String carrierId = "C-0002";// 删除
 
 		// ////////////////////////////////////////////////////////////////////////
@@ -549,7 +550,7 @@ public class CarController {
 			HttpServletResponse response) {
 		// 从session里取出id查询
 		// 这里用session取id
-		String carrierId = (String) request.getSession().getAttribute("userId");
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		// String carrierId = "C-0002";// 删除
 		List carteamList = carTeamService.getCarteam(carrierId);
 		mv.addObject("carteamList", carteamList);
@@ -585,7 +586,7 @@ public class CarController {
 			@RequestParam String carCount, @RequestParam String chief,
 			@RequestParam String phone, @RequestParam String explaination,
 			HttpServletRequest request, HttpServletResponse response) {
-		String carrierId = (String) request.getSession().getAttribute("userId");
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		boolean flag = carTeamService.insertCarteam(teamName, carCount, chief,
 				phone, explaination, carrierId);
 		// boolean flag=true;
