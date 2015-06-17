@@ -302,15 +302,23 @@ function getSelectedCargoAjax(startPlace,endPlace,transportType,weight,transport
 			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].transportType+"</td>");
 			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].limitDate+"</td>");
 			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].weight+"</td>");
-			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].relDate+"</td>");
-			$("#testbody").append("<td class=\"td_main_list_content\">");
-			$("#testbody").append("</td>");
+			$("#testbody").append("<td class=\"td_main_list_content\">"+renderTime(data[i].relDate)+"</td>");
+			if(data[i].status == "有效")
+				$("#testbody").append("<td class=\"td_main_list_content\"><a href=\"javascript:;\" class=\"a_main_list_handle_icon1b\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('"+data[i].id+"')\"></a></td>");
+			else
+				$("#testbody").append("<td class=\"td_main_list_content\"><a href=\"javascript:;\" class=\"a_main_list_handle_icon1a\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('"+data[i].id+"')\"></a></td>");
 			$("#testbody").append("</tr>");
 			
 			
 		}
 	  },"json");
 }
+
+function renderTime(date){ 
+	var da = new Date(parseInt(date)); 
+	return da.getFullYear()+"-"+ (da.getMonth()+1)+"-" +da.getDate(); 
+} 
+
 //获取筛选货物记录总条数
 function getSelectedCargoTotalRows(startPlace,endPlace,transportType,weight,transportReq,display,currentPage){
 	var url="getSelectedCargoTotalRowsAjax";

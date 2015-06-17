@@ -101,7 +101,7 @@
                         	<div class="div_mgmt_index4">
                                 <ul class="ul_mgmt_index">
                                 	<li class="li_mgmt_index1">
-                                    	待发货<br />
+                                    	待受理<br />
                                         <a href="javascript:;" hidefocus="true" ><img class="transaction_info" src="images/btn_mgmt1.png" ></img><!-- <br />12 --></a>
                                     </li>
                                 	<li class="li_mgmt_index1">
@@ -171,14 +171,14 @@
 				alert(data);
 				var transaction_info=data.split("-");
 				for(var i=0;i<transaction_info.length;i++){
-					alert(transaction_info[i]);
+					//alert(transaction_info[i]);
 					//$('#transaction_info'+i+1).html(transaction_info[i]);
 				}
-				$('#transaction_info1').text("iver0");
+				/* $('#transaction_info1').text("iver0");
 				$('#transaction_info1').html("iver0");
 				$('#transaction_info1').append("iver0");
 				//$('#iver99').append("iver0");
-				$('img.transaction_info').append("iver0");
+				$('img.transaction_info').append("iver0"); */
 				
 				
 			}

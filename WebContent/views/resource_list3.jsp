@@ -518,15 +518,23 @@ function getSelectedCarAjax(startPlace,endPlace,carBase,carLength,carWeight,disp
 			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].carLength+"</td>");
 			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].carWeight+"</td>");
 			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].carLocation+"</td>");
-			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].relDate+"</td>");
-			$("#testbody").append("<td class=\"td_main_list_content\">");
-			$("#testbody").append("</td>");
+			$("#testbody").append("<td class=\"td_main_list_content\">"+renderTime(data[i].relDate)+"</td>");
+			if(data[i].status == "有效")
+				$("#testbody").append("<td class=\"td_main_list_content\"><a href=\"javascript:;\" class=\"a_main_list_handle_icon1b\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('"+data[i].id+"')\"></a></td>");
+			else
+				$("#testbody").append("<td class=\"td_main_list_content\"><a href=\"javascript:;\" class=\"a_main_list_handle_icon1a\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('"+data[i].id+"')\"></a></td>");
 			$("#testbody").append("</tr>");
 			
 			
 		}
 	  },"json");
 }
+
+function renderTime(date){ 
+	var da = new Date(parseInt(date)); 
+	return da.getFullYear()+"-"+ (da.getMonth()+1)+"-" +da.getDate(); 
+} 
+
 //获取所有车辆筛选的总条数
 function getSelectedCarTotalRows(startPlace,endPlace,carBase,carLength,carWeight,display,currentPage){
 	var url="getSelectedCarTotalRowsAjax";

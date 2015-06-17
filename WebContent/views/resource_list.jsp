@@ -282,19 +282,30 @@ function getSelectedLineAjax(startPlace,
 			  //alert(data);
 			  $("#testbody").empty();
 		for(var i=0; i<data.length; i++) {
+			//alert(data[i]);
 			$("#testbody").append("<tr>");
 			$("#testbody").append("<td class=\"td_main_list_content\"></td>");
 			$("#testbody").append("<td class=\"td_main_list_content\"><a href=\"linetransportdetail?linetransportid="+data[i].id+"&carrierId="+data[i].carrierId+"&linetransportId="+data[i].carrierid+"&flag=0\" hidefocus=\"true\">"+data[i].startPlace+"→"+data[i].endPlace+"</a><br /><a style=\"color:#717071;\" href=\"companyDetail?id="+data[i].carrierId+"\" hidefocus=\"true\">"+data[i].companyName+"<img src=\"images/btn_level1a.png\" /></a></td>");
 			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].refPrice+"</td>");
 			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].transportType+"</td>");
 			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].onWayTime+"</td>");
-			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].relDate+"</td>");
-			$("#testbody").append("<td class=\"td_main_list_content\">");
-			$("#testbody").append("</td>");
+			$("#testbody").append("<td class=\"td_main_list_content\">"+renderTime(data[i].relDate)+"</td>");
+			if(data[i].status == "有效")
+				$("#testbody").append("<td class=\"td_main_list_content\"><a href=\"javascript:;\" class=\"a_main_list_handle_icon1b\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('"+data[i].id+"')\"></a></td>");
+			else
+				$("#testbody").append("<td class=\"td_main_list_content\"><a href=\"javascript:;\" class=\"a_main_list_handle_icon1a\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('"+data[i].id+"')\"></a></td>");
+			/* $("#testbody").append("</td>"); */
 			$("#testbody").append("</tr>");
 		}
 	  },"json");
 }
+
+//时间转换
+function renderTime(date){ 
+	var da = new Date(parseInt(date)); 
+	return da.getFullYear()+"-"+ (da.getMonth()+1)+"-" +da.getDate(); 
+} 
+
 //获取所有干线筛选的总条数
 function getSelectedLineTotalRowsAjax(startPlace,
 		endPlace,
