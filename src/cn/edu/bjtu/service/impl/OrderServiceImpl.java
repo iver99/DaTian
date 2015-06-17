@@ -1,14 +1,18 @@
 package cn.edu.bjtu.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.OrderDao;
 import cn.edu.bjtu.service.OrderService;
+import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.vo.OrderCarrierView;
 import cn.edu.bjtu.vo.Orderform;
@@ -201,6 +205,74 @@ public class OrderServiceImpl implements OrderService {
 				resourceType,companyName,clientName);
 
 	}
+
+	/**
+	 * 返回用户待受理订单数
+	 */
+	@Override
+	public Long getUserWaitToAcceptNum(HttpSession session) {
+		Map<String,Object> params=new HashMap<String,Object>();
+		String hql="from Orderform t "+whereSql(session,params)+" and t.state='待受理'";
+		Long count= orderDao.count(hql, params);
+		return count==null?0L:count;
+		
+	}
+
+	/**
+	 * 返回用户待接收订单数
+	 */
+	@Override
+	public Long getUserWaitToReceiveNum(HttpSession session) {
+		Map<String,Object> params=new HashMap<String,Object>();
+		String hql="from Orderform t "+whereSql(session,params)+" and t.state='待收货'";
+		Long count =orderDao.count(hql, params);
+		return count==null?0L:count;
+	}
+
+	/**
+	 * 返回用户待结算订单数
+	 */
+	@Override
+	public Long getUserWaitToSettleNum(HttpSession session) {
+		/*String hql="from Orderform t where t.state=''";
+		Map<String,Object> params=new HashMap<String,Object>();
+		return orderDao.count(hql+whereSql(session,params), params);*/
+		return 0L;
+	}
+
+	/**
+	 * 返回用户已完成订单数
+	 */
+	@Override
+	public Long finishedNum(HttpSession session) {
+		Map<String,Object> params=new HashMap<String,Object>();
+		String hql="from Orderform t "+whereSql(session,params)+" and  t.state='已完成'";
+		Long count =orderDao.count(hql, params);
+		return count==null?0L:count;
+	}
+	
+	/**
+	 * where sql 
+	 * @param session
+	 * @param params
+	 * @return
+	 */
+	private String whereSql(HttpSession session,Map<String,Object> params){
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+		Integer userKind=(Integer)session.getAttribute(Constant.USER_KIND);
+		String wheresql=" where 1=1 ";
+		if(userKind==2){//个人用户
+			wheresql+=" and t.clientId=:clientId ";
+			params.put("clientId", userId);
+		}else if(userKind==3){//企业用户
+			wheresql+=" and t.carrierId=:carrierId ";
+			params.put("carrierId", userId);
+		}
+		
+		return wheresql;
+		
+	}
+	
 	
 
 }

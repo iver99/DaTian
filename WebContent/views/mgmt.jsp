@@ -102,19 +102,19 @@
                                 <ul class="ul_mgmt_index">
                                 	<li class="li_mgmt_index1">
                                     	待发货<br />
-                                        <a href="javascript:;" hidefocus="true"><img src="images/btn_mgmt1.png" /><br />12</a>
+                                        <a href="javascript:;" hidefocus="true" ><img class="transaction_info" src="images/btn_mgmt1.png" ></img><!-- <br />12 --></a>
                                     </li>
                                 	<li class="li_mgmt_index1">
                                     	待收货<br />
-                                        <a href="javascript:;" hidefocus="true"><img src="images/btn_mgmt2.png" /><br />12</a>
+                                        <a href="javascript:;" hidefocus="true"><img src="images/btn_mgmt2.png" id="transaction_info2"></img><!-- <br />12 --></a>
                                     </li>
                                 	<li class="li_mgmt_index1">
                                     	待结算<br />
-                                        <a href="javascript:;" hidefocus="true"><img src="images/btn_mgmt3.png" /><br />12</a>
+                                        <a href="javascript:;" hidefocus="true"><img src="images/btn_mgmt3.png" id="transaction_info3"></img><!-- <br />12 --></a>
                                     </li>
                                 	<li class="li_mgmt_index2">
                                     	已完成<br />
-                                        <a href="javascript:;" hidefocus="true"><img src="images/btn_mgmt4.png" /><br />12</a>
+                                        <a href="javascript:;" hidefocus="true"><img src="images/btn_mgmt4.png" id="transaction_info4"></img><!-- <br />12 --></a>
                                     </li>
                                 </ul>
                             </div>
@@ -156,5 +156,33 @@
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
+		//获取我的信息-主页面下的交易信息
+		getTransactionInfo();
+		
+	}
+	
+	//获取我的信息-主页面下的交易信息
+	function getTransactionInfo(){
+		var url="getUserTransactionInfoAjax";
+		$.ajax({
+			url:url,
+			type:"GET",
+			success:function(data){
+				alert(data);
+				var transaction_info=data.split("-");
+				for(var i=0;i<transaction_info.length;i++){
+					alert(transaction_info[i]);
+					//$('#transaction_info'+i+1).html(transaction_info[i]);
+				}
+				$('#transaction_info1').text("iver0");
+				$('#transaction_info1').html("iver0");
+				$('#transaction_info1').append("iver0");
+				//$('#iver99').append("iver0");
+				$('img.transaction_info').append("iver0");
+				
+				
+			}
+		})
+		
 	}
 </script>

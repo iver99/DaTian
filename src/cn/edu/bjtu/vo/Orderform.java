@@ -20,7 +20,7 @@ public class Orderform implements java.io.Serializable {
 	private Float expectedPrice;
 	private Float actualPrice;
 	private Date submitTime;
-	private String state;
+	private String state;//¶©µ¥×´Ì¬
 	private String deliveryAddr;
 	private String deliveryName;
 	private String deliveryPhone;

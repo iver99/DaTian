@@ -2,9 +2,10 @@ package cn.edu.bjtu.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import cn.edu.bjtu.vo.OrderCarrierView;
 import cn.edu.bjtu.vo.Orderform;
-import cn.edu.bjtu.vo.Track;
 
 public interface OrderService {
 
@@ -82,5 +83,33 @@ public interface OrderService {
 			String resourceName, String resourceType,String companyName,String clientName);
 
 	public List getCargoTrack(String orderNum, String carNum);
+	
+	/**
+	 * 返回用户待受理订单数
+	 * @param session
+	 * @return
+	 */
+	public Long getUserWaitToAcceptNum(HttpSession session);
+	
+	/**
+	 * 返回用户待收货订单数
+	 * @param session
+	 * @return
+	 */
+	public Long getUserWaitToReceiveNum(HttpSession session);
+	
+	/**
+	 * 返回用户待结算数目 
+	 * @param session
+	 * @return
+	 */
+	public Long getUserWaitToSettleNum(HttpSession session);
+	
+	/**
+	 * 返回用户已完成订单数
+	 * @param session
+	 * @return
+	 */
+	public Long finishedNum(HttpSession session);
 
 }

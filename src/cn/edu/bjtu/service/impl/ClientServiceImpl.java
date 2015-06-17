@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,8 @@ import cn.edu.bjtu.dao.BusinessClientDao;
 import cn.edu.bjtu.dao.ClientDao;
 import cn.edu.bjtu.dao.UserinfoDao;
 import cn.edu.bjtu.service.ClientService;
+import cn.edu.bjtu.service.OrderService;
+import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.vo.Businessclient;
 import cn.edu.bjtu.vo.Clientinfo;
@@ -34,6 +37,8 @@ public class ClientServiceImpl implements ClientService{
 	Businessclient businessClient;
 	@Autowired
 	UserinfoDao userinfoDao;
+	@Autowired
+	OrderService orderService;
 	
 	@Override
 	/**
@@ -178,6 +183,29 @@ public class ClientServiceImpl implements ClientService{
 		userinfoDao.update(userinfo);
 		clientDao.update(clientinfo);//更新信息
 		return true;
+	}
+	/**
+	 * 获取我的信息-下方交易信息
+	 */
+	@Override
+	public String getTransactionInfo(HttpSession session) {
+		// TODO Auto-generated method stub
+//		String userId=(String)session.getAttribute(Constant.USER_ID);
+//		String userKind=(String)session.getAttribute(Constant.USER_KIND);
+		//待受理数目
+		Long waitToAcceptNum=orderService.getUserWaitToAcceptNum(session);
+		//待收货数目
+		Long waitToReceiveNum=orderService.getUserWaitToReceiveNum(session);
+		//待结算数目
+		//未完成
+		Long waitToSettleNum=orderService.getUserWaitToSettleNum(session);
+		//已完成数目
+		Long finishedNum=orderService.finishedNum(session);
+		
+		return waitToAcceptNum+"-"+waitToReceiveNum+"-"+waitToSettleNum+"-"+finishedNum;
+		
+		
+		
 	}
 	
 	

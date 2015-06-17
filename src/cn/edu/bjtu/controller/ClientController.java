@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -175,7 +176,6 @@ public class ClientController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			//mv.setViewName("mgmt_a_info");
 			
 		}else{
 			mv.addObject("msg", "更新个人信息失败！");
@@ -185,7 +185,6 @@ public class ClientController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			//mv.setViewName("mgmt_a_info3a");
 		}
 		return mv;
 	}
@@ -204,10 +203,10 @@ public class ClientController {
 		return mv;
 	}
 
-	@RequestMapping(value = "downloaduseridpicture", method = RequestMethod.GET)
 	/**
 	 * 下载idpicture
 	 */
+	@RequestMapping(value = "downloaduseridpicture", method = RequestMethod.GET)
 	public ModelAndView downloadUserIDPicture(@RequestParam String id,// GET方式传入，在action中
 			HttpServletRequest request, HttpServletResponse response) {
 			Clientinfo clientinfo = clientService.getClientInfo(id);
@@ -215,6 +214,19 @@ public class ClientController {
 			DownloadFile.downloadFile(file,request,response);
 		return mv;
 
+	}
+	
+	/**
+	 * 返回我的信息-首页下方交易信息
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("getUserTransactionInfoAjax")
+	public String getUserTransactionInfo(HttpSession session){
+		//待结算未实现
+		String data=clientService.getTransactionInfo(session);
+		return data;
+		
 	}
 	
 }

@@ -176,7 +176,7 @@ public class LinetransportController {
 			jsonArray.add(jsonObject);
 		}
 		//request.setAttribute("count", 66);
-		dataModel.setTotal(66L);
+		//dataModel.setTotal(66L);
 		//return dataModel;
 		return jsonArray.toString();
 	}
