@@ -89,7 +89,7 @@
                         </td>
                     </tr>
                 </table>
-                <form action="createneworder?carrierid=${carrierId }" method="post">
+                <form action="createneworder" method="post">
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
                     <tr><!-- 隐藏字段，用于存储当前用户id -->
                     	<td><input type="hidden" id="currentUserId" name="currentUserId" value="<%=currentUserId %>"/></td>
@@ -123,6 +123,7 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">承运方：</td>
                                     <td><input name="companyName" type="text" readonly="readonly" value="${companyName }" required/></td>
+                                    <td><input name="carrierId" value="${carrierId }" type="hidden"/> </td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">承运方合同：</td>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import cn.edu.bjtu.bean.page.OrderBean;
 import cn.edu.bjtu.vo.OrderCarrierView;
 import cn.edu.bjtu.vo.Orderform;
 
@@ -16,12 +17,6 @@ public interface OrderService {
 	public OrderCarrierView getSendOrderDetail(String id);
 
 	public Orderform getRecieveOrderDetail(String id);
-
-	public boolean insertOrder(String goodsName, String contactWaybill,
-			String deliveryAddr, String recieverAddr, String deliveryName,
-			String deliveryPhone, String recieverName, String recieverPhone,
-			float goodsWeight, float goodsVolume, float expectedPrice,
-			float insurance, float freight, String contractId, String remarks);
 
 	public Orderform getOrderByOrderNum(String orderNum);
 
@@ -39,7 +34,7 @@ public interface OrderService {
 	public boolean confirmCargo(String orderId);
 
 	public boolean cancel(String cancelReason, String orderId);
-
+	@Deprecated
 	public boolean updateOrder(String orderid, String clientName,
 			String hasCarrierContract, String contractId, String goodsName,
 			float goodsWeight, float goodsVolume, float declaredPrice,
@@ -73,6 +68,7 @@ public interface OrderService {
 	 * @param resourceType
 	 * @return
 	 */
+	@Deprecated
 	public boolean createNewOrder(String userId, String hasCarrierContract,
 			String deliveryName, String receiverName, String deliveryPhone,
 			String receiverPhone, String deliveryAddr, String receiverAddr,
@@ -111,5 +107,13 @@ public interface OrderService {
 	 * @return
 	 */
 	public Long finishedNum(HttpSession session);
+	
+	/**
+	 * ÐÂ½¨¶©µ¥
+	 * @param session
+	 * @param orderBean
+	 * @return
+	 */
+	public boolean createOrder(HttpSession session,OrderBean orderBean);
 
 }

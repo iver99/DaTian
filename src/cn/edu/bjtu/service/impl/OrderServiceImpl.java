@@ -1,5 +1,6 @@
 package cn.edu.bjtu.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,9 +8,11 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import cn.edu.bjtu.bean.page.OrderBean;
 import cn.edu.bjtu.dao.OrderDao;
 import cn.edu.bjtu.service.OrderService;
 import cn.edu.bjtu.util.Constant;
@@ -61,34 +64,6 @@ public class OrderServiceImpl implements OrderService {
 		return orderDao.getCargoTrack(orderNum, carNum);
 	}
 
-	@Override
-	public boolean insertOrder(String goodsName, String contactWaybill,
-			String deliveryAddr, String recieverAddr, String deliveryName,
-			String deliveryPhone, String recieverName, String recieverPhone,
-			float goodsWeight, float goodsVolume, float expectedPrice,
-			float insurance, float freight, String contractId, String remarks) {
-		// TODO Auto-generated method stub
-		orderform.setId(IdCreator.createlineTransportId());
-		orderform.setGoodsName(goodsName);
-		// orderform.setContactWaybill(contactWaybill);
-		orderform.setDeliveryAddr(deliveryAddr);
-		orderform.setRecieverAddr(recieverAddr);
-		orderform.setDeliveryName(deliveryName);
-		orderform.setDeliveryPhone(deliveryPhone);
-		orderform.setRecieverName(recieverName);
-		orderform.setRecieverPhone(recieverPhone);
-		orderform.setGoodsWeight(goodsWeight);
-		orderform.setGoodsVolume(goodsVolume);
-		orderform.setExpectedPrice(expectedPrice);
-		orderform.setInsurance(insurance);
-		// orderform.setFreight(freight);
-		orderform.setContractId(contractId);
-		orderform.setRemarks(remarks);
-
-		orderDao.save(orderform);// 保存实体
-		return true;
-
-	}
 
 	@Override
 	public Orderform getOrderByOrderNum(String orderNum) {
@@ -143,6 +118,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
+	@Deprecated
 	public boolean updateOrder(String orderid, String clientName,
 			String hasCarrierContract, String contractId, String goodsName,
 			float goodsWeight, float goodsVolume, float declaredPrice,
@@ -204,6 +180,27 @@ public class OrderServiceImpl implements OrderService {
 				receiverAddr, carrierId, temp[0], clientWayBillNum, resourceName,
 				resourceType,companyName,clientName);
 
+	}
+	
+	
+	/**
+	 * 新建订单
+	 */
+	@Override
+	public boolean createOrder(HttpSession session, OrderBean orderBean) {
+
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+		Orderform orderInstance=new Orderform();
+		BeanUtils.copyProperties(orderBean, orderInstance);
+		orderInstance.setId(IdCreator.createOrderId());
+		orderInstance.setOrderNum(IdCreator.createOrderNum());
+		orderInstance.setState("待受理");
+		orderInstance.setSubmitTime(new Date());
+		orderInstance.setClientId(userId);
+		
+		orderDao.save(orderInstance);
+		
+		return true;
 	}
 
 	/**

@@ -6,36 +6,104 @@ package cn.edu.bjtu.bean.page;
  */
 public class OrderBean {
 
-	/**
-	 * 创建新订单
-	 * @param clientName
-	 * @param hasCarrierContract
-	 * @param senderInfo
-	 * @param receiverInfo
-	 * @param remarks
-	 * @param goodsName
-	 * @param goodsWeight
-	 * @param goodsVolume
-	 * @param declaredPrice
-	 * @param expectedPrice
-	 * @param insurance
-	 * @param contractId
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	private String clientName;
-	private String hasCarrierContract;
-	private String senderInfo;
-	private String receiverInfo;
+	private String id;
+	private String orderNum;
+	private String carrierId;
+	//基本信息
+	private String clientName;//所属客户
+	private String hasCarrierContract;//是否承运方合同
+	private String contractId;//承运方合同
+	private String isLinkToClientWayBill;//是否关联客户运单
+	private String clientWayBillNum;//客户运单号
+	private String resourceName;//资源名称
+	private String companyName;//承运方名称
+	private String resourceType;//资源类型
+	
+	//备注
 	private String remarks;
+	
+	//货物信息
 	private String goodsName;
 	private Float goodsWeight;
 	private Float goodsVolume;
 	private Float declaredPrice;
 	private Float expectedPrice;
 	private Float insurance;
-	private String contractId;
+	//收发货人信息
+	private String deliveryAddr;
+	private String deliveryName;
+	private String deliveryPhone;
+	private String recieverAddr;
+	private String recieverName;
+	private String recieverPhone;
+	
+	//add by RussWest0 at 2015年6月19日,下午10:46:58 
+	// 从货物栏下订单会用到
+	private String goodsId;
+	private String responseId;
+	
+	
+	
+	public String getGoodsId() {
+		return goodsId;
+	}
+	public void setGoodsId(String goodsId) {
+		this.goodsId = goodsId;
+	}
+	public String getResponseId() {
+		return responseId;
+	}
+	public void setResponseId(String responseId) {
+		this.responseId = responseId;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getOrderNum() {
+		return orderNum;
+	}
+	public void setOrderNum(String orderNum) {
+		this.orderNum = orderNum;
+	}
+	public String getCarrierId() {
+		return carrierId;
+	}
+	public void setCarrierId(String carrierId) {
+		this.carrierId = carrierId;
+	}
+	public String getResourceType() {
+		return resourceType;
+	}
+	public void setResourceType(String resourceType) {
+		this.resourceType = resourceType;
+	}
+	public String getIsLinkToClientWayBill() {
+		return isLinkToClientWayBill;
+	}
+	public void setIsLinkToClientWayBill(String isLinkToClientWayBill) {
+		this.isLinkToClientWayBill = isLinkToClientWayBill;
+	}
+	public String getClientWayBillNum() {
+		return clientWayBillNum;
+	}
+	public void setClientWayBillNum(String clientWayBillNum) {
+		this.clientWayBillNum = clientWayBillNum;
+	}
+	public String getResourceName() {
+		return resourceName;
+	}
+	public void setResourceName(String resourceName) {
+		this.resourceName = resourceName;
+	}
+	public String getCompanyName() {
+		return companyName;
+	}
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
 	public String getClientName() {
 		return clientName;
 	}
@@ -48,17 +116,42 @@ public class OrderBean {
 	public void setHasCarrierContract(String hasCarrierContract) {
 		this.hasCarrierContract = hasCarrierContract;
 	}
-	public String getSenderInfo() {
-		return senderInfo;
+	
+	public String getDeliveryAddr() {
+		return deliveryAddr;
 	}
-	public void setSenderInfo(String senderInfo) {
-		this.senderInfo = senderInfo;
+	public void setDeliveryAddr(String deliveryAddr) {
+		this.deliveryAddr = deliveryAddr;
 	}
-	public String getReceiverInfo() {
-		return receiverInfo;
+	public String getDeliveryName() {
+		return deliveryName;
 	}
-	public void setReceiverInfo(String receiverInfo) {
-		this.receiverInfo = receiverInfo;
+	public void setDeliveryName(String deliveryName) {
+		this.deliveryName = deliveryName;
+	}
+	public String getDeliveryPhone() {
+		return deliveryPhone;
+	}
+	public void setDeliveryPhone(String deliveryPhone) {
+		this.deliveryPhone = deliveryPhone;
+	}
+	public String getRecieverAddr() {
+		return recieverAddr;
+	}
+	public void setRecieverAddr(String recieverAddr) {
+		this.recieverAddr = recieverAddr;
+	}
+	public String getRecieverName() {
+		return recieverName;
+	}
+	public void setRecieverName(String recieverName) {
+		this.recieverName = recieverName;
+	}
+	public String getRecieverPhone() {
+		return recieverPhone;
+	}
+	public void setRecieverPhone(String recieverPhone) {
+		this.recieverPhone = recieverPhone;
 	}
 	public String getRemarks() {
 		return remarks;

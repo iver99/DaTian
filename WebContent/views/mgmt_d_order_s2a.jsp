@@ -89,7 +89,7 @@
                         </td>
                     </tr>
                 </table>
-                <form action="createNewOrderFromGoods?carrierid=${carrierInfo.id }&responseid=${responseId}&goodsid=${goodsId}" method="post">
+                <form action="createOrderFromCargo" method="post">
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
                     <tr>
                     <!-- 隐藏字段，用于存储当前用户id -->
@@ -124,6 +124,10 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">承运方：</td>
                                     <td><input name="companyName" type="text" readonly="readonly" value="${carrierInfo.companyName }" required/></td>
+                                	<!-- 隐藏字段 -->
+                                	 <td><input name="carrierId" value="${carrierId }" type="hidden"/> </td>
+                                	  <td><input name="goodsId" value="${goodsId  }" type="hidden"/> </td>
+                                	   <td><input name="responseId" value="${responseId}" type="hidden"/> </td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">承运方合同：</td>

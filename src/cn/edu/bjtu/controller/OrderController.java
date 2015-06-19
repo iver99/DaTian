@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.edu.bjtu.bean.page.OrderBean;
 import cn.edu.bjtu.service.CarService;
 import cn.edu.bjtu.service.CitylineService;
 import cn.edu.bjtu.service.CommentService;
@@ -27,6 +28,7 @@ import cn.edu.bjtu.service.LinetransportService;
 import cn.edu.bjtu.service.OrderService;
 import cn.edu.bjtu.service.ResponseService;
 import cn.edu.bjtu.util.Constant;
+import cn.edu.bjtu.util.JSON;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carinfo;
 import cn.edu.bjtu.vo.Carrierinfo;
@@ -129,34 +131,6 @@ public class OrderController {
 		mv.addObject("recieveorderdetail", recieveorderdetail);
 		mv.setViewName("mgmt_d_order_r3");
 
-		return mv;
-	}
-
-	@RequestMapping(value = "insertOrder", method = RequestMethod.POST)
-	public ModelAndView insertOrder(@RequestParam String goodsName,
-			@RequestParam String clientCompany,
-			@RequestParam String contactWaybill,
-			@RequestParam String carrierAccount,
-			@RequestParam String deliveryAddr,
-			@RequestParam String recieverAddr,
-			@RequestParam String deliveryName,
-			@RequestParam String deliveryPhone,
-			@RequestParam String recieverName,
-			@RequestParam String recieverPhone,
-			@RequestParam float goodsWeight, @RequestParam float goodsVolume,
-			@RequestParam float expectedPrice, @RequestParam float insurance,
-			@RequestParam float freight, @RequestParam String contractId,
-			@RequestParam String remarks) {
-
-		boolean flag = orderService.insertOrder(goodsName, contactWaybill,
-				deliveryAddr, recieverAddr, deliveryName, deliveryPhone,
-				recieverName, recieverPhone, goodsWeight, goodsVolume,
-				expectedPrice, insurance, freight, contractId, remarks);
-		if (flag == true)
-			mv.setViewName("mgmt_r_line");
-		else
-			mv.setViewName("fail");
-		// mv.setViewName("mgmt_r_line");
 		return mv;
 	}
 
@@ -361,28 +335,28 @@ public class OrderController {
 		return mv;
 	}
 
-	@RequestMapping(value = "updateOrder")
 	/**
-	 * 更新订单
+	 * 更新订单页面
 	 * 
 	 * @param orderid
 	 * @return
 	 */
+	@RequestMapping(value = "updateOrder")
 	public ModelAndView updateorder(@RequestParam("orderid") String orderid,
 			HttpServletRequest request) {
-		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);// 需要重构，返回一条线路信息
+		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);
 		mv.addObject("orderInfo", orderInfo);
 		mv.setViewName("mgmt_d_order_s3");
 		return mv;
 	}
 
-	@RequestMapping(value = "doUpdate", method = RequestMethod.POST)
 	/**
-	 *
+	 *更新订单操作
 	 * @return
 	 */
+	@Deprecated
+	@RequestMapping(value = "doUpdate", method = RequestMethod.POST)
 	public ModelAndView doUpdate(
-
 	@RequestParam String orderid, @RequestParam String clientName,
 			@RequestParam String hasCarrierContract,
 			@RequestParam String contractId, @RequestParam String goodsName,
@@ -418,6 +392,9 @@ public class OrderController {
 		} else
 			mv.setViewName("fail");
 		return mv;
+	}
+	public String updateOrder(HttpSession session,OrderBean orderBean){
+		
 	}
 
 	@RequestMapping(value = "cancelOrder")
@@ -761,7 +738,6 @@ public class OrderController {
 		return mv;
 	}
 
-	@RequestMapping("createneworder")
 	/**
 	 * 创建新订单
 	 * @param clientName
@@ -780,6 +756,8 @@ public class OrderController {
 	 * @param response
 	 * @return
 	 */
+	/*//@RequestMapping("createneworder")
+	@Deprecated
 	public ModelAndView createNewOrder(String carrierid, String clientName,
 			String hasCarrierContract, @RequestParam String deliveryName,
 			@RequestParam String recieverName,
@@ -811,28 +789,31 @@ public class OrderController {
 		}
 		mv.setViewName("mgmt_d_order_s");
 		return mv;
-	}
+	}*/
 	
-	
-	@RequestMapping("createNewOrderFromGoods")
 	/**
-	 * 从货物页面创建新订单
-	 * @param clientName
-	 * @param hasCarrierContract
-	 * @param senderInfo
-	 * @param receiverInfo
-	 * @param remarks
-	 * @param goodsName
-	 * @param goodsWeight
-	 * @param goodsVolume
-	 * @param declaredPrice
-	 * @param expectedPrice
-	 * @param insurance
-	 * @param contractId
-	 * @param request
-	 * @param response
+	 * 新建订单
+	 * @param session
+	 * @param orderBean
 	 * @return
 	 */
+	@RequestMapping("createneworder")
+	public String createNewOrder2(HttpSession session,OrderBean orderBean){
+		JSON json=new JSON();
+		boolean flag=orderService.createOrder(session,orderBean);
+		if(flag==true){
+			json.setMsg("sucess");
+			json.setSuccess(true);
+		}else{
+			json.setMsg("fail");
+			json.setSuccess(false);
+		}
+		
+		return "redirect:sendorderinfo";
+	}
+	
+	/*@Deprecated
+	@RequestMapping("createNewOrderFromGoods")
 	public ModelAndView createNewOrderFromGoods(String carrierid, String clientName,
 			String hasCarrierContract, @RequestParam String deliveryName,
 			@RequestParam String recieverName,
@@ -869,6 +850,28 @@ public class OrderController {
 		}
 		mv.setViewName("mgmt_d_order_s");
 		return mv;
+	}*/
+	
+	/**
+	 * 从我的货物栏下订单
+	 * @param session
+	 * @param orderBean
+	 * @return
+	 */
+	@RequestMapping("createOrderFromCargo")
+	public String createOrderFromCargo(HttpSession session,OrderBean orderBean){
+		boolean flag=orderService.createOrder(session,orderBean);
+		String goodsId=orderBean.getGoodsId();
+		String responseId=orderBean.getResponseId();
+		String carrierId=orderBean.getCarrierId();
+		if (flag == true) {
+			//反馈表修改状态
+			responseService.confirmResponse(responseId,carrierId,goodsId);//修改确认反馈信息为已确认，其它反馈信息为已取消状态
+			//货物表修改状态
+			goodsInfoService.confirmResponse(goodsId);
+			return "redirect:sendorderinfo";
+		}
+		return "redirect:mgmt_d_order_s";
 	}
 
 }
