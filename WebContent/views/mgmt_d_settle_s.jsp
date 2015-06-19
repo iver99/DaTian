@@ -66,7 +66,7 @@
                     <tr>
                     	<td>
                         	<span class="span_mgmt_right2_text1">我的结算(需求方)</span>
-                            <span class="span_mgmt_right2_text2"> <a href="javascript:;" hidefocus="true" class="a_btn_mgmt4">批量生成对账单</a></span>
+                            <span class="span_mgmt_right2_text2"> <a href="javascript:;" hidefocus="true" class="a_btn_mgmt4" id="btn5">批量生成对账单</a></span>
                             <div class="div_mgmt_s1">
                                 <!-- <input type="text" class="input_date1" onclick="SelectDate(this,'yyyy-MM-dd')" value="开始时间" readonly="readonly" title="点击选择" />
                                 &nbsp;&nbsp;至&nbsp;&nbsp;
@@ -94,7 +94,7 @@
                     </tr>
                     <c:forEach var="order" items="${orderList }">
                     <tr>
-                        <td height="60" class="td_mgmt_right3_td1d"><input type="checkbox" name="f1" id="f1a" /></td>
+                        <td height="60" class="td_mgmt_right3_td1d"><input type="checkbox" name="f1" id="f1a" value="${order.orderNum }"/></td>
                         <td class="td_mgmt_right3_td1"><a href="getOrderDetail?orderid=${order.id }" hidefocus="true">${order.orderNum }</a></td>
                         <td class="td_mgmt_right3_td1"><a href="javascript:;" class="link1" hidefocus="true">${order.clientName }</a></td>
                         <td class="td_mgmt_right3_td1"><a href="javascript:;" class="link1" hidefocus="true">${order.companyName }</a></td>
@@ -110,7 +110,7 @@
                         	</c:when>
                         	<c:otherwise>
                         	 	<td class="td_mgmt_right3_td2">${order.settlementState }</td>
-                        		<td class="td_mgmt_right3_td3"><a href="javascript:;" hidefocus="true">生成对账单</a></td>
+                        		<td class="td_mgmt_right3_td3"><a href="/DaTian/createSingleStatement?orderNum=${order.orderNum }" hidefocus="true">生成对账单</a></td>
                         	</c:otherwise>
                         	
                         </c:choose>
@@ -180,5 +180,29 @@
 	function OnLoad() {
 		loadFocus();
 	}
+</script>
+<script type="text/javascript">
+$("#btn5").click(function(){  
+	//$('input:checkbox[name="multiple"]:checked')和$("input[name='multiple']:checked")是一样的效果  
+	var checklist = new Array();
+	var count = 0;
+	$('input:checkbox[name="f1"]:checked').each(function() //multiple checkbox的name  
+	{  
+		//alert($(this).attr("value"));
+		checklist[count++] = $(this).attr("value");
+    });
+	window.location.href = "createMultipleStatement?checklist=" + checklist;
+	//alert(checklist);
+	/* var url="createMultipleStatement";
+	//alert(checklist);
+	$.post(url,{
+		  checklist:checklist},
+	  function(data,status){
+			  //返回总记录数
+			  /* $('#div_resource_list_head1').text("共"+data+"条记录");
+			  $('#count').val(data);
+			  pageLayout(data);//页面布局 
+	},"text"); */
+})
 </script>
 </html>

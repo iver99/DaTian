@@ -20,6 +20,12 @@ public class SettlementDaoImpl implements SettlementDao{
 		// TODO Auto-generated method stub
 		return ht.find("from SettlementCarrierView where carrierId='"+userId+"'");
 	}
+	
+	@Override
+	public List getOrderStatement(String orderNum) {
+		// TODO Auto-generated method stub
+		return ht.find("from SettlementCarrierView where orderNum='"+orderNum+"'");
+	}
 
 	@Override
 	public List getFindSettlement(String sql, int display, int pageNow) {

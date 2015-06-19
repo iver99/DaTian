@@ -9,4 +9,6 @@ public interface SettlementService {
 	public List getFindSettlement(String carrierId, String name, int display, int pageNow);
 
 	public int getFindSettlementTotalRows(String carrierId, String name, int display, int pageNow);
+
+	public List getOrderStatement(String orderNum);
 }

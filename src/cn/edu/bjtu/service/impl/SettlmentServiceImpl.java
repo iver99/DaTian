@@ -23,6 +23,11 @@ public class SettlmentServiceImpl implements SettlementService{
 		return settlementDao.getUserOrder(userId);
 	}
 	@Override
+	public List getOrderStatement(String orderNum) {
+		// TODO Auto-generated method stub
+		return settlementDao.getOrderStatement(orderNum);
+	}
+	@Override
 	public List getFindSettlement(String carrierId, String name, int display, int pageNow) {
 		// TODO Auto-generated method stub
 		String sql="from SettlementCarrierView where carrierId='"+carrierId+"' and ";
