@@ -75,7 +75,7 @@
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
                     <tr>
                         <td class="td_mgmt_right3_td1a">
-                           <form action="doUpdate?orderid=${orderInfo.id }" method="post">	          
+                           <form action="doUpdate" method="post">	          
                        
                             <div class="span_mgmt_right3_text4">基本信息</div>  
                                <table width="90%" border="0" cellspacing="0" cellpadding="0">
@@ -93,6 +93,8 @@
                                             <option value="天津友达通有限公司">天津友达通有限公司</option>
                                             <option value="北京大田物流有限公司">北京大田物流有限公司</option>
                                         </select>
+                                        	<!-- 	订单id	 -->
+                                        <input name="id" type="hidden" value="${orderInfo.id }"/>
 									</td>
                                 </tr>
                                 <tr>

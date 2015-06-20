@@ -34,41 +34,18 @@ public interface OrderService {
 	public boolean confirmCargo(String orderId);
 
 	public boolean cancel(String cancelReason, String orderId);
-	@Deprecated
+	/*@Deprecated
 	public boolean updateOrder(String orderid, String clientName,
 			String hasCarrierContract, String contractId, String goodsName,
 			float goodsWeight, float goodsVolume, float declaredPrice,
 			float insurance, float expectedPrice, String deliveryName,
 			String deliveryPhone, String deliveryAddr, String recieverName,
 			String recieverPhone, String recieverAddr, String remarks);
-
+*/
 	public boolean DoGetOrderWaitToConfirmUpdate(String orderId,
 			float actualPrice, String explainReason,String path,String fileName);
-	/**
-	 * 新增订单
-	 * @param userId
-	 * @param hasCarrierContract
-	 * @param deliveryName
-	 * @param receiverName
-	 * @param deliveryPhone
-	 * @param receiverPhone
-	 * @param deliveryAddr
-	 * @param receiverAddr
-	 * @param remarks
-	 * @param goodsName
-	 * @param goodsVolume
-	 * @param goodsWeight
-	 * @param expectedPrice
-	 * @param declaredPrice
-	 * @param insurance
-	 * @param contractId
-	 * @param carrierId
-	 * @param clientWayBillNum
-	 * @param resourceName
-	 * @param resourceType
-	 * @return
-	 */
-	@Deprecated
+	
+/*	@Deprecated
 	public boolean createNewOrder(String userId, String hasCarrierContract,
 			String deliveryName, String receiverName, String deliveryPhone,
 			String receiverPhone, String deliveryAddr, String receiverAddr,
@@ -76,7 +53,7 @@ public interface OrderService {
 			float goodsWeight, float expectedPrice, float declaredPrice,
 			float insurance, String contractId, String carrierId,
 			String isLinkToClientWayBill,String clientWayBillNum, 
-			String resourceName, String resourceType,String companyName,String clientName);
+			String resourceName, String resourceType,String companyName,String clientName);*/
 
 	public List getCargoTrack(String orderNum, String carNum);
 	
@@ -115,5 +92,13 @@ public interface OrderService {
 	 * @return
 	 */
 	public boolean createOrder(HttpSession session,OrderBean orderBean);
+	
+	/**
+	 * 更新订单
+	 * @param session
+	 * @param orderBean
+	 * @return
+	 */
+	public boolean updateOrder(HttpSession session,OrderBean orderBean);
 
 }

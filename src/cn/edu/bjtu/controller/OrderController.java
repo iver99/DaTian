@@ -336,13 +336,13 @@ public class OrderController {
 	}
 
 	/**
-	 * 更新订单页面
+	 * 获取更新订单页面
 	 * 
 	 * @param orderid
 	 * @return
 	 */
 	@RequestMapping(value = "updateOrder")
-	public ModelAndView updateorder(@RequestParam("orderid") String orderid,
+	public ModelAndView getUpdateOrderPage(@RequestParam("orderid") String orderid,
 			HttpServletRequest request) {
 		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);
 		mv.addObject("orderInfo", orderInfo);
@@ -353,7 +353,7 @@ public class OrderController {
 	/**
 	 *更新订单操作
 	 * @return
-	 */
+	 *//*
 	@Deprecated
 	@RequestMapping(value = "doUpdate", method = RequestMethod.POST)
 	public ModelAndView doUpdate(
@@ -392,8 +392,18 @@ public class OrderController {
 		} else
 			mv.setViewName("fail");
 		return mv;
-	}
+	}*/
+	/**
+	 * 更新订单
+	 * @param session
+	 * @param orderBean
+	 * @return
+	 */
+	@RequestMapping("doUpdate")
 	public String updateOrder(HttpSession session,OrderBean orderBean){
+		
+		boolean flag=orderService.updateOrder(session, orderBean);
+		return "redirect:sendorderinfo";
 		
 	}
 

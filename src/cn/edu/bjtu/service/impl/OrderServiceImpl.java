@@ -117,7 +117,7 @@ public class OrderServiceImpl implements OrderService {
 		return orderDao.cancel(cancelReason, orderId);
 	}
 
-	@Override
+	/*@Override
 	@Deprecated
 	public boolean updateOrder(String orderid, String clientName,
 			String hasCarrierContract, String contractId, String goodsName,
@@ -145,7 +145,8 @@ public class OrderServiceImpl implements OrderService {
 		orderDao.update(orderform);
 		return true;
 
-	}
+	}*/
+	
 
 	@Override
 	public boolean DoGetOrderWaitToConfirmUpdate(String orderId,
@@ -154,7 +155,43 @@ public class OrderServiceImpl implements OrderService {
 		return orderDao.signBill(orderId, actualPrice, explainReason,path,fileName);
 	}
 
+	/**
+	 * 更新订单
+	 */
 	@Override
+	public boolean updateOrder(HttpSession session, OrderBean orderBean) {
+//		String userId=(String)session.getAttribute(Constant.USER_ID);
+		Orderform orderInstance=orderDao.get(Orderform.class,orderBean.getId());
+
+		orderInstance.setClientName(orderBean.getClientName());
+		orderInstance.setIsLinkToClientWayBill(orderBean.getIsLinkToClientWayBill());
+		orderInstance.setClientWayBillNum(orderBean.getClientWayBillNum());
+		orderInstance.setContractId(orderBean.getContractId());
+		orderInstance.setHasCarrierContract(orderBean.getHasCarrierContract());
+		
+		orderInstance.setGoodsName(orderBean.getGoodsName());
+		orderInstance.setGoodsVolume(orderBean.getGoodsVolume());
+		orderInstance.setGoodsWeight(orderBean.getGoodsWeight());
+		orderInstance.setDeclaredPrice(orderBean.getDeclaredPrice());
+		orderInstance.setInsurance(orderBean.getInsurance());
+		orderInstance.setExpectedPrice(orderBean.getExpectedPrice());
+		
+		orderInstance.setDeliveryAddr(orderBean.getDeliveryAddr());
+		orderInstance.setDeliveryName(orderBean.getDeliveryName());
+		orderInstance.setDeliveryPhone(orderBean.getDeliveryPhone());
+		orderInstance.setRecieverAddr(orderBean.getRecieverAddr());
+		orderInstance.setRecieverName(orderBean.getRecieverName());
+		orderInstance.setRecieverPhone(orderBean.getRecieverPhone());
+		
+		orderInstance.setRemarks(orderBean.getRemarks());
+		
+		orderDao.update(orderInstance);
+		
+		return true;
+		
+	}
+
+	/*@Override
 	public boolean createNewOrder(String userId, String hasCarrierContract,
 			String deliveryName, String receiverName, String deliveryPhone,
 			String receiverPhone, String deliveryAddr, String receiverAddr,
@@ -180,7 +217,7 @@ public class OrderServiceImpl implements OrderService {
 				receiverAddr, carrierId, temp[0], clientWayBillNum, resourceName,
 				resourceType,companyName,clientName);
 
-	}
+	}*/
 	
 	
 	/**
@@ -209,7 +246,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public Long getUserWaitToAcceptNum(HttpSession session) {
 		Map<String,Object> params=new HashMap<String,Object>();
-		String hql="from Orderform t "+whereSql(session,params)+" and t.state='待受理'";
+		String hql="select count(*) from Orderform t "+whereSql(session,params)+" and t.state='待受理'";
 		Long count= orderDao.count(hql, params);
 		return count==null?0L:count;
 		
@@ -221,7 +258,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public Long getUserWaitToReceiveNum(HttpSession session) {
 		Map<String,Object> params=new HashMap<String,Object>();
-		String hql="from Orderform t "+whereSql(session,params)+" and t.state='待收货'";
+		String hql="select count(*) from Orderform t "+whereSql(session,params)+" and t.state='待收货'";
 		Long count =orderDao.count(hql, params);
 		return count==null?0L:count;
 	}
@@ -243,7 +280,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public Long finishedNum(HttpSession session) {
 		Map<String,Object> params=new HashMap<String,Object>();
-		String hql="from Orderform t "+whereSql(session,params)+" and  t.state='已完成'";
+		String hql="select count(*) from Orderform t "+whereSql(session,params)+" and  t.state='已完成'";
 		Long count =orderDao.count(hql, params);
 		return count==null?0L:count;
 	}
