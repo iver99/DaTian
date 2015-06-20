@@ -234,6 +234,7 @@ public class OrderServiceImpl implements OrderService {
 		orderInstance.setState("待受理");
 		orderInstance.setSubmitTime(new Date());
 		orderInstance.setClientId(userId);
+		orderInstance.setSettlementState("未生成");
 		
 		orderDao.save(orderInstance);
 		

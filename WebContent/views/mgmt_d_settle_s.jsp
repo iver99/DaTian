@@ -105,11 +105,11 @@
                         <%-- <td class="td_mgmt_right3_td2">${order.settlementState }</td> --%>
                         <c:choose>
                         	<c:when test="${order.settlementState =='已生成'}">
-                        	<td class="td_mgmt_right3_td1">${order.settlementState }</td>
+                        	<td class="td_mgmt_right3_td1">已生成</td>
                         		<td class="td_mgmt_right3_td3"><a href="#" hidefocus="true">查看记录</a></td>
                         	</c:when>
                         	<c:otherwise>
-                        	 	<td class="td_mgmt_right3_td2">${order.settlementState }</td>
+                        	 	<td class="td_mgmt_right3_td2">未生成</td>
                         		<td class="td_mgmt_right3_td3"><a href="/DaTian/createSingleStatement?orderNum=${order.orderNum }" hidefocus="true">生成对账单</a></td>
                         	</c:otherwise>
                         	

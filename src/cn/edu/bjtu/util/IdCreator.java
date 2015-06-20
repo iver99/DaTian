@@ -156,5 +156,13 @@ public class IdCreator {
 	public static String createResponseId(){
 		return "RE"+(int )(Math.random()*100000000);
 	}
+	
+	/**
+	 * ∑µªÿΩ·À„±Ìid
+	 * @return
+	 */
+	public static String createSettlementId(){
+		return "SE"+(int )(Math.random()*100000000);
+	}
 
 }

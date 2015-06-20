@@ -158,7 +158,25 @@
 		loadFocus();
 		//获取我的信息-主页面下的交易信息
 		getTransactionInfo();
+		//获取用户页面上的结算信息
+		getSettlementInfo()
 		
+	}
+	//获取用户页面上的结算信息
+	function getSettlementInfo(){
+		var url="getUserSettlementInfoAjax";
+		$.ajax({
+			url:url,
+			type:"GET",
+			success:function(data){
+				alert(data);
+				var settlement_info=data.split("-");
+				for(var i=0;i<settlement_info.length;i++){
+				}
+				
+				
+			}
+		});
 	}
 	
 	//获取我的信息-主页面下的交易信息
@@ -182,7 +200,7 @@
 				
 				
 			}
-		})
+		});
 		
 	}
 </script>

@@ -2,9 +2,9 @@ package cn.edu.bjtu.dao;
 
 import java.util.List;
 
-public interface SettlementDao {
-	
-	public List getUserOrder(String userId);
+import cn.edu.bjtu.vo.SettlementCarrierView;
+
+public interface SettlementDao extends BaseDao<SettlementCarrierView>{
 	public List getFindSettlement(String sql, int display, int pageNow);
 	public List getOrderStatement(String orderNum);
 

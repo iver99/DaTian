@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-2-14 15:14:57 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="cn.edu.bjtu.vo.Settlement" table="settlement" catalog="datian">
+        <id name="id" type="string">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="userId" type="string">
+            <column name="userId" />
+        </property>
+        <property name="username" type="string">
+            <column name="username" />
+        </property>
+        <property name="createTime" type="date">
+            <column name="createTime" />
+        </property>
+        <property name="orderNum" type="string">
+            <column name="orderNum" />
+        </property>
+         
+    </class>
+</hibernate-mapping>

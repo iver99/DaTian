@@ -1,6 +1,5 @@
 package cn.edu.bjtu.controller;
 
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -9,16 +8,17 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import jxl.write.WriteException;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.edu.bjtu.service.SettlementRecordService;
 import cn.edu.bjtu.service.SettlementService;
 import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.ExcelCreator;
@@ -34,6 +34,8 @@ public class SettlementController {
 	public ModelAndView mv=new ModelAndView();
 	@Resource(name="settlementServiceImpl")
 	SettlementService settlementService;
+	@Autowired
+	SettlementRecordService settlementRecordService;
 	
 	@RequestMapping("/mysettlement")
 	/**
@@ -45,7 +47,7 @@ public class SettlementController {
 	public ModelAndView getMySettlement(HttpServletRequest request,HttpServletResponse response)
 	{
 		String userId=(String )request.getSession().getAttribute(Constant.USER_ID);
-		List orderList=settlementService.getUserOrder(userId);
+		List orderList=settlementService.getUserSettlementList(userId);
 		mv.addObject("orderList", orderList);
 		mv.setViewName("mgmt_d_settle_s");
 		return mv;
@@ -58,10 +60,8 @@ public class SettlementController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView createSingleStatement(@RequestParam String orderNum,HttpServletRequest request,HttpServletResponse response) throws Exception
+	public String createSingleStatement(HttpSession session,@RequestParam String orderNum,HttpServletRequest request,HttpServletResponse response) throws Exception
 	{
-		//String userId=(String )request.getSession().getAttribute(Constant.USER_ID);
-		//System.out.println("生成对账单");
 		List orderList=settlementService.getOrderStatement(orderNum);
 		SettlementCarrierView settlement = (SettlementCarrierView) orderList.get(0);
 		//System.out.println(settlement.getCompanyName());
@@ -75,8 +75,10 @@ public class SettlementController {
 	    response.setContentType("application/msexcel");//定义输出类型
 	    ExcelCreator ec = new ExcelCreator();
 	    ec.createSingleExcel(settlement,os);
-		mv.setViewName("mgmt_d_settle_s");
-		return mv;
+	    //之后需要修改结算状态为已结算，记录当前生成人
+	    settlementRecordService.finishSettlement(orderNum,session);
+	    return "redirect:mgmt_d_settle_s";
+	    
 	}
 	
 	@RequestMapping("/createMultipleStatement")
@@ -86,16 +88,17 @@ public class SettlementController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView createMultipleStatement(@RequestParam String checklist,HttpServletRequest request,HttpServletResponse response) throws Exception
+	public String createMultipleStatement(HttpSession session,@RequestParam String checklist,HttpServletRequest request,HttpServletResponse response) throws Exception
 	{
 		String[] statement=checklist.split(",");
-		System.out.println("批量生成对账单");
 		List<SettlementCarrierView> multipleStatement = new ArrayList<SettlementCarrierView>();
 		for(int i=0;i<statement.length;i++)
 		{
 			List orderList=settlementService.getOrderStatement(statement[i]);
 			SettlementCarrierView settlement = (SettlementCarrierView) orderList.get(0);
 			multipleStatement.add(settlement);
+			//之后需要修改结算状态为已结算，记录当前生成人
+		    settlementRecordService.finishSettlement(settlement.getOrderNum(),session);
 		}
 		
 		String fname = "批量对账单";
@@ -108,16 +111,14 @@ public class SettlementController {
 	    response.setContentType("application/msexcel");//定义输出类型
 	    ExcelCreator ec = new ExcelCreator();
 	    ec.createMultipleExcel(multipleStatement,os);
-		
-		//System.out.println(multipleStatement);
-		mv.setViewName("mgmt_d_settle_s");
-		return mv;
+	    //settlementRecordService.finishMultipleSettlement(,session);
+	    return "redirect:mgmt_d_settle_s";
 	}
 	
-	@RequestMapping(value="findsettlement",method = RequestMethod.POST)
 	/**
 	 * 查找合同
 	 */
+	@RequestMapping(value="findsettlement",method = RequestMethod.POST)
 	public ModelAndView findSettlement(//@RequestParam String startDate,@RequestParam String endDate,
 			@RequestParam String name, HttpServletResponse response, HttpServletRequest request)
 	{
@@ -135,17 +136,23 @@ public class SettlementController {
 		String carrierId=(String)request.getSession().getAttribute(Constant.USER_ID);
 		//String carrierId = "C-0002";
 		List settlementList = settlementService.getFindSettlement(carrierId, name, Display, PageNow);
-		System.out.println("settlementList+" + settlementList);
 		mv.addObject("orderList", settlementList);
-		
-		int count = settlementService.getFindSettlementTotalRows(carrierId, name, Display, PageNow);// 获取查询总记录数
-		int pageNum = (int) Math.ceil(count * 1.0 / Display);// 页数
-		mv.addObject("count", count);
-		mv.addObject("pageNum", pageNum);
-		mv.addObject("pageNow", PageNow);
 		
 		mv.setViewName("mgmt_d_settle_s");
 		return mv;
+		
+	}
+	
+	/**
+	 * 返回我的信息-本月已结算金额
+	 * @param session
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("getUserSettlementInfoAjax")
+	public String getUserSettlementInfoAjax(HttpSession session){
+		
+		
 		
 	}
 	
