@@ -613,10 +613,6 @@
 	function ChangeCity(City) {
 		document.getElementById("city").innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;"+City+"&nbsp;<a href=\"city\" hidefocus=\"true\">[更换]</a>";
 		setCookie(City);
-		var curWwwPath=window.document.location.href;
-	    var pathName=window.document.location.pathname;
-	    var pos=curWwwPath.indexOf(pathName);
-		location.assign(curWwwPath.substring(0,pos) + "/DaTian/");
 	}
 	function setCookie(value) 
 	{ 

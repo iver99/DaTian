@@ -191,7 +191,11 @@ $("#btn5").click(function(){
 		//alert($(this).attr("value"));
 		checklist[count++] = $(this).attr("value");
     });
-	window.location.href = "createMultipleStatement?checklist=" + checklist;
+	if(checklist!=null && checklist!=""){
+		window.location.href = "createMultipleStatement?checklist=" + checklist;
+	}else{
+		alert("请选择一条记录");
+	}
 	//alert(checklist);
 	/* var url="createMultipleStatement";
 	//alert(checklist);

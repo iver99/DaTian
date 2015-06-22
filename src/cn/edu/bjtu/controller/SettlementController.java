@@ -77,7 +77,7 @@ public class SettlementController {
 	    ec.createSingleExcel(settlement,os);
 	    //之后需要修改结算状态为已结算，记录当前生成人
 	    settlementRecordService.finishSettlement(orderNum,session);
-	    return "redirect:mgmt_d_settle_s";
+	    return "mgmt_d_settle_s";
 	    
 	}
 	
@@ -112,7 +112,7 @@ public class SettlementController {
 	    ExcelCreator ec = new ExcelCreator();
 	    ec.createMultipleExcel(multipleStatement,os);
 	    //settlementRecordService.finishMultipleSettlement(,session);
-	    return "redirect:mgmt_d_settle_s";
+	    return "mgmt_d_settle_s";
 	}
 	
 	/**

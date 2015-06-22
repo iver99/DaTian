@@ -45,11 +45,10 @@ public class MessageController {
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping("")
+	@RequestMapping("getAllUserMessage")
 	@ResponseBody
 	public String getAllUserMessage(HttpSession session){
 		JSONArray jsonArray = messageService.getAllUserMessage(session);
-		
 		return jsonArray.toString();
 	}
 }

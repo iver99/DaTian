@@ -59,7 +59,7 @@ public class MessageServiceImpl extends BaseDaoImpl<Message> implements MessageS
 			JSONObject jsonObject=(JSONObject)JSONObject.toJSON(msgList.get(i));
 			jsonArray.add(jsonObject);
 		}
-		return null;
+		return jsonArray;
 	}
 	
 	
