@@ -2,6 +2,8 @@ package cn.edu.bjtu.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import cn.edu.bjtu.vo.Comment;
 
 /**
@@ -54,6 +56,13 @@ public interface CommentService {
 	 * @return
 	 */
 	public Comment getCommentByOrderId(String orderId);
+	
+	/**
+	 * 返回用户的好评率
+	 * @param session
+	 * @return
+	 */
+	public Float getUserGoodCommentRateAjax(HttpSession session);
 	
 	
 }

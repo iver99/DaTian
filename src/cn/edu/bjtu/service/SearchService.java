@@ -1,24 +1,48 @@
 package cn.edu.bjtu.service;
 
-import java.util.List;
+import com.alibaba.fastjson.JSONArray;
 
 /**
- * 
+ * 搜索相关
  * @author RussWest0
  *
  */
 public interface SearchService {
 	
-	public List getLineResourceByStartPlace(String startPlace);
-	public List getLineResourceByEndPlace(String endPlace);
-	
-	public List getCitylineResourceByName(String name);
-	
-	public List getGoodsResourceByName(String name);
-	
-	public List getCompanyResourceByCompanyName(String companyName);
-	
-	public List getCarResourceByCarNum(String carNum);
-	
-	public List getWarehouseResourceByName(String name);
+	/**
+	 * 在城市名中搜索干线资源结果
+	 * @param cityName
+	 * @return
+	 */
+	public JSONArray getLineResourceByCityName(String cityName,int display,int currentPage);
+	/**
+	 * 根据名称搜索城市配送结果
+	 * @param name
+	 * @return
+	 */
+	public JSONArray getCitylineResourceByName(String name,int display,int currentPage);
+	/**
+	 * 根据货物名搜索获取结果
+	 * @param name
+	 * @return
+	 */
+	public JSONArray getGoodsResourceByName(String name,int display,int currentPage);
+	/**
+	 * 根据公司名搜索获取结果
+	 * @param name
+	 * @return
+	 */
+	public JSONArray getCompanyResourceByCompanyName(String companyName,int display,int currentPage);
+	/**
+	 * 根据车辆牌照名搜索获取结果
+	 * @param name
+	 * @return
+	 */
+	public JSONArray getCarResourceByCarNum(String carNum,int display,int currentPage);
+	/**
+	 * 根据仓库名搜索获取结果
+	 * @param name
+	 * @return
+	 */
+	public JSONArray getWarehouseResourceByName(String name,int display,int currentPage);
 }

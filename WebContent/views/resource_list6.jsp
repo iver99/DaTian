@@ -25,6 +25,7 @@
 <script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
 <script type="text/javascript" src="js/splitPage.js"></script><!-- 新增 -->
 <script type="text/javascript" src="js/focus_load.js"></script>
+<script type="text/javascript" src="js/search_resource.js"></script><!-- 搜索资源 -->
 		<script type="text/javascript"> 
 	$(function() {
 		$('input, textarea').placeholder(); 
@@ -102,10 +103,10 @@
 				</div>
                 <div id="div_resource_list_head">
                     <div id="div_resource_list_head1"><!-- 共  条记录 --></div>
-						<input id="count" value="" type="text"/>
-						<input id="display" value="10" type="text"/>
-						<input id="currentPage" value="1" type="text"/>
-						<input id="flag" value=0 type="text"/><!-- 点击页码和点击筛选标识位 -->
+						<input id="count" value="" type="hidden"/>
+						<input id="display" value="10" type="hidden"/>
+						<input id="currentPage" value="1" type="hidden"/>
+						<input id="flag" value=0 type="hidden"/><!-- 点击页码和点击筛选标识位 -->
 						
                     <div id="middlesort">
                         <ul class="quickmenu">
@@ -147,7 +148,7 @@
 
                 </div> 
                 <table border="0" cellspacing="0" cellpadding="0" class="table_main_list" id="list">
-                    <thead>
+                    <thead id="thead">
                         <tr>
                             <td width="15" class="td_main_list_head"></td>
                             <td class="td_main_list_head">货物名称</td>

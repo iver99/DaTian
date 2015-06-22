@@ -151,7 +151,11 @@ public class SettlementController {
 	@ResponseBody
 	@RequestMapping("getUserSettlementInfoAjax")
 	public String getUserSettlementInfoAjax(HttpSession session){
+		Float finishedSettlementMoney=settlementService.getUserSettlementMoney(session,0);
 		
+		Float unFinishedSettlementMoney=settlementService.getUserSettlementMoney(session,1);
+		
+		return finishedSettlementMoney+"-"+unFinishedSettlementMoney;
 		
 		
 	}

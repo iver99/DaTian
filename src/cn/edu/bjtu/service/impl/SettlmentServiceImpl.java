@@ -29,6 +29,8 @@ public class SettlmentServiceImpl implements SettlementService{
 	HQLTool hqltool;
 	@Resource
 	SettlementDao settlementDao;
+	@Autowired
+	OrderDao orderDao;
 	/**
 	 * 获取用户的订单
 	 */
@@ -61,18 +63,31 @@ public class SettlmentServiceImpl implements SettlementService{
 		sql+=" (companyName like '%"+name+"%' or contractId like '%"+name+"%')";
 		return settlementDao.getFindSettlement(sql, display, pageNow);
 	}
-	/*@Override
-	public int getFindSettlementTotalRows(String carrierId, String name, int display, int pageNow) {
-		// TODO Auto-generated method stub
-		String sql="from SettlementCarrierView where carrierId='"+carrierId+"' and ";
-		if(name.equals("承运方名称或承运方合同编号")){
-			//查找时不考虑合同名字
-			name = "";
+	/**
+	 * 返回用户已结算金额/待结算金额  flag=0已结算/flag=1待结算
+	 */
+	@Override
+	public Float getUserSettlementMoney(HttpSession session,int flag) {
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+		String hql ="from Orderform t where t.settlementState=:settlementState "
+				+ "and t.clientId=:clientId";
+		Map<String,Object> params=new HashMap<String,Object>();
+		if(flag==0){
+			params.put("settlementState", "已生成");
+		}else{//flag=1
+			params.put("settlementState", "未生成");
 		}
-		//没有时间限制
-		sql+=" (companyName like '%"+name+"%' or contractId like '%"+name+"%')";
-		return hqltool.getTotalRows(sql);// 这里的HQLTool实例千万不能自己new出来，用@Resource
-	}*/
+		params.put("clientId", userId);
+		List<Orderform> orderList=orderDao.find(hql, params);
+		float totalMoney=0F;
+		if(orderList!=null && orderList.size()>0){
+			for(Orderform o:orderList){
+				totalMoney+=o.getActualPrice();//结算金额按实际运费算
+			}
+		}
+		
+		return totalMoney;
+	}
 	
 	
 	

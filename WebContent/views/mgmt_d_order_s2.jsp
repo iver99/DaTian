@@ -39,7 +39,19 @@
 		         CONTRACTID.append(option);
 		      }    
 		},"json");
-	}); 
+	});
+	//获取用户所属客户
+	$(function(){
+		var url="getUserBusinessClientAjax";
+		$.post(url,{currentUserId:$('#currentUserId').val()},function(data,status){
+			var client_name=$('#clientName');
+			//var option = $("<option>").text("").val("");
+			 for(var i=0;i<data.length;i++) {
+		         var option = $("<option>").text(data[i].clientName).val(data[i].clientName);
+		         client_name.append(option);
+		      }    
+		},"json");
+	});
 </script>
 </head>
 
@@ -99,11 +111,11 @@
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">所属客户：</td>
 									<td>
-										<select style="width:120px;" name="clientName" required>
-											<option value="" selected="selected">请选择</option>
+										<select style="width:120px;" name="clientName" id="clientName" required>
+											<!-- <option value="" selected="selected">请选择</option>
                                             <option value="北京索契物流有限公司">北京索契物流有限公司</option>
                                             <option value="天津友达通有限公司">天津友达通有限公司</option>
-                                            <option value="北京大田物流有限公司">北京大田物流有限公司</option>
+                                            <option value="北京大田物流有限公司">北京大田物流有限公司</option> -->
                                         </select>
 									</td>
                                 </tr>

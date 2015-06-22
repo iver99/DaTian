@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -127,6 +129,17 @@ public class CommentServiceImpl implements CommentService{
 		}
 		return null;
 	}
+	
+	/**
+	 * 返回用户的好评率
+	 */
+	@Override
+	public Float getUserGoodCommentRateAjax(HttpSession session) {
+		// TODO Auto-generated method stub
+		return 0f;
+	}
+	
+	
 	
 	
 	

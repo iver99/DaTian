@@ -1,4 +1,4 @@
-package cn.edu.bjtu.dao.impl;
+/*package cn.edu.bjtu.dao.impl;
 
 import java.util.List;
 
@@ -10,11 +10,11 @@ import org.springframework.stereotype.Repository;
 
 import cn.edu.bjtu.dao.SearchDao;
 
-/**
+*//**
  * ËÑË÷dao²ã
  * @author RussWest0
  *
- */
+ *//*
 @Repository
 public class SearchDaoImpl implements SearchDao{
 
@@ -60,3 +60,4 @@ public class SearchDaoImpl implements SearchDao{
 		return ht.find("from WarehouseCarrierView where name like '%"+name+"%'");
 	}
 }
+*/

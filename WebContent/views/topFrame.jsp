@@ -39,7 +39,7 @@
 			<td width="3%" class="td_top1a"><a href="allcomplaint" hidefocus="true"><img src="images/btn_config1.png" /></a></td>
 		</tr>
 	</table>
-    <form action="searchResource" method="post" >
+   <!--  <form action="searchResourceAjax" method="post" > -->
     <table width="100%" border="0" cellpadding="0" cellspacing="0">
 		<tr>
             <td width="3%" height="110">&nbsp;</td>
@@ -48,23 +48,23 @@
                 <div class="key">
                     <span class="mkey">线路</span>
                     <ul  class="key_ul" >
-                    	<li onclick="document.getElementById('resourcechoose').value='线路'">线路</li>
-                    	<li onclick="document.getElementById('resourcechoose').value='配送'">配送</li>
-                        <li onclick="document.getElementById('resourcechoose').value='车辆'">车辆</li>
-                        <li onclick="document.getElementById('resourcechoose').value='仓库'">仓库</li>
-                        <li onclick="document.getElementById('resourcechoose').value='公司'">公司</li>
-                        <li onclick="document.getElementById('resourcechoose').value='货物'">货物</li>
+                    	<li onclick="$('#resource_choose').val('线路')">线路</li>
+                    	<li onclick="$('#resource_choose').val('配送')">配送</li>
+                        <li onclick="$('#resource_choose').val('车辆')">车辆</li>
+                        <li onclick="$('#resource_choose').val('仓库')">仓库</li>
+                        <li onclick="$('#resource_choose').val('公司')">公司</li>
+                        <li onclick="$('#resource_choose').val('货物')">货物</li>
                     </ul>
                 </div>
-                <input type="text" name="searchContent" class="search_input" value="请输入关键字" hidefocus="true" />
-                <input type="submit" class="search_btn" value="" hidefocus="true" >
-              <input type="hidden" id="resourcechoose" name="resourceChoose" value="线路"/><!-- 隐藏字段  --> 
+                <input type="text" name="search_content"  id="search_content" class="search_input" value="请输入关键字" hidefocus="true"  />
+                <input type="button" class="search_btn" value="" hidefocus="true" onclick="searchKind()">
+              <input type="hidden" id="resource_choose" name="resource_choose" value="线路"/><!-- 隐藏字段  --> 
 			</td>
             <td width="280" class="td_top2b"><a href="getallfocus" class="a_top2" hidefocus="true" id="focusNum"><img src="images/btn_m1.png" />&nbsp;我的关注</a></td>
             <td width="3%">&nbsp;</td>
 		</tr>
 	</table>
-</form>
+<!-- </form> -->
     <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_mainnav">
 		<tr>
             <td width="3%">&nbsp;</td>

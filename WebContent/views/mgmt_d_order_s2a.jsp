@@ -26,19 +26,7 @@
 	$(function() {
 		$('input, textarea').placeholder();
 	});
-	//获取用户的合同id
-	$(function(){
-		//alert("test");
-		var url="getUserContractIdAjax";
-		$.post(url,{currentUserId:$('#currentUserId').val()},function(data,status){
-			//alert(data);
-			var CONTRACTID=$('#contractId');
-			var option = $("<option>").text("").val("");
-			 for(var i=0;i<data.length;i++) {
-		         option = $("<option>").text(data[i].id).val(data[i].id);
-		         CONTRACTID.append(option);
-		      }    
-		},"json");
+	
 </script>
 </head>
 
@@ -102,9 +90,9 @@
 									<td>
 										<select style="width:120px;" name="clientName" required>
 											<option value="" selected="selected">请选择</option>
-                                            <option value="北京索契物流有限公司">北京索契物流有限公司</option>
+                                           <!--  <option value="北京索契物流有限公司">北京索契物流有限公司</option>
                                             <option value="天津友达通有限公司">天津友达通有限公司</option>
-                                            <option value="北京大田物流有限公司">北京大田物流有限公司</option>
+                                            <option value="北京大田物流有限公司">北京大田物流有限公司</option> -->
                                         </select>
 									</td>
                                 </tr>
@@ -140,9 +128,9 @@
                                         <div id="c_detail" style="display:none;">
                                             <select style="width:93px;" name="contractId">
                                                 <option value="" selected="selected">请选择</option>
-                                                <option value="C0001">C0001</option>
+                                               <!--  <option value="C0001">C0001</option>
                                                 <option value="C0002">C0002</option>
-                                                <option value="C0003">C0003</option>
+                                                <option value="C0003">C0003</option> -->
                                             </select>
                                         </div>
                                     </td>
@@ -299,12 +287,35 @@
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
+		getUserContract();
+		getUserClientName();
 	}
-	$(function(){
-		$('reset:button').click(function(){
-		   $('.input').val("");
-		   $('.select').val("");
-		});
-    })
+	
+	function getUserContract(){
+		var url="getUserContractIdAjax";
+		$.post(url,{currentUserId:$('#currentUserId').val()},function(data,status){
+			//alert(data);
+			var CONTRACTID=$('#contractId');
+			//var option = $("<option>").text("").val("");
+			//debugger;
+			 for(var i=0;i<data.length;i++) {
+		         option = $("<option>").text(data[i].id).val(data[i].id);
+		         CONTRACTID.append(option);
+		      }     
+		},"json");
+	}
+	
+	function getUserClientName(){
+		var url="getUserBusinessClientAjax";
+		$.post(url,{currentUserId:$('#currentUserId').val()},function(data,status){
+			var client_name=$('#clientName');
+			//var option = $("<option>").text("").val("");
+			 for(var i=0;i<data.length;i++) {
+		         var option = $("<option>").text(data[i].clientName).val(data[i].clientName);
+		         client_name.append(option);
+		      }    
+		},"json");
+	}
+	
 </script>
 </html>

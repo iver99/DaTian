@@ -61,11 +61,11 @@
 </body>
                                 <div class="div_mgmt_index2a">
                                 	 本月已结算金额 (元)
-                                     <a href="mysettlement" class="a_mgmt_right1_text2a" hidefocus="true">130,992.00</a>
+                                     <a href="mysettlement" class="a_mgmt_right1_text2a" hidefocus="true"><!-- 130,992.00 --></a>
                                 </div>
                                 <div class="div_mgmt_index2b">
                                 	 本月待结算金额 (元)
-                                     <a href="mysettlement" class="a_mgmt_right1_text2b" hidefocus="true">52,657.00</a>
+                                     <a href="mysettlement" class="a_mgmt_right1_text2b" hidefocus="true"><!-- 52,657.00 --></a>
                                 </div>
                             </div>
                         </td>
@@ -162,6 +162,20 @@
 		getSettlementInfo()
 		
 	}
+	//获取好评率
+	function getGoodCommentRate(){
+		var url="getUserGoodCommentRateAjax";
+		$.ajax({
+			url:url,
+			type:"GET",
+			success:function(data){
+				var settlement_info=data.split("-");
+				
+				
+			}
+		});
+	}
+	
 	//获取用户页面上的结算信息
 	function getSettlementInfo(){
 		var url="getUserSettlementInfoAjax";
@@ -169,11 +183,11 @@
 			url:url,
 			type:"GET",
 			success:function(data){
-				alert(data);
 				var settlement_info=data.split("-");
-				for(var i=0;i<settlement_info.length;i++){
-				}
 				
+				$("a.a_mgmt_right1_text2a").text(settlement_info[0]);
+				
+				$("a.a_mgmt_right1_text2b").text(settlement_info[1]);
 				
 			}
 		});

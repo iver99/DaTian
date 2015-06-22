@@ -7,19 +7,27 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.edu.bjtu.service.BusinessClientService;
 import cn.edu.bjtu.service.ClientService;
 import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.DownloadFile;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Businessclient;
+import cn.edu.bjtu.vo.Contract;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 @Controller
 /**
@@ -31,6 +39,8 @@ public class BusinessClientController {
 	
 	@Resource
 	ClientService clientService;
+	@Autowired
+	BusinessClientService businessClientService;
 	
 	ModelAndView mv=new ModelAndView();
 	
@@ -221,5 +231,21 @@ public class BusinessClientController {
 		DownloadFile.downloadFile(file,request,response);
 
 		return mv;
+	}
+	
+	/**
+	 * 获取用户的所属客户
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value="getUserBusinessClientAjax",produces="text/html;charset=UTF-8")
+	@ResponseBody
+	public String getUserBusinessClientAjax(HttpSession session){
+		
+		JSONArray jsonArray=businessClientService.getUserBusinessClient(session);
+		
+		return jsonArray.toString();
+		
+		
 	}
 }

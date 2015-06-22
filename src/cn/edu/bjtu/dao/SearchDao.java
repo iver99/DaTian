@@ -1,12 +1,12 @@
-package cn.edu.bjtu.dao;
+/*package cn.edu.bjtu.dao;
 
 import java.util.List;
 
-/**
+*//**
  * 
  * @author RussWest0
  *
- */
+ *//*
 public interface SearchDao {
 
 	public List getLineResourceByStartPlace(String startPlace);
@@ -22,3 +22,4 @@ public interface SearchDao {
 	
 	public List getWarehouseResourceByName(String name);
 }
+*/

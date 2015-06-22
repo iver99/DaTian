@@ -27,6 +27,7 @@
 		<script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
 		<!-- <script type="text/javascript" src="js/splitPage.js"></script> <!-- 新增 -->
 		<script type="text/javascript" src="js/focus_load.js"></script>
+		<script type="text/javascript" src="js/search_resource.js"></script><!-- 搜索资源 -->
 		<script type="text/javascript">
 			$(function() {
 				$('input, textarea').placeholder();
@@ -36,7 +37,7 @@
 
 <body onload="OnLoad()">
 
-	<%@ include file="qq.jsp"%>
+<%@ include file="qq.jsp"%> 
 
 <%@ include  file="topFrame.jsp"%>
 	<div id="main_frame">
@@ -107,13 +108,13 @@
 				</div>
 					<div id="div_resource_list_head">
 						<div id="div_resource_list_head1"><!-- 共  条记录 --></div>
-						<input id="count" value="" type="text"/>
-						<input id="display" value="10" type="text"/>
-						<input id="currentPage" value="1" type="text"/>
-						<input id="flag" value=0 type="text"/><!-- 点击页码和点击筛选标识位 -->
+						<input id="count" value="" type="hidden"/>
+						<input id="display" value="10" type="hidden"/>
+						<input id="currentPage" value="1" type="hidden"/>
+						<input id="flag" value=0 type="hidden"/><!-- 点击页码和点击筛选标识位 -->
 						
 						<div id="middlesort">
-							<ul class="quickmenu">
+							 <ul class="quickmenu">
 								<li class="menuitem">
 									<div class="menu">
 										<a href="javascript:;" class="menuhd" hidefocus="true">价格</a>
@@ -155,7 +156,7 @@
 					</div>
 					<table border="0" cellspacing="0" cellpadding="0"
 						class="table_main_list" id="list">
-						<thead>
+						<thead id="thead">
 							<tr>
 								<td width="15" class="td_main_list_head"></td>
 								<td class="td_main_list_head">线路名称</td>
@@ -213,6 +214,7 @@
 			</tr>
 		</table>
 	</div>
+	
 
 	<div id="footer_frame">
 		<iframe allowtransparency="true" width="100%" frameborder="0"
@@ -356,7 +358,7 @@ function pageLayout(totalRows){
 		}
 		if(currentPage==4){
 			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+i+");' class='a_pagenumber' hidefocus='true'>"+i+"</a></td>");
-			page_layout.append("...")
+			page_layout.append("...");
 		}
 		if(currentPage==5){
 			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+i+");' class='a_pagenumber' hidefocus='true'>"+i+"</a></td>");
