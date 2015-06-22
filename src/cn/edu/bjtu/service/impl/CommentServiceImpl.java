@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import cn.edu.bjtu.dao.CommentDao;
 import cn.edu.bjtu.dao.OrderDao;
 import cn.edu.bjtu.service.CommentService;
+import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.vo.Comment;
 import cn.edu.bjtu.vo.Orderform;
@@ -136,9 +137,24 @@ public class CommentServiceImpl implements CommentService{
 	@Override
 	public Float getUserGoodCommentRateAjax(HttpSession session) {
 		// TODO Auto-generated method stub
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+		Integer userKind=(Integer)session.getAttribute(Constant.USER_KIND);
+		String hql_count="select count(*) from Comment t ";
+		Map<String,Object> params=new HashMap<String,Object>();
+		if(userKind==2){//个人用户
+			hql_count+=" where t.clientId=:clientId ";
+			params.put("clientId", userId);
+		}else{//企业用户
+			hql_count=" where t.carrierId=:carrierId ";
+			params.put("carrierId", userId);
+		}
+		Long total_count=commentDao.count(hql_count, params);
+		if(total_count==0L){//总数为0直接返回
+			return 0f;
+		}
+		
 		return 0f;
 	}
-	
 	
 	
 	
