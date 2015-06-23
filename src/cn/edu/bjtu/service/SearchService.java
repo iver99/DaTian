@@ -1,5 +1,9 @@
 package cn.edu.bjtu.service;
 
+import javax.servlet.http.HttpSession;
+
+import cn.edu.bjtu.util.PageUtil;
+
 import com.alibaba.fastjson.JSONArray;
 
 /**
@@ -14,35 +18,35 @@ public interface SearchService {
 	 * @param cityName
 	 * @return
 	 */
-	public JSONArray getLineResourceByCityName(String cityName,int display,int currentPage);
+	public JSONArray getLineResourceByCityName(String cityName,PageUtil pageUtil,HttpSession session);
 	/**
 	 * 根据名称搜索城市配送结果
 	 * @param name
 	 * @return
 	 */
-	public JSONArray getCitylineResourceByName(String name,int display,int currentPage);
+	public JSONArray getCitylineResourceByName(String name,PageUtil pageUtil,HttpSession session);
 	/**
 	 * 根据货物名搜索获取结果
 	 * @param name
 	 * @return
 	 */
-	public JSONArray getGoodsResourceByName(String name,int display,int currentPage);
+	public JSONArray getGoodsResourceByName(String name,PageUtil pageUtil,HttpSession session);
 	/**
 	 * 根据公司名搜索获取结果
 	 * @param name
 	 * @return
 	 */
-	public JSONArray getCompanyResourceByCompanyName(String companyName,int display,int currentPage);
+	public JSONArray getCompanyResourceByCompanyName(String companyName,PageUtil pageUtil,HttpSession session);
 	/**
 	 * 根据车辆牌照名搜索获取结果
 	 * @param name
 	 * @return
 	 */
-	public JSONArray getCarResourceByCarNum(String carNum,int display,int currentPage);
+	public JSONArray getCarResourceByCarNum(String carNum,PageUtil pageUtil,HttpSession session);
 	/**
 	 * 根据仓库名搜索获取结果
 	 * @param name
 	 * @return
 	 */
-	public JSONArray getWarehouseResourceByName(String name,int display,int currentPage);
+	public JSONArray getWarehouseResourceByName(String name,PageUtil pageUtil,HttpSession session);
 }

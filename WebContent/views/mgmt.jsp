@@ -102,19 +102,19 @@
                                 <ul class="ul_mgmt_index">
                                 	<li class="li_mgmt_index1">
                                     	待受理<br />
-                                        <a href="javascript:;" hidefocus="true" ><img class="transaction_info" src="images/btn_mgmt1.png" ></img><!-- <br />12 --></a>
+                                        <a href="javascript:;" hidefocus="true" id="transaction_info1"><img src="images/btn_mgmt1.png"></img><br />1</a>
                                     </li>
                                 	<li class="li_mgmt_index1">
                                     	待收货<br />
-                                        <a href="javascript:;" hidefocus="true"><img src="images/btn_mgmt2.png" id="transaction_info2"></img><!-- <br />12 --></a>
+                                        <a href="javascript:;" hidefocus="true" id="transaction_info2"><img src="images/btn_mgmt2.png"></img><br />2</a>
                                     </li>
                                 	<li class="li_mgmt_index1">
                                     	待结算<br />
-                                        <a href="javascript:;" hidefocus="true"><img src="images/btn_mgmt3.png" id="transaction_info3"></img><!-- <br />12 --></a>
+                                        <a href="javascript:;" hidefocus="true" id="transaction_info3"><img src="images/btn_mgmt3.png"></img><br />3</a>
                                     </li>
                                 	<li class="li_mgmt_index2">
                                     	已完成<br />
-                                        <a href="javascript:;" hidefocus="true"><img src="images/btn_mgmt4.png" id="transaction_info4"></img><!-- <br />12 --></a>
+                                        <a href="javascript:;" hidefocus="true" id="transaction_info4"><img src="images/btn_mgmt4.png"></img><br />4</a>
                                     </li>
                                 </ul>
                             </div>
@@ -200,21 +200,19 @@
 			url:url,
 			type:"GET",
 			success:function(data){
-				alert(data);
+				//alert(data);
 				var transaction_info=data.split("-");
-				for(var i=0;i<transaction_info.length;i++){
-					//alert(transaction_info[i]);
-					//$('#transaction_info'+i+1).html(transaction_info[i]);
-				}
-				/* $('#transaction_info1').text("iver0");
-				$('#transaction_info1').html("iver0");
-				$('#transaction_info1').append("iver0");
-				//$('#iver99').append("iver0");
-				$('img.transaction_info').append("iver0"); */
-				
+				$('#transaction_info1').html("<img src=\"images/btn_mgmt1.png\" ></img><br />"+transaction_info[0]);
+				$('#transaction_info2').html("<img src=\"images/btn_mgmt2.png\" ></img><br />"+transaction_info[1]);
+				$('#transaction_info3').html("<img src=\"images/btn_mgmt3.png\" ></img><br />"+transaction_info[2]);
+				$('#transaction_info4').html("<img src=\"images/btn_mgmt4.png\" ></img><br />"+transaction_info[3]);
 				
 			}
 		});
+		
+		//画图-好评率和投诉率 
+		getCompletionInfo(parseInt("60"),parseInt("20"));
+		
 		
 	}
 </script>

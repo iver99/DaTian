@@ -320,6 +320,7 @@ function loadXMLDoc(id)
 		   type: "GET",
 		   url: curWwwPath.substring(0,pos) + "/DaTian/focus",//请求的后台地址
 		   data: "type=company&id=" + id,//前台传给后台的参数
+		   cache:false,
 		   success: function(msg){//msg:返回值
 			   if(msg == "login"){
 				   location.assign(curWwwPath.substring(0,pos) + "/DaTian/loginForm");
@@ -362,7 +363,7 @@ function getSelectedCompanyAjax(
 		for(var i=0; i<data.length; i++) {
 			$("#testbody").append("<tr>");
 			$("#testbody").append("<td class=\"td_main_list_content\"></td>");
-			$("#testbody").append("<td class=\"td_main_list_content\"><a href=\"companyDetail?id="+data[i].id+" hidefocus=\"true\">"+data[i].companyName+"<img src=\"images/btn_level1a.png\" /></a></td>");
+			$("#testbody").append("<td class=\"td_main_list_content\"><a href=\"companyDetail?id="+data[i].id+"\" hidefocus=\"true\">"+data[i].companyName+"<img src=\"images/btn_level1a.png\" /></a></td>");
 			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].resourceRate+"</td>");
 			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].companyKind+"</td>");
 			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].creditRate+"</td>");

@@ -1,15 +1,14 @@
 package cn.edu.bjtu.controller;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.SearchService;
+import cn.edu.bjtu.util.PageUtil;
 
 import com.alibaba.fastjson.JSONArray;
 
@@ -26,32 +25,38 @@ public class SearchController {
 	SearchService searchService;
 	ModelAndView mv = new ModelAndView();
 	
-	@RequestMapping("searchResourceAjax")
-	public String getSearchResult(String search_content,String resource_kind,int display,int currentPage){
+	/**
+	 * 搜索功能
+	 * @param search_content
+	 * @param resource_kind
+	 * @param pageUtil
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value="searchResourceAjax",produces="text/html;charset=UTF-8")
+	public String getSearchResult(String search_content,String resource_kind,PageUtil pageUtil,HttpSession session){
 		
 		JSONArray jsonArray=new JSONArray();
 		
 		if(resource_kind.equals("线路")){
-			
+			jsonArray=searchService.getLineResourceByCityName(search_content, pageUtil, session);
 		}else if(resource_kind.equals("配送")){
-			
+			jsonArray=searchService.getCitylineResourceByName(search_content, pageUtil, session);
 		}
 		else if(resource_kind.equals("车辆")){
-			
+			jsonArray=searchService.getCarResourceByCarNum(search_content, pageUtil, session);
 		}
-		
 		else if(resource_kind.equals("仓库")){
-	
+			jsonArray=searchService.getWarehouseResourceByName(search_content, pageUtil, session);
 		}
-
 		else if(resource_kind.equals("公司")){
-	
+			jsonArray=searchService.getCompanyResourceByCompanyName(search_content, pageUtil, session);
 		}
 		else if(resource_kind.equals("货物")){
-			
+			jsonArray=searchService.getGoodsResourceByName(search_content, pageUtil, session);
 		}
 		
-		return "";
+		return jsonArray.toString();
 		
 		
 	}

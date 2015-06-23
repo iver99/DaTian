@@ -138,7 +138,7 @@
 										<input id="location1" type="text" text="location"
 											class="input_resource_search1"
 											style="width: 300px; cursor: pointer;" value="点击此处定位..."
-											readonly="readonly" onclick="showid('popup2');" />
+											readonly="readonly" onclick="showid('popup2');map()" />
 									</dd>
 								</dl>
 							</li> 
@@ -283,7 +283,7 @@
 							</c:forEach> --%>
 						</tbody>
 
-						<select id="carloc" style="display:none">
+						<select id="carloc" style="display:inline">
 							<c:forEach var="location" items="${locList }">
 								<option value="${location.carNum }">${location.carNum }</option>
 								<option value="${location.locLongitude }">${location.locLongitude }</option>
@@ -337,7 +337,7 @@
 		</table>
 	</div>
 
-	<div id="popup2" style="display: none;">
+	<div id="popup2" style="display: inline;">
 		<table border="0" cellpadding="0" cellspacing="0">
 			<tr>
 				<td width="610"><div class="div_popup_title1">地图</div></td>
@@ -359,8 +359,8 @@
 				<td width="570" height="40"><input type="text"
 					class="input_resource_search1"
 					style="width: 200px; margin-left: 10px;" placeholder="请输入要查找的地点..."
-					id="searchloc" value="" /> <select class="select_popup1"
-					id="searcharea">
+					id="searchloc" value=""/> 
+					<select class="select_popup1" id="searcharea">
 						<option value="1" selected="selected">请选择范围</option>
 						<option value="5">周围5公里以内</option>
 						<option value="10">周围10公里以内</option>
@@ -407,13 +407,14 @@ function Reset()
 
 <script type="text/javascript">
 	// 百度地图API功能
-	var longitude = 116.403851;
-	var latitude = 39.915295;
 	var map = new BMap.Map("allmap"); // 创建Map实例
 	map.centerAndZoom(new BMap.Point(116.403851, 39.915295), 12); // 初始化地图,设置中心点坐标和地图级别
 	map.addControl(new BMap.MapTypeControl()); //添加地图类型控件
 	map.setCurrentCity("北京"); // 设置地图显示的城市 此项是必须设置的
 	map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
+	var longitude = 116.403851;
+	var latitude = 39.915295;
+	var localSearch = new BMap.LocalSearch(map);
 	var loclist = new Array();
 	var k = -4;
 	<c:forEach var="location" items="${locList }">
@@ -458,22 +459,56 @@ function Reset()
 							//alert('你点击的是覆盖物：'+e.overlay.toString());   
 						}
 					});
-	//车辆位置-范围-圈
-	function search() {
-		//deletePoint();
+//车辆位置-范围-圈
+function search() {
+	
+	var myGeo = new BMap.Geocoder();
+	if(document.getElementById("searchloc").value != "")
+	{
+		// 将地址解析结果显示在地图上,并调整地图视野
+		myGeo.getPoint($("#searchloc").val(), function(point){
+			if (point) {
+				localSearch.setSearchCompleteCallback(function (searchResult) {
+			        var poi = searchResult.getPoi(0);
+			        longitude = poi.point.lng;
+			        latitude = poi.point.lat;
+			        map.clearOverlays();
+					var point = new BMap.Point(longitude, latitude);
+					var range = document.getElementById("searcharea").options[document
+							.getElementById("searcharea").selectedIndex].value * 1000;
+					var circle = new BMap.Circle(point, range, {
+						strokeColor : "blue",
+						strokeWeight : 2,
+						strokeOpacity : 0.5
+					});
+					map.addOverlay(circle);
+			    });
+				localSearch.search($("#searchloc").val());
+				map.panTo(point);
+			}else{
+				alert("您选择地址没有解析到结果!");
+			}
+		}, "北京市");
+		
+	}
+	else
+	{
+		longitude=116.403851;
+		latitude=39.915295;
 		map.clearOverlays();
 		var point = new BMap.Point(longitude, latitude);
-		map.centerAndZoom(point, 13);
 		var range = document.getElementById("searcharea").options[document
 				.getElementById("searcharea").selectedIndex].value * 1000;
-		//alert(range);
 		var circle = new BMap.Circle(point, range, {
 			strokeColor : "blue",
 			strokeWeight : 2,
 			strokeOpacity : 0.5
 		});
 		map.addOverlay(circle);
+		map.panTo(point);
 	}
+}
+document.getElementById('popup2').style.display = "none";
 </script>
 <script type="text/javascript">
 function loadXMLDoc(id)
@@ -485,6 +520,7 @@ function loadXMLDoc(id)
 		   type: "GET",
 		   url: curWwwPath.substring(0,pos) + "/DaTian/focus",//请求的后台地址
 		   data: "type=car&id=" + id,//前台传给后台的参数
+		   cache:false,
 		   success: function(msg){//msg:返回值
 			   if(msg == "login"){
 				   location.assign(curWwwPath.substring(0,pos) + "/DaTian/loginForm");

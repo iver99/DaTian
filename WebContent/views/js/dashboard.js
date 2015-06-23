@@ -1,12 +1,12 @@
 
-      window.onload = function()
+      function getCompletionInfo(first_rate,second_rate)
 	  {
         var d1 = new JustGage ({
           id: "div_mgmt_dashboard1", 
-          value: getRandomInt(98,98), 
+          value: getRandomInt(first_rate,first_rate), 
           min: 0,
           max: 100,
-          title: "派送及时率",
+          title: "好评率",
           label: "%",
 		  levelColors: [
 			  "#0085c0"
@@ -14,10 +14,10 @@
         });
         var d2 = new JustGage ({
           id: "div_mgmt_dashboard2", 
-          value: getRandomInt(90,90), 
+          value: getRandomInt(second_rate,second_rate), 
           min: 0,
           max: 100,
-          title: "库存准确率",
+          title: "投诉率",
           label: "%",
 			levelColors: [
 			  "#ffcc00"

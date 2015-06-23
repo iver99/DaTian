@@ -16,11 +16,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-
 import cn.edu.bjtu.bean.search.CargoSearchBean;
-import cn.edu.bjtu.bean.search.WarehouseSearchBean;
 import cn.edu.bjtu.dao.GoodsInfoDao;
 import cn.edu.bjtu.service.GoodsInfoService;
 import cn.edu.bjtu.util.Constant;
@@ -29,6 +25,9 @@ import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.GoodsClientView;
 import cn.edu.bjtu.vo.Goodsform;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 @Transactional
 @Repository
 public class GoodsInfoServiceImpl implements GoodsInfoService{
@@ -46,6 +45,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 	/**
 	 * 条件筛选干线线路
 	 */
+	@Deprecated
 	public List getSelectedGoodsInfo(String startPlace, String endPlace,
 			String transportType, int Display,int PageNow) {
 		

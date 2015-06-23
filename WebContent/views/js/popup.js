@@ -1,4 +1,7 @@
 function showid(idname){
+	
+document.body.style.overflow="hidden";
+
 var isIE = (document.all) ? true : false;
 var isIE6 = isIE && ([/MSIE (\d)\.0/i.exec(navigator.userAgent)][0][1] == 6);
 var newbox=document.getElementById(idname);
@@ -49,10 +52,10 @@ for (var i=0;i<sel.length;i++) {
 	}
 ****/
 
-document.getElementById("close").onclick=function(){newbox.style.display="none";layer.style.display="none";}
+document.getElementById("close").onclick=function(){newbox.style.display="none";layer.style.display="none";document.body.style.overflow="auto";}
 //document.getElementById("close_2").onclick=function(){newbox.style.display="none";layer.style.display="none";}
 
-document.getElementById("close2").onclick=function(){newbox.style.display="none";layer.style.display="none";}
+document.getElementById("close2").onclick=function(){newbox.style.display="none";layer.style.display="none";document.body.style.overflow="auto";}
 
 document.getElementById("close2a").onclick=function(){document.getElementById('location1').value='北京市顺义区天竺空港工业区天柱中路16号';newbox.style.display="none";layer.style.display="none";}
 
