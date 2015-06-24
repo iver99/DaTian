@@ -193,7 +193,7 @@ public class OrderController {
 			else
 				System.out.println("接收订单失败");// 应记录日志
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// 
 			// 此处应记录日志
 			e.printStackTrace();
 
@@ -250,7 +250,7 @@ public class OrderController {
 			else
 				System.out.println("签单上传失败");// logging...
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		}
 		return mv;
@@ -300,7 +300,7 @@ public class OrderController {
 			try {
 				response.sendRedirect("sendorderinfo");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				e.printStackTrace();
 				// logging
 			}
@@ -385,7 +385,7 @@ public class OrderController {
 			try {
 				response.sendRedirect("sendorderinfo");// 重定向，显示最新的结果
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				// 此处应该记录日志
 				e.printStackTrace();
 			}
@@ -452,7 +452,7 @@ public class OrderController {
 			try {
 				response.sendRedirect("sendorderinfo");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				e.printStackTrace();
 				// logging
 			}
@@ -477,7 +477,7 @@ public class OrderController {
 			try {
 				response.sendRedirect("recieveorderinfo");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				e.printStackTrace();
 				// logging
 			}
@@ -698,7 +698,7 @@ public class OrderController {
 			else
 				System.out.println("待确认失败");// logging...
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		}
 		return mv;
@@ -793,7 +793,7 @@ public class OrderController {
 			try {
 				response.sendRedirect("sendorderinfo");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				e.printStackTrace();
 			}
 		}
@@ -854,7 +854,7 @@ public class OrderController {
 			try {
 				response.sendRedirect("sendorderinfo");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				e.printStackTrace();
 			}
 		}

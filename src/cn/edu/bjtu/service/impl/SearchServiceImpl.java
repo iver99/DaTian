@@ -58,7 +58,7 @@ public class SearchServiceImpl implements SearchService{
 	 */
 	@Override
 	public JSONArray getLineResourceByCityName(String cityName,PageUtil pageUtil,HttpSession session) {
-		// TODO Auto-generated method stub
+		
 		String userId=(String)session.getAttribute(Constant.USER_ID);
 		Map<String,Object> params=new HashMap<String,Object>();
 		String sql = "select t1.id,"

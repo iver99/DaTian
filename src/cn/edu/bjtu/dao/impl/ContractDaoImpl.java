@@ -35,13 +35,13 @@ public class ContractDaoImpl extends BaseDaoImpl<Contract> implements ContractDa
 	 * 返回公司合同
 	 */
 	public List getCompanyContract(String carrierId) {
-		// TODO Auto-generated method stub
+		
 		return ht.find("from Contract where carrierId='"+carrierId+"'");
 	}
 	
 	/*@Override
 	public List getCompanyContractForUser(String clientId) {
-		// TODO Auto-generated method stub
+		
 		return this.find("from Contract where clientId='"+clientId+"'");
 	}*/
 	
@@ -50,7 +50,7 @@ public class ContractDaoImpl extends BaseDaoImpl<Contract> implements ContractDa
 	 * 返回合同信息
 	 */
 	public Contract getContractInfo(String contractId) {
-		// TODO Auto-generated method stub
+		
 		return ht.get(Contract.class, contractId);
 	}
 	@Override
@@ -58,7 +58,7 @@ public class ContractDaoImpl extends BaseDaoImpl<Contract> implements ContractDa
 	 * 终止合同
 	 */
 	public boolean shutdownContract(String contractId, String reason) {
-		// TODO Auto-generated method stub
+		
 		contract=ht.get(Contract.class, contractId);
 		contract.setState("已终止");//更新状态
 		contract.setReason(reason);
@@ -70,7 +70,7 @@ public class ContractDaoImpl extends BaseDaoImpl<Contract> implements ContractDa
 	
 	@Override
 	public List getFindContract(String hql, int display, int pageNow) {
-		// TODO Auto-generated method stub
+		
 		int page = pageNow;
 		int pageSize = display;
 		
@@ -78,7 +78,7 @@ public class ContractDaoImpl extends BaseDaoImpl<Contract> implements ContractDa
 	}
 	@Override
 	public boolean changeStatus(String id) {
-		// TODO Auto-generated method stub
+		
 		Contract contract = (Contract) ht.get(Contract.class, id);
 		String temp="";
 		temp=contract.getState();

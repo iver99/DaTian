@@ -33,7 +33,7 @@ public interface CompanyService {
 	/**
 	 * 资源栏-公司筛选
 	 * @Title: getSelectedCompanyNew 
-	 * @Description: TODO 
+	 *  
 	 * @param: @param companyBean
 	 * @param: @param pageUtil
 	 * @param: @param session
@@ -48,7 +48,7 @@ public interface CompanyService {
 	/**
 	 * 资源栏公司筛选总记录数
 	 * @Title: getSelectedCompanyTotalRows 
-	 * @Description: TODO 
+	 *  
 	 * @param: @param companyBean
 	 * @param: @return 
 	 * @return: Integer 

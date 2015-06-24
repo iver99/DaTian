@@ -52,7 +52,7 @@ public class CitylineServiceImpl implements CitylineService {
 	@Override
 	public JSONArray getSelectedLineNew(CityLineSearchBean cityLineBean,
 			PageUtil pageUtil, HttpSession session) {
-		// TODO Auto-generated method stub
+		
 		String userId=(String)session.getAttribute(Constant.USER_ID);
 		Map<String,Object> params=new HashMap<String,Object>();
 			String sql = "select t1.id,"
@@ -231,7 +231,7 @@ public class CitylineServiceImpl implements CitylineService {
 	 */
 	@Deprecated
 	public int getTotalRows(String cityName, String VIPService, String refPrice) {
-		// TODO Auto-generated method stub
+		
 		String sql = "";
 		String hql = "from CityCarrierView ";// 会变化
 		if (VIPService.equals("有增值服务")) {
@@ -310,7 +310,7 @@ public class CitylineServiceImpl implements CitylineService {
 	 * 获取城市配送信息
 	 */
 	public Cityline getCitylineInfo(String citylineid) {
-		// TODO Auto-generated method stub
+		
 
 		return citylineDao.getCitylineInfo(citylineid);
 	}
@@ -320,7 +320,7 @@ public class CitylineServiceImpl implements CitylineService {
 	 * 获取公司城市配送线路
 	 */
 	public List getCompanyCityline(String carrierId) {
-		// TODO Auto-generated method stub
+		
 		return citylineDao.getCompanyCityline(carrierId);
 	}
 
@@ -331,7 +331,7 @@ public class CitylineServiceImpl implements CitylineService {
 	public boolean insertCityLine(String name, String cityName,
 			String VIPService, float refPrice, String remarks, String carrierId, String VIPDetail,
 			String path, String fileName) {
-		// TODO Auto-generated method stub
+		
 		cityline.setId(IdCreator.createCityLineId());
 		cityline.setName(name);
 		cityline.setCityName(cityName);
@@ -359,7 +359,7 @@ public class CitylineServiceImpl implements CitylineService {
 	public boolean updateLine(String id, String citylineName, String cityName,
 			String VIPService, String VIPDetail, float refPrice,
 			String remarks, String carrierId,String path,String fileName) {
-		// TODO Auto-generated method stub
+		
 
 		cityline = getCitylineInfo(id);// 根据id查找到城市配送信息
 
@@ -396,7 +396,7 @@ public class CitylineServiceImpl implements CitylineService {
 	 */
 	@Override
 	public Integer getSelectedCityLineTotalRows(CityLineSearchBean citylineBean) {
-		// TODO Auto-generated method stub
+		
 				Map<String,Object> params=new HashMap<String,Object>();
 				String hql="select count(*) from CityCarrierView t1"+whereSql(citylineBean, params);
 				Long count=citylineDao.count(hql, params);

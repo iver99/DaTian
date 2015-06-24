@@ -14,7 +14,7 @@ public class CarTeamDaoImpl extends BaseDaoImpl<Carteam> implements CarTeamDao{
 	 * 返回车队信息
 	 */
 	public List getCarteam(String carrierId) {
-		// TODO Auto-generated method stub
+		
 		return this.find("from Carteam where carrierId='"+carrierId+"'");
 	}
 	
@@ -23,7 +23,7 @@ public class CarTeamDaoImpl extends BaseDaoImpl<Carteam> implements CarTeamDao{
 	 * 返回具体车队信息
 	 */
 	public Carteam getCarteamInfo(String id) {
-		// TODO Auto-generated method stub
+		
 		return this.get(Carteam.class,id);
 	}
 }

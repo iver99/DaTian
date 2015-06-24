@@ -22,19 +22,19 @@ public class SearchDaoImpl implements SearchDao{
 	HibernateTemplate ht;
 	@Override
 	public List getLineResourceByStartPlace(String startPlace) {
-		// TODO Auto-generated method stub
+		
 		return ht.find("from LineCarrierView where startPlace like '%"+startPlace+"%'");
 	}
 
 	@Override
 	public List getLineResourceByEndPlace(String endPlace) {
-		// TODO Auto-generated method stub
+		
 		return ht.find("from LineCarrierView where endPlace like '%"+endPlace+"%'");
 	}
 
 	@Override
 	public List getCitylineResourceByName(String name) {
-		// TODO Auto-generated method stub
+		
 		return ht.find("from CityCarrierView where name like '%"+name+"%'");
 	}
 	

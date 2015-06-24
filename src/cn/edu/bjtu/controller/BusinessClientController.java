@@ -125,7 +125,7 @@ public class BusinessClientController {
 				response.sendRedirect("client");// 重定向，显示最新的结果
 												// error,无法重定向
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				// 
 				// 此处应该记录日志
 				e.printStackTrace();
 			}
@@ -186,7 +186,7 @@ public class BusinessClientController {
 				response.sendRedirect("client");// 重定向，显示最新的结果
 												// error,无法重定向
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				// 
 				// 此处应该记录日志
 				e.printStackTrace();
 			}
@@ -207,7 +207,7 @@ public class BusinessClientController {
 			try {
 				response.sendRedirect("client");// 重定向，显示最新的结果
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				// 此处应该记录日志
 				e.printStackTrace();
 			}

@@ -48,7 +48,7 @@ public class MessageServiceImpl extends BaseDaoImpl<Message> implements MessageS
 	 */
 	@Override
 	public JSONArray getAllUserMessage(HttpSession session) {
-		// TODO Auto-generated method stub
+		
 		String userId=(String)session.getAttribute(Constant.USER_ID);
 		String hql="from Message t where t.clientId=:clientId";
 		Map<String,Object> params=new HashMap<String,Object>();

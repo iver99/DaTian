@@ -17,7 +17,7 @@ public class LoginServiceImpl implements LoginService{
 	
 	@Override
 	public Userinfo checkLogin(String username, String password,int userKind) {
-		// TODO Auto-generated method stub
+		
 		
 		
 		return loginDao.checkLogin(username, password,userKind); 

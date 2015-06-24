@@ -128,7 +128,7 @@ public class FocusController {
 			else
 				System.out.println("删除失败");// 应记录日志
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// 
 			// 此处应记录日志
 			e.printStackTrace();
 

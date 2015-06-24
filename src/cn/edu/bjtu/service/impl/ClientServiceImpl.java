@@ -45,7 +45,7 @@ public class ClientServiceImpl implements ClientService{
 	 *返回公司客户 
 	 */
 	public List getCompanyClient(String carrierId) {
-		// TODO Auto-generated method stub
+		
 		return clientDao.getCompanyClient(carrierId);
 	}
 	@Override
@@ -53,7 +53,7 @@ public class ClientServiceImpl implements ClientService{
 	 * 通过id获取客户信息
 	 */
 	public Clientinfo getClientInfo(String clientId) {
-		// TODO Auto-generated method stub
+		
 		return clientDao.getClientInfo(clientId);
 	}
 	
@@ -62,7 +62,7 @@ public class ClientServiceImpl implements ClientService{
 	 * 获取客户信息(businessclient)
 	 */
 	public Businessclient getBusinessclientInfo(String businessclientId) {
-		// TODO Auto-generated method stub
+		
 		return clientDao.getBusinessclientInfo(businessclientId);
 	}
 	
@@ -73,7 +73,7 @@ public class ClientServiceImpl implements ClientService{
 	public boolean insertBusinessClient(String account, String clientName,
 			String clientBusiness, String contact, String phone,
 			String remarks, String carrierId,String path,String fileName) {
-		// TODO Auto-generated method stub
+		
 		businessClient.setAccount(account);
 		businessClient.setCarrierId(carrierId);
 		businessClient.setClientBusiness(clientBusiness);
@@ -100,7 +100,7 @@ public class ClientServiceImpl implements ClientService{
 	public boolean updateBusinessClient(String id, String account, String clientName,
 			String clientBusiness, String contact, String phone,
 			String remarks, String carrierId,String path,String fileName) {
-		// TODO Auto-generated method stub
+		
 		businessClient=getBusinessclientInfo(id);//根据id查找到客户信息
 		businessClient.setAccount(account);
 		businessClient.setClientName(clientName);
@@ -130,7 +130,7 @@ public class ClientServiceImpl implements ClientService{
 	}
 	@Override
 	public String getBasicUserInfo(String userId) {
-		// TODO Auto-generated method stub
+		
 		return clientDao.getBasicUserInfo(userId);
 	}
 	@Override
@@ -138,7 +138,7 @@ public class ClientServiceImpl implements ClientService{
 	 * 检查用户头像设置的状态
 	 */
 	public boolean checkHeadIconStatus(String userId) {
-		// TODO Auto-generated method stub
+		
 		Userinfo userinfo=userinfoDao.get(Userinfo.class, userId);
 		if(userinfo !=null){
 			if(userinfo.getHeadIcon().equals("已设置")){
@@ -151,7 +151,7 @@ public class ClientServiceImpl implements ClientService{
 	}
 	@Override
 	public String getStatus(String userId) {
-		// TODO Auto-generated method stub
+		
 		return clientDao.getStatus(userId);
 	}
 	@Override
@@ -160,7 +160,7 @@ public class ClientServiceImpl implements ClientService{
 	 */
 	public boolean validateUser(String userId, String realName, String phone,
 			String IDCard, String sex, String path, String fileName) {
-		// TODO Auto-generated method stub
+		
 		return clientDao.validateUser(userId,realName,phone,IDCard,sex, path, fileName);
 	}
 	@Override
@@ -169,7 +169,7 @@ public class ClientServiceImpl implements ClientService{
 	 */
 	public boolean updateClientinfo(Clientinfo clientinfo, String path,
 			String fileName, String userId) {
-		// TODO Auto-generated method stub
+		
 		if (path != null && fileName != null) {
 			String fileLocation = path + "//" + fileName;
 			clientinfo.setIDPicture(fileLocation);//设置文件上传路径
@@ -189,7 +189,7 @@ public class ClientServiceImpl implements ClientService{
 	 */
 	@Override
 	public String getTransactionInfo(HttpSession session) {
-		// TODO Auto-generated method stub
+		
 //		String userId=(String)session.getAttribute(Constant.USER_ID);
 //		String userKind=(String)session.getAttribute(Constant.USER_KIND);
 		//待受理数目

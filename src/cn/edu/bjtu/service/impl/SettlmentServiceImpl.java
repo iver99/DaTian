@@ -48,12 +48,12 @@ public class SettlmentServiceImpl implements SettlementService{
 	 */
 	@Override
 	public List getOrderStatement(String orderNum) {
-		// TODO Auto-generated method stub
+		
 		return settlementDao.getOrderStatement(orderNum);
 	}
 	@Override
 	public List getFindSettlement(String carrierId, String name, int display, int pageNow) {
-		// TODO Auto-generated method stub
+		
 		String sql="from SettlementCarrierView where carrierId='"+carrierId+"' and ";
 		if(name.equals("承运方名称或承运方合同编号")){
 			//查找时不考虑合同名字
@@ -75,6 +75,7 @@ public class SettlmentServiceImpl implements SettlementService{
 		if(flag==0){
 			params.put("settlementState", "已生成");
 		}else{//flag=1
+			hql+=" and t.state='已完成'";
 			params.put("settlementState", "未生成");
 		}
 		params.put("clientId", userId);
@@ -82,7 +83,10 @@ public class SettlmentServiceImpl implements SettlementService{
 		float totalMoney=0F;
 		if(orderList!=null && orderList.size()>0){
 			for(Orderform o:orderList){
-				totalMoney+=o.getActualPrice();//结算金额按实际运费算
+				if(o.getActualPrice()!=null){
+					
+					totalMoney+=o.getActualPrice();//结算金额按实际运费算
+				}
 			}
 		}
 		

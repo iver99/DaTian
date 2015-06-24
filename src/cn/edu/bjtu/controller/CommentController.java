@@ -54,7 +54,7 @@ public class CommentController {
 			try {
 				response.sendRedirect("sendorderinfo");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				e.printStackTrace();
 			}
 		}
@@ -70,8 +70,8 @@ public class CommentController {
 	 */
 	@ResponseBody
 	@RequestMapping("getUserGoodCommentRateAjax")
-	public Float getUserGoodCommentRateAjax(HttpSession session){
-		Float rate=commentService.getUserGoodCommentRateAjax(session);
+	public Double getUserGoodCommentRateAjax(HttpSession session){
+		Double rate=commentService.getUserGoodCommentRateAjax(session);
 		return rate;
 	}
 

@@ -120,7 +120,7 @@ public class ClientController {
 			try {
 				response.sendRedirect("accountinfo");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				e.printStackTrace();
 			}
 		}else{//验证账户出错
@@ -173,7 +173,7 @@ public class ClientController {
 			try {
 				response.sendRedirect("accountinfo");//跳到我的信息页面
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				e.printStackTrace();
 			}
 			
@@ -182,7 +182,7 @@ public class ClientController {
 			try {
 				response.sendRedirect("accountinfo");//跳到我的信息页面 
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				e.printStackTrace();
 			}
 		}

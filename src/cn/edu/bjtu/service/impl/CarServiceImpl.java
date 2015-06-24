@@ -188,7 +188,7 @@ public class CarServiceImpl implements CarService {
 	@Deprecated
 	public int getTotalRows(String carLocation, String carBase,
 			String carLength, String carWeight) {
-		// TODO Auto-generated method stub
+		
 		String[] paramList = { "carLocation", "carBase", "carLength",
 				"carWeight" };// 没startplace1
 		String[] valueList = { carLocation, carBase, carLength, carWeight };
@@ -202,7 +202,7 @@ public class CarServiceImpl implements CarService {
 	 * 返回特定车辆信息
 	 */
 	public Carinfo getCarInfo(String carid) {
-		// TODO Auto-generated method stub
+		
 
 		return carDao.getCarInfo(carid);
 	}
@@ -211,7 +211,7 @@ public class CarServiceImpl implements CarService {
 
 	@Override
 	public List getCompanyCar(String carrierId) {
-		// TODO Auto-generated method stub
+		
 		return carDao.getCompanyCar(carrierId);
 	}
 
@@ -227,7 +227,7 @@ public class CarServiceImpl implements CarService {
 			double carHeight, double carWeight, String driverId,
 			String purchaseTime, String storage, String startPlace,
 			String endPlace, String stopPlace, String carrierId) {
-		// TODO Auto-generated method stub
+		
 		
 		carinfo.setId(IdCreator.createCarId());
 		carinfo.setCarNum(carNum);
@@ -269,7 +269,7 @@ public class CarServiceImpl implements CarService {
 			String endPlace,// 缺少参数
 			String stopPlace,// 缺少参数
 			String carrierId) {
-		// TODO Auto-generated method stub
+		
 		carinfo = getCarInfo(id);// 根据id查找到车辆信息
 		carinfo.setCarTeam(carTeam);
 		carinfo.setLocationType(locType);
@@ -333,7 +333,7 @@ public class CarServiceImpl implements CarService {
 	 */
 	@Override
 	public Integer getSelectedCarTotalRows(CarSearchBean carBean) {
-		// TODO Auto-generated method stub
+		
 		Map<String,Object> params=new HashMap<String,Object>();
 		String hql="select count(*) from CarCarrierView t1"+whereSql(carBean, params);
 		Long count=carDao.count(hql, params);

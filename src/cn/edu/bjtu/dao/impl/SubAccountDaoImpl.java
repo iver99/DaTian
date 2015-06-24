@@ -32,7 +32,7 @@ public class SubAccountDaoImpl extends BaseDaoImpl<SubAccount> implements SubAcc
 	
 	@Override
 	public List getSubAccount(String userId) {
-		// TODO Auto-generated method stub
+		
 		return ht.find("from SubAccount where hostAccountId='"+userId+"'");
 	}
 	

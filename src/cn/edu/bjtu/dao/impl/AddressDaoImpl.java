@@ -30,7 +30,7 @@ public class AddressDaoImpl extends BaseDaoImpl<Address> implements AddressDao{
 	
 	@Override
 	public List getAddress(String userId) {
-		// TODO Auto-generated method stub
+		
 		return this.find("from Address where clientId='"+userId+"'");
 	}
 	

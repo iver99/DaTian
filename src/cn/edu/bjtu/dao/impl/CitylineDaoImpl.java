@@ -26,7 +26,7 @@ public class CitylineDaoImpl extends BaseDaoImpl<Cityline> implements CitylineDa
 	 * 返回指定线路信息
 	 */
 	public Cityline getCitylineInfo(String citylineid) {
-		// TODO Auto-generated method stub
+		
 		return ht.get(Cityline.class, citylineid);
 	}
 
@@ -35,14 +35,14 @@ public class CitylineDaoImpl extends BaseDaoImpl<Cityline> implements CitylineDa
 	 * 返回公司城市配送线路信息
 	 */
 	public List getCompanyCityline(String carrierId) {
-		// TODO Auto-generated method stub
+		
 		return ht.find("from Cityline where carrierId='"+carrierId+"'");
 		
 	}
 	
 	@Override
 	public List getSelectedCityline(String hql, int display, int pageNow) {
-		// TODO Auto-generated method stub
+		
 		int page = pageNow;
 		int pageSize = display;
 

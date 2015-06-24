@@ -23,13 +23,13 @@ public class CarTeamServiceImpl implements CarTeamService{
 
 	@Override
 	public List getCarteam(String carrierId) {
-		// TODO Auto-generated method stub
+		
 		return carTeamDao.getCarteam(carrierId);
 	}
 
 	@Override
 	public Carteam getCarteamInfo(String id) {
-		// TODO Auto-generated method stub
+		
 		return carTeamDao.getCarteamInfo(id);
 	}
 

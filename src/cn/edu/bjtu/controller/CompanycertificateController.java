@@ -79,7 +79,7 @@ public class CompanycertificateController {
 			try {
 				response.sendRedirect("accountinfo");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				e.printStackTrace();
 			}
 		}
@@ -166,7 +166,7 @@ public class CompanycertificateController {
 			try {
 				response.sendRedirect("accountinfo");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				e.printStackTrace();
 			}
 		}

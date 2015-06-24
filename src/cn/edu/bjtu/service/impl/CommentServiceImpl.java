@@ -39,7 +39,7 @@ public class CommentServiceImpl implements CommentService{
 	 */
 	public boolean commitComment(String rate1, String rate2, String rate3,
 			String rate4, String remarks, String userId,String orderid) {
-		// TODO Auto-generated method stub
+		
 		Comment comment=new Comment();
 		comment.setId(IdCreator.createAssessId());
 		comment.setRelDate(new Date());
@@ -75,7 +75,7 @@ public class CommentServiceImpl implements CommentService{
 	 *根据公司id和干线id得到评价
 	 */
 	public List<Comment> getLinetransportCommentById(String linetransportId,String userId) {
-		// TODO Auto-generated method stub
+		
 		Map<String,Object> params=new HashMap<String,Object>();
 		String hql="from Comment where linetransportId=:linetransportId and carrierId=:carrierId";
 		params.put("linetransportId", linetransportId);
@@ -85,7 +85,7 @@ public class CommentServiceImpl implements CommentService{
 
 	@Override
 	public List<Comment> getCitylineCommentById(String citylineId, String userId) {
-		// TODO Auto-generated method stub
+		
 		Map<String,Object> params=new HashMap<String,Object>();
 		String hql="from Comment where citylineId=:citylineId and carrierId=:carrierId";
 		params.put("citylineId", citylineId);
@@ -95,7 +95,7 @@ public class CommentServiceImpl implements CommentService{
 
 	@Override
 	public List<Comment> getCarCommentById(String carId, String userId) {
-		// TODO Auto-generated method stub
+		
 		Map<String,Object> params=new HashMap<String,Object>();
 		String hql="from Comment where carId=:carId and carrierId=:carrierId";
 		params.put("carId", carId);
@@ -106,7 +106,7 @@ public class CommentServiceImpl implements CommentService{
 	@Override
 	public List<Comment> getWarehouseCommentById(String warehouseid,
 			String userId) {
-		// TODO Auto-generated method stub
+		
 		Map<String,Object> params=new HashMap<String,Object>();
 		String hql="from Comment where warehouseid=:warehouseid and carrierId=:carrierId";
 		params.put("warehouseid", warehouseid);
@@ -119,7 +119,7 @@ public class CommentServiceImpl implements CommentService{
 	 */
 	@Override
 	public Comment getCommentByOrderId(String orderId) {
-		// TODO Auto-generated method stub
+		
 		String hql="from Comment where orderId=:orderId";
 		Map<String,Object> params=new HashMap<String,Object>();
 		params.put("orderId", orderId);
@@ -135,28 +135,68 @@ public class CommentServiceImpl implements CommentService{
 	 * 返回用户的好评率
 	 */
 	@Override
-	public Float getUserGoodCommentRateAjax(HttpSession session) {
-		// TODO Auto-generated method stub
+	public Double getUserGoodCommentRateAjax(HttpSession session) {
+		
 		String userId=(String)session.getAttribute(Constant.USER_ID);
 		Integer userKind=(Integer)session.getAttribute(Constant.USER_KIND);
 		String hql_count="select count(*) from Comment t ";
+		String hql="from Comment t ";
 		Map<String,Object> params=new HashMap<String,Object>();
-		if(userKind==2){//个人用户
+		if(userKind==2){
 			hql_count+=" where t.clientId=:clientId ";
+			hql+=" where t.clientId=:clientId ";
 			params.put("clientId", userId);
-		}else{//企业用户
-			hql_count=" where t.carrierId=:carrierId ";
+		}else{
+			hql_count+=" where t.carrierId=:carrierId ";
+			hql+=" where t.carrierId=:carrierId ";
 			params.put("carrierId", userId);
 		}
 		Long total_count=commentDao.count(hql_count, params);
-		if(total_count==0L){//总数为0直接返回
-			return 0f;
+		if(total_count==0L){
+			return 0D;
 		}
 		
-		return 0f;
+		Integer good_comment_num=0;
+		List<Comment> commentList=commentDao.find(hql, params);
+		for(int i=0;i<commentList.size();i++){
+			Comment comment=commentList.get(i);
+			int c1=getCommentRate(comment.getCargoSafety());
+			int c2=getCommentRate(comment.getServiceAttitude());
+			int c3=getCommentRate(comment.getTransportEfficiency());
+			int c4=getCommentRate(comment.getTotalMoney());
+			float rate=(c1+c2+c3+c4)/4.0f;
+			if(rate>=4){
+				good_comment_num++;
+			}
+		}
+		
+		return good_comment_num*1.0/total_count.intValue();
 	}
 	
-	
-	
+	/**
+	 * 获取没一个评论字段对应的数字 
+	 * @Title: getCommentRate 
+	 *  
+	 * @param: @param comment
+	 * @param: @return 
+	 * @return: Integer 
+	 * @throws: 异常 
+	 * @author: chendonghao 
+	 * @date: 2015年6月24日 下午2:35:43
+	 */
+	public Integer getCommentRate(String comment){
+		if("很好".equals(comment)){
+			return 5;
+		}else if("好".equals(comment)){
+			return 4;
+		}else if("一般".equals(comment)){
+			return 3;
+		}else if("差".equals(comment)){
+			return 2;
+		}else{//很差
+			return 1;
+		}
+		
+	}
 	
 }

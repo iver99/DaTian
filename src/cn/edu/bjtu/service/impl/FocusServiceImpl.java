@@ -51,7 +51,7 @@ public class FocusServiceImpl extends BaseDaoImpl<Focus> implements FocusService
 	  */
 	public List getFocusJudgement(String clientId, String focusType,
 			String foucsId) {
-		// TODO Auto-generated method stub
+		
 		return focusDao.getFocusJudgement(clientId,focusType,foucsId);
 	}
 
@@ -67,7 +67,7 @@ public class FocusServiceImpl extends BaseDaoImpl<Focus> implements FocusService
 	 * 关注列表获取
 	 */
 	public List getFocusList(String clientId,String focusType) {
-		// TODO Auto-generated method stub
+		
 		return focusDao.getFocusList(clientId,focusType);
 	}
 	

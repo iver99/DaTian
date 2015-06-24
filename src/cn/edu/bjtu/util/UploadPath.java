@@ -140,7 +140,7 @@ public class UploadPath {
 	
 
 	public static String getCompanyCertificatePath() {
-		// TODO Auto-generated method stub
+		
 		if (isWindows()) {//windows系统
 			String path = "D://uploadFile//companyCertificate";//上传到D盘
 			file = new File(path);

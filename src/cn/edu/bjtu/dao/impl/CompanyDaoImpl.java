@@ -30,7 +30,7 @@ public class CompanyDaoImpl extends BaseDaoImpl<Carrierinfo> implements CompanyD
 	 */
 	@Deprecated
 	public List getAllCompany(int Display,int PageNow) {
-		// TODO Auto-generated method stub
+		
 		//return ht.find("from Carrierinfo");
 		int page = PageNow;
 		int pageSize = Display;
@@ -47,7 +47,7 @@ public class CompanyDaoImpl extends BaseDaoImpl<Carrierinfo> implements CompanyD
 	 */
 	@Deprecated
 	public List getAllCompanyWithoutPage() {
-		// TODO Auto-generated method stub
+		
 		//return ht.find("from Carrierinfo");
 		return ht.find("from Carrierinfo");
 		
@@ -61,7 +61,7 @@ public class CompanyDaoImpl extends BaseDaoImpl<Carrierinfo> implements CompanyD
 	 */
 	@Deprecated
 	public List getSelectedCompany(String hql, int display, int pageNow) {
-		// TODO Auto-generated method stub
+		
 		int page = pageNow;
 		int pageSize = display;
 
@@ -74,7 +74,7 @@ public class CompanyDaoImpl extends BaseDaoImpl<Carrierinfo> implements CompanyD
 	 * 返回特定的公司信息
 	 */
 	public Carrierinfo getCarrierInfo(String id) {
-		// TODO Auto-generated method stub
+		
 		
 		return ht.get(Carrierinfo.class, id);
 	}

@@ -36,31 +36,31 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public List getAllSendOrderInfo(String userId) {
-		// TODO Auto-generated method stub
+		
 		return orderDao.getAllSendOrderInfo(userId);
 	}
 
 	@Override
 	public List getAllRecieveOrderInfo(String userId) {
-		// TODO Auto-generated method stub
+		
 		return orderDao.getAllRecieveOrderInfo(userId);
 	}
 
 	@Override
 	public OrderCarrierView getSendOrderDetail(String id) {
-		// TODO Auto-generated method stub
+		
 		return orderDao.getSendOrderDetail(id);
 	}
 
 	@Override
 	public Orderform getRecieveOrderDetail(String id) {
-		// TODO Auto-generated method stub
+		
 		return orderDao.getRecieveOrderDetail(id);
 	}
 
 	@Override
 	public List getCargoTrack(String orderNum, String carNum) {
-		// TODO Auto-generated method stub
+		
 		return orderDao.getCargoTrack(orderNum, carNum);
 	}
 
@@ -72,13 +72,13 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public OrderCarrierView getOrderByOrderId(String orderId) {
-		// TODO Auto-generated method stub
+		
 		return orderDao.getOrderByOrderId(orderId);
 	}
 
 	@Override
 	public boolean acceptOrder(String orderId) {
-		// TODO Auto-generated method stub
+		
 		return orderDao.acceptOrder(orderId);
 	}
 
@@ -87,33 +87,33 @@ public class OrderServiceImpl implements OrderService {
 	 * 返回预期运费
 	 */
 	public float getExpectedMoney(String orderId) {
-		// TODO Auto-generated method stub
+		
 		return orderDao.getExpectedMoney(orderId);
 	}
 
 	@Override
 	public boolean signBill(String orderId, float actualPrice,
 			String explainReason,String path,String fileName) {
-		// TODO Auto-generated method stub
+		
 		
 		return orderDao.signBill(orderId, actualPrice, explainReason,path,fileName);
 	}
 
 	@Override
 	public Orderform getOrderInfo(String orderId) {
-		// TODO Auto-generated method stub
+		
 		return orderDao.getOrderInfo(orderId);
 	}
 
 	@Override
 	public boolean confirmCargo(String orderId) {
-		// TODO Auto-generated method stub
+		
 		return orderDao.confirmCargo(orderId);
 	}
 
 	@Override
 	public boolean cancel(String cancelReason, String orderId) {
-		// TODO Auto-generated method stub
+		
 		return orderDao.cancel(cancelReason, orderId);
 	}
 
@@ -151,7 +151,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public boolean DoGetOrderWaitToConfirmUpdate(String orderId,
 			float actualPrice, String explainReason,String path,String fileName) {
-		// TODO Auto-generated method stub
+		
 		return orderDao.signBill(orderId, actualPrice, explainReason,path,fileName);
 	}
 
@@ -200,7 +200,7 @@ public class OrderServiceImpl implements OrderService {
 			float insurance, String contractId, String carrierId,
 			String isLinkToClientWayBill, String clientWayBillNum,
 			String resourceName, String resourceType, String companyName,String clientName) {
-		// TODO Auto-generated method stub
+		
 		String[] temp = { "无", " " };// 默认情况
 		clientWayBillNum="";
 		if (isLinkToClientWayBill.contains(",")) {//没有关联客户账单，进来的字符串是"无," 

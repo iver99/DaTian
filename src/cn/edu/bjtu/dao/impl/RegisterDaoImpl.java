@@ -18,7 +18,7 @@ public class RegisterDaoImpl extends BaseDaoImpl<Userinfo> implements RegisterDa
 	private HQLTool hqltool;
 	@Override
 	public List getUserCheck(String username) {
-		// TODO Auto-generated method stub
+		
 		return ht.find("From Userinfo where username='" + username + "'");
 	}
 

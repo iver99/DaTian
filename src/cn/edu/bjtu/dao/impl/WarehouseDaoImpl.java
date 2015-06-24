@@ -25,21 +25,21 @@ public class WarehouseDaoImpl extends BaseDaoImpl<Warehouse> implements Warehous
 	 * 返回具体货物信息
 	 */
 	public Warehouse getWarehouseInfo(String warehouseid) {
-		// TODO Auto-generated method stub
+		
 		return ht.get(Warehouse.class, warehouseid);
 		
 	}
 
 	@Override
 	public List getCompanyWarehouse(String carrierId) {
-		// TODO Auto-generated method stub
+		
 		return ht.find("from Warehouse where carrierId='"+carrierId+"'");
 	}
 	
 	@Override
 	@Deprecated
 	public List getSelectedWarehouse(String hql, int display, int pageNow) {
-		// TODO Auto-generated method stub
+		
 		int page = pageNow;
 		int pageSize = display;
 

@@ -92,7 +92,7 @@ public class AuthenticationController {
 			try {
 				response.sendRedirect("authentic");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				e.printStackTrace();
 			}
 		} else if (flag == 42) {//审核个人
@@ -101,7 +101,7 @@ public class AuthenticationController {
 			try {
 				response.sendRedirect("authentic");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				e.printStackTrace();
 			}
 		}
@@ -112,7 +112,7 @@ public class AuthenticationController {
 			try {
 				response.sendRedirect("authentic");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				e.printStackTrace();
 			}
 		} else if (flag == 43) {//审核公司
@@ -121,7 +121,7 @@ public class AuthenticationController {
 			try {
 				response.sendRedirect("authentic");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				e.printStackTrace();
 			}
 		}
@@ -173,7 +173,7 @@ public class AuthenticationController {
 			try {
 				response.sendRedirect("authentic");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				e.printStackTrace();
 			}
 
@@ -196,7 +196,7 @@ public class AuthenticationController {
 			try {
 				response.sendRedirect("authentic");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				e.printStackTrace();
 			}
 		}
@@ -218,7 +218,7 @@ public class AuthenticationController {
 			try {
 				response.sendRedirect("authentic");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				e.printStackTrace();
 			}
 		}
@@ -241,7 +241,7 @@ public class AuthenticationController {
 			try {
 				response.sendRedirect("authentic");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				e.printStackTrace();
 			}
 		}

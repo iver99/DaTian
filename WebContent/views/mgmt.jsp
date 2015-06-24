@@ -159,8 +159,11 @@
 		//获取我的信息-主页面下的交易信息
 		getTransactionInfo();
 		//获取用户页面上的结算信息
-		getSettlementInfo()
-		
+		getSettlementInfo();
+		//获取用户页面上的投诉率
+		getComplaintRate();
+		//获取用户页面是的好评率
+		getGoodCommentRate();
 	}
 	//获取好评率
 	function getGoodCommentRate(){
@@ -168,10 +171,24 @@
 		$.ajax({
 			url:url,
 			type:"GET",
-			success:function(data){
-				var settlement_info=data.split("-");
+			cache:false,
+			success:function(data){//返回一个小于1的小数
+				//画图-好评率
+				getGoodCommentInfo(parseInt(data)*100);
 				
-				
+			}
+		});
+	}
+	//获取投诉率
+	function getComplaintRate(){
+		var url="getUserComplaintRateAjax";
+		$.ajax({
+			url:url,
+			type:"GET",
+			cache:false,
+			success:function(data){//返回一个小于1的小数
+				//画图-好评率和投诉率 
+				getComplaintRateInfo(parseInt(data)*100);
 			}
 		});
 	}
@@ -182,6 +199,7 @@
 		$.ajax({
 			url:url,
 			type:"GET",
+			cache:false,
 			success:function(data){
 				var settlement_info=data.split("-");
 				
@@ -199,6 +217,7 @@
 		$.ajax({
 			url:url,
 			type:"GET",
+			cache:false,
 			success:function(data){
 				//alert(data);
 				var transaction_info=data.split("-");
@@ -210,8 +229,7 @@
 			}
 		});
 		
-		//画图-好评率和投诉率 
-		getCompletionInfo(parseInt("60"),parseInt("20"));
+		
 		
 		
 	}

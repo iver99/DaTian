@@ -40,7 +40,7 @@ public class GoodsInfoDaoImpl extends BaseDaoImpl<Goodsform> implements GoodsInf
 
 	@Override
 	public GoodsClientView getAllGoodsDetail(String id) {
-		// TODO Auto-generated method stub
+		
 
 		return ht.get(GoodsClientView.class, id);
 
@@ -48,7 +48,7 @@ public class GoodsInfoDaoImpl extends BaseDaoImpl<Goodsform> implements GoodsInf
 
 	@Override
 	public Goodsform getMyGoodsDetail(String id) {
-		// TODO Auto-generated method stub
+		
 
 		return this.get(Goodsform.class, id);
 
@@ -57,7 +57,7 @@ public class GoodsInfoDaoImpl extends BaseDaoImpl<Goodsform> implements GoodsInf
 	@Override
 	@Deprecated
 	public List getSelectedGoodsInfo(String hql, int display, int pageNow) {
-		// TODO Auto-generated method stub
+		
 		int page = pageNow;
 		int pageSize = display;
 
@@ -69,7 +69,7 @@ public class GoodsInfoDaoImpl extends BaseDaoImpl<Goodsform> implements GoodsInf
 	 * Ã·Ωª∑¥¿°Dao
 	 */
 	public boolean commitResponse(String goodsId, String remarks, String userId,String path,String fileName) {
-		// TODO Auto-generated method stub
+		
 		Goodsform goods = this.get(Goodsform.class, goodsId);
 		String clientId="";
 		String committer="";
@@ -111,14 +111,14 @@ public class GoodsInfoDaoImpl extends BaseDaoImpl<Goodsform> implements GoodsInf
 
 	@Override
 	public List getAllResponse(String carrierId) {
-		// TODO Auto-generated method stub
+		
 		//return ht.find("from Goodsform where clientId='" + carrierId + "'");
 		return this.find("from GoodsResponseView where carrierId='"+carrierId+"'");
 	}
 
 	@Override
 	public List getUserGoodsInfo(String clientId) {
-		// TODO Auto-generated method stub
+		
 		return ht.find("from Goodsform where clientId='" + clientId + "'");
 	}
 

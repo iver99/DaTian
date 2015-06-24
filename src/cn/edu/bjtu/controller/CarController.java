@@ -188,7 +188,7 @@ public class CarController {
 			response.setCharacterEncoding("UTF-8");
 			request.setCharacterEncoding("UTF-8");
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		}
 
@@ -304,7 +304,7 @@ public class CarController {
 				response.sendRedirect("car?flag=1");// 重定向，显示最新的结果 error,无法重定向
 				// mv.setViewName("mgmt_r_car");
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				// 
 				// 此处应该记录日志
 				e.printStackTrace();
 			}
@@ -364,7 +364,7 @@ public class CarController {
 														// error,无法重定向
 				// mv.setViewName("mgmt_r_car");
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				// 
 				// 此处应该记录日志
 				e.printStackTrace();
 			}
@@ -428,7 +428,7 @@ public class CarController {
 			try {
 				response.sendRedirect("car?flag=1");// 重定向，显示最新的结果
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				// 此处应该记录日志
 				e.printStackTrace();
 			}
@@ -488,7 +488,7 @@ public class CarController {
 														// error,无法重定向
 				// mv.setViewName("mgmt_r_car");
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				// 
 				// 此处应该记录日志
 				e.printStackTrace();
 			}
@@ -509,7 +509,7 @@ public class CarController {
 			try {
 				response.sendRedirect("car?flag=1");// 重定向，显示最新的结果
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				// 此处应该记录日志
 				e.printStackTrace();
 			}
@@ -531,7 +531,7 @@ public class CarController {
 			try {
 				response.sendRedirect("driver?flag=1");// 重定向，显示最新的结果
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				// 此处应该记录日志
 				e.printStackTrace();
 			}
@@ -595,7 +595,7 @@ public class CarController {
 			try {
 				response.sendRedirect("carteam");// 重定向，显示最新的结果
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				// 此处应该记录日志
 				e.printStackTrace();
 			}
@@ -617,7 +617,7 @@ public class CarController {
 			try {
 				response.sendRedirect("carteam");// 重定向，显示最新的结果
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				// 此处应该记录日志
 				e.printStackTrace();
 			}
@@ -643,7 +643,7 @@ public class CarController {
 			try {
 				response.sendRedirect("carteam");// 重定向，显示最新的结果
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				// 此处应该记录日志
 				e.printStackTrace();
 			}

@@ -131,7 +131,7 @@ public class GoodsInfoController {
 			response.setCharacterEncoding("UTF-8");
 			request.setCharacterEncoding("UTF-8");
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		}
 
@@ -193,7 +193,7 @@ public class GoodsInfoController {
 			try {
 				response.sendRedirect("goodsform?flag=1");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				e.printStackTrace();
 			}
 		}
@@ -264,7 +264,7 @@ public class GoodsInfoController {
 			try {
 				response.sendRedirect("getallresponse");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				e.printStackTrace();
 			}
 		}
@@ -336,7 +336,7 @@ public class GoodsInfoController {
 			try {
 				response.sendRedirect("goodsform?flag=1");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				e.printStackTrace();
 			}
 		}
@@ -361,7 +361,7 @@ public class GoodsInfoController {
 			else
 				System.out.println("删除失败");// 应记录日志
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// 
 			// 此处应记录日志
 			e.printStackTrace();
 

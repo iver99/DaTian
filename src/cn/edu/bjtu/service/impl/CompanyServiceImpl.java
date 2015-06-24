@@ -44,7 +44,7 @@ public class CompanyServiceImpl implements CompanyService{
 	 */
 	@Deprecated
 	public List getAllCompany(int Display,int PageNow)  {
-		// TODO Auto-generated method stub
+		
 		return companyDao.getAllCompany(Display,PageNow);
 	}
 	
@@ -63,7 +63,7 @@ public class CompanyServiceImpl implements CompanyService{
 	 * 返回公司信息
 	 *//*
 	public Carrierinfo getCarrierInfo(String id) {
-		// TODO Auto-generated method stub
+		
 		return companyDao.getCarrierInfo(id);
 	}*/
 	
@@ -135,7 +135,7 @@ public class CompanyServiceImpl implements CompanyService{
 	 */
 	@Deprecated
 	public int getTotalRows(String resourceRate, String serviceIndustry, String creditRate, String business) {
-		// TODO Auto-generated method stub
+		
 		String sql="";
 		if(resourceRate.equals("自有资源")){
 			resourceRate="自有";
@@ -210,7 +210,7 @@ public class CompanyServiceImpl implements CompanyService{
 	 */
 	@Override
 	public Carrierinfo getCompanyById(String carrierId) {
-		// TODO Auto-generated method stub
+		
 		return companyDao.get(Carrierinfo.class, carrierId);
 	}
 	
@@ -281,7 +281,7 @@ public class CompanyServiceImpl implements CompanyService{
 	/**
 	 * where sql
 	 * @Title: whereSql 
-	 * @Description: TODO 
+	 *  
 	 * @param: @param companyBean
 	 * @param: @param params
 	 * @param: @return 

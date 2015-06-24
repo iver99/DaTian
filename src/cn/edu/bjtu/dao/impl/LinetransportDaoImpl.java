@@ -25,7 +25,7 @@ public class LinetransportDaoImpl extends BaseDaoImpl<Linetransport> implements 
 	 * 返回所有干线信息
 	 */
 	public List getAllLinetransport(int display, int pageNow) {
-		// TODO Auto-generated method stub
+		
 		int page = pageNow;
 		int pageSize = display;
 		String hql = " from LineCarrierView";
@@ -39,7 +39,7 @@ public class LinetransportDaoImpl extends BaseDaoImpl<Linetransport> implements 
 	 * 返回具体干线信息
 	 */
 	public Linetransport getLinetransportInfo(String linetransportid) {
-		// TODO Auto-generated method stub
+		
 		return ht.get(Linetransport.class, linetransportid);
 	}
 
@@ -48,7 +48,7 @@ public class LinetransportDaoImpl extends BaseDaoImpl<Linetransport> implements 
 	 * 返回公司干线列表
 	 */
 	public List getCompanyLine(String carrierId, int display, int pageNow) {
-		// TODO Auto-generated method stub
+		
 		int page = pageNow;
 		int pageSize = display;
 		String hql = "from Linetransport as s where s.carrierId='" + carrierId
@@ -59,7 +59,7 @@ public class LinetransportDaoImpl extends BaseDaoImpl<Linetransport> implements 
 
 	@Override
 	public List getSelectedLine(String hql, int display, int pageNow) {
-		// TODO Auto-generated method stub
+		
 		int page = pageNow;
 		int pageSize = display;
 
@@ -74,7 +74,7 @@ public class LinetransportDaoImpl extends BaseDaoImpl<Linetransport> implements 
 	 */
 	@Deprecated
 	public int getCompanyTotalRows(String carrierId) {
-		// TODO Auto-generated method stub
+		
 		int count = 0;
 		List list = ht.find("select count(*) from Cityline where carrierId='"+carrierId+"'");
 		if (list != null)

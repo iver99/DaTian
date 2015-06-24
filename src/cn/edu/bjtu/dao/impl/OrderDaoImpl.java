@@ -31,20 +31,20 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 	 * 
 	 */
 	public List getAllSendOrderInfo(String userId) {
-		// TODO Auto-generated method stub
+		
 		return this.find("from OrderCarrierView where clientId='"+userId+"'");
 
 	}
 
 	@Override
 	public List getAllRecieveOrderInfo(String userId) {
-		// TODO Auto-generated method stub
+		
 		return this.find("from OrderCarrierView where carrierId='" + userId + "'");
 	}
 
 	@Override
 	public OrderCarrierView getSendOrderDetail(String id) {
-		// TODO Auto-generated method stub
+		
 		return ht.get(OrderCarrierView.class, id);
 	}
 
@@ -52,13 +52,13 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 
 	@Override
 	public Orderform getRecieveOrderDetail(String id) {
-		// TODO Auto-generated method stub
+		
 		return ht.get(Orderform.class, id);
 	}
 	
 	@Override
 	public List getCargoTrack(String orderNum, String carNum) {
-		// TODO Auto-generated method stub
+		
 		return ht.find("from Track where orderNum='" + orderNum + "' and carNum='" + carNum + "'");
 	}
 
@@ -67,7 +67,7 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 	 * 通过订单编号获取某订单id
 	 */
 	public Orderform getOrderByOrderNum(String orderNum) {
-		// TODO Auto-generated method stub
+		
 		Map<String,Object> params=new HashMap<String,Object>();
 		params.put("orderNum", orderNum);
 		return this.get("from Orderform where orderNum=:orderNum",params);
@@ -75,7 +75,7 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 
 	@Override
 	public OrderCarrierView getOrderByOrderId(String orderId) {
-		// TODO Auto-generated method stub
+		
 		return ht.get(OrderCarrierView.class, orderId);
 	}
 
@@ -84,7 +84,7 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 	 * 承运方修改订单状态为待收货
 	 */
 	public boolean acceptOrder(String orderId) {
-		// TODO Auto-generated method stub
+		
 		Orderform order = this.get(Orderform.class, orderId);
 		order.setState("待收货");// 修改状态
 
@@ -95,7 +95,7 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 
 	@Override
 	public float getExpectedMoney(String orderId) {
-		// TODO Auto-generated method stub
+		
 		List list = ht.find("select expectedPrice from Orderform where id='" + orderId + "'");
 		if (list != null)
 		{
@@ -111,7 +111,7 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 	 * 承运方修改订单状态为待确认
 	 */
 	public boolean signBill(String orderId,float actualPrice,String explainReason,String path,String fileName) {
-		// TODO Auto-generated method stub
+		
 		
 		Orderform order = (Orderform) ht.get(Orderform.class, orderId);
 		order.setState("待确认");//修改 订单状态
@@ -131,7 +131,7 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 	 * 返回订单的信息
 	 */
 	public Orderform getOrderInfo(String orderId) {
-		// TODO Auto-generated method stub
+		
 		return (Orderform) ht.get(Orderform.class, orderId);
 	}
 
@@ -140,7 +140,7 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 	 * 确认收货操作
 	 */
 	public boolean confirmCargo(String orderId) {
-		// TODO Auto-generated method stub
+		
 		Orderform order=ht.get(Orderform.class, orderId);
 		order.setState("待评价");
 		
@@ -153,7 +153,7 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 	 * 取消订单操作
 	 */
 	public boolean cancel(String cancelReason, String orderId) {
-		// TODO Auto-generated method stub
+		
 		Orderform order=ht.get(Orderform.class, orderId);
 		order.setCancelReason(cancelReason);
 		order.setState("已取消");
@@ -167,7 +167,7 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 	 * 承运方更新待确认订单
 	 */
 	public boolean DoGetOrderWaitToConfirmUpdate(String orderId,float actualPrice,String explainReason) {
-		// TODO Auto-generated method stub
+		
 		Orderform order = (Orderform) ht.get(Orderform.class, orderId);
 		order.setActualPrice(actualPrice);
 		order.setExplainReason(explainReason);
@@ -184,7 +184,7 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 			String receiverPhone, String receiverAddr, String carrierId,
 			String isLinkToClientWayBill, String clientWayBillNum,
 			String resourceName, String resourceType, String companyName,String clientName) {
-		// TODO Auto-generated method stub
+		
 		Orderform order=new Orderform();
 		order.setClientId(userId);
 		order.setHasCarrierContract(hasCarrierContract);

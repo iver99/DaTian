@@ -109,7 +109,7 @@ public class ClientSecurityController {
 			try {
 				response.sendRedirect("mysecurity");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// 
 			// 此处应记录日志
 			e.printStackTrace();
 
@@ -153,7 +153,7 @@ public class ClientSecurityController {
 			try {
 					response.sendRedirect("mysecurity");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				// 此处应记录日志
 				e.printStackTrace();
 			}
@@ -164,7 +164,7 @@ public class ClientSecurityController {
 			try {
 				response.sendRedirect("mysecurity");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				// 此处应记录日志
 				e.printStackTrace();
 			}

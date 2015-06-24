@@ -62,7 +62,7 @@ public interface CommentService {
 	 * @param session
 	 * @return
 	 */
-	public Float getUserGoodCommentRateAjax(HttpSession session);
+	public Double getUserGoodCommentRateAjax(HttpSession session);
 	
 	
 }

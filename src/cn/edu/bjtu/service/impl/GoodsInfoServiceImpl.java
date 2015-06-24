@@ -61,7 +61,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 	 * 获取总记录条数 
 	 */
 	public int getTotalRows(String startPlace, String endPlace, String transportType) {
-		// TODO Auto-generated method stub
+		
 		String [] paramList={"startPlace","endPlace","transportType"};//没startplace1 
 		String [] valueList={startPlace,endPlace,transportType};
 		String hql="from GoodsClientView ";//会变化
@@ -71,7 +71,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 	
 	@Override
 	public GoodsClientView getAllGoodsDetail(String id) {
-		// TODO Auto-generated method stub
+		
 		return goodsinfoDao.getAllGoodsDetail(id);
 	}
 	
@@ -80,7 +80,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 	 * 根据goodsid得到货物信息
 	 */
 	public Goodsform getMyGoodsDetail(String id) {
-		// TODO Auto-generated method stub
+		
 		return goodsinfoDao.getMyGoodsDetail(id);
 	}
 	
@@ -91,7 +91,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 		String damageReq, String VIPService, String oriented, String limitDate,
 		String invoice, String remarks,String clientId,String path,
 		String fileName) {
-		// TODO Auto-generated method stub
+		
 		
 		goodsform.setId(IdCreator.createGoodsId());
 		goodsform.setName(name);
@@ -124,19 +124,19 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 
 	@Override
 	public boolean commitResponse(String goodsId, String remarks, String userId,String path,String fileName) {
-		// TODO Auto-generated method stub
+		
 		return goodsinfoDao.commitResponse(goodsId,remarks,userId,path,fileName);
 	}
 
 	@Override
 	public List getAllResponse(String userId) {
-		// TODO Auto-generated method stub
+		
 		return goodsinfoDao.getAllResponse(userId);
 	}
 
 	@Override
 	public List getUserGoodsInfo(String userId) {
-		// TODO Auto-generated method stub
+		
 		
 		return goodsinfoDao.getUserGoodsInfo(userId);
 	}
@@ -161,7 +161,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 			String transportType, String transportReq, String startPlace, String endPlace,
 			String damageReq, String VIPService, String oriented, String limitDate,
 			String invoice, String remarks,String clientId,String path, String fileName) {
-			// TODO Auto-generated method stub
+			
 			goodsform = getMyGoodsDetail(id);
 
 			goodsform.setName(name);
@@ -197,7 +197,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 	 * 确认反馈时修改货物状态为已确认
 	 */
 	public boolean confirmResponse(String goodsId) {
-		// TODO Auto-generated method stub
+		
 		Goodsform goodsinfo=goodsinfoDao.getMyGoodsDetail(goodsId);	
 		
 		if(goodsinfo!=null){

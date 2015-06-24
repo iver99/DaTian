@@ -30,14 +30,13 @@ public class SQLFilter implements Filter {
 	 * Default constructor.
 	 */
 	public SQLFilter() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
 	 * @see Filter#destroy()
 	 */
 	public void destroy() {
-		// TODO Auto-generated method stub
+		
 	}
 
 	/**
@@ -45,7 +44,7 @@ public class SQLFilter implements Filter {
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
-		// TODO Auto-generated method stub
+		
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
 		Iterator values = req.getParameterMap().values().iterator();// 获取所有的表单参数
@@ -76,7 +75,7 @@ public class SQLFilter implements Filter {
 	 * @see Filter#init(FilterConfig)
 	 */
 	public void init(FilterConfig config) throws ServletException {
-		// TODO Auto-generated method stub
+		
 		this.filterConfig = config;
 		//this.inj_str = filterConfig.getInitParameter("keywords");
 	}

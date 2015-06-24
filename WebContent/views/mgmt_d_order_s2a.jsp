@@ -88,7 +88,7 @@
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">所属客户：</td>
 									<td>
-										<select style="width:120px;" name="clientName" required>
+										<select style="width:120px;" name="clientName" id="clientName" required>
 											<option value="" selected="selected">请选择</option>
                                            <!--  <option value="北京索契物流有限公司">北京索契物流有限公司</option>
                                             <option value="天津友达通有限公司">天津友达通有限公司</option>
@@ -126,7 +126,7 @@
                                             <option value="无">无</option>
                                         </select>
                                         <div id="c_detail" style="display:none;">
-                                            <select style="width:93px;" name="contractId">
+                                            <select style="width:93px;" name="contractId" id="contractId">
                                                 <option value="" selected="selected">请选择</option>
                                                <!--  <option value="C0001">C0001</option>
                                                 <option value="C0002">C0002</option>
@@ -207,27 +207,27 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">姓名：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:200px;" name="deliveryName" required/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:200px;" name="deliveryName" id="deliveryName" required/></td>
                                     <td class="td_mgmt_right3_td1b">姓名：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:200px;" name="recieverName" required/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:200px;" name="recieverName" id="recieverName" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">地址：</td>
-                                    <td><textarea class="textarea_rating1" name="deliveryAddr" required></textarea></td>
+                                    <td><textarea class="textarea_rating1" name="deliveryAddr" id="deliveryAddress" required></textarea></td>
                                     <td class="td_mgmt_right3_td1b">地址：</td>
-                                    <td><textarea class="textarea_rating1" name="recieverAddr" required></textarea></td>
+                                    <td><textarea class="textarea_rating1" name="recieverAddr" id="recieverAddress" required></textarea></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">电话：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:200px;" name="deliveryPhone" required/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:200px;" name="deliveryPhone" id="deliveryPhone" required/></td>
                                     <td class="td_mgmt_right3_td1b">电话：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:200px;" name="recieverPhone" required/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:200px;" name="recieverPhone" id="recieverPhone" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="20" class="td_mgmt_right3_td1b">&nbsp;</td>
-                                    <td><input type="checkbox" />&nbsp;加入常用发货地址</td>
+                                    <td><input type="checkbox" id="sender_info"/>&nbsp;加入常用发货地址</td>
                                     <td class="td_mgmt_right3_td1b">&nbsp;</td>
-                                    <td><input type="checkbox" />&nbsp;加入常用收货地址</td>
+                                    <td><input type="checkbox" id="receiver_info"/>&nbsp;加入常用收货地址</td>
                                 </tr>
                             </table>
                             <div class="span_mgmt_right3_text4">备注信息</div>      	          
@@ -240,7 +240,8 @@
 								</tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
-                                    <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
+                                    <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onsubmit="addAddress()"/>
+                                    <input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
                                 </tr>
                             </table>
                         </td>
@@ -290,7 +291,7 @@
 		getUserContract();
 		getUserClientName();
 	}
-	
+	//返回用户的合同编号
 	function getUserContract(){
 		var url="getUserContractIdAjax";
 		$.post(url,{currentUserId:$('#currentUserId').val()},function(data,status){
@@ -304,7 +305,7 @@
 		      }     
 		},"json");
 	}
-	
+	//返回用户的客户信息
 	function getUserClientName(){
 		var url="getUserBusinessClientAjax";
 		$.post(url,{currentUserId:$('#currentUserId').val()},function(data,status){
@@ -315,6 +316,40 @@
 		         client_name.append(option);
 		      }    
 		},"json");
+	}
+	
+	//如果选中了添加常用地址的选项则在提交表单时添加常用地址
+    function addAddress(){
+		var url="addAddressAjax";
+		var name;
+		var phone;
+		var address;
+		if($("#sender_info").attr("checked") == true){//发货人添加常用地址选中
+			name=$("#deliveryName").val();
+			address=$("#deliverAddr").val();
+			phone=$("#deliverPhone").val();
+		}
+		
+		if($("#receiver_info").attr("checked") == true){//收货人常用地址选中
+			name=$("#recieverName").val();
+			address=$("#recieverAddr").val();
+			phone=$("#recieverPhone").val();
+		}
+		
+		$.ajax({
+			type: "GET",
+			url:url,
+			data:{"name":name,
+				"address":address,
+				"phone":phone
+				},
+			cache:false,
+			success:function(data){
+				//不做任何操作
+			}
+		});
+		
+		return true;//返回true，使得表单提交
 	}
 	
 </script>

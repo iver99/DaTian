@@ -48,7 +48,7 @@ public class RegisterServiceImpl implements RegisterService{
 	RegisterDao registerDao;
 	@Override
 	public String register(String username, String password, String phone,int userKind) {
-		// TODO Auto-generated method stub
+		
 		Userinfo userInfo=new Userinfo();
 		userInfo.setUsername(username);
 		userInfo.setPhone(phone);
@@ -92,7 +92,7 @@ public class RegisterServiceImpl implements RegisterService{
 	 * 检测用户名
 	 */
 	public List getUserCheck(String username) {
-		// TODO Auto-generated method stub
+		
 		return registerDao.getUserCheck(username);
 	}
 	
@@ -102,7 +102,6 @@ public class RegisterServiceImpl implements RegisterService{
 	@Override
 	public boolean registerSubAccount(String username, String password,
 			int userKind) {
-		// TODO 在userinfo表中添加附属账号
 		Userinfo userInfo=new Userinfo();
 		userInfo.setUsername(username);
 		//userInfo.setPhone(phone);
