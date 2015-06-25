@@ -316,10 +316,11 @@ public class OrderController {
 	 * @param orderid
 	 * @return
 	 */
-	public ModelAndView getCommentForm(String orderid)
+	public ModelAndView getCommentForm(String orderid,String ordernum)
 	{
 
 		mv.addObject("orderId", orderid);
+		mv.addObject("orderNum", ordernum);
 		mv.setViewName("mgmt_d_order_s8");
 		return mv;
 	}

@@ -22,6 +22,7 @@ import cn.edu.bjtu.service.SettlementRecordService;
 import cn.edu.bjtu.service.SettlementService;
 import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.ExcelCreator;
+import cn.edu.bjtu.vo.Settlement;
 import cn.edu.bjtu.vo.SettlementCarrierView;
 
 /**
@@ -44,22 +45,26 @@ public class SettlementController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView getMySettlement(HttpServletRequest request,HttpServletResponse response)
+	public ModelAndView getMySettlement(HttpSession session,HttpServletResponse response)
 	{
-		String userId=(String )request.getSession().getAttribute(Constant.USER_ID);
-		List orderList=settlementService.getUserSettlementList(userId);
+		Integer userKind=(Integer)session.getAttribute(Constant.USER_KIND);
+		List orderList=settlementService.getUserSettlementList(session);
 		mv.addObject("orderList", orderList);
-		mv.setViewName("mgmt_d_settle_s");
+		if(userKind == 2){
+			mv.setViewName("mgmt_d_settle_s");
+		}else if(userKind ==3){
+			mv.setViewName("mgmt_d_settle_r");
+		}
 		return mv;
 	}
 	
-	@RequestMapping("/createSingleStatement")
 	/**
 	 * 生成单个对账单
 	 * @param request
 	 * @param response
 	 * @return
 	 */
+	@RequestMapping("/createSingleStatement")
 	public String createSingleStatement(HttpSession session,@RequestParam String orderNum,HttpServletRequest request,HttpServletResponse response) throws Exception
 	{
 		List orderList=settlementService.getOrderStatement(orderNum);
@@ -157,6 +162,18 @@ public class SettlementController {
 		
 		return finishedSettlementMoney+"-"+unFinishedSettlementMoney;
 		
+		
+	}
+	
+	@RequestMapping(value="viewSettlementRecord",produces="text/html;charset=UTF-8")
+	public ModelAndView viewSettlementRecord(String orderNum){
+		
+		List<Settlement> settlmentList =settlementRecordService.getSettlementRecordByOrderNum(orderNum);
+		
+		mv.addObject("settlementList", settlmentList);
+		mv.setViewName("mgmt_d_settle_s2");
+		
+		return mv;
 		
 	}
 	

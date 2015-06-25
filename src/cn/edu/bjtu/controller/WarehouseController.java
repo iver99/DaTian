@@ -120,8 +120,8 @@ public class WarehouseController {
 		mv.addObject("warehouseInfo", warehouseInfo);
 		if (flag == 0) {// 对应资源栏仓库详情
 			Carrierinfo carrierInfo = companyService.getCompanyById(carrierId);
-			List<Comment> commentList=commentService.getWarehouseCommentById(warehouseid,carrierId);
-			mv.addObject("commentList",commentList);
+			//List<Comment> commentList=commentService.getWarehouseCommentById(warehouseid,carrierId);
+			//mv.addObject("commentList",commentList);
 			mv.addObject("carrierInfo", carrierInfo);
 			mv.setViewName("resource_detail4");
 		} else if (flag == 1)// 对应我的信息栏仓库详情

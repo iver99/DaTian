@@ -115,7 +115,9 @@ public class CitylineServiceImpl implements CitylineService {
 	private String whereSql(CityLineSearchBean citylineBean,Map<String,Object> params){
 		
 		String wheresql=" where 1=1 ";
-		if(citylineBean.getCityName()!=null && !citylineBean.getCityName().trim().equals("中文或拼音") && !citylineBean.getCityName().equals("")){
+		if (citylineBean.getCityName() != null
+				&& !citylineBean.getCityName().trim().equals("中文或拼音")
+				&& !citylineBean.getCityName().equals("")&& !citylineBean.getCityName().equals("全国")) {
 			wheresql+=" and t1.cityName like '%"+citylineBean.getCityName()+"%' ";
 			//params.put("cityName", citylineBean.getCityName());
 		}

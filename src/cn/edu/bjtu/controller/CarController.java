@@ -114,13 +114,13 @@ public class CarController {
 		return count;
 	}
 
-	@RequestMapping(value = "/cardetail", method = RequestMethod.GET)
 	/**
 	 * 获取特定的车辆信息
 	 * 同时返回公司和车辆两个表的信息
 	 * @param
 	 * @return
 	 */
+	@RequestMapping(value = "/cardetail", method = RequestMethod.GET)
 	public ModelAndView getCarInfo(@RequestParam("carId") String carId,
 			@RequestParam("carrierId") String carrierId,
 			@RequestParam("linetransportId") String linetransportId,
@@ -135,7 +135,7 @@ public class CarController {
 		mv.addObject("linetransportInfo", line);
 		if (flag == 0) {// 对应资源栏车辆详情
 			Carrierinfo carrierInfo = companyService.getCompanyById(carrierId);
-			List<Comment> commentList=commentService.getCarCommentById(carId,carrierId);
+			List<Comment> commentList=commentService.getCompanyComment(carrierId);
 			mv.addObject("commentList",commentList);
 			
 			mv.addObject("carrierInfo", carrierInfo);
@@ -154,10 +154,6 @@ public class CarController {
 			mv.addObject("driverInfo", driverinfo);
 			List driverList = driverService.getAllDriver(carrierId);
 			mv.addObject("driverList", driverList);
-			// 此处要查出本公司所有司机的姓名以供选择
-			// String
-			// carrierId=(String)request.getSession().getAttribute("carrierId");
-			// carrierId = "C-0002";// 删除
 			mv.setViewName("mgmt_r_car3");
 		}
 		return mv;

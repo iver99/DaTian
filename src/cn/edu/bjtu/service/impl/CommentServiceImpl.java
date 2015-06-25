@@ -70,10 +70,10 @@ public class CommentServiceImpl implements CommentService{
 		return true;
 	}
 
-	@Override
-	/**
+	/*@Override
+	*//**
 	 *根据公司id和干线id得到评价
-	 */
+	 *//*
 	public List<Comment> getLinetransportCommentById(String linetransportId,String userId) {
 		
 		Map<String,Object> params=new HashMap<String,Object>();
@@ -112,7 +112,7 @@ public class CommentServiceImpl implements CommentService{
 		params.put("warehouseid", warehouseid);
 		params.put("carrierId", userId);
 		return commentDao.find(hql, params);
-	}
+	}*/
 
 	/**
 	 * 根据订单id得到订单评价
@@ -197,6 +197,83 @@ public class CommentServiceImpl implements CommentService{
 			return 1;
 		}
 		
+	}
+	
+	/**
+	 * 获取公司评论
+	 */
+	@Override
+	public List<Comment> getCompanyComment(String carrierId) {
+		
+		String hql=" from Comment t where t.carrierId=:carrierId";
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("carrierId", carrierId);
+		
+		return commentDao.find(hql, params);
+	}
+
+	/**
+	 * 获取资源详情页的平均评价
+	 */
+	@Override
+	public Comment getCompanyAverageCommentRate(String carrierId) {
+		//FIXME 没有调用
+		String hql="from Comment t where t.carrierId=:carrierId";
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("carrierId", carrierId);
+		//纵向算平均数，算出list中每种评论的平均数 
+		int r1=0,r2=0,r3=0,r4=0;
+		Comment new_comment=new Comment();
+		List<Comment> commentList=commentDao.find(hql, params);
+		if(commentList!=null && commentList.size()>0){
+			for(Comment comment:commentList){
+				 r1+=getCommentRate(comment.getCargoSafety());
+				 r2+=getCommentRate(comment.getServiceAttitude());
+				 r3+=getCommentRate(comment.getTransportEfficiency());
+				 r4+=getCommentRate(comment.getTotalMoney());
+			}
+			Double rate1=0D;
+			Double rate2=0D;
+			Double rate3=0D;
+			Double rate4=0D;
+			Integer total_num=commentList.size();
+			rate1=r1*1.0/total_num;
+			rate2=r2*1.0/total_num;
+			rate3=r3*1.0/total_num;
+			rate4=r4*1.0/total_num;
+			
+			new_comment.setCargoSafety(getCommentFromRate(rate1));
+			new_comment.setServiceAttitude(getCommentFromRate(rate2));
+			new_comment.setTransportEfficiency(getCommentFromRate(rate3));
+			new_comment.setTotalMoney(getCommentFromRate(rate4));
+		}
+		return new_comment;
+		
+	}
+	
+	/**
+	 * 根据评价的平均数字得到平均评价
+	 * @Title: getCommentFromRate 
+	 * @Description: TODO 
+	 * @param: @param rate
+	 * @param: @return 
+	 * @return: String 
+	 * @throws: 异常 
+	 * @author: chendonghao 
+	 * @date: 2015年6月25日 下午5:50:33
+	 */
+	private String getCommentFromRate(Double rate){
+		if(rate==5.0){
+			return "很好";
+		}else if(rate >=4.0){
+			return "好";
+		}else if(rate >=3.0){
+			return "一般";
+		}else if(rate >=2.0){
+			return "差";
+		}else{
+			return "很差";
+		}
 	}
 	
 }

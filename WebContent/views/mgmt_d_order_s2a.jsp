@@ -77,7 +77,7 @@
                         </td>
                     </tr>
                 </table>
-                <form action="createOrderFromCargo" method="post">
+                <form action="createOrderFromCargo" method="post" id="new_order">
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
                     <tr>
                     <!-- 隐藏字段，用于存储当前用户id -->
@@ -240,7 +240,7 @@
 								</tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
-                                    <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onsubmit="addAddress()"/>
+                                    <td><input type="button" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="addAddress()"/>
                                     <input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
                                 </tr>
                             </table>
@@ -328,28 +328,41 @@
 			name=$("#deliveryName").val();
 			address=$("#deliverAddr").val();
 			phone=$("#deliverPhone").val();
+			
+			$.ajax({
+				type: "GET",
+				url:url,
+				data:{"name":name,
+					"address":address,
+					"phone":phone
+					},
+				cache:false,
+				success:function(data){
+					//不做任何操作
+				}
+			});
 		}
 		
 		if($("#receiver_info").attr("checked") == true){//收货人常用地址选中
 			name=$("#recieverName").val();
 			address=$("#recieverAddr").val();
 			phone=$("#recieverPhone").val();
+			
+			$.ajax({
+				type: "GET",
+				url:url,
+				data:{"name":name,
+					"address":address,
+					"phone":phone
+					},
+				cache:false,
+				success:function(data){
+					//不做任何操作
+				}
+			});
 		}
-		
-		$.ajax({
-			type: "GET",
-			url:url,
-			data:{"name":name,
-				"address":address,
-				"phone":phone
-				},
-			cache:false,
-			success:function(data){
-				//不做任何操作
-			}
-		});
-		
-		return true;//返回true，使得表单提交
+		//提交表单
+		$('#new_order').submit();
 	}
 	
 </script>

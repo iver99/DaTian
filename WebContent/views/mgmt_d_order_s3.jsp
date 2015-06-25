@@ -75,7 +75,7 @@
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
                     <tr>
                         <td class="td_mgmt_right3_td1a">
-                           <form action="doUpdate" method="post">	          
+                           <form action="doUpdate" method="post" id="new_order">	          
                        
                             <div class="span_mgmt_right3_text4">基本信息</div>  
                                <table width="90%" border="0" cellspacing="0" cellpadding="0">
@@ -89,9 +89,6 @@
 									<td>
 										<select style="width:120px;" name="clientName" required id="clientName">
 											<option value="" selected="selected">请选择</option>
-                                           <!--  <option value="北京索契物流有限公司">北京索契物流有限公司</option>
-                                            <option value="天津友达通有限公司">天津友达通有限公司</option>
-                                            <option value="北京大田物流有限公司">北京大田物流有限公司</option> -->
                                         </select>
                                         	<!-- 	订单id	 -->
                                         <input name="id" type="hidden" value="${orderInfo.id }"/>
@@ -100,13 +97,13 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">关联客户运单：</td>
                                     <td>
-                                        <select id="psource" style="width:120px;" onchange="change2();" required>
+                                        <select id="psource" style="width:120px;" onchange="change2();" name="isLinkToClientWayBill" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="有">有</option>
                                             <option value="无" >无</option>
                                         </select>
                                         <div id="p_detail" style="display:none;">
-                                            <input type="text" class="input_mgmt1" style="width:176px;" placeholder="请输入客户运单号..."/>
+                                            <input type="text" name="isLinkToClientWayBill" class="input_mgmt1" style="width:176px;" placeholder="请输入客户运单号..."/>
                                         </div>
                                     </td>
                                 </tr>
@@ -125,9 +122,6 @@
                                         <div id="c_detail" style="display:none;">
                                             <select style="width:93px;" name="contractId" id="contractId">
                                                 <option value="无" selected="selected">请选择</option>
-                                                <!-- <option value="C0001">C0001</option>
-                                                <option value="C0002">C0002</option>
-                                                <option value="C0003">C0003</option> -->
                                             </select>
                                         </div>
                                     </td>
@@ -221,7 +215,7 @@
 								</tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
-                                    <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onsubmit="addAddress()"/><!-- <input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /> --></td>
+                                    <td><input type="button" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="addAddress()"/><!-- <input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /> --></td>
                                 </tr>
                             
                             </table>
@@ -363,28 +357,41 @@
 			name=$("#deliveryName").val();
 			address=$("#deliverAddr").val();
 			phone=$("#deliverPhone").val();
+			
+			$.ajax({
+				type: "GET",
+				url:url,
+				data:{"name":name,
+					"address":address,
+					"phone":phone
+					},
+				cache:false,
+				success:function(data){
+					//不做任何操作
+				}
+			});
 		}
 		
 		if($("#receiver_info").attr("checked") == true){//收货人常用地址选中
 			name=$("#recieverName").val();
 			address=$("#recieverAddr").val();
 			phone=$("#recieverPhone").val();
+			
+			$.ajax({
+				type: "GET",
+				url:url,
+				data:{"name":name,
+					"address":address,
+					"phone":phone
+					},
+				cache:false,
+				success:function(data){
+					//不做任何操作
+				}
+			});
 		}
 		
-		$.ajax({
-			type: "GET",
-			url:url,
-			data:{"name":name,
-				"address":address,
-				"phone":phone
-				},
-			cache:false,
-			success:function(data){
-				//不做任何操作
-			}
-		});
-		
-		return true;//返回true，使得表单提交
+		$('#new_order').submit();
 	}
 </script>
 </html>

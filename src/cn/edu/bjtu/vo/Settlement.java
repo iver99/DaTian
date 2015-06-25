@@ -15,6 +15,15 @@ public class Settlement {
 	private String userId;
 	private String username;
 	private Date createTime;
+	private String orderId;//add by RussWest0 at 2015年6月25日,下午9:37:50 
+	
+	
+	public String getOrderId() {
+		return orderId;
+	}
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
+	}
 	public String getId() {
 		return id;
 	}

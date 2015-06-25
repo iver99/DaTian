@@ -14,12 +14,14 @@
         <property name="username" type="string">
             <column name="username" />
         </property>
+        <property name="orderId" type="string">
+            <column name="orderId" />
+        </property>
         <property name="createTime" type="date">
             <column name="createTime" />
         </property>
         <property name="orderNum" type="string">
             <column name="orderNum" />
         </property>
-         
     </class>
 </hibernate-mapping>

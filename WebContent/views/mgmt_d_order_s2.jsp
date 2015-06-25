@@ -397,26 +397,40 @@
 			name=$("#deliveryName").val();
 			address=$("#deliverAddr").val();
 			phone=$("#deliverPhone").val();
+			
+			$.ajax({
+				type: "GET",
+				url:url,
+				data:{"name":name,
+					"address":address,
+					"phone":phone
+					},
+				cache:false,
+				success:function(data){
+					//不做任何操作
+				}
+			});
 		}
 		
 		if(receiver_info.attr("checked") == true){//收货人常用地址选中
 			name=$("#recieverName").val();
 			address=$("#recieverAddr").val();
 			phone=$("#recieverPhone").val();
+			
+			$.ajax({
+				type: "GET",
+				url:url,
+				data:{"name":name,
+					"address":address,
+					"phone":phone
+					},
+				cache:false,
+				success:function(data){
+					//不做任何操作
+				}
+			});
 		}
 		
-		$.ajax({
-			type: "GET",
-			url:url,
-			data:{"name":name,
-				"address":address,
-				"phone":phone
-				},
-			cache:false,
-			success:function(data){
-				//不做任何操作
-			}
-		});
 		//提交订单
 		$('#new_order').submit();
 	}

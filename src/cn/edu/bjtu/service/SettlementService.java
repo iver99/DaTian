@@ -6,7 +6,6 @@ import javax.servlet.http.HttpSession;
 
 public interface SettlementService {
 	
-	public List getUserSettlementList(String userId);
 
 	/**
 	 * 结算页面的查询
@@ -27,6 +26,13 @@ public interface SettlementService {
 	 * @param session
 	 */
 	public  Float getUserSettlementMoney(HttpSession session,int flag);
+	
+	/**
+	 * 获取结算list
+	 * @param session
+	 * @return
+	 */
+	public List getUserSettlementList(HttpSession session);
 	
 	
 	

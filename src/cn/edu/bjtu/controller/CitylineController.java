@@ -132,7 +132,7 @@ public class CitylineController {
 		mv.addObject("citylineInfo", citylineInfo);
 		if (flag == 0) {
 			Carrierinfo carrierInfo = companyService.getCompanyById(carrierId);
-			List<Comment> commentList=commentService.getCitylineCommentById(citylineId,carrierId);
+			List<Comment> commentList=commentService.getCompanyComment(carrierId);
 			mv.addObject("commentList",commentList);
 			mv.addObject("carrierInfo", carrierInfo);
 			mv.setViewName("resource_detail2");// 资源栏点击详情的页面

@@ -35,12 +35,19 @@ public class SettlmentServiceImpl implements SettlementService{
 	 * 获取用户的订单
 	 */
 	@Override
-	public List getUserSettlementList(String userId) {
+	public List getUserSettlementList(HttpSession session) {
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+		Integer userKind=(Integer)session.getAttribute(Constant.USER_KIND);
 		//已完成的订单才能结算
-		String hql="from SettlementCarrierView t where t.clientId=:clientId "
-				+ " and t.state='已完成'";
+		String hql="from SettlementCarrierView t where t.state='已完成' ";
 		Map<String,Object> params=new HashMap<String,Object>();
-		params.put("clientId", userId);
+		if(userKind==2){//个人用户
+			hql+=" and t.clientId=:clientId ";
+			params.put("clientId", userId);
+		}else if(userKind==3){//企业用户
+			hql+=" and t.carrierId=:carrierId ";
+			params.put("carrierId", userId);
+		}
 		return settlementDao.find(hql, params);
 	}
 	/**
@@ -92,8 +99,5 @@ public class SettlmentServiceImpl implements SettlementService{
 		
 		return totalMoney;
 	}
-	
-	
-	
 
 }

@@ -163,7 +163,7 @@ function cancel(id){
                                 <ul class="quickmenu">
                                     <li class="menuitem">
                                         <div class="menu">
-                                            <a href="getCommentForm?orderid=${orderinfo.id }" class="menuhd" hidefocus="true">评价</a>
+                                            <a href="getCommentForm?orderid=${orderinfo.id }&ordernum=${orderinfo.orderNum}" class="menuhd" hidefocus="true">评价</a>
                                             <div class="menubd">
                                                 <div class="menubdpanel">
                                                     <a href="orderDetailComment?orderid=${orderinfo.id }" class="a_top3" hidefocus="true">查看</a>

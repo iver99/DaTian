@@ -101,7 +101,7 @@ public class LinetransportController {
 			Carrierinfo carrierInfo = companyService.getCompanyById(carrierId);
 			//此处需要获取到干线评价详情 
 			// add by RussWest0 at 2015年5月30日,上午9:19:53 
-			List<Comment> commentList=commentService.getLinetransportCommentById(linetransportid,carrierId);
+			List<Comment> commentList=commentService.getCompanyComment(carrierId);
 			mv.addObject("commentList",commentList);
 			mv.addObject("carrierInfo", carrierInfo);
 			mv.setViewName("resource_detail1");

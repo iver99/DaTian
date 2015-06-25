@@ -1,6 +1,9 @@
 package cn.edu.bjtu.service.impl;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -40,12 +43,27 @@ public class SettlementRecordServiceImpl implements SettlementRecordService{
 		settlement.setId(IdCreator.createSettlementId());
 		settlement.setOrderNum(orderNum);
 		settlement.setUserId(userId);
+		settlement.setOrderId(order.getId());//add by RussWest0 at 2015年6月25日,下午9:33:21 
 		settlement.setCreateTime(new Date());
 		settlement.setUsername(username);
 		settlementRecordDao.save(settlement);//保存生成对账单记录
 		orderDao.update(order);
 		
 		return true;
+		
+	}
+	
+	/**
+	 * 根据订单号获取结算生成记录
+	 */
+	@Override
+	public List<Settlement> getSettlementRecordByOrderNum(String orderNum) {
+		
+		String hql="from Settlement t where t.orderNum=:orderNum";
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("orderNum", orderNum);
+		
+		return settlementRecordDao.find(hql, params);
 		
 	}
 }

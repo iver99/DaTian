@@ -16,6 +16,7 @@ public class Comment implements java.io.Serializable {
 	private String clientId;
 	private Date relDate;
 	private String orderId;
+	private String orderNum;//add by RussWest0 at 2015年6月25日,下午10:30:27 
 	private String serviceAttitude;
 	private String transportEfficiency;
 	private String cargoSafety;
@@ -33,6 +34,18 @@ public class Comment implements java.io.Serializable {
 	}
 	
 	
+
+	public String getOrderNum() {
+		return orderNum;
+	}
+
+
+
+	public void setOrderNum(String orderNum) {
+		this.orderNum = orderNum;
+	}
+
+
 
 	public String getCarrierId() {
 		return carrierId;

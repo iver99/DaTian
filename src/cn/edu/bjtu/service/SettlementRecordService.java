@@ -1,6 +1,10 @@
 package cn.edu.bjtu.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
+
+import cn.edu.bjtu.vo.Settlement;
 
 /**
  * 用于记录生成对账单信息
@@ -15,5 +19,12 @@ public interface SettlementRecordService {
 	 * @return
 	 */
 	public boolean finishSettlement(String orderNum,HttpSession session);
+	
+	/**
+	 * 根据订单号获取结算生成记录
+	 * @param orderNum
+	 * @return
+	 */
+	public List<Settlement> getSettlementRecordByOrderNum(String orderNum);
 
 }

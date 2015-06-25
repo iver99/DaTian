@@ -83,7 +83,7 @@
 								hidefocus="true">查看</a></td>
 						</tr>
 
-						<%-- <tr>
+						<tr>
 							<td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
 							<td class="td_mgmt_right3_td1">用户头像</td>
 							<c:choose>
@@ -117,7 +117,7 @@
 								</c:otherwise>
 							</c:choose>
 
-						</tr> --%>
+						</tr>
 						<% if((Integer)session.getAttribute("userKind") ==2){ %>
 						<tr>
 							<td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>

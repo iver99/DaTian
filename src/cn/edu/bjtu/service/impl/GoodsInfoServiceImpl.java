@@ -296,9 +296,11 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 			wheresql+=" and t1.endPlace=:endPlace ";
 			params.put("endPlace", cargoBean.getEndPlace());
 		}
-		if(cargoBean.getTransportType()!=null && !cargoBean.getTransportReq().equals("")&& !cargoBean.getTransportType().equals("All")){
+		if (cargoBean.getTransportType() != null
+				&& !cargoBean.getTransportReq().trim().equals("")
+				&& !cargoBean.getTransportType().trim().equals("All")) {
 			wheresql+=" and t1.transportType=:transportType ";
-			params.put("transportType", cargoBean.getTransportType());
+			params.put("transportType", cargoBean.getTransportType().trim());//FIXME  bug
 		}
 		if (cargoBean.getWeight() != null && !cargoBean.getWeight().equals("")
 				&& !cargoBean.getWeight().equals("All")) {

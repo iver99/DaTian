@@ -14,7 +14,8 @@
 			urladdtion[0] = "All";//取消点选是状态恢复为all
 		} else {
 			var copyThisA = $(this).clone();
-			urladdtion[0] = $(this).text().trim();//点选控件时控件value设置为当前text
+			/*urladdtion[0] = $(this).text().trim();//点选控件时控件value设置为当前text*/
+			urladdtion[0] = jQuery.trim($(this).text());
 			if ($("#selectA").length > 0) {
 				$("#selectA a").html($(this).text());
 			} else {
@@ -30,7 +31,8 @@
 			urladdtion[1] = "All";
 		} else {
 			var copyThisB = $(this).clone();
-			urladdtion[1] = $(this).text().trim();
+			/*urladdtion[1] = $(this).text().trim();*/
+			urladdtion[1] = jQuery.trim($(this).text());
 			if ($("#selectB").length > 0) {
 				$("#selectB a").html($(this).text());
 			} else {
@@ -46,7 +48,8 @@
 			urladdtion[2] = "All";
 		} else {
 			var copyThisC = $(this).clone();
-			urladdtion[2] = $(this).text().trim();
+			/*urladdtion[2] = $(this).text().trim();*/
+			urladdtion[2] = jQuery.trim($(this).text());
 			if ($("#selectC").length > 0) {
 				$("#selectC a").html($(this).text());
 			} else {
@@ -62,7 +65,8 @@
 			urladdtion[3] = "All";
 		} else {
 			var copyThisD = $(this).clone();
-			urladdtion[3] = $(this).text().trim();
+			/*urladdtion[3] = $(this).text().trim();*/
+			urladdtion[3] = jQuery.trim($(this).text());
 			if ($("#selectD").length > 0) {
 				$("#selectD a").html($(this).text());
 			} else {
@@ -79,7 +83,8 @@
 			urladdtion[4] = "All";
 		} else {
 			var copyThisE = $(this).clone();
-			urladdtion[4] = $(this).text().trim();
+			/*urladdtion[4] = $(this).text().trim();*/
+			urladdtion[4] = jQuery.trim($(this).text());
 			if ($("#selectE").length > 0) {
 				$("#selectE a").html($(this).text());
 			} else {
@@ -92,7 +97,8 @@
 		//清空页码
 		var page_layout=$('#page_layout');
 		page_layout.empty();
-		var page_info=$('#page_info').val().trim();
+		/*var page_info=$('#page_info').val().trim();*/
+		var page_info=jQuery.trim($('#page_info').val());
 		if(page_info=='运输线路'){
 			//筛选资源
 			if($('#flag').val() == '0'){//直接点击筛选
@@ -309,9 +315,6 @@
 		}
 		if(page_info=='货物'){
 			if($('#flag').val() == '0'){//直接点击筛选
-				//alert(urladdtion[0]);
-				//alert(urladdtion[1]);
-				//alert(urladdtion[2]);
 				
 				$('#currentPage').val(1);
 				

@@ -108,6 +108,17 @@
                             <li>信用等级：${carrierInfo.creditRate }级</li>
                         </ul>
                         <ul id="item4" class="tab_hide">
+                        	<div id="div_rating3">
+                                <div class="div_rating_left1">综合：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;服务态度</div>
+                                <div id="rating1" class="div_rating_right1"></div>
+                                <div class="div_rating_left1">运输时效</div>
+                                <div id="rating2" class="div_rating_right1"></div>
+                                <div class="div_rating_left1">货物安全</div>
+                                <div id="rating3" class="div_rating_right1"></div>
+                                <div class="div_rating_left1">总体费用</div>
+                                <div id="rating4" class="div_rating_right1"></div>
+                            </div>
+                            <br />
                             <c:forEach var="comment" items="${commentList }">
                             <li class="item2a">${comment.comment }--- ${comment.relDate }</li>
                             </c:forEach>

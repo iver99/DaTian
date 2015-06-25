@@ -60,25 +60,21 @@
 </div>
 			</td>
 			<td class="td_leftnav_top">
-			
-			 <form action="findsettlement" method="post">	      
             	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right2">
                     <tr>
                     	<td>
-                        	<span class="span_mgmt_right2_text1">我的结算(需求方)</span>
-                            <span class="span_mgmt_right2_text2"> <a href="javascript:;" hidefocus="true" class="a_btn_mgmt4" id="btn5">批量生成对账单</a></span>
+                        	<span class="span_mgmt_right2_text1">我的结算(承运方)</span>
+                            <span class="span_mgmt_right2_text2"><a href="javascript:;" hidefocus="true" class="a_btn_mgmt4" id="btn5">批量生成对账单</a></span>
                             <div class="div_mgmt_s1">
-                                <!-- <input type="text" class="input_date1" onclick="SelectDate(this,'yyyy-MM-dd')" value="开始时间" readonly="readonly" title="点击选择" />
+                                <input type="text" class="input_date1" onclick="SelectDate(this,'yyyy-MM-dd')" value="开始时间" readonly="readonly" title="点击选择" />
                                 &nbsp;&nbsp;至&nbsp;&nbsp;
                                 <input type="text" class="input_date1" onclick="SelectDate(this,'yyyy-MM-dd')" value="结束时间" readonly="readonly" title="点击选择" />
-                                &nbsp;&nbsp; -->
-                                <input type="text" class="input_mgmt1" style="width:180px;" placeholder="承运方名称或承运方合同编号" name="name"/>
-                                <input type="submit" id="btn1" value="查询" class="btn_mgmt3" hidefocus="true" />
+                                &nbsp;&nbsp;<input type="text" class="input_mgmt1" style="width:180px;" placeholder="承运方名称或承运方合同编号..." />
+                                <input type="button" id="btn1" value="查询" class="btn_mgmt3" hidefocus="true" />
                             </div>
                         </td>
                 	</tr>
             	</table>
-            	</form>
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
                     <tr>
                         <td width="30" height="40" class="td_mgmt_right3_head1"><input type="checkbox" id="f1_all" onClick="selectall();" /></td>
@@ -117,7 +113,6 @@
                         
                     </tr>
                     </c:forEach>
-                   
                 </table>
 				<table border="0" cellpadding="0" cellspacing="0" class="table_recordnumber">
                     <tr>
@@ -135,7 +130,7 @@
                 <table border="0" cellpadding="0" cellspacing="0" class="table_pagenumber">
                     <tr>
                         <td width="45" class="td_pagenumber">首页</td>
-                        <td width="45" class="td_pagenumber"><a href="mgmt_d_settle_r.htm" class="a_pagenumber" hidefocus="true">上页</a></td>
+                        <td width="45" class="td_pagenumber"><a href="mgmt_d_settle_s.htm" class="a_pagenumber" hidefocus="true">上页</a></td>
                         <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">1</a></td>
                         <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">2</a></td>
                         <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">3</a></td>
@@ -188,7 +183,6 @@ $("#btn5").click(function(){
 	var count = 0;
 	$('input:checkbox[name="f1"]:checked').each(function() //multiple checkbox的name  
 	{  
-		//alert($(this).attr("value"));
 		checklist[count++] = $(this).attr("value");
     });
 	if(checklist!=null && checklist!=""){
