@@ -9,14 +9,6 @@ import cn.edu.bjtu.vo.Carteam;
 @Repository
 public class CarTeamDaoImpl extends BaseDaoImpl<Carteam> implements CarTeamDao{
 	
-	@Override
-	/**
-	 * 返回车队信息
-	 */
-	public List getCarteam(String carrierId) {
-		
-		return this.find("from Carteam where carrierId='"+carrierId+"'");
-	}
 	
 	@Override
 	/**

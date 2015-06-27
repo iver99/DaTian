@@ -80,7 +80,7 @@ public class SearchServiceImpl implements SearchService{
 			sql+=" where t2.focusType='linetransport' and t2.clientId=:clientId ";
 			params.put("clientId", userId);
 		}
-		sql+=") t3 on t1.id=t3.focusId where t1.startPlace like '"+cityName+"' or t1.endPlace like '"+cityName+"' ";
+		sql+=") t3 on t1.id=t3.focusId where t1.startPlace like '%"+cityName+"%' or t1.endPlace like '%"+cityName+"%' ";
 		
 		JSONArray jsonArray = new JSONArray();
 		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
@@ -146,7 +146,7 @@ public class SearchServiceImpl implements SearchService{
 			sql+=" where t2.focusType='cityline' and t2.clientId=:clientId ";
 			params.put("clientId", userId);
 		}
-		sql+=") t3 on t1.id=t3.focusId where t1.name like '"+name+"'";
+		sql+=") t3 on t1.id=t3.focusId where t1.name like '%"+name+"%'";
 		
 		JSONArray jsonArray = new JSONArray();
 		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
@@ -200,7 +200,7 @@ public class SearchServiceImpl implements SearchService{
 			sql+=" where t2.focusType='goods' and t2.clientId=:clientId ";
 			params.put("clientId", userId);
 		}
-		sql+=") t3 on t1.id=t3.focusId where t1.name like '"+name+"'";
+		sql+=") t3 on t1.id=t3.focusId where t1.name like '%"+name+"%'";
 		
 		JSONArray jsonArray = new JSONArray();
 		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
@@ -251,7 +251,7 @@ public class SearchServiceImpl implements SearchService{
 			sql+=" where t2.focusType='company' and t2.clientId=:clientId ";
 			params.put("clientId", userId);
 		}
-		sql+=") t3 on t1.id=t3.focusId where  t1.companyName like '"+companyName+"' ";
+		sql+=") t3 on t1.id=t3.focusId where  t1.companyName like '%"+companyName+"%' ";
 		
 		JSONArray jsonArray = new JSONArray();
 		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
@@ -307,7 +307,7 @@ public class SearchServiceImpl implements SearchService{
 			sql+=" where t2.focusType='car' and t2.clientId=:clientId ";
 			params.put("clientId", userId);
 		}
-		sql+=") t3 on t1.id=t3.focusId where t1.carNum like '"+carNum+"'";
+		sql+=") t3 on t1.id=t3.focusId where t1.carNum like '%"+carNum+"%'";
 		
 		JSONArray jsonArray = new JSONArray();
 		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
@@ -365,7 +365,7 @@ public class SearchServiceImpl implements SearchService{
 			sql+=" where t2.focusType='warehouse' and t2.clientId=:clientId ";
 			params.put("clientId", userId);
 		}
-		sql+=") t3 on t1.id=t3.focusId where t1.name like '"+name+"'";
+		sql+=") t3 on t1.id=t3.focusId where t1.name like '%"+name+"%'";
 		
 		JSONArray jsonArray = new JSONArray();
 		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();

@@ -5,7 +5,7 @@ import java.util.List;
 import cn.edu.bjtu.vo.Carteam;
 
 public interface CarTeamService {
-	public List getCarteam(String carrierId);
+	public List<Carteam> getCarteam(String carrierId);
 	public Carteam getCarteamInfo(String id);
 	public boolean insertCarteam(String teamName,String carCount,String chief,String phone,
 			String explaination,String carrierId);

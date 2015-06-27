@@ -62,11 +62,11 @@ public class CarController {
 
 	ModelAndView mv = new ModelAndView();
 
-	@RequestMapping(value="/car",params="flag=0")
 	/**
 	 * 资源栏-车辆信息
 	 * @return
 	 */
+	@RequestMapping(value="/car",params="flag=0")
 	public String getAllCar() {
 		return "resource_list3";
 	}
@@ -537,18 +537,18 @@ public class CarController {
 
 	}
 
-	@RequestMapping("carteam")
 	/**
 	 * 获取车队列表
 	 * @return
 	 */
+	@RequestMapping("carteam")
 	public ModelAndView getCarteam(HttpServletRequest request,
 			HttpServletResponse response) {
 		// 从session里取出id查询
 		// 这里用session取id
 		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		// String carrierId = "C-0002";// 删除
-		List carteamList = carTeamService.getCarteam(carrierId);
+		List<Carteam> carteamList = carTeamService.getCarteam(carrierId);
 		mv.addObject("carteamList", carteamList);
 		mv.setViewName("mgmt_r_car_fleet");
 

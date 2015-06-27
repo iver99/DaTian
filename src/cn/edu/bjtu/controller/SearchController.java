@@ -2,9 +2,12 @@ package cn.edu.bjtu.controller;
 
 import javax.servlet.http.HttpSession;
 
+import jxl.common.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.SearchService;
@@ -23,6 +26,7 @@ public class SearchController {
 
 	@Autowired
 	SearchService searchService;
+	private static final Logger logger=Logger.getLogger(SearchController.class);
 	ModelAndView mv = new ModelAndView();
 	
 	/**
@@ -34,10 +38,10 @@ public class SearchController {
 	 * @return
 	 */
 	@RequestMapping(value="searchResourceAjax",produces="text/html;charset=UTF-8")
+	@ResponseBody
 	public String getSearchResult(String search_content,String resource_kind,PageUtil pageUtil,HttpSession session){
 		
 		JSONArray jsonArray=new JSONArray();
-		
 		if(resource_kind.equals("线路")){
 			jsonArray=searchService.getLineResourceByCityName(search_content, pageUtil, session);
 		}else if(resource_kind.equals("配送")){
@@ -53,7 +57,14 @@ public class SearchController {
 			jsonArray=searchService.getCompanyResourceByCompanyName(search_content, pageUtil, session);
 		}
 		else if(resource_kind.equals("货物")){
-			jsonArray=searchService.getGoodsResourceByName(search_content, pageUtil, session);
+			try{
+				
+				jsonArray=searchService.getGoodsResourceByName(search_content, pageUtil, session);
+				throw new Exception("报错了");
+			}catch(Exception e){
+				//logger.error(e.getStackTrace());
+				e.printStackTrace();
+			}
 		}
 		
 		return jsonArray.toString();
