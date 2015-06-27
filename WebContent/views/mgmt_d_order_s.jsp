@@ -163,7 +163,7 @@ function cancel(id){
                                 <ul class="quickmenu">
                                     <li class="menuitem">
                                         <div class="menu">
-                                            <a href="getCommentForm?orderid=${orderinfo.id }" class="menuhd" hidefocus="true">评价</a>
+                                            <a href="getCommentForm?orderid=${orderinfo.id }&ordernum=${orderinfo.orderNum}" class="menuhd" hidefocus="true">评价</a>
                                             <div class="menubd">
                                                 <div class="menubdpanel">
                                                     <a href="orderDetailComment?orderid=${orderinfo.id }" class="a_top3" hidefocus="true">查看</a>
@@ -220,28 +220,7 @@ function cancel(id){
     </table>
 </div>
 
-<div id="popup1" style="display:none;">
-    <table border="0" cellpadding="0" cellspacing="0">
-        <tr>
-            <td width="510"><div class="div_popup_title1">留言</div></td>
-            <td>
-                <div id="close" style="cursor:pointer;"><img src="images/btn_cancel1.png" title="关闭本窗口" /></div>
-            </td>
-        </tr>
-    </table>
-    <table border="0" cellpadding="0" cellspacing="0">
-        <tr>
-            <td width="540">
-            	<textarea class="textarea_popup1" placeholder="请输入内容..."></textarea>
-            </td>
-        </tr>
-        <tr>
-            <td class="td_popup1">
-                <input type="button" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" />
-            </td>
-        </tr>
-    </table>
-</div>
+<%@ include  file="popup1.jsp"%>
 
 <div id="popup2" style="display:none;">
     <table border="0" cellpadding="0" cellspacing="0">

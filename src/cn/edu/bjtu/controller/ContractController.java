@@ -8,6 +8,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -187,7 +188,7 @@ public class ContractController {
 			try {
 				response.sendRedirect("contract");// 重定向，显示最新的结果
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				// 此处应该记录日志
 				e.printStackTrace();
 			}
@@ -214,14 +215,14 @@ public class ContractController {
 			try {
 				response.sendRedirect("contract");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				e.printStackTrace();
 			}
 		else if(flag==true&&rorsflag==2)
 			try {
 				response.sendRedirect("contract2");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				e.printStackTrace();
 			}
 		return mv;
@@ -242,7 +243,7 @@ public class ContractController {
 			response.setCharacterEncoding("UTF-8");
 			request.setCharacterEncoding("UTF-8");
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		}
 		
@@ -311,7 +312,7 @@ public class ContractController {
 			else
 				System.out.println("确认合同失败");// 应记录日志
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// 
 			// 此处应记录日志
 			e.printStackTrace();
 
@@ -326,8 +327,9 @@ public class ContractController {
 	 */
 	@RequestMapping("getUserContractIdAjax")
 	@ResponseBody
-	public String getUserContractId(String currentUserId,HttpServletResponse response){
-		List<Contract> contractList=contractService.getContractByClientId(currentUserId);
+	public String getUserContractId(HttpServletResponse response,HttpSession session){
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+		List<Contract> contractList=contractService.getContractByClientId(userId);
 		JSONArray jsonArray=new JSONArray();
 		for(int i=0;i<contractList.size();i++){
 			JSONObject jsonObject=(JSONObject)JSONObject.toJSON(contractList.get(i));

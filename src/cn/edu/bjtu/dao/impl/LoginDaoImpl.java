@@ -23,7 +23,7 @@ public class LoginDaoImpl extends BaseDaoImpl<Userinfo> implements LoginDao {
 
 	@Override
 	public Userinfo checkLogin(String username, String password,int userKind) {
-		// TODO Auto-generated method stub
+		
 		//ÐèÒªÐÞ¸Ä 
 		String hql="from Userinfo where username=:username and password=:password and userKind=:userKind";
 		Map<String,Object> params=new HashMap<String,Object>();

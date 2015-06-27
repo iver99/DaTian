@@ -54,7 +54,7 @@ public class LinetransportServiceImpl implements LinetransportService {
 	 * 返回所有干线列表
 	 */
 	public List getAllLinetransport(int Display, int PageNow) {
-		// TODO Auto-generated method stub
+		
 		return linetransportDao.getAllLinetransport(Display, PageNow);
 	}
 	
@@ -64,7 +64,7 @@ public class LinetransportServiceImpl implements LinetransportService {
 	 * 返回干线信息
 	 */
 	public Linetransport getLinetransportInfo(String linetransportid) {
-		// TODO Auto-generated method stub
+		
 		return linetransportDao.getLinetransportInfo(linetransportid);
 	}
 
@@ -76,7 +76,7 @@ public class LinetransportServiceImpl implements LinetransportService {
 	public List getSelectedLine(String startPlace, String endPlace,
 			String type, String startPlace1, String refPrice, int Display,
 			int PageNow) {
-		// TODO Auto-generated method stub
+		
 
 		String sql = "";
 		if (refPrice.equals("大于2元/kg")) {
@@ -142,7 +142,7 @@ public class LinetransportServiceImpl implements LinetransportService {
 	@Deprecated
 	public int getTotalRows(String startPlace, String endPlace, String type,
 			String startPlace1, String refPrice) {
-		// TODO Auto-generated method stub
+		
 		String sql = "";
 		if (refPrice.equals("大于2元/kg")) {
 			String[] paramList = { "startPlace", "endPlace", "type" };// 没startplace1
@@ -232,7 +232,7 @@ public class LinetransportServiceImpl implements LinetransportService {
 	public boolean insertLine(String lineName, String startPlace,
 			String endPlace, int onWayTime, String type, float refPrice,
 			String remarks, String carrierId, String path, String fileName) {
-		// TODO Auto-generated method stub
+		
 		linetransport.setId(IdCreator.createlineTransportId());
 		linetransport.setCarrierId(carrierId);// 插入session里的carrierid
 		linetransport.setLineName(lineName);
@@ -258,21 +258,21 @@ public class LinetransportServiceImpl implements LinetransportService {
 	 * 返回某公司的所有干线信息
 	 */
 	public List getCompanyLine(String carrierId, int Display, int PageNow) {
-		// TODO Auto-generated method stub
+		
 		return linetransportDao.getCompanyLine(carrierId, Display, PageNow);// 未完成
 	}
 
 	@Override
 	// 未实现
 	public String getLinetransportIdByCity(String startPlace, String endPlace) {
-		// TODO Auto-generated method stub
+		
 		return "";
 	}
 
 	@Override
 	@Deprecated
 	public int getCompanyTotalRows(String carrierId) {
-		// TODO Auto-generated method stub
+		
 		return linetransportDao.getCompanyTotalRows(carrierId);
 	}
 
@@ -283,7 +283,7 @@ public class LinetransportServiceImpl implements LinetransportService {
 	public boolean updateLine(String id, String lineName, String startPlace,
 			String endPlace, int onWayTime, String type, float refPrice,
 			String remarks, String carrierId, String path, String fileName) {
-		// TODO Auto-generated method stub
+		
 
 		linetransport = getLinetransportInfo(id);// 根据id查找到干线信息
 		linetransport.setLineName(lineName);
@@ -324,7 +324,7 @@ public class LinetransportServiceImpl implements LinetransportService {
 	 */
 	public DataModel getSelectedLineNew(LinetransportSearchBean linetransportbean,
 			PageUtil pageUtil,HttpSession session) {
-		// TODO Auto-generated method stub
+		
 		String userId=(String)session.getAttribute(Constant.USER_ID);
 		Map<String,Object> params=new HashMap<String,Object>();
 		String sql = "select t1.id,"
@@ -432,7 +432,7 @@ public class LinetransportServiceImpl implements LinetransportService {
 	 */
 	@Override
 	public Integer getSelectedLineTotalRows(LinetransportSearchBean lineBean) {
-		// TODO Auto-generated method stub
+		
 		Map<String,Object> params=new HashMap<String,Object>();
 		//String countsql="select count(t1.id) from line_carrier_view t1"+whereSql(lineBean,params);
 		String hql="select count(*) from LineCarrierView t1"+whereSql(lineBean, params);

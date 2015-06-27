@@ -12,6 +12,7 @@
 <link rel="icon" href="/images/fav.ico" type="image/x-icon" />
 <link rel="bookmark" href="/images/fav.ico" type="image/x-icon" />
 <link type="text/css" rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="css/style.css" type="text/css" />
 <script type="text/javascript" src="js/jquery.min.1.7.2.js"></script>
 <script type="text/javascript" src="js/top_search.js"></script>
 <script type="text/javascript" src="js/main_nav.js"></script>
@@ -20,6 +21,7 @@
 <script type="text/javascript" src="js/popup.js"></script>
 <script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
 <script type="text/javascript" src="js/focus_load.js"></script>
+<script type="text/javascript" src="js/cropbox.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$('input, textarea').placeholder();
@@ -71,14 +73,34 @@
 				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
 					<tr>
 						<td class="td_mgmt_right3_td1a"> 
-                            <br />   	          
+                            <br /> 
                             <div style="width:630px;">
+                            	<div class="container">
+								  <div class="imageBox">
+								    <div class="thumbBox"></div>
+								    <div class="spinner" style="display: none">Loading...</div>
+								  </div>
+								  <div class="action"> 
+								    <!-- <input type="file" id="file" style=" width: 200px">-->
+								    <div class="new-contentarea tc"> <a href="javascript:void(0)" class="upload-img">
+								      <label for="upload-file">上传图像</label>
+								      </a>
+								      <input type="file" class="" name="upload-file" id="upload-file" />
+								    </div>
+								    <input type="button" id="btnCrop"  class="Btnsty_peyton" value="裁切">
+								    <input type="button" id="btnZoomIn" class="Btnsty_peyton" value="+"  >
+								    <input type="button" id="btnZoomOut" class="Btnsty_peyton" value="-" >
+								  </div>
+								  <div class="cropped"></div>
+								</div> 
+							</div>        
+                            <!-- <div style="width:630px;">
                                 <div>
                                     <p id="swfContainer">
                                         本组件需要安装Flash Player，请从<a href="http://www.adobe.com/go/getflashplayer">这里</a>下载并安装。
                                     </p>
                                 </div>
-                            </div>
+                            </div> -->
 							<br />
 						</td>
 					</tr>
@@ -123,5 +145,37 @@
 	function OnLoad() {
 		loadFocus();
 	}
+	
+	$(window).load(function() {
+		var options =
+		{
+			thumbBox: '.thumbBox',
+			spinner: '.spinner',
+			imgSrc: ''
+		}
+		var cropper = $('.imageBox').cropbox(options);
+		$('#upload-file').on('change', function(){
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				options.imgSrc = e.target.result;
+				cropper = $('.imageBox').cropbox(options);
+			}
+			reader.readAsDataURL(this.files[0]);
+			this.files = [];
+		})
+		$('#btnCrop').on('click', function(){
+			var img = cropper.getDataURL();
+			$('.cropped').html('');
+			$('.cropped').append('<img src="'+img+'" align="absmiddle" style="width:64px;margin-top:4px;border-radius:64px;box-shadow:0px 0px 12px #7E7E7E;" ><p>64px*64px</p>');
+			$('.cropped').append('<img src="'+img+'" align="absmiddle" style="width:128px;margin-top:4px;border-radius:128px;box-shadow:0px 0px 12px #7E7E7E;"><p>128px*128px</p>');
+			$('.cropped').append('<img src="'+img+'" align="absmiddle" style="width:180px;margin-top:4px;border-radius:180px;box-shadow:0px 0px 12px #7E7E7E;"><p>180px*180px</p>');
+		})
+		$('#btnZoomIn').on('click', function(){
+			cropper.zoomIn();
+		})
+		$('#btnZoomOut').on('click', function(){
+			cropper.zoomOut();
+		})
+	});
 </script>
 </html>

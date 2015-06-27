@@ -53,12 +53,17 @@
                         <a href="car?flag=1" class="a_mgmt_leftnav" hidefocus="true">车辆信息</a>
                         <a href="warehouse?flag=1" class="a_mgmt_leftnav" hidefocus="true">仓库信息</a>
 						<a href="driver?flag=1" class="a_mgmt_leftnav" hidefocus="true">司机信息</a>
-                        <a href="client" class="a_mgmt_leftnav" hidefocus="true">客户信息</a>
                         <%} %>
                         <% if((Integer)session.getAttribute("userKind") ==2) {%><!-- 个人用户 -->
+                        <a href="client" class="a_mgmt_leftnav" hidefocus="true">客户信息</a>
                         <a href="goodsform?flag=1" class="a_mgmt_leftnav" hidefocus="true">货物信息</a>
                         <%} %>
+                        <% if((Integer)session.getAttribute("userKind") ==3) {%><!-- 企业用户 -->
+                        <a href="contract2" class="a_mgmt_leftnav" hidefocus="true">合同信息</a>
+                        <%} %>
+                        <% if((Integer)session.getAttribute("userKind") ==2) {%><!-- 个人用户 -->
                         <a href="contract" class="a_mgmt_leftnav1" hidefocus="true">合同信息</a>
+                        <%} %>
                     </div>
                     <%@ include  file="mysource_leftnav_myplan.jsp"%>
                     <%@ include  file="mysource_leftnav_myanalysis.jsp"%>
@@ -132,28 +137,7 @@
     </table>
 </div>
 
-<div id="popup1" style="display:none;">
-    <table border="0" cellpadding="0" cellspacing="0">
-        <tr>
-            <td width="510"><div class="div_popup_title1">留言</div></td>
-            <td>
-                <div id="close" style="cursor:pointer;"><img src="images/btn_cancel1.png" title="关闭本窗口" /></div>
-            </td>
-        </tr>
-    </table>
-    <table border="0" cellpadding="0" cellspacing="0">
-        <tr>
-            <td width="540">
-            	<textarea class="textarea_popup1" placeholder="请输入内容..." ></textarea>
-            </td>
-        </tr>
-        <tr>
-            <td class="td_popup1">
-                <input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" />
-            </td>
-        </tr>
-    </table>
-</div>
+<%@ include  file="popup1.jsp"%>
 
 <div id="popup2" style="display:none;">
     <table border="0" cellpadding="0" cellspacing="0">

@@ -39,6 +39,12 @@
         <property name="companyName" type="string">
             <column name="companyName" />
         </property>
+        <property name="clientId" type="string">
+            <column name="clientId" />
+        </property>
+        <property name="state" type="string">
+            <column name="state" />
+        </property>
         
     </class>
 </hibernate-mapping>

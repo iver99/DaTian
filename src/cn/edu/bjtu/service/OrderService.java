@@ -2,9 +2,11 @@ package cn.edu.bjtu.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import cn.edu.bjtu.bean.page.OrderBean;
 import cn.edu.bjtu.vo.OrderCarrierView;
 import cn.edu.bjtu.vo.Orderform;
-import cn.edu.bjtu.vo.Track;
 
 public interface OrderService {
 
@@ -15,12 +17,6 @@ public interface OrderService {
 	public OrderCarrierView getSendOrderDetail(String id);
 
 	public Orderform getRecieveOrderDetail(String id);
-
-	public boolean insertOrder(String goodsName, String contactWaybill,
-			String deliveryAddr, String recieverAddr, String deliveryName,
-			String deliveryPhone, String recieverName, String recieverPhone,
-			float goodsWeight, float goodsVolume, float expectedPrice,
-			float insurance, float freight, String contractId, String remarks);
 
 	public Orderform getOrderByOrderNum(String orderNum);
 
@@ -38,40 +34,18 @@ public interface OrderService {
 	public boolean confirmCargo(String orderId);
 
 	public boolean cancel(String cancelReason, String orderId);
-
+	/*@Deprecated
 	public boolean updateOrder(String orderid, String clientName,
 			String hasCarrierContract, String contractId, String goodsName,
 			float goodsWeight, float goodsVolume, float declaredPrice,
 			float insurance, float expectedPrice, String deliveryName,
 			String deliveryPhone, String deliveryAddr, String recieverName,
 			String recieverPhone, String recieverAddr, String remarks);
-
+*/
 	public boolean DoGetOrderWaitToConfirmUpdate(String orderId,
 			float actualPrice, String explainReason,String path,String fileName);
-	/**
-	 * 新增订单
-	 * @param userId
-	 * @param hasCarrierContract
-	 * @param deliveryName
-	 * @param receiverName
-	 * @param deliveryPhone
-	 * @param receiverPhone
-	 * @param deliveryAddr
-	 * @param receiverAddr
-	 * @param remarks
-	 * @param goodsName
-	 * @param goodsVolume
-	 * @param goodsWeight
-	 * @param expectedPrice
-	 * @param declaredPrice
-	 * @param insurance
-	 * @param contractId
-	 * @param carrierId
-	 * @param clientWayBillNum
-	 * @param resourceName
-	 * @param resourceType
-	 * @return
-	 */
+	
+/*	@Deprecated
 	public boolean createNewOrder(String userId, String hasCarrierContract,
 			String deliveryName, String receiverName, String deliveryPhone,
 			String receiverPhone, String deliveryAddr, String receiverAddr,
@@ -79,8 +53,52 @@ public interface OrderService {
 			float goodsWeight, float expectedPrice, float declaredPrice,
 			float insurance, String contractId, String carrierId,
 			String isLinkToClientWayBill,String clientWayBillNum, 
-			String resourceName, String resourceType,String companyName,String clientName);
+			String resourceName, String resourceType,String companyName,String clientName);*/
 
 	public List getCargoTrack(String orderNum, String carNum);
+	
+	/**
+	 * 返回用户待受理订单数
+	 * @param session
+	 * @return
+	 */
+	public Long getUserWaitToAcceptNum(HttpSession session);
+	
+	/**
+	 * 返回用户待收货订单数
+	 * @param session
+	 * @return
+	 */
+	public Long getUserWaitToReceiveNum(HttpSession session);
+	
+	/**
+	 * 返回用户待结算数目 
+	 * @param session
+	 * @return
+	 */
+	public Long getUserWaitToSettleNum(HttpSession session);
+	
+	/**
+	 * 返回用户已完成订单数
+	 * @param session
+	 * @return
+	 */
+	public Long finishedNum(HttpSession session);
+	
+	/**
+	 * 新建订单
+	 * @param session
+	 * @param orderBean
+	 * @return
+	 */
+	public boolean createOrder(HttpSession session,OrderBean orderBean);
+	
+	/**
+	 * 更新订单
+	 * @param session
+	 * @param orderBean
+	 * @return
+	 */
+	public boolean updateOrder(HttpSession session,OrderBean orderBean);
 
 }

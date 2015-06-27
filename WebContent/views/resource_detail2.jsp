@@ -19,6 +19,9 @@
 <script type="text/javascript" src="js/popup.js"></script>
 <script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
 <script type="text/javascript" src="js/focus_load.js"></script>
+<script type="text/javascript" src="js/search_resource.js"></script><!-- 搜索资源 -->
+<script type="text/javascript" src="js/rating3.js"></script>
+<script type="text/javascript" src="js/jquery.raty.min.js"></script>
 <script type="text/javascript"> 
 	$(function() {
 		$('input, textarea').placeholder(); 
@@ -88,7 +91,7 @@
                     </ul>
                     <div class="list_wrap">
                         <ul id="item1">
-                           ${carrierInfo.remarks }
+                          ${citylineInfo.remarks }
                         </ul>
                         <ul id="item2" class="tab_hide">
                             <li class="item2a">配送城市：北京</li>
@@ -107,8 +110,83 @@
                             <li>信用等级：${carrierInfo.creditRate }级</li>
                         </ul>
                         <ul id="item4" class="tab_hide">
+                        	<div id="div_rating3">
+                                <div class="div_rating_left1">综合：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;服务态度</div>
+                                <c:choose>
+                                	<c:when test="${comment.serviceAttitude == '很好' }">
+	                                	<div id="rating1" class="div_rating_right1" data-score="5"></div>
+                                	</c:when>
+                                	<c:when test="${comment.serviceAttitude == '好' }">
+	                                	<div id="rating1" class="div_rating_right1" data-score="4"></div>
+                                	</c:when>
+                                	<c:when test="${comment.serviceAttitude == '一般' }">
+	                                	<div id="rating1" class="div_rating_right1" data-score="3"></div>
+                                	</c:when>
+                                	<c:when test="${comment.serviceAttitude == '差' }">
+	                                	<div id="rating1" class="div_rating_right1" data-score="2"></div>
+                                	</c:when>
+                                	<c:otherwise>
+                                		<div id="rating1" class="div_rating_right1" data-score="1"></div>
+                                	</c:otherwise>
+                                </c:choose>
+                                <div class="div_rating_left1">运输时效</div>
+                                <c:choose>
+                                	<c:when test="${comment.transportEfficiency == '很好' }">
+		                                <div id="rating2" class="div_rating_right1" data-score="5"></div>
+                                	</c:when>
+                                	<c:when test="${comment.transportEfficiency == '好' }">
+		                                <div id="rating2" class="div_rating_right1" data-score="4"></div>
+                                	</c:when>
+                                	<c:when test="${comment.transportEfficiency == '一般' }">
+		                                <div id="rating2" class="div_rating_right1" data-score="3"></div>
+                                	</c:when>
+                                	<c:when test="${comment.transportEfficiency == '差' }">
+		                                <div id="rating2" class="div_rating_right1" data-score="2"></div>
+                                	</c:when>
+                                	<c:otherwise>
+ 		                                <div id="rating2" class="div_rating_right1" data-score="1"></div>
+                                	</c:otherwise>
+                                </c:choose>
+                                <div class="div_rating_left1">货物安全</div>
+                                <c:choose>
+                                	<c:when test="${comment.cargoSafety == '很好' }">
+		                                <div id="rating3" class="div_rating_right1" data-score="5"></div>
+                                	</c:when>
+                                	<c:when test="${comment.cargoSafety == '好' }">
+		                                <div id="rating3" class="div_rating_right1" data-score="4"></div>
+                                	</c:when>
+                                	<c:when test="${comment.cargoSafety == '一般' }">
+		                                <div id="rating3" class="div_rating_right1" data-score="3"></div>
+                                	</c:when>
+                                	<c:when test="${comment.cargoSafety == '差' }">
+		                                <div id="rating3" class="div_rating_right1" data-score="2"></div>
+                                	</c:when>
+                                	<c:otherwise>
+                                		<div id="rating3" class="div_rating_right1" data-score="1"></div>
+                                	</c:otherwise>
+                                </c:choose>
+                                <div class="div_rating_left1">总体费用</div>
+                                <c:choose>
+                                	<c:when test="${comment.totalMoney == '很好' }">
+		                                <div id="rating4" class="div_rating_right1" data-score="5"></div>
+                                	</c:when>
+                                	<c:when test="${comment.totalMoney == '好' }">
+		                                <div id="rating4" class="div_rating_right1" data-score="4"></div>
+                                	</c:when>
+                                	<c:when test="${comment.totalMoney == '一般' }">
+		                                <div id="rating4" class="div_rating_right1" data-score="3"></div>
+                                	</c:when>
+                                	<c:when test="${comment.totalMoney == '差' }">
+		                                <div id="rating4" class="div_rating_right1" data-score="2"></div>
+                                	</c:when>
+                                	<c:otherwise>
+                                		<div id="rating4" class="div_rating_right1" data-score="1"></div>
+                                	</c:otherwise>
+                                </c:choose>
+                            </div>
+                            <br />
                             <c:forEach var="comment" items="${commentList }">
-                            <li class="item2a">${comment.comment }--- ${comment.relDate }</li>
+                            <li class="item2a">${comment.comment }------------ ${comment.relDate }</li>
                             </c:forEach>
                         </ul>
                     </div>
@@ -117,28 +195,7 @@
     </table>
 </div>
 
-<div id="popup1" style="display:none;">
-    <table border="0" cellpadding="0" cellspacing="0">
-        <tr>
-            <td width="510"><div class="div_popup_title1">留言</div></td>
-            <td>
-                <div id="close" style="cursor:pointer;"><img src="images/btn_cancel1.png" title="关闭本窗口" /></div>
-            </td>
-        </tr>
-    </table>
-    <table border="0" cellpadding="0" cellspacing="0">
-        <tr>
-            <td width="540">
-            	<textarea class="textarea_popup1" placeholder="请输入内容..."></textarea>
-            </td>
-        </tr>
-        <tr>
-            <td class="td_popup1">
-                <input type="button" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><input type="button" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" />
-            </td>
-        </tr>
-    </table>
-</div>
+<%@ include  file="popup1.jsp"%>
 
 <div id="footer_frame">
 	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="views/footer.jsp"></iframe>
@@ -160,6 +217,7 @@ function loadXMLDoc(id)
 		   type: "GET",
 		   url: curWwwPath.substring(0,pos) + "/DaTian/focus",//请求的后台地址
 		   data: "type=cityline&id=" + id,//前台传给后台的参数
+		   cache:false,
 		   success: function(msg){//msg:返回值
 			   if(msg == "login"){
 				   location.assign(curWwwPath.substring(0,pos) + "/DaTian/loginForm");

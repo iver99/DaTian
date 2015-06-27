@@ -6,11 +6,13 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.AddressService;
@@ -58,7 +60,7 @@ public class AddressController {
 			else
 				System.out.println("删除失败");// 应记录日志
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// 
 			// 此处应记录日志
 			e.printStackTrace();
 
@@ -103,7 +105,7 @@ public class AddressController {
 				else
 					System.out.println("添加失败");// 应记录日志
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				// 此处应记录日志
 				e.printStackTrace();
 
@@ -149,12 +151,24 @@ public class AddressController {
 				else
 					System.out.println("更新失败");// 应记录日志
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				// 此处应记录日志
 				e.printStackTrace();
 			}
 			
 			return mv;
 		}
+	 
+	 /**
+	  * 添加常用地址
+	  * @param session
+	  * @param address
+	  */
+	 @RequestMapping("addAddressAjax")
+	 @ResponseBody
+	 public void addAddressAjax(HttpSession session,Address address){
+		 addressService.addUserAddress(session,address);
+		 return ;
+	 }
 	 
 }

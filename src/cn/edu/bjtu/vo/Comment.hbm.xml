@@ -17,6 +17,9 @@
         <property name="orderId" type="string">
             <column name="orderId" />
         </property>
+        <property name="orderNum" type="string">
+            <column name="orderNum" />
+        </property>
         <property name="serviceAttitude" type="string">
             <column name="serviceAttitude" />
         </property>

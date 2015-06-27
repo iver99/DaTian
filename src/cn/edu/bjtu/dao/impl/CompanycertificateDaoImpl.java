@@ -85,7 +85,7 @@ public class CompanycertificateDaoImpl extends BaseDaoImpl<Companycertificate> i
 			String invoiceKind, String serviceIndustry, String businessKind,
 			String companyContact, String phone, String basicSituation,
 			String path, String fileName) {
-		// TODO Auto-generated method stub
+		
 		Companycertificate companycertificate=new Companycertificate();
 		companycertificate = getCompanycertificate(userId);// 根据id查找到车辆信息
 		companycertificate.setCompanyName(companyName);	

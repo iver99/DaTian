@@ -17,7 +17,7 @@ public class ParseDate {
 		try {
 			myDate2 = dateFormat2.parse(date);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 			return null;
 		}

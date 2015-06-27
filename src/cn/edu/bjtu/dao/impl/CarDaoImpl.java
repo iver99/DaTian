@@ -28,7 +28,7 @@ public class CarDaoImpl extends BaseDaoImpl<Carinfo> implements CarDao{
 	 * 返回具体车辆信息
 	 */
 	public Carinfo getCarInfo(String carid) {
-		// TODO Auto-generated method stub
+		
 		return ht.get(Carinfo.class, carid);
 		
 	}
@@ -39,7 +39,7 @@ public class CarDaoImpl extends BaseDaoImpl<Carinfo> implements CarDao{
 	 * 返回公司车辆
 	 */
 	public List getCompanyCar(String carrierId) {
-		// TODO Auto-generated method stub
+		
 		return ht.find("from Carinfo where carrierId='"+carrierId+"'");
 	}
 
@@ -49,7 +49,7 @@ public class CarDaoImpl extends BaseDaoImpl<Carinfo> implements CarDao{
 	@Override
 	@Deprecated
 	public List getSelectedCar(String hql, int display, int pageNow) {
-		// TODO Auto-generated method stub
+		
 		int page = pageNow;
 		int pageSize = display;
 

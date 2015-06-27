@@ -34,7 +34,7 @@ public class DriverServiceImpl implements DriverService{
 	 * 返回所有司机信息
 	 */
 	public List getAllDriver() {
-		// TODO Auto-generated method stub
+		
 		return driverDao.getAllDriver();
 	}
 
@@ -43,7 +43,7 @@ public class DriverServiceImpl implements DriverService{
 	 * 通过driverid找到司机信息
 	 */
 	public Driverinfo getDriverInfo(String driverId) {
-		// TODO Auto-generated method stub
+		
 		return driverDao.getDriverInfo(driverId);
 	}
 	
@@ -52,7 +52,7 @@ public class DriverServiceImpl implements DriverService{
 	 * 通过carid找到driverinfo
 	 */
 	public Driverinfo getDriverByCarId(String carId) {
-		// TODO Auto-generated method stub
+		
 		String driverId = ((Carinfo) carDao.getCarInfo(carId)).getDriverId();
 
 		return driverDao.getDriverInfo(driverId);
@@ -63,13 +63,13 @@ public class DriverServiceImpl implements DriverService{
 	 * 获取所有的司机姓名，更新车辆页面使用
 	 */
 	public List getAllDriverName(String carrierId) {
-		// TODO Auto-generated method stub
+		
 		return driverDao.getAllDriverName(carrierId);
 	}
 
 	@Override
 	public List getAllDriver(String carrierId) {
-		// TODO Auto-generated method stub
+		
 		return driverDao.getAllDriver(carrierId);
 	}
 	
@@ -77,7 +77,7 @@ public class DriverServiceImpl implements DriverService{
 	@Override
 	// 未实现
 	public String getDriverIdByName(String driverName) {
-		// TODO Auto-generated method stub
+		
 		return "";
 	}
 
@@ -88,7 +88,7 @@ public class DriverServiceImpl implements DriverService{
 	public boolean insertDriver(String name, String sex, String licenceRate,
 			String phone, String IDCard, String licenceNum, String licenceTime,
 			String carrierId, String path, String fileName) {
-		// TODO Auto-generated method stub
+		
 		// driverinfo.setAge(age);
 		driverinfo.setCarrierId(carrierId);
 		driverinfo.setDriverName(name);
@@ -114,7 +114,7 @@ public class DriverServiceImpl implements DriverService{
 	 * 返回公司司机
 	 */
 	public List getCompanyDriver(String carrierId) {
-		// TODO Auto-generated method stub
+		
 		return driverDao.getCompanyDriver(carrierId);
 	}
 	
@@ -126,7 +126,7 @@ public class DriverServiceImpl implements DriverService{
 			String IDCard, String licenceNum, String licenceRate,
 			String licenceTime, String phone, String carrierId, String path,
 			String fileName) {
-		// TODO Auto-generated method stub
+		
 		// driverinfo.setAge(age);
 		driverinfo = getDriverInfo(id);// 根据id查找到车辆信息
 		driverinfo.setDriverName(name);

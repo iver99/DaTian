@@ -114,6 +114,13 @@ public class CommonController {
 		return "city";
 	}
 	
+	@RequestMapping("getSetHeadIconPage")
+	public ModelAndView getSetHeadIconPage()
+	{
+		mv.setViewName("mgmt_a_info5");
+		return mv;
+	}
+	
 	@RequestMapping(value="homepage",method=RequestMethod.GET)
 	/**
 	 * »Øµ½Ê×Ò³

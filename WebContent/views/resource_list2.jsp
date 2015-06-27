@@ -25,6 +25,7 @@
 		<script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
 		<script type="text/javascript" src="js/splitPage.js"></script><!-- 新增 -->
 		<script type="text/javascript" src="js/focus_load.js"></script>
+		<script type="text/javascript" src="js/search_resource.js"></script><!-- 搜索资源 -->
 		<script type="text/javascript">
 			$(function() {
 				$('input, textarea').placeholder();
@@ -104,10 +105,10 @@
 					</div>
 					<div id="div_resource_list_head">
 						<div id="div_resource_list_head1"><!-- 共  条记录 --></div>
-						<input id="count" value="" type="text"/>
-						<input id="display" value="10" type="text"/>
-						<input id="currentPage" value="1" type="text"/>
-						<input id="flag" value=0 type="text"/><!-- 点击页码和点击筛选标识位 -->
+						<input id="count" value="" type="hidden"/>
+						<input id="display" value="10" type="hidden"/>
+						<input id="currentPage" value="1" type="hidden"/>
+						<input id="flag" value=0 type="hidden"/><!-- 点击页码和点击筛选标识位 -->
 						<div id="middlesort">
 							<ul class="quickmenu">
 								<li class="menuitem">
@@ -151,7 +152,7 @@
 					</div>
 					<table border="0" cellspacing="0" cellpadding="0"
 						class="table_main_list" id="list">
-						<thead>
+						<thead id="thead">
 							<tr>
 								<td width="15" class="td_main_list_head"></td>
 								<td class="td_main_list_head">网络名称</td>
@@ -338,6 +339,7 @@ function loadXMLDoc(id)
 		   type: "GET",
 		   url: curWwwPath.substring(0,pos) + "/DaTian/focus",//请求的后台地址
 		   data: "type=cityline&id=" + id,//前台传给后台的参数
+		   cache:false,
 		   success: function(msg){//msg:返回值
 			   if(msg == "login"){
 				   location.assign(curWwwPath.substring(0,pos) + "/DaTian/loginForm");
@@ -367,15 +369,23 @@ function getSelectedLineAjax(cityName,VIPService,refPrice,display,currentPage){
 			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].refPrice+"</td>");
 			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].vIPService+"</td>");
 			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].creditRate+"</td>");
-			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].relDate+"</td>");
-			$("#testbody").append("<td class=\"td_main_list_content\">");
-			$("#testbody").append("</td>");
+			$("#testbody").append("<td class=\"td_main_list_content\">"+renderTime(data[i].relDate)+"</td>");
+			if(data[i].status == "有效")
+				$("#testbody").append("<td class=\"td_main_list_content\"><a href=\"javascript:;\" class=\"a_main_list_handle_icon1b\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('"+data[i].id+"')\"></a></td>");
+			else
+				$("#testbody").append("<td class=\"td_main_list_content\"><a href=\"javascript:;\" class=\"a_main_list_handle_icon1a\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('"+data[i].id+"')\"></a></td>");
 			$("#testbody").append("</tr>");
 			
 			
 		}
 	  },"json");
 }
+
+function renderTime(date){ 
+	var da = new Date(parseInt(date)); 
+	return da.getFullYear()+"-"+ (da.getMonth()+1)+"-" +da.getDate(); 
+} 
+
 //获取所有城市配送筛选的总条数
 function getSelectedCityLineTotalRowsAjax(cityName,VIPService,refPrice,display,currentPage){
 	var url="getSelectedCityLineTotalRowsAjax";

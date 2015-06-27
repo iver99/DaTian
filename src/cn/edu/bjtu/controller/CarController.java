@@ -62,11 +62,11 @@ public class CarController {
 
 	ModelAndView mv = new ModelAndView();
 
-	@RequestMapping(value="/car",params="flag=0")
 	/**
 	 * 资源栏-车辆信息
 	 * @return
 	 */
+	@RequestMapping(value="/car",params="flag=0")
 	public String getAllCar() {
 		return "resource_list3";
 	}
@@ -114,13 +114,13 @@ public class CarController {
 		return count;
 	}
 
-	@RequestMapping(value = "/cardetail", method = RequestMethod.GET)
 	/**
 	 * 获取特定的车辆信息
 	 * 同时返回公司和车辆两个表的信息
 	 * @param
 	 * @return
 	 */
+	@RequestMapping(value = "/cardetail", method = RequestMethod.GET)
 	public ModelAndView getCarInfo(@RequestParam("carId") String carId,
 			@RequestParam("carrierId") String carrierId,
 			@RequestParam("linetransportId") String linetransportId,
@@ -135,7 +135,10 @@ public class CarController {
 		mv.addObject("linetransportInfo", line);
 		if (flag == 0) {// 对应资源栏车辆详情
 			Carrierinfo carrierInfo = companyService.getCompanyById(carrierId);
-			List<Comment> commentList=commentService.getCarCommentById(carId,carrierId);
+			List<Comment> commentList=commentService.getCompanyComment(carrierId);
+			//需要获取资源对应的公司的评价平均数bean
+			Comment comment=commentService.getCompanyAverageCommentRate(carrierId);
+			mv.addObject("avgComment", comment);
 			mv.addObject("commentList",commentList);
 			
 			mv.addObject("carrierInfo", carrierInfo);
@@ -154,10 +157,6 @@ public class CarController {
 			mv.addObject("driverInfo", driverinfo);
 			List driverList = driverService.getAllDriver(carrierId);
 			mv.addObject("driverList", driverList);
-			// 此处要查出本公司所有司机的姓名以供选择
-			// String
-			// carrierId=(String)request.getSession().getAttribute("carrierId");
-			// carrierId = "C-0002";// 删除
 			mv.setViewName("mgmt_r_car3");
 		}
 		return mv;
@@ -188,7 +187,7 @@ public class CarController {
 			response.setCharacterEncoding("UTF-8");
 			request.setCharacterEncoding("UTF-8");
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		}
 
@@ -304,7 +303,7 @@ public class CarController {
 				response.sendRedirect("car?flag=1");// 重定向，显示最新的结果 error,无法重定向
 				// mv.setViewName("mgmt_r_car");
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				// 
 				// 此处应该记录日志
 				e.printStackTrace();
 			}
@@ -364,7 +363,7 @@ public class CarController {
 														// error,无法重定向
 				// mv.setViewName("mgmt_r_car");
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				// 
 				// 此处应该记录日志
 				e.printStackTrace();
 			}
@@ -428,7 +427,7 @@ public class CarController {
 			try {
 				response.sendRedirect("car?flag=1");// 重定向，显示最新的结果
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				// 此处应该记录日志
 				e.printStackTrace();
 			}
@@ -488,7 +487,7 @@ public class CarController {
 														// error,无法重定向
 				// mv.setViewName("mgmt_r_car");
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				// 
 				// 此处应该记录日志
 				e.printStackTrace();
 			}
@@ -509,7 +508,7 @@ public class CarController {
 			try {
 				response.sendRedirect("car?flag=1");// 重定向，显示最新的结果
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				// 此处应该记录日志
 				e.printStackTrace();
 			}
@@ -531,7 +530,7 @@ public class CarController {
 			try {
 				response.sendRedirect("driver?flag=1");// 重定向，显示最新的结果
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				// 此处应该记录日志
 				e.printStackTrace();
 			}
@@ -541,18 +540,18 @@ public class CarController {
 
 	}
 
-	@RequestMapping("carteam")
 	/**
 	 * 获取车队列表
 	 * @return
 	 */
+	@RequestMapping("carteam")
 	public ModelAndView getCarteam(HttpServletRequest request,
 			HttpServletResponse response) {
 		// 从session里取出id查询
 		// 这里用session取id
 		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		// String carrierId = "C-0002";// 删除
-		List carteamList = carTeamService.getCarteam(carrierId);
+		List<Carteam> carteamList = carTeamService.getCarteam(carrierId);
 		mv.addObject("carteamList", carteamList);
 		mv.setViewName("mgmt_r_car_fleet");
 
@@ -595,7 +594,7 @@ public class CarController {
 			try {
 				response.sendRedirect("carteam");// 重定向，显示最新的结果
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				// 此处应该记录日志
 				e.printStackTrace();
 			}
@@ -617,7 +616,7 @@ public class CarController {
 			try {
 				response.sendRedirect("carteam");// 重定向，显示最新的结果
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				// 此处应该记录日志
 				e.printStackTrace();
 			}
@@ -643,7 +642,7 @@ public class CarController {
 			try {
 				response.sendRedirect("carteam");// 重定向，显示最新的结果
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				// 此处应该记录日志
 				e.printStackTrace();
 			}

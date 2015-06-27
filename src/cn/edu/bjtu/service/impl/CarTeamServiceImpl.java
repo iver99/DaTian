@@ -1,7 +1,9 @@
 package cn.edu.bjtu.service.impl;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.CarTeamDao;
 import cn.edu.bjtu.service.CarTeamService;
-import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.vo.Carteam;
 
 @Service
@@ -22,14 +23,17 @@ public class CarTeamServiceImpl implements CarTeamService{
 	Carteam carteam;
 
 	@Override
-	public List getCarteam(String carrierId) {
-		// TODO Auto-generated method stub
-		return carTeamDao.getCarteam(carrierId);
+	public List<Carteam> getCarteam(String carrierId) {
+		
+		String hql="from Carteam t where t.carrierId=:carrierId ";
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("carrierId", carrierId);
+		return carTeamDao.find(hql, params);
 	}
 
 	@Override
 	public Carteam getCarteamInfo(String id) {
-		// TODO Auto-generated method stub
+		
 		return carTeamDao.getCarteamInfo(id);
 	}
 

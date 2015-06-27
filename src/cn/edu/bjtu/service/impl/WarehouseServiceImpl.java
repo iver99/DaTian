@@ -138,7 +138,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 	@Deprecated
 	public int getTotalRows(String city, String type, String storageForm,
 			String houseArea) {
-		// TODO Auto-generated method stub
+		
 		if (type.equals("保税仓库")) {
 			type = "保税";
 		} else if (type.equals("非保税仓库")) {
@@ -221,14 +221,14 @@ public class WarehouseServiceImpl implements WarehouseService {
 
 	@Override
 	public Warehouse getWarehouseInfo(String Warehouseid) {
-		// TODO Auto-generated method stub
+		
 
 		return warehouseDao.getWarehouseInfo(Warehouseid);
 	}
 
 	@Override
 	public List getCompanyWarehouse(String carrierId) {
-		// TODO Auto-generated method stub
+		
 		return warehouseDao.getCompanyWarehouse(carrierId);
 	}
 
@@ -238,7 +238,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 			float height, String fireRate, String storageForm,
 			String fireSecurity, String environment, String serviceContent,
 			String contact, String phone, String remarks, String carrierId,String path,String fileName) {
-		// TODO Auto-generated method stub
+		
 		warehouse.setAddress(address);
 		warehouse.setCarrierId(carrierId);
 		warehouse.setCity(city);
@@ -275,7 +275,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 			float yardArea, float height, String fireRate, String storageForm,
 			String fireSecurity, String environment, String serviceContent,
 			String contact, String phone, String remarks, String carrierId,String path,String fileName) {
-		// TODO Auto-generated method stub
+		
 
 		warehouse = getWarehouseInfo(id);// 根据id查找到仓库信息
 		warehouse.setName(name);

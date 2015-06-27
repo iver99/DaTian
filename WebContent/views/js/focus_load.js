@@ -1,4 +1,4 @@
-function loadFocus()
+/*function loadFocus()
 {
 	var curWwwPath=window.document.location.href;
     var pathName=window.document.location.pathname;
@@ -12,6 +12,28 @@ function loadFocus()
 			   document.getElementById("focusNum").innerHTML = "<img src=\"images/btn_m1.png\" />&nbsp;我的关注("+ msg +")";
 		   }
 		});
+	var City = getCookie("city");
+	//alert(City);
+	if(City == null)
+		document.getElementById("city").innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;北京&nbsp;<a href=\"city\" hidefocus=\"true\">[更换]</a>";
+	else
+		document.getElementById("city").innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;"+City+"&nbsp;<a href=\"city\" hidefocus=\"true\">[更换]</a>";
+}*/
+
+function loadFocus()
+{
+	var curWwwPath=window.document.location.href;
+    var pathName=window.document.location.pathname;
+    var pos=curWwwPath.indexOf(pathName);
+	$.ajax({
+        type: "POST",
+        url: curWwwPath.substring(0,pos) + "/DaTian/focusNum",
+        cache:false,
+        success:function(responseText){
+        	//alert(responseText);
+        	document.getElementById("focusNum").innerHTML = "<img src=\"images/btn_m1.png\" />&nbsp;我的关注("+ responseText +")"; 
+        }
+    })
 	var City = getCookie("city");
 	//alert(City);
 	if(City == null)

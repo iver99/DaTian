@@ -36,7 +36,7 @@ public class ContractServiceImpl implements ContractService{
 	 * 获取公司合同
 	 */
 	public List getCompanyContract(String carrierId) {
-		// TODO Auto-generated method stub
+		
 		
 		return contractDao.getCompanyContract(carrierId);
 	}
@@ -44,7 +44,7 @@ public class ContractServiceImpl implements ContractService{
 	
 	@Override
 	public List<Contract> getContractByClientId(String clientId) {
-		// TODO Auto-generated method stub
+		
 		Map<String,Object> params=new HashMap<String,Object>();
 		params.put("clientId", clientId);
 		String hql="from Contract where clientId=:clientId";
@@ -56,7 +56,7 @@ public class ContractServiceImpl implements ContractService{
 	 * 获取合同信息
 	 */
 	public Contract getContractInfo(String contractId) {
-		// TODO Auto-generated method stub
+		
 		return contractDao.getContractInfo(contractId);
 	}
 	@Override
@@ -67,7 +67,7 @@ public class ContractServiceImpl implements ContractService{
 			String carrierAccount, String carrierId, String startDate, String endDate,
 			String contact, String phone, String remarks, String clientId,
 			String monthlyStatementDays,String path, String fileName) {
-		// TODO Auto-generated method stub
+		
 		contract.setCaculateType(caculateType);
 		contract.setCarrierAccount(carrierAccount);
 		contract.setClientId(clientId);
@@ -97,7 +97,7 @@ public class ContractServiceImpl implements ContractService{
 	 * 终止合同
 	 */
 	public boolean shutdownContract(String contractId, String reason) {
-		// TODO Auto-generated method stub
+		
 		return contractDao.shutdownContract(contractId,reason);
 	}
 	
@@ -204,7 +204,7 @@ public class ContractServiceImpl implements ContractService{
 	}
 	@Override
 	public boolean changeStatus(String id) {
-		// TODO Auto-generated method stub
+		
 		return contractDao.changeStatus(id);
 	}
 	

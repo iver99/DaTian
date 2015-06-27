@@ -28,7 +28,6 @@ public class ResponseServiceImpl implements ResponseService{
 	 * 根据货物id得到货物信息
 	 */
 	public List<Response> getResponseListByGoodsId(String goodsId) {
-		// TODO 根据货物id得到货物信息
 		Map<String,Object> params=new HashMap<String ,Object>();
 		String hql="from Response where goodsId=:goodsId";
 		params.put("goodsId", goodsId);

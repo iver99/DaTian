@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.AddressDao;
 import cn.edu.bjtu.service.AddressService;
+import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.vo.Address;
 
@@ -38,7 +40,7 @@ public class AddressServiceImpl implements AddressService{
 	 * 获取地址列表
 	 */
 	public List getAddress(String userId) {
-		// TODO Auto-generated method stub
+		
 		
 		return addressDao.getAddress(userId);
 	}
@@ -82,6 +84,21 @@ public class AddressServiceImpl implements AddressService{
 		address.setPhone(phone);
 		addressDao.update(address);
 		return true;
+	}
+	
+	/**
+	 * 添加用户常用地址
+	 */
+	@Override
+	public void addUserAddress(HttpSession session,Address address) {
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+		address.setClientId(userId);
+		address.setFrequency(0);
+		address.setId(IdCreator.createAddressId());
+		address.setRelDate(new Date());
+		
+		addressDao.save(address);
+		
 	}
 	
 }

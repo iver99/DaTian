@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.CommentService;
@@ -53,7 +54,7 @@ public class CommentController {
 			try {
 				response.sendRedirect("sendorderinfo");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				e.printStackTrace();
 			}
 		}
@@ -61,6 +62,17 @@ public class CommentController {
 		mv.setViewName("mgmt_d_order_s");
 		return mv;
 		
+	}
+	
+	/**
+	 * 我的信息-首页显示好评率,返回一个小于1的百分数
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("getUserGoodCommentRateAjax")
+	public Double getUserGoodCommentRateAjax(HttpSession session){
+		Double rate=commentService.getUserGoodCommentRateAjax(session);
+		return rate;
 	}
 
 }

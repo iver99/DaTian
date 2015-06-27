@@ -41,7 +41,6 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 	 * 获取所有认证信息
 	 */
 	public List<Userinfo> getAllAuthentication() {
-		// TODO Auto-generated method stub
 		
 		return authenticationDao.getAllAuthentication();
 	}
@@ -52,7 +51,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 	 * return
 	 */
 	public Userinfo getMyUserDetail(String clientId) {
-		// TODO Auto-generated method stub
+		
 		return authenticationDao.getMyUserDetail(clientId);
 	}
 	@Override
@@ -62,7 +61,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 	 * return
 	 */
 	public Clientinfo getAuthenticationInfo(String clientId) {
-		// TODO Auto-generated method stub
+		
 		return authenticationDao.getAuthenticationInfo(clientId);
 	}
 	
@@ -73,7 +72,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 	  * @param status
 	  */
 	public boolean updateAuthenticStatus(String feedback, String clientId,String status) {
-			// TODO Auto-generated method stub
+			
 		userinfo = getMyUserDetail(clientId);
 		userinfo.setFeedback(feedback);
 		userinfo.setStatus(status);
@@ -82,7 +81,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 	}
 	@Override
 	public List getFindUser(String username) {
-		// TODO Auto-generated method stub
+		
 		return authenticationDao.getFindUser(username);
 	}
 	

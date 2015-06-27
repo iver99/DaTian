@@ -32,7 +32,7 @@ public class AuthenticationDaoImpl extends BaseDaoImpl<Userinfo> implements Auth
 	 * 返回认证列表
 	 */
 	public List<Userinfo> getAllAuthentication() {
-		// TODO Auto-generated method stub
+		
 		return this.find("from Userinfo where status = '审核中' or status = '已审核'");
 	}
 	
@@ -41,7 +41,7 @@ public class AuthenticationDaoImpl extends BaseDaoImpl<Userinfo> implements Auth
 	 * 返回认证信息
 	 */
 	public Clientinfo getAuthenticationInfo(String clientId) {
-		// TODO Auto-generated method stub
+		
 		return ht.get(Clientinfo.class, clientId);
 	}
 
@@ -51,7 +51,7 @@ public class AuthenticationDaoImpl extends BaseDaoImpl<Userinfo> implements Auth
 	 * @param clientId
 	 */
 	public Userinfo getMyUserDetail(String clientId) {
-		// TODO Auto-generated method stub
+		
 		
 		return ht.get(Userinfo.class,clientId);
 		
@@ -59,7 +59,7 @@ public class AuthenticationDaoImpl extends BaseDaoImpl<Userinfo> implements Auth
 
 	@Override
 	public List getFindUser(String username) {
-		// TODO Auto-generated method stub
+		
 		String sql = "from Userinfo where (status = '审核中' or status = '已审核') ";
 			if (username.equals("用户名")) {
 				// 查找时不考虑用户名

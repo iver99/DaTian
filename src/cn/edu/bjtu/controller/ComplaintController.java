@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -118,7 +119,7 @@ public class ComplaintController {
 			try {
 				response.sendRedirect("mycomplaint");// 重定向，显示最新的结果
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				// 此处应该记录日志
 				e.printStackTrace();
 			}
@@ -194,7 +195,7 @@ public class ComplaintController {
 			try {
 				response.sendRedirect("allcomplaint");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				// 此处应该记录日志
 				e.printStackTrace();
 			}
@@ -254,6 +255,19 @@ public class ComplaintController {
 		String fileLocation=complaint.getRelatedMaterial();
 		DownloadFile.downloadFile(fileLocation, request, response);
 		return mv;
+	}
+	
+	/**
+	 * 获取用户投诉率
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("getUserComplaintRateAjax")
+	@ResponseBody
+	public Double getUserComplaintRateAjax(HttpSession session){
+		Double rate=complaintService.getUserComplaintRateAjax(session);
+		return rate;
+		
 	}
 
 }

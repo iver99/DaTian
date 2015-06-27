@@ -98,6 +98,7 @@
 				<value>cn/edu/bjtu/vo/Track.hbm.xml</value>
 				<value>cn/edu/bjtu/vo/Companycertificate.hbm.xml</value>
 				<value>cn/edu/bjtu/vo/GoodsResponseView.hbm.xml</value>
+				<value>cn/edu/bjtu/vo/Settlement.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

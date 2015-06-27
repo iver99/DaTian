@@ -26,8 +26,8 @@
          <property name="remarks" type="string">
             <column name="remarks" />
         </property>
-        <property name="status" type="string">
-            <column name="status" />
+        <property name="state" type="string">
+            <column name="state" />
         </property>
         <property name="responseId" type="string">
             <column name="responseId" />

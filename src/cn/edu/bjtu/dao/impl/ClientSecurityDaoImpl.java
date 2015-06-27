@@ -26,7 +26,7 @@ public class ClientSecurityDaoImpl implements ClientSecurityDao {
 	 * 检查旧密码
 	 */
 	public boolean checkOldPassword(String oldPassword, String userId) {
-		// TODO Auto-generated method stub
+		
 		Userinfo user = ht.get(Userinfo.class, userId);
 
 		if (user.getPassword().equals(oldPassword))
@@ -39,7 +39,7 @@ public class ClientSecurityDaoImpl implements ClientSecurityDao {
 	 * 修改密码
 	 */
 	public boolean changePassword(String newPassword, String userId) {
-		// TODO Auto-generated method stub
+		
 		Userinfo user = ht.get(Userinfo.class, userId);
 		user.setPassword(newPassword);
 		userinfoDao.save(user);
@@ -51,7 +51,7 @@ public class ClientSecurityDaoImpl implements ClientSecurityDao {
 	 * 绑定邮箱
 	 */
 	public boolean bindEmail(String email, String userId) {
-		// TODO Auto-generated method stub
+		
 		Userinfo user = ht.get(Userinfo.class, userId);
 		user.setEmail(email);
 		user.setEmailStatus("已绑定");// 修改状态
@@ -70,7 +70,7 @@ public class ClientSecurityDaoImpl implements ClientSecurityDao {
 	 * 返回用户信息
 	 */
 	public Userinfo getUserById(String userId) {
-		// TODO Auto-generated method stub
+		
 		return ht.get(Userinfo.class, userId);
 	}
 
@@ -79,7 +79,7 @@ public class ClientSecurityDaoImpl implements ClientSecurityDao {
 	 * 修改绑定邮箱
 	 */
 	public boolean changeBindEmail(String newEmail, String userId) {
-		// TODO Auto-generated method stub
+		
 		Userinfo userinfo = ht.get(Userinfo.class, userId);
 
 		userinfo.setEmail(newEmail);
@@ -99,7 +99,7 @@ public class ClientSecurityDaoImpl implements ClientSecurityDao {
 	@Override
 	public boolean setSecurityQuestion(String q1, String q2, String q3,
 			String a1, String a2, String a3, String uId) {
-		// TODO Auto-generated method stub
+		
 		Userinfo userinfo = ht.get(Userinfo.class, uId);
 
 		userinfo.setSecurityAnswerOne(a1.trim());
@@ -126,7 +126,7 @@ public class ClientSecurityDaoImpl implements ClientSecurityDao {
 	 * @return
 	 */
 	public boolean checkAnswer(String a1, String a2, String a3, String userId) {
-		// TODO Auto-generated method stub
+		
 		Userinfo userinfo = ht.get(Userinfo.class, userId);
 
 		if (a1.trim().endsWith(userinfo.getSecurityAnswerOne())

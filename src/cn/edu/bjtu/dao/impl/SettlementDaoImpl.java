@@ -9,21 +9,29 @@ import org.springframework.stereotype.Repository;
 
 import cn.edu.bjtu.dao.SettlementDao;
 import cn.edu.bjtu.util.HQLTool;
+import cn.edu.bjtu.vo.SettlementCarrierView;
 @Repository
-public class SettlementDaoImpl implements SettlementDao{
+public class SettlementDaoImpl extends BaseDaoImpl<SettlementCarrierView> implements SettlementDao{
 	@Resource
 	HibernateTemplate ht;
 	@Resource
 	HQLTool hqltool;
-	@Override
+	/*@Override
+	@Deprecated
 	public List getUserOrder(String userId) {
-		// TODO Auto-generated method stub
+		
 		return ht.find("from SettlementCarrierView where carrierId='"+userId+"'");
+	}*/
+	
+	@Override
+	public List getOrderStatement(String orderNum) {
+		
+		return ht.find("from SettlementCarrierView where orderNum='"+orderNum+"'");
 	}
 
 	@Override
 	public List getFindSettlement(String sql, int display, int pageNow) {
-		// TODO Auto-generated method stub
+		
 		int page = pageNow;
 		int pageSize = display;
 		

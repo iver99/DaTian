@@ -42,7 +42,7 @@ public class SubAccountServiceImpl implements SubAccountService{
 	 * 获取子账户列表
 	 */
 	public List getSubAccount(String userId) {
-		// TODO Auto-generated method stub
+		
 		
 		return subAccountDao.getSubAccount(userId);
 	}

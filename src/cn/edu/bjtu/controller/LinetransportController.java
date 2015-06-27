@@ -101,10 +101,13 @@ public class LinetransportController {
 			Carrierinfo carrierInfo = companyService.getCompanyById(carrierId);
 			//此处需要获取到干线评价详情 
 			// add by RussWest0 at 2015年5月30日,上午9:19:53 
-			List<Comment> commentList=commentService.getLinetransportCommentById(linetransportid,carrierId);
+			List<Comment> commentList=commentService.getCompanyComment(carrierId);
 			mv.addObject("commentList",commentList);
 			mv.addObject("carrierInfo", carrierInfo);
 			mv.setViewName("resource_detail1");
+			//需要获取资源对应的公司的评价平均数bean
+			Comment comment=commentService.getCompanyAverageCommentRate(carrierId);
+			mv.addObject("avgComment", comment);
 		} else if (flag == 1) {// 详情
 			mv.setViewName("mgmt_r_line4");
 		} else if (flag == 2) {// 更新
@@ -137,7 +140,7 @@ public class LinetransportController {
 			response.setCharacterEncoding("UTF-8");
 			request.setCharacterEncoding("UTF-8");
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		}
 
@@ -176,7 +179,7 @@ public class LinetransportController {
 			jsonArray.add(jsonObject);
 		}
 		//request.setAttribute("count", 66);
-		dataModel.setTotal(66L);
+		//dataModel.setTotal(66L);
 		//return dataModel;
 		return jsonArray.toString();
 	}
@@ -242,7 +245,7 @@ public class LinetransportController {
 			try {
 				response.sendRedirect("linetransport?flag=1");// 重定向，显示最新的结果
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				// 此处应该记录日志
 				e.printStackTrace();
 			}
@@ -322,7 +325,7 @@ public class LinetransportController {
 			try {
 				response.sendRedirect("linetransport?flag=1");// 重定向，显示最新的结果
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				// 此处应该记录日志
 				e.printStackTrace();
 			}

@@ -2,6 +2,8 @@ package cn.edu.bjtu.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import cn.edu.bjtu.bean.page.ComplaintBean;
 import cn.edu.bjtu.vo.Complaintform;
 
@@ -15,4 +17,11 @@ public interface ComplaintService {
 	public boolean insertComplaint(ComplaintBean complaintBean,String carrierId,String path,String fileName);
 	public boolean doAcceptComplaint(String id, String feedback);
 	public List getFindComplaint(String theme,int flag, String clientId);
+	
+	/**
+	 * 获取用户投诉率
+	 * @param session
+	 * @return
+	 */
+	public Double getUserComplaintRateAjax(HttpSession session);
 }

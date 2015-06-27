@@ -132,9 +132,12 @@ public class CitylineController {
 		mv.addObject("citylineInfo", citylineInfo);
 		if (flag == 0) {
 			Carrierinfo carrierInfo = companyService.getCompanyById(carrierId);
-			List<Comment> commentList=commentService.getCitylineCommentById(citylineId,carrierId);
+			List<Comment> commentList=commentService.getCompanyComment(carrierId);
 			mv.addObject("commentList",commentList);
 			mv.addObject("carrierInfo", carrierInfo);
+			//需要获取资源对应的公司的评价平均数bean
+			Comment comment=commentService.getCompanyAverageCommentRate(carrierId);
+			mv.addObject("avgComment", comment);
 			mv.setViewName("resource_detail2");// 资源栏点击详情的页面
 		} else if (flag == 1)
 			mv.setViewName("mgmt_r_city");// 3是有更新和删除操作的页面
@@ -165,7 +168,7 @@ public class CitylineController {
 			response.setCharacterEncoding("UTF-8");
 			request.setCharacterEncoding("UTF-8");
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		}
 
@@ -233,7 +236,7 @@ public class CitylineController {
 			try {
 				response.sendRedirect("cityline?flag=1");// 重定向，显示最新的结果
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				// 此处应该记录日志
 				e.printStackTrace();
 			}
@@ -296,7 +299,7 @@ public class CitylineController {
 			try {
 				response.sendRedirect("cityline?flag=1");// 重定向，显示最新的结果
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				// 此处应该记录日志
 				e.printStackTrace();
 			}
@@ -318,7 +321,7 @@ public class CitylineController {
 			try {
 				response.sendRedirect("cityline?flag=1");// 重定向，显示最新的结果
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				// 此处应该记录日志
 				e.printStackTrace();
 			}

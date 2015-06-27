@@ -120,8 +120,8 @@ public class WarehouseController {
 		mv.addObject("warehouseInfo", warehouseInfo);
 		if (flag == 0) {// 对应资源栏仓库详情
 			Carrierinfo carrierInfo = companyService.getCompanyById(carrierId);
-			List<Comment> commentList=commentService.getWarehouseCommentById(warehouseid,carrierId);
-			mv.addObject("commentList",commentList);
+			//List<Comment> commentList=commentService.getWarehouseCommentById(warehouseid,carrierId);
+			//mv.addObject("commentList",commentList);
 			mv.addObject("carrierInfo", carrierInfo);
 			mv.setViewName("resource_detail4");
 		} else if (flag == 1)// 对应我的信息栏仓库详情
@@ -225,7 +225,7 @@ public class WarehouseController {
 			response.setCharacterEncoding("UTF-8");
 			request.setCharacterEncoding("UTF-8");
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		}
 
@@ -312,7 +312,7 @@ public class WarehouseController {
 			try {
 				response.sendRedirect("warehouse?flag=1");// 重定向，显示最新的结果
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				// 此处应该记录日志
 				System.out.println("warehouse插入后重定向失败");
 				e.printStackTrace();
@@ -398,7 +398,7 @@ public class WarehouseController {
 			try {
 				response.sendRedirect("warehouse?flag=1");// 重定向，显示最新的结果
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				// 此处应该记录日志
 				System.out.println("warehouse更新后重定向失败");
 				e.printStackTrace();
@@ -428,7 +428,7 @@ public class WarehouseController {
 			try {
 				response.sendRedirect("warehouse?flag=1");// 重定向，显示最新的结果
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				// 此处应该记录日志
 				System.out.println("删除后重定向失败");
 				e.printStackTrace();

@@ -2,6 +2,8 @@ package cn.edu.bjtu.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import cn.edu.bjtu.vo.Businessclient;
 import cn.edu.bjtu.vo.Clientinfo;
 
@@ -42,4 +44,11 @@ public interface ClientService {
 	 * @return
 	 */
 	public boolean updateClientinfo(Clientinfo clientinfo,String path,String fileName,String userId);
+	
+	/**
+	 * 获取我的信息-下方交易情况
+	 * @param session
+	 * @return
+	 */
+	public String getTransactionInfo(HttpSession session);
 }

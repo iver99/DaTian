@@ -24,7 +24,23 @@ public class SettlementCarrierView {
 	
 	private String carrierId2;
 	private String companyName;
+	//add by RussWest0 at 2015年6月20日,下午12:16:01 
+	private String clientId;
+	private String state;
 	
+	
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
+	public String getClientId() {
+		return clientId;
+	}
+	public void setClientId(String clientId) {
+		this.clientId = clientId;
+	}
 	public String getId() {
 		return id;
 	}

@@ -1,4 +1,4 @@
-package cn.edu.bjtu.dao.impl;
+/*package cn.edu.bjtu.dao.impl;
 
 import java.util.List;
 
@@ -10,11 +10,11 @@ import org.springframework.stereotype.Repository;
 
 import cn.edu.bjtu.dao.SearchDao;
 
-/**
+*//**
  * ËÑË÷dao²ã
  * @author RussWest0
  *
- */
+ *//*
 @Repository
 public class SearchDaoImpl implements SearchDao{
 
@@ -22,19 +22,19 @@ public class SearchDaoImpl implements SearchDao{
 	HibernateTemplate ht;
 	@Override
 	public List getLineResourceByStartPlace(String startPlace) {
-		// TODO Auto-generated method stub
+		
 		return ht.find("from LineCarrierView where startPlace like '%"+startPlace+"%'");
 	}
 
 	@Override
 	public List getLineResourceByEndPlace(String endPlace) {
-		// TODO Auto-generated method stub
+		
 		return ht.find("from LineCarrierView where endPlace like '%"+endPlace+"%'");
 	}
 
 	@Override
 	public List getCitylineResourceByName(String name) {
-		// TODO Auto-generated method stub
+		
 		return ht.find("from CityCarrierView where name like '%"+name+"%'");
 	}
 	
@@ -60,3 +60,4 @@ public class SearchDaoImpl implements SearchDao{
 		return ht.find("from WarehouseCarrierView where name like '%"+name+"%'");
 	}
 }
+*/
