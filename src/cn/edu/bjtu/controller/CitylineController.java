@@ -135,6 +135,9 @@ public class CitylineController {
 			List<Comment> commentList=commentService.getCompanyComment(carrierId);
 			mv.addObject("commentList",commentList);
 			mv.addObject("carrierInfo", carrierInfo);
+			//需要获取资源对应的公司的评价平均数bean
+			Comment comment=commentService.getCompanyAverageCommentRate(carrierId);
+			mv.addObject("avgComment", comment);
 			mv.setViewName("resource_detail2");// 资源栏点击详情的页面
 		} else if (flag == 1)
 			mv.setViewName("mgmt_r_city");// 3是有更新和删除操作的页面

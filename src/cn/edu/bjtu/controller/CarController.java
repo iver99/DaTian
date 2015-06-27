@@ -136,6 +136,9 @@ public class CarController {
 		if (flag == 0) {// 对应资源栏车辆详情
 			Carrierinfo carrierInfo = companyService.getCompanyById(carrierId);
 			List<Comment> commentList=commentService.getCompanyComment(carrierId);
+			//需要获取资源对应的公司的评价平均数bean
+			Comment comment=commentService.getCompanyAverageCommentRate(carrierId);
+			mv.addObject("avgComment", comment);
 			mv.addObject("commentList",commentList);
 			
 			mv.addObject("carrierInfo", carrierInfo);

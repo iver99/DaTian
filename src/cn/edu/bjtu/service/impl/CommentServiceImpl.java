@@ -217,7 +217,6 @@ public class CommentServiceImpl implements CommentService{
 	 */
 	@Override
 	public Comment getCompanyAverageCommentRate(String carrierId) {
-		//FIXME 没有调用
 		String hql="from Comment t where t.carrierId=:carrierId";
 		Map<String,Object> params=new HashMap<String,Object>();
 		params.put("carrierId", carrierId);

@@ -105,6 +105,9 @@ public class LinetransportController {
 			mv.addObject("commentList",commentList);
 			mv.addObject("carrierInfo", carrierInfo);
 			mv.setViewName("resource_detail1");
+			//需要获取资源对应的公司的评价平均数bean
+			Comment comment=commentService.getCompanyAverageCommentRate(carrierId);
+			mv.addObject("avgComment", comment);
 		} else if (flag == 1) {// 详情
 			mv.setViewName("mgmt_r_line4");
 		} else if (flag == 2) {// 更新
