@@ -283,7 +283,7 @@
 							</c:forEach> --%>
 						</tbody>
 
-						<select id="carloc" style="display:inline">
+						<select id="carloc" style="display:none" >
 							<c:forEach var="location" items="${locList }">
 								<option value="${location.carNum }">${location.carNum }</option>
 								<option value="${location.locLongitude }">${location.locLongitude }</option>

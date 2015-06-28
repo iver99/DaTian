@@ -82,7 +82,7 @@
                     <ul class="nav">
                         <li><a href="#item1" class="current" hidefocus="true">补充信息</a></li>
                         <li><a href="#item2" hidefocus="true">公司信息</a></li>
-                        <li><a href="#item3" hidefocus="true">评价记录</a></li>
+                        <!-- <li><a href="#item3" hidefocus="true">评价记录</a></li> -->
                     </ul>
                     <div class="list_wrap">
                         <ul id="item1">
@@ -104,11 +104,11 @@
                            <!--  <li>业务种类：专线卡车</li> -->
                             <li>信用等级：${carrierInfo.creditRate	 }级</li>
                         </ul>
-                        <ul id="item3" class="tab_hide">
+                       <%--  <ul id="item3" class="tab_hide">
                            <c:forEach var="comment" items="${commentList }">
                             <li class="item2a">${comment.comment }--- ${comment.relDate }</li>
                             </c:forEach>
-                        </ul>
+                        </ul> --%>
                     </div>
 				</div>
 			</td>

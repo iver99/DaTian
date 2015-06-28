@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -82,6 +83,8 @@ public class SettlementController {
 	    ec.createSingleExcel(settlement,os);
 	    //之后需要修改结算状态为已结算，记录当前生成人
 	    settlementRecordService.finishSettlement(orderNum,session);
+	   /* RequestDispatcher dispatcher=request.getRequestDispatcher("mysettlement");
+	    dispatcher.forward(request, response);*/
 	    return "mgmt_d_settle_s";
 	    
 	}

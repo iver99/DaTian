@@ -27,7 +27,7 @@
 		<script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
 		<!-- <script type="text/javascript" src="js/splitPage.js"></script> <!-- 新增 -->
 		<script type="text/javascript" src="js/focus_load.js"></script>
-		<<!-- script type="text/javascript" src="js/search_resource.js"> --></script><!-- 搜索资源 -->
+		<!-- script type="text/javascript" src="js/search_resource.js"> --></script><!-- 搜索资源 -->
 		<script type="text/javascript">
 			$(function() {
 				$('input, textarea').placeholder();

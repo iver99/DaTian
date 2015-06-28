@@ -90,9 +90,6 @@
 									<td>
 										<select style="width:120px;" name="clientName" id="clientName" required>
 											<option value="" selected="selected">请选择</option>
-                                           <!--  <option value="北京索契物流有限公司">北京索契物流有限公司</option>
-                                            <option value="天津友达通有限公司">天津友达通有限公司</option>
-                                            <option value="北京大田物流有限公司">北京大田物流有限公司</option> -->
                                         </select>
 									</td>
                                 </tr>
@@ -105,7 +102,7 @@
                                             <option value="无">无</option>
                                         </select>
                                         <div id="p_detail" style="display:none;">
-                                            <input type="text" name="isLinkToClientWayBill" class="input_mgmt1" style="width:176px;" placeholder="请输入客户运单号..."/>
+                                            <input type="text" name="clientWayBillNum" class="input_mgmt1" style="width:176px;" placeholder="请输入客户运单号..."/>
                                         </div>
                                     </td>
                                 </tr>
@@ -324,11 +321,13 @@
 		var name;
 		var phone;
 		var address;
-		if($("#sender_info").attr("checked") == true){//发货人添加常用地址选中
+		//debugger;
+		var sender_info=$("#sender_info");
+		var receiver_info=$("#receiver_info");
+		if($("#sender_info").attr("checked") == "checked"){//发货人添加常用地址选中
 			name=$("#deliveryName").val();
-			address=$("#deliverAddr").val();
-			phone=$("#deliverPhone").val();
-			
+			address=$("#deliveryAddr").val();
+			phone=$("#deliveryPhone").val();
 			$.ajax({
 				type: "GET",
 				url:url,
@@ -343,7 +342,7 @@
 			});
 		}
 		
-		if($("#receiver_info").attr("checked") == true){//收货人常用地址选中
+		if(receiver_info.attr("checked") == "checked"){//收货人常用地址选中
 			name=$("#recieverName").val();
 			address=$("#recieverAddr").val();
 			phone=$("#recieverPhone").val();
@@ -361,7 +360,8 @@
 				}
 			});
 		}
-		//提交表单
+		
+		//提交订单
 		$('#new_order').submit();
 	}
 	

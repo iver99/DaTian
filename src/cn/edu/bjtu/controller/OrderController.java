@@ -749,58 +749,7 @@ public class OrderController {
 		return mv;
 	}
 
-	/**
-	 * 创建新订单
-	 * @param clientName
-	 * @param hasCarrierContract
-	 * @param senderInfo
-	 * @param receiverInfo
-	 * @param remarks
-	 * @param goodsName
-	 * @param goodsWeight
-	 * @param goodsVolume
-	 * @param declaredPrice
-	 * @param expectedPrice
-	 * @param insurance
-	 * @param contractId
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	/*//@RequestMapping("createneworder")
-	@Deprecated
-	public ModelAndView createNewOrder(String carrierid, String clientName,
-			String hasCarrierContract, @RequestParam String deliveryName,
-			@RequestParam String recieverName,
-			@RequestParam String deliveryPhone,
-			@RequestParam String recieverPhone,
-			@RequestParam String deliveryAddr,
-			@RequestParam String recieverAddr, String remarks,
-			String goodsName, float goodsWeight, float goodsVolume,
-			float declaredPrice, float expectedPrice, float insurance,
-			String contractId, HttpServletRequest request,
-			HttpServletResponse response,@RequestParam String isLinkToClientWayBill,
-			@RequestParam(required=false) String clientWayBillNum,String resourceName,String resourceType,String companyName) {
-		// 页面有许多字段没有传入
-		// clientName参数里有，但是没有使用
-		String userId = (String) request.getSession().getAttribute(Constant.USER_ID);
-		boolean flag = orderService.createNewOrder(userId, hasCarrierContract,
-				deliveryName, recieverName, deliveryPhone, recieverPhone,
-				deliveryAddr, recieverAddr, remarks, goodsName, goodsVolume,
-				goodsWeight, expectedPrice, declaredPrice, insurance,
-				contractId, carrierid,isLinkToClientWayBill,clientWayBillNum,resourceName,resourceType,companyName,clientName);
-		if (flag == true) {
-			// mv.setViewName("mgmt_d_order_s");
-			try {
-				response.sendRedirect("sendorderinfo");
-			} catch (IOException e) {
-				// 
-				e.printStackTrace();
-			}
-		}
-		mv.setViewName("mgmt_d_order_s");
-		return mv;
-	}*/
+	
 	
 	/**
 	 * 新建订单
@@ -809,7 +758,7 @@ public class OrderController {
 	 * @return
 	 */
 	@RequestMapping("createneworder")
-	public String createNewOrder2(HttpSession session,OrderBean orderBean){
+	public String createNewOrder(HttpSession session,OrderBean orderBean){
 		JSON json=new JSON();
 		boolean flag=orderService.createOrder(session,orderBean);
 		if(flag==true){

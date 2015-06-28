@@ -57,14 +57,7 @@ public class SearchController {
 			jsonArray=searchService.getCompanyResourceByCompanyName(search_content, pageUtil, session);
 		}
 		else if(resource_kind.equals("货物")){
-			try{
-				
 				jsonArray=searchService.getGoodsResourceByName(search_content, pageUtil, session);
-				throw new Exception("报错了");
-			}catch(Exception e){
-				//logger.error(e.getStackTrace());
-				e.printStackTrace();
-			}
 		}
 		
 		return jsonArray.toString();
