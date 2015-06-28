@@ -281,7 +281,7 @@ function getSelectedCargoAjax(startPlace,endPlace,transportType,weight,transport
 			$("#testbody").append("<td class=\"td_main_list_content\"></td>");
 			$("#testbody").append("<td class=\"td_main_list_content\"><a href=\"goodsdetail?id="+data[i].id+"\" hidefocus=\"true\">"+data[i].name+"</a>");
 			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].transportType+"</td>");
-			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].limitDate+"</td>");
+			$("#testbody").append("<td class=\"td_main_list_content\">"+renderTime(data[i].limitDate)+"</td>");
 			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].weight+"</td>");
 			$("#testbody").append("<td class=\"td_main_list_content\">"+renderTime(data[i].relDate)+"</td>");
 			if(data[i].status == "有效")
@@ -296,6 +296,7 @@ function getSelectedCargoAjax(startPlace,endPlace,transportType,weight,transport
 }
 
 function renderTime(date){ 
+	//debugger;
 	var da = new Date(parseInt(date)); 
 	return da.getFullYear()+"-"+ (da.getMonth()+1)+"-" +da.getDate(); 
 } 

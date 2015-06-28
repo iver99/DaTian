@@ -1,5 +1,6 @@
 package cn.edu.bjtu.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import jxl.common.Logger;
@@ -39,8 +40,13 @@ public class SearchController {
 	 */
 	@RequestMapping(value="searchResourceAjax",produces="text/html;charset=UTF-8")
 	@ResponseBody
-	public String getSearchResult(String search_content,String resource_kind,PageUtil pageUtil,HttpSession session){
-		
+	public String getSearchResult(String search_content, String resource_kind,
+			PageUtil pageUtil, HttpSession session,HttpServletRequest request) {
+		logger.info(request.getHeader("referer"));
+		/*String request_url=request.getHeader("referer");
+		if(!checkURL(request_url)){
+			RequestDispatcher dispatcher=request
+		}*/
 		JSONArray jsonArray=new JSONArray();
 		if(resource_kind.equals("线路")){
 			jsonArray=searchService.getLineResourceByCityName(search_content, pageUtil, session);
@@ -64,6 +70,15 @@ public class SearchController {
 		
 		
 	}
+	
+	/**
+	 * 检查请求之前的url，如果是资源栏发来的请求，则
+	 * @param url
+	 * @return
+	 */
+	/*private boolean checkURL(String url){
+		
+	}*/
 	
 
 	/*@RequestMapping(value = "searchResource")
