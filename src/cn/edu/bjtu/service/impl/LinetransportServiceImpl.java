@@ -409,10 +409,10 @@ public class LinetransportServiceImpl implements LinetransportService {
 				wheresql+=" and t1.refPrice >= 2 ";
 			}
 			if(refPrice.equals("1至2元/kg")){
-				wheresql+=" and t1.refPrice >= 1 and t1.refPrice =< 1 ";
+				wheresql+=" and t1.refPrice >= 1 and t1.refPrice <= 1 ";
 			}
 			if(refPrice.equals("小于1元/kg")){
-				wheresql+=" and t1.refPrice =<1 ";
+				wheresql+=" and t1.refPrice <=1 ";
 			}
 		}
 		if(linetransportBean.getTransportType()!=null && !linetransportBean.getTransportType().trim().equals("All") && !linetransportBean.getTransportType().trim().equals("")){

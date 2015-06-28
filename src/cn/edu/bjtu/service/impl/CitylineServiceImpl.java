@@ -127,10 +127,10 @@ public class CitylineServiceImpl implements CitylineService {
 				wheresql+=" and t1.refPrice >= 2 ";
 			}
 			if(refPrice.equals("1至2元/kg")){
-				wheresql+=" and t1.refPrice >= 1 and t1.refPrice =< 2 ";
+				wheresql+=" and t1.refPrice >= 1 and t1.refPrice <= 2 ";
 			}
 			if(refPrice.equals("小于1元/kg")){
-				wheresql+=" and t1.refPrice =<1 ";
+				wheresql+=" and t1.refPrice <=1 ";
 			}
 		}
 		if(citylineBean.getVIPService()!=null && !citylineBean.getVIPService().trim().equals("") && !citylineBean.getVIPService().equals("All")){

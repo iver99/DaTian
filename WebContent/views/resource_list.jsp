@@ -73,7 +73,7 @@
                                 <dd><a href="javascript:;" hidefocus="true" id="select1_2">零担</a></dd>
                             </dl>
                         </li>
-                        <li class="resource_list">
+                       <!--  <li class="resource_list">
                        
                             <dl id="select2" value="startPlace1">
                                 <dt>始发城市：</dt>
@@ -84,7 +84,7 @@
                                 <dd><a href="javascript:;" hidefocus="true" id="select2_4">武汉始发</a></dd>
                                 <dd><a href="javascript:;" hidefocus="true" id="select2_5">广州始发</a></dd>
                             </dl>
-                        </li>
+                        </li> -->
                         <li class="resource_list">
                             <dl id="select3" value="refPrice">
                                 <dt>参考报价：</dt>
