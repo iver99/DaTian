@@ -403,8 +403,6 @@
  */
 //搜索种类
 function searchKind(){
-//	debugger;
-	//var thead=$("#thead");
 	
 	var resource_kind=$("#resource_choose").val();
 //	alert(resource_kind);
@@ -416,10 +414,7 @@ function searchKind(){
 	//alert(window.location.pathname);
 	if(resource_kind == '线路'){
 		//debugger;
-		window.location.href="linetransport?flag=0";
-		/*if(container == undefined){
-			window.location.href="../resource_list.jsp";
-		}*/
+		window.location.href="linetransport?flag=0&resource_kind="+resource_kind+"&search_content="+search_content;
 		container.append("<td width=\"15\" class=\"td_main_list_head\"></td><td class=\"td_main_list_head\">线路名称</td><td width=\"100\" class=\"td_main_list_head\">参考价(元/kg)</td><td width=\"60\" class=\"td_main_list_head\">类型</td><td width=\"80\" class=\"td_main_list_head\">时限(小时)</td><td width=\"80\" class=\"td_main_list_head\">发布日期</td><td width=\"45\" class=\"td_main_list_head\">关注</td>");
 		searchFunc_linetransport(search_content,resource_kind,10,1);
 	}else if(resource_kind == '配送'){

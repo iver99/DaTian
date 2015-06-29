@@ -90,7 +90,7 @@
                 </div>
              <!--    下面的class和别处不一样，多了四个像素 -->
                 <input type="text" name="searchContent" class="search_input2" placeholder="请输入关键字" hidefocus="true" />
-                <input type="submit" class="search_btn" value="" hidefocus="true">
+                <input type="button" class="search_btn" value="" hidefocus="true" onclick="searchKind()">
               <input type="hidden" id="resourcechoose" name="resourceChoose" value="线路"/><!-- 隐藏字段  --> 
 			</td>
             <td width="280" class="td_top2b"><a href="getallfocus" class="a_top2" hidefocus="true" id="focusNum"><img src="images/btn_m1.png" />&nbsp;我的关注</a></td>

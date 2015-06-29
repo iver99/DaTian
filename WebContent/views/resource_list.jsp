@@ -230,7 +230,9 @@
 		getSelectedLineTotalRowsAjax("中文或拼音","中文或拼音","All","All","All",10,1);
 		//以下用于搜索功能
 		var resource_kind="${requestScope.resource_kind}";
-		var search_content="${requestScope.search_content}";
+		var search_content="${request.search_content}";
+		alert(location.search);
+		//alert(resource_kind);
 		//请求中带有搜索的参数，需要执行搜索功能
 		if(resource_kind != undefined && search_content != undefined){
 			$("#search_content").val(search_content);
