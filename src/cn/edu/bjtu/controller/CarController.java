@@ -39,6 +39,7 @@ import cn.edu.bjtu.vo.Driverinfo;
 import cn.edu.bjtu.vo.Linetransport;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 @Controller
 public class CarController {
@@ -662,6 +663,31 @@ public class CarController {
 			DownloadFile.downloadFile(file,request,response);
 		return mv;
 
+	}
+	
+	/**
+	 * 异步获取公司的车队列表
+	 * @Title: getCompanyCarteamList 
+	 * @param: @return 
+	 * @return: String 
+	 * @throws: 异常 
+	 * @author: chendonghao 	
+	 * @date: 2015年6月29日 下午5:32:46
+	 */
+	@RequestMapping(value="getCompanyCarteamList",produces="text/html;charset=UTF-8")
+	@ResponseBody
+	public String getCompanyCarteamList(HttpSession session){
+		List<Carteam> carTeamList=carService.getCompanyCarteamList(session);
+		//JSONObject jsonObject=new JSONObject();
+		JSONArray jsonArray=new JSONArray();
+		if(carTeamList!=null && carTeamList.size()>0){
+			for(int i=0;i<carTeamList.size();i++){
+				JSONObject jsonObject=(JSONObject)JSONObject.toJSON(carTeamList.get(i));
+				jsonArray.add(jsonObject);
+			}
+		}
+		return jsonArray.toString();
+		
 	}
 	
 }

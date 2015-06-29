@@ -244,43 +244,7 @@
 							</tr>
 						</thead>
 						<tbody id="testbody">
-							<%-- <c:forEach var="car" items="${carList }">
-								<tr>
-									<td class="td_main_list_content"></td>
-									<td class="td_main_list_content"><a
-										href="cardetail?carId=${car.id }&carrierId=${car.carrierId}&linetransportId=${car.linetransportId }&flag=0"
-										hidefocus="true">${car.carNum }<!-- <img src="images/btn_level1a.png" /> --></a>
-										<br /> <a href="companyDetail?id=${car.carrierId }"
-										style="color:#717071;" hidefocus="true">${car.companyName }<img
-											src="images/btn_level1a.png" /></a></td>
-
-									<td class="td_main_list_content">${car.carUse }</td>
-									<td class="td_main_list_content">${car.carState }</td>
-									<td class="td_main_list_content">${car.carLength }</td>
-									<td class="td_main_list_content">${car.carWeight }</td>
-									<td class="td_main_list_content">${car.carLocation }</td>
-									<td class="td_main_list_content">${car.relDate }</td>
-									<input type="button" value="0" style="display:none" id="i"></input>
-									<td class="td_main_list_content">
-										<script>
-											document.getElementById("i").value=0;
-										</script>
-										<c:forEach var="focus" items="${focusList }">
-										<c:if test="${car.id==focus.focusId}">
-											<script>
-												document.getElementById("i").value=1;
-											</script>
-										</c:if>
-										</c:forEach>
-										<script type="text/javascript">
-											if(document.getElementById("i").value==1)
-												document.write( "<a href=\"javascript:;\" class=\"a_main_list_handle_icon1b\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('${car.id }')\"></a>" );
-											else
-												document.write( "<a href=\"javascript:;\" class=\"a_main_list_handle_icon1a\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('${car.id }')\"></a>" );
-										</script>
-									</td>
-								</tr>
-							</c:forEach> --%>
+							
 						</tbody>
 
 						<select id="carloc" style="display:none" >

@@ -1,6 +1,8 @@
 package cn.edu.bjtu.controller;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import jxl.common.Logger;
@@ -41,12 +43,36 @@ public class SearchController {
 	@RequestMapping(value="searchResourceAjax",produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String getSearchResult(String search_content, String resource_kind,
-			PageUtil pageUtil, HttpSession session,HttpServletRequest request) {
+			PageUtil pageUtil, HttpSession session,HttpServletRequest request,HttpServletResponse response) {
 		logger.info(request.getHeader("referer"));
-		/*String request_url=request.getHeader("referer");
+		String request_url=request.getHeader("referer");
 		if(!checkURL(request_url)){
-			RequestDispatcher dispatcher=request
-		}*/
+			try{
+				if("线路".equals(resource_kind)){
+					RequestDispatcher dispatcher= request.getRequestDispatcher("linetransport?flag=0");
+					 dispatcher.forward(request, response);
+				}else if("配送".equals(resource_kind)){
+					RequestDispatcher dispatcher= request.getRequestDispatcher("cityline?flag=0");
+					dispatcher.forward(request, response);
+				}else if("车辆".equals(resource_kind)){
+					RequestDispatcher dispatcher= request.getRequestDispatcher("car?flag=0");
+					dispatcher.forward(request, response);
+				}else if("仓库".equals(resource_kind)){
+					RequestDispatcher dispatcher= request.getRequestDispatcher("warehouse?flag=0");
+					dispatcher.forward(request, response);
+				}else if("公司".equals(resource_kind)){
+					RequestDispatcher dispatcher= request.getRequestDispatcher("company");
+					dispatcher.forward(request, response);
+				}else{//货物
+					RequestDispatcher dispatcher= request.getRequestDispatcher("goodsform?flag=0");
+					dispatcher.forward(request, response);
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			
+		}
+
 		JSONArray jsonArray=new JSONArray();
 		if(resource_kind.equals("线路")){
 			jsonArray=searchService.getLineResourceByCityName(search_content, pageUtil, session);
@@ -72,14 +98,31 @@ public class SearchController {
 	}
 	
 	/**
-	 * 检查请求之前的url，如果是资源栏发来的请求，则
-	 * @param url
-	 * @return
+	 * 检查搜索的请求是不是由资源list页面发出来的，如果是，页面不用跳转，如果不是
+	 * 页面需要跳转到list页面以供显示资源
+	 * @Title: checkURL 
+	 * @Description: TODO 
+	 * @param: @param url
+	 * @param: @return 
+	 * @return: boolean 
+	 * @throws: 异常 
+	 * @author: chendonghao 
+	 * @date: 2015年6月29日 下午4:18:38
 	 */
-	/*private boolean checkURL(String url){
+	private boolean checkURL(String url){
 		
-	}*/
-	
+		if (url.contains("linetransport?flag=0")
+				|| url.contains("cityline?flag=0")
+				|| url.contains("car?flag=0")
+				|| url.contains("warehouse?flag=0") || url.contains("company")
+				|| url.contains("goodsform?flag=0")) {
+			
+			return true;
+		}
+		else
+			return false;
+		
+	}
 
 	/*@RequestMapping(value = "searchResource")
 	@Deprecated

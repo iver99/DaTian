@@ -103,13 +103,12 @@ public class ClientSecurityController {
 	@RequestMapping("bindemail")
 	public ModelAndView bindEmail(HttpSession session, String email,
 			HttpServletRequest request, HttpServletResponse response) {
-		String userId = (String) session.getAttribute(Constant.USER_ID);
-		boolean flag = clientSecurityService.bindEmail(email, userId);
+		//String userId = (String) session.getAttribute(Constant.USER_ID);
+		boolean flag = clientSecurityService.bindEmail(email, session);
 		if (flag == true) {
 			try {
 				response.sendRedirect("mysecurity");
 		} catch (IOException e) {
-			// 
 			// 此处应记录日志
 			e.printStackTrace();
 
@@ -123,15 +122,15 @@ public class ClientSecurityController {
 			mv.addObject("msg", msg);
 			return mv;
 		}
-
+		
 	}
 
-	@RequestMapping("getchangebindemailpage")
 	/**			     
 	 * 获取更改邮箱绑定页面
 	 * @param session
 	 * @return
 	 */
+	@RequestMapping("getchangebindemailpage")
 	public ModelAndView gotoChangeEmailPage(HttpSession session) {
 		String userId = (String) session.getAttribute(Constant.USER_ID);
 		Userinfo userinfo = clientSecurityService.getUserById(userId);

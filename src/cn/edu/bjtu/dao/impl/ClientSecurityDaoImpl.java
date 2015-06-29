@@ -50,6 +50,7 @@ public class ClientSecurityDaoImpl implements ClientSecurityDao {
 	/**
 	 * ∞Û∂®” œ‰
 	 */
+	@Deprecated
 	public boolean bindEmail(String email, String userId) {
 		
 		Userinfo user = ht.get(Userinfo.class, userId);

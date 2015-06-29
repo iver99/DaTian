@@ -99,11 +99,11 @@
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">所属车队：</td>
                                     <td>
-                                        <select style="width:120px;" name="carTeam" required>
+                                        <select style="width:120px;" name="carTeam" id="carTeam" required>
                                             <option value="" selected="selected">请选择</option>
-                                            <option value="北京车队" >北京车队</option>
+                                           <!--  <option value="北京车队" >北京车队</option>
                                             <option value="天津车队">天津车队</option>
-                                            <option value="上海车队">上海车队</option>
+                                            <option value="上海车队">上海车队</option> -->
                                         </select>
                                     </td>
                                 </tr>
@@ -253,6 +253,27 @@
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
+		//获取公司车队列表
+		getCompanyCarteamList();
+	}
+	
+	 //获取公司车队列表
+	function getCompanyCarteamList(){
+		var url="getCompanyCarteamList";
+		
+		$.ajax({
+			url:url,
+			cache:false,
+			dataType:"json",
+			success:function(data,status){
+				//alert(data);
+				var carteam=$("#carTeam");
+				for(var i=0;i<data.length;i++){
+					var option=$("<option>").text(data[i].teamName).val(data[i].teamName);
+					carteam.append(option);
+				}
+			}
+		});
 	}
 </script>
 </html>

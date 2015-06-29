@@ -17,11 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-
 import cn.edu.bjtu.bean.search.CarSearchBean;
-import cn.edu.bjtu.bean.search.CityLineSearchBean;
 import cn.edu.bjtu.dao.CarDao;
 import cn.edu.bjtu.dao.CarTeamDao;
 import cn.edu.bjtu.service.CarService;
@@ -32,6 +28,9 @@ import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Carinfo;
 import cn.edu.bjtu.vo.Carteam;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 @Transactional
 @Service("carServiceImpl")
 public class CarServiceImpl implements CarService {
@@ -40,7 +39,9 @@ public class CarServiceImpl implements CarService {
 	CarDao carDao;
 	@Resource
 	Carinfo carinfo;
-	
+
+	@Autowired
+	CarTeamDao carTeamDao;
 	@Resource
 	LinetransportService linetransportService;
 	@Resource
@@ -341,7 +342,20 @@ public class CarServiceImpl implements CarService {
 		return count.intValue();
 	}
 	
-	
+	/**
+	 * 获取公司车队信息列表
+	 */
+	@Override
+	public List<Carteam> getCompanyCarteamList(HttpSession session) {
+		String carrierId=(String)session.getAttribute(Constant.USER_ID);
+		String hql="from Carteam t where t.carrierId=:carrierId";
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("carrierId", carrierId);
+		
+		return carTeamDao.find(hql, params);
+		
+		
+	}
 
 	
 }
