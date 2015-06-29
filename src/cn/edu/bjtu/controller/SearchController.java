@@ -46,11 +46,14 @@ public class SearchController {
 			PageUtil pageUtil, HttpSession session,HttpServletRequest request,HttpServletResponse response) {
 		logger.info(request.getHeader("referer"));
 		String request_url=request.getHeader("referer");
+		String url="";
 		if(!checkURL(request_url)){
 			try{
 				if("线路".equals(resource_kind)){
-					RequestDispatcher dispatcher= request.getRequestDispatcher("linetransport?flag=0");
-					 dispatcher.forward(request, response);
+					/*RequestDispatcher dispatcher= request.getRequestDispatcher("linetransport?flag=0");
+					 dispatcher.forward(request, response);*/
+					response.sendRedirect("linetransport?flag=0");
+					url="linetransport?flag=0";
 				}else if("配送".equals(resource_kind)){
 					RequestDispatcher dispatcher= request.getRequestDispatcher("cityline?flag=0");
 					dispatcher.forward(request, response);
@@ -70,8 +73,9 @@ public class SearchController {
 			}catch(Exception e){
 				e.printStackTrace();
 			}
+			return url;
 			
-		}
+		}else{//在资源list发出的搜索
 
 		JSONArray jsonArray=new JSONArray();
 		if(resource_kind.equals("线路")){
@@ -93,7 +97,7 @@ public class SearchController {
 		}
 		
 		return jsonArray.toString();
-		
+		}
 		
 	}
 	

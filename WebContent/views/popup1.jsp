@@ -11,12 +11,12 @@
     <table border="0" cellpadding="0" cellspacing="0">
         <tr>
             <td width="540">
-            	<textarea class="textarea_popup1" placeholder="请输入内容..."></textarea>
+            	<textarea class="textarea_popup1" placeholder="请输入内容..." id="message"></textarea>
             </td>
         </tr>
         <tr>
             <td class="td_popup1">
-                <input type="button" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><input type="button" id="btn1" value="éå¡«" class="btn_mgmt2" hidefocus="true" />
+                <input type="button" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="loadXMLDoc()"/><input type="button" id="btn1" value="重置" class="btn_mgmt2" hidefocus="true" />
             </td>
         </tr>
     </table>

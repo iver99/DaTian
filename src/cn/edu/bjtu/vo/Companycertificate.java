@@ -27,7 +27,17 @@ public class Companycertificate implements java.io.Serializable {
 	private String phone;
 	private String basicSituation;
 	private String relatedMaterial;
+	private String email;//add by RussWest0 at 2015年6月29日,下午11:09:44 
 	
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public Companycertificate() {
 	}
 

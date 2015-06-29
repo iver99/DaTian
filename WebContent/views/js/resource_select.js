@@ -415,9 +415,9 @@ function searchKind(){
 	container.append("<tr>");
 	//alert(window.location.pathname);
 	if(resource_kind == '线路'){
-		/*debugger;
-		window.location.href="views/resource_list.jsp";
-		if(container == undefined){
+		//debugger;
+		window.location.href="linetransport?flag=0";
+		/*if(container == undefined){
 			window.location.href="../resource_list.jsp";
 		}*/
 		container.append("<td width=\"15\" class=\"td_main_list_head\"></td><td class=\"td_main_list_head\">线路名称</td><td width=\"100\" class=\"td_main_list_head\">参考价(元/kg)</td><td width=\"60\" class=\"td_main_list_head\">类型</td><td width=\"80\" class=\"td_main_list_head\">时限(小时)</td><td width=\"80\" class=\"td_main_list_head\">发布日期</td><td width=\"45\" class=\"td_main_list_head\">关注</td>");

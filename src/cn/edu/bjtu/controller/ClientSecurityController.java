@@ -143,9 +143,8 @@ public class ClientSecurityController {
 	@RequestMapping("changebindemail")
 	public ModelAndView changeBindEmail(HttpSession session, String newEmail,
 			HttpServletRequest request, HttpServletResponse response) {
-		String userId = (String) session.getAttribute(Constant.USER_ID);
 		boolean flag = false;
-		flag = clientSecurityService.changeBindEmail(newEmail, userId);
+		flag = clientSecurityService.changeBindEmail(newEmail, session);
 		if (flag == true) {
 			String msg = "修改绑定邮箱成功";
 			mv.addObject("msg", msg);
