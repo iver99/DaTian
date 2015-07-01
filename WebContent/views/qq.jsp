@@ -4,7 +4,7 @@
         <div class="qqserver_fold">
             <div></div>
         </div>
-        <div class="qqserver-body" style="display:block;">
+        <div class="qqserver-body" style="display:block;position:relative; z-index:99999;">
             <div class="qqserver-header">
                 <div>在线客服</div>
                 <span class="qqserver_arrow"></span>
@@ -14,7 +14,7 @@
             <div class="qqserver_comment" onclick="showid('popup1');" hidefocus="true">
                 给我留言
             </div>
-           <a href="javascript:;" class="a1" hidefocus="true">查看历史记录</a>
+           <a href="javascript:;" class="a1" hidefocus="true" onclick="loadMessages();showid('popup2');">查看历史记录</a>
         </div>
     </div>
     <a id="backtop" onclick="return false;" title="回到顶部"></a> 

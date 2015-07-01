@@ -57,7 +57,7 @@
                     </ul>
                 </div>
                 <input type="text" name="search_content"  id="search_content" class="search_input" value="请输入关键字" hidefocus="true"  />
-                <input type="button" class="search_btn" value="" hidefocus="true" onclick="searchKind();">
+                <input type="button" class="search_btn" value="" hidefocus="true" onclick="changeToSearchPage()">
               <input type="hidden" id="resource_choose" name="resource_choose" value="线路"/><!-- 隐藏字段  --> 
 			</td>
             <td width="280" class="td_top2b"><a href="getallfocus" class="a_top2" hidefocus="true" id="focusNum"><img src="images/btn_m1.png" />&nbsp;我的关注</a></td>

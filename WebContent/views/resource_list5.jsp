@@ -24,7 +24,9 @@
 		<script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
 		<!-- <script type="text/javascript" src="js/splitPage.js"></script> <!-- 新增 -->
 		<script type="text/javascript" src="js/focus_load.js"></script>
-		<script type="text/javascript" src="js/search_resource.js"></script><!-- 搜索资源 -->
+	<!-- 	<script type="text/javascript" src="js/search_resource.js"></script>搜索资源 -->
+	<!-- 引入工具js -->
+<%@ include file="jsTool.jsp" %>
 		<script type="text/javascript">
 			$(function() {
 				$('input, textarea').placeholder();
@@ -214,37 +216,7 @@
 							</tr>
 						</thead>
 						<tbody id="testbody">
-							<%-- <c:forEach var="company" items="${companyList }">
-								<tr>
-									<td class="td_main_list_content"></td>
-									<td class="td_main_list_content"><a
-										href="companyDetail?id=${company.id }" hidefocus="true">${company.companyName }<img
-											src="images/btn_level1a.png" /></a></td>
-									<td class="td_main_list_content">${company.resourceRate }</td>
-									<td class="td_main_list_content">${company.companyType }</td>
-									<td class="td_main_list_content">${company.creditRate }</td>
-									<td class="td_main_list_content">${company.relDate }</td>
-									<input type="button" value="0" style="display:none" id="i"></input>
-									<td class="td_main_list_content">
-										<script>
-											document.getElementById("i").value=0;
-										</script>
-										<c:forEach var="focus" items="${focusList }">
-										<c:if test="${company.id==focus.focusId}">
-											<script>
-												document.getElementById("i").value=1;
-											</script>
-										</c:if>
-										</c:forEach>
-										<script type="text/javascript">
-											if(document.getElementById("i").value==1)
-												document.write( "<a href=\"javascript:;\" class=\"a_main_list_handle_icon1b\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('${company.id }')\"></a>" );
-											else
-												document.write( "<a href=\"javascript:;\" class=\"a_main_list_handle_icon1a\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('${company.id }')\"></a>" );
-										</script>
-									</td>
-								</tr>
-							</c:forEach> --%>
+							
 						</tbody>
 					</table>
 					<table border="0" cellpadding="0" cellspacing="0"
@@ -304,8 +276,14 @@
 		//Rescreen();
 		loadFocus();
 		//页面加载完成执行默认的筛选
+		if(checkSearch()){
 		getSelectedCompanyAjax("中文或拼音","All","All","All","All");
 		getSelectedCompanyTotalRowsAjax("中文或拼音","All","All","All","All");
+			
+		}
+		
+		//检查是否需要执行搜索功能
+		//checkSearch();
 	}
 </script>
 

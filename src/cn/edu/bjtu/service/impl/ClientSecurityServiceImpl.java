@@ -1,11 +1,19 @@
 package cn.edu.bjtu.service.impl;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import cn.edu.bjtu.dao.ClientDao;
 import cn.edu.bjtu.dao.ClientSecurityDao;
+import cn.edu.bjtu.dao.CompanycertificateDao;
+import cn.edu.bjtu.dao.UserinfoDao;
 import cn.edu.bjtu.service.ClientSecurityService;
+import cn.edu.bjtu.util.Constant;
+import cn.edu.bjtu.vo.Clientinfo;
+import cn.edu.bjtu.vo.Companycertificate;
 import cn.edu.bjtu.vo.Userinfo;
 @Service
 @Transactional
@@ -14,13 +22,36 @@ public class ClientSecurityServiceImpl implements ClientSecurityService{
 	
 	@Autowired
 	ClientSecurityDao clientSecurityDao;
+	@Autowired
+	UserinfoDao userinfoDao;
+	@Autowired
+	ClientDao clientDao;
+	@Autowired
+	CompanycertificateDao companyCertificateDao;
 	
 	@Override
-	public boolean bindEmail(String email, String userId) {
+	public boolean bindEmail(String email,HttpSession session) {
 		
-		if(!checkEmail(email))
-			return false;
-		return clientSecurityDao.bindEmail(email,userId);
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+		Integer userKind=(Integer)session.getAttribute(Constant.USER_KIND);
+		//return clientSecurityDao.bindEmail(email,userId);
+		Userinfo user = userinfoDao.get(Userinfo.class, userId);
+		user.setEmail(email);
+		user.setEmailStatus("已绑定");// 修改状态
+		userinfoDao.update(user);
+		if(userKind== 2){
+			Clientinfo clientinfo = clientDao.get(Clientinfo.class, userId);
+			clientinfo.setEmail(email);
+			clientDao.update(clientinfo);
+			
+		}else if(userKind ==3){
+			Companycertificate company=companyCertificateDao.get(Companycertificate.class, userId);
+			company.setEmail(email);
+			companyCertificateDao.update(company);
+		}
+		
+		return true;
+
 	}
 	
 	@Override
@@ -45,11 +76,25 @@ public class ClientSecurityServiceImpl implements ClientSecurityService{
 	/**
 	 * 修改绑定邮箱
 	 */
-	public boolean changeBindEmail(String newEmail, String userId) {
+	public boolean changeBindEmail(String newEmail, HttpSession session) {
 		
-		if(checkEmail(newEmail))
-			return clientSecurityDao.changeBindEmail(newEmail,userId);
-		return false;
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+		Integer userKind=(Integer)session.getAttribute(Constant.USER_KIND);
+		Userinfo userinfo = userinfoDao.get(Userinfo.class, userId);
+
+		userinfo.setEmail(newEmail);
+		userinfoDao.update(userinfo);
+		if(userKind== 2){
+			Clientinfo clientinfo = clientDao.get(Clientinfo.class, userId);
+			clientinfo.setEmail(newEmail);
+			clientDao.update(clientinfo);
+			
+		}else if(userKind ==3){
+			Companycertificate company=companyCertificateDao.get(Companycertificate.class, userId);
+			company.setEmail(newEmail);
+			companyCertificateDao.update(company);
+		}
+		return true;
 	}
 
 	@Override
@@ -78,10 +123,10 @@ public class ClientSecurityServiceImpl implements ClientSecurityService{
 	 * 检查email格式(未实现)
 	 * @param email
 	 * @return
-	 */
+	 *//*
 	private boolean checkEmail(String email)
 	{
 		return true;//未实现
-	}
+	}*/
 
 }

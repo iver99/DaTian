@@ -50,5 +50,8 @@
         <property name="relatedMaterial" type="string">
             <column name="relatedMaterial" />
         </property>
+        <property name="email" type="string">
+            <column name="email" />
+        </property>
     </class>
 </hibernate-mapping>

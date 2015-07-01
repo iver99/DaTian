@@ -321,7 +321,7 @@
 
 <%@ include  file="popup1.jsp"%>
 
-<div id="popup2" style="display:none;">
+<%-- <div id="popup2" style="display:none;">
     <table border="0" cellpadding="0" cellspacing="0">
         <tr>
             <td width="510"><div class="div_popup_title1">留言历史</div></td>
@@ -338,57 +338,12 @@
 			</tr>
 		</thead>
 		<tbody id="getmessage" style="height:250px;overflow:auto;display:block;"></tbody>
-		<!-- <tbody>
-			<tr>
-				<td class="td_main_list_content">123312412421</td>
-				<td class="td_main_list_content">124512512512</td>
-			</tr>
-		</tbody> -->
 	</table>
-</div>
+</div> --%>
 
 <div id="footer_frame">
 	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="views/footer.jsp"></iframe>
 </div>
 
 </body>
-<script type="text/javascript">
-function loadXMLDoc()
-{
-	var curWwwPath=window.document.location.href;
-    var pathName=window.document.location.pathname;
-    var pos=curWwwPath.indexOf(pathName);
-	var message = document.getElementById("message").value;
-	$.ajax({
-		   type: "GET",
-		   url: curWwwPath.substring(0,pos) + "/DaTian/insertmessage",//请求的后台地址
-		   data: "content=" + message,//前台传给后台的参数
-		   success: function(msg){//msg:返回值
-			   document.getElementById("message").value = "";
-			   document.getElementById("close").click();
-		   }
-		});
-}
-
-function loadMessages()
-{
-	var url="getAllUserMessage";
-	$.post(url,{},
-	  function(data,status){
-			  //alert(data);
-			  $("#getmessage").empty();
-		for(var i=0; i<data.length; i++) {
-			$("#getmessage").append("<tr>");
-			$("#getmessage").append("<td style=\"width:250px;\" class=\"td_main_list_content\">"+renderTime(data[i].relDate)+"</td>");
-			$("#getmessage").append("<td style=\"width:250px;\" class=\"td_main_list_content\">"+data[i].content+"</td>");
-			$("#getmessage").append("<tr>");
-		}
-	  },"json");
-}
-
-function renderTime(date){ 
-	var da = new Date(parseInt(date)); 
-	return da.getFullYear()+"-"+ (da.getMonth()+1)+"-" +da.getDate(); 
-} 
-</script>
 </html>

@@ -286,7 +286,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 				&& !cargoBean.getStartPlace().equals("中文或拼音")
 				&& !cargoBean.getStartPlace().equals("All")
 				&& !cargoBean.getStartPlace().equals("")) {
-			wheresql+=" and t1.startPlace:=startPlace ";
+			wheresql+=" and t1.startPlace=:startPlace ";
 			params.put("startPlace", cargoBean.getStartPlace());
 		}
 		if(cargoBean.getEndPlace()!=null && !cargoBean.getEndPlace().equals("")
@@ -297,7 +297,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 			params.put("endPlace", cargoBean.getEndPlace());
 		}
 		if (cargoBean.getTransportType() != null
-				&& !cargoBean.getTransportReq().trim().equals("")
+				&& !cargoBean.getTransportType().trim().equals("")
 				&& !cargoBean.getTransportType().trim().equals("All")) {
 			wheresql+=" and t1.transportType=:transportType ";
 			params.put("transportType", cargoBean.getTransportType().trim());//FIXME  bug

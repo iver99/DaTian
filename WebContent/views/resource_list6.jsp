@@ -25,7 +25,9 @@
 <script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
 <script type="text/javascript" src="js/splitPage.js"></script><!-- 新增 -->
 <script type="text/javascript" src="js/focus_load.js"></script>
-<script type="text/javascript" src="js/search_resource.js"></script><!-- 搜索资源 -->
+<!-- <script type="text/javascript" src="js/search_resource.js"></script>搜索资源 -->
+<!-- 引入工具js -->
+<%@ include file="jsTool.jsp" %>
 		<script type="text/javascript"> 
 	$(function() {
 		$('input, textarea').placeholder(); 
@@ -228,10 +230,14 @@
 		//Rescreen();
 		loadFocus();
 		//页面一加载进行默认的筛选
-		//debugger;
-		//alert("test");
+		if(checkSearch()){
 		getSelectedCargoAjax("中文或拼音","中文或拼音","All","All","All");
 		getSelectedCargoTotalRows("中文或拼音","中文或拼音","All","All","All");
+			
+		}
+		
+		//检查是否需要执行搜索功能
+		//checkSearch();
     }
 	function Reset()
 	{
@@ -281,7 +287,7 @@ function getSelectedCargoAjax(startPlace,endPlace,transportType,weight,transport
 			$("#testbody").append("<td class=\"td_main_list_content\"></td>");
 			$("#testbody").append("<td class=\"td_main_list_content\"><a href=\"goodsdetail?id="+data[i].id+"\" hidefocus=\"true\">"+data[i].name+"</a>");
 			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].transportType+"</td>");
-			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].limitDate+"</td>");
+			$("#testbody").append("<td class=\"td_main_list_content\">"+renderTime(data[i].limitDate)+"</td>");
 			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].weight+"</td>");
 			$("#testbody").append("<td class=\"td_main_list_content\">"+renderTime(data[i].relDate)+"</td>");
 			if(data[i].status == "有效")
@@ -296,6 +302,7 @@ function getSelectedCargoAjax(startPlace,endPlace,transportType,weight,transport
 }
 
 function renderTime(date){ 
+	//debugger;
 	var da = new Date(parseInt(date)); 
 	return da.getFullYear()+"-"+ (da.getMonth()+1)+"-" +da.getDate(); 
 } 

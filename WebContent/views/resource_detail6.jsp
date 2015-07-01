@@ -18,7 +18,9 @@
 <script type="text/javascript" src="js/popup.js"></script>
 <script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
 <script type="text/javascript" src="js/focus_load.js"></script>
-<script type="text/javascript" src="js/search_resource.js"></script><!-- 搜索资源 -->
+<!-- <script type="text/javascript" src="js/search_resource.js"></script>搜索资源 -->
+<!-- 引入工具js -->
+<%@ include file="jsTool.jsp" %>
 <script type="text/javascript"> 
 	$(function() {
 		$('input, textarea').placeholder(); 
@@ -29,10 +31,10 @@
 <body onload="OnLoad()">
 
 <%@ include file="qq.jsp"%>
-
+<%@ include file="topFrame.jsp"%>
 <%-- <%@ page pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> --%>
-<div id="top_frame">
+<%-- <div id="top_frame">
 	<table width="100%" border="0" cellpadding="0" cellspacing="0">
 		<tr>
 			<td width="3%" class="td_top1a">&nbsp;</td>
@@ -90,7 +92,7 @@
                 </div>
              <!--    下面的class和别处不一样，多了四个像素 -->
                 <input type="text" name="searchContent" class="search_input2" placeholder="请输入关键字" hidefocus="true" />
-                <input type="submit" class="search_btn" value="" hidefocus="true">
+                <input type="button" class="search_btn" value="" hidefocus="true" onclick="changeToSearchPage()">
               <input type="hidden" id="resourcechoose" name="resourceChoose" value="线路"/><!-- 隐藏字段  --> 
 			</td>
             <td width="280" class="td_top2b"><a href="getallfocus" class="a_top2" hidefocus="true" id="focusNum"><img src="images/btn_m1.png" />&nbsp;我的关注</a></td>
@@ -322,7 +324,7 @@
             <td width="3%">&nbsp;</td>
 		</tr>
     </table>
-</div>
+</div> --%>
 <div id="main_frame">
 	<span class="text_main_title1">资源</span>&nbsp;&gt;&nbsp;货物
     <table width="100%" border="0" cellpadding="0" cellspacing="0">
@@ -388,6 +390,8 @@
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
+		
+		$("#search_content").css("height",36);
 	}
 </script>
 </html>

@@ -50,6 +50,7 @@ public class ClientSecurityDaoImpl implements ClientSecurityDao {
 	/**
 	 * ∞Û∂®” œ‰
 	 */
+	@Deprecated
 	public boolean bindEmail(String email, String userId) {
 		
 		Userinfo user = ht.get(Userinfo.class, userId);
@@ -74,27 +75,6 @@ public class ClientSecurityDaoImpl implements ClientSecurityDao {
 		return ht.get(Userinfo.class, userId);
 	}
 
-	@Override
-	/**
-	 * –ﬁ∏ƒ∞Û∂®” œ‰
-	 */
-	public boolean changeBindEmail(String newEmail, String userId) {
-		
-		Userinfo userinfo = ht.get(Userinfo.class, userId);
-
-		userinfo.setEmail(newEmail);
-
-		Clientinfo clientinfo = ht.get(Clientinfo.class, userId);
-
-		clientinfo.setEmail(newEmail);
-
-		/*baseDao.update(userinfo);
-		baseDao.update(clientinfo);*/
-		userinfoDao.update(userinfo);
-		clientDao.update(clientinfo);
-		return true;
-
-	}
 
 	@Override
 	public boolean setSecurityQuestion(String q1, String q2, String q3,

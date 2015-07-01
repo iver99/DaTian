@@ -63,6 +63,20 @@ public class LoginController {
 		return mv;
 
 	}
+	
+	/**
+	 * 直接请求login地址，返回到登录页面
+	 * @return
+	 */
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String turnToLoginPage(HttpSession session){
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+		if(userId==null){
+			return "login";
+		}else{
+			return "mgmt";
+		}
+	}
 	/*@RequestMapping("adminLogin")
 	
 	 * 管理员登录

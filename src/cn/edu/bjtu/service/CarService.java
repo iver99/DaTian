@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import cn.edu.bjtu.bean.search.CarSearchBean;
 import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Carinfo;
+import cn.edu.bjtu.vo.Carteam;
 
 import com.alibaba.fastjson.JSONArray;
 
@@ -55,6 +56,19 @@ public interface CarService {
 	 * @return
 	 */
 	public Integer getSelectedCarTotalRows(CarSearchBean carBean);
+	
+	/**
+	 * 获取公司车队姓名列表
+	 * @Title: getCompanyCarteamList 
+	 * @Description: TODO 
+	 * @param: @param session
+	 * @param: @return 
+	 * @return: JSONArray 
+	 * @throws: 异常 
+	 * @author: chendonghao 
+	 * @date: 2015年6月29日 下午5:35:42
+	 */
+	public List<Carteam> getCompanyCarteamList(HttpSession session);
 	
 	
 	

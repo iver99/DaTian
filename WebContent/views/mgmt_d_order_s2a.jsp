@@ -90,9 +90,6 @@
 									<td>
 										<select style="width:120px;" name="clientName" id="clientName" required>
 											<option value="" selected="selected">请选择</option>
-                                           <!--  <option value="北京索契物流有限公司">北京索契物流有限公司</option>
-                                            <option value="天津友达通有限公司">天津友达通有限公司</option>
-                                            <option value="北京大田物流有限公司">北京大田物流有限公司</option> -->
                                         </select>
 									</td>
                                 </tr>
@@ -105,7 +102,7 @@
                                             <option value="无">无</option>
                                         </select>
                                         <div id="p_detail" style="display:none;">
-                                            <input type="text" name="isLinkToClientWayBill" class="input_mgmt1" style="width:176px;" placeholder="请输入客户运单号..."/>
+                                            <input type="text" name="clientWayBillNum" class="input_mgmt1" style="width:176px;" placeholder="请输入客户运单号..."/>
                                         </div>
                                     </td>
                                 </tr>
@@ -128,9 +125,6 @@
                                         <div id="c_detail" style="display:none;">
                                             <select style="width:93px;" name="contractId" id="contractId">
                                                 <option value="" selected="selected">请选择</option>
-                                               <!--  <option value="C0001">C0001</option>
-                                                <option value="C0002">C0002</option>
-                                                <option value="C0003">C0003</option> -->
                                             </select>
                                         </div>
                                     </td>
@@ -140,20 +134,20 @@
 									<td>
 										<select name="resourceType" style="width:120px;" required>
 											<option value="" selected="selected">请选择</option>
-                                            <option value="线路">线路</option>
-                                            <option value="网格">网络</option>
-                                            <option value="车辆">车辆</option>
+                                            <option value="线路" onclick="getResource('线路')">线路</option>
+                                            <option value="网格" onclick="getResource('配送')">配送</option>
+                                            <option value="车辆" onclick="getResource('车辆')">车辆</option>
                                         </select>
 									</td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">资源名称：</td>
 									<td>
-										<select name="resourceName" style="width:120px;" required>
+										<select name="resourceName" id="resourceName" style="width:120px;" required>
 											<option value="" selected="selected">请选择</option>
-                                            <option value="北京→上海">北京→上海</option>
+                                             <option value="北京→上海">北京→上海</option>
                                             <option value="北京→天津">北京→天津</option>
-                                            <option value="北京→广州">北京→广州</option>
+                                            <option value="北京→广州">北京→广州</option> 
                                         </select>
 									</td>
                                 </tr>
@@ -324,11 +318,13 @@
 		var name;
 		var phone;
 		var address;
-		if($("#sender_info").attr("checked") == true){//发货人添加常用地址选中
+		//debugger;
+		var sender_info=$("#sender_info");
+		var receiver_info=$("#receiver_info");
+		if($("#sender_info").attr("checked") == "checked"){//发货人添加常用地址选中
 			name=$("#deliveryName").val();
-			address=$("#deliverAddr").val();
-			phone=$("#deliverPhone").val();
-			
+			address=$("#deliveryAddr").val();
+			phone=$("#deliveryPhone").val();
 			$.ajax({
 				type: "GET",
 				url:url,
@@ -343,7 +339,7 @@
 			});
 		}
 		
-		if($("#receiver_info").attr("checked") == true){//收货人常用地址选中
+		if(receiver_info.attr("checked") == "checked"){//收货人常用地址选中
 			name=$("#recieverName").val();
 			address=$("#recieverAddr").val();
 			phone=$("#recieverPhone").val();
@@ -361,8 +357,41 @@
 				}
 			});
 		}
-		//提交表单
+		//提交订单
 		$('#new_order').submit();
+	}
+	
+	//根据选择不同的资源，获得不同的资源列表
+	function getResource(kind){
+		alert("test");
+		var url ="";
+		if(kind == '线路'){//加载公司的线路资源
+			url="getCompanyLinetransportAjax";
+		}else if(kind == '配送'){//加载公司的城市配送资源
+			url="getCompanyCitylineAjax";
+		}else if(kind == '车辆'){//加载公司的车辆资源
+			url="getCompanyCarAjax";
+		}
+		//异步获取资源
+		$.ajax({
+			url:url,
+			cache:false,
+			dataType:"json",
+			success:function(data,status){
+				var resource_name=$("#resourceName");
+				
+				for(var i=0;i<data.length;i++){
+					if(kind == '线路'){
+						var option =$("<option>").text(data[i].lineName);
+					}else if(kind == '配送'){
+						var option =$("<option>").text(data[i].name);
+					}else if(kind == '车辆'){
+						var option =$("<option>").text(data[i].carNum);
+					}
+					resource_name.append(option);
+				}
+			}
+		});
 	}
 	
 </script>

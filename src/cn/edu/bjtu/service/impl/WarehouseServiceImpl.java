@@ -409,7 +409,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 		if(warehouseBean.getHouseArea()!=null && !warehouseBean.getHouseArea().equals("") && !warehouseBean.getHouseArea().equals("All")){
 			String houseArea=warehouseBean.getHouseArea();
 			if (houseArea.equals("大于1万平方米")) {
-				wheresql+=" and t1.houseArea>1=0000";
+				wheresql+=" and t1.houseArea>=10000";
 			}
 			if (houseArea.equals("大于2万平方米")) {
 				wheresql+=" and t1.houseArea>=20000";
@@ -429,7 +429,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 	public Integer getSelectedWarehouseTotalRows(
 			WarehouseSearchBean warehouseBean) {
 		Map<String,Object> params=new HashMap<String,Object>();
-		String hql="select count(*) from WarehouseCarrierView t1"+whereSql(warehouseBean, params);
+		String hql="select count(*) from WarehouseCarrierView t1 "+whereSql(warehouseBean, params);
 		Long count=warehouseDao.count(hql, params);
 		
 		return count.intValue();

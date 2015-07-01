@@ -19,10 +19,14 @@
 <script type="text/javascript" src="js/popup.js"></script>
 <script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
 <script type="text/javascript" src="js/focus_load.js"></script>
-<script type="text/javascript" src="js/search_resource.js"></script><!-- 搜索资源 -->
+<!-- <script type="text/javascript" src="js/search_resource.js"></script>搜索资源
+<script type="text/javascript" src="js/resource_select.js" charset="UTF-8"></script> -->
 <script type="text/javascript" src="js/rating3.js"></script>
 <script type="text/javascript" src="js/jquery.raty.min.js"></script>
+<!-- 引入工具js -->
+<%@ include file="jsTool.jsp" %>
 <script type="text/javascript"> 
+
 	$(function() {
 		$('input, textarea').placeholder(); 
 	});

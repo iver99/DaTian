@@ -25,7 +25,9 @@
 		<script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
 		<script type="text/javascript" src="js/splitPage.js"></script><!-- 新增 -->
 		<script type="text/javascript" src="js/focus_load.js"></script>
-		<script type="text/javascript" src="js/search_resource.js"></script><!-- 搜索资源 -->
+		<!-- <script type="text/javascript" src="js/search_resource.js"></script>搜索资源 -->
+		<!-- 引入工具js -->
+<%@ include file="jsTool.jsp" %>
 		<script type="text/javascript">
 			$(function() {
 				$('input, textarea').placeholder();
@@ -164,40 +166,7 @@
 							</tr>
 						</thead>
 						<tbody id="testbody">
-							<%-- <c:forEach var="cityline" items="${citylineList }">
-								<tr>
-									<td class="td_main_list_content"></td>
-									<td class="td_main_list_content"><a
-										href="citylinedetail?citylineId=${cityline.id }&carrierId=${cityline.carrierId }&flag=0"
-										hidefocus="true">${cityline.name }</a> <br /> <a
-										href="companyDetail?id=${cityline.carrierId }"
-										style="color:#717071;"  hidefocus="true"> ${cityline.companyName } <img
-											src="images/btn_level1a.png" /></a></td>
-									<td class="td_main_list_content">${cityline.refPrice }</td>
-									<td class="td_main_list_content">${cityline.VIPService }</td>
-									<td class="td_main_list_content">${cityline.creditRate }</td>
-									<td class="td_main_list_content">${cityline.relDate }</td>
-									<input type="button" value="0" style="display:none" id="i"></input>
-									<td class="td_main_list_content">
-										<script>
-											document.getElementById("i").value=0;
-										</script>
-										<c:forEach var="focus" items="${focusList }">
-										<c:if test="${cityline.id==focus.focusId}">
-											<script>
-												document.getElementById("i").value=1;
-											</script>
-										</c:if>
-										</c:forEach>
-										<script type="text/javascript">
-											if(document.getElementById("i").value==1)
-												document.write( "<a href=\"javascript:;\" class=\"a_main_list_handle_icon1b\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('${cityline.id }')\"></a>" );
-											else
-												document.write( "<a href=\"javascript:;\" class=\"a_main_list_handle_icon1a\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('${cityline.id }')\"></a>" );
-										</script>
-									</td>
-								</tr>
-							</c:forEach> --%>
+							
 						</tbody>
 
 					</table>
@@ -318,8 +287,14 @@
 		//Rescreen();
 		loadFocus();
 		//GetRequest();
+		if(checkSearch()){
 		getSelectedLineAjax("中文或拼音","All","All",10,1);
 		getSelectedCityLineTotalRowsAjax("中文或拼音","All","All",10,1);
+			
+		}
+		
+		//检查是否需要执行搜索功能
+		//checkSearch();
 		
 	}
 </script>

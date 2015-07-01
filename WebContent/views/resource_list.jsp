@@ -27,7 +27,9 @@
 		<script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
 		<!-- <script type="text/javascript" src="js/splitPage.js"></script> <!-- 新增 -->
 		<script type="text/javascript" src="js/focus_load.js"></script>
-		<<!-- script type="text/javascript" src="js/search_resource.js"> --></script><!-- 搜索资源 -->
+		<!-- <!-- script type="text/javascript" src="js/search_resource.js"></script> -->
+		<!-- 引入工具js -->
+<%@ include file="jsTool.jsp" %>
 		<script type="text/javascript">
 			$(function() {
 				$('input, textarea').placeholder();
@@ -73,7 +75,7 @@
                                 <dd><a href="javascript:;" hidefocus="true" id="select1_2">零担</a></dd>
                             </dl>
                         </li>
-                        <li class="resource_list">
+                       <!--  <li class="resource_list">
                        
                             <dl id="select2" value="startPlace1">
                                 <dt>始发城市：</dt>
@@ -84,7 +86,7 @@
                                 <dd><a href="javascript:;" hidefocus="true" id="select2_4">武汉始发</a></dd>
                                 <dd><a href="javascript:;" hidefocus="true" id="select2_5">广州始发</a></dd>
                             </dl>
-                        </li>
+                        </li> -->
                         <li class="resource_list">
                             <dl id="select3" value="refPrice">
                                 <dt>参考报价：</dt>
@@ -225,14 +227,17 @@
 </body>
 <script type="text/javascript" charset="utf-8">
 	function OnLoad() {
-		/* ajax_post(); */
 		loadFocus();
+		if(checkSearch()){
 		getSelectedLineAjax("中文或拼音","中文或拼音","All","All","All",10,1);
 		getSelectedLineTotalRowsAjax("中文或拼音","中文或拼音","All","All","All",10,1);
-		//GetRequest();
+		}
+		//检查是否需要执行搜索功能
+		//checkSearch();
 	}
 </script>
 <script type="text/javascript">
+//重置功能
 function Reset()
 {
 	document.getElementById("select1_0").click();
@@ -252,16 +257,13 @@ function loadXMLDoc(id)
 		   data: "type=linetransport&id=" + id,//前台传给后台的参数
 		   cache:false,
 		   success: function(msg){//msg:返回值
-			   //alert(msg);
 			   if(msg == "login"){
 				   location.assign(curWwwPath.substring(0,pos) + "/DaTian/loginForm");
 			   }
 			   loadFocus();
-			   //alert(msg);
 		   }
 		});
 }
-
 
 //干线筛选
 function getSelectedLineAjax(startPlace,
