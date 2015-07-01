@@ -27,7 +27,9 @@
 		<script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
 		<!-- <script type="text/javascript" src="js/splitPage.js"></script> <!-- 新增 -->
 		<script type="text/javascript" src="js/focus_load.js"></script>
-		<!-- script type="text/javascript" src="js/search_resource.js"> --></script><!-- 搜索资源 -->
+		<!-- <!-- script type="text/javascript" src="js/search_resource.js"></script> -->
+		<!-- 引入工具js -->
+<%@ include file="jsTool.jsp" %>
 		<script type="text/javascript">
 			$(function() {
 				$('input, textarea').placeholder();
@@ -228,20 +230,12 @@
 		loadFocus();
 		getSelectedLineAjax("中文或拼音","中文或拼音","All","All","All",10,1);
 		getSelectedLineTotalRowsAjax("中文或拼音","中文或拼音","All","All","All",10,1);
-		//以下用于搜索功能
-		var resource_kind="${requestScope.resource_kind}";
-		var search_content="${request.search_content}";
-		alert(location.search);
-		//alert(resource_kind);
-		//请求中带有搜索的参数，需要执行搜索功能
-		if(resource_kind != undefined && search_content != undefined){
-			$("#search_content").val(search_content);
-			$("#resource_choose").val(resource_kind);
-			searchKind();
-		}
+		//检查是否需要执行搜索功能
+		checkSearch();
 	}
 </script>
 <script type="text/javascript">
+//重置功能
 function Reset()
 {
 	document.getElementById("select1_0").click();
@@ -261,16 +255,13 @@ function loadXMLDoc(id)
 		   data: "type=linetransport&id=" + id,//前台传给后台的参数
 		   cache:false,
 		   success: function(msg){//msg:返回值
-			   //alert(msg);
 			   if(msg == "login"){
 				   location.assign(curWwwPath.substring(0,pos) + "/DaTian/loginForm");
 			   }
 			   loadFocus();
-			   //alert(msg);
 		   }
 		});
 }
-
 
 //干线筛选
 function getSelectedLineAjax(startPlace,

@@ -125,9 +125,6 @@
                                         <div id="c_detail" style="display:none;">
                                             <select style="width:93px;" name="contractId" id="contractId">
                                                 <option value="" selected="selected">请选择</option>
-                                               <!--  <option value="C0001">C0001</option>
-                                                <option value="C0002">C0002</option>
-                                                <option value="C0003">C0003</option> -->
                                             </select>
                                         </div>
                                     </td>
@@ -137,20 +134,20 @@
 									<td>
 										<select name="resourceType" style="width:120px;" required>
 											<option value="" selected="selected">请选择</option>
-                                            <option value="线路">线路</option>
-                                            <option value="网格">网络</option>
-                                            <option value="车辆">车辆</option>
+                                            <option value="线路" onclick="getResource('线路')">线路</option>
+                                            <option value="网格" onclick="getResource('配送')">配送</option>
+                                            <option value="车辆" onclick="getResource('车辆')">车辆</option>
                                         </select>
 									</td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">资源名称：</td>
 									<td>
-										<select name="resourceName" style="width:120px;" required>
+										<select name="resourceName" id="resourceName" style="width:120px;" required>
 											<option value="" selected="selected">请选择</option>
-                                            <option value="北京→上海">北京→上海</option>
+                                             <option value="北京→上海">北京→上海</option>
                                             <option value="北京→天津">北京→天津</option>
-                                            <option value="北京→广州">北京→广州</option>
+                                            <option value="北京→广州">北京→广州</option> 
                                         </select>
 									</td>
                                 </tr>
@@ -360,9 +357,41 @@
 				}
 			});
 		}
-		
 		//提交订单
 		$('#new_order').submit();
+	}
+	
+	//根据选择不同的资源，获得不同的资源列表
+	function getResource(kind){
+		alert("test");
+		var url ="";
+		if(kind == '线路'){//加载公司的线路资源
+			url="getCompanyLinetransportAjax";
+		}else if(kind == '配送'){//加载公司的城市配送资源
+			url="getCompanyCitylineAjax";
+		}else if(kind == '车辆'){//加载公司的车辆资源
+			url="getCompanyCarAjax";
+		}
+		//异步获取资源
+		$.ajax({
+			url:url,
+			cache:false,
+			dataType:"json",
+			success:function(data,status){
+				var resource_name=$("#resourceName");
+				
+				for(var i=0;i<data.length;i++){
+					if(kind == '线路'){
+						var option =$("<option>").text(data[i].lineName);
+					}else if(kind == '配送'){
+						var option =$("<option>").text(data[i].name);
+					}else if(kind == '车辆'){
+						var option =$("<option>").text(data[i].carNum);
+					}
+					resource_name.append(option);
+				}
+			}
+		});
 	}
 	
 </script>

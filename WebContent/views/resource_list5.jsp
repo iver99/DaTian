@@ -24,7 +24,9 @@
 		<script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
 		<!-- <script type="text/javascript" src="js/splitPage.js"></script> <!-- 新增 -->
 		<script type="text/javascript" src="js/focus_load.js"></script>
-		<script type="text/javascript" src="js/search_resource.js"></script><!-- 搜索资源 -->
+	<!-- 	<script type="text/javascript" src="js/search_resource.js"></script>搜索资源 -->
+	<!-- 引入工具js -->
+<%@ include file="jsTool.jsp" %>
 		<script type="text/javascript">
 			$(function() {
 				$('input, textarea').placeholder();
@@ -306,6 +308,9 @@
 		//页面加载完成执行默认的筛选
 		getSelectedCompanyAjax("中文或拼音","All","All","All","All");
 		getSelectedCompanyTotalRowsAjax("中文或拼音","All","All","All","All");
+		
+		//检查是否需要执行搜索功能
+		checkSearch();
 	}
 </script>
 
