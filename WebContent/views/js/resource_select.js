@@ -444,8 +444,9 @@ function checkSearch(){
 		}
 		//执行搜索
 		searchKind();
-		
+		return false;//返回false，不执行list页面的默认的异步加载资源
 	}
+	return true;//返回true说明不需要执行搜索，则执行list页面上默认的资源加载
 }
 
 //将utf-8转回汉字的代码  

@@ -230,11 +230,14 @@
 		//Rescreen();
 		loadFocus();
 		//页面一加载进行默认的筛选
+		if(checkSearch()){
 		getSelectedCargoAjax("中文或拼音","中文或拼音","All","All","All");
 		getSelectedCargoTotalRows("中文或拼音","中文或拼音","All","All","All");
+			
+		}
 		
 		//检查是否需要执行搜索功能
-		checkSearch();
+		//checkSearch();
     }
 	function Reset()
 	{

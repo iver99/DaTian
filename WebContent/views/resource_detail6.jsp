@@ -391,7 +391,7 @@
 	function OnLoad() {
 		loadFocus();
 		
-		$("#search_content").css("height",40);
+		$("#search_content").css("height",36);
 	}
 </script>
 </html>

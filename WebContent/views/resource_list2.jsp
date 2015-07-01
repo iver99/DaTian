@@ -287,11 +287,14 @@
 		//Rescreen();
 		loadFocus();
 		//GetRequest();
+		if(checkSearch()){
 		getSelectedLineAjax("中文或拼音","All","All",10,1);
 		getSelectedCityLineTotalRowsAjax("中文或拼音","All","All",10,1);
+			
+		}
 		
 		//检查是否需要执行搜索功能
-		checkSearch();
+		//checkSearch();
 		
 	}
 </script>

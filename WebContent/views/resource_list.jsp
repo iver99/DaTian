@@ -228,10 +228,12 @@
 <script type="text/javascript" charset="utf-8">
 	function OnLoad() {
 		loadFocus();
+		if(checkSearch()){
 		getSelectedLineAjax("中文或拼音","中文或拼音","All","All","All",10,1);
 		getSelectedLineTotalRowsAjax("中文或拼音","中文或拼音","All","All","All",10,1);
+		}
 		//检查是否需要执行搜索功能
-		checkSearch();
+		//checkSearch();
 	}
 </script>
 <script type="text/javascript">

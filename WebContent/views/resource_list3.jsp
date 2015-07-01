@@ -354,8 +354,11 @@
 function OnLoad() {
 	//Rescreen();
 	loadFocus();
+	if(checkSearch()){
 	getSelectedCarAjax("中文或拼音","中文或拼音","All","All","All",10,1);
 	getSelectedCarTotalRows("中文或拼音","中文或拼音","All","All","All",10,1);
+		
+	}
 	
 	//检查是否需要执行搜索功能
 	checkSearch();
