@@ -2,18 +2,34 @@
 function changeToSearchPage(){
 	var resource_kind=$("#resource_choose").val();
 	var search_content=$("#search_content").val();
+	var container=$("#thead");
+	container.empty();//清空
+	container.append("<tr>");
 	if(resource_kind == '线路'){
 		window.location.href="linetransport?flag=0&resource_kind="+resource_kind+"&search_content="+search_content;
+		//debugger;
+		container.append("<td width=\"15\" class=\"td_main_list_head\"></td><td class=\"td_main_list_head\">线路名称</td><td width=\"100\" class=\"td_main_list_head\">参考价(元/kg)</td><td width=\"60\" class=\"td_main_list_head\">类型</td><td width=\"80\" class=\"td_main_list_head\">时限(小时)</td><td width=\"80\" class=\"td_main_list_head\">发布日期</td><td width=\"45\" class=\"td_main_list_head\">关注</td>");
+
 	}else if(resource_kind == '配送'){
 		window.location.href="cityline?flag=0&resource_kind="+resource_kind+"&search_content="+search_content;
+		container.append("<td width=\"15\" class=\"td_main_list_head\"></td><td class=\"td_main_list_head\">网络名称</td><td class=\"td_main_list_head\" width=\"100\">参考价(元/kg)</td><td class=\"td_main_list_head\" width=\"80\">增值服务</td><td class=\"td_main_list_head\" width=\"80\">信用等级</td><td class=\"td_main_list_head\" width=\"80\">发布日期</td><td class=\"td_main_list_head\" width=\"45\">关注</td>");
+
 	}else if(resource_kind == '车辆'){
 		window.location.href="car?flag=0&resource_kind="+resource_kind+"&search_content="+search_content;
+		container.append("<td width=\"15\" class=\"td_main_list_head\"></td><td class=\"td_main_list_head\">牌照号码</td><td class=\"td_main_list_head\" width=\"80\">用途</td><td class=\"td_main_list_head\" width=\"70\">状态</td><td class=\"td_main_list_head\" width=\"70\">车长(米)</td><td class=\"td_main_list_head\" width=\"70\">载重(吨)</td><td class=\"td_main_list_head\" width=\"100\">当前位置</td><td class=\"td_main_list_head\" width=\"80\">定位日期</td><td class=\"td_main_list_head\" width=\"45\">关注</td>");
+
 	}else if(resource_kind == '仓库'){
 		window.location.href="warehouse?flag=0&resource_kind="+resource_kind+"&search_content="+search_content;
+		container.append("<td width=\"15\" class=\"td_main_list_head\"></td><td class=\"td_main_list_head\">仓库名称</td><td class=\"td_main_list_head\" width=\"70\">消防等级</td>	<td class=\"td_main_list_head\" width=\"80\">类型</td><td class=\"td_main_list_head\" width=\"100\">面积(平方米)</td><td class=\"td_main_list_head\" width=\"80\">发布日期</td>	<td class=\"td_main_list_head\" width=\"45\">关注</td>");
+
 	}else if(resource_kind == '公司'){
 		window.location.href="company?resource_kind="+resource_kind+"&search_content="+search_content;
+		container.append("<td width=\"15\" class=\"td_main_list_head\"></td><td class=\"td_main_list_head\">公司名称</td><td class=\"td_main_list_head\" width=\"70\">资源级别</td><td class=\"td_main_list_head\" width=\"70\">公司性质</td><td class=\"td_main_list_head\" width=\"70\">信用等级</td><td class=\"td_main_list_head\" width=\"80\">发布日期</td><td class=\"td_main_list_head\" width=\"45\">关注</td>");
+
 	}else if(resource_kind == '货物'){
 		window.location.href="goodsform?flag=0&resource_kind="+resource_kind+"&search_content="+search_content;
+		container.append("<td width=\"15\" class=\"td_main_list_head\"></td><td class=\"td_main_list_head\">货物名称</td><td class=\"td_main_list_head\" width=\"70\">运输类型</td><td class=\"td_main_list_head\" width=\"100\">有效期至</td><td class=\"td_main_list_head\" width=\"80\">重量(吨)</td><td class=\"td_main_list_head\" width=\"110\">发布日期</td><td class=\"td_main_list_head\" width=\"45\">关注</td>");
+
 	}
 	
 }
@@ -25,9 +41,9 @@ function searchKind(){
 //	alert(resource_kind);
 	var search_content=$("#search_content").val();
 //	alert(search_content);
-	var container=$("#thead");
-	container.empty();//清空
-	container.append("<tr>");
+	//var container=$("#thead");
+	//container.empty();//清空
+	//container.append("<tr>");
 	//alert(window.location.pathname);
 	if(resource_kind == '线路'){
 		//window.location.href="linetransport?flag=0&resource_kind="+resource_kind+"&search_content="+search_content;
@@ -49,7 +65,7 @@ function searchKind(){
 		//container.append("<td width=\"15\" class=\"td_main_list_head\"></td><td class=\"td_main_list_head\">货物名称</td><td class=\"td_main_list_head\" width=\"70\">运输类型</td><td class=\"td_main_list_head\" width=\"100\">有效期至</td><td class=\"td_main_list_head\" width=\"80\">重量(吨)</td><td class=\"td_main_list_head\" width=\"110\">发布日期</td><td class=\"td_main_list_head\" width=\"45\">关注</td>");
 		searchFunc_cargo(search_content,resource_kind,10,1);
 	}
-	container.append("</tr>");
+	//container.append("</tr>");
 }
 
 ////**************一下为搜索的具体函数****************
