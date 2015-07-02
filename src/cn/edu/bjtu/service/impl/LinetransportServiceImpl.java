@@ -11,9 +11,11 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import cn.edu.bjtu.bean.page.LinetransportBean;
 import cn.edu.bjtu.bean.search.LinetransportSearchBean;
 import cn.edu.bjtu.dao.LinetransportDao;
 import cn.edu.bjtu.service.LinetransportService;
@@ -26,6 +28,7 @@ import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Linetransport;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 @Transactional
 @Service
@@ -443,6 +446,34 @@ public class LinetransportServiceImpl implements LinetransportService {
 		return count.intValue();
 		
 	}
+
+
+	/**
+	 * 我的信息-干线资源
+	 */
+	@Override
+	public JSONArray getUserLinetransportResource(HttpSession session,
+			PageUtil pageUtil) {
+		String carrierId=(String)session.getAttribute(Constant.USER_ID);
+		String hql="from Linetransport t where t.carrierId=:carrierId";
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("carrierId", carrierId);
+		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
+		int display=pageUtil.getDisplay()==0?10:pageUtil.getDisplay();
+		List<Linetransport> list=linetransportDao.find(hql, params,page,display);
+		
+		JSONArray jsonArray=new JSONArray();
+		for(int i=0;i<list.size();i++){
+			LinetransportBean lineBean=new LinetransportBean();
+			BeanUtils.copyProperties(list.get(i), lineBean);
+			JSONObject jsonObject=(JSONObject)JSONObject.toJSON(lineBean);
+			jsonArray.add(jsonObject);
+		}
+		
+		return jsonArray;
+	}
+	
+	
 	
 
 }

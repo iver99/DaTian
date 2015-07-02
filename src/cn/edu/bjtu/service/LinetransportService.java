@@ -9,6 +9,8 @@ import cn.edu.bjtu.util.DataModel;
 import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Linetransport;
 
+import com.alibaba.fastjson.JSONArray;
+
 public interface LinetransportService {
 
 	public List getAllLinetransport(int Display,int PageNow);
@@ -56,5 +58,13 @@ public interface LinetransportService {
 	 * @return
 	 */
 	public Integer getSelectedLineTotalRows(LinetransportSearchBean lineBean);
+	
+	/**
+	 * 我的信息-我的干线资源
+	 * @param session
+	 * @param pageUtil
+	 * @return
+	 */
+	public JSONArray getUserLinetransportResource(HttpSession session,PageUtil pageUtil);
 	
 }

@@ -22,6 +22,7 @@
 <script type="text/javascript" src="js/splitPage2.js"></script>
 <script type="text/javascript" src="js/focus_load.js"></script>
 <!-- 新增 -->
+<%@ include file="jsTool.jsp" %>
 
 <script type="text/javascript">
 	$(function() {
@@ -89,14 +90,15 @@
 
 		</table>
 
-		<div id="div_resource_list_head1">共 ${count } 条记录</div> <!-- 新增 --> <input
-		id="count" value="${count }" type="hidden" /> <input id="count"
-		value="${pageNum }" type="hidden" /> <input id="count"
-		value="${pageNow }" type="hidden" />
+		<div id="div_resource_list_head1"><%-- 共 ${count } 条记录 --%></div> <!-- 新增 --> 
+		<!-- 页码相关 -->
+		<input id="count" value="" type="hidden" /> 
+		<input id="display" value="10" type="hidden" /> 
+		<input id="currentPage" value="1" type="hidden" />
 
-		<table width="100%" border="0" cellspacing="0" cellpadding="0"
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" id="result_body"
 			class="table_mgmt_right3">
-			<tr>
+			<!-- <tr>
 				<td width="20" height="40" class="td_mgmt_right3_head1">&nbsp;</td>
 				<td class="td_mgmt_right3_head">名称</td>
 				<td width="60" class="td_mgmt_right3_head">运输类型</td>
@@ -106,8 +108,8 @@
 				<td width="100" class="td_mgmt_right3_head">参考价(元/kg)</td>
 				<td width="80" class="td_mgmt_right3_head">发布日期</td>
 				<td width="80" class="td_mgmt_right3_head">操作</td>
-			</tr>
-			<c:forEach var="linetransport" items="${linetransportList }">
+			</tr> -->
+			<%-- <c:forEach var="linetransport" items="${linetransportList }">
 				<tr>
 					<td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
 					<td class="td_mgmt_right3_td1"><a
@@ -140,7 +142,7 @@
 						</div>
 					</td>
 				</tr>
-			</c:forEach>
+			</c:forEach> --%>
 		</table>
 		<table border="0" cellpadding="0" cellspacing="0"
 			class="table_recordnumber">
@@ -153,87 +155,9 @@
 				</select> 条记录
 				</td>
 			</tr>
-		</table> <%-- <%@ include file="page_table.jsp"%> --%>
-		<table border="0" cellpadding="0" cellspacing="0"
-			class="table_pagenumber" id="PageNow" value="1">
-			<tr>
-				<td width="45" class="td_pagenumber" onclick="ChangeTo('first')"><a
-					href="javascript:;" class="a_pagenumber" hidefocus="true">首页</a></td>
-				<td width="45" class="td_pagenumber" onclick="ChangeTo('previous')"><a
-					href="javascript:;" class="a_pagenumber" hidefocus="true">上页</a></td>
-				<c:if test="${pageNum < 8}">
-					<c:forEach begin="1" end="${pageNum }" var="i">
-						<td width="30" class="td_pagenumber" onclick="ChangePage(${i })"><a
-							href="javascript:;" class="a_pagenumber" hidefocus="true">${i }</a></td>
-					</c:forEach>
-				</c:if>
-				<c:if test="${pageNum >= 8}">
-					<c:choose>
-						<c:when test="${pageNow <= 3}">
-							<c:forEach begin="1" end="5" var="i">
-								<td width="30" class="td_pagenumber" onclick="ChangePage(${i })"><a
-									href="javascript:;" class="a_pagenumber" hidefocus="true">${i }</a></td>
-							</c:forEach>
-                        			...
-                        		</c:when>
-						<c:when test="${pageNow == 4}">
-							<c:forEach begin="1" end="6" var="i">
-								<td width="30" class="td_pagenumber" onclick="ChangePage(${i })"><a
-									href="javascript:;" class="a_pagenumber" hidefocus="true">${i }</a></td>
-							</c:forEach>
-                        			...
-                        		</c:when>
-						<c:when test="${pageNow == 5}">
-							<c:forEach begin="1" end="7" var="i">
-								<td width="30" class="td_pagenumber" onclick="ChangePage(${i })"><a
-									href="javascript:;" class="a_pagenumber" hidefocus="true">${i }</a></td>
-							</c:forEach>
-                        			...
-                        		</c:when>
-						<c:when test="${pageNow > 5 && pageNow < pageNum - 3}">
-							<td width="30" class="td_pagenumber" onclick="ChangePage('1')"><a
-								href="javascript:;" class="a_pagenumber" hidefocus="true">1</a></td>
-							<td width="30" class="td_pagenumber" onclick="ChangePage('2')"><a
-								href="javascript:;" class="a_pagenumber" hidefocus="true">2</a></td>
-                        		    ...
-                        			<c:forEach begin="${pageNow-2 }"
-								end="${pageNow+2 }" var="i">
-								<td width="30" class="td_pagenumber" onclick="ChangePage(${i })"><a
-									href="javascript:;" class="a_pagenumber" hidefocus="true">${i }</a></td>
-							</c:forEach>
-                        			...
-                        		</c:when>
-						<c:when test="${pageNow == pageNum - 3}">
-							<td width="30" class="td_pagenumber" onclick="ChangePage('1')"><a
-								href="javascript:;" class="a_pagenumber" hidefocus="true">1</a></td>
-							<td width="30" class="td_pagenumber" onclick="ChangePage('2')"><a
-								href="javascript:;" class="a_pagenumber" hidefocus="true">2</a></td>
-                        		    ...
-                        			<c:forEach begin="${pageNow-5 }"
-								end="${pageNow }" var="i">
-								<td width="30" class="td_pagenumber" onclick="ChangePage(${i })"><a
-									href="javascript:;" class="a_pagenumber" hidefocus="true">${i }</a></td>
-							</c:forEach>
-						</c:when>
-						<c:when test="${pageNow >= pageNum - 2}">
-							<td width="30" class="td_pagenumber" onclick="ChangePage('1')"><a
-								href="javascript:;" class="a_pagenumber" hidefocus="true">1</a></td>
-							<td width="30" class="td_pagenumber" onclick="ChangePage('2')"><a
-								href="javascript:;" class="a_pagenumber" hidefocus="true">2</a></td>
-                        		    ...
-                        			<c:forEach begin="${pageNow-4 }"
-								end="${pageNow }" var="i">
-								<td width="30" class="td_pagenumber" onclick="ChangePage(${i })"><a
-									href="javascript:;" class="a_pagenumber" hidefocus="true">${i }</a></td>
-							</c:forEach>
-						</c:when>
-					</c:choose>
-				</c:if>
-				<td width="45" class="td_pagenumber" onclick="ChangeTo('next')"><a
-					href="javascript:;" class="a_pagenumber" hidefocus="true">下页</a></td>
-				<td width="45" class="td_pagenumber" onclick="ChangeTo('last')"><a
-					href="javascript:;" class="a_pagenumber" hidefocus="true">末页</a></td>
-			</tr>
+		</table> 
+		<table border="0" cellpadding="0" cellspacing="0" id="page_layout" class="table_pagenumber" id="PageNow" value="1">
+			<!--  page -->
 		</table>
 
 	</td>
@@ -276,5 +200,57 @@
 	function OnLoad() {
 		loadFocus();
 	}
+	
+//加载干线资源
+function getUserLinetransportResource(display,currentPage){
+	var url="getUserLinetransportResource";
+	$.ajax({
+		url:url,
+		data:{
+			display:display,
+			currentPage:currentPage
+			},
+		cache:false,
+		dataType:"json",
+		success:function(data,status){
+			var body=$("#result_body");
+			body.empty();
+			body.append("<tr>");
+			body.append("<td width=\"20\" height=\"40\" class=\"td_mgmt_right3_head1\">&nbsp;</td>");
+			body.append("<td class=\"td_mgmt_right3_head\">名称</td>");
+			body.append("<td width=\"60" class=\"td_mgmt_right3_head\">运输类型</td>");
+			body.append("<td width=\"60" class=\"td_mgmt_right3_head\">始发</td>");
+			body.append("<td width=\"60" class=\"td_mgmt_right3_head\">到达</td>");
+			body.append("<td width=\"80" class=\"td_mgmt_right3_head\">在途(小时)</td>");
+			body.append("<td width=\"100" class=\"td_mgmt_right3_head\">参考价(元/kg)</td>");
+			body.append("<td width=\"80" class=\"td_mgmt_right3_head\">发布日期</td>");
+			body.append("<td width=\"80" class=\"td_mgmt_right3_head\">操作</td>");
+			body.append("</tr>");
+			
+			for(var i =0;i<data.length;i++){
+				body.append("<tr>");
+				body.append(\"<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>");
+						body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"linetransportdetail?linetransportid=${linetransport.id }&carrierId=0&flag=1\" hidefocus=\"true\">${linetransport.startPlace }→${linetransport.endPlace }</a></td>");
+						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].type+"</td>");
+						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].startPlace+"</td>");
+						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].endPlace+"</td>");
+						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].onWayTime+"</td>");
+						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].refPrice+"</td>");
+						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].relDate+"</td>");
+						body.append("<td class=\"td_mgmt_right3_td3\"><div id=\"handlebox\" style=\"z-index: 201;\">");
+						body.append("<ul class=\"quickmenu\"><li class=\"menuitem\">");
+						body.append("<div class=\"menu\">");
+						body.append("<a href=\"linetransportdetail?linetransportid="+data[i].id+"&carrierId=0&flag=2\" class=\"menuhd\" hidefocus=\"true\">更新</a>");
+						body.append("<div class=\"menubd\">");
+						body.append("<div class=\"menubdpanel\">");
+						body.append("<a href=\"linetransportdelete?id="+data[i].id+" class=\"a_top3\" hidefocus=\"true\">删除</a>");
+						body.append("</div></div></div></li></ul></div></td>");
+				
+			}
+			
+		}
+	})
+}
 </script>
+
 </html>

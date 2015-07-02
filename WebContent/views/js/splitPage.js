@@ -1,73 +1,73 @@
-/**
- * 分页操作
- */
-//页面 跳转
-/*function ChangeTo(page){
-	alert("change to "+page);
-	$('#currentPage').val(page);
-	$('#btn1').click();
-}*/
-
-
-/*function ChangePage(page){
-		//alert("changepage+"+page);
-		var url = location.search;
-		if (url.indexOf("?") != -1) {
-		      var str = url.substr(1);
-		      
-		      if(str.indexOf("flag") != -1)
-		      {
-		    	  //alert("changepage+if");
-		    	  var pageNum = Math.ceil(document.getElementById("count").value / 10) ;//默认是每页10条
-		    	  document.getElementById("PageNow").setAttribute('value',page);
-		      }
-		      else
-		    	  {
-		    	  //alert("changepage+else");
-		    	  strs = str.split("&");
-			      var pageNum = Math.ceil(document.getElementById("count").value / Number(UrlDecode(strs[strs.length-2].split("=")[1])));
-			      document.getElementById("PageNow").setAttribute('value',page);
-		    	  }
-		      
-		      
+//控制页码显示
+function pageLayout(totalRows){
+	//alert(totalRows);
+	var display=parseInt($('#display').val());
+	var currentPage=parseInt($('#currentPage').val());
+	var pageNum=Math.ceil(totalRows/display);
+	//alert(pageNum);
+	var page_layout=$('#page_layout');//onclick='ChangeTo("+pageNum+")'
+	page_layout.append("<tr>");
+	page_layout.append("<td width='45' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+1+");' class='a_pagenumber' hidefocus='true'>首页</a></td>");
+	var pre=currentPage==1?1:currentPage-1;
+	page_layout.append("<td width='45' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+pre+");' class='a_pagenumber' hidefocus='true'>上页</a></td>");
+	if(pageNum< 8){
+		for(var i=1;i<=pageNum;i++){
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+i+");' class='a_pagenumber' hidefocus='true'>"+i+"</a></td>");
 		}
-		document.getElementById("btn1").click();
 	}
-	
-	function ChangeTo(operate){	
-		//alert("changeto+"+operate);
-		var url = location.search;
-		if (url.indexOf("?") != -1) {
-		      var str = url.substr(1);
-		      var num;
-		      if(str.indexOf("flag") != -1){
-		    	  
-		    	  var pageNum = Math.ceil(document.getElementById("count").value /10);//默认每页10条
-		    	  switch(operate)
-			      {
-			      case "first": num = 1;break;
-			      case "previous": num = 1;break;
-			      case "next": num = 1 + 1;break;
-			      case "last": num = pageNum;break;
-			      }
-		      }
-		      else
-		    {
-		    	  strs = str.split("&");
-		    	  var pageNum = Math.ceil(document.getElementById("count").value / Number(UrlDecode(strs[strs.length-2].split("=")[1])));
-		    	  switch(operate)
-			      {
-			      case "first": num = 1;break;
-			      case "previous": num = Number(UrlDecode(strs[strs.length-1].split("=")[1])) - 1;break;
-			      case "next": num = Number(UrlDecode(strs[strs.length-1].split("=")[1])) + 1;break;
-			      case "last": num = pageNum;break;
-			      }
-		    }
-		      if(num <= 0)
-		    	  num = 1;
-		      else if(num > pageNum)
-		    	  num = pageNum;
-		      document.getElementById("PageNow").setAttribute('value',num.toString());
+	if(pageNum>=8){
+		if(currentPage<=3){
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+i+");' class='a_pagenumber' hidefocus='true'>"+i+"</a></td>");
+			page_layout.append("...");
 		}
-		document.getElementById("btn1").click();
-	}*/
+		if(currentPage==4){
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+i+");' class='a_pagenumber' hidefocus='true'>"+i+"</a></td>");
+			page_layout.append("...");
+		}
+		if(currentPage==5){
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+i+");' class='a_pagenumber' hidefocus='true'>"+i+"</a></td>");
+			page_layout.append("...");
+		}
+		if(currentPage>5 && currentPage<=pageNum-3){
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo('1');' class='a_pagenumber' hidefocus='true'>1</a></td>");
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo('2');' class='a_pagenumber' hidefocus='true'>2</a></td>");
+			page_layout.append("...");
+			for(var j=currentPage-2;j<currentPage+2;j++){
+				page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+j+");' class='a_pagenumber' hidefocus='true'>"+j+"</a></td>");
+			}
+			page_layout.append("...");
+		}
+		if(currentPage==pageNum-3){
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo('1');' class='a_pagenumber' hidefocus='true'>1</a></td>");
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo('2');' class='a_pagenumber' hidefocus='true'>2</a></td>");
+			page_layout.append("...");
+			for(var i=currentPage-5;i<=currentPage;i++){
+				page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+i+");' class='a_pagenumber' hidefocus='true'>"+i+"</a></td>");
+			}
+		}
+		if(currentPage==pageNum-2){
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo('1');' class='a_pagenumber' hidefocus='true'>1</a></td>");
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo('2');' class='a_pagenumber' hidefocus='true'>2</a></td>");
+			page_layout.append("...");
+			for(var i=currentPage-4;i<=currentPage;i++){
+				page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+i+");' class='a_pagenumber' hidefocus='true'>"+i+"</a></td>");
+			}
+		}
+	}
+	var lat=currentPage==pageNum?pageNum:currentPage+1;
+	//alert(lat);
+	page_layout.append("<td width='45' class='td_pagenumber' ><a href='javascript:ChangeTo("+lat+");' class='a_pagenumber' hidefocus='true'>下页</a></td>");
+	page_layout.append("<td width='45' class='td_pagenumber' ><a href='javascript:ChangeTo("+pageNum+");' class='a_pagenumber' hidefocus='true'>末页</a></td>");
+	page_layout.append("</tr>");
+   
+}
+//页面 跳转(资源栏列表页使用)
+function ChangeTo(page){
+	//alert("change to "+page);
+	var page_layout=$('#page_layout');
+	page_layout.empty();
+	$('#currentPage').val(page);
+	//点击页码，标志位置为1
+	$('#flag').val(1);
+	$('#btn1').click();
+}

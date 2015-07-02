@@ -64,6 +64,7 @@ public class LinetransportController {
 	 * @param session
 	 * @return
 	 */
+	@Deprecated
 	@RequestMapping(value="/linetransport",params="flag=1")
 	public ModelAndView getAllCompanyLine(@RequestParam int flag,
 			PageUtil page, HttpSession session) {
@@ -80,6 +81,33 @@ public class LinetransportController {
 			mv.setViewName("mgmt_r_line");
 			return mv;
 	}
+	/**
+	 * 我的信息-干线资源 
+	 * @param session
+	 * @param lineBean
+	 * @param pageUtil
+	 * @return
+	 */
+	@RequestMapping("getUserLinetransportResource")
+	@ResponseBody
+	public String getUserLinetransportResource(HttpSession session,PageUtil pageUtil) {
+		
+		JSONArray jsonArray=linetransportService.getUserLinetransportResource(session,pageUtil);
+		
+		return jsonArray.toString();
+	}
+	
+	/**
+	 * 我的信息-干线资源总条数
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("getUserLinetransportResourceTotalRows")
+	@ResponseBody
+	public Integer getUserLinetransportResourceTotalRows(HttpSession session){
+		return null;
+	}
+	
 	
 	@RequestMapping(value = "/linetransportdetail", method = RequestMethod.GET)
 	/**
