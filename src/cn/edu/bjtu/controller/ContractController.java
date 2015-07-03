@@ -23,6 +23,7 @@ import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.service.ContractService;
 import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.DownloadFile;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Contract;
@@ -339,6 +340,41 @@ public class ContractController {
 		response.setContentType("text/json;charset=UTF-8");
 		return jsonArray.toString();
 		
+	}
+	
+	/**
+	 * 我的信息-合同信息
+	 * @Title: getUserContract 
+	 *  
+	 * @param: @param session
+	 * @param: @return 
+	 * @return: String 
+	 * @throws: 异常 
+	 * @author: chendonghao 
+	 * @date: 2015年7月3日 下午5:40:28
+	 */
+	@RequestMapping(value="getUserContractAjax",produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String getUserContract(HttpSession session,PageUtil pageUtil){
+		JSONArray jsonArray=contractService.getUserContract(session,pageUtil);
+		return jsonArray.toString();
+	}
+	
+	/**
+	 * 我的信息-合同信息-总记录数
+	 * @Title: getUserContractTotalRows 
+	 *  
+	 * @param: @param session
+	 * @param: @return 
+	 * @return: Integer 
+	 * @throws: 异常 
+	 * @author: chendonghao 
+	 * @date: 2015年7月3日 下午5:42:46
+	 */
+	@RequestMapping("getUserContractTotalRowsAjax")
+	@ResponseBody
+	public Integer getUserContractTotalRows(HttpSession session){
+		return contractService.getUserContractTotalRows(session);
 	}
 	
 }

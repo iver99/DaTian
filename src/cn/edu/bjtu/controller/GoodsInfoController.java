@@ -382,5 +382,39 @@ public class GoodsInfoController {
 		return mv;
 
 	}
+	/**
+	 * 我的信息=我的货物
+	 * @Title: getUserCargoResource 
+	 *  
+	 * @param: @param session
+	 * @param: @return 
+	 * @return: String 
+	 * @throws: 异常 
+	 * @author: chendonghao 
+	 * @date: 2015年7月3日 下午4:56:10
+	 */
+	@ResponseBody
+	@RequestMapping(value="getUserCargoResourceAjax",produces = "text/html;charset=UTF-8")
+	public String getUserCargoResource(HttpSession session,PageUtil pageUtil){
+		JSONArray jsonArray=goodsInfoService.getUserCargoResource(session,pageUtil);
+		return jsonArray.toString();
+	}
 	
+	/**
+	 * 我的信息-货物信息-总记录数
+	 * @Title: getUserCargoResourceTotalRows 
+	 *  
+	 * @param: @param session
+	 * @param: @return 
+	 * @return: Integer 
+	 * @throws: 异常 
+	 * @author: chendonghao 
+	 * @date: 2015年7月3日 下午4:58:56
+	 */
+	@ResponseBody
+	@RequestMapping("getUserCargoResourceTotalRowsAjax")
+	public Integer getUserCargoResourceTotalRows(HttpSession session){
+		return goodsInfoService.getUserCargoTotalRows(session);
+	}
+
 }

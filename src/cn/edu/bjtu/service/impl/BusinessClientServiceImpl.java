@@ -44,8 +44,19 @@ public class BusinessClientServiceImpl implements BusinessClientService{
 		}
 		
 		return jsonArray;
-		
-		
+	}
+	
+	/**
+	 * 我的信息-客户信息-总记录数
+	 */
+	@Override
+	public Integer getUserBusinessClientTotalRows(HttpSession session) {
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+		Map<String,Object> params=new HashMap<String,Object>();
+		String hql="select count(*) from Businessclient t where t.carrierId=:userId";
+		params.put("userId", userId);
+		Long count=businessClientDao.count(hql, params);
+		return count.intValue();
 	}
 
 }

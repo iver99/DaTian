@@ -5,15 +5,21 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.ContractDao;
 import cn.edu.bjtu.service.ContractService;
+import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.HQLTool;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.util.ParseDate;
 import cn.edu.bjtu.vo.Contract;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 @Transactional
 @Service("contractServiceImpl")
 /**
@@ -208,4 +214,51 @@ public class ContractServiceImpl implements ContractService{
 		return contractDao.changeStatus(id);
 	}
 	
+	/**
+	 * 我的信息-合同信息
+	 */
+	@Override
+	public JSONArray getUserContract(HttpSession session,PageUtil pageUtil) {
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+		Integer userKind=(Integer)session.getAttribute(Constant.USER_KIND);
+		String hql="from Contract t where ";
+		if(userKind == 2){//个人用户
+			hql+="t.clientId=:userId";
+		}else if(userKind == 3){//企业用户
+			hql+="t.carrierId=:userId";
+		}
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("userId", userId);
+		
+		List<Contract> contractList = contractDao.find(hql, params);
+		JSONArray jsonArray = new JSONArray();
+		for (Contract contract : contractList) {
+			JSONObject jsonObject = (JSONObject) JSONObject.toJSON(contract);
+			jsonArray.add(jsonObject);
+		}
+		
+		return jsonArray;
+
+	}
+
+	/**
+	 * 我的信息-合同信息-总记录数
+	 */
+	@Override
+	public Integer getUserContractTotalRows(HttpSession session) {
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+		Integer userKind=(Integer)session.getAttribute(Constant.USER_KIND);
+		String hql="select count(*) from Contract t where ";
+		if(userKind == 2){//个人用户
+			hql+="t.clientId=:userId";
+		}else if(userKind == 3){//企业用户
+			hql+="t.carrierId=:userId";
+		}
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("userId", userId);
+		
+		Long count=contractDao.count(hql, params);
+		return count.intValue();
+	}
+
 }

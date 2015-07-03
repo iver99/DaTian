@@ -92,9 +92,10 @@
 
 		<div id="div_resource_list_head1"><%-- 共 ${count } 条记录 --%></div> <!-- 新增 --> 
 		<!-- 页码相关 -->
-		<input id="count" value="" type="hidden" /> 
-		<input id="display" value="10" type="hidden" /> 
-		<input id="currentPage" value="1" type="hidden" />
+		<input id="count" value="" type="hidden" /><!--  总记录条数 -->
+		<input id="display" value="10" type="hidden" /> <!-- 每页展示的数量 -->
+		<input id="currentPage" value="1" type="hidden" /><!-- 当前页 -->
+		<inpyt id="is_resource_page" value="0" type="hidden"/><!-- 是否为资源页，资源页需要模拟click按钮 -->
 
 		<table width="100%" border="0" cellspacing="0" cellpadding="0" id="result_body"
 			class="table_mgmt_right3">
@@ -203,7 +204,7 @@
 	
 //加载干线资源
 function getUserLinetransportResource(display,currentPage){
-	var url="getUserLinetransportResource";
+	var url="getUserLinetransportResourceAjax";
 	$.ajax({
 		url:url,
 		data:{
@@ -226,11 +227,11 @@ function getUserLinetransportResource(display,currentPage){
 			body.append("<td width=\"80" class=\"td_mgmt_right3_head\">发布日期</td>");
 			body.append("<td width=\"80" class=\"td_mgmt_right3_head\">操作</td>");
 			body.append("</tr>");
-			
+			//循环输出结果集
 			for(var i =0;i<data.length;i++){
 				body.append("<tr>");
-				body.append(\"<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>");
-						body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"linetransportdetail?linetransportid=${linetransport.id }&carrierId=0&flag=1\" hidefocus=\"true\">${linetransport.startPlace }→${linetransport.endPlace }</a></td>");
+				body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>");
+						body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"linetransportdetail?linetransportid="+data[i].id+"&carrierId=0&flag=1\" hidefocus=\"true\">"+data[i].startPlace+"→"+data[i].endPlace+"</a></td>");
 						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].type+"</td>");
 						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].startPlace+"</td>");
 						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].endPlace+"</td>");
@@ -245,12 +246,34 @@ function getUserLinetransportResource(display,currentPage){
 						body.append("<div class=\"menubdpanel\">");
 						body.append("<a href=\"linetransportdelete?id="+data[i].id+" class=\"a_top3\" hidefocus=\"true\">删除</a>");
 						body.append("</div></div></div></li></ul></div></td>");
+						body.append("</tr>");
 				
 			}
 			
 		}
 	})
 }
+//干线资源总条数
+function getUserLinetransportResourceTotalRows(display,currentPage){
+	var url="getUserLinetransportResourceTotalRowsAjax";
+	$.ajax({
+		url:url,
+		data:{
+			display:display,
+			currentPage:currentPage
+		},
+		cache:false,
+		dataType:"json",
+		success:function(data,status){
+			 $('#count').val(data);
+			  pageLayout(data);//页面布局
+		}
+	});
+	
+	
+	
+}
+
 </script>
 
 </html>

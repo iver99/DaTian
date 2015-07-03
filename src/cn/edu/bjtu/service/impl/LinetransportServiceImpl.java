@@ -473,7 +473,21 @@ public class LinetransportServiceImpl implements LinetransportService {
 		return jsonArray;
 	}
 	
-	
+	/**
+	 * 我的信息-干线资源-总记录条数
+	 */
+	@Override
+	public Integer getUserLinetransportResourceTotalRows(HttpSession session) {
+		
+		String carrierId=(String)session.getAttribute(Constant.USER_ID);
+		Map<String,Object> params=new HashMap<String,Object>();
+		String hql="select count(*) from Linetransport t where t.carrierId=:carrierId";
+		params.put("carrierId", carrierId);
+		
+		Long count=linetransportDao.count(hql, params);
+		
+		return count.intValue();
+	}
 	
 
 }

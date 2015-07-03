@@ -4,7 +4,11 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,9 +17,14 @@ import org.springframework.transaction.annotation.Transactional;
 import cn.edu.bjtu.dao.CarDao;
 import cn.edu.bjtu.dao.DriverDao;
 import cn.edu.bjtu.service.DriverService;
+import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.IdCreator;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Carinfo;
 import cn.edu.bjtu.vo.Driverinfo;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 @Service
 @Transactional
@@ -172,4 +181,40 @@ public class DriverServiceImpl implements DriverService{
 		driverDao.delete(driverinfo);
 		return true;
 	}
+	/**
+	 * 我的信息-司机信息
+	 */
+	@Override
+	public JSONArray getUserDriverResource(HttpSession session,PageUtil pageUtil) {
+		String carrierId=(String)session.getAttribute(Constant.USER_ID);
+		String hql="from Driverinfo t where t.carrierId=:carrierId";
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("carrierId", carrierId);
+		List<Driverinfo> driverList=driverDao.find(hql, params);
+		
+		JSONArray jsonArray=new JSONArray();
+		for(Driverinfo driver:driverList){
+			JSONObject jsonObject=(JSONObject)JSONObject.toJSON(driver);
+			jsonArray.add(jsonObject);
+		}
+		
+		return jsonArray;
+		
+	}
+
+	/**
+	 * 我的信息-司机信息-总记录条数
+	 */
+	@Override
+	public Integer getUserDriverResourceTotalRows(HttpSession session) {
+		String carrierId=(String)session.getAttribute(Constant.USER_ID);
+		String hql="select count(*) from Driverinfo t where t.carrierId=:carrierId";
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("carrierId", carrierId);
+		
+		Long count=driverDao.count(hql, params);
+		return count.intValue();
+		
+	}
+	
 }

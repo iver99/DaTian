@@ -60,7 +60,7 @@ public interface CarService {
 	/**
 	 * 获取公司车队姓名列表
 	 * @Title: getCompanyCarteamList 
-	 * @Description: TODO 
+	 *  
 	 * @param: @param session
 	 * @param: @return 
 	 * @return: JSONArray 
@@ -69,6 +69,32 @@ public interface CarService {
 	 * @date: 2015年6月29日 下午5:35:42
 	 */
 	public List<Carteam> getCompanyCarteamList(HttpSession session);
+	
+	/**
+	 * 我的信息-车辆信息-总记录条数
+	 * @Title: getUserCarResourceTotalRows 
+	 *  
+	 * @param: @param session
+	 * @param: @return 
+	 * @return: Integer 
+	 * @throws: 异常 
+	 * @author: chendonghao 
+	 * @date: 2015年7月3日 上午11:12:59
+	 */
+	public Integer getUserCarResourceTotalRows(HttpSession session);
+	
+	/**
+	 * 我的信息-车辆信息
+	 * @Title: getUserCarResource 
+	 *  
+	 * @param: @param session
+	 * @param: @return 
+	 * @return: JSONArray 
+	 * @throws: 异常 
+	 * @author: chendonghao 
+	 * @date: 2015年7月3日 上午11:13:42
+	 */
+	public JSONArray getUserCarResource(HttpSession session,PageUtil pageUtil);
 	
 	
 	

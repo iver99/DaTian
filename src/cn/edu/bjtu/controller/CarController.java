@@ -690,4 +690,80 @@ public class CarController {
 		
 	}
 	
+	
+	/**
+	 * 我的信息-车辆信息
+	 * @Title: getUserCarResource 
+	 *  
+	 * @param: @param session
+	 * @param: @return 
+	 * @return: String 
+	 * @throws: 异常 
+	 * @author: chendonghao 
+	 * @date: 2015年7月3日 上午11:10:00
+	 */
+	@RequestMapping(value="getUserCarResourceAjax",produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String getUserCarResource(HttpSession session,PageUtil pageUtil){
+		
+		JSONArray jsonArray=carService.getUserCarResource(session,pageUtil);
+		
+		return jsonArray.toString();
+	}
+	
+	/**
+	 * 我的信息-车辆信息-总记录条数
+	 * @Title: getUserCarResourceTotalRows 
+	 *  
+	 * @param: @param session
+	 * @param: @return 
+	 * @return: Integer 
+	 * @throws: 异常 
+	 * @author: chendonghao 
+	 * @date: 2015年7月3日 上午11:11:56
+	 */
+	@RequestMapping(value="getUserCarResourceTotalRowsAjax")
+	@ResponseBody
+	public Integer getUserCarResourceTotalRows(HttpSession session){
+		
+		return carService.getUserCarResourceTotalRows(session);
+	}
+	/**
+	 * 我的信息-司机信息
+	 * @Title: getUserCarResource 
+	 *  
+	 * @param: @param session
+	 * @param: @return 
+	 * @return: String 
+	 * @throws: 异常 
+	 * @author: chendonghao 
+	 * @date: 2015年7月3日 上午11:10:00
+	 */
+	@RequestMapping(value="getUserDriverResourceAjax",produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String getUserDriverResource(HttpSession session,PageUtil pageUtil){
+		
+		JSONArray jsonArray=driverService.getUserDriverResource(session,pageUtil);
+		
+		return jsonArray.toString();
+	}
+	
+	/**
+	 * 我的信息-车辆信息-总记录条数
+	 * @Title: getUserCarResourceTotalRows 
+	 *  
+	 * @param: @param session
+	 * @param: @return 
+	 * @return: Integer 
+	 * @throws: 异常 
+	 * @author: chendonghao 
+	 * @date: 2015年7月3日 上午11:11:56
+	 */
+	@RequestMapping("getUserDriverResourceTotalRowsAjax")
+	@ResponseBody
+	public Integer getUserDriverResourceTotalRows(HttpSession session){
+		
+		return driverService.getUserDriverResourceTotalRows(session);
+	}
+
 }

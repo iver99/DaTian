@@ -42,4 +42,31 @@ public interface CitylineService {
 	 */
 	public Integer getSelectedCityLineTotalRows(CityLineSearchBean citylineBean);
 	
+	/**
+	 * 我的信息-城市配送-总记录数 
+	 * @Title: getUserCitylineResourceTotalRows 
+	 *  
+	 * @param: @param session
+	 * @param: @return 
+	 * @return: Integer 
+	 * @throws: 异常 
+	 * @author: chendonghao 
+	 * @date: 2015年7月3日 上午9:56:06
+	 */
+	public Integer getUserCitylineResourceTotalRows(HttpSession session);
+	
+	/**
+	 * 我的信息-城市配送
+	 * @Title: getUserCitylineResource 
+	 *  
+	 * @param: @param session
+	 * @param: @return 
+	 * @return: JSONArray 
+	 * @throws: 异常 
+	 * @author: chendonghao 
+	 * @date: 2015年7月3日 上午9:57:01
+	 */
+	public JSONArray getUserCitylineResource(HttpSession session,PageUtil pageUtil);
+		
+	
 }

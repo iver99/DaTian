@@ -16,4 +16,17 @@ public interface BusinessClientService {
 	 * @return
 	 */
 	public JSONArray getUserBusinessClient(HttpSession session);
+	
+	/**
+	 * 我的信息-客户信息-总记录数
+	 * @Title: getUserBusinessClientTotalRows 
+	 *  
+	 * @param: @param session
+	 * @param: @return 
+	 * @return: Integer 
+	 * @throws: 异常 
+	 * @author: chendonghao 
+	 * @date: 2015年7月3日 下午4:33:16
+	 */
+	public Integer getUserBusinessClientTotalRows(HttpSession session);
 }

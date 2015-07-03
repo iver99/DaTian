@@ -97,6 +97,8 @@ public class LinetransportController {
 		return jsonArray.toString();
 	}
 	
+	
+	
 	/**
 	 * 我的信息-干线资源总条数
 	 * @param session
@@ -105,9 +107,9 @@ public class LinetransportController {
 	@RequestMapping("getUserLinetransportResourceTotalRows")
 	@ResponseBody
 	public Integer getUserLinetransportResourceTotalRows(HttpSession session){
-		return null;
+		
+		return linetransportService.getUserLinetransportResourceTotalRows(session);
 	}
-	
 	
 	@RequestMapping(value = "/linetransportdetail", method = RequestMethod.GET)
 	/**

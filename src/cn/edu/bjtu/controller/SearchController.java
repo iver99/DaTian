@@ -105,7 +105,7 @@ public class SearchController {
 	 * 检查搜索的请求是不是由资源list页面发出来的，如果是，页面不用跳转，如果不是
 	 * 页面需要跳转到list页面以供显示资源
 	 * @Title: checkURL 
-	 * @Description: TODO 
+	 *  
 	 * @param: @param url
 	 * @param: @return 
 	 * @return: boolean 

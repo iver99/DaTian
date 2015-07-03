@@ -66,5 +66,18 @@ public interface LinetransportService {
 	 * @return
 	 */
 	public JSONArray getUserLinetransportResource(HttpSession session,PageUtil pageUtil);
+	/**
+	 * 我的信息-干线资源-总记录数
+	 * @Title: getUserLinetransportResourceTotalRows 
+	 *  
+	 * @param: @param session
+	 * @param: @return 
+	 * @return: Integer 
+	 * @throws: 异常 
+	 * @author: chendonghao 
+	 * @date: 2015年7月3日 上午9:43:48
+	 */
+	public Integer getUserLinetransportResourceTotalRows(HttpSession session);
+
 	
 }
