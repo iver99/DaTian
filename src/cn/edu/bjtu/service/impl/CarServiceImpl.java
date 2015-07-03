@@ -353,9 +353,41 @@ public class CarServiceImpl implements CarService {
 		params.put("carrierId", carrierId);
 		
 		return carTeamDao.find(hql, params);
+	}
+	
+	/**
+	 * 我的信息-车辆信息-总记录条数
+	 */
+	@Override
+	public Integer getUserCarResourceTotalRows(HttpSession session) {
+		String carrierId=(String)session.getAttribute(Constant.USER_ID);
+		String hql="select count(*) from Carinfo t where t.carrierId=:carrierId";
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("carrierId", carrierId);
+		Long count=carDao.count(hql, params);
 		
+		return count.intValue();
 		
 	}
 
+	/**
+	 * 我的信息-车辆信息
+	 */
+	@Override
+	public JSONArray getUserCarResource(HttpSession session,PageUtil pageUtil) {
+		String carrierId=(String)session.getAttribute(Constant.USER_ID);
+		String hql="from Carinfo t where t.carrierId=:carrierId";
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("carrierId", carrierId);
+		List<Carinfo> carList=carDao.find(hql, params);
+		
+		JSONArray jsonArray=new JSONArray();
+		for(Carinfo car:carList){
+			JSONObject jsonObject=(JSONObject)JSONObject.toJSON(car);
+			jsonArray.add(jsonObject);
+		}
+		
+		return jsonArray;
+	}
 	
 }

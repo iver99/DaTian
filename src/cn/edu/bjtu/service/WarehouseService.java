@@ -44,4 +44,31 @@ public interface WarehouseService {
 	 * @return
 	 */
 	public Integer getSelectedWarehouseTotalRows(WarehouseSearchBean warehouseBean);
+	
+	/**
+	 * 我的信息-我的货物
+	 * @Title: getUserWarehouseResource 
+	 *  
+	 * @param: @param session
+	 * @param: @return 
+	 * @return: JSONArray 
+	 * @throws: 异常 
+	 * @author: chendonghao 
+	 * @date: 2015年7月3日 上午11:29:35
+	 */
+	public JSONArray getUserWarehouseResource(HttpSession session,PageUtil pageUtil);
+	
+	/**
+	 * 我的信息-我的货物-总记录条数
+	 * @Title: getUserWarehouseResourceTotalRows 
+	 *  
+	 * @param: @param session
+	 * @param: @return 
+	 * @return: Integer 
+	 * @throws: 异常 
+	 * @author: chendonghao 
+	 * @date: 2015年7月3日 上午11:30:06
+	 */
+	public Integer getUserWarehouseResourceTotalRows(HttpSession session);
+
 }

@@ -452,5 +452,40 @@ public class WarehouseController {
 
 	}
 	
+	/**
+	 * 我的信息-货物信息
+	 * @Title: getUserWarehouseResource 
+	 *  
+	 * @param: @param session
+	 * @param: @return 
+	 * @return: String 
+	 * @throws: 异常 
+	 * @author: chendonghao 
+	 * @date: 2015年7月3日 上午11:26:28
+	 */
+	@RequestMapping(value="getUserWarehouseResourceAjax",produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String getUserWarehouseResource(HttpSession session,PageUtil pageUtil){
+		JSONArray jsonArray=warehouseService.getUserWarehouseResource(session,pageUtil);
+		
+		return jsonArray.toString();
+	}
 	
+	/**
+	 * 我的信息-我的货物-总记录条数
+	 * @Title: getUserWarehouseResourceTotalRows 
+	 *  
+	 * @param: @param session
+	 * @param: @return 
+	 * @return: Integer 
+	 * @throws: 异常 
+	 * @author: chendonghao 
+	 * @date: 2015年7月3日 上午11:28:43
+	 */
+	@RequestMapping("getUserWarehouseResourceTotalRowsAjax")
+	@ResponseBody
+	public Integer getUserWarehouseResourceTotalRows(HttpSession session){
+		return warehouseService.getUserWarehouseResourceTotalRows(session);
+	}
+
 }

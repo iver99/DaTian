@@ -84,4 +84,31 @@ public interface GoodsInfoService {
 	 * @return
 	 */
 	public Integer getSelectedCargoTotalRows(CargoSearchBean cargoBean);
+	
+	/**
+	 * 我的信息-货物信息
+	 * @Title: getUserCargoResource 
+	 *  
+	 * @param: @param session
+	 * @param: @return 
+	 * @return: JSONArray 
+	 * @throws: 异常 
+	 * @author: chendonghao 
+	 * @date: 2015年7月3日 下午4:59:36
+	 */
+	public JSONArray getUserCargoResource(HttpSession session,PageUtil pageUtil);
+	
+	/**
+	 * 我的信息-货物in西
+	 * @Title: getUserCargoTotalRows 
+	 *  
+	 * @param: @param session
+	 * @param: @return 
+	 * @return: Integer 
+	 * @throws: 异常 
+	 * @author: chendonghao 
+	 * @date: 2015年7月3日 下午5:20:34
+	 */
+	public Integer getUserCargoTotalRows(HttpSession session);
+
 }

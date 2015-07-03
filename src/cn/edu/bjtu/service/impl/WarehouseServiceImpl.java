@@ -435,4 +435,38 @@ public class WarehouseServiceImpl implements WarehouseService {
 		return count.intValue();
 	}
 	
+	/**
+	 * 我的信息-货物信息
+	 */
+	@Override
+	public JSONArray getUserWarehouseResource(HttpSession session,PageUtil pageUtil) {
+		
+		String carrierId=(String)session.getAttribute(Constant.USER_ID);
+		String hql="from Warehouse t where t.carrierId=:carrierId";
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("carrierId", carrierId);
+		
+		List<Warehouse> warehouseList=warehouseDao.find(hql, params);
+		JSONArray jsonArray=new JSONArray();
+		for(Warehouse warehouse:warehouseList){
+			JSONObject jsonObject=(JSONObject)JSONObject.toJSON(warehouse);
+			jsonArray.add(jsonObject);
+		}
+		return jsonArray;
+	}
+
+	/**
+	 * 我的信息-货物信息-总记录条数
+	 */
+	@Override
+	public Integer getUserWarehouseResourceTotalRows(HttpSession session) {
+		String carrierId=(String)session.getAttribute(Constant.USER_ID);
+		String hql="select count(*) from Warehouse t where t.carrierId=:carrierId";
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("carrierId", carrierId);
+		
+		Long count =warehouseDao.count(hql, params);
+		return count.intValue();
+	}
+	
 }

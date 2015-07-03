@@ -22,12 +22,11 @@ import cn.edu.bjtu.service.BusinessClientService;
 import cn.edu.bjtu.service.ClientService;
 import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.DownloadFile;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Businessclient;
-import cn.edu.bjtu.vo.Contract;
 
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 
 @Controller
 /**
@@ -246,6 +245,43 @@ public class BusinessClientController {
 		
 		return jsonArray.toString();
 		
+		
+	}
+	/**
+	 * 我的信息-客户信息
+	 * @Title: getUserBusinessClient 
+	 *  
+	 * @param: @param session
+	 * @param: @return 
+	 * @return: String 
+	 * @throws: 异常 
+	 * @author: chendonghao 
+	 * @date: 2015年7月3日 下午4:26:54
+	 */
+	@ResponseBody
+	@RequestMapping(value="getUserBusinessClientAjax",produces = "text/html;charset=UTF-8")
+	public String getUserBusinessClient(HttpSession session,PageUtil pageUtil){
+		JSONArray jsonArray=businessClientService.getUserBusinessClient(session);
+		
+		return jsonArray.toString();
+		
+	}
+	
+	/**
+	 * 我的信息-客户信息总记录数
+	 * @Title: getUserBusinessClientTotalRows 
+	 *  
+	 * @param: @param session
+	 * @param: @return 
+	 * @return: Integer 
+	 * @throws: 异常 
+	 * @author: chendonghao 
+	 * @date: 2015年7月3日 下午4:28:30
+	 */
+	@ResponseBody
+	@RequestMapping(value="getUserBusinessClientTotalRowsAjax")
+	public Integer getUserBusinessClientTotalRows(HttpSession session){
+		return businessClientService.getUserBusinessClientTotalRows(session);
 		
 	}
 }

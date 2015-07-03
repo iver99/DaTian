@@ -343,5 +343,42 @@ public class CitylineController {
 		return mv;
 
 	}
+	
+	/**
+	 * 我的信息-城市配送
+	 * @Title: getUserCitylineResource 
+	 *  
+	 * @param: @param session
+	 * @param: @return 
+	 * @return: String 
+	 * @throws: 异常 
+	 * @author: chendonghao 
+	 * @date: 2015年7月3日 上午9:53:18
+	 */
+	@RequestMapping(value="getUserCitylineResourceAjax",produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String getUserCitylineResource(HttpSession session,PageUtil pageUtil){
+		JSONArray jsonArray=citylineService.getUserCitylineResource(session,pageUtil);
+		
+		return jsonArray.toString();
+	}
+	
+	/**
+	 * 我的信息-城市配送-总记录数
+	 * @Title: getUserCitylineResourceTotalRows 
+	 *  
+	 * @param: @param session
+	 * @param: @return 
+	 * @return: Integer 
+	 * @throws: 异常 
+	 * @author: chendonghao 
+	 * @date: 2015年7月3日 上午9:55:10
+	 */
+	@RequestMapping("getUserCitylineResourceTotalRows")
+	@ResponseBody
+	public Integer getUserCitylineResourceTotalRows(HttpSession session){
+		
+		return citylineService.getUserCitylineResourceTotalRows(session);
+	}
 
 }

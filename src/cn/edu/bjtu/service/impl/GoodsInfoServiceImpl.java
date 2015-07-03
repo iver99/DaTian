@@ -335,6 +335,39 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 		return wheresql;
 	}
 	 
-	 
+	/**
+	 * 我的信息-货物信息
+	 */
+	@Override
+	public JSONArray getUserCargoResource(HttpSession session,PageUtil pageUtil) {
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+		  String hql="from Goodsform t where t.clientId=:clientId";
+		  Map<String,Object> params=new HashMap<String,Object>();
+		  params.put("clientId", userId);
+		  List<Goodsform> cargoList=goodsinfoDao.find(hql, params);
+		 
+		  JSONArray jsonArray=new JSONArray();
+		  for(Goodsform cargo:cargoList){
+		   JSONObject jsonObject=(JSONObject)JSONObject.toJSON(cargo);
+		   jsonArray.add(jsonObject);
+		  }
+		 
+		  return jsonArray;
+	}
+
+	/**
+	 * 我的信息-货物信息-总记录数
+	 */
+	@Override
+	public Integer getUserCargoTotalRows(HttpSession session) {
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+		  String hql="select count(*) from Goodsform t where t.clientId=:clientId";
+		  Map<String,Object> params=new HashMap<String,Object>();
+		  params.put("clientId", userId);
+		  
+		  Long count=goodsinfoDao.count(hql, params);
+		  return count.intValue();
+	}
+	
 	 
 }

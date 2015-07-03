@@ -253,7 +253,7 @@ public class CommentServiceImpl implements CommentService{
 	/**
 	 * 根据评价的平均数字得到平均评价
 	 * @Title: getCommentFromRate 
-	 * @Description: TODO 
+	 *  
 	 * @param: @param rate
 	 * @param: @return 
 	 * @return: String 

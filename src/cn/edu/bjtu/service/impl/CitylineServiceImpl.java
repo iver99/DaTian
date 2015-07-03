@@ -406,5 +406,37 @@ public class CitylineServiceImpl implements CitylineService {
 				return count.intValue();
 	}
 	
-	
+	/**
+	 * 我的信息-城市配送-总记录数
+	 */
+	@Override
+	public Integer getUserCitylineResourceTotalRows(HttpSession session) {
+		String carrierId=(String) session.getAttribute(Constant.USER_ID);
+		String hql="select count(*) from Cityline t where t.carrierId=:carrierId ";
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("carrierId", carrierId);
+		Long count=citylineDao.count(hql, params);
+		return count.intValue();
+	}
+
+	/**
+	 * 我的信息-城市配送
+	 */
+	@Override
+	public JSONArray getUserCitylineResource(HttpSession session,PageUtil pageUtil) {
+		String carrierId=(String)session.getAttribute(Constant.USER_ID);
+		String hql="from Cityline t where t.carrierId=:carrierId";
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("carrierId", carrierId);
+		
+		List<Cityline> cityLineList=citylineDao.find(hql, params);
+		JSONArray jsonArray=new JSONArray();
+		for(Cityline cityLine:cityLineList){
+			JSONObject jsonObject=(JSONObject)JSONObject.toJSON(cityLine);
+			jsonArray.add(jsonObject);
+		}
+		
+		return jsonArray;
+		
+	}
 }
