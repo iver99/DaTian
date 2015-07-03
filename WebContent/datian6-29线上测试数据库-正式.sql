@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50541
 File Encoding         : 65001
 
-Date: 2015-06-22 19:56:29
+Date: 2015-06-29 23:35:28
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -291,7 +291,7 @@ CREATE TABLE `clientinfo` (
 -- Records of clientinfo
 -- ----------------------------
 INSERT INTO `clientinfo` VALUES ('C-0002', '郝晨栋', '男', '123123', null, '', '/usr/local/iver99/testfile.txt', '2015-05-31', null, null);
-INSERT INTO `clientinfo` VALUES ('CL23767471', '郝晨栋', '男', '18888237738', 'haochendong@163.com', '130203199001011234', '/usr/local/iver99/testfile.txt', '2015-05-31', null, null);
+INSERT INTO `clientinfo` VALUES ('CL23767471', '郝晨栋', '男', '18888237738', '1233@163.com', '130203199001011234', '/usr/local/iver99/testfile.txt', '2015-05-31', null, null);
 INSERT INTO `clientinfo` VALUES ('CL78387917', '苏磊', '男', '13293049303', 'sulei@163.com', '130203199001011236', '/usr/local/iver99/testfile.txt', '2015-06-06', null, null);
 INSERT INTO `clientinfo` VALUES ('CL81096930', '雷文雅', '女', '1832938483', 'leiwenya@163.com', '130203199001011235', '/usr/local/iver99/testfile.txt', '2015-06-06', null, null);
 
@@ -302,6 +302,7 @@ DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment` (
   `id` varchar(255) NOT NULL,
   `orderId` varchar(255) DEFAULT NULL,
+  `orderNum` varchar(255) DEFAULT NULL,
   `serviceAttitude` varchar(11) DEFAULT NULL,
   `transportEfficiency` varchar(11) DEFAULT NULL,
   `cargoSafety` varchar(11) DEFAULT NULL,
@@ -320,8 +321,8 @@ CREATE TABLE `comment` (
 -- ----------------------------
 -- Records of comment
 -- ----------------------------
-INSERT INTO `comment` VALUES ('AS2211219', 'OR84043492', '好', '一般', '差', '很差', 'test', '2015-06-20', null, null, null, null, 'CL23767471', 'CL29101095');
-INSERT INTO `comment` VALUES ('AS61374799', 'OR77562450', '很差', '差', '一般', '好', 'test', '2015-06-20', null, null, null, null, 'CL23767471', 'CL29101095');
+INSERT INTO `comment` VALUES ('AS2211219', 'OR84043492', 'y95698591', '好', '一般', '很好', '好', '这是一条测试评论', '2015-06-20', null, null, null, null, 'CL23767471', 'CL29101095');
+INSERT INTO `comment` VALUES ('AS61374799', 'OR77562450', 'y25369539', '好', '很好', '一般', '好', '这是一条测试评论', '2015-06-20', null, null, null, null, 'CL23767471', 'CL29101095');
 
 -- ----------------------------
 -- Table structure for companycertificate
@@ -340,6 +341,7 @@ CREATE TABLE `companycertificate` (
   `serviceIndustry` varchar(255) DEFAULT NULL,
   `businessKind` varchar(255) DEFAULT NULL,
   `companyContact` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
   `phone` varchar(255) DEFAULT NULL,
   `basicSituation` varchar(255) DEFAULT NULL,
   `relatedMaterial` varchar(255) DEFAULT NULL,
@@ -349,9 +351,9 @@ CREATE TABLE `companycertificate` (
 -- ----------------------------
 -- Records of companycertificate
 -- ----------------------------
-INSERT INTO `companycertificate` VALUES ('CL29101095  ', '北京东方之星货运公司', 'DM32293222', '翟博渊', '12343234323232', '北京市海淀区交大东路', '国有企业', '1-50人', '增值税发票', '医药', '干线运输线路,城市配送网络', '翟博渊', '13298766695', '准备上市', 'D://uploadFile//companyCertificate//CL29101095_datian上线6-3.sql');
-INSERT INTO `companycertificate` VALUES ('CL41403136', '上海德邦物流公司', 'DM32293222', '翟博渊', '12343234323232', '北京市海淀区交大东路', '合资企业', '50-200人', '非增值税发票', '电子', '干线运输线路,城市配送网络,仓储', '翟博渊', '13298766695', '准备扩大公司规模', 'D://uploadFile//companyCertificate//CL41403136_datian上线6-2.sql');
-INSERT INTO `companycertificate` VALUES ('CL73207711', '上海德邦物流公司', 'DM23232311', '翟博眼', '123213234234', '上海市', '国有企业', '50-200人', '非增值税发票', '电子', '干线运输线路,城市配送网络', '翟博渊', '19237234234', '准备上市', 'D://uploadFile//companyCertificate//CL73207711_datian测试版.sql');
+INSERT INTO `companycertificate` VALUES ('CL29101095  ', '北京东方之星货运公司', 'DM32293222', '翟博渊', '12343234323232', '北京市海淀区交大东路', '国有企业', '1-50人', '增值税发票', '医药', '干线运输线路,城市配送网络', '翟博渊', null, '13298766695', '准备上市', 'D://uploadFile//companyCertificate//CL29101095_datian上线6-3.sql');
+INSERT INTO `companycertificate` VALUES ('CL41403136', '上海德邦物流公司', 'DM32293222', '翟博渊', '12343234323232', '北京市海淀区交大东路', '合资企业', '50-200人', '非增值税发票', '电子', '干线运输线路,城市配送网络,仓储', '翟博渊', null, '13298766695', '准备扩大公司规模', 'D://uploadFile//companyCertificate//CL41403136_datian上线6-2.sql');
+INSERT INTO `companycertificate` VALUES ('CL73207711', '上海德邦物流公司', 'DM23232311', '翟博眼', '123213234234', '上海市', '国有企业', '50-200人', '非增值税发票', '电子', '干线运输线路,城市配送网络', '翟博渊', null, '19237234234', '准备上市', 'D://uploadFile//companyCertificate//CL73207711_datian测试版.sql');
 
 -- ----------------------------
 -- Table structure for complaintform
@@ -364,7 +366,7 @@ CREATE TABLE `complaintform` (
   `content` varchar(255) DEFAULT NULL,
   `relDate` date DEFAULT NULL,
   `state` varchar(255) DEFAULT NULL,
-  `orderId` varchar(255) DEFAULT NULL,
+  `orderNum` varchar(255) DEFAULT NULL,
   `relatedMaterial` varchar(255) DEFAULT NULL,
   `feedback` varchar(255) DEFAULT NULL,
   `clientId` varchar(255) DEFAULT NULL,
@@ -506,12 +508,12 @@ CREATE TABLE `focus` (
 -- Records of focus
 -- ----------------------------
 INSERT INTO `focus` VALUES ('F74029092', 'CL23767471', 'linetransport', 'LI00000003', '有效');
-INSERT INTO `focus` VALUES ('F91581654', 'CL23767471', 'linetransport', 'LI00000004', '有效');
 INSERT INTO `focus` VALUES ('F53667633', 'CL23767471', 'cityline', 'CI00000009', '有效');
 INSERT INTO `focus` VALUES ('F29133996', 'CL23767471', 'cityline', 'CI00000010', '有效');
 INSERT INTO `focus` VALUES ('F84803679', 'CL23767471', 'warehouse', 'RE00000001', '有效');
 INSERT INTO `focus` VALUES ('F66446781', 'CL23767471', 'company', 'CL73207711', '有效');
 INSERT INTO `focus` VALUES ('F3000900', 'CL23767471', 'goods', 'GO00000034', '有效');
+INSERT INTO `focus` VALUES ('F3812816', 'CL23767471', 'linetransport', 'LI00000004', '有效');
 
 -- ----------------------------
 -- Table structure for goodsform
@@ -697,6 +699,7 @@ DROP TABLE IF EXISTS `settlement`;
 CREATE TABLE `settlement` (
   `id` varchar(255) NOT NULL,
   `orderNum` varchar(255) DEFAULT NULL,
+  `orderId` varchar(255) DEFAULT NULL,
   `userId` varchar(255) DEFAULT NULL,
   `username` varchar(255) DEFAULT NULL,
   `createTime` datetime DEFAULT NULL,
@@ -706,15 +709,17 @@ CREATE TABLE `settlement` (
 -- ----------------------------
 -- Records of settlement
 -- ----------------------------
-INSERT INTO `settlement` VALUES ('SE10833518', 'y95698591', 'CL23767471', 'user1', '2015-06-20 00:00:00');
-INSERT INTO `settlement` VALUES ('SE16087923', 'y95698591', 'CL23767471', 'user1', '2015-06-20 00:00:00');
-INSERT INTO `settlement` VALUES ('SE2144741', 'y95698591', 'CL23767471', 'user1', '2015-06-20 00:00:00');
-INSERT INTO `settlement` VALUES ('SE33321502', 'y25369539', 'CL23767471', 'user1', '2015-06-20 00:00:00');
-INSERT INTO `settlement` VALUES ('SE43682321', 'y95698591', 'CL23767471', 'user1', '2015-06-20 00:00:00');
-INSERT INTO `settlement` VALUES ('SE55881404', 'y25369539', 'CL23767471', 'user1', '2015-06-20 00:00:00');
-INSERT INTO `settlement` VALUES ('SE65973738', 'y95698591', 'CL23767471', 'user1', '2015-06-20 00:00:00');
-INSERT INTO `settlement` VALUES ('SE83625876', 'y25369539', 'CL23767471', 'user1', '2015-06-20 00:00:00');
-INSERT INTO `settlement` VALUES ('SE90433410', 'y25369539', 'CL23767471', 'user1', '2015-06-20 00:00:00');
+INSERT INTO `settlement` VALUES ('SE10833518', 'y95698591', 'OR84043492', 'CL23767471', 'user1', '2015-06-20 00:00:00');
+INSERT INTO `settlement` VALUES ('SE16087923', 'y95698591', 'OR84043492', 'CL23767471', 'user1', '2015-06-20 00:00:00');
+INSERT INTO `settlement` VALUES ('SE2144741', 'y95698591', 'OR84043492', 'CL23767471', 'user1', '2015-06-20 00:00:00');
+INSERT INTO `settlement` VALUES ('SE33321502', 'y25369539', 'OR77562450', 'CL23767471', 'user1', '2015-06-20 00:00:00');
+INSERT INTO `settlement` VALUES ('SE43682321', 'y95698591', 'OR84043492', 'CL23767471', 'user1', '2015-06-20 00:00:00');
+INSERT INTO `settlement` VALUES ('SE55881404', 'y25369539', 'OR77562450', 'CL23767471', 'user1', '2015-06-20 00:00:00');
+INSERT INTO `settlement` VALUES ('SE65973738', 'y95698591', 'OR84043492', 'CL23767471', 'user1', '2015-06-20 00:00:00');
+INSERT INTO `settlement` VALUES ('SE83625876', 'y25369539', 'OR77562450', 'CL23767471', 'user1', '2015-06-20 00:00:00');
+INSERT INTO `settlement` VALUES ('SE90433410', 'y25369539', 'OR77562450', 'CL23767471', 'user1', '2015-06-20 00:00:00');
+INSERT INTO `settlement` VALUES ('SE91823357', 'y25369539', null, 'CL29101095', 'company1', '2015-06-25 00:00:00');
+INSERT INTO `settlement` VALUES ('SE97511950', 'y95698591', null, 'CL29101095', 'company1', '2015-06-25 00:00:00');
 
 -- ----------------------------
 -- Table structure for subaccount
@@ -797,7 +802,7 @@ CREATE TABLE `userinfo` (
 -- Records of userinfo
 -- ----------------------------
 INSERT INTO `userinfo` VALUES ('C-0002', 'admin', '21232F297A57A5A743894A0E4A801FC3', '', '1233@163.com', null, '1', null, '已审核', '已绑定', '已绑定', '已设置', '您的生日？', '1', '您最尊敬的人？', '2', '您的第一任班主任？', '3', '未设置', null);
-INSERT INTO `userinfo` VALUES ('CL23767471', 'user1', '24C9E15E52AFC47C225B757E7BEE1F9D', '18301930384', null, null, '2', null, '已审核', '未绑定', '已绑定', '未设置', null, null, null, null, null, null, '未设置', null);
+INSERT INTO `userinfo` VALUES ('CL23767471', 'user1', '24C9E15E52AFC47C225B757E7BEE1F9D', '18301930384', '1233@163.com', null, '2', null, '已审核', '已绑定', '已绑定', '未设置', null, null, null, null, null, null, '未设置', null);
 INSERT INTO `userinfo` VALUES ('CL29101095', 'company1', 'DF655F976F7C9D3263815BD981225CD9', '18393882934', null, null, '3', null, '未验证', '未绑定', '已绑定', '未设置', null, null, null, null, null, null, '未设置', null);
 INSERT INTO `userinfo` VALUES ('CL41403136', 'company3', 'E828AE3339B8D80B3902C1564578804E', '17833948392', null, null, '3', null, '未验证', '未绑定', '已绑定', '未设置', null, null, null, null, null, null, '未设置', null);
 INSERT INTO `userinfo` VALUES ('CL73207711', 'company2', 'D196A28097115067FEFD73D25B0C0BE8', '18893849584', null, null, '3', null, '未验证', '未绑定', '已绑定', '未设置', null, null, null, null, null, null, '未设置', null);
@@ -920,19 +925,19 @@ carrierinfo.id = cityline.carrierId ;
 -- View structure for complaint_client_view
 -- ----------------------------
 DROP VIEW IF EXISTS `complaint_client_view`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost`  VIEW `complaint_client_view` AS SELECT
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `complaint_client_view` AS SELECT
 complaintform.id,
 complaintform.type,
 complaintform.theme,
 complaintform.content,
 complaintform.relDate,
 complaintform.state,
-complaintform.orderId,
 complaintform.relatedMaterial,
 complaintform.feedback,
 complaintform.clientId,
 complaintform.carrierId,
-clientinfo.realName
+clientinfo.realName,
+complaintform.orderNum
 FROM
 complaintform ,
 clientinfo
