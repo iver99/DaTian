@@ -344,7 +344,9 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 		  String hql="from Goodsform t where t.clientId=:clientId";
 		  Map<String,Object> params=new HashMap<String,Object>();
 		  params.put("clientId", userId);
-		  List<Goodsform> cargoList=goodsinfoDao.find(hql, params);
+		  int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
+			int display=pageUtil.getDisplay()==0?10:pageUtil.getDisplay();
+		  List<Goodsform> cargoList=goodsinfoDao.find(hql, params,page,display);
 		 
 		  JSONArray jsonArray=new JSONArray();
 		  for(Goodsform cargo:cargoList){

@@ -178,6 +178,12 @@
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
+		var display=$("#display").val();
+		var currentPage=$("#currentPage").val();
+		//alert(display+"-"+currentPage)
+		//加载用户干线资源
+		getUserLinetransportResource(display,currentPage);
+		getUserLinetransportResourceTotalRows(display,currentPage);
 	}
 	
 //加载干线资源
@@ -197,16 +203,19 @@ function getUserLinetransportResource(display,currentPage){
 			body.append("<tr>");
 			body.append("<td width=\"20\" height=\"40\" class=\"td_mgmt_right3_head1\">&nbsp;</td>");
 			body.append("<td class=\"td_mgmt_right3_head\">名称</td>");
-			body.append("<td width=\"60" class=\"td_mgmt_right3_head\">运输类型</td>");
-			body.append("<td width=\"60" class=\"td_mgmt_right3_head\">始发</td>");
-			body.append("<td width=\"60" class=\"td_mgmt_right3_head\">到达</td>");
-			body.append("<td width=\"80" class=\"td_mgmt_right3_head\">在途(小时)</td>");
-			body.append("<td width=\"100" class=\"td_mgmt_right3_head\">参考价(元/kg)</td>");
-			body.append("<td width=\"80" class=\"td_mgmt_right3_head\">发布日期</td>");
-			body.append("<td width=\"80" class=\"td_mgmt_right3_head\">操作</td>");
+			body.append("<td width=\"60\" class=\"td_mgmt_right3_head\">运输类型</td>");
+			body.append("<td width=\"60\" class=\"td_mgmt_right3_head\">始发</td>");
+			body.append("<td width=\"60\" class=\"td_mgmt_right3_head\">到达</td>");
+			body.append("<td width=\"80\" class=\"td_mgmt_right3_head\">在途(小时)</td>");
+			body.append("<td width=\"100\" class=\"td_mgmt_right3_head\">参考价(元/kg)</td>");
+			body.append("<td width=\"80\" class=\"td_mgmt_right3_head\">发布日期</td>");
+			body.append("<td width=\"80\" class=\"td_mgmt_right3_head\">操作</td>");
 			body.append("</tr>");
+			//body.append("<br/>");
 			//循环输出结果集
-			for(var i =0;i<data.length;i++){
+			  for(var i =0;i<data.length;i++){
+				// alert(data.length);
+				debugger;
 				body.append("<tr>");
 				body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>");
 						body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"linetransportdetail?linetransportid="+data[i].id+"&carrierId=0&flag=1\" hidefocus=\"true\">"+data[i].startPlace+"→"+data[i].endPlace+"</a></td>");
@@ -226,7 +235,7 @@ function getUserLinetransportResource(display,currentPage){
 						body.append("</div></div></div></li></ul></div></td>");
 						body.append("</tr>");
 				
-			}
+			}  
 			
 		}
 	})

@@ -379,8 +379,9 @@ public class CarServiceImpl implements CarService {
 		String hql="from Carinfo t where t.carrierId=:carrierId";
 		Map<String,Object> params=new HashMap<String,Object>();
 		params.put("carrierId", carrierId);
-		List<Carinfo> carList=carDao.find(hql, params);
-		
+		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
+		int display=pageUtil.getDisplay()==0?10:pageUtil.getDisplay();
+		List<Carinfo> carList=carDao.find(hql, params,page,display);
 		JSONArray jsonArray=new JSONArray();
 		for(Carinfo car:carList){
 			JSONObject jsonObject=(JSONObject)JSONObject.toJSON(car);

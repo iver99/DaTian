@@ -88,7 +88,7 @@ public class LinetransportController {
 	 * @param pageUtil
 	 * @return
 	 */
-	@RequestMapping("getUserLinetransportResource")
+	@RequestMapping(value="getUserLinetransportResourceAjax",produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String getUserLinetransportResource(HttpSession session,PageUtil pageUtil) {
 		
@@ -104,7 +104,7 @@ public class LinetransportController {
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping("getUserLinetransportResourceTotalRows")
+	@RequestMapping(value="getUserLinetransportResourceTotalRowsAjax")
 	@ResponseBody
 	public Integer getUserLinetransportResourceTotalRows(HttpSession session){
 		

@@ -2,6 +2,8 @@ package cn.edu.bjtu.service;
 
 import javax.servlet.http.HttpSession;
 
+import cn.edu.bjtu.util.PageUtil;
+
 import com.alibaba.fastjson.JSONArray;
 
 /**
@@ -16,6 +18,14 @@ public interface BusinessClientService {
 	 * @return
 	 */
 	public JSONArray getUserBusinessClient(HttpSession session);
+	
+	/**
+	 * 我的信息-客户信息
+	 * @param session
+	 * @param pageUtil
+	 * @return
+	 */
+	public JSONArray getUserBusinessClient(HttpSession session,PageUtil pageUtil);
 	
 	/**
 	 * 我的信息-客户信息-总记录数

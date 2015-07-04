@@ -445,8 +445,9 @@ public class WarehouseServiceImpl implements WarehouseService {
 		String hql="from Warehouse t where t.carrierId=:carrierId";
 		Map<String,Object> params=new HashMap<String,Object>();
 		params.put("carrierId", carrierId);
-		
-		List<Warehouse> warehouseList=warehouseDao.find(hql, params);
+		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
+		int display=pageUtil.getDisplay()==0?10:pageUtil.getDisplay();
+		List<Warehouse> warehouseList=warehouseDao.find(hql, params,page,display);
 		JSONArray jsonArray=new JSONArray();
 		for(Warehouse warehouse:warehouseList){
 			JSONObject jsonObject=(JSONObject)JSONObject.toJSON(warehouse);

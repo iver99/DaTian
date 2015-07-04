@@ -190,7 +190,9 @@ public class DriverServiceImpl implements DriverService{
 		String hql="from Driverinfo t where t.carrierId=:carrierId";
 		Map<String,Object> params=new HashMap<String,Object>();
 		params.put("carrierId", carrierId);
-		List<Driverinfo> driverList=driverDao.find(hql, params);
+		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
+		int display=pageUtil.getDisplay()==0?10:pageUtil.getDisplay();
+		List<Driverinfo> driverList=driverDao.find(hql, params,page,display);
 		
 		JSONArray jsonArray=new JSONArray();
 		for(Driverinfo driver:driverList){

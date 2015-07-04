@@ -233,7 +233,7 @@ public class BusinessClientController {
 	}
 	
 	/**
-	 * 获取用户的所属客户
+	 * 获取用户的所属客户(订单页面)
 	 * @param session
 	 * @return
 	 */
@@ -259,9 +259,9 @@ public class BusinessClientController {
 	 * @date: 2015年7月3日 下午4:26:54
 	 */
 	@ResponseBody
-	@RequestMapping(value="getUserBusinessClientAjax",produces = "text/html;charset=UTF-8")
+	@RequestMapping(value="getUserBusinessClientResourceAjax",produces = "text/html;charset=UTF-8")
 	public String getUserBusinessClient(HttpSession session,PageUtil pageUtil){
-		JSONArray jsonArray=businessClientService.getUserBusinessClient(session);
+		JSONArray jsonArray=businessClientService.getUserBusinessClient(session,pageUtil);
 		
 		return jsonArray.toString();
 		
