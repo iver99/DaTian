@@ -211,11 +211,8 @@ function getUserLinetransportResource(display,currentPage){
 			body.append("<td width=\"80\" class=\"td_mgmt_right3_head\">发布日期</td>");
 			body.append("<td width=\"80\" class=\"td_mgmt_right3_head\">操作</td>");
 			body.append("</tr>");
-			//body.append("<br/>");
 			//循环输出结果集
-			  for(var i =0;i<data.length;i++){
-				// alert(data.length);
-				debugger;
+			  /* for(var i =0;i<data.length;i++){
 				body.append("<tr>");
 				body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>");
 						body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"linetransportdetail?linetransportid="+data[i].id+"&carrierId=0&flag=1\" hidefocus=\"true\">"+data[i].startPlace+"→"+data[i].endPlace+"</a></td>");
@@ -235,7 +232,7 @@ function getUserLinetransportResource(display,currentPage){
 						body.append("</div></div></div></li></ul></div></td>");
 						body.append("</tr>");
 				
-			}  
+			}   */
 			
 		}
 	})

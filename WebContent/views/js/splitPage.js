@@ -68,6 +68,10 @@ function ChangeTo(page){
 	page_layout.empty();
 	$('#currentPage').val(page);
 	//点击页码，标志位置为1
-	$('#flag').val(1);
-	$('#btn1').click();
+	if($("#is_resource_page").val() == 0){//等于0时此段代码为我的信息栏使用
+		
+	}else{//资源列表使用
+		$('#flag').val(1);
+		$('#btn1').click();
+	}
 }

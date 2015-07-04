@@ -20,6 +20,7 @@
 <script type="text/javascript" src="js/popup.js"></script>
 <script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
 <script type="text/javascript" src="js/focus_load.js"></script>
+<%@ include file="jsTool.jsp" %>
 <script type="text/javascript">
 	$(function() {
 		$('input, textarea').placeholder();
@@ -76,9 +77,16 @@
 										title="添加" /></a></span></td>
 						</tr>
 					</table>
-					<table width="100%" border="0" cellspacing="0" cellpadding="0"
+					
+					<!-- 页码相关 -->
+				<input id="count" value="" type="hidden" /><!--  总记录条数 -->
+				<input id="display" value="10" type="hidden" /> <!-- 每页展示的数量 -->
+				<input id="currentPage" value="1" type="hidden" /><!-- 当前页 -->
+				<inpyt id="is_resource_page" value="0" type="hidden"/><!-- 是否为资源页，资源页需要模拟click按钮 -->
+				
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" id="result_body" 
 						class="table_mgmt_right3">
-						<tr>
+						<%-- <tr>
 							<td width="20" height="40" class="td_mgmt_right3_head1">&nbsp;</td>
 							<td width="90" class="td_mgmt_right3_head">编号</td>
 							<td class="td_mgmt_right3_head">货物名称</td>
@@ -137,7 +145,7 @@
 									
 								</tr>
 							</c:forEach>
-						</tbody>
+						</tbody> --%>
 					</table>
 					<table border="0" cellpadding="0" cellspacing="0"
 						class="table_recordnumber">
@@ -150,9 +158,9 @@
 							</td>
 						</tr>
 					</table>
-					<table border="0" cellpadding="0" cellspacing="0"
+					<table border="0" cellpadding="0" cellspacing="0" id="page_layout" 
 						class="table_pagenumber">
-						<tr>
+						<!-- <tr>
 							<td width="45" class="td_pagenumber">首页</td>
 							<td width="45" class="td_pagenumber"><a href="javascript:;"
 								class="a_pagenumber" hidefocus="true">上页</a></td>
@@ -166,7 +174,7 @@
 								class="a_pagenumber" hidefocus="true">下页</a></td>
 							<td width="45" class="td_pagenumber"><a href="javascript:;"
 								class="a_pagenumber" hidefocus="true">末页</a></td>
-						</tr>
+						</tr> -->
 					</table>
 				</td>
 			</tr>
@@ -207,6 +215,94 @@
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
+		var display=$("#display").val();
+		var currentPage=$("#currentPage").val();
+		getUserCargoResourceAjax(display,currentPage);
+		getUserCargoResourceTotalRowsAjax(display,currentPage);
 	}
+	
+	//加载货物资源
+	function getUserCargoResourceAjax(display,currentPage){
+		var url="getUserCargoResourceAjax";
+		$.ajax({
+			url:url,
+			data:{
+				display:display,
+				currentPage:currentPage
+				},
+			cache:false,
+			dataType:"json",
+			success:function(data,status){
+				var body=$("#result_body");
+				body.empty();
+				body.append("<tr>");
+				body.append("<td width=\"20\" height=\"40\" class=\"td_mgmt_right3_head1\">&nbsp;</td>");
+				body.append("<td width=\"90\" class=\"td_mgmt_right3_head\">编号</td>");
+				body.append("<td class=\"td_mgmt_right3_head\">货物名称</td>");
+				body.append("<td width=\"80\" class=\"td_mgmt_right3_head\">发布日期</td>");
+				body.append("<td width=\"80\" class=\"td_mgmt_right3_head\">有效期至</td>");
+				body.append("<td width=\"50\" class=\"td_mgmt_right3_head\">反馈方</td>");
+				body.append("<td width=\"60\" class=\"td_mgmt_right3_head\">反馈数量</td>");
+				body.append("<td width=\"60\" class=\"td_mgmt_right3_head\">状态</td>");
+				body.append("<td width=\"80\" class=\"td_mgmt_right3_head\">操作</td>");
+				body.append("</tr>");
+				//循环输出结果集
+				/* for(var i =0;i<data.length;i++){
+					body.append("<tr>");
+					body.append("<td class=\"td_main_list_content\"></td>");
+					body.append("<td class=\"td_main_list_content\">"+data[i].id+"</td>");
+					body.append("<td class=\"td_main_list_content\"><a href=\"mygoodsdetail?id="+data[i].id+"&flag=1\" hidefocus=\"true\">"+data[i].name+"</a></td>");
+					body.append("<td class=\"td_main_list_content\">"+data[i].relDate+"</td>");
+					body.append("<td class=\"td_main_list_content\">"+data[i].limitDate+"</td>");
+					body.append("<td class=\"td_main_list_content\">"+data[i].oriented+"</td>");
+					body.append("<td class=\"td_main_list_content\">"+data[i].feedbackQuantity+"</td>");
+					if(data[i].state=='已确认'){
+						body.append("<td class=\"td_mgmt_right3_td1\">已确认</td>");
+						body.append("<td class=\"td_mgmt_right3_td3\"><a href=\"viewResponseDetailAfter?goodsid="+data[i].id+"\" hidefocus=\"true\">查看反馈</a></td>");
+					}
+					else if(data[i].state=='已取消'){
+						body.append("<td class=\"td_mgmt_right3_td1\">已取消</td>");
+						body.append("<td class=\"td_mgmt_right3_td3\"><a href=\"mygoodsdetail?id="+data[i].id+"&flag=1\" hidefocus=\"true\">查看</a></td>");
+					}
+					else{
+						body.append("<td class=\"td_mgmt_right3_td2\">待确认</td>");
+						body.append("<td class=\"td_mgmt_right3_td3\"><div id=\"handlebox\" style=\"z-index: 203;\">");
+						body.append("<ul class=\"quickmenu\"><li class=\"menuitem\">");
+						body.append("<div class=\"menu\">");
+						body.append("<a href=\"viewResponseDetail?goodsid="+data[i].id+"\" class=\"menuhd\" hidefocus=\"true\">查看反馈</a>");
+						body.append("<div class=\"menubd\">");
+						body.append("<div class=\"menubdpanel\">");
+						body.append("<a href=\"mygoodsdetail?id="+data[i].id+"&flag=2\" class=\"a_top3\" hidefocus=\"true\">更新</a>");
+						body.append("<a href=\"deletegoods?id="+data[i].id+"\" class=\"a_top3\" hidefocus=\"true\">删除</a>");
+						body.append("</div></div></div></li></ul></div></td>");
+						body.append("</tr>");
+					}
+					
+				} */
+				
+			}
+		})
+	}
+	//货物资源总条数
+	function getUserCargoResourceTotalRowsAjax(display,currentPage){
+		var url="getUserCargoResourceTotalRowsAjax";
+		$.ajax({
+			url:url,
+			data:{
+				display:display,
+				currentPage:currentPage
+			},
+			cache:false,
+			dataType:"json",
+			success:function(data,status){
+				 $('#count').val(data);
+				  pageLayout(data);//页面布局
+			}
+		});
+		
+		
+		
+	}
+	
 </script>
 </html>

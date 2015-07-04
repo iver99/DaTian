@@ -759,7 +759,7 @@ public class CarController {
 	 * @author: chendonghao 
 	 * @date: 2015年7月3日 上午11:11:56
 	 */
-	@RequestMapping("getUserDriverResourceTotalRowsAjax")
+	@RequestMapping(value="getUserDriverResourceTotalRowsAjax")
 	@ResponseBody
 	public Integer getUserDriverResourceTotalRows(HttpSession session){
 		
