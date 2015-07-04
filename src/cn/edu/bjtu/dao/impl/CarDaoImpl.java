@@ -38,6 +38,7 @@ public class CarDaoImpl extends BaseDaoImpl<Carinfo> implements CarDao{
 	/**
 	 * 返回公司车辆
 	 */
+	@Deprecated
 	public List getCompanyCar(String carrierId) {
 		
 		return ht.find("from Carinfo where carrierId='"+carrierId+"'");

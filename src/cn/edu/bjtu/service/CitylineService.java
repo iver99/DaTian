@@ -17,6 +17,7 @@ public interface CitylineService {
 	public int getTotalRows(String resourceRate, String serviceIndustry, String creditRate);
 	
 	public Cityline getCitylineInfo(String citylineid);
+	@Deprecated
 	public List getCompanyCityline(String carrierId);
 	public boolean insertCityLine(String name,String cityName,String VIPService,
 			float refPrice,String remarks,String carrierId, String VIPDetail,

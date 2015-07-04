@@ -16,7 +16,7 @@ public interface GoodsInfoDao extends BaseDao<Goodsform>{
 	public boolean commitResponse(String goodsId,String remarks,String userId,String path,String fileName);
 	
 	public List getAllResponse(String carrierId);
-	
+	@Deprecated
 	public List getUserGoodsInfo(String clientId);
 	
 	public boolean deleteGoods(String id);

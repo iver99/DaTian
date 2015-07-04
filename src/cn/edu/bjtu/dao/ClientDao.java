@@ -11,6 +11,7 @@ import cn.edu.bjtu.vo.Clientinfo;
  *
  */
 public interface ClientDao extends BaseDao<Clientinfo>{
+	@Deprecated
 	public List getCompanyClient(String carrierId);
 	public Clientinfo getClientInfo(String clientId);
 	public Businessclient getBusinessclientInfo(String clientId);

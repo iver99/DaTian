@@ -18,6 +18,7 @@ public interface WarehouseService {
 	public int getTotalRows(String city, String type, String storageForm, String houseArea);
 	
 	public Warehouse getWarehouseInfo(String warehouseid);
+	@Deprecated
 	public List getCompanyWarehouse(String carrierId);
 	public boolean insertWarehouse(String name,String city,String address,String type,String kind,
 			float houseArea,float yardArea,float height,String fireRate,String storageForm,

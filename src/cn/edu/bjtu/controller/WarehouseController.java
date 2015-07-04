@@ -89,6 +89,7 @@ public class WarehouseController {
 	 * @param request
 	 * @return
 	 */
+	@Deprecated
 	@RequestMapping(value="/warehouse",params="flag=1")
 	public ModelAndView getMyInfoWarehouse(HttpServletRequest request){
 		String carrierId=(String)request.getSession().getAttribute(Constant.USER_ID);

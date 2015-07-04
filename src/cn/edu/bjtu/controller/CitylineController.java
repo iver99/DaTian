@@ -101,6 +101,7 @@ public class CitylineController {
 	 * @param flag
 	 * @return
 	 */
+	@Deprecated
 	public ModelAndView getUserCityline(@RequestParam int flag,
 			HttpServletRequest request) {
 		// 这里用session取id

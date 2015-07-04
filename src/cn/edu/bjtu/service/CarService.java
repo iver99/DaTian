@@ -19,7 +19,7 @@ public interface CarService {
 	
 	public Carinfo getCarInfo(String carid);
 
-
+	@Deprecated
 	public List getCompanyCar(String carrierId);
 
 

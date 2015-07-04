@@ -25,6 +25,7 @@ public interface LinetransportService {
 			String endPlace, int onWayTime, String type, float refPrice,
 			String remarks, String carrierId,String path,String fileName);
 
+	@Deprecated
 	public List getCompanyLine(String carrierId,int Display,int PageNow);
 
 	public String getLinetransportIdByCity(String startPlace, String endPlace);

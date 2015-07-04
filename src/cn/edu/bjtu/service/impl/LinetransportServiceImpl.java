@@ -260,6 +260,7 @@ public class LinetransportServiceImpl implements LinetransportService {
 	/**
 	 * 返回某公司的所有干线信息
 	 */
+	@Deprecated
 	public List getCompanyLine(String carrierId, int Display, int PageNow) {
 		
 		return linetransportDao.getCompanyLine(carrierId, Display, PageNow);// 未完成

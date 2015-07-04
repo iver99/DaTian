@@ -108,13 +108,13 @@ public class LoginController {
 		}
 	}*/
 	
-	@RequestMapping("/logout")
 	/**
 	 * 退出登录
 	 * @param request
 	 * @param response
 	 * @return
 	 */
+	@RequestMapping("/logout")
 	public ModelAndView logout(HttpServletRequest request,HttpServletResponse response)
 	{
 		HttpSession session=request.getSession();
@@ -122,7 +122,7 @@ public class LoginController {
 		session.removeAttribute("userId");
 		// add by RussWest0 at 2015年5月30日,上午11:00:02 
 		session.invalidate();//session失效
-		mv.setViewName("index");
+		mv.setViewName("login");
 		return mv;
 	}
 	

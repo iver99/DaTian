@@ -47,6 +47,7 @@ public class LinetransportDaoImpl extends BaseDaoImpl<Linetransport> implements 
 	/**
 	 * 返回公司干线列表
 	 */
+	@Deprecated
 	public List getCompanyLine(String carrierId, int display, int pageNow) {
 		
 		int page = pageNow;
@@ -58,6 +59,7 @@ public class LinetransportDaoImpl extends BaseDaoImpl<Linetransport> implements 
 	}
 
 	@Override
+	@Deprecated
 	public List getSelectedLine(String hql, int display, int pageNow) {
 		
 		int page = pageNow;

@@ -321,6 +321,7 @@ public class CitylineServiceImpl implements CitylineService {
 	/**
 	 * 获取公司城市配送线路
 	 */
+	@Deprecated
 	public List getCompanyCityline(String carrierId) {
 		
 		return citylineDao.getCompanyCityline(carrierId);

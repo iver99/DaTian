@@ -227,6 +227,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 	}
 
 	@Override
+	@Deprecated
 	public List getCompanyWarehouse(String carrierId) {
 		
 		return warehouseDao.getCompanyWarehouse(carrierId);

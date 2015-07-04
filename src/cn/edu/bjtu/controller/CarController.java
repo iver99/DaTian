@@ -76,6 +76,7 @@ public class CarController {
 	 * 获取我的信息-车辆信息
 	 * @return
 	 */
+	@Deprecated
 	@RequestMapping(value="car",params="flag=1")
 	public ModelAndView getMyInfoCar(HttpServletRequest request){
 		String carrierId = (String) request.getSession().getAttribute(
@@ -219,6 +220,7 @@ public class CarController {
 	 * @param flag
 	 * @return
 	 */
+	@Deprecated
 	public ModelAndView getAllDriver(@RequestParam int flag,
 			HttpServletRequest request, HttpServletResponse response) {
 		// 从session里取出id查询

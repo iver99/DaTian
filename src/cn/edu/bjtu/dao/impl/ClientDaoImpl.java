@@ -38,6 +38,7 @@ public class ClientDaoImpl extends BaseDaoImpl<Clientinfo> implements ClientDao 
 	/**
 	 * 返回公司客户
 	 */
+	@Deprecated
 	public List getCompanyClient(String carrierId) {
 		
 		return ht.find("from Businessclient where carrierId='" + carrierId

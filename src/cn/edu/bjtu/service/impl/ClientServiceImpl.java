@@ -44,6 +44,7 @@ public class ClientServiceImpl implements ClientService{
 	/**
 	 *返回公司客户 
 	 */
+	@Deprecated
 	public List getCompanyClient(String carrierId) {
 		
 		return clientDao.getCompanyClient(carrierId);

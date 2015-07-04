@@ -41,6 +41,7 @@ public class ContractServiceImpl implements ContractService{
 	/**
 	 * 获取公司合同
 	 */
+	@Deprecated
 	public List getCompanyContract(String carrierId) {
 		
 		

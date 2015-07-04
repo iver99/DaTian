@@ -209,7 +209,7 @@ public class CarServiceImpl implements CarService {
 	}
 
 	
-
+	@Deprecated
 	@Override
 	public List getCompanyCar(String carrierId) {
 		

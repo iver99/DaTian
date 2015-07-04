@@ -83,6 +83,7 @@ public class GoodsInfoController {
 	 * @param request
 	 * @return
 	 */
+	@Deprecated
 	@RequestMapping(value="/goodsform",params="flag=1")
 	public ModelAndView getMyInfoGoods(@RequestParam int flag,
 			HttpSession session) {

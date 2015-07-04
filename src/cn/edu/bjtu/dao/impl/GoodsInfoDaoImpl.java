@@ -115,7 +115,7 @@ public class GoodsInfoDaoImpl extends BaseDaoImpl<Goodsform> implements GoodsInf
 		//return ht.find("from Goodsform where clientId='" + carrierId + "'");
 		return this.find("from GoodsResponseView where carrierId='"+carrierId+"'");
 	}
-
+	@Deprecated
 	@Override
 	public List getUserGoodsInfo(String clientId) {
 		

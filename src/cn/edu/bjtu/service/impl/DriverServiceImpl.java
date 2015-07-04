@@ -42,6 +42,7 @@ public class DriverServiceImpl implements DriverService{
 	/**
 	 * 返回所有司机信息
 	 */
+	@Deprecated
 	public List getAllDriver() {
 		
 		return driverDao.getAllDriver();
@@ -122,6 +123,7 @@ public class DriverServiceImpl implements DriverService{
 	/**
 	 * 返回公司司机
 	 */
+	@Deprecated
 	public List getCompanyDriver(String carrierId) {
 		
 		return driverDao.getCompanyDriver(carrierId);

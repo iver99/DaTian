@@ -50,6 +50,7 @@ public class BusinessClientController {
 	 * @param request
 	 * @return
 	 */
+	@Deprecated
 	public ModelAndView getCompanyClient(HttpServletRequest request) {
 		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		// String carrierId = "C-0002";// É¾³ý

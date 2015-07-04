@@ -10,6 +10,7 @@ import cn.edu.bjtu.vo.Driverinfo;
 import com.alibaba.fastjson.JSONArray;
 
 public interface DriverService {
+	@Deprecated
 	public List getAllDriver();
 
 	public Driverinfo getDriverInfo(String driverId);
@@ -24,7 +25,7 @@ public interface DriverService {
 	public boolean insertDriver(String name, String sex, String licenceRate,
 			String phone, String IDCard, String licenceNum, String licenceTime,
 			String carrierId,String path,String fileName);
-	
+	@Deprecated
 	public List getCompanyDriver(String carrierId);
 	public boolean updateDriver(String id, String name, String sex,String IDCard, String licenceNum,
 			String licenceRate, String licenceTime,	String phone, String carrierId,String path,String fileName);
