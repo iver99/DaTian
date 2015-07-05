@@ -87,8 +87,9 @@
 				<input id="currentPage" value="1" type="hidden" /><!-- 当前页 -->
 				<inpyt id="is_resource_page" value="0" type="hidden"/><!-- 是否为资源页，资源页需要模拟click按钮 -->
             	
-                <table width="100%" border="0" cellspacing="0" cellpadding="0" id="result_body" class="table_mgmt_right3">
-                    <%-- <tr>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
+                   <thead>
+                    <tr>
                         <td width="20" height="40" class="td_mgmt_right3_head1">&nbsp;</td>
                         <td class="td_mgmt_right3_head">名称</td>
                         <td width="60" class="td_mgmt_right3_head">配送城市</td>
@@ -97,8 +98,12 @@
                         <td width="80" class="td_mgmt_right3_head">发布日期</td>
                         <td width="80" class="td_mgmt_right3_head">操作</td>
                     </tr>
+                   </thead>
+                   <tbody id="result_body">
+                   
+                   </tbody>
                     
-                       <c:forEach var="citylineList" items="${citylineList }">
+                    <%--    <c:forEach var="citylineList" items="${citylineList }">
                     <tr>
                         <td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
                         <td class="td_mgmt_right3_td1"><a href="citylinedetail?citylineId=${citylineList.id }&carrierId=0&flag=2" hidefocus="true">${citylineList.name }</a></td>
@@ -121,7 +126,7 @@
                                     </li>
                                 </ul>
                             </div>
-                        </td>
+                        < /td>
                     </tr>
                     </c:forEach> --%>
                 </table>
@@ -185,7 +190,7 @@
 				var body=$("#result_body");
 				body.empty();
 				
-				body.append("<tr>");
+				/* body.append("<tr>");
 				body.append("<td width=\"20\" height=\"40\" class=\"td_mgmt_right3_head1\">&nbsp;</td>");
 				body.append("<td class=\"td_mgmt_right3_head\">名称</td>");
 				body.append("<td width=\"60\" class=\"td_mgmt_right3_head\">配送城市</td>");
@@ -193,9 +198,9 @@
 				body.append("<td width=\"100\" class=\"td_mgmt_right3_head\">参考价(元/kg)</td>");
 				body.append("<td width=\"80\" class=\"td_mgmt_right3_head\">发布日期</td>");
 				body.append("<td width=\"80\" class=\"td_mgmt_right3_head\">操作</td>");
-				body.append("</tr>");
+				body.append("</tr>"); */
 				//循环输出结果集
-				/* for(var i =0;i<data.length;i++){
+				  for(var i =0;i<data.length;i++){
                                     
 					body.append("<tr>");
 					body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>");
@@ -214,7 +219,7 @@
 					body.append("</div></div></div></li></ul></div></td>");
 					body.append("</tr>");
 					
-				} */
+				}  
 				
 			}
 		})
