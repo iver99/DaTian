@@ -73,11 +73,11 @@
 							<table width="90%" border="0" cellspacing="0" cellpadding="0">
 								<tr>
 									<td width="120" height="40" class="td_mgmt_right3_td1b">用户名：</td>
-									<td><%=request.getSession().getAttribute("username") %></td>
+									<td>${userInfo.username }</td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">邮箱：</td>
-									<td> ${email }</td>
+									<td> ${userInfo.email }</td>
 								</tr>
 							</table>
 							<br />

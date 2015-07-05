@@ -259,6 +259,7 @@ public class CitylineController {
 	 * @param response
 	 * @return
 	 */
+	@Deprecated
 	public ModelAndView updateCityline(
 			@RequestParam MultipartFile file,
 			@RequestParam String id,// GET方式传入，在action中
@@ -309,6 +310,8 @@ public class CitylineController {
 		return mv;
 
 	}
+	
+	//public 
 
 	@RequestMapping(value = "citydelete", method = RequestMethod.GET)
 	/**

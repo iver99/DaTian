@@ -129,10 +129,15 @@ public class ClientServiceImpl implements ClientService{
 		businessClientDao.delete(businessClient);
 		return true;
 	}
+	/**
+	 * 返回用户的基本信息
+	 */
 	@Override
-	public String getBasicUserInfo(String userId) {
+	public Userinfo getBasicUserInfo(HttpSession session) {
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+//		Integer userKind=(Integer)session.getAttribute(Constant.USER_KIND);
 		
-		return clientDao.getBasicUserInfo(userId);
+		return userinfoDao.get(Userinfo.class, userId);
 	}
 	@Override
 	/**

@@ -99,7 +99,7 @@
 
 		<table width="100%" border="0" cellspacing="0" cellpadding="0" id="result_body"
 			class="table_mgmt_right3">
-			<!-- <tr>
+			  <tr>
 				<td width="20" height="40" class="td_mgmt_right3_head1">&nbsp;</td>
 				<td class="td_mgmt_right3_head">名称</td>
 				<td width="60" class="td_mgmt_right3_head">运输类型</td>
@@ -109,8 +109,8 @@
 				<td width="100" class="td_mgmt_right3_head">参考价(元/kg)</td>
 				<td width="80" class="td_mgmt_right3_head">发布日期</td>
 				<td width="80" class="td_mgmt_right3_head">操作</td>
-			</tr> -->
-			<%-- <c:forEach var="linetransport" items="${linetransportList }">
+			</tr>
+			 <c:forEach var="linetransport" items="${linetransportList }">
 				<tr>
 					<td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
 					<td class="td_mgmt_right3_td1"><a
@@ -143,7 +143,7 @@
 						</div>
 					</td>
 				</tr>
-			</c:forEach> --%>
+			</c:forEach>  
 		</table>
 		<table border="0" cellpadding="0" cellspacing="0"
 			class="table_recordnumber">
@@ -182,7 +182,7 @@
 		var currentPage=$("#currentPage").val();
 		//alert(display+"-"+currentPage)
 		//加载用户干线资源
-		getUserLinetransportResource(display,currentPage);
+		//getUserLinetransportResource(display,currentPage);
 		getUserLinetransportResourceTotalRows(display,currentPage);
 	}
 	
@@ -199,7 +199,7 @@ function getUserLinetransportResource(display,currentPage){
 		dataType:"json",
 		success:function(data,status){
 			var body=$("#result_body");
-			body.empty();
+			//body.empty();
 			body.append("<tr>");
 			body.append("<td width=\"20\" height=\"40\" class=\"td_mgmt_right3_head1\">&nbsp;</td>");
 			body.append("<td class=\"td_mgmt_right3_head\">名称</td>");
@@ -212,9 +212,10 @@ function getUserLinetransportResource(display,currentPage){
 			body.append("<td width=\"80\" class=\"td_mgmt_right3_head\">操作</td>");
 			body.append("</tr>");
 			//循环输出结果集
-			  /* for(var i =0;i<data.length;i++){
-				body.append("<tr>");
-				body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>");
+			debugger;
+			   for(var i =0;i<data.length;i++){
+						body.append("<tr>");
+						body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>");
 						body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"linetransportdetail?linetransportid="+data[i].id+"&carrierId=0&flag=1\" hidefocus=\"true\">"+data[i].startPlace+"→"+data[i].endPlace+"</a></td>");
 						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].type+"</td>");
 						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].startPlace+"</td>");
@@ -232,7 +233,7 @@ function getUserLinetransportResource(display,currentPage){
 						body.append("</div></div></div></li></ul></div></td>");
 						body.append("</tr>");
 				
-			}   */
+			}   
 			
 		}
 	})

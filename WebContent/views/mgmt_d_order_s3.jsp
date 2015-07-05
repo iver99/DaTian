@@ -23,6 +23,7 @@
 <script type="text/javascript"> 
 	$(function() {
 		$('input, textarea').placeholder(); 
+		
 	});
 </script>
 </head>
@@ -98,13 +99,13 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">关联客户运单：</td>
                                     <td>
-                                        <select id="psource" style="width:120px;" onchange="change2();" name="isLinkToClientWayBill" required>
-                                            <option value="" selected="selected">请选择</option>
+                                        <select style="width:120px;" onchange="change2();" id="isLinkToClientWayBill" name="isLinkToClientWayBill" required>
+                                            <option value="" >请选择</option>
                                             <option value="有">有</option>
                                             <option value="无" >无</option>
                                         </select>
                                         <div id="p_detail" style="display:none;">
-                                            <input type="text" name="clientWayBillNum" class="input_mgmt1" style="width:176px;" placeholder="请输入客户运单号..."/>
+                                            <input type="text" value="${orderInfo.clientWayBillNum }" name="clientWayBillNum" class="input_mgmt1" style="width:176px;" placeholder="请输入客户运单号..."/>
                                         </div>
                                     </td>
                                 </tr>
@@ -115,8 +116,8 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">承运方合同：</td>
                                     <td>
-                                        <select id="city_cert" style="width:110px;" onchange="change_cert();" name="hasCarrierContract" required>
-                                            <option value="空" selected="selected">请选择</option>
+                                        <select style="width:110px;" onchange="change_cert();" id="hasCarrierContract" name="hasCarrierContract" required>
+                                            <option value="空" >请选择</option>
                                             <option value="有">有</option>
                                             <option value="无">无</option>
                                         </select>
@@ -303,6 +304,23 @@
 		getUserContract();
 		//获取用户客户信息
 		getUserClientName();
+		//设置订单的原始数据,主要是select标签的内容
+		setOrderValue();
+	}
+	//设置订单的原始数据
+	function setOrderValue(){
+		//设置关联客户运单
+		if("${orderInfo.isLinkToClientWayBill}" == '有'){
+			$("#p_detail").attr("style","display:inline");
+		}
+		$("#isLinkToClientWayBill").val("${orderInfo.isLinkToClientWayBill}");
+		//是否有承运方合同
+		if("${orderInfo.hasCarrierContract}" == '有'){
+			$("#c_detail").attr("style","display:inline");
+		}
+			$("#hasCarrierContract").val("${orderInfo.hasCarrierContract}");
+			//$("#clientName").val("${orderInfo.clientName}");//向后台请求到结果后才能设置
+		
 	}
 	//获取用户合同编号
 	function getUserContract(){
@@ -313,6 +331,10 @@
 		         option = $("<option>").text(data[i].id).val(data[i].id);
 		         CONTRACTID.append(option);
 		      }     
+			 //如果有则需要显示当前的订单号
+			 if("${orderInfo.hasCarrierContract}" == '有'){
+				 $("#contractId").val("${orderInfo.contractId}");
+			 }
 		},"json");
 	}
 	//获取用户客户信息
@@ -323,7 +345,9 @@
 			 for(var i=0;i<data.length;i++) {
 		         var option = $("<option>").text(data[i].clientName).val(data[i].clientName);
 		         client_name.append(option);
-		      }    
+		      }
+			 
+			 $("#clientName").val("${orderInfo.clientName}");//向后台请求到结果后才能设置
 		},"json");
 	}
 	

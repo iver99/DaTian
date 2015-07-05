@@ -359,6 +359,7 @@ public class CitylineServiceImpl implements CitylineService {
 	/**
 	 * 更新城市配送
 	 */
+	@Deprecated
 	public boolean updateLine(String id, String citylineName, String cityName,
 			String VIPService, String VIPDetail, float refPrice,
 			String remarks, String carrierId,String path,String fileName) {

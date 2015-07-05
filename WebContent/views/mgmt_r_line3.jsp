@@ -166,6 +166,23 @@
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
+		
+		//设置页面字段值（checkbox）
+		//setPageValue();
 	}
+	//设置页面字段值
+	/* function setPageValue(){
+		debugger;
+		var c=$("#checkbox");
+		var type="${linetransportInfo.type}";
+		//$("#type1").attr("checked",true);
+		//c[1].attr("checked",true);
+		 if(type.indexOf('整车')>=0){
+			$("#checkbox[name='type1']").attr("checked",true);
+		}
+		if(type.indexOf("零担")>=0){
+			$("type2").attr("checked",true);
+		} 
+	} */
 </script>
 </html>

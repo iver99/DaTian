@@ -28,6 +28,7 @@ import cn.edu.bjtu.service.LinetransportService;
 import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.DataModel;
 import cn.edu.bjtu.util.DownloadFile;
+import cn.edu.bjtu.util.JSON;
 import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carrierinfo;
@@ -284,7 +285,6 @@ public class LinetransportController {
 		return mv;
 	}
 
-	@RequestMapping(value = "updateLine", method = RequestMethod.POST)
 	/**
 	 * 更新干线信息
 	 * @param id
@@ -299,6 +299,8 @@ public class LinetransportController {
 	 * @param response
 	 * @return
 	 */
+	//@RequestMapping(value = "updateLine", method = RequestMethod.POST)
+	@Deprecated
 	public ModelAndView updateLine(@RequestParam MultipartFile file,
 			@RequestParam String id,// GET方式传入，在action中
 			@RequestParam String lineName, @RequestParam String startPlace,
@@ -341,6 +343,18 @@ public class LinetransportController {
 			mv.setViewName("mgmt_r_line");
 		return mv;
 
+	}
+	/**
+	 * 更新干线信息
+	 * @param line
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping("updateLine")
+	public String updateLinetransport(Linetransport line,MultipartFile file,
+			HttpServletRequest request) {
+		boolean flag=linetransportService.updateLinetransport(line,request,file);
+		return "redirect:linetransport?flag=1";
 	}
 
 	@RequestMapping(value = "linetransportdelete", method = RequestMethod.GET)

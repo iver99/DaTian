@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import cn.edu.bjtu.vo.Businessclient;
 import cn.edu.bjtu.vo.Clientinfo;
+import cn.edu.bjtu.vo.Userinfo;
 
 /**
  * 
@@ -28,7 +29,12 @@ public interface ClientService {
 	public boolean updateBusinessClient(String id, String account,String clientName,String clientBusiness,
 			String contact,String phone,String remarks,String carrierId,String path,String fileName);
 	public boolean deleteBusinessClient(String id);
-	public String getBasicUserInfo(String userId);
+	/**
+	 * 查看用户基本信息
+	 * @param userId
+	 * @return
+	 */
+	public Userinfo getBasicUserInfo(HttpSession session);
 	public boolean checkHeadIconStatus(String userId);
 	
 	public String getStatus(String userId);

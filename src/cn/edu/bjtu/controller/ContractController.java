@@ -168,7 +168,7 @@ public class ContractController {
 		String fileName = null;
 		if (file.getSize() != 0)// 有上传文件的情况
 		{
-			path = UploadPath.getContactPath();// 不同的地方取不同的上传路径
+			path = UploadPath.getContractPath();// 不同的地方取不同的上传路径
 			fileName = file.getOriginalFilename();
 			fileName = carrierId + "_" + fileName;// 文件名
 			File targetFile = new File(path, fileName);

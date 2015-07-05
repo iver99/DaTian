@@ -22,6 +22,7 @@ public interface CitylineService {
 	public boolean insertCityLine(String name,String cityName,String VIPService,
 			float refPrice,String remarks,String carrierId, String VIPDetail,
 			String path,String fileName);
+	@Deprecated
 	public boolean updateLine(String id, String citylineName, String cityName, String VIPService,
 			String VIPDetail,float refPrice, String remarks, String carrierId,
 			String path,String fileName);
