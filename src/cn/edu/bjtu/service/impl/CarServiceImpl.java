@@ -11,11 +11,13 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import cn.edu.bjtu.bean.search.CarSearchBean;
 import cn.edu.bjtu.dao.CarDao;
@@ -26,8 +28,10 @@ import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.util.PageUtil;
+import cn.edu.bjtu.util.UploadFile;
 import cn.edu.bjtu.vo.Carinfo;
 import cn.edu.bjtu.vo.Carteam;
+import cn.edu.bjtu.vo.Linetransport;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -262,6 +266,7 @@ public class CarServiceImpl implements CarService {
 	/**
 	 * 更新车辆信息
 	 */
+	@Deprecated
 	public boolean updateCar(String id, String carNum, String carTeam,
 			String locType, String terminalId, String carType, String carBase,
 			String carBrand, String carUse, double carLength, double carWidth,
@@ -293,6 +298,36 @@ public class CarServiceImpl implements CarService {
 		return true;
 
 	}
+	
+	@Override
+	public boolean updateNewCar(Carinfo car,HttpServletRequest request){
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
+
+		Carinfo carInstance = carDao.get(Carinfo.class,car.getId());
+		carInstance.setCarTeam(car.getCarTeam());
+		carInstance.setLocationType(car.getLocationType());
+		carInstance.setTerminalId(car.getTerminalId());
+		carInstance.setCarType(car.getCarType());
+		carInstance.setCarBase(car.getCarBase());
+		carInstance.setCarBrand(car.getCarBrand());
+		carInstance.setCarUse(car.getCarUse());
+		carInstance.setCarLength(car.getCarLength());
+		carInstance.setCarWidth(car.getCarWidth());
+		carInstance.setCarHeight(car.getCarHeight());
+		carInstance.setCarWeight(car.getCarWeight());
+		carInstance.setPurchaseTime(car.getPurchaseTime());
+		carInstance.setStorage(car.getStorage());
+		carInstance.setDriverId(car.getDriverId());
+		carInstance.setStopPlace(car.getStopPlace());
+		carInstance.setStartPlace(car.getStartPlace());
+		carInstance.setEndPlace(car.getEndPlace());
+		
+
+		//更新
+		carDao.update(carInstance);
+		return true;
+	}
+	
 	
 	/**
 	 * 字符创转为日期类型

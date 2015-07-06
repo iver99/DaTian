@@ -8,10 +8,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import cn.edu.bjtu.bean.search.WarehouseSearchBean;
 import cn.edu.bjtu.dao.WarehouseDao;
@@ -20,6 +22,8 @@ import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.util.PageUtil;
+import cn.edu.bjtu.util.UploadFile;
+import cn.edu.bjtu.vo.Linetransport;
 import cn.edu.bjtu.vo.Warehouse;
 
 import com.alibaba.fastjson.JSONArray;
@@ -271,6 +275,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 	}
 
 	@Override
+	@Deprecated
 	public boolean updateWarehouse(String id, String name, String city,
 			String address, String type, String kind, float houseArea,
 			float yardArea, float height, String fireRate, String storageForm,
@@ -305,6 +310,41 @@ public class WarehouseServiceImpl implements WarehouseService {
 		 warehouseDao.update(warehouse);// 保存实体
 		 return true;
 	}
+	
+	@Override
+	public boolean updateNewWarehouse(Warehouse warehouse,HttpServletRequest request,MultipartFile file){
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
+		//保存文件
+		String fileLocation=UploadFile.uploadFile(file, carrierId, "warehouse");
+
+		Warehouse warehouseInstance = warehouseDao.get(Warehouse.class,warehouse.getId());
+		warehouseInstance.setName(warehouse.getName());
+		warehouseInstance.setCity(warehouse.getCity());
+		warehouseInstance.setAddress(warehouse.getAddress());
+		warehouseInstance.setType(warehouse.getType());
+		warehouseInstance.setKind(warehouse.getKind());
+		warehouseInstance.setHouseArea(warehouse.getHouseArea());
+		warehouseInstance.setYardArea(warehouse.getYardArea());
+		warehouseInstance.setHeight(warehouse.getHeight());
+		warehouseInstance.setFireRate(warehouse.getFireRate());
+		warehouseInstance.setStorageForm(warehouse.getStorageForm());
+		warehouseInstance.setFireSecurity(warehouse.getFireSecurity());
+		warehouseInstance.setEnvironment(warehouse.getEnvironment());
+		warehouseInstance.setServiceContent(warehouse.getServiceContent());
+		warehouseInstance.setContact(warehouse.getContact());
+		warehouseInstance.setPhone(warehouse.getPhone());
+		warehouseInstance.setRelDate(new Date());
+		warehouseInstance.setRemarks(warehouse.getRemarks());
+		warehouseInstance.setCarrierId(carrierId);
+		
+		//设置文件位置 
+		warehouseInstance.setDetailPrice(fileLocation);
+
+		//更新
+		warehouseDao.update(warehouseInstance);
+		return true;
+	}
+	
 	public boolean deleteWarehouse(String id){
 		warehouse = getWarehouseInfo(id);// 根据id查找到仓库信息
 		warehouseDao.delete(warehouse);

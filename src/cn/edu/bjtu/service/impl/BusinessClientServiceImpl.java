@@ -4,17 +4,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import cn.edu.bjtu.dao.BusinessClientDao;
 import cn.edu.bjtu.service.BusinessClientService;
 import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.PageUtil;
+import cn.edu.bjtu.util.UploadFile;
 import cn.edu.bjtu.vo.Businessclient;
+import cn.edu.bjtu.vo.Linetransport;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -88,4 +92,27 @@ public class BusinessClientServiceImpl implements BusinessClientService{
 		return count.intValue();
 	}
 
+	@Override
+	public boolean updateNewClient(Businessclient client,MultipartFile file,
+			HttpServletRequest request){
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
+		//保存文件
+		String fileLocation=UploadFile.uploadFile(file, carrierId, "businessClient");
+
+		Businessclient clientInstance = businessClientDao.get(Businessclient.class,client.getId());
+		
+		clientInstance.setAccount(client.getAccount());
+		clientInstance.setClientName(client.getClientName());
+		clientInstance.setClientBusiness(client.getClientBusiness());
+		clientInstance.setContact(client.getContact());
+		clientInstance.setPhone(client.getPhone());
+		clientInstance.setRemarks(client.getRemarks());
+		
+		//设置文件位置 
+		clientInstance.setRelatedMaterial(fileLocation);
+
+		//更新
+		businessClientDao.update(clientInstance);
+		return true;
+	}
 }

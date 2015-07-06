@@ -11,10 +11,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import cn.edu.bjtu.bean.search.CargoSearchBean;
 import cn.edu.bjtu.dao.GoodsInfoDao;
@@ -23,8 +25,10 @@ import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.util.PageUtil;
+import cn.edu.bjtu.util.UploadFile;
 import cn.edu.bjtu.vo.GoodsClientView;
 import cn.edu.bjtu.vo.Goodsform;
+import cn.edu.bjtu.vo.Linetransport;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -43,30 +47,30 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 	
 	@Override
 	/**
-	 * æ¡ä»¶ç­›é€‰å¹²çº¿çº¿è·¯
+	 * Ìõ¼şÉ¸Ñ¡¸ÉÏßÏßÂ·
 	 */
 	@Deprecated
 	public List getSelectedGoodsInfo(String startPlace, String endPlace,
 			String transportType, int Display,int PageNow) {
 		
-		String [] paramList={"startPlace","endPlace","transportType"};//æ²¡startplace1 
+		String [] paramList={"startPlace","endPlace","transportType"};//Ã»startplace1 
 		String [] valueList={startPlace,endPlace,transportType};
-		String hql="from GoodsClientView ";//ä¼šå˜åŒ–
+		String hql="from GoodsClientView ";//»á±ä»¯
 		String sql=HQLTool.spellHql2(hql,paramList, valueList);
 		return goodsinfoDao.getSelectedGoodsInfo(sql,Display,PageNow);
 	}
 	
 	@Override
 	/**
-	 * è·å–æ€»è®°å½•æ¡æ•° 
+	 * »ñÈ¡×Ü¼ÇÂ¼ÌõÊı 
 	 */
 	public int getTotalRows(String startPlace, String endPlace, String transportType) {
 		
-		String [] paramList={"startPlace","endPlace","transportType"};//æ²¡startplace1 
+		String [] paramList={"startPlace","endPlace","transportType"};//Ã»startplace1 
 		String [] valueList={startPlace,endPlace,transportType};
-		String hql="from GoodsClientView ";//ä¼šå˜åŒ–
+		String hql="from GoodsClientView ";//»á±ä»¯
 		String sql=HQLTool.spellHql2(hql,paramList, valueList);
-		return hqltool.getTotalRows(sql);//è¿™é‡Œçš„HQLToolå®ä¾‹åƒä¸‡ä¸èƒ½è‡ªå·±newå‡ºæ¥ï¼Œç”¨@Resource
+		return hqltool.getTotalRows(sql);//ÕâÀïµÄHQLToolÊµÀıÇ§Íò²»ÄÜ×Ô¼ºnew³öÀ´£¬ÓÃ@Resource
 	}
 	
 	@Override
@@ -77,7 +81,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 	
 	@Override
 	/**
-	 * æ ¹æ®goodsidå¾—åˆ°è´§ç‰©ä¿¡æ¯
+	 * ¸ù¾İgoodsidµÃµ½»õÎïĞÅÏ¢
 	 */
 	public Goodsform getMyGoodsDetail(String id) {
 		
@@ -109,15 +113,15 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 		goodsform.setRemarks(remarks);
 		
 		goodsform.setRelDate(new Date());
-		goodsform.setState("å¾…ç¡®è®¤");
+		goodsform.setState("´ıÈ·ÈÏ");
 		goodsform.setClientId(clientId);
 		
-		// ä¿å­˜æ–‡ä»¶è·¯å¾„
+		// ±£´æÎÄ¼şÂ·¾¶
 		if (path != null && fileName != null) {
 			String fileLocation = path + "//" + fileName;
 			goodsform.setRelatedMaterial(fileLocation);
 		}
-		goodsinfoDao.save(goodsform);//ä¿å­˜å®ä½“
+		goodsinfoDao.save(goodsform);//±£´æÊµÌå
 		return true;
 		
 	}
@@ -157,6 +161,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 	} 
 	
 	 @Override
+	 @Deprecated
 		public boolean updateGoods(String id, String name, String type, float weight,
 			String transportType, String transportReq, String startPlace, String endPlace,
 			String damageReq, String VIPService, String oriented, String limitDate,
@@ -177,15 +182,45 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 			goodsform.setLimitDate(stringToDate(limitDate));
 			goodsform.setInvoice(invoice);
 			goodsform.setRemarks(remarks);
-			// ä¿å­˜æ–‡ä»¶è·¯å¾„
+			// ±£´æÎÄ¼şÂ·¾¶
 			if (path != null && fileName != null) {
 				String fileLocation = path + "//" + fileName;
 				goodsform.setRelatedMaterial(fileLocation);
 			}
-			goodsinfoDao.update(goodsform);//ä¿å­˜å®ä½“
+			goodsinfoDao.update(goodsform);//±£´æÊµÌå
 			return true;
 			
 		}
+	 
+	 @Override
+	 public boolean  updateNewGoods(Goodsform goods,HttpServletRequest request,MultipartFile file){
+		 String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
+			//±£´æÎÄ¼ş
+			String fileLocation=UploadFile.uploadFile(file, carrierId, "cargo");
+
+			Goodsform goodsInstance = goodsinfoDao.get(Goodsform.class,goods.getId());
+			goodsInstance.setName(goods.getName());
+			goodsInstance.setType(goods.getType());
+			goodsInstance.setWeight(goods.getWeight());
+			goodsInstance.setTransportType(goods.getTransportType());
+			goodsInstance.setTransportReq(goods.getTransportReq());
+			goodsInstance.setStartPlace(goods.getStartPlace());
+			goodsInstance.setEndPlace(goods.getEndPlace());
+			goodsInstance.setDamageReq(goods.getDamageReq());
+			goodsInstance.setVipservice(goods.getVipservice());
+			goodsInstance.setOriented(goods.getOriented());
+			goodsInstance.setLimitDate(goods.getLimitDate());
+			goodsInstance.setInvoice(goods.getInvoice());
+			goodsInstance.setRemarks(goods.getRemarks());
+			goodsInstance.setVipServiceDetail(goods.getVipServiceDetail());
+			//ÉèÖÃÎÄ¼şÎ»ÖÃ 
+			goodsInstance.setRelatedMaterial(fileLocation);
+
+			//¸üĞÂ
+			goodsinfoDao.update(goodsInstance);
+			return true;
+	 }
+	 
 	 
 	 @Override
 	 public boolean deleteGoods(String id){
@@ -194,15 +229,15 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 
 	@Override
 	/**
-	 * ç¡®è®¤åé¦ˆæ—¶ä¿®æ”¹è´§ç‰©çŠ¶æ€ä¸ºå·²ç¡®è®¤
+	 * È·ÈÏ·´À¡Ê±ĞŞ¸Ä»õÎï×´Ì¬ÎªÒÑÈ·ÈÏ
 	 */
 	public boolean confirmResponse(String goodsId) {
 		
 		Goodsform goodsinfo=goodsinfoDao.getMyGoodsDetail(goodsId);	
 		
 		if(goodsinfo!=null){
-			//ä¿®æ”¹è´§ç‰©çŠ¶æ€ä¸ºå·²ç¡®è®¤
-			goodsinfo.setState("å·²ç¡®è®¤");
+			//ĞŞ¸Ä»õÎï×´Ì¬ÎªÒÑÈ·ÈÏ
+			goodsinfo.setState("ÒÑÈ·ÈÏ");
 			goodsinfoDao.update(goodsinfo);
 		}
 		
@@ -210,7 +245,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 	}
 
 	/**
-	 * èµ„æºæ -è´§ç‰©-ç­›é€‰
+	 * ×ÊÔ´À¸-»õÎï-É¸Ñ¡
 	 */
 	@Override
 	public JSONArray getSelectedCargoNew(CargoSearchBean cargoBean,
@@ -263,7 +298,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 	}
 	
 	/**
-	 * èµ„æºæ -è´§ç‰©-ç­›é€‰-æ€»è®°å½•æ•° 
+	 * ×ÊÔ´À¸-»õÎï-É¸Ñ¡-×Ü¼ÇÂ¼Êı 
 	 */
 	@Override
 	public Integer getSelectedCargoTotalRows(CargoSearchBean cargoBean) {
@@ -282,16 +317,16 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 	public String whereSql(CargoSearchBean cargoBean,Map<String,Object> params){
 		String wheresql=" where 1=1 ";
 		if (cargoBean.getStartPlace() != null
-				&& !cargoBean.getStartPlace().equals("å…¨å›½")
-				&& !cargoBean.getStartPlace().equals("ä¸­æ–‡æˆ–æ‹¼éŸ³")
+				&& !cargoBean.getStartPlace().equals("È«¹ú")
+				&& !cargoBean.getStartPlace().equals("ÖĞÎÄ»òÆ´Òô")
 				&& !cargoBean.getStartPlace().equals("All")
 				&& !cargoBean.getStartPlace().equals("")) {
 			wheresql+=" and t1.startPlace=:startPlace ";
 			params.put("startPlace", cargoBean.getStartPlace());
 		}
 		if(cargoBean.getEndPlace()!=null && !cargoBean.getEndPlace().equals("")
-				&& !cargoBean.getEndPlace().equals("ä¸­æ–‡æˆ–æ‹¼éŸ³")
-				&& !cargoBean.getEndPlace().equals("å…¨å›½")
+				&& !cargoBean.getEndPlace().equals("ÖĞÎÄ»òÆ´Òô")
+				&& !cargoBean.getEndPlace().equals("È«¹ú")
 				&& !cargoBean.getEndPlace().equals("All")){
 			wheresql+=" and t1.endPlace=:endPlace ";
 			params.put("endPlace", cargoBean.getEndPlace());
@@ -305,16 +340,16 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 		if (cargoBean.getWeight() != null && !cargoBean.getWeight().equals("")
 				&& !cargoBean.getWeight().equals("All")) {
 			String weight = cargoBean.getWeight().trim();
-			if (weight.equals("10å¨")) {	
+			if (weight.equals("10¶Ö")) {	
 				wheresql+=" and t1.weight=10 ";
 			}
-			if (weight.equals("15å¨")) {
+			if (weight.equals("15¶Ö")) {
 				wheresql+=" and t1.weight=15 ";
 			}
-			if (weight.equals("20å¨")) {
+			if (weight.equals("20¶Ö")) {
 				wheresql+=" and t1.weight=20 ";
 			}
-			if (weight.equals("35å¨")) {
+			if (weight.equals("35¶Ö")) {
 				wheresql+=" and t1.weight=35 ";
 			}
 		}
@@ -322,21 +357,21 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 				&& !cargoBean.getTransportReq().equals("")
 				&& !cargoBean.getTransportReq().equals("All")) {
 			String transportReq=cargoBean.getTransportReq();
-			if (transportReq.equals("é«˜æ è´§è½¦")) {
-				wheresql+=" and t1.transportReq like '%é«˜æ %' ";
+			if (transportReq.equals("¸ßÀ¸»õ³µ")) {
+				wheresql+=" and t1.transportReq like '%¸ßÀ¸%' ";
 			}
-			if (transportReq.equals("å¢å¼è´§è½¦")) {
-				wheresql+=" and t1.transportReq like '%å¢å¼%' ";
+			if (transportReq.equals("ÏáÊ½»õ³µ")) {
+				wheresql+=" and t1.transportReq like '%ÏáÊ½%' ";
 			}
-			if (transportReq.equals("å¹³æ¿è´§è½¦")) {
-				wheresql+=" and t1.transportReq like '%å¹³æ¿%' ";
+			if (transportReq.equals("Æ½°å»õ³µ")) {
+				wheresql+=" and t1.transportReq like '%Æ½°å%' ";
 			}
 		}
 		return wheresql;
 	}
 	 
 	/**
-	 * æˆ‘çš„ä¿¡æ¯-è´§ç‰©ä¿¡æ¯
+	 * ÎÒµÄĞÅÏ¢-»õÎïĞÅÏ¢
 	 */
 	@Override
 	public JSONArray getUserCargoResource(HttpSession session,PageUtil pageUtil) {
@@ -358,7 +393,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 	}
 
 	/**
-	 * æˆ‘çš„ä¿¡æ¯-è´§ç‰©ä¿¡æ¯-æ€»è®°å½•æ•°
+	 * ÎÒµÄĞÅÏ¢-»õÎïĞÅÏ¢-×Ü¼ÇÂ¼Êı
 	 */
 	@Override
 	public Integer getUserCargoTotalRows(HttpSession session) {

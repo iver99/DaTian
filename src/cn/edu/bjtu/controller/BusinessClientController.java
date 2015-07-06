@@ -25,6 +25,7 @@ import cn.edu.bjtu.util.DownloadFile;
 import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Businessclient;
+import cn.edu.bjtu.vo.Linetransport;
 
 import com.alibaba.fastjson.JSONArray;
 
@@ -136,7 +137,7 @@ public class BusinessClientController {
 	/**
 	 * 更新businessclient信息
 	 */
-	@RequestMapping(value = "updateClient", method = RequestMethod.POST)
+	//@RequestMapping(value = "updateClient", method = RequestMethod.POST)
 	/**
 	 * 
 	 * 更新businessclient信息
@@ -151,6 +152,7 @@ public class BusinessClientController {
 	 * @param response
 	 * @return
 	 */
+	@Deprecated
 	public ModelAndView updateClientInfo(@RequestParam MultipartFile file,
 			@RequestParam String id,// GET方式传入，在action中
 			@RequestParam String account, @RequestParam String clientName,
@@ -195,6 +197,13 @@ public class BusinessClientController {
 		return mv;
 	}
 
+	@RequestMapping(value = "updateClient", method = RequestMethod.POST)
+	public String updateNewClient(Businessclient client,MultipartFile file,
+			HttpServletRequest request) {
+		boolean flag=businessClientService.updateNewClient(client,file,request);
+		return "redirect:client";
+	}
+	
 	@RequestMapping(value = "clientdelete", method = RequestMethod.GET)
 	/**
 	 * 删除businessclient

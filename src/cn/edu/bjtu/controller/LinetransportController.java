@@ -227,7 +227,6 @@ public class LinetransportController {
 		return count;
 	}
 
-	@RequestMapping(value = "insertLine", method = RequestMethod.POST)
 	/**
 	 * 新增干线线路
 	 * @param lineName
@@ -241,6 +240,7 @@ public class LinetransportController {
 	 * @param response
 	 * @return
 	 */
+	@RequestMapping(value = "insertLine", method = RequestMethod.POST)
 	public ModelAndView insertLine(
 			@RequestParam(required = false) MultipartFile file,// new add
 			@RequestParam String lineName, @RequestParam String startPlace,

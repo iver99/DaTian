@@ -19,6 +19,7 @@
 <script type="text/javascript" src="js/backtop.js"></script>
 <script type="text/javascript" src="js/popup.js"></script>
 <script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
+<script type="text/javascript" src="js/focus_load.js"></script>
 <%@ include file="jsTool.jsp" %>
 <script type="text/javascript"> 
 	$(function() {
@@ -94,8 +95,9 @@
 				<input id="currentPage" value="1" type="hidden" /><!-- 当前页 -->
 				<inpyt id="is_resource_page" value="0" type="hidden"/><!-- 是否为资源页，资源页需要模拟click按钮 -->
 				
-            	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3" id="result_body">
-					<%-- <tr>
+            	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3" >
+					<thead>
+					 <tr>
                         <td width="20" height="40" class="td_mgmt_right3_head1">&nbsp;</td>
                         <td width="100" class="td_mgmt_right3_head">合同编号</td>
                         <td class="td_mgmt_right3_head">合同名称</td>
@@ -105,7 +107,10 @@
                         <td width="50" class="td_mgmt_right3_head">状态</td>
                         <td width="80" class="td_mgmt_right3_head">操作</td>
 					</tr>
-					<c:forEach var="contract" items="${contractList }">
+					</thead>
+					<tbody id="result_body">
+					</tbody>
+					<%-- <c:forEach var="contract" items="${contractList }">
 					<tr>
                         <td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
                         <td class="td_mgmt_right3_td1"><a href="contractdetail?contractId=${contract.id }&flag=44" hidefocus="true">${contract.id }</a></td>
@@ -129,7 +134,7 @@
 						</c:otherwise>
 						</c:choose>
 					</tr>
-					</c:forEach> --%>
+					</c:forEach> --%> 
 				</table>
 				<table border="0" cellpadding="0" cellspacing="0" class="table_recordnumber">
                     <tr>
@@ -170,7 +175,6 @@
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
-		debugger;
 		var display=$("#display").val();
 		var currentPage=$("#currentPage").val();
 		getUserContractAjax(display,currentPage);
@@ -191,7 +195,7 @@
 			success:function(data,status){
 				var body=$("#result_body");
 				body.empty();
-				body.append("<tr>");
+				/* body.append("<tr>");
 				body.append("<td width=\"20\" height=\"40\" class=\"td_mgmt_right3_head1\">&nbsp;</td>");
 				body.append("<td width=\"100\" class=\"td_mgmt_right3_head\">合同编号</td>");
 				body.append("<td class=\"td_mgmt_right3_head\">合同名称</td>");
@@ -200,9 +204,9 @@
 				body.append("<td width=\"80\" class=\"td_mgmt_right3_head\">创建日期</td>");
 				body.append("<td width=\"50\" class=\"td_mgmt_right3_head\">状态</td>");
 				body.append("<td width=\"80\" class=\"td_mgmt_right3_head\">操作</td>");
-				body.append("</tr>");
+				body.append("</tr>"); */
 				//循环输出结果集
-				/* for(var i =0;i<data.length;i++){
+				 for(var i =0;i<data.length;i++){
 					body.append("<tr>");
 					body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>");
 					body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"contractdetail?contractId="+data[i].id+"&flag=44\" hidefocus=\"true\">"+data[i].id+"</a></td>");
@@ -225,7 +229,7 @@
 					}
 					body.append("</tr>");
 					
-				} */
+				} 
 				
 			}
 		})

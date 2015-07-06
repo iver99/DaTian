@@ -1,8 +1,13 @@
 package cn.edu.bjtu.service;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import cn.edu.bjtu.util.PageUtil;
+import cn.edu.bjtu.vo.Businessclient;
+import cn.edu.bjtu.vo.Linetransport;
 
 import com.alibaba.fastjson.JSONArray;
 
@@ -39,4 +44,7 @@ public interface BusinessClientService {
 	 * @date: 2015年7月3日 下午4:33:16
 	 */
 	public Integer getUserBusinessClientTotalRows(HttpSession session);
+	
+	
+	public boolean updateNewClient(Businessclient client,MultipartFile file,HttpServletRequest request);
 }

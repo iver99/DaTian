@@ -2,11 +2,15 @@ package cn.edu.bjtu.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import cn.edu.bjtu.bean.search.CityLineSearchBean;
 import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Cityline;
+import cn.edu.bjtu.vo.Linetransport;
 
 import com.alibaba.fastjson.JSONArray;
 
@@ -26,6 +30,8 @@ public interface CitylineService {
 	public boolean updateLine(String id, String citylineName, String cityName, String VIPService,
 			String VIPDetail,float refPrice, String remarks, String carrierId,
 			String path,String fileName);
+	public boolean updateNewCityline(Cityline cityline,HttpServletRequest request,MultipartFile file);
+	
 	public boolean deleteCityline(String id);
 	
 	/**

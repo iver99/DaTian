@@ -32,6 +32,7 @@ import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Cityline;
 import cn.edu.bjtu.vo.Comment;
+import cn.edu.bjtu.vo.Linetransport;
 
 import com.alibaba.fastjson.JSONArray;
 
@@ -246,7 +247,7 @@ public class CitylineController {
 		return mv;
 	}
 
-	@RequestMapping(value = "/updateCityline", method = RequestMethod.POST)
+	//@RequestMapping(value = "/updateCityline", method = RequestMethod.POST)
 	/**
 	 * * 更新城市配送信息
 	 * @param id
@@ -309,6 +310,13 @@ public class CitylineController {
 			mv.setViewName("mgmt_r_line");
 		return mv;
 
+	}
+	
+	@RequestMapping(value = "/updateCityline", method = RequestMethod.POST)
+	public String updateNewCityline(Cityline cityline,MultipartFile file,
+			HttpServletRequest request) {
+		boolean flag=citylineService.updateNewCityline(cityline,request,file);
+		return "redirect:cityline?flag=1";
 	}
 	
 	//public 

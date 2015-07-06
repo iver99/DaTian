@@ -27,6 +27,7 @@ import cn.edu.bjtu.util.DownloadFile;
 import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.GoodsClientView;
+import cn.edu.bjtu.vo.Goodsform;
 
 import com.alibaba.fastjson.JSONArray;
 
@@ -292,7 +293,8 @@ public class GoodsInfoController {
 		return mv;
 	}
 
-	@RequestMapping(value = "updategoods", method = RequestMethod.POST)
+	//@RequestMapping(value = "updategoods", method = RequestMethod.POST)
+	@Deprecated
 	public ModelAndView updateGoods(@RequestParam MultipartFile file,
 			@RequestParam String id,
 			@RequestParam String name, @RequestParam String type,
@@ -342,6 +344,13 @@ public class GoodsInfoController {
 			}
 		}
 		return mv;
+	}
+	
+	@RequestMapping(value = "updategoods", method = RequestMethod.POST)
+	public String updateNewGoods(Goodsform goods,MultipartFile file,
+			HttpServletRequest request) {
+		boolean flag=goodsInfoService.updateNewGoods(goods,request,file);
+		return "redirect:goodsform?flag=1";
 	}
 
 	@RequestMapping("deletegoods")

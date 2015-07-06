@@ -84,9 +84,10 @@
 				<input id="currentPage" value="1" type="hidden" /><!-- 当前页 -->
 				<inpyt id="is_resource_page" value="0" type="hidden"/><!-- 是否为资源页，资源页需要模拟click按钮 -->
 				
-					<table width="100%" border="0" cellspacing="0" cellpadding="0" id="result_body" 
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" 
 						class="table_mgmt_right3">
-						<%-- <tr>
+						<thead>
+						 <tr>
 							<td width="20" height="40" class="td_mgmt_right3_head1">&nbsp;</td>
 							<td width="90" class="td_mgmt_right3_head">编号</td>
 							<td class="td_mgmt_right3_head">货物名称</td>
@@ -97,8 +98,9 @@
 							<td width="60" class="td_mgmt_right3_head">状态</td>
 							<td width="80" class="td_mgmt_right3_head">操作</td>
 						</tr>
-						<tbody>
-							<c:forEach var="goodsinfo" items="${goodsList }">
+						</thead>
+						<tbody id="result_body" >
+							<%-- <c:forEach var="goodsinfo" items="${goodsList }">
 								<tr>
 									<td class="td_main_list_content"></td>
 									<td class="td_main_list_content">${goodsinfo.id }</td>
@@ -144,8 +146,8 @@
 									</c:choose>
 									
 								</tr>
-							</c:forEach>
-						</tbody> --%>
+							</c:forEach> --%>
+						</tbody> 
 					</table>
 					<table border="0" cellpadding="0" cellspacing="0"
 						class="table_recordnumber">
@@ -235,7 +237,7 @@
 			success:function(data,status){
 				var body=$("#result_body");
 				body.empty();
-				body.append("<tr>");
+				/* body.append("<tr>");
 				body.append("<td width=\"20\" height=\"40\" class=\"td_mgmt_right3_head1\">&nbsp;</td>");
 				body.append("<td width=\"90\" class=\"td_mgmt_right3_head\">编号</td>");
 				body.append("<td class=\"td_mgmt_right3_head\">货物名称</td>");
@@ -245,9 +247,9 @@
 				body.append("<td width=\"60\" class=\"td_mgmt_right3_head\">反馈数量</td>");
 				body.append("<td width=\"60\" class=\"td_mgmt_right3_head\">状态</td>");
 				body.append("<td width=\"80\" class=\"td_mgmt_right3_head\">操作</td>");
-				body.append("</tr>");
+				body.append("</tr>"); */
 				//循环输出结果集
-				/* for(var i =0;i<data.length;i++){
+				 for(var i =0;i<data.length;i++){
 					body.append("<tr>");
 					body.append("<td class=\"td_main_list_content\"></td>");
 					body.append("<td class=\"td_main_list_content\">"+data[i].id+"</td>");
@@ -278,7 +280,7 @@
 						body.append("</tr>");
 					}
 					
-				} */
+				} 
 				
 			}
 		})

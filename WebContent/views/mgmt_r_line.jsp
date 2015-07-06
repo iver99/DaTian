@@ -228,7 +228,7 @@ function getUserLinetransportResource(display,currentPage){
 						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].refPrice+"</td>");
 						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].relDate+"</td>");
 						body.append("<td class='td_mgmt_right3_td3'>");
-						/* body.append("<div id=\"handlebox\" style=\"z-index: 201;\">");
+						 body.append("<div id=\"handlebox\" style=\"z-index: 201;\">");
 						body.append("<ul class=\"quickmenu\">");
 						body.append("<li class=\"menuitem\">");
 						body.append("<div class=\"menu\">");
@@ -243,7 +243,7 @@ function getUserLinetransportResource(display,currentPage){
 						body.append("</ul>");
 						body.append("</div>");
 						body.append("</td>");
-						body.append("</tr>"); */
+						body.append("</tr>"); 
 						
 				
 			}   

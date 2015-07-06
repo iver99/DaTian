@@ -8,10 +8,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -25,7 +27,9 @@ import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.util.PageUtil;
+import cn.edu.bjtu.util.UploadFile;
 import cn.edu.bjtu.vo.Cityline;
+import cn.edu.bjtu.vo.Linetransport;
 @Transactional
 @Repository
 /**
@@ -383,6 +387,34 @@ public class CitylineServiceImpl implements CitylineService {
 		citylineDao.update(cityline);
 		return true;
 	}
+	
+	@Override
+	public boolean updateNewCityline(Cityline cityline,
+			HttpServletRequest request,MultipartFile file) {
+		
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
+		//保存文件
+		String fileLocation=UploadFile.uploadFile(file, carrierId, "cityline");
+
+		Cityline citylineInstance = citylineDao.get(Cityline.class,cityline.getId());
+		citylineInstance.setName(cityline.getName());
+		citylineInstance.setCityName(cityline.getCityName());
+		citylineInstance.setVIPService(cityline.getVIPService());
+		citylineInstance.setVIPDetail(cityline.getVIPDetail());
+		citylineInstance.setRefPrice(cityline.getRefPrice());
+		citylineInstance.setRemarks(cityline.getRemarks());
+		citylineInstance.setRelDate(new Date());
+		
+		//设置文件位置 
+		citylineInstance.setDetailPrice(fileLocation);
+
+		//更新
+		citylineDao.update(citylineInstance);
+		return true;
+		
+		
+	}
+	
 	
 	@Override
 	/**
