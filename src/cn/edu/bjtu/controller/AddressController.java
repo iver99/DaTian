@@ -19,6 +19,8 @@ import cn.edu.bjtu.service.AddressService;
 import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.vo.Address;
 
+import com.alibaba.fastjson.JSONArray;
+
 
 @Controller
 public class AddressController {
@@ -84,13 +86,13 @@ public class AddressController {
 		return mv;
 	}
 	
-	 @RequestMapping("insertaddress")
 	/**
 	 * 跳转到新增界面
 	 * @param request
 	 * @param response
 	 * @return
 	 */
+	@RequestMapping("insertaddress")
 	public ModelAndView insertAddress(
 		@RequestParam String name,
 		@RequestParam String address,
@@ -114,12 +116,12 @@ public class AddressController {
 		return mv;
 	}
 	
-	 @RequestMapping("updateaddress")
 		/**
 		 * 跳转到更新界面
 		 * @param id
 		 * @return
 		 */
+	@RequestMapping("updateaddress")
 	 	public ModelAndView updateAddress(
 	 			@RequestParam String id,
 				HttpServletRequest request,HttpServletResponse response){
@@ -169,6 +171,19 @@ public class AddressController {
 	 public void addAddressAjax(HttpSession session,Address address){
 		 addressService.addUserAddress(session,address);
 		 return ;
+	 }
+	 /**
+	  * 下订单时获取用户常用地址列表
+	  * @param session
+	  * @param address
+	  */
+	 @RequestMapping(value="getUserFrequentAddressAjax",produces="text/html;charset=UTF-8")
+	 @ResponseBody
+	 public String getUserFrequentAddress(HttpSession session){
+		 
+		 JSONArray jsonArray=addressService.getUserFrequentAddress(session);
+		 return jsonArray.toString();
+		 
 	 }
 	 
 }

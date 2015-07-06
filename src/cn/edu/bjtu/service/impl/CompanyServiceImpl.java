@@ -232,7 +232,7 @@ public class CompanyServiceImpl implements CompanyService{
 				+ " from carrierinfo t1 "
 				+ "left join ("
 				+ "select * from focus t2 ";
-		if(userId!=null){//���ǰ���û���¼�������м����û���Ϣ
+		if(userId!=null){
 			sql+=" where t2.focusType='company' and t2.clientId=:clientId ";
 			params.put("clientId", userId);
 		}

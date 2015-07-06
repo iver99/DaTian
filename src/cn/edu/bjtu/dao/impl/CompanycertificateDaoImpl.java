@@ -40,7 +40,7 @@ public class CompanycertificateDaoImpl extends BaseDaoImpl<Companycertificate> i
 			String invoiceKind, String serviceIndustry, String businessKind,
 			String companyContact, String phone, String basicSituation,
 			String path, String fileName){
-		
+		//FIXME 目前没有考虑Carrierinfo表
 		//更新certificate表 add by RussWest0 at 2015年6月6日,下午2:47:35 
 		//companycertificate.setId(userId);
 		Companycertificate companycertificate=new Companycertificate();
@@ -62,7 +62,7 @@ public class CompanycertificateDaoImpl extends BaseDaoImpl<Companycertificate> i
 					String fileLocation = path + "//" + fileName;
 					companycertificate.setRelatedMaterial(fileLocation);
 				}
-		this.update(companycertificate);
+		this.saveOrUpdate(companycertificate);
 		
 			Userinfo userInfo=ht.get(Userinfo.class, userId);
 			userInfo.setStatus("审核中");
