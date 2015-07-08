@@ -22,6 +22,7 @@
 <script type="text/javascript" src="js/popup.js"></script>
 <script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
 <script type="text/javascript" src="js/focus_load.js"></script>
+<%@ include file="jsTool.jsp" %>
 <script type="text/javascript"> 
 	$(function() {
 		$('input, textarea').placeholder(); 
@@ -101,67 +102,10 @@
                                         </span> -->
                                     </td>
                                 </tr>
-                               <!-- <tr id="layer_subs" style="display:none;">
-                                    <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
-                                    <td>
-                                        <span class="span_mgmt_right3_checkbox1">
-                                        	<input type="checkbox" />朝阳区
-                                        </span>
-                                        <span class="span_mgmt_right3_checkbox2">
-                                            <input type="checkbox" />管庄&nbsp;
-                                            <input type="checkbox" />北苑&nbsp;
-                                            <input type="checkbox" />定福庄&nbsp;
-                                        <input type="checkbox" />三环以内&nbsp;
-                                        <input type="checkbox" />三环到四环之间&nbsp;
-                                        <input type="checkbox" />四环到五环之间&nbsp;
-                                        <input type="checkbox" />五环到六环之间
-                                        </span>
-                                        <br />
-                                        <span class="span_mgmt_right3_checkbox1">
-                                       	<input type="checkbox" />海淀区
-                                        </span>
-                                        <span class="span_mgmt_right3_checkbox2">
-                                        <input type="checkbox" />西三旗&nbsp;
-                                        <input type="checkbox" />西二旗&nbsp;
-                                        <input type="checkbox" />三环以内&nbsp;
-                                        <input type="checkbox" />三环到四环之间&nbsp;
-                                        <input type="checkbox" />四环到五环之间&nbsp;
-                                        <input type="checkbox" />五环到六环之间&nbsp;
-                                        <input type="checkbox" />六环以外
-                                        </span>
-                                        <br />
-                                        <span class="span_mgmt_right3_checkbox1">
-                                       	<input type="checkbox" />西城区
-                                        </span>
-                                        <span class="span_mgmt_right3_checkbox2">
-                                        <input type="checkbox" />内环到二环&nbsp;
-                                        <input type="checkbox" />二环到三环
-                                        </span>
-                                        <br />
-                                        <span class="span_mgmt_right3_checkbox1">
-                                       	<input type="checkbox" id="a4" />东城区
-                                        </span>
-                                        <span class="span_mgmt_right3_checkbox2">
-                                        <input type="checkbox" id="a4" />内环到二环&nbsp;
-                                            <input type="checkbox" id="a4" />二环到三环
-                                        </span>
-                                        <br />
-                                        <span class="span_mgmt_right3_checkbox1">
-                                       	<input type="checkbox" />丰台区
-                                        </span>
-                                        <span class="span_mgmt_right3_checkbox2">
-                                        <input type="checkbox" />二环到三环之间&nbsp;
-                                        <input type="checkbox" />三环到四环之间&nbsp;
-                                        <input type="checkbox" />四环到五环之间&nbsp;
-                                        <input type="checkbox" />五环到六环之间&nbsp;
-                                        <input type="checkbox" />六环以外
-                                        </span>
-                                    </td>
-                                </tr>  -->
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">增值服务：</td>
                                     <td>
-                                        <select id="valueadd" style="width:120px;" onchange="change1(); " name="VIPService" required>
+                                        <select id="VIPService" style="width:120px;" onchange="changeHasVIPService(); " name="VIPService" required>
                                             <option value="" >请选择</option>
                                             <option value="有">有</option>
                                             <option value="无" selected="selected">无</option>
@@ -186,10 +130,10 @@
                                         </div>
                                     </td>
 								</tr>
-                                <tr>
+                               <!--  <tr>
                                     <td height="20" class="td_mgmt_right3_td1b"></td>
                                     <td><a href="javascript:;" hidefocus="true">报价模板&nbsp;<img src="images/btn_filetype2.png" /></a></td>
-                                </tr>
+                                </tr> -->
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">补充信息：</td>
 									<td>

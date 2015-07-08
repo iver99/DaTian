@@ -19,6 +19,7 @@
 <script type="text/javascript" src="js/popup.js"></script>
 <script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
 <script type="text/javascript" src="js/focus_load.js"></script>
+<%@ include file="jsTool.jsp" %>
 <script type="text/javascript"> 
 	$(function() {
 		$('input, textarea').placeholder(); 
@@ -95,7 +96,7 @@
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">订单编号：</td>
-									<td><a href="resource_detail1.htm">${orderNum }</a></td>
+									<td><a href="">${orderNum }</a></td>
 								</tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">相关材料：</td>

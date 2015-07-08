@@ -20,6 +20,7 @@
 <script type="text/javascript" src="js/popup.js"></script>
 <script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
 <script type="text/javascript" src="js/focus_load.js"></script>
+<%@ include file="jsTool.jsp" %>
 <script type="text/javascript"> 
 	$(function() {
 		$('input, textarea').placeholder(); 
@@ -79,9 +80,16 @@
                         </td>
                 	</tr>
             	</table>
+            	
+            	<input id="count" value="" type="hidden" /><!--  总记录条数 -->
+				<input id="display" value="10" type="hidden" /> <!-- 每页展示的数量 -->
+				<input id="currentPage" value="1" type="hidden" /><!-- 当前页 -->
+				<inpyt id="is_resource_page" value="0" type="hidden"/><!-- 是否为资源页，资源页需要模拟click按钮 -->
+            	
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
-                
-                    <tr>
+                	<thead>
+                	
+                     <tr>
                         <td width="20" height="40" class="td_mgmt_right3_head1">&nbsp;</td>
                         <td width="120" class="td_mgmt_right3_head">牌照号码</td>
                         <td width="60" class="td_mgmt_right3_head">所属车队</td>
@@ -93,7 +101,11 @@
                         <td width="80" class="td_mgmt_right3_head">发布日期</td>
                         <td width="80" class="td_mgmt_right3_head">操作</td>
                     </tr>
-                    <c:forEach var="car" items="${carList }">
+                    </thead>
+                    <tbody id="result_body">
+                    
+                    </tbody>
+                    <%-- <c:forEach var="car" items="${carList }">
                     <tr>
                         <td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
                         <td class="td_mgmt_right3_td1"><a href="cardetail?carId=${car.id }&carrierId=0&linetransportId=${car.linetransportId}&flag=1" hidefocus="true">${car.carNum }</a><a href="http://gps.dtw.com.cn:89/gpsonline" target="_blank" hidefocus="true"><img src="images/btn_map3a.png" alt="查看" /></a></td>
@@ -128,8 +140,8 @@
                         </c:otherwise>
                         </c:choose>
                     </tr>
-                    </c:forEach>
-                    
+                    </c:forEach> --%>
+                     
                    
                 </table>
 				<table border="0" cellpadding="0" cellspacing="0" class="table_recordnumber">
@@ -145,8 +157,8 @@
                         </td>
                     </tr>
 				</table>
-                <table border="0" cellpadding="0" cellspacing="0" class="table_pagenumber">
-                    <tr>
+                <table border="0" cellpadding="0" cellspacing="0" class="table_pagenumber" id="page_layout" >
+                    <!-- <tr>
                         <td width="45" class="td_pagenumber">首页</td>
                         <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">上页</a></td>
                         <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">1</a></td>
@@ -154,7 +166,7 @@
                         <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">3</a></td>
                         <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">下页</a></td>
                         <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">末页</a></td>
-                    </tr>
+                    </tr> -->
 				</table>
 			</td>
 		</tr>
@@ -172,6 +184,101 @@
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
+		var display=$("#display").val();
+		var currentPage=$("#currentPage").val();
+		getUserCarResource(display,currentPage);
+		getUserCarResourceTotalRows(display,currentPage);
 	}
+	
+	//加载车辆资源
+	function getUserCarResource(display,currentPage){
+		var url="getUserCarResourceAjax";
+		$.ajax({
+			url:url,
+			data:{
+				display:display,
+				currentPage:currentPage
+				},
+			cache:false,
+			dataType:"json",
+			success:function(data,status){
+				var body=$("#result_body");
+				body.empty();
+				/* body.append("<tr>");
+				body.append("<td width=\"20\" height=\"40\" class=\"td_mgmt_right3_head1\">&nbsp;</td>");
+				body.append("<td width=\"120\" class=\"td_mgmt_right3_head\">牌照号码</td>");
+				body.append("<td width=\"60\" class=\"td_mgmt_right3_head\">所属车队</td>");
+				body.append("<td width=\"60\" class=\"td_mgmt_right3_head\">用途</td>");
+				body.append("<td width=\"60\" class=\"td_mgmt_right3_head\">车长(米)</td>");
+				body.append("<td width=\"60\" class=\"td_mgmt_right3_head\">载重(吨)</td>");
+				body.append("<td width=\"60\" class=\"td_mgmt_right3_head\">状态</td>");
+				body.append("<td class=\"td_mgmt_right3_head\">当前位置</td>");
+				body.append("<td width=\"80\" class=\"td_mgmt_right3_head\">发布日期</td>");
+				body.append("<td width=\"80\" class=\"td_mgmt_right3_head\">操作</td>");
+				body.append("</tr>"); */
+				//循环输出结果集
+				  for(var i =0;i<data.length;i++){
+					body.append("<tr>");
+					body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>");
+                  
+							body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"cardetail?carId="+data[i].id+"&carrierId=0&linetransportId="+data[i].linetransportId+"&flag=1\" hidefocus=\"true\">"+data[i].carNum+"</a></td>");
+							body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].carTeam+"</td>");
+							body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].carUse+"</td>");
+							body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].carLength+"</td>");
+							body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].carWeight+"</td>");
+							body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].carState+"</td>");
+							body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].carLocation+"</td>");
+							body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].relDate+"</td>");
+							if(data[i].carState == '在途'){
+								body.append("<td class=\"td_mgmt_right3_td3\"><a href=\"cardetail?carId="+data[i].id+"&carrierId=0&linetransportId="+data[i].linetransportId+"&flag=1\" hidefocus=\"true\">查看</a></td>");
+							}
+							else{
+								var str="<td class=\"td_mgmt_right3_td3\"><div id=\"handlebox\" style=\"z-index: 203;\">";
+								str+="<ul class=\"quickmenu\"><li class=\"menuitem\">";
+								str+="<div class=\"menu\">";
+								str+="<a href=\"cardetail?carId="+data[i].id+"&carrierId="+data[i].carrierId+"&linetransportId="+data[i].linetransportId+"&flag=2\" class=\"menuhd\" hidefocus=\"true\">更新</a>";
+								str+="<div class=\"menubd\">";
+								str+="<div class=\"menubdpanel\">";
+								str+="<a href=\"cardelete?id="+data[i].id+"\" class=\"a_top3\" hidefocus=\"true\">删除</a>";
+								str+="</div></div></div></li></ul></div></td>";
+								str+="</tr>";
+								body.append(str);
+							/* body.append("<td class=\"td_mgmt_right3_td3\"><div id=\"handlebox\" style=\"z-index: 203;\">");
+							body.append("<ul class=\"quickmenu\"><li class=\"menuitem\">");
+							body.append("<div class=\"menu\">");
+							body.append("<a href=\"cardetail?carId="+data[i].id+"&carrierId="+data[i].carrierId+"&linetransportId="+data[i].linetransportId+"&flag=2\" class=\"menuhd\" hidefocus=\"true\">更新</a>");
+							body.append("<div class=\"menubd\">");
+							body.append("<div class=\"menubdpanel\">");
+							body.append("<a href=\"cardelete?id="+data[i].id+"\" class=\"a_top3\" hidefocus=\"true\">删除</a>");
+							body.append("</div></div></div></li></ul></div></td>");
+							body.append("</tr>"); */
+							}
+				}  
+				
+			}
+		})
+	}
+	//干线车辆总条数
+	function getUserCarResourceTotalRows(display,currentPage){
+		var url="getUserCarResourceTotalRowsAjax";
+		$.ajax({
+			url:url,
+			data:{
+				display:display,
+				currentPage:currentPage
+			},
+			cache:false,
+			dataType:"json",
+			success:function(data,status){
+				 $('#count').val(data);
+				  pageLayout(data);//页面布局
+			}
+		});
+		
+		
+		
+	}
+	
+
 </script>
 </html>

@@ -32,6 +32,7 @@ public interface SettlementService {
 	 * @param session
 	 * @return
 	 */
+	@Deprecated
 	public List getUserSettlementList(HttpSession session);
 	
 	

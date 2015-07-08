@@ -30,6 +30,7 @@ import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Comment;
+import cn.edu.bjtu.vo.Linetransport;
 import cn.edu.bjtu.vo.Warehouse;
 
 import com.alibaba.fastjson.JSONArray;
@@ -89,6 +90,7 @@ public class WarehouseController {
 	 * @param request
 	 * @return
 	 */
+	@Deprecated
 	@RequestMapping(value="/warehouse",params="flag=1")
 	public ModelAndView getMyInfoWarehouse(HttpServletRequest request){
 		String carrierId=(String)request.getSession().getAttribute(Constant.USER_ID);
@@ -322,7 +324,7 @@ public class WarehouseController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/updateWarehouse", method = RequestMethod.POST)
+	//@RequestMapping(value = "/updateWarehouse", method = RequestMethod.POST)
 	/**
 	 * 更新仓库信息
 	 * @param id
@@ -346,6 +348,7 @@ public class WarehouseController {
 	 * @param response
 	 * @return
 	 */
+	@Deprecated
 	public ModelAndView updateWarehouse(@RequestParam MultipartFile file,
 			@RequestParam String id,// GET方式传入，在action中
 			@RequestParam String name,
@@ -408,6 +411,14 @@ public class WarehouseController {
 		return mv;
 
 	}
+	
+	@RequestMapping(value = "/updateWarehouse", method = RequestMethod.POST)
+	public String updateNewWarehouse(Warehouse warehouse,MultipartFile file,
+			HttpServletRequest request) {
+		boolean flag=warehouseService.updateNewWarehouse(warehouse,request,file);
+		return "redirect:warehouse?flag=1";
+	}
+	
 	
 	@RequestMapping(value = "warehousedelete", method = RequestMethod.GET)
 	/**

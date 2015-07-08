@@ -2,12 +2,16 @@ package cn.edu.bjtu.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import cn.edu.bjtu.bean.search.CarSearchBean;
 import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Carinfo;
 import cn.edu.bjtu.vo.Carteam;
+import cn.edu.bjtu.vo.Linetransport;
 
 import com.alibaba.fastjson.JSONArray;
 
@@ -19,7 +23,7 @@ public interface CarService {
 	
 	public Carinfo getCarInfo(String carid);
 
-
+	@Deprecated
 	public List getCompanyCar(String carrierId);
 
 
@@ -31,13 +35,13 @@ public interface CarService {
 			String endPlace, String stopPlace, String carrierId);
 
 	
-
+	@Deprecated
 	public boolean updateCar(String id, String carNum, String carTeam, String locType, 
 			String terminalId, String carType, String carBase, String carBrand, String carUse,
 			double carLength, double carWidth, double carHeight, double carWeight, String carPurTime,
 			String storage,String driverId, String startPlace,String endPlace,
 			String stopPlace,String carrierId);
-	
+	public boolean updateNewCar(Carinfo car,HttpServletRequest request);
 	
 	public boolean deleteCar(String id);
 	

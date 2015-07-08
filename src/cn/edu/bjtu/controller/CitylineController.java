@@ -32,6 +32,7 @@ import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Cityline;
 import cn.edu.bjtu.vo.Comment;
+import cn.edu.bjtu.vo.Linetransport;
 
 import com.alibaba.fastjson.JSONArray;
 
@@ -101,6 +102,7 @@ public class CitylineController {
 	 * @param flag
 	 * @return
 	 */
+	@Deprecated
 	public ModelAndView getUserCityline(@RequestParam int flag,
 			HttpServletRequest request) {
 		// 这里用session取id
@@ -245,7 +247,7 @@ public class CitylineController {
 		return mv;
 	}
 
-	@RequestMapping(value = "/updateCityline", method = RequestMethod.POST)
+	//@RequestMapping(value = "/updateCityline", method = RequestMethod.POST)
 	/**
 	 * * 更新城市配送信息
 	 * @param id
@@ -258,6 +260,7 @@ public class CitylineController {
 	 * @param response
 	 * @return
 	 */
+	@Deprecated
 	public ModelAndView updateCityline(
 			@RequestParam MultipartFile file,
 			@RequestParam String id,// GET方式传入，在action中
@@ -308,6 +311,15 @@ public class CitylineController {
 		return mv;
 
 	}
+	
+	@RequestMapping(value = "/updateCityline", method = RequestMethod.POST)
+	public String updateNewCityline(Cityline cityline,MultipartFile file,
+			HttpServletRequest request) {
+		boolean flag=citylineService.updateNewCityline(cityline,request,file);
+		return "redirect:cityline?flag=1";
+	}
+	
+	//public 
 
 	@RequestMapping(value = "citydelete", method = RequestMethod.GET)
 	/**

@@ -8,11 +8,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import cn.edu.bjtu.dao.CarDao;
 import cn.edu.bjtu.dao.DriverDao;
@@ -20,8 +22,10 @@ import cn.edu.bjtu.service.DriverService;
 import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.util.PageUtil;
+import cn.edu.bjtu.util.UploadFile;
 import cn.edu.bjtu.vo.Carinfo;
 import cn.edu.bjtu.vo.Driverinfo;
+import cn.edu.bjtu.vo.Linetransport;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -42,6 +46,7 @@ public class DriverServiceImpl implements DriverService{
 	/**
 	 * 返回所有司机信息
 	 */
+	@Deprecated
 	public List getAllDriver() {
 		
 		return driverDao.getAllDriver();
@@ -122,6 +127,7 @@ public class DriverServiceImpl implements DriverService{
 	/**
 	 * 返回公司司机
 	 */
+	@Deprecated
 	public List getCompanyDriver(String carrierId) {
 		
 		return driverDao.getCompanyDriver(carrierId);
@@ -131,6 +137,7 @@ public class DriverServiceImpl implements DriverService{
 	/**
 	 * 更新司机
 	 */
+	@Deprecated
 	public boolean updateDriver(String id, String name, String sex,
 			String IDCard, String licenceNum, String licenceRate,
 			String licenceTime, String phone, String carrierId, String path,
@@ -154,6 +161,29 @@ public class DriverServiceImpl implements DriverService{
 		driverDao.update(driverinfo);// 保存实体
 		return true;
 	}
+	@Override
+	public boolean updateNewDriver(Driverinfo driver,HttpServletRequest request,MultipartFile file){
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
+		//保存文件
+		String fileLocation=UploadFile.uploadFile(file, carrierId, "driver");
+
+		Driverinfo driverInstance = driverDao.get(Driverinfo.class,driver.getId());
+		driverInstance.setDriverName(driver.getDriverName());
+		driverInstance.setSex(driver.getSex());
+		driverInstance.setIDCard(driver.getIDCard());
+		driverInstance.setLicenceNum(driver.getLicenceNum());
+		driverInstance.setLicenceRate(driver.getLicenceRate());
+		driverInstance.setLicenceTime(driver.getLicenceTime());
+		driverInstance.setPhone(driver.getPhone());
+		
+		//设置文件位置 
+		driverInstance.setIdscans(fileLocation);
+
+		//更新
+		driverDao.update(driverInstance);
+		return true;
+	}
+	
 	
 	private static Date stringToDate(String str) {  
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");  
@@ -190,7 +220,9 @@ public class DriverServiceImpl implements DriverService{
 		String hql="from Driverinfo t where t.carrierId=:carrierId";
 		Map<String,Object> params=new HashMap<String,Object>();
 		params.put("carrierId", carrierId);
-		List<Driverinfo> driverList=driverDao.find(hql, params);
+		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
+		int display=pageUtil.getDisplay()==0?10:pageUtil.getDisplay();
+		List<Driverinfo> driverList=driverDao.find(hql, params,page,display);
 		
 		JSONArray jsonArray=new JSONArray();
 		for(Driverinfo driver:driverList){

@@ -19,6 +19,7 @@
 <script type="text/javascript" src="js/popup.js"></script>
 <script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
 <script type="text/javascript" src="js/focus_load.js"></script>
+<%@ include file="jsTool.jsp" %>
 <script type="text/javascript"> 
 	$(function() {
 		$('input, textarea').placeholder(); 

@@ -1,22 +1,31 @@
 
 package cn.edu.bjtu.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.service.GoodsInfoService;
 import cn.edu.bjtu.service.ResponseService;
+import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.DownloadFile;
+import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Response;
+
+import com.alibaba.fastjson.JSONArray;
 
 @Controller
 /**
@@ -152,6 +161,104 @@ public class ResponseController {
 		return mv;
 	}
 	
+	/**
+	 * 获取所有反馈
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@Deprecated
+	@RequestMapping("getallresponse")
+	public ModelAndView getAllResponse(HttpServletRequest request,
+			HttpServletResponse response) {
+		String userId = (String) request.getSession().getAttribute(Constant.USER_ID);
+
+		List responseList = goodsInfoService.getAllResponse(userId);
+		//responseList中的id是goodsid
+
+		mv.addObject("responseList", responseList);
+		mv.setViewName("mgmt_d_response");
+		return mv;
+	}
+	
+	/**
+	 * 获取用户的所有反馈
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value="getUserResponseAjax",produces="text/html;charset=UTF-8")
+	@ResponseBody
+	public String getUserResponse(HttpSession session){
+		//XXX unused
+		JSONArray jsonArray=responseService.getUserResponse(session);
+		
+		return jsonArray.toString();
+	}
+	
+	/**
+	 * 我的反馈-总条数
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("getUserResponseTotalRowsAjax")
+	@ResponseBody
+	public Integer getUserResponseTotalRows(HttpSession session){
+		return responseService.getUserResponseTotalRows(session);
+		
+	}
+
+	/**
+	 * 获取创建反馈表单
+	 * @param goodsid
+	 * @return
+	 */
+	@RequestMapping("getresponseform")
+	public ModelAndView getResponseForm(String goodsid) {
+		mv.addObject("goodsId", goodsid);
+
+		mv.setViewName("mgmt_d_response2");
+
+		return mv;
+	}
+
+	/**
+	 * 创建反馈
+	 * @param goodsid
+	 * @return
+	 */
+	@RequestMapping("commitresponse")
+	public ModelAndView commitResponse(MultipartFile file,String goodsid, String remarks,
+			HttpServletRequest request, HttpServletResponse response) {
+
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
+		String path = null;
+		String fileName = null;
+		if (file.getSize() != 0)// 有上传文件的情况
+		{
+			path = UploadPath.getResponsePath();// 不同的地方取不同的上传路径
+			fileName = file.getOriginalFilename();
+			fileName = carrierId + "_" + fileName;// 文件名
+			File targetFile = new File(path, fileName);
+			try { // 保存 文件
+				file.transferTo(targetFile);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} 
+		//没有上传文件的情况path 和 filenName默认为null
+		boolean flag = goodsInfoService.commitResponse(goodsid, remarks,
+				carrierId,path,fileName);
+		if (flag == true) {
+			try {
+				response.sendRedirect("getallresponse");
+			} catch (IOException e) {
+				// 
+				e.printStackTrace();
+			}
+		}
+
+		return mv;
+	}
 	/*@RequestMapping("downloadMyResponseMaterial")
 	public ModelAndView downMyResponseMaterial(String responseid){
 		public ModelAndView downloadResponseFile(String responseid,HttpServletRequest request,HttpServletResponse response){

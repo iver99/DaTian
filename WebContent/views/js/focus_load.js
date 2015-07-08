@@ -18,7 +18,6 @@ function insertMessage()
 function loadMessages()
 {
 	var url="getAllUserMessage";
-	alert("tste");
 	$.post(url,{},
 	  function(data,status){
 			  //alert(data);

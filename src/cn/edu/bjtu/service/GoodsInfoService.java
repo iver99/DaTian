@@ -2,12 +2,16 @@ package cn.edu.bjtu.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import cn.edu.bjtu.bean.search.CargoSearchBean;
 import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.GoodsClientView;
 import cn.edu.bjtu.vo.Goodsform;
+import cn.edu.bjtu.vo.Linetransport;
 
 import com.alibaba.fastjson.JSONArray;
 
@@ -36,7 +40,7 @@ public interface GoodsInfoService {
 			String clientId,
 			String path,
 			String fileName);
-	
+	@Deprecated
 	public boolean updateGoods(String id, String name,
 			String type,
 			float weight,
@@ -53,11 +57,12 @@ public interface GoodsInfoService {
 			String clientId,
 			String path,
 			String fileName);
+	public boolean  updateNewGoods(Goodsform goods,HttpServletRequest request,MultipartFile file);
 	
 	public boolean commitResponse(String goodsId,String remarks,String userId,String path,String fileName);
-	
+	@Deprecated
 	public List getAllResponse(String carrierId);
-	
+	@Deprecated
 	public List getUserGoodsInfo(String clientId);
 	
 	public boolean deleteGoods(String id);

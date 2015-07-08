@@ -12,6 +12,7 @@ public class DriverDaoImpl extends BaseDaoImpl<Driverinfo> implements DriverDao{
 	/**
 	 * 返回所有司机信息
 	 */
+	@Deprecated
 	public List getAllDriver() {
 		
 		return this.find("from Driverinfo");
@@ -52,6 +53,7 @@ public class DriverDaoImpl extends BaseDaoImpl<Driverinfo> implements DriverDao{
 	/**
 	 * 返回公司司机
 	 */
+	@Deprecated
 	public List getCompanyDriver(String carrier) {
 		
 		return this.find("from Driverinfo where carrierId='"+carrier+"'");

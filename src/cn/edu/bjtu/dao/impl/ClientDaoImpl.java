@@ -38,6 +38,7 @@ public class ClientDaoImpl extends BaseDaoImpl<Clientinfo> implements ClientDao 
 	/**
 	 * 返回公司客户
 	 */
+	@Deprecated
 	public List getCompanyClient(String carrierId) {
 		
 		return ht.find("from Businessclient where carrierId='" + carrierId
@@ -59,19 +60,7 @@ public class ClientDaoImpl extends BaseDaoImpl<Clientinfo> implements ClientDao 
 		return ht.get(Businessclient.class, clientId);
 	}
 
-	@Override
-	/**
-	 * 查找用户的基本信息
-	 */
-	public String getBasicUserInfo(String userId) {
-		
-		List list = ht.find("select email from Clientinfo where id='" + userId
-				+ "'");
-		if (list != null)
-			return (String) list.get(0);
-		else
-			return null;
-	}
+	
 
 
 	@Override

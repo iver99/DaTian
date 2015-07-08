@@ -6,6 +6,8 @@ import javax.servlet.http.HttpSession;
 
 import cn.edu.bjtu.vo.Address;
 
+import com.alibaba.fastjson.JSONArray;
+
 
 public interface AddressService {
 
@@ -24,4 +26,11 @@ public interface AddressService {
 	 * @param address
 	 */
 	public void addUserAddress(HttpSession session,Address address);
+	
+	/**
+	 * 下订单时获取用户的常用地址列表
+	 * @param session
+	 * @return
+	 */
+	public JSONArray getUserFrequentAddress(HttpSession session);
 }

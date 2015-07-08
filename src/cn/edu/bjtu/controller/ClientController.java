@@ -21,6 +21,7 @@ import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.DownloadFile;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Clientinfo;
+import cn.edu.bjtu.vo.Userinfo;
 
 @Controller
 /**
@@ -58,19 +59,18 @@ public class ClientController {
 		return mv;
 	}
 
-	@RequestMapping("basicuserinfo")
 	/**
 	 * 基本信息
 	 * @param request
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView getBasicUserInfo(HttpServletRequest request,
-			HttpServletResponse response) {
-		String userId = (String) request.getSession().getAttribute(Constant.USER_ID);
+	@RequestMapping("basicuserinfo")
+	public ModelAndView getBasicUserInfo(HttpSession session) {
+//		String userId = (String) request.getSession().getAttribute(Constant.USER_ID);
 
-		String email = clientService.getBasicUserInfo(userId);
-		mv.addObject("email", email);
+		Userinfo userinfo = clientService.getBasicUserInfo(session);
+		mv.addObject("userInfo", userinfo);
 		mv.setViewName("mgmt_a_info2");
 		return mv;
 	}

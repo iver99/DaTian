@@ -15,6 +15,7 @@ import com.alibaba.fastjson.JSONArray;
  *
  */
 public interface ContractService {
+	@Deprecated
 	public List getCompanyContract(String carrierId);
 
 	public Contract getContractInfo(String contractId);

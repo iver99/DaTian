@@ -21,6 +21,7 @@
 <script type="text/javascript" src="js/popup.js"></script>
 <script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
 <script type="text/javascript" src="js/focus_load.js"></script>
+<%@ include file="jsTool.jsp" %>
 <script type="text/javascript"> 
 	$(function() {
 		$('input, textarea').placeholder(); 
@@ -122,7 +123,7 @@
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">结算方式：</td>
 									<td>
-                                        <select id="valueadd" style="width:120px;" onchange="change1();" name="caculateType" required>
+                                        <select id="caculateType" style="width:120px;" onchange="changeCaculateType();" name="caculateType" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="月结">月结</option>
                                             <option value="现付">现付</option>

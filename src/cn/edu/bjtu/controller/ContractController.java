@@ -55,6 +55,7 @@ public class ContractController {
 	 * @param request
 	 * @return
 	 */
+	@Deprecated
 	public ModelAndView getCompanyContractForUser(HttpServletRequest request) {
 		String clientId=(String)request.getSession().getAttribute(Constant.USER_ID);
 		//String carrierId = "C-0002";
@@ -76,6 +77,7 @@ public class ContractController {
 	 * @param request
 	 * @return
 	 */
+	@Deprecated
 	public ModelAndView getCompanyContractForCompany(HttpServletRequest request) {
 		String carrierId=(String)request.getSession().getAttribute(Constant.USER_ID);
 		//String carrierId = "C-0002";
@@ -135,7 +137,6 @@ public class ContractController {
 
 	}
 
-	@RequestMapping(value = "insertContract", method = RequestMethod.POST)
 	/**
 	 * 新增合同
 	 * @param id
@@ -151,6 +152,7 @@ public class ContractController {
 	 * @param response
 	 * @return
 	 */
+	@RequestMapping(value = "insertContract", method = RequestMethod.POST)
 	public ModelAndView insertContract(@RequestParam MultipartFile file,@RequestParam String id,
 			@RequestParam String name, @RequestParam String caculateType,
 			//@RequestParam String carrierAccount,
@@ -166,7 +168,7 @@ public class ContractController {
 		String fileName = null;
 		if (file.getSize() != 0)// 有上传文件的情况
 		{
-			path = UploadPath.getContactPath();// 不同的地方取不同的上传路径
+			path = UploadPath.getContractPath();// 不同的地方取不同的上传路径
 			fileName = file.getOriginalFilename();
 			fileName = carrierId + "_" + fileName;// 文件名
 			File targetFile = new File(path, fileName);
@@ -197,7 +199,6 @@ public class ContractController {
 			mv.setViewName("mgmt_r_contact_s");
 		return mv;
 	}
-	@RequestMapping(value="shutdownContract",method = RequestMethod.POST)
 	/**
 	 * 终止合同
 	 * @param contractId
@@ -205,6 +206,7 @@ public class ContractController {
 	 * @param response
 	 * @return
 	 */
+	@RequestMapping(value="shutdownContract",method = RequestMethod.POST)
 	public ModelAndView shutdownContract(@RequestParam String contractId,
 			@RequestParam int rorsflag,//标识是承运方还是需求方
 			@RequestParam String reason,HttpServletResponse response)

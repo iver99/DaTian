@@ -81,7 +81,7 @@ function change1() {
 
 /*提交订单-关联客户运单*/
 function change2() {
-	if (document.getElementById('psource').selectedIndex == 1 )
+	if (document.getElementById('isLinkToClientWayBill').selectedIndex == 1 )
 	{
 		document.getElementById('p_detail').style.display='inline';
 		}
@@ -111,7 +111,7 @@ function change_pos() {
 
 /*车辆信息-入市许可证*/
 function change_cert() {
-	if (document.getElementById('city_cert').selectedIndex == 1 )
+	if (document.getElementById('hasCarrierContract').selectedIndex == 1 )
 	{
 		document.getElementById('c_detail').style.display='inline';
 		}

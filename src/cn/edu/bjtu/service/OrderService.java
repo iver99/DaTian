@@ -8,10 +8,12 @@ import cn.edu.bjtu.bean.page.OrderBean;
 import cn.edu.bjtu.vo.OrderCarrierView;
 import cn.edu.bjtu.vo.Orderform;
 
+import com.alibaba.fastjson.JSONArray;
+
 public interface OrderService {
-
+	@Deprecated
 	public List getAllSendOrderInfo(String userId);
-
+	@Deprecated
 	public List getAllRecieveOrderInfo(String userId);
 
 	public OrderCarrierView getSendOrderDetail(String id);
@@ -100,5 +102,33 @@ public interface OrderService {
 	 * @return
 	 */
 	public boolean updateOrder(HttpSession session,OrderBean orderBean);
+	
+	/**
+	 * 我提交的订单-总记录数
+	 * @param session
+	 * @return
+	 */
+	public Integer getUserSendOrderTotalRows(HttpSession session);
+	
+	/**
+	 *  我提叫的订单
+	 * @param session
+	 * @return
+	 */
+	public JSONArray getUserSendOrder(HttpSession session);
+
+	/**
+	 * 我收到的订单
+	 * @param session
+	 * @return
+	 */
+	public JSONArray getUserRecieveOrder(HttpSession session);
+	
+	/**
+	 * 我收到的订单-总记录是
+	 * @param session
+	 * @return
+	 */
+	public Integer getUserRecieveOrderTotalRows(HttpSession session);
 
 }

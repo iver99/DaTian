@@ -22,6 +22,7 @@
 <script type="text/javascript" src="js/popup.js"></script>
 <script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
 <script type="text/javascript" src="js/focus_load.js"></script>
+<%@ include file="jsTool.jsp" %>
 <script type="text/javascript"> 
 	$(function() {
 		$('input, textarea').placeholder(); 
@@ -118,7 +119,7 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">关联客户运单：</td>
                                     <td>
-                                        <select id="psource" style="width:120px;" onchange="change2();" name="isLinkToClientWayBill" required>
+                                        <select id="isLinkToClientWayBill" style="width:120px;" onchange="changeIsLinkToClientWayBill();" name="isLinkToClientWayBill" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="有">有</option>
                                             <option value="无">无</option>
@@ -136,7 +137,7 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">承运方合同：</td>
                                     <td>
-                                        <select id="city_cert" style="width:120px;" onchange="change_cert();" name="hasCarrierContract" required>
+                                        <select id="hasCarrierContract" style="width:120px;" onchange="changeHasCarrierContract();" name="hasCarrierContract" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="有">有</option>
                                             <option value="无">无</option>
@@ -278,7 +279,29 @@
     </table>
 </div>
 
-<%@ include  file="popup1.jsp"%>
+<%-- <%@ include  file="popup1.jsp"%> --%>
+<div id="popup1" style="display:none;">
+    <table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td width="510"><div class="div_popup_title1">留言</div></td>
+            <td>
+                <div id="close" style="cursor:pointer;"><img src="images/btn_cancel1.png" title="关闭本窗口" /></div>
+            </td>
+        </tr>
+    </table>
+    <table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td width="540">
+            	<textarea class="textarea_popup1" placeholder="请输入内容..." id="message"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td class="td_popup1">
+                <input type="button" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="insertMessage()"/><input type="button" id="btn2" value="éå¡«" class="btn_mgmt2" hidefocus="true" />
+            </td>
+        </tr>
+    </table>
+</div>
 
 <div id="popup2" style="display:none;">
     <table border="0" cellpadding="0" cellspacing="0">
@@ -297,53 +320,15 @@
         </tr>
     </table>
 	<div class="div_popup_address">
-        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_popup_address2">
-            <tr>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_popup_address2" >
+           <!-- <tr>
                 <td width="100" class="td_popup_address2a">李刚</td>
                 <td width="120" class="td_popup_address2">13720099880</td>
                 <td class="td_popup_address2">天津市西市大街12号</td>
-            </tr>
-            <tr>
-                <td class="td_popup_address2a">李刚</td>
-                <td class="td_popup_address2">13720099880</td>
-                <td class="td_popup_address2">天津市西市大街12号</td>
-            </tr>
-            <tr>
-                <td class="td_popup_address2a">李刚</td>
-                <td class="td_popup_address2">13720099880</td>
-                <td class="td_popup_address2">天津市西市大街12号</td>
-            </tr>
-
-            <tr>
-                <td class="td_popup_address2a">李刚</td>
-                <td class="td_popup_address2">13720099880</td>
-                <td class="td_popup_address2">天津市西市大街12号</td>
-            </tr>
-            <tr>
-                <td class="td_popup_address2a">李刚</td>
-                <td class="td_popup_address2">13720099880</td>
-                <td class="td_popup_address2">天津市西市大街12号</td>
-            </tr>
-            <tr>
-                <td class="td_popup_address2a">李刚</td>
-                <td class="td_popup_address2">13720099880</td>
-                <td class="td_popup_address2">天津市西市大街12号</td>
-            </tr>
-            <tr>
-                <td class="td_popup_address2a">李刚</td>
-                <td class="td_popup_address2">13720099880</td>
-                <td class="td_popup_address2">天津市西市大街12号</td>
-            </tr>
-            <tr>
-                <td class="td_popup_address2a">李刚</td>
-                <td class="td_popup_address2">13720099880</td>
-                <td class="td_popup_address2">天津市西市大街12号</td>
-            </tr>
-            <tr>
-                <td class="td_popup_address2a">李刚</td>
-                <td class="td_popup_address2">13720099880</td>
-                <td class="td_popup_address2">天津市西市大街12号</td>
-            </tr>
+            </tr> -->
+            <tbody id="frequent_address">
+            
+            </tbody>
         </table>
     </div>
 </div>
@@ -356,7 +341,62 @@
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
+		
+		getUserContract();
+		getUserClientName();
+		
+		//获取常用地址
+		getFrequentAddress();
 	}
+	//获取常用地址]
+	function getFrequentAddress(){
+		var url="getUserFrequentAddressAjax";
+		$.ajax({
+			url:url,
+			cache:false,
+			dataType:"json",
+			success:function(data,status){
+				var f=$("#frequent_address");
+				f.empty();
+				for(var i=0;i<data.length;i++){
+					f.append("<tr>");
+					f.append("<td width=\"100\" class=\"td_popup_address2a\">"+data[i].name+"</td>");
+					f.append("<td width=\"120\" class=\"td_popup_address2\">"+data[i].phone+"</td>");
+					f.append("<td class=\"td_popup_address2\">"+data[i].address+"</td>");
+					f.append("</tr>");
+					
+				}
+			}
+		})
+	}
+	
+	//返回用户的合同编号
+	function getUserContract(){
+		var url="getUserContractIdAjax";
+		$.post(url,{currentUserId:$('#currentUserId').val()},function(data,status){
+			//alert(data);
+			var CONTRACTID=$('#contractId');
+			//var option = $("<option>").text("").val("");
+			//debugger;
+			 for(var i=0;i<data.length;i++) {
+		         option = $("<option>").text(data[i].id).val(data[i].id);
+		         CONTRACTID.append(option);
+		      }     
+		},"json");
+	}
+	//返回用户的客户信息
+	function getUserClientName(){
+		var url="getUserBusinessClientAjax";
+		$.post(url,{currentUserId:$('#currentUserId').val()},function(data,status){
+			var client_name=$('#clientName');
+			//var option = $("<option>").text("").val("");
+			 for(var i=0;i<data.length;i++) {
+		         var option = $("<option>").text(data[i].clientName).val(data[i].clientName);
+		         client_name.append(option);
+		      }    
+		},"json");
+	}
+	
 	$(function(){
 		$('reset:button').click(function(){
 		   $('.input').val("");
@@ -413,6 +453,7 @@
 		//提交订单
 		$('#new_order').submit();
 	}
+	
     
 </script>
 </html>

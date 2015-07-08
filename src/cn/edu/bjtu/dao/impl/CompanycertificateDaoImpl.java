@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import cn.edu.bjtu.dao.CompanycertificateDao;
 import cn.edu.bjtu.dao.RegisterDao;
+import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.vo.Companycertificate;
 import cn.edu.bjtu.vo.Userinfo;
 
@@ -33,6 +34,7 @@ public class CompanycertificateDaoImpl extends BaseDaoImpl<Companycertificate> i
 	@Resource
 	RegisterDao registerDao; 
 	
+	@Deprecated
 	@Override
 	public boolean validateCompany(String userId, String companyName,
 			String divisionCode, String legalName, String legalIDCard,
@@ -41,34 +43,6 @@ public class CompanycertificateDaoImpl extends BaseDaoImpl<Companycertificate> i
 			String companyContact, String phone, String basicSituation,
 			String path, String fileName){
 		
-		//更新certificate表 add by RussWest0 at 2015年6月6日,下午2:47:35 
-		//companycertificate.setId(userId);
-		Companycertificate companycertificate=new Companycertificate();
-		companycertificate.setCompanyName(companyName);	
-		companycertificate.setDivisionCode(divisionCode);
-		companycertificate.setLegalName(legalName);
-		companycertificate.setLegalIDCard(legalIDCard);
-		companycertificate.setCompanyAddr(companyAddr);
-		companycertificate.setCompanyType(companyType);
-		companycertificate.setCompanyScale(companyScale);
-		companycertificate.setInvoiceKind(invoiceKind);
-		companycertificate.setServiceIndustry(serviceIndustry);
-		companycertificate.setBusinessKind(businessKind);
-		companycertificate.setCompanyContact(companyContact);
-		companycertificate.setPhone(phone);
-		companycertificate.setBasicSituation(basicSituation);
-		// 保存文件路径
-				if (path != null && fileName != null) {
-					String fileLocation = path + "//" + fileName;
-					companycertificate.setRelatedMaterial(fileLocation);
-				}
-		this.update(companycertificate);
-		
-			Userinfo userInfo=ht.get(Userinfo.class, userId);
-			userInfo.setStatus("审核中");
-			/*baseDao.update(userInfo);*/
-			registerDao.update(userInfo);
-	//}
 		
 		return true;
 	}

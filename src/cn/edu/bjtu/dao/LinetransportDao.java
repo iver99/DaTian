@@ -10,9 +10,9 @@ public interface LinetransportDao extends BaseDao<Linetransport>{
 	public List getAllLinetransport(int Display,int PageNow);
 
 	public Linetransport getLinetransportInfo(String linetransportid);
-
+	@Deprecated
 	public List getCompanyLine(String carrierId,int Display,int PageNow);
-	
+	@Deprecated
 	public List getSelectedLine(String hql,int Display,int PageNow);
 	@Deprecated
 	public int getCompanyTotalRows(String carrierId);

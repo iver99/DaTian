@@ -41,6 +41,7 @@ public class ContractServiceImpl implements ContractService{
 	/**
 	 * 获取公司合同
 	 */
+	@Deprecated
 	public List getCompanyContract(String carrierId) {
 		
 		
@@ -229,8 +230,9 @@ public class ContractServiceImpl implements ContractService{
 		}
 		Map<String,Object> params=new HashMap<String,Object>();
 		params.put("userId", userId);
-		
-		List<Contract> contractList = contractDao.find(hql, params);
+		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
+		int display=pageUtil.getDisplay()==0?10:pageUtil.getDisplay();
+		List<Contract> contractList = contractDao.find(hql, params,page,display);
 		JSONArray jsonArray = new JSONArray();
 		for (Contract contract : contractList) {
 			JSONObject jsonObject = (JSONObject) JSONObject.toJSON(contract);

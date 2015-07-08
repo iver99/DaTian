@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -38,6 +39,8 @@ import cn.edu.bjtu.vo.Driverinfo;
 import cn.edu.bjtu.vo.Linetransport;
 import cn.edu.bjtu.vo.OrderCarrierView;
 import cn.edu.bjtu.vo.Orderform;
+
+import com.alibaba.fastjson.JSONArray;
 
 /**
  * 
@@ -76,6 +79,7 @@ public class OrderController {
 	 * 我提交的订单信息
 	 * @return
 	 */
+	@Deprecated
 	public ModelAndView getAllSendOrderInfo(HttpSession session) {
 		// 从session获取用户Id
 		String userId = (String) session.getAttribute(Constant.USER_ID);
@@ -89,12 +93,40 @@ public class OrderController {
 		}
 		return mv;
 	}
+	
+	/**
+	 * u获取用户提交的订单
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value="getUserSendOrderAjax",produces="text/html;charset=UTF-8")
+	@ResponseBody
+	public String getUserSendOrder(HttpSession session){
+		//XXX unused
+		JSONArray jsonArray=orderService.getUserSendOrder(session);
+		
+		return jsonArray.toString();
+		
+	}
+
+	/**
+	 * 我提交的订单-总记录以
+	 * @param session
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("getUseSendOrderTotalRowsAjax")
+	public Integer getUserSendOrderTotalRows(HttpSession session){
+		//XXX unused
+		return orderService.getUserSendOrderTotalRows(session);
+	}
 
 	@RequestMapping("/recieveorderinfo")
 	/**
 	 * 我收到的订单信息
 	 * @return
 	 */
+	@Deprecated
 	public ModelAndView getAllRecieveOrderInfo(HttpServletRequest request,
 			HttpServletResponse response) {
 		String userId = (String) request.getSession().getAttribute(Constant.USER_ID);
@@ -103,6 +135,31 @@ public class OrderController {
 		mv.setViewName("mgmt_d_order_r");
 
 		return mv;
+	}
+	
+	/**
+	 * 我收到的订单
+	 * @param session
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="getUserRecieveOrderAjax",produces="text/html;charset=UTF-8")
+	public String getUserRecieveOrder(HttpSession session){
+		//XXX unused
+		JSONArray jsonArray=orderService.getUserRecieveOrder(session);
+		return jsonArray.toString();
+	}
+	
+	/**
+	 * 我收到的订单-总记录数
+	 * @param session
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("getUserRecieveOrderTotalRowsAjax")
+	public Integer getUserRevieveOrderTotalRows(HttpSession session){
+		//XXX unused
+		return orderService.getUserRecieveOrderTotalRows(session);
 	}
 
 	@RequestMapping("/sendorderdetail")

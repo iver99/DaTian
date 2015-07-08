@@ -8,9 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.CompanyDao;
 import cn.edu.bjtu.dao.CompanycertificateDao;
+import cn.edu.bjtu.dao.UserinfoDao;
 import cn.edu.bjtu.service.CompanycertificateService;
 import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Companycertificate;
+import cn.edu.bjtu.vo.Userinfo;
 /**
  * client服务层实现
  * @author RussWest0
@@ -25,6 +27,8 @@ public class CompanycertificateServiceImpl implements CompanycertificateService{
 	
 	@Autowired
 	CompanyDao companyDao;
+	@Autowired
+	UserinfoDao userinfoDao;
 	
 	
 	@Override
@@ -62,9 +66,40 @@ public class CompanycertificateServiceImpl implements CompanycertificateService{
 		
 		
 		//更新certificate表
-		companycertificateDao.validateCompany(userId,companyName,divisionCode,legalName,
+		/*companycertificateDao.validateCompany(userId,companyName,divisionCode,legalName,
 				legalIDCard,companyAddr,companyType,companyScale,invoiceKind,serviceIndustry,
-				businessKind,companyContact,phone,basicSituation, path, fileName);
+				businessKind,companyContact,phone,basicSituation, path, fileName);*/
+				//更新certificate表 add by RussWest0 at 2015年6月6日,下午2:47:35 
+				//companycertificate.setId(userId);
+				//Companycertificate companycertificate=new Companycertificate();
+				Companycertificate companycertificate=companycertificateDao.get(Companycertificate.class,userId);
+				//companycertificate.setId(userId);
+				companycertificate.setCompanyName(companyName);	
+				companycertificate.setDivisionCode(divisionCode);
+				companycertificate.setLegalName(legalName);
+				companycertificate.setLegalIDCard(legalIDCard);
+				companycertificate.setCompanyAddr(companyAddr);
+				companycertificate.setCompanyType(companyType);
+				companycertificate.setCompanyScale(companyScale);
+				companycertificate.setInvoiceKind(invoiceKind);
+				companycertificate.setServiceIndustry(serviceIndustry);
+				companycertificate.setBusinessKind(businessKind);
+				companycertificate.setCompanyContact(companyContact);
+				companycertificate.setPhone(phone);
+				companycertificate.setBasicSituation(basicSituation);
+				// 保存文件路径
+						if (path != null && fileName != null) {
+							String fileLocation = path + "//" + fileName;
+							companycertificate.setRelatedMaterial(fileLocation);
+						}
+						companycertificateDao.saveOrUpdate(companycertificate);
+				
+					Userinfo userInfo=userinfoDao.get(Userinfo.class, userId);
+					userInfo.setStatus("审核中");
+					/*baseDao.update(userInfo);*/
+					userinfoDao.update(userInfo);
+			//}
+		
 		
 		return true;
 	}

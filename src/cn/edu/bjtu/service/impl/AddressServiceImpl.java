@@ -1,7 +1,9 @@
 package cn.edu.bjtu.service.impl;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -16,6 +18,9 @@ import cn.edu.bjtu.service.AddressService;
 import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.vo.Address;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 @Transactional
 @Service
@@ -99,6 +104,26 @@ public class AddressServiceImpl implements AddressService{
 		
 		addressDao.save(address);
 		
+	}
+
+
+	/**
+	 * 下订单时获取用于的藏用地址列表
+	 */
+	@Override
+	public JSONArray getUserFrequentAddress(HttpSession session) {
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+		String hql="from Address t where t.clientId=:clientId";
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("clientId", userId);
+		List<Address> addressList=addressDao.find(hql, params);
+		
+		JSONArray jsonArray=new JSONArray();
+		for(Address address: addressList){
+			JSONObject jsonObject=(JSONObject)JSONObject.toJSON(address);
+			jsonArray.add(jsonObject);
+		}
+		return jsonArray;
 	}
 	
 }

@@ -11,10 +11,10 @@ import cn.edu.bjtu.vo.Clientinfo;
  *
  */
 public interface ClientDao extends BaseDao<Clientinfo>{
+	@Deprecated
 	public List getCompanyClient(String carrierId);
 	public Clientinfo getClientInfo(String clientId);
 	public Businessclient getBusinessclientInfo(String clientId);
-	public String getBasicUserInfo(String userId);
 	public String getStatus(String userId);
 	public boolean validateUser(String userId,String realName,String phone,String IDCard,
 			String sex, String path, String fileName);

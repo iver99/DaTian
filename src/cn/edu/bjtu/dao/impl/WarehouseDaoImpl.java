@@ -31,6 +31,7 @@ public class WarehouseDaoImpl extends BaseDaoImpl<Warehouse> implements Warehous
 	}
 
 	@Override
+	@Deprecated
 	public List getCompanyWarehouse(String carrierId) {
 		
 		return ht.find("from Warehouse where carrierId='"+carrierId+"'");

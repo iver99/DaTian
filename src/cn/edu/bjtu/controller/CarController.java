@@ -76,6 +76,7 @@ public class CarController {
 	 * 获取我的信息-车辆信息
 	 * @return
 	 */
+	@Deprecated
 	@RequestMapping(value="car",params="flag=1")
 	public ModelAndView getMyInfoCar(HttpServletRequest request){
 		String carrierId = (String) request.getSession().getAttribute(
@@ -219,6 +220,7 @@ public class CarController {
 	 * @param flag
 	 * @return
 	 */
+	@Deprecated
 	public ModelAndView getAllDriver(@RequestParam int flag,
 			HttpServletRequest request, HttpServletResponse response) {
 		// 从session里取出id查询
@@ -373,7 +375,7 @@ public class CarController {
 		return mv;
 	}
 
-	@RequestMapping(value = "updateCar", method = RequestMethod.POST)
+	//@RequestMapping(value = "updateCar", method = RequestMethod.POST)
 	/**
 	 * * 更新车辆信息（不包括司机和路线）
 	 * @param id
@@ -399,6 +401,7 @@ public class CarController {
 	 * @param response
 	 * @return
 	 */
+	@Deprecated
 	public ModelAndView updateCar(
 			@RequestParam String id,// GET方式传入，在action中
 			@RequestParam String carNum,
@@ -438,7 +441,14 @@ public class CarController {
 
 	}
 
-	@RequestMapping(value = "/updateDriver", method = RequestMethod.POST)
+	@RequestMapping(value = "updateCar", method = RequestMethod.POST)
+	public String updateNewCar(Carinfo car,
+			HttpServletRequest request) {
+		boolean flag=carService.updateNewCar(car,request);
+		return "redirect:car?flag=1";
+	}
+	
+	//@RequestMapping(value = "/updateDriver", method = RequestMethod.POST)
 	/**
 	 * * 更新司机信息
 	 * @param id
@@ -453,6 +463,7 @@ public class CarController {
 	 * @param response
 	 * @return
 	 */
+	@Deprecated
 	public ModelAndView updateDriver(
 			@RequestParam(required = false) MultipartFile file,// new add
 			@RequestParam String id,// GET方式传入，在action中
@@ -497,6 +508,14 @@ public class CarController {
 		return mv;
 	}
 
+	@RequestMapping(value = "/updateDriver", method = RequestMethod.POST)
+	public String updateNewDriver(Driverinfo driver,MultipartFile file,
+			HttpServletRequest request) {
+		boolean flag=driverService.updateNewDriver(driver,request,file);
+		return "redirect:driver?flag=1";
+	}
+	
+	
 	@RequestMapping(value = "cardelete", method = RequestMethod.GET)
 	/**
 	 * 删除
@@ -759,7 +778,7 @@ public class CarController {
 	 * @author: chendonghao 
 	 * @date: 2015年7月3日 上午11:11:56
 	 */
-	@RequestMapping("getUserDriverResourceTotalRowsAjax")
+	@RequestMapping(value="getUserDriverResourceTotalRowsAjax")
 	@ResponseBody
 	public Integer getUserDriverResourceTotalRows(HttpSession session){
 		

@@ -22,6 +22,7 @@
 <script type="text/javascript" src="js/popup.js"></script>
 <script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
 <script type="text/javascript" src="js/focus_load.js"></script>
+<%@ include file="jsTool.jsp" %>
 <script type="text/javascript"> 
 	$(function() {
 		$('input, textarea').placeholder(); 
@@ -130,10 +131,10 @@
                                         </div>
                                     </td>
 								</tr>
-                                <tr>
+                               <!--  <tr>
                                     <td height="20" class="td_mgmt_right3_td1b"></td>
                                     <td><a href="javascript:;" hidefocus="true">报价模板&nbsp;<img src="images/btn_filetype2.png" /></a></td>
-                                </tr>
+                                </tr> -->
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">补充信息：</td>
 									<td>
@@ -165,6 +166,23 @@
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
+		
+		//设置页面字段值（checkbox）
+		//setPageValue();
 	}
+	//设置页面字段值
+	/* function setPageValue(){
+		debugger;
+		var c=$("#checkbox");
+		var type="${linetransportInfo.type}";
+		//$("#type1").attr("checked",true);
+		//c[1].attr("checked",true);
+		 if(type.indexOf('整车')>=0){
+			$("#checkbox[name='type1']").attr("checked",true);
+		}
+		if(type.indexOf("零担")>=0){
+			$("type2").attr("checked",true);
+		} 
+	} */
 </script>
 </html>

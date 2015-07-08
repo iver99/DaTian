@@ -279,7 +279,29 @@
 		</table>
 	</div>
 
-	<%@ include  file="popup1.jsp"%>
+	<%-- <%@ include  file="popup1.jsp"%> --%>
+	<div id="popup1" style="display:none;">
+    <table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td width="510"><div class="div_popup_title1">留言</div></td>
+            <td>
+                <div id="close" style="cursor:pointer;"><img src="images/btn_cancel1.png" title="关闭本窗口" /></div>
+            </td>
+        </tr>
+    </table>
+    <table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td width="540">
+            	<textarea class="textarea_popup1" placeholder="请输入内容..." id="message"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td class="td_popup1">
+                <input type="button" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="insertMessage()"/><input type="button" id="btn2" value="éå¡«" class="btn_mgmt2" hidefocus="true" />
+            </td>
+        </tr>
+    </table>
+</div>
 
 	<div id="popup2" style="display: inline;">
 		<table border="0" cellpadding="0" cellspacing="0">

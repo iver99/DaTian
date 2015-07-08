@@ -2,7 +2,10 @@ package cn.edu.bjtu.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import cn.edu.bjtu.bean.search.LinetransportSearchBean;
 import cn.edu.bjtu.util.DataModel;
@@ -25,10 +28,11 @@ public interface LinetransportService {
 			String endPlace, int onWayTime, String type, float refPrice,
 			String remarks, String carrierId,String path,String fileName);
 
+	@Deprecated
 	public List getCompanyLine(String carrierId,int Display,int PageNow);
 
 	public String getLinetransportIdByCity(String startPlace, String endPlace);
-
+	@Deprecated
 	public boolean updateLine(String id, String lineName, String startPlace,
 			String endPlace, int onWayTime, String type, float refPrice,
 			String remarks, String carrierId,String path,String fileName);
@@ -78,6 +82,14 @@ public interface LinetransportService {
 	 * @date: 2015年7月3日 上午9:43:48
 	 */
 	public Integer getUserLinetransportResourceTotalRows(HttpSession session);
+	
+	/**
+	 * 干线资源你更新
+	 * @param line
+	 * @param request
+	 * @return
+	 */
+	public boolean updateLinetransport(Linetransport line,HttpServletRequest request,MultipartFile file);
 
 	
 }

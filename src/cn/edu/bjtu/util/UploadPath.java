@@ -104,7 +104,7 @@ public class UploadPath {
 		}
 	}
 	
-	public static String getContactPath() {
+	public static String getContractPath() {
 		if (isWindows()) {//windows系统
 			String path = "D://uploadFile//client";//上传到D盘
 			file = new File(path);
@@ -156,7 +156,7 @@ public class UploadPath {
 			return path;
 		}
 	}
-	
+	//签单上传图像
 	public static String getSignBillPath() {
 		if (isWindows()) {//windows系统
 			String path = "D://uploadFile//signBill";//上传到D盘
@@ -167,7 +167,7 @@ public class UploadPath {
 		else//linux系统 (未测试)
 		{
 			//如果文件夹不存在情况没有处理
-			String path= "/usr/local/uploadFile/signBill";
+			String path= "/usr/local/tomcat7_v2/webapps/DaTian/signBill";
 			file=new File(path);
 			file.mkdirs();//防止文件夹不存在
 			return path;

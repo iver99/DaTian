@@ -2,14 +2,19 @@ package cn.edu.bjtu.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Driverinfo;
+import cn.edu.bjtu.vo.Linetransport;
 
 import com.alibaba.fastjson.JSONArray;
 
 public interface DriverService {
+	@Deprecated
 	public List getAllDriver();
 
 	public Driverinfo getDriverInfo(String driverId);
@@ -24,11 +29,13 @@ public interface DriverService {
 	public boolean insertDriver(String name, String sex, String licenceRate,
 			String phone, String IDCard, String licenceNum, String licenceTime,
 			String carrierId,String path,String fileName);
-	
+	@Deprecated
 	public List getCompanyDriver(String carrierId);
+	@Deprecated
 	public boolean updateDriver(String id, String name, String sex,String IDCard, String licenceNum,
 			String licenceRate, String licenceTime,	String phone, String carrierId,String path,String fileName);
-
+	public boolean updateNewDriver(Driverinfo driver,HttpServletRequest request,MultipartFile file);
+	
 	public boolean deleteDriver(String id);
 	
 	/**

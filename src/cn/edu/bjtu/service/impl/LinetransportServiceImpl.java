@@ -1,5 +1,6 @@
 package cn.edu.bjtu.service.impl;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -8,12 +9,14 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import cn.edu.bjtu.bean.page.LinetransportBean;
 import cn.edu.bjtu.bean.search.LinetransportSearchBean;
@@ -25,6 +28,8 @@ import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.util.HQL_POJO;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.util.PageUtil;
+import cn.edu.bjtu.util.UploadFile;
+import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Linetransport;
 
 import com.alibaba.fastjson.JSONArray;
@@ -260,6 +265,7 @@ public class LinetransportServiceImpl implements LinetransportService {
 	/**
 	 * 返回某公司的所有干线信息
 	 */
+	@Deprecated
 	public List getCompanyLine(String carrierId, int Display, int PageNow) {
 		
 		return linetransportDao.getCompanyLine(carrierId, Display, PageNow);// 未完成
@@ -283,6 +289,7 @@ public class LinetransportServiceImpl implements LinetransportService {
 	/**
 	 * 更新干线
 	 */
+	@Deprecated
 	public boolean updateLine(String id, String lineName, String startPlace,
 			String endPlace, int onWayTime, String type, float refPrice,
 			String remarks, String carrierId, String path, String fileName) {
@@ -488,6 +495,37 @@ public class LinetransportServiceImpl implements LinetransportService {
 		
 		return count.intValue();
 	}
+
+
+	/**
+	 * 干线资源更细 
+	 */
+	@Override
+	public boolean updateLinetransport(Linetransport line,
+			HttpServletRequest request,MultipartFile file) {
+		
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
+		//保存文件
+		String fileLocation=UploadFile.uploadFile(file, carrierId, "linetransport");
+
+		Linetransport lineInstance = linetransportDao.get(Linetransport.class,line.getId());
+		lineInstance.setLineName(line.getLineName());
+		lineInstance.setStartPlace(line.getStartPlace());
+		lineInstance.setEndPlace(line.getEndPlace());
+		lineInstance.setOnWayTime(line.getOnWayTime());
+		lineInstance.setType(line.getType());
+		lineInstance.setRefPrice(line.getRefPrice());
+		lineInstance.setRemarks(line.getRemarks());
+		//设置文件位置 
+		lineInstance.setDetailPrice(fileLocation);
+
+		//更新
+		linetransportDao.update(lineInstance);
+		return true;
+		
+		
+	}
+		
 	
 
 }

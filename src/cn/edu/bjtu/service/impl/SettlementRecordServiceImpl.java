@@ -1,5 +1,6 @@
 package cn.edu.bjtu.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -7,18 +8,25 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import cn.edu.bjtu.bean.page.OrderBean;
+import cn.edu.bjtu.dao.CompanyDao;
 import cn.edu.bjtu.dao.OrderDao;
 import cn.edu.bjtu.dao.SettlementRecordDao;
 import cn.edu.bjtu.service.OrderService;
 import cn.edu.bjtu.service.SettlementRecordService;
 import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.IdCreator;
+import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Orderform;
 import cn.edu.bjtu.vo.Settlement;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 @Service
 @Transactional
 public class SettlementRecordServiceImpl implements SettlementRecordService{
@@ -29,6 +37,8 @@ public class SettlementRecordServiceImpl implements SettlementRecordService{
 	OrderDao orderDao;
 	@Autowired
 	SettlementRecordDao settlementRecordDao;
+	@Autowired
+	CompanyDao companyDao;
 	/**
 	 * 修改订单状态为已结算，并记录生成人
 	 */
@@ -64,6 +74,68 @@ public class SettlementRecordServiceImpl implements SettlementRecordService{
 		params.put("orderNum", orderNum);
 		
 		return settlementRecordDao.find(hql, params);
+	}
+
+	/**
+	 * 我的结算(与settlement表无关，由订单表得到)
+	 */
+	@Override
+	public JSONArray getUserSettlement(HttpSession session) {
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+		Integer userKind=(Integer)session.getAttribute(Constant.USER_KIND);
+		String hql="from Orderform t where t.state='已完成' ";
+		Map<String,Object> params=new HashMap<String,Object>();
+		if(userKind==2){//个人用户
+			hql+=" and t.clientId=:clientId ";
+			params.put("clientId", userId);
+		}else if(userKind ==3){//企业用户
+			hql+=" and t.carrierId=:carrierId ";
+			params.put("carrierId", userId);
+		}
+		
+		hql+=" order by t.submitTime desc";
+		
+		List<Orderform> orderList=orderDao.find(hql, params);
+		List<OrderBean> beanList=new ArrayList<OrderBean>();
+		for(Orderform order:orderList){
+			OrderBean bean=new OrderBean();
+			BeanUtils.copyProperties(order, bean);
+			Carrierinfo company=companyDao.get(Carrierinfo.class,order.getCarrierId());
+			bean.setCompanyName(company.getCompanyName());
+			
+			beanList.add(bean);
+		}
+		
+		JSONArray jsonArray=new JSONArray();
+		for(OrderBean orderBean:beanList){
+			JSONObject jsonObject=(JSONObject)JSONObject.toJSON(orderBean);
+			
+			jsonArray.add(jsonObject);
+		}
+		return jsonArray;
 		
 	}
+
+	/**
+	 * 我的结算-总记录数(与settlement表无关，由订单表得到)
+	 */
+	@Override
+	public Integer getUserSettlementTotalRows(HttpSession session) {
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+		Integer userKind=(Integer)session.getAttribute(Constant.USER_KIND);
+		String hql="select count(*) from Orderform t where t.state='已完成' ";
+		Map<String,Object> params=new HashMap<String,Object>();
+		if(userKind==2){//个人用户
+			hql+=" and t.clientId=:clientId ";
+			params.put("clientId", userId);
+		}else if(userKind ==3){//企业用户
+			hql+=" and t.carrierId=:carrierId ";
+			params.put("carrierId", userId);
+		}
+		Long count=orderDao.count(hql, params);
+		return count.intValue();
+		
+	}
+	
+	
 }

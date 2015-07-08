@@ -46,9 +46,11 @@ public class GoodsInfoDaoImpl extends BaseDaoImpl<Goodsform> implements GoodsInf
 
 	}
 
+	/**
+	 * 根据id得到货物
+	 */
 	@Override
 	public Goodsform getMyGoodsDetail(String id) {
-		
 
 		return this.get(Goodsform.class, id);
 
@@ -110,12 +112,13 @@ public class GoodsInfoDaoImpl extends BaseDaoImpl<Goodsform> implements GoodsInf
 	}
 
 	@Override
+	@Deprecated
 	public List getAllResponse(String carrierId) {
 		
 		//return ht.find("from Goodsform where clientId='" + carrierId + "'");
 		return this.find("from GoodsResponseView where carrierId='"+carrierId+"'");
 	}
-
+	@Deprecated
 	@Override
 	public List getUserGoodsInfo(String clientId) {
 		

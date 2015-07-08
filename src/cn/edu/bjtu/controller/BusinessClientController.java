@@ -25,6 +25,7 @@ import cn.edu.bjtu.util.DownloadFile;
 import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Businessclient;
+import cn.edu.bjtu.vo.Linetransport;
 
 import com.alibaba.fastjson.JSONArray;
 
@@ -50,6 +51,7 @@ public class BusinessClientController {
 	 * @param request
 	 * @return
 	 */
+	@Deprecated
 	public ModelAndView getCompanyClient(HttpServletRequest request) {
 		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		// String carrierId = "C-0002";// 删除
@@ -135,7 +137,7 @@ public class BusinessClientController {
 	/**
 	 * 更新businessclient信息
 	 */
-	@RequestMapping(value = "updateClient", method = RequestMethod.POST)
+	//@RequestMapping(value = "updateClient", method = RequestMethod.POST)
 	/**
 	 * 
 	 * 更新businessclient信息
@@ -150,6 +152,7 @@ public class BusinessClientController {
 	 * @param response
 	 * @return
 	 */
+	@Deprecated
 	public ModelAndView updateClientInfo(@RequestParam MultipartFile file,
 			@RequestParam String id,// GET方式传入，在action中
 			@RequestParam String account, @RequestParam String clientName,
@@ -194,6 +197,13 @@ public class BusinessClientController {
 		return mv;
 	}
 
+	@RequestMapping(value = "updateClient", method = RequestMethod.POST)
+	public String updateNewClient(Businessclient client,MultipartFile file,
+			HttpServletRequest request) {
+		boolean flag=businessClientService.updateNewClient(client,file,request);
+		return "redirect:client";
+	}
+	
 	@RequestMapping(value = "clientdelete", method = RequestMethod.GET)
 	/**
 	 * 删除businessclient
@@ -233,7 +243,7 @@ public class BusinessClientController {
 	}
 	
 	/**
-	 * 获取用户的所属客户
+	 * 获取用户的所属客户(订单页面)
 	 * @param session
 	 * @return
 	 */
@@ -259,9 +269,9 @@ public class BusinessClientController {
 	 * @date: 2015年7月3日 下午4:26:54
 	 */
 	@ResponseBody
-	@RequestMapping(value="getUserBusinessClientAjax",produces = "text/html;charset=UTF-8")
+	@RequestMapping(value="getUserBusinessClientResourceAjax",produces = "text/html;charset=UTF-8")
 	public String getUserBusinessClient(HttpSession session,PageUtil pageUtil){
-		JSONArray jsonArray=businessClientService.getUserBusinessClient(session);
+		JSONArray jsonArray=businessClientService.getUserBusinessClient(session,pageUtil);
 		
 		return jsonArray.toString();
 		

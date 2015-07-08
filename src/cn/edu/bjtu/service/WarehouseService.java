@@ -2,10 +2,14 @@ package cn.edu.bjtu.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import cn.edu.bjtu.bean.search.WarehouseSearchBean;
 import cn.edu.bjtu.util.PageUtil;
+import cn.edu.bjtu.vo.Linetransport;
 import cn.edu.bjtu.vo.Warehouse;
 
 import com.alibaba.fastjson.JSONArray;
@@ -18,15 +22,20 @@ public interface WarehouseService {
 	public int getTotalRows(String city, String type, String storageForm, String houseArea);
 	
 	public Warehouse getWarehouseInfo(String warehouseid);
+	@Deprecated
 	public List getCompanyWarehouse(String carrierId);
 	public boolean insertWarehouse(String name,String city,String address,String type,String kind,
 			float houseArea,float yardArea,float height,String fireRate,String storageForm,
 			String fireSecurity,String environment,String serviceContent,String contact,
 			String phone,String remarks,String carrierId,String path,String fileName);
+	@Deprecated
 	public boolean updateWarehouse(String id, String name,String city,String address,String type,String kind,
 			float houseArea,float yardArea,float height,String fireRate,String storageForm,
 			String fireSecurity,String environment,String serviceContent,
 			String contact,String phone,String remarks,String carrierId,String path,String fileName);
+	public boolean updateNewWarehouse(Warehouse warehouse,HttpServletRequest request,MultipartFile file);
+	
+	
 	public boolean deleteWarehouse(String id);
 	
 	/**
