@@ -242,7 +242,9 @@ public class LinetransportServiceImpl implements LinetransportService {
 		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		//保存文件
 		String fileLocation=UploadFile.uploadFile(file, carrierId, "linetransport");
-
+		
+		line.setRelDate(new Date());
+		line.setCarrierId(carrierId);
 		line.setId(IdCreator.createlineTransportId());
 		
 		//设置文件位置 

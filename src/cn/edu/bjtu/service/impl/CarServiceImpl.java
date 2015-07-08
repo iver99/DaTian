@@ -17,7 +17,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import cn.edu.bjtu.bean.search.CarSearchBean;
 import cn.edu.bjtu.dao.CarDao;
@@ -28,10 +27,8 @@ import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.util.PageUtil;
-import cn.edu.bjtu.util.UploadFile;
 import cn.edu.bjtu.vo.Carinfo;
 import cn.edu.bjtu.vo.Carteam;
-import cn.edu.bjtu.vo.Linetransport;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -230,7 +227,9 @@ public class CarServiceImpl implements CarService {
 		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);//±£´æÎÄ¼þ
 
 		car.setId(IdCreator.createlineTransportId());
-		
+		car.setRelDate(new Date());
+		car.setCarrierId(carrierId);
+		car.setCarState("Í£Ðª");
 		carDao.save(car);
 		return true;
 	}

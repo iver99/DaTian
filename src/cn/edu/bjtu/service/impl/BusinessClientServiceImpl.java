@@ -93,13 +93,16 @@ public class BusinessClientServiceImpl implements BusinessClientService{
 		return count.intValue();
 	}
 
+	/**
+	 * 新增客户信息
+	 */
 	@Override
 	public boolean insertNewClient(Businessclient client,MultipartFile file,HttpServletRequest request){
-		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
+		String userId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		//保存文件
-		String fileLocation=UploadFile.uploadFile(file, carrierId, "businessClient");
+		String fileLocation=UploadFile.uploadFile(file, userId, "businessClient");
 		client.setId(IdCreator.createBusinessClientId());
-		
+		client.setCarrierId(userId);
 		//设置文件位置 
 		client.setRelatedMaterial(fileLocation);
 		businessClientDao.save(client);// 保存实体

@@ -244,7 +244,8 @@ public class WarehouseServiceImpl implements WarehouseService {
 		String fileLocation=UploadFile.uploadFile(file, carrierId, "warehouse");
 
 		warehouse.setId(IdCreator.createRepositoryId());
-		
+		warehouse.setCarrierId(carrierId);
+		warehouse.setRelDate(new Date());
 		//设置文件位置 
 		warehouse.setDetailPrice(fileLocation);
 		warehouseDao.save(warehouse);// 保存实体

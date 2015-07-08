@@ -8,18 +8,20 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import cn.edu.bjtu.dao.CompanyDao;
 import cn.edu.bjtu.dao.ContractDao;
 import cn.edu.bjtu.service.ContractService;
 import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.HQLTool;
-import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.util.ParseDate;
 import cn.edu.bjtu.util.UploadFile;
+import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Contract;
 
 import com.alibaba.fastjson.JSONArray;
@@ -39,6 +41,8 @@ public class ContractServiceImpl implements ContractService{
 	Contract contract;
 	@Resource
 	HQLTool hqltool;
+	@Autowired
+	CompanyDao companyDao;
 
 	
 	@Override
@@ -75,10 +79,15 @@ public class ContractServiceImpl implements ContractService{
 	 * 新增合同
 	 */
 	public boolean insertNewContract(Contract contract,HttpServletRequest request,MultipartFile file){
-		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
+		String userId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		//保存文件
-		String fileLocation=UploadFile.uploadFile(file, carrierId, "contract");
-
+		String fileLocation=UploadFile.uploadFile(file, userId, "contract");
+		
+		contract.setClientId(userId);
+		contract.setState("有效");
+		
+		Carrierinfo company=companyDao.get(Carrierinfo.class, contract.getCarrierId());
+		contract.setCarrierAccount(company.getCompanyName());
 		
 		//设置文件位置 
 		contract.setRelatedMaterial(fileLocation);

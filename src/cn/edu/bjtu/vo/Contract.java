@@ -4,6 +4,7 @@ package cn.edu.bjtu.vo;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,7 +15,9 @@ public class Contract implements java.io.Serializable {
 	private String id;
 	private String name;
 	private String carrierAccount;
+	@DateTimeFormat( pattern = "yyyy-MM-dd" )
 	private Date startDate;
+	@DateTimeFormat( pattern = "yyyy-MM-dd" )
 	private Date endDate;
 	private Integer time;
 	private String caculateType;

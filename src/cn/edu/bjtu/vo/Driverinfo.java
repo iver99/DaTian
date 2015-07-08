@@ -4,6 +4,7 @@ package cn.edu.bjtu.vo;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 /**
@@ -17,9 +18,11 @@ public class Driverinfo implements java.io.Serializable {
 	private Integer age;
 	private String licenceRate;
 	private String phone;
+	@DateTimeFormat( pattern = "yyyy-MM-dd" )
 	private Date relDate;
 	private String IDCard;
 	private String licenceNum;
+	@DateTimeFormat( pattern = "yyyy-MM-dd" )
 	private Date licenceTime;
 	private String carrierId;
 	private String remarks;

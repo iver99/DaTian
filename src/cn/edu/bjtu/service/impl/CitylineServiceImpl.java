@@ -341,6 +341,8 @@ public class CitylineServiceImpl implements CitylineService {
 		//保存文件
 		String fileLocation=UploadFile.uploadFile(file, carrierId, "cityline");
 
+		cityline.setCarrierId(carrierId);
+		cityline.setRelDate(new Date());
 		cityline.setId(IdCreator.createCityLineId());
 		
 		//设置文件位置 
