@@ -6,16 +6,20 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.FocusService;
 import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.vo.Focus;
+
+import com.alibaba.fastjson.JSONArray;
 
 @Controller
 /**
@@ -166,5 +170,26 @@ public class FocusController {
 		
 		return mv;
 	}
+	
+	/**
+	 * 搜索关注
+	 * @Title: searchFocus 
+	 * @Description: TODO 
+	 * @param: @param search_content
+	 * @param: @param session
+	 * @param: @return 
+	 * @return: String 
+	 * @throws: 异常 
+	 * @author: chendonghao 
+	 * @date: 2015年7月6日 上午11:44:57
+	 */
+	@RequestMapping(value="searchFocus",produces="text/html;charset=UTF-8")
+	@ResponseBody
+	public String searchFocus(String search_content,HttpSession session){
+		JSONArray jsonArray=focusService.searchFocus(search_content,session);
+		
+		return jsonArray.toString();
+	}
+
 	
 }

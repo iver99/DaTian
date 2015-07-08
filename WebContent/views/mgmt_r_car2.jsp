@@ -108,7 +108,7 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">定位方式：</td>
                                     <td>
-                                        <select id="pos" style="width:120px;" onchange="change_pos();" name="locationType" required>
+                                        <select id="locationType" style="width:120px;" onchange="change_position();" name="locationType" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="GPS">GPS</option>
                                             <option value="手机">手机</option>

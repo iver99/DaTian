@@ -97,7 +97,7 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">关联客户运单：</td>
                                     <td>
-                                        <select id="psource" style="width:120px;" onchange="change2();" name="isLinkToClientWayBill" required>
+                                        <select id="isLinkToClientWayBill" style="width:120px;" onchange="changeIsLinkToClientWayBill()" name="isLinkToClientWayBill" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="有">有</option>
                                             <option value="无">无</option>
@@ -118,7 +118,7 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">承运方合同：</td>
                                     <td>
-                                        <select id="city_cert" style="width:120px;" onchange="change_cert();" name="hasCarrierContract" required>
+                                        <select id="hasCarrierContract" style="width:120px;" onchange="changeHasCarrierContract();" name="hasCarrierContract" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="有">有</option>
                                             <option value="无">无</option>

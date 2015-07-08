@@ -133,7 +133,7 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">增值服务：</td>
                                     <td>
-                                        <select id="city_cert" style="width:110px;" name="VIPService" onchange="change_cert();" required>
+                                        <select id="VIPService" style="width:110px;" name="VIPService" onchange="changeHasVIPService2();" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="需要">需要</option>
                                             <option value="不需要">不需要</option>

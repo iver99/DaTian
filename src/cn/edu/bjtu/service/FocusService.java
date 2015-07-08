@@ -2,8 +2,12 @@ package cn.edu.bjtu.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import cn.edu.bjtu.dao.BaseDao;
 import cn.edu.bjtu.vo.Focus;
+
+import com.alibaba.fastjson.JSONArray;
 
 public interface FocusService extends BaseDao<Focus>{
 	public boolean insertFocus(String clientId, String foucsType, String foucsId);
@@ -24,4 +28,19 @@ public interface FocusService extends BaseDao<Focus>{
 	public List findFocusCar(String text,String clientId);
 	public List findFocusCompany(String text,String clientId);
 	public List findFocusGoods(String text,String clientId);
+	
+	/**
+	 * 搜索关注
+	 * @Title: searchFocus 
+	 * @Description: TODO 
+	 * @param: @param search_content
+	 * @param: @param session
+	 * @param: @return 
+	 * @return: JSONArray 
+	 * @throws: 异常 
+	 * @author: chendonghao 
+	 * @date: 2015年7月6日 下午12:20:37
+	 */
+	public JSONArray searchFocus(String search_content,HttpSession session);
+
 }
