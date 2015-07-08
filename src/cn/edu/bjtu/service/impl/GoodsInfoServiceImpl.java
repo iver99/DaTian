@@ -87,6 +87,19 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 	
 	//@SuppressWarnings("deprecation")
 	@Override
+	public boolean  insertNewGoods(Goodsform goods,HttpServletRequest request,MultipartFile file){
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
+		String fileLocation=UploadFile.uploadFile(file, carrierId, "cargo");
+		
+		goods.setId(IdCreator.createGoodsId());
+		
+		//设置文件位置 
+		goods.setRelatedMaterial(fileLocation);
+		goodsinfoDao.save(goods);// 保存实体
+		return true;
+		
+	}
+	@Deprecated
 	public boolean insertGoods(String name, String type, float weight,
 		String transportType, String transportReq, String startPlace, String endPlace,
 		String damageReq, String VIPService, String oriented, String limitDate,

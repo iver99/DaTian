@@ -265,26 +265,13 @@ public class CarController {
 	@RequestMapping(value = "insertCar", method = RequestMethod.POST)
 	/**
 	 * 新增车辆信息
-	 * @param carNum
-	 * @param carTeam
-	 * @param locationType
-	 * @param carType
-	 * @param carBase
-	 * @param carBrand
-	 * @param carUse
-	 * @param carLength
-	 * @param carWidth
-	 * @param carHeight
-	 * @param carWeight
-	 * @param driverName
-	 * @param purchaseTime
-	 * @param storage
-	 * @param startPlace
-	 * @param endPlace
-	 * @param request
-	 * @param response
-	 * @return
 	 */
+	public String insertNewCar(Carinfo car,
+			HttpServletRequest request) {
+		boolean flag=carService.insertNewCar(car,request);
+		return "redirect:car?flag=1";
+	}
+	@Deprecated
 	public ModelAndView insertCar(@RequestParam String carNum,
 			@RequestParam String carTeam, @RequestParam String locationType,
 			@RequestParam(required = false) String terminalId,
@@ -318,17 +305,13 @@ public class CarController {
 	@RequestMapping(value = "/insertDriver", method = RequestMethod.POST)
 	/**
 	 * 新增司机
-	 * @param name
-	 * @param sex
-	 * @param licenceRate
-	 * @param phone
-	 * @param IDCard
-	 * @param licenceNum
-	 * @param licenceTime
-	 * @param request
-	 * @param response
-	 * @return
 	 */
+	public String insertNewDriver(Driverinfo driver,MultipartFile file,
+			HttpServletRequest request) {
+		boolean flag=driverService.insertNewDriver(driver,request,file);
+		return "redirect:driver?flag=1";
+	}
+	@Deprecated
 	public ModelAndView insertDriver(
 			@RequestParam(required = false) MultipartFile file,// new add
 			@RequestParam String name, @RequestParam String sex,

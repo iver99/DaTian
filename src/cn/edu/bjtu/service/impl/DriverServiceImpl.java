@@ -99,6 +99,18 @@ public class DriverServiceImpl implements DriverService{
 	/**
 	 * 新增司机
 	 */
+	public boolean insertNewDriver(Driverinfo driver,HttpServletRequest request,MultipartFile file){
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
+		//保存文件
+		String fileLocation=UploadFile.uploadFile(file, carrierId, "driver");
+		driver.setId(IdCreator.createDriverId());
+		
+		//设置文件位置 
+		driver.setIdscans(fileLocation);
+		driverDao.save(driver);// 保存实体
+		return true;
+	}
+	@Deprecated
 	public boolean insertDriver(String name, String sex, String licenceRate,
 			String phone, String IDCard, String licenceNum, String licenceTime,
 			String carrierId, String path, String fileName) {

@@ -48,6 +48,7 @@ public class LinetransportServiceImpl implements LinetransportService {
 	LinetransportDao linetransportDao;
 	@Resource
 	Linetransport linetransport;
+	
 	/*@Resource
 	BaseDao baseDao;*/
 	@Resource
@@ -237,6 +238,19 @@ public class LinetransportServiceImpl implements LinetransportService {
 	/**
 	 * 新增干线
 	 */
+	public boolean insertNewLinetransport(Linetransport line,HttpServletRequest request, MultipartFile file){
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
+		//保存文件
+		String fileLocation=UploadFile.uploadFile(file, carrierId, "linetransport");
+
+		line.setId(IdCreator.createlineTransportId());
+		
+		//设置文件位置 
+		line.setDetailPrice(fileLocation);
+		linetransportDao.save(line);// 保存实体
+		return true;
+	}
+	@Deprecated
 	public boolean insertLine(String lineName, String startPlace,
 			String endPlace, int onWayTime, String type, float refPrice,
 			String remarks, String carrierId, String path, String fileName) {

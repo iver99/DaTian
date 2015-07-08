@@ -203,7 +203,7 @@
 							body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"clientdetail?clientId="+data[i].id+"&flag=1\" hidefocus=\"true\">"+data[i].account+"</a></td>");
 							body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].clientName+"</td>");
 							body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].clientBusiness+"</td>");
-							body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].relDate+"</td>");
+							body.append("<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].relDate)+"</td>");
 							
 							var str="<td class=\"td_mgmt_right3_td3\"><div id=\"handlebox\" style=\"z-index: 203;\">";
 							str+="<ul class=\"quickmenu\"><li class=\"menuitem\">";

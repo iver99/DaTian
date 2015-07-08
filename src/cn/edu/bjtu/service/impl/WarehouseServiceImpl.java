@@ -238,6 +238,19 @@ public class WarehouseServiceImpl implements WarehouseService {
 	}
 
 	@Override
+	public boolean insertNewWarehouse(Warehouse warehouse,HttpServletRequest request,MultipartFile file){
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
+		//保存文件
+		String fileLocation=UploadFile.uploadFile(file, carrierId, "warehouse");
+
+		warehouse.setId(IdCreator.createRepositoryId());
+		
+		//设置文件位置 
+		warehouse.setDetailPrice(fileLocation);
+		warehouseDao.save(warehouse);// 保存实体
+		return true;
+	}
+	@Deprecated
 	public boolean insertWarehouse(String name, String city, String address,
 			String type, String kind, float houseArea, float yardArea,
 			float height, String fireRate, String storageForm,

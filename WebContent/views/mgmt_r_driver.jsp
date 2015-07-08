@@ -207,10 +207,10 @@
 					body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>");
 							body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"driverdetail?driverId="+data[i].id+"&flag=1\" hidefocus=\"true\">"+data[i].driverName+"</a></td>");
 							body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].sex+"</td>");
-							body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].licenceTime+"</td>");
+							body.append("<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].licenceTime)+"</td>");
 							body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].licenceRate+"</td>");
 							body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].phone+"</td>");
-							body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].relDate+"</td>");
+							body.append("<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].relDate)+"</td>");
 							
 							var str="<td class=\"td_mgmt_right3_td3\"><div id=\"handlebox\" style=\"z-index: 203;\">";
 							str+="<ul class=\"quickmenu\"><li class=\"menuitem\">";

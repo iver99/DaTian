@@ -25,10 +25,11 @@ public interface DriverService {
 	public List getAllDriver(String carrierId);
 	
 	public String getDriverIdByName(String driverName);
-
+	@Deprecated
 	public boolean insertDriver(String name, String sex, String licenceRate,
 			String phone, String IDCard, String licenceNum, String licenceTime,
 			String carrierId,String path,String fileName);
+	public boolean insertNewDriver(Driverinfo driver,HttpServletRequest request,MultipartFile file);
 	@Deprecated
 	public List getCompanyDriver(String carrierId);
 	@Deprecated

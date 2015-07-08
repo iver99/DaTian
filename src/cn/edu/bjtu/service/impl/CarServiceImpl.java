@@ -226,6 +226,15 @@ public class CarServiceImpl implements CarService {
 	/**
 	 * 增加车辆
 	 */
+	public boolean insertNewCar(Carinfo car,HttpServletRequest request){
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);//保存文件
+
+		car.setId(IdCreator.createlineTransportId());
+		
+		carDao.save(car);
+		return true;
+	}
+	@Deprecated
 	public boolean insertCar(String carNum, String carTeam,
 			String locationType, String terminalId, String carBase, String carBrand,
 			String carType, String carUse, double carLength, double carWidth,

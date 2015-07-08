@@ -335,6 +335,20 @@ public class CitylineServiceImpl implements CitylineService {
 	/**
 	 * 新增城市配送
 	 */
+	public boolean insertNewCityline(Cityline cityline,
+			HttpServletRequest request, MultipartFile file){
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
+		//保存文件
+		String fileLocation=UploadFile.uploadFile(file, carrierId, "cityline");
+
+		cityline.setId(IdCreator.createCityLineId());
+		
+		//设置文件位置 
+		cityline.setDetailPrice(fileLocation);
+		citylineDao.save(cityline);// 保存实体
+		return true;
+	}
+	@Deprecated
 	public boolean insertCityLine(String name, String cityName,
 			String VIPService, float refPrice, String remarks, String carrierId, String VIPDetail,
 			String path, String fileName) {

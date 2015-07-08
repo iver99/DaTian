@@ -23,9 +23,14 @@ public interface CitylineService {
 	public Cityline getCitylineInfo(String citylineid);
 	@Deprecated
 	public List getCompanyCityline(String carrierId);
+	@Deprecated
 	public boolean insertCityLine(String name,String cityName,String VIPService,
 			float refPrice,String remarks,String carrierId, String VIPDetail,
 			String path,String fileName);
+	public boolean insertNewCityline(Cityline cityline,
+			HttpServletRequest request, MultipartFile file);
+		
+	
 	@Deprecated
 	public boolean updateLine(String id, String citylineName, String cityName, String VIPService,
 			String VIPDetail,float refPrice, String remarks, String carrierId,

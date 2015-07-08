@@ -155,6 +155,12 @@ public class GoodsInfoController {
 	}
 
 	@RequestMapping(value = "insertGoods", method = RequestMethod.POST)
+	public String insertNewGoods(Goodsform goods,MultipartFile file,
+			HttpServletRequest request) {
+		boolean flag=goodsInfoService.insertNewGoods(goods,request,file);
+		return "redirect:goodsform?flag=1";
+	}
+	@Deprecated
 	public ModelAndView insertGoods(@RequestParam MultipartFile file,
 			@RequestParam String name, @RequestParam String type,
 			@RequestParam float weight, @RequestParam String transportType,

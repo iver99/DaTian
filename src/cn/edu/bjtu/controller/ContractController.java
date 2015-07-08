@@ -27,6 +27,7 @@ import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Contract;
+import cn.edu.bjtu.vo.Linetransport;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -153,6 +154,12 @@ public class ContractController {
 	 * @return
 	 */
 	@RequestMapping(value = "insertContract", method = RequestMethod.POST)
+	public String insertNewContract(Contract contract,MultipartFile file,
+			HttpServletRequest request) {
+		boolean flag=contractService.insertNewContract(contract,request,file);
+		return "redirect:contract";
+	}
+	@Deprecated
 	public ModelAndView insertContract(@RequestParam MultipartFile file,@RequestParam String id,
 			@RequestParam String name, @RequestParam String caculateType,
 			//@RequestParam String carrierAccount,

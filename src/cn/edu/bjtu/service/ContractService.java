@@ -2,7 +2,10 @@ package cn.edu.bjtu.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Contract;
@@ -19,11 +22,12 @@ public interface ContractService {
 	public List getCompanyContract(String carrierId);
 
 	public Contract getContractInfo(String contractId);
-
+	@Deprecated
 	public boolean insertContract(String id,String name, String caculateType,
 			String carrierAccount, String carrierId, String startDate, String endDate,
 			String contact, String phone, String remarks, String clientId,
 			String monthlyStatementDays,String path, String fileName);
+	public boolean insertNewContract(Contract contract,HttpServletRequest request,MultipartFile file);
 	public boolean shutdownContract(String contractId,String reason);
 	public List getFindContract(String clientId,String startDate,String endDate,String name,int Display,int PageNow);
 	public int getFindContractTotalRows(String carrierId,String startDate,String endDate,String name,int Display,int PageNow);

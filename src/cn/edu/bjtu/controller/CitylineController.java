@@ -188,18 +188,16 @@ public class CitylineController {
 		return mv;
 	}
 
-	@RequestMapping(value = "/insertCityLine", method = RequestMethod.POST)
 	/**
 	 * 新增城市配送线路
-	 * @param name
-	 * @param cityName
-	 * @param VIPService
-	 * @param refPrice
-	 * @param remarks
-	 * @param request
-	 * @param response
-	 * @return
 	 */
+	@RequestMapping(value = "/insertCityLine", method = RequestMethod.POST)
+	public String insertNewCityline(Cityline cityline,MultipartFile file,
+			HttpServletRequest request) {
+		boolean flag=citylineService.insertNewCityline(cityline,request,file);
+		return "redirect:cityline?flag=1";
+	}
+	@Deprecated
 	public ModelAndView insertCityLine(@RequestParam MultipartFile file,
 			@RequestParam String name, @RequestParam String cityName,
 			@RequestParam String VIPService, @RequestParam float refPrice,

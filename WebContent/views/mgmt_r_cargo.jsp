@@ -254,8 +254,8 @@
 					body.append("<td class=\"td_main_list_content\"></td>");
 					body.append("<td class=\"td_main_list_content\">"+data[i].id+"</td>");
 					body.append("<td class=\"td_main_list_content\"><a href=\"mygoodsdetail?id="+data[i].id+"&flag=1\" hidefocus=\"true\">"+data[i].name+"</a></td>");
-					body.append("<td class=\"td_main_list_content\">"+data[i].relDate+"</td>");
-					body.append("<td class=\"td_main_list_content\">"+data[i].limitDate+"</td>");
+					body.append("<td class=\"td_main_list_content\">"+renderTime(data[i].relDate)+"</td>");
+					body.append("<td class=\"td_main_list_content\">"+renderTime(data[i].limitDate)+"</td>");
 					body.append("<td class=\"td_main_list_content\">"+data[i].oriented+"</td>");
 					body.append("<td class=\"td_main_list_content\">"+data[i].feedbackQuantity+"</td>");
 					if(data[i].state=='已确认'){

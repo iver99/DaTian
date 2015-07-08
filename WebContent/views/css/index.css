@@ -2417,6 +2417,7 @@ a.a_register {
 	}
 .qqserver .qqserver_fold {
 	position:absolute;
+	width:35px;
 	right:2px;
 	cursor:pointer;
 	}

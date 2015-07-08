@@ -24,10 +24,12 @@ public interface WarehouseService {
 	public Warehouse getWarehouseInfo(String warehouseid);
 	@Deprecated
 	public List getCompanyWarehouse(String carrierId);
+	@Deprecated
 	public boolean insertWarehouse(String name,String city,String address,String type,String kind,
 			float houseArea,float yardArea,float height,String fireRate,String storageForm,
 			String fireSecurity,String environment,String serviceContent,String contact,
 			String phone,String remarks,String carrierId,String path,String fileName);
+	public boolean insertNewWarehouse(Warehouse warehouse,HttpServletRequest request,MultipartFile file);
 	@Deprecated
 	public boolean updateWarehouse(String id, String name,String city,String address,String type,String kind,
 			float houseArea,float yardArea,float height,String fireRate,String storageForm,

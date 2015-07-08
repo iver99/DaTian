@@ -1,11 +1,11 @@
 
 var labelFromcity = new Array();
 labelFromcity ['热门'] = new Array(41,0,1,2,3,4,5,6,7,8,9,10,11,12,13);
-labelFromcity ['A-F'] = new Array(0,3,4,5,6,28,29);
-labelFromcity ['G-J'] = new Array(1,7,8,9,30,31,32,33,37,40);
-labelFromcity ['K-N'] = new Array(10,11,12,34,35,38);
-labelFromcity ['P-W'] = new Array(13,14,15,16,17,18,22,24,25,36);
-labelFromcity ['X-Z'] = new Array(2,19,20,21,26,27,39);
+labelFromcity ['A-F'] = new Array(0,3,4,5,6,28,29,43,51,54,73,91,108,114);
+labelFromcity ['G-J'] = new Array(1,7,8,9,30,31,32,33,37,40,125,142,154,159,168,172);
+labelFromcity ['K-N'] = new Array(10,11,12,34,35,38,177,178,185,197,204,206,207,220,223);
+labelFromcity ['P-W'] = new Array(13,16,17,18,22,24,25,36,244,266,272,293,304,312,313,328);
+labelFromcity ['X-Z'] = new Array(2,19,20,21,26,27,39,330,343,343,344,370,381,394,401);
 var hotList = new Array(14,15,16,17,18,19);
 
 $(document).ready(function(){ //fromcity与tocity对应不同的效果，引用input的ID需要与页面中的相一致

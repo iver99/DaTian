@@ -215,9 +215,9 @@
 					body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>");
 					body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"contractdetail?contractId="+data[i].id+"&flag=1\" hidefocus=\"true\">"+data[i].id+"</a></td>");
 					body.append("<td class=\"td_mgmt_right3_td1\" id=\"name\">"+data[i].name+"</td>");
-					body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].companyName+"</td>");
+					body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].carrierAccount+"</td>");
 					body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].monthlyStatementDays+"</td>");
-					body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].startDate+"</td>");
+					body.append("<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].startDate)+"</td>");
 					body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].state+"</td>");
 					if(data[i].state=='有效'){
 						body.append("<td class=\"td_mgmt_right3_td3\"><a href=\"contractdetail?contractId="+data[i].id+"&flag=2\" hidefocus=\"true\">终止</a></td>");				

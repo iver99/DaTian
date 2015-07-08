@@ -226,7 +226,7 @@ function getUserLinetransportResource(display,currentPage){
 						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].endPlace+"</td>");
 						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].onWayTime+"</td>");
 						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].refPrice+"</td>");
-						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].relDate+"</td>");
+						body.append("<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].relDate)+"</td>");
 						var str="<td class='td_mgmt_right3_td3'>";
 						str+="<div id=\"handlebox\" style=\"z-index: 201;\">";
 						str+="<ul class=\"quickmenu\">";

@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import cn.edu.bjtu.dao.BusinessClientDao;
 import cn.edu.bjtu.service.BusinessClientService;
 import cn.edu.bjtu.util.Constant;
+import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.util.UploadFile;
 import cn.edu.bjtu.vo.Businessclient;
@@ -92,6 +93,19 @@ public class BusinessClientServiceImpl implements BusinessClientService{
 		return count.intValue();
 	}
 
+	@Override
+	public boolean insertNewClient(Businessclient client,MultipartFile file,HttpServletRequest request){
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
+		//保存文件
+		String fileLocation=UploadFile.uploadFile(file, carrierId, "businessClient");
+		client.setId(IdCreator.createBusinessClientId());
+		
+		//设置文件位置 
+		client.setRelatedMaterial(fileLocation);
+		businessClientDao.save(client);// 保存实体
+		return true;
+	}
+	
 	@Override
 	public boolean updateNewClient(Businessclient client,MultipartFile file,
 			HttpServletRequest request){

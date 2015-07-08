@@ -5,17 +5,21 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import cn.edu.bjtu.dao.ContractDao;
 import cn.edu.bjtu.service.ContractService;
 import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.HQLTool;
+import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.util.ParseDate;
+import cn.edu.bjtu.util.UploadFile;
 import cn.edu.bjtu.vo.Contract;
 
 import com.alibaba.fastjson.JSONArray;
@@ -70,6 +74,18 @@ public class ContractServiceImpl implements ContractService{
 	/**
 	 * 新增合同
 	 */
+	public boolean insertNewContract(Contract contract,HttpServletRequest request,MultipartFile file){
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
+		//保存文件
+		String fileLocation=UploadFile.uploadFile(file, carrierId, "contract");
+
+		
+		//设置文件位置 
+		contract.setRelatedMaterial(fileLocation);
+		contractDao.save(contract);// 保存实体
+		return true;
+	}
+	@Deprecated
 	public boolean insertContract(String id,String name, String caculateType,
 			String carrierAccount, String carrierId, String startDate, String endDate,
 			String contact, String phone, String remarks, String clientId,

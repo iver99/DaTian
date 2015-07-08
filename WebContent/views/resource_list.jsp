@@ -169,10 +169,11 @@
 								<td width="45" class="td_main_list_head">关注</td>
 							</tr>
 						</thead>
-						<tbody id="testbody"></tbody>
-						<tbody>
-							<!-- 资源位置 -->
+						<tbody id="testbody">
 						</tbody>
+						<!-- <tbody>
+							资源位置
+						</tbody> -->
 					</table>
 					<table border="0" cellpadding="0" cellspacing="0"
 						class="table_recordnumber">
@@ -263,10 +264,30 @@ function getSelectedLineAjax(startPlace,
 		  currentPage:currentPage},
 	  function(data,status){
 			  //alert(data);
-			  $("#testbody").empty();
+			  //$("#testbody").empty();			  
 		for(var i=0; i<data.length; i++) {
 			//alert(data[i]);
-			$("#testbody").append("<tr>");
+			var str = "";
+			str += "<tr>";
+			str += "<td class=\"td_main_list_content\"></td>";
+			str += "<td class=\"td_main_list_content\"><a href=\"resource_detail1.htm\" hidefocus=\"true\">北京→上海</a><br /><a href=\"resource_detail5.htm\" class=\"link1\" hidefocus=\"true\">北京市畅通达物流有限公司&nbsp;<img src=\"images/btn_level1a.png\" /></a></td>";
+			str += "<td class=\"td_main_list_content\">3.00</td>";
+			str += "<td class=\"td_main_list_content\">整车</td>";
+			str += "<td class=\"td_main_list_content\">24</td>";
+			str += "<td class=\"td_main_list_content\">2014-02-21</td>";
+			/* str += "<td class=\"td_main_list_content\"><a href=\"linetransportdetail?linetransportid="+data[i].id+"&carrierId="+data[i].carrierId+"&linetransportId="+data[i].carrierid+"&flag=0\" hidefocus=\"true\">"+data[i].startPlace+"→"+data[i].endPlace+"</a><br /><a style=\"color:#717071;\" href=\"companyDetail?id="+data[i].carrierId+"\" hidefocus=\"true\">"+data[i].companyName+"<img src=\"images/btn_level1a.png\" /></a></td>";
+			str += "<td class=\"td_main_list_content\">"+data[i].refPrice+"</td>";
+			str += "<td class=\"td_main_list_content\">"+data[i].transportType+"</td>";
+			str += "<td class=\"td_main_list_content\">"+data[i].onWayTime+"</td>";
+			str += "<td class=\"td_main_list_content\">"+renderTime(data[i].relDate)+"</td>";
+			if(data[i].status == "有效")
+				str += "<td class=\"td_main_list_content\"><a href=\"javascript:;\" class=\"a_main_list_handle_icon1b\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('"+data[i].id+"')\"></a></td>";
+			else
+				str += "<td class=\"td_main_list_content\"><a href=\"javascript:;\" class=\"a_main_list_handle_icon1a\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('"+data[i].id+"')\"></a></td>"; */
+			str += "<td class=\"td_main_list_content\"><a href=\"javascript:;\" class=\"a_main_list_handle_icon1a\" hidefocus=\"true\" onclick=\"hide(this)\"></a></td>";
+			str += "</tr>";
+			$("#testbody").append(str);
+			/* $("#testbody").append("<tr>");
 			$("#testbody").append("<td class=\"td_main_list_content\"></td>");
 			$("#testbody").append("<td class=\"td_main_list_content\"><a href=\"linetransportdetail?linetransportid="+data[i].id+"&carrierId="+data[i].carrierId+"&linetransportId="+data[i].carrierid+"&flag=0\" hidefocus=\"true\">"+data[i].startPlace+"→"+data[i].endPlace+"</a><br /><a style=\"color:#717071;\" href=\"companyDetail?id="+data[i].carrierId+"\" hidefocus=\"true\">"+data[i].companyName+"<img src=\"images/btn_level1a.png\" /></a></td>");
 			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].refPrice+"</td>");
@@ -277,8 +298,8 @@ function getSelectedLineAjax(startPlace,
 				$("#testbody").append("<td class=\"td_main_list_content\"><a href=\"javascript:;\" class=\"a_main_list_handle_icon1b\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('"+data[i].id+"')\"></a></td>");
 			else
 				$("#testbody").append("<td class=\"td_main_list_content\"><a href=\"javascript:;\" class=\"a_main_list_handle_icon1a\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('"+data[i].id+"')\"></a></td>");
-			/* $("#testbody").append("</td>"); */
-			$("#testbody").append("</tr>");
+			//$("#testbody").append("</td>");
+			$("#testbody").append("</tr>"); */
 		}
 	  },"json");
 }
