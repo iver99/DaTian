@@ -35,6 +35,7 @@ public class SettlmentServiceImpl implements SettlementService{
 	 * 获取用户的订单
 	 */
 	@Override
+	@Deprecated
 	public List getUserSettlementList(HttpSession session) {
 		String userId=(String)session.getAttribute(Constant.USER_ID);
 		Integer userKind=(Integer)session.getAttribute(Constant.USER_KIND);

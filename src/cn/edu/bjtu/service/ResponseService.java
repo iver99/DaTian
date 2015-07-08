@@ -2,8 +2,11 @@ package cn.edu.bjtu.service;
 
 import java.util.List;
 
-import cn.edu.bjtu.dao.BaseDao;
+import javax.servlet.http.HttpSession;
+
 import cn.edu.bjtu.vo.Response;
+
+import com.alibaba.fastjson.JSONArray;
 
 /**
  * 反馈相关的serivce
@@ -39,4 +42,16 @@ public interface ResponseService{
 	 * @return
 	 */
 	public boolean confirmResponse(String responseId,String carrierId,String goodsId);
+	
+	/**
+	 * 获取用户的所有反馈
+	 * @param session
+	 * @return
+	 */
+	public JSONArray getUserResponse(HttpSession session);
+	
+	/*
+	 * 我的反馈-总条数
+	 */
+	public Integer getUserResponseTotalRows(HttpSession session);
 }

@@ -1,16 +1,27 @@
 package cn.edu.bjtu.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import cn.edu.bjtu.bean.page.ResponseBean;
+import cn.edu.bjtu.dao.GoodsInfoDao;
 import cn.edu.bjtu.dao.ResponseDao;
 import cn.edu.bjtu.service.ResponseService;
+import cn.edu.bjtu.util.Constant;
+import cn.edu.bjtu.vo.Goodsform;
 import cn.edu.bjtu.vo.Response;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 @Service
 @Transactional
 /**
@@ -22,6 +33,9 @@ public class ResponseServiceImpl implements ResponseService{
 
 	@Autowired
 	ResponseDao responseDao;
+	@Autowired
+	GoodsInfoDao goodsInfoDao;
+	
 
 	@Override
 	/**
@@ -76,6 +90,53 @@ public class ResponseServiceImpl implements ResponseService{
 		
 		return true;
 	}
+
+	/**
+	 * 红区用户的所有反馈 
+	 */
+	@Override
+	public JSONArray getUserResponse(HttpSession session) {
+		
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+		String hql="from Response t where t.carrierId=:carrierId order by t.relDate desc";
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("carrierId", userId);
+		
+		List<Response> respList=responseDao.find(hql, params);
+		List<ResponseBean> beanList=new ArrayList<ResponseBean>();
+		for(Response resp:respList){
+			ResponseBean respBean=new ResponseBean();
+			BeanUtils.copyProperties(resp, respBean);
+			String cargoName=goodsInfoDao.get(Goodsform.class,resp.getId()).getName();
+			respBean.setName(cargoName);
+			
+			beanList.add(respBean);
+			
+		}
+		JSONArray jsonArray=new JSONArray();
+		for(ResponseBean respBean:beanList){
+			JSONObject jsonObject=(JSONObject)JSONObject.toJSON(respBean);
+			jsonArray.add(jsonArray);
+		}
+		
+		return jsonArray;
+	}
+
+	/**
+	 * 我的反馈-总条数
+	 */
+	@Override
+	public Integer getUserResponseTotalRows(HttpSession session) {
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+		String hql="select count(*) from Response t where t.carrierId=:carrierId";
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("carrierId", userId);
+		
+		Long count=responseDao.count(hql, params);
+		
+		return count.intValue();
+	}
+	
 	
 	
 	

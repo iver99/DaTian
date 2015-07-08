@@ -7,8 +7,9 @@ import cn.edu.bjtu.vo.Orderform;
 import cn.edu.bjtu.vo.Track;
 
 public interface OrderDao extends BaseDao<Orderform> {
-	
+	@Deprecated
 	public List getAllSendOrderInfo(String userId);
+	@Deprecated
 	public List getAllRecieveOrderInfo(String userId);
 	public OrderCarrierView getSendOrderDetail(String id);
 	public Orderform getRecieveOrderDetail(String id);

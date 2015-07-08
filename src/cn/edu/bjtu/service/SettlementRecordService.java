@@ -6,6 +6,8 @@ import javax.servlet.http.HttpSession;
 
 import cn.edu.bjtu.vo.Settlement;
 
+import com.alibaba.fastjson.JSONArray;
+
 /**
  * 用于记录生成对账单信息
  * @author RussWest0
@@ -26,5 +28,19 @@ public interface SettlementRecordService {
 	 * @return
 	 */
 	public List<Settlement> getSettlementRecordByOrderNum(String orderNum);
+	
+	/**
+	 * 我的结算
+	 * @param session
+	 * @return
+	 */
+	public JSONArray getUserSettlement(HttpSession session);
+	
+	/**
+	 * 我的结算-总记录条数 
+	 * @param session
+	 * @return
+	 */
+	public Integer getUserSettlementTotalRows(HttpSession session);
 
 }

@@ -130,6 +130,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 	}
 
 	@Override
+	@Deprecated
 	public List getAllResponse(String userId) {
 		
 		return goodsinfoDao.getAllResponse(userId);

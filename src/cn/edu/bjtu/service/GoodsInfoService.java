@@ -60,7 +60,7 @@ public interface GoodsInfoService {
 	public boolean  updateNewGoods(Goodsform goods,HttpServletRequest request,MultipartFile file);
 	
 	public boolean commitResponse(String goodsId,String remarks,String userId,String path,String fileName);
-	
+	@Deprecated
 	public List getAllResponse(String carrierId);
 	@Deprecated
 	public List getUserGoodsInfo(String clientId);

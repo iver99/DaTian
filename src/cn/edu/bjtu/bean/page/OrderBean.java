@@ -1,4 +1,7 @@
 package cn.edu.bjtu.bean.page;
+
+import java.util.Date;
+
 /**
  * 订单pagebean
  * @author RussWest0
@@ -18,6 +21,13 @@ public class OrderBean {
 	private String resourceName;//资源名称
 	private String companyName;//承运方名称
 	private String resourceType;//资源类型
+	
+	//add by RussWest0 at 2015年7月8日,下午4:55:33 
+	private Date submitTime;
+	private String settlementState;
+	private Float actualPrice;
+	private String clientId;
+	private String state;
 	
 	//备注
 	private String remarks;
@@ -44,6 +54,36 @@ public class OrderBean {
 	
 	
 	
+	public Date getSubmitTime() {
+		return submitTime;
+	}
+	public void setSubmitTime(Date submitTime) {
+		this.submitTime = submitTime;
+	}
+	public String getSettlementState() {
+		return settlementState;
+	}
+	public void setSettlementState(String settlementState) {
+		this.settlementState = settlementState;
+	}
+	public Float getActualPrice() {
+		return actualPrice;
+	}
+	public void setActualPrice(Float actualPrice) {
+		this.actualPrice = actualPrice;
+	}
+	public String getClientId() {
+		return clientId;
+	}
+	public void setClientId(String clientId) {
+		this.clientId = clientId;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
 	public String getGoodsId() {
 		return goodsId;
 	}

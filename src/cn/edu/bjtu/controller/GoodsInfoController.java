@@ -167,7 +167,6 @@ public class GoodsInfoController {
 			@RequestParam(required = false) String relatedMaterial,
 			@RequestParam String remarks, HttpServletRequest request,
 			HttpServletResponse response) {
-		System.out.println("进入货物控制器");
 
 		String clientId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		String path = null;
@@ -199,78 +198,6 @@ public class GoodsInfoController {
 				e.printStackTrace();
 			}
 		}
-		return mv;
-	}
-
-	@RequestMapping("getallresponse")
-	/**
-	 * 获取所有反馈
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	public ModelAndView getAllResponse(HttpServletRequest request,
-			HttpServletResponse response) {
-		String userId = (String) request.getSession().getAttribute(Constant.USER_ID);
-
-		List responseList = goodsInfoService.getAllResponse(userId);
-		//responseList中的id是goodsid
-
-		mv.addObject("responseList", responseList);
-		mv.setViewName("mgmt_d_response");
-		return mv;
-	}
-
-	@RequestMapping("getresponseform")
-	/**
-	 * 获取创建反馈表单
-	 * @param goodsid
-	 * @return
-	 */
-	public ModelAndView getResponseForm(String goodsid) {
-		mv.addObject("goodsId", goodsid);
-
-		mv.setViewName("mgmt_d_response2");
-
-		return mv;
-	}
-
-	@RequestMapping("commitresponse")
-	/**
-	 * 创建反馈
-	 * @param goodsid
-	 * @return
-	 */
-	public ModelAndView commitResponse(MultipartFile file,String goodsid, String remarks,
-			HttpServletRequest request, HttpServletResponse response) {
-
-		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
-		String path = null;
-		String fileName = null;
-		if (file.getSize() != 0)// 有上传文件的情况
-		{
-			path = UploadPath.getResponsePath();// 不同的地方取不同的上传路径
-			fileName = file.getOriginalFilename();
-			fileName = carrierId + "_" + fileName;// 文件名
-			File targetFile = new File(path, fileName);
-			try { // 保存 文件
-				file.transferTo(targetFile);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} 
-		//没有上传文件的情况path 和 filenName默认为null
-		boolean flag = goodsInfoService.commitResponse(goodsid, remarks,
-				carrierId,path,fileName);
-		if (flag == true) {
-			try {
-				response.sendRedirect("getallresponse");
-			} catch (IOException e) {
-				// 
-				e.printStackTrace();
-			}
-		}
-
 		return mv;
 	}
 

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -26,6 +25,8 @@ import cn.edu.bjtu.util.ExcelCreator;
 import cn.edu.bjtu.vo.Settlement;
 import cn.edu.bjtu.vo.SettlementCarrierView;
 
+import com.alibaba.fastjson.JSONArray;
+
 /**
  * 我的结算-控制器
  * @author RussWest0
@@ -39,13 +40,14 @@ public class SettlementController {
 	@Autowired
 	SettlementRecordService settlementRecordService;
 	
-	@RequestMapping("/mysettlement")
 	/**
 	 * 获取当前用户的结算
 	 * @param request
 	 * @param response
 	 * @return
 	 */
+	@RequestMapping("/mysettlement")
+	@Deprecated
 	public ModelAndView getMySettlement(HttpSession session,HttpServletResponse response)
 	{
 		Integer userKind=(Integer)session.getAttribute(Constant.USER_KIND);
@@ -58,6 +60,32 @@ public class SettlementController {
 		}
 		return mv;
 	}
+	
+	/**
+	 * 我的结算(与settlement表无关，由订单表得到)
+	 * @param session
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="getUserSettlementAjax",produces="text/html;charset=UTF-8")
+	public String getUserSettlement(HttpSession session){
+		
+		JSONArray jsonArray=settlementRecordService.getUserSettlement(session);
+		
+		return jsonArray.toString();
+	}
+	
+	/**
+	 * 我的计算-总记录条数(与settlement表无关，由订单表得到)
+	 * @param session
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("getUserSettlementTotalRowsAjax")
+	public Integer getUserSettlementTotalRows(HttpSession session){
+		return settlementRecordService.getUserSettlementTotalRows(session);
+	}
+	
 	
 	/**
 	 * 生成单个对账单

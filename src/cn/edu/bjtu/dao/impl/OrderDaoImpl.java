@@ -25,7 +25,7 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 	private BaseDao baseDao;*/
 	/*@Autowired
 	OrderDao orderDao;*/
-
+	@Deprecated
 	@Override
 	/**
 	 * 
@@ -35,7 +35,7 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 		return this.find("from OrderCarrierView where clientId='"+userId+"'");
 
 	}
-
+	@Deprecated
 	@Override
 	public List getAllRecieveOrderInfo(String userId) {
 		
