@@ -220,10 +220,10 @@
                                         </div>
                                     </td>
 								</tr>
-                                <tr>
+                                <!-- <tr>
                                     <td height="20" class="td_mgmt_right3_td1b"></td>
                                     <td><a href="javascript:;" hidefocus="true">报价模板&nbsp;<img src="images/btn_filetype2.png" /></a></td>
-                                </tr>
+                                </tr> -->
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">补充信息：</td>
 									<td>

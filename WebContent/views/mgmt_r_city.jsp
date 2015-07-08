@@ -209,7 +209,18 @@
 					body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].VIPService+"</td>");
 					body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].refPrice+"</td>");
 					body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].relDate+"</td>");
-					body.append("<td class=\"td_mgmt_right3_td3\"><div id=\"handlebox\" style=\"z-index: 201;\">");
+					var str="<td class=\"td_mgmt_right3_td3\"><div id=\"handlebox\" style=\"z-index: 201;\">";
+					str+="<ul class=\"quickmenu\"><li class=\"menuitem\">";
+					str+="<div class=\"menu\">";
+					str+="<a href=\"citylinedetail?citylineId="+data[i].id+"&carrierId=0&flag=3\" class=\"menuhd\" hidefocus=\"true\">更新</a>";
+					str+="<div class=\"menubd\">";
+					str+="<div class=\"menubdpanel\">";
+					str+="<a href=\"citydelete?id="+data[i].id+"\" class=\"a_top3\" hidefocus=\"true\">删除</a>";
+					str+="</div></div></div></li></ul></div></td>";
+					str+="</tr>";
+					body.append(str);
+					
+					/* body.append("<td class=\"td_mgmt_right3_td3\"><div id=\"handlebox\" style=\"z-index: 201;\">");
 					body.append("<ul class=\"quickmenu\"><li class=\"menuitem\">");
 					body.append("<div class=\"menu\">");
 					body.append("<a href=\"citylinedetail?citylineId="+data[i].id+"&carrierId=0&flag=3\" class=\"menuhd\" hidefocus=\"true\">更新</a>");
@@ -217,7 +228,7 @@
 					body.append("<div class=\"menubdpanel\">");
 					body.append("<a href=\"citydelete?id="+data[i].id+"\" class=\"a_top3\" hidefocus=\"true\">删除</a>");
 					body.append("</div></div></div></li></ul></div></td>");
-					body.append("</tr>");
+					body.append("</tr>"); */
 					
 				}  
 				

@@ -10,6 +10,7 @@ import cn.edu.bjtu.vo.Companycertificate;
  *
  */
 public interface CompanycertificateDao extends BaseDao<Companycertificate>{
+	@Deprecated
 	public boolean validateCompany(String userId, String companyName,
 			String divisionCode, String legalName, String legalIDCard,
 			String companyAddr, String companyType, String companyScale,

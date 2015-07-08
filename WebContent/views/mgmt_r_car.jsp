@@ -233,7 +233,17 @@
 								body.append("<td class=\"td_mgmt_right3_td3\"><a href=\"cardetail?carId="+data[i].id+"&carrierId=0&linetransportId="+data[i].linetransportId+"&flag=1\" hidefocus=\"true\">查看</a></td>");
 							}
 							else{
-							body.append("<td class=\"td_mgmt_right3_td3\"><div id=\"handlebox\" style=\"z-index: 203;\">");
+								var str="<td class=\"td_mgmt_right3_td3\"><div id=\"handlebox\" style=\"z-index: 203;\">";
+								str+="<ul class=\"quickmenu\"><li class=\"menuitem\">";
+								str+="<div class=\"menu\">";
+								str+="<a href=\"cardetail?carId="+data[i].id+"&carrierId="+data[i].carrierId+"&linetransportId="+data[i].linetransportId+"&flag=2\" class=\"menuhd\" hidefocus=\"true\">更新</a>";
+								str+="<div class=\"menubd\">";
+								str+="<div class=\"menubdpanel\">";
+								str+="<a href=\"cardelete?id="+data[i].id+"\" class=\"a_top3\" hidefocus=\"true\">删除</a>";
+								str+="</div></div></div></li></ul></div></td>";
+								str+="</tr>";
+								body.append(str);
+							/* body.append("<td class=\"td_mgmt_right3_td3\"><div id=\"handlebox\" style=\"z-index: 203;\">");
 							body.append("<ul class=\"quickmenu\"><li class=\"menuitem\">");
 							body.append("<div class=\"menu\">");
 							body.append("<a href=\"cardetail?carId="+data[i].id+"&carrierId="+data[i].carrierId+"&linetransportId="+data[i].linetransportId+"&flag=2\" class=\"menuhd\" hidefocus=\"true\">更新</a>");
@@ -241,7 +251,7 @@
 							body.append("<div class=\"menubdpanel\">");
 							body.append("<a href=\"cardelete?id="+data[i].id+"\" class=\"a_top3\" hidefocus=\"true\">删除</a>");
 							body.append("</div></div></div></li></ul></div></td>");
-							body.append("</tr>");
+							body.append("</tr>"); */
 							}
 				}  
 				

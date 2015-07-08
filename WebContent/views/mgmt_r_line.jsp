@@ -227,23 +227,18 @@ function getUserLinetransportResource(display,currentPage){
 						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].onWayTime+"</td>");
 						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].refPrice+"</td>");
 						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].relDate+"</td>");
-						body.append("<td class='td_mgmt_right3_td3'>");
-						 body.append("<div id=\"handlebox\" style=\"z-index: 201;\">");
-						body.append("<ul class=\"quickmenu\">");
-						body.append("<li class=\"menuitem\">");
-						body.append("<div class=\"menu\">");
-						body.append("<a href=\"linetransportdetail?linetransportid="+data[i].id+"&carrierId=0&flag=2\" class=\"menuhd\" hidefocus=\"true\">更新</a>");
-						body.append("<div class=\"menubd\">");
-						body.append("<div class=\"menubdpanel\">");
-						body.append("<a href=\"linetransportdelete?id="+data[i].id+" class=\"a_top3\" hidefocus=\"true\">删除</a>");
-						body.append("</div>");
-						body.append("</div>");
-						body.append("</div>");
-						body.append("</li>");
-						body.append("</ul>");
-						body.append("</div>");
-						body.append("</td>");
-						body.append("</tr>"); 
+						var str="<td class='td_mgmt_right3_td3'>";
+						str+="<div id=\"handlebox\" style=\"z-index: 201;\">";
+						str+="<ul class=\"quickmenu\">";
+						str+="<li class=\"menuitem\">";
+						str+="<div class=\"menu\">";
+						str+="<a href=\"linetransportdetail?linetransportid="+data[i].id+"&carrierId=0&flag=2\" class=\"menuhd\" hidefocus=\"true\">更新</a>";
+						str+="<div class=\"menubd\">";
+						str+="<div class=\"menubdpanel\">";
+						str+="<a href=\"linetransportdelete?id="+data[i].id+" class=\"a_top3\" hidefocus=\"true\">删除</a>";
+						str+="</div></div></div></li></ul></div></td></tr>";
+						body.append(str);
+						
 						
 				
 			}   
