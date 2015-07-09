@@ -84,7 +84,14 @@
                 	</tr>
             	</table>
             	</form>
+            	
+            	<input id="count" value="" type="hidden" /><!--  总记录条数 -->
+				<input id="display" value="10" type="hidden" /> <!-- 每页展示的数量 -->
+				<input id="currentPage" value="1" type="hidden" /><!-- 当前页 -->
+				<inpyt id="is_resource_page" value="0" type="hidden"/><!-- 是否为资源页，资源页需要模拟click按钮 -->
+				
 				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
+				<thead>
 					<tr>
                         <td width="20" height="40" class="td_mgmt_right3_head">&nbsp;</td>
                         <td width="70" class="td_mgmt_right3_head">投诉类型</td>
@@ -93,7 +100,12 @@
                         <td width="60" class="td_mgmt_right3_head">状态</td>
                         <td width="80" class="td_mgmt_right3_head">操作</td>
 					</tr>
-                    <c:forEach var="complain" items="${compliantList }">
+					</thead>
+					<tbody id="result_body">
+                    
+                    </tbody>
+                    
+                   <%--  <c:forEach var="complain" items="${compliantList }">
                     <tr>							   
                         <td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
                         <td class="td_mgmt_right3_td1">${complain.type }</td>
@@ -109,7 +121,7 @@
                         </c:choose>
                         <td class="td_mgmt_right3_td3"><a href="complaintdetail?complaintid=${complain.id }&ordernum=${complain.orderNum }" hidefocus="true">查看</a></td>
                     </tr>
-                    </c:forEach>
+                    </c:forEach> --%>
                     
                 </table>
 				<table border="0" cellpadding="0" cellspacing="0" class="table_recordnumber">
@@ -125,8 +137,8 @@
                         </td>
                     </tr>
 				</table>
-                <table border="0" cellpadding="0" cellspacing="0" class="table_pagenumber">
-                    <tr>
+                <table border="0" cellpadding="0" cellspacing="0" class="table_pagenumber" id="page_layout" >
+                    <!-- <tr>
                         <td width="45" class="td_pagenumber">首页</td>
                         <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">上页</a></td>
                         <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">1</a></td>
@@ -134,7 +146,7 @@
                         <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">3</a></td>
                         <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">下页</a></td>
                         <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">末页</a></td>
-                    </tr>
+                    </tr> -->
 				</table>
 			</td>
 		</tr>
@@ -149,8 +161,65 @@
 
 </body>
 <script type="text/javascript">
-	function OnLoad() {
-		loadFocus();
-	}
+function OnLoad() {
+	loadFocus();
+	var display=$("#display").val();
+	var currentPage=$("#currentPage").val();
+	getUserCitylineResource(display,currentPage);
+	getUserCitylineResourceTotalRows(display,currentPage);
+}
+
+//加载投诉资源
+function getUserComplainResource(display,currentPage){
+	var url="getUserComplainResourceAjax";
+	$.ajax({
+		url:url,
+		data:{
+			display:display,
+			currentPage:currentPage
+			},
+		cache:false,
+		dataType:"json",
+		success:function(data,status){
+			var body=$("#result_body");
+			body.empty();
+			
+			//循环输出结果集
+			  for(var i =0;i<data.length;i++){
+				body.append("<tr>");
+				body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>");
+				body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].type+"</td>");
+				body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].theme+"</td>");
+				body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].relDate+"</td>");
+				body.append("<td class=\"td_mgmt_right3_td2\">"+data[i].state+"/td>");
+				body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"complaintdetail?complaintid="+data[i].id+"&ordernum="+data[i].orderNum+"\" hidefocus=\"true\">查看</a></td>");
+				body.append("</tr>");
+				
+			}  
+			
+		}
+	})
+}
+//投诉资源总条数
+function getUserComplainResourceTotalRows(display,currentPage){
+	var url="getUserComplainResourceTotalRows";
+	$.ajax({
+		url:url,
+		data:{
+			display:display,
+			currentPage:currentPage
+		},
+		cache:false,
+		dataType:"json",
+		success:function(data,status){
+			 $('#count').val(data);
+			  pageLayout(data);//页面布局
+		}
+	});
+	
+	
+	
+}
+	
 </script>
 </html>
