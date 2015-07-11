@@ -26,6 +26,7 @@ import cn.edu.bjtu.vo.Contract;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.mchange.io.impl.EndsWithFilenameFilter;
 @Transactional
 @Service("contractServiceImpl")
 /**
@@ -136,6 +137,7 @@ public class ContractServiceImpl implements ContractService{
 	/**
 	 * 查询合同（需求方）
 	 */
+	@Deprecated
 	public List getFindContract(String clientId,String startDate,String endDate,String name,int Display,int PageNow){
 		String sql="from Contract where clientId='"+clientId+"' and ";
 		if(name.equals("合同名称")){
@@ -170,6 +172,7 @@ public class ContractServiceImpl implements ContractService{
 	/**
 	 * 查询合同（承运方）
 	 */
+	@Deprecated
 	public List getFindContract2(String carrierId,String startDate,String endDate,String name,int Display,int PageNow){
 		String sql="from Contract where carrierId='"+carrierId+"' and ";
 		if(name.equals("合同名称")){
@@ -204,6 +207,7 @@ public class ContractServiceImpl implements ContractService{
 	/**
 	 * 查询合同的结果页数
 	 */
+	@Deprecated
 	public int getFindContractTotalRows(String carrierId,String startDate,String endDate,String name,int Display,int PageNow){
 		String sql="from Contract where carrierId='"+carrierId+"' and ";
 		if(name.equals("合同名称")){
@@ -243,29 +247,53 @@ public class ContractServiceImpl implements ContractService{
 	 * 我的信息-合同信息
 	 */
 	@Override
-	public JSONArray getUserContract(HttpSession session,PageUtil pageUtil) {
+	public JSONArray getUserContract(HttpSession session,PageUtil pageUtil,Contract contract) {
 		String userId=(String)session.getAttribute(Constant.USER_ID);
 		Integer userKind=(Integer)session.getAttribute(Constant.USER_KIND);
-		String hql="from Contract t where ";
-		if(userKind == 2){//个人用户
-			hql+="t.clientId=:userId";
-		}else if(userKind == 3){//企业用户
-			hql+="t.carrierId=:userId";
-		}
-		hql+=" order by t.relDate desc";
 		Map<String,Object> params=new HashMap<String,Object>();
+		String hql="from Contract t "+whereHql(contract,params);
+		if(userKind == 2){//个人用户
+			hql+=" and t.clientId=:userId";
+		}else if(userKind == 3){//企业用户
+			hql+=" and t.carrierId=:userId";
+		}
+		hql+=" order by t.startDate desc";
 		params.put("userId", userId);
 		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
 		int display=pageUtil.getDisplay()==0?10:pageUtil.getDisplay();
 		List<Contract> contractList = contractDao.find(hql, params,page,display);
 		JSONArray jsonArray = new JSONArray();
-		for (Contract contract : contractList) {
-			JSONObject jsonObject = (JSONObject) JSONObject.toJSON(contract);
+		for (Contract contractIns : contractList) {
+			JSONObject jsonObject = (JSONObject) JSONObject.toJSON(contractIns);
 			jsonArray.add(jsonObject);
 		}
 		
 		return jsonArray;
 
+	}
+	
+	/**
+	 * where hql
+	 * @param contract
+	 * @return
+	 */
+	private String whereHql(Contract contract,Map<String,Object> params){
+		String hql=" where 1=1 ";
+		String startDate=ParseDate.DateToString(contract.getStartDate());
+		String endDate=ParseDate.DateToString(contract.getEndDate());
+		if(!"1970-01-01".equals(startDate)){
+			hql+="and t.startDate >=:startDate ";
+			params.put("startDate", contract.getStartDate());
+		}
+		if(!"1970-01-01".equals(endDate)){
+			hql+=" and t.endDate <=:endDate ";
+			params.put("endDate", contract.getEndDate());
+		}
+		if(!"".equals(contract.getName())){
+			hql+=" and t.name like '%:name%' ";
+			params.put("name", contract.getName());
+		}
+		return hql;
 	}
 
 	/**

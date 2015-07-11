@@ -27,7 +27,6 @@ import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Contract;
-import cn.edu.bjtu.vo.Linetransport;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -242,6 +241,7 @@ public class ContractController {
 	/**
 	 * 查找合同
 	 */
+	@Deprecated
 	public ModelAndView findContract(@RequestParam int flag,
 			@RequestParam String startDate,@RequestParam String endDate,
 			@RequestParam String name, HttpServletResponse response, HttpServletRequest request)
@@ -364,8 +364,8 @@ public class ContractController {
 	 */
 	@RequestMapping(value="getUserContractAjax",produces = "text/html;charset=UTF-8")
 	@ResponseBody
-	public String getUserContract(HttpSession session,PageUtil pageUtil){
-		JSONArray jsonArray=contractService.getUserContract(session,pageUtil);
+	public String getUserContract(HttpSession session,PageUtil pageUtil,Contract contract){
+		JSONArray jsonArray=contractService.getUserContract(session,pageUtil,contract);
 		return jsonArray.toString();
 	}
 	
@@ -385,5 +385,25 @@ public class ContractController {
 	public Integer getUserContractTotalRows(HttpSession session){
 		return contractService.getUserContractTotalRows(session);
 	}
+	
+	/**
+	 * 合同信息-上方搜索功能
+	 * @param session
+	 * @param contract
+	 * @return
+	 *//*
+	@ResponseBody
+	@RequestMapping(value="searchContractAjax",produces="text/html;charset=UTF-8")
+	public String searchContract(HttpSession session,Contract contract){
+		
+		return contractService.searchContract(session,contract);
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping("searchContractTotalRowsAjax")
+	public Integer getSearchContractTotalRows(HttpSession session,Contract contract){
+		return contractService.getSearchContractTotalRows(session,contract);
+	}*/
 	
 }

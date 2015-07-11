@@ -29,13 +29,15 @@ public interface ContractService {
 			String monthlyStatementDays,String path, String fileName);
 	public boolean insertNewContract(Contract contract,HttpServletRequest request,MultipartFile file);
 	public boolean shutdownContract(String contractId,String reason);
+	@Deprecated
 	public List getFindContract(String clientId,String startDate,String endDate,String name,int Display,int PageNow);
+	@Deprecated
 	public int getFindContractTotalRows(String carrierId,String startDate,String endDate,String name,int Display,int PageNow);
 
 	public boolean changeStatus(String id);
 
 	public List<Contract> getContractByClientId(String clientId);
-
+	@Deprecated
 	List getFindContract2(String carrierId, String startDate, String endDate,
 			String name, int Display, int PageNow);
 	
@@ -50,7 +52,7 @@ public interface ContractService {
 	 * @author: chendonghao 
 	 * @date: 2015年7月3日 下午5:44:24
 	 */
-	public JSONArray getUserContract(HttpSession session,PageUtil pageUtil);
+	public JSONArray getUserContract(HttpSession session,PageUtil pageUtil,Contract contract);
 	
 	/**
 	 * 我的信息-合同信息-总记录数
@@ -64,5 +66,7 @@ public interface ContractService {
 	 * @date: 2015年7月3日 下午5:46:09
 	 */
 	public Integer getUserContractTotalRows(HttpSession session);
+	
+	
 
 }
