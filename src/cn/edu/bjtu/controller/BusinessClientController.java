@@ -83,11 +83,11 @@ public class BusinessClientController {
 		return mv;
 	}
 
-	@RequestMapping(value = "insertClient", method = RequestMethod.POST)
 	/**
 	 * 添加businessclient新客户
 	 * @return
 	 */
+	@RequestMapping(value = "insertClient", method = RequestMethod.POST)
 	public String insertNewClient(Businessclient client,MultipartFile file,
 			HttpServletRequest request) {
 		boolean flag=businessClientService.insertNewClient(client,file,request);

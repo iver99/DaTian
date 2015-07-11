@@ -336,7 +336,7 @@ public class LinetransportServiceImpl implements LinetransportService {
 	 * 删除干线
 	 */
 	public boolean deleteLine(String id) {
-		linetransport = getLinetransportInfo(id);// 根据id查找到干线信息
+		Linetransport linetransport = getLinetransportInfo(id);// 根据id查找到干线信息
 
 		linetransportDao.delete(linetransport);
 		
@@ -374,7 +374,7 @@ public class LinetransportServiceImpl implements LinetransportService {
 		}
 		sql+=") t3 on t1.id=t3.focusId ";
 		String wheresql=whereSql(linetransportbean,params);
-		sql+=wheresql;
+		sql+=wheresql+" order by t1.relDate desc";
 		
 		JSONArray jsonArray = new JSONArray();
 		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
@@ -478,7 +478,7 @@ public class LinetransportServiceImpl implements LinetransportService {
 	public JSONArray getUserLinetransportResource(HttpSession session,
 			PageUtil pageUtil) {
 		String carrierId=(String)session.getAttribute(Constant.USER_ID);
-		String hql="from Linetransport t where t.carrierId=:carrierId";
+		String hql="from Linetransport t where t.carrierId=:carrierId order by t.relDate desc";
 		Map<String,Object> params=new HashMap<String,Object>();
 		params.put("carrierId", carrierId);
 		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();

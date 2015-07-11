@@ -173,13 +173,13 @@ function OnLoad() {
 	loadFocus();
 	var display=$("#display").val();
 	var currentPage=$("#currentPage").val();
-	getUserCarResource(display,currentPage);
-	getUserCarResourceTotalRows(display,currentPage);
+	getUserSettleSResource(10,1);
+	getUserSettlementTotalRowsAjax(10,1);
 }
 
 //加载我的结算（需求方）资源
 function getUserSettleSResource(display,currentPage){
-	var url="getUserSettleSResourceAjax";
+	var url="getUserSettlementAjax";
 	$.ajax({
 		url:url,
 		data:{
@@ -218,7 +218,7 @@ function getUserSettleSResource(display,currentPage){
 }
 //我的结算（需求方）总条数
 function getUserSettleSResourceTotalRows(display,currentPage){
-	var url="getUserSettleSResourceTotalRowsAjax";
+	var url="getUserSettlementTotalRowsAjax";
 	$.ajax({
 		url:url,
 		data:{

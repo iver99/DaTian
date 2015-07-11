@@ -27,6 +27,8 @@ import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Complaintform;
 import cn.edu.bjtu.vo.Orderform;
 
+import com.alibaba.fastjson.JSONArray;
+
 @Controller
 /**
  *  投诉表控制器
@@ -45,6 +47,7 @@ public class ComplaintController {
 	ModelAndView mv = new ModelAndView();
 
 	@RequestMapping("/mycomplaint")
+	@Deprecated
 	public ModelAndView getUserComplaint(HttpServletRequest request,
 			HttpServletResponse response) {
 		String userId = (String) request.getSession().getAttribute(Constant.USER_ID);
@@ -53,6 +56,29 @@ public class ComplaintController {
 		mv.addObject("compliantList", compliantList);
 		mv.setViewName("mgmt_d_complain");
 		return mv;
+	}
+	/**
+	 * 交易信息-我的投诉
+	 * @param session
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="getUserComplaintAjax",produces="text/html;charset=UTF-8")
+	public String getUserComplaint(HttpSession session){
+		JSONArray jsonArray=complaintService.getUserComplaint(session);
+		
+		return jsonArray.toString();
+	}
+	
+	/**
+	 * 交易信息-我的投诉-总记录条数
+	 * @param session
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("getUserComplaintTotalRowsAjax")
+	public Integer getUserComplaintTotalRows(HttpSession session){
+		return complaintService.getUserComplaintTotalRows(session);
 	}
 
 	/**

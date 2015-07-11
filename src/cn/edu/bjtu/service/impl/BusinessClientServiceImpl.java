@@ -1,5 +1,6 @@
 package cn.edu.bjtu.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,6 @@ import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.util.UploadFile;
 import cn.edu.bjtu.vo.Businessclient;
-import cn.edu.bjtu.vo.Linetransport;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -103,6 +103,7 @@ public class BusinessClientServiceImpl implements BusinessClientService{
 		String fileLocation=UploadFile.uploadFile(file, userId, "businessClient");
 		client.setId(IdCreator.createBusinessClientId());
 		client.setCarrierId(userId);
+		client.setRelDate(new Date());
 		//设置文件位置 
 		client.setRelatedMaterial(fileLocation);
 		businessClientDao.save(client);// 保存实体

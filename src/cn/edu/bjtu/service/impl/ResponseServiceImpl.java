@@ -107,7 +107,7 @@ public class ResponseServiceImpl implements ResponseService{
 		for(Response resp:respList){
 			ResponseBean respBean=new ResponseBean();
 			BeanUtils.copyProperties(resp, respBean);
-			String cargoName=goodsInfoDao.get(Goodsform.class,resp.getId()).getName();
+			String cargoName=goodsInfoDao.get(Goodsform.class,resp.getGoodsId()).getName();
 			respBean.setName(cargoName);
 			
 			beanList.add(respBean);
@@ -116,7 +116,7 @@ public class ResponseServiceImpl implements ResponseService{
 		JSONArray jsonArray=new JSONArray();
 		for(ResponseBean respBean:beanList){
 			JSONObject jsonObject=(JSONObject)JSONObject.toJSON(respBean);
-			jsonArray.add(jsonArray);
+			jsonArray.add(jsonObject);
 		}
 		
 		return jsonArray;

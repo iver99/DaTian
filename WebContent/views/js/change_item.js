@@ -39,7 +39,7 @@
 	/*货物信息-增值服务*/
 	function changeHasVIPService2(){
 		var f=$("#VIPService");
-		if($('#VIPService option:selected').val()=='有'){
+		if($('#VIPService option:selected').val()=='需要'){
 			$("#c_detail").attr("style","display:inline");
 		}else{
 			$("#c_detail").attr("style","display:none");

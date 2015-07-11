@@ -192,13 +192,13 @@ function OnLoad() {
 	loadFocus();
 	var display=$("#display").val();
 	var currentPage=$("#currentPage").val();
-	getUserCitylineResource(display,currentPage);
-	getUserCitylineResourceTotalRows(display,currentPage);
+	getUserResponseResource(10,1);
+	getUserResponseResourceTotalRows(10,1);
 }
 
 //加载反馈资源
 function getUserResponseResource(display,currentPage){
-	var url="getUserResponseResourceAjax";
+	var url="getUserResponseAjax";
 	$.ajax({
 		url:url,
 		data:{
@@ -217,17 +217,17 @@ function getUserResponseResource(display,currentPage){
 				body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>");
 				body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].id+"</td>");
 				body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"goodsdetail?id="+data[i].id+"\" hidefocus=\"true\">"+data[i].name+"</a></td>");
-				body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].relDate+"</td>");
-				body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].state+"/td>");
+				body.append("<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].relDate)+"</td>");
+				body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].status+"</td>");
 				if(data[i].state == '未提交'){
 					body.append("<td class=\"td_mgmt_right3_td3\"><a href=\"getresponseform?goodsid="+data[i].responseId+"\" hidefocus=\"true\">提交</a></td>");
 				}
 				else{
 					body.append("<td class=\"td_mgmt_right3_td3\"><a href=\"viewResponseInfo?responseid="+data[i].responseId+"\" hidefocus=\"true\">查看</a></td>");
 				}
-				body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].VIPService+"</td>");
+				/* body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].VIPService+"</td>");
 				body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].refPrice+"</td>");
-				body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].relDate+"</td>");
+				body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].relDate+"</td>"); */
 				body.append("</tr>");
 				
 			}  
@@ -237,7 +237,7 @@ function getUserResponseResource(display,currentPage){
 }
 //反馈资源总条数
 function getUserResponseResourceTotalRows(display,currentPage){
-	var url="getUserResponseResourceTotalRows";
+	var url="getUserResponseTotalRowsAjax";
 	$.ajax({
 		url:url,
 		data:{

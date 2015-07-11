@@ -79,7 +79,7 @@ public class CitylineServiceImpl implements CitylineService {
 		}
 		sql+=") t3 on t1.id=t3.focusId ";
 		String wheresql=whereSql(cityLineBean,params);
-		sql+=wheresql;
+		sql+=wheresql+" order by t1.relDate desc";
 		
 		JSONArray jsonArray = new JSONArray();
 		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
@@ -475,7 +475,7 @@ public class CitylineServiceImpl implements CitylineService {
 	@Override
 	public JSONArray getUserCitylineResource(HttpSession session,PageUtil pageUtil) {
 		String carrierId=(String)session.getAttribute(Constant.USER_ID);
-		String hql="from Cityline t where t.carrierId=:carrierId";
+		String hql="from Cityline t where t.carrierId=:carrierId order by t.relDate desc";
 		Map<String,Object> params=new HashMap<String,Object>();
 		params.put("carrierId", carrierId);
 		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();

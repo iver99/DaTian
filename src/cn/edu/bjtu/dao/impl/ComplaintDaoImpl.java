@@ -18,7 +18,7 @@ public class ComplaintDaoImpl extends BaseDaoImpl<Complaintform> implements Comp
 	HibernateTemplate ht;
 	@Resource
 	private HQLTool hqltool;
-	
+	@Deprecated
 	@Override
 	public List getUserCompliant(String userId) {
 		

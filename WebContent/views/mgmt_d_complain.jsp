@@ -165,13 +165,13 @@ function OnLoad() {
 	loadFocus();
 	var display=$("#display").val();
 	var currentPage=$("#currentPage").val();
-	getUserCitylineResource(display,currentPage);
-	getUserCitylineResourceTotalRows(display,currentPage);
+	getUserComplainResource(10,1);
+	getUserComplainResourceTotalRows(10,1);
 }
 
 //加载投诉资源
 function getUserComplainResource(display,currentPage){
-	var url="getUserComplainResourceAjax";
+	var url="getUserComplaintAjax";
 	$.ajax({
 		url:url,
 		data:{
@@ -190,8 +190,8 @@ function getUserComplainResource(display,currentPage){
 				body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>");
 				body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].type+"</td>");
 				body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].theme+"</td>");
-				body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].relDate+"</td>");
-				body.append("<td class=\"td_mgmt_right3_td2\">"+data[i].state+"/td>");
+				body.append("<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].relDate)+"</td>");
+				body.append("<td class=\"td_mgmt_right3_td2\">"+data[i].state+"</td>");
 				body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"complaintdetail?complaintid="+data[i].id+"&ordernum="+data[i].orderNum+"\" hidefocus=\"true\">查看</a></td>");
 				body.append("</tr>");
 				
@@ -202,7 +202,7 @@ function getUserComplainResource(display,currentPage){
 }
 //投诉资源总条数
 function getUserComplainResourceTotalRows(display,currentPage){
-	var url="getUserComplainResourceTotalRows";
+	var url="getUserComplaintTotalRowsAjax";
 	$.ajax({
 		url:url,
 		data:{

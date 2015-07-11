@@ -21,6 +21,9 @@ import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.vo.Complaintform;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+
 @Service("complaintServiceImpl")
 @Transactional
 public class ComplaintServiceImpl implements ComplaintService {
@@ -33,7 +36,7 @@ public class ComplaintServiceImpl implements ComplaintService {
 	OrderService orderService;
 	@Autowired
 	OrderDao orderDao;
-
+	@Deprecated
 	@Override
 	public List getUserCompliant(String userId) {
 		
@@ -140,4 +143,41 @@ public class ComplaintServiceImpl implements ComplaintService {
 		return complaint_num.intValue()*1.0/total_num.intValue();
 		
 	}
+
+	/**
+	 * 
+	 * 交易信息-我的投诉
+	 */
+	@Override
+	public JSONArray getUserComplaint(HttpSession session) {
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+		String hql="from Complaintform t where t.clientId=:clientId order by t.relDate desc";
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("clientId", userId);
+		
+		List<Complaintform> complaintList=complaintDao.find(hql,params);
+		JSONArray jsonArray=new JSONArray();
+		
+		for(Complaintform complaint:complaintList){
+			JSONObject jsonObject=(JSONObject)JSONObject.toJSON(complaint);
+			jsonArray.add(jsonObject);
+		}
+		return jsonArray;
+	}
+	/**
+	 * 交易信息-我的投诉-总记录数
+	 */
+	@Override
+	public Integer getUserComplaintTotalRows(HttpSession session) {
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+		String hql="select count(*) from Complaintform t where t.clientId=:clientId";
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("clientId", userId);
+		
+		Long count=complaintDao.count(hql, params);
+		
+		return count.intValue();
+	}
+	
+	
 }

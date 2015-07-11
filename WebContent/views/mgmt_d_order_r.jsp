@@ -259,13 +259,14 @@ function OnLoad() {
 	loadFocus();
 	var display=$("#display").val();
 	var currentPage=$("#currentPage").val();
-	getUserCarResource(display,currentPage);
-	getUserCarResourceTotalRows(display,currentPage);
+	getUserOrderResource(10,1);
+	getUserOrderResourceTotalRows(10,1);
+	
 }
 
 //加载我收到的订单资源
-function getUserOrderRResource(display,currentPage){
-	var url="getUserOrderRResourceAjax";
+function getUserOrderResource(display,currentPage){
+	var url="getUserRecieveOrderAjax";
 	$.ajax({
 		url:url,
 		data:{
@@ -278,6 +279,7 @@ function getUserOrderRResource(display,currentPage){
 			var body=$("#result_body");
 			body.empty();
 			//循环输出结果集
+			//alert(data[i].actualPrice=='undefined');
 			  for(var i =0;i<data.length;i++){
 				body.append("<tr>");
 				body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>");
@@ -286,8 +288,12 @@ function getUserOrderRResource(display,currentPage){
 						body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"javascript:;\" class=\"link1\" hidefocus=\"true\">"+data[i].resourceName+"</a></td>");
 						body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"javascript:;\" class=\"link1\" hidefocus=\"true\">"+data[i].carrierName+"</a></td>");
 						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].expectedPrice+"</td>");
-						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].actualPrice+"</td>");
-						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].submitTime+"<br /></td>");
+						if(data[i].actualPrice== undefined){
+							body.append("<td class=\"td_mgmt_right3_td1\">--</td>");
+						}else{
+							body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].actualPrice+"</td>");
+						}
+						body.append("<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].submitTime)+"<br /></td>");
 						body.append("<td class=\"td_mgmt_right3_td2\">"+data[i].state+"</td>");
                         
 						if(data[i].state == '待受理'){
@@ -341,8 +347,8 @@ function getUserOrderRResource(display,currentPage){
 	})
 }
 //我收到的订单总条数
-function getUserOrderRResourceTotalRows(display,currentPage){
-	var url="getUserOrderRResourceTotalRowsAjax";
+function getUserOrderResourceTotalRows(display,currentPage){
+	var url="getUserRecieveOrderTotalRowsAjax";
 	$.ajax({
 		url:url,
 		data:{
@@ -356,7 +362,7 @@ function getUserOrderRResourceTotalRows(display,currentPage){
 			  pageLayout(data);//页面布局
 		}
 	});
-	
+}
 
 </script>
 </html>

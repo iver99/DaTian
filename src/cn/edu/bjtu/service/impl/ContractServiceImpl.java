@@ -56,7 +56,6 @@ public class ContractServiceImpl implements ContractService{
 		return contractDao.getCompanyContract(carrierId);
 	}
 	
-	
 	@Override
 	public List<Contract> getContractByClientId(String clientId) {
 		
@@ -253,6 +252,7 @@ public class ContractServiceImpl implements ContractService{
 		}else if(userKind == 3){//企业用户
 			hql+="t.carrierId=:userId";
 		}
+		hql+=" order by t.relDate desc";
 		Map<String,Object> params=new HashMap<String,Object>();
 		params.put("userId", userId);
 		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();

@@ -251,10 +251,8 @@
 				  pageLayout(data);//页面布局
 			}
 		});
-		
-		
-		
 	}
+	
 	
 </script>
 </html>

@@ -267,13 +267,13 @@ function OnLoad() {
 	loadFocus();
 	var display=$("#display").val();
 	var currentPage=$("#currentPage").val();
-	getUserCarResource(display,currentPage);
-	getUserCarResourceTotalRows(display,currentPage);
+	getUserOrderResource(10,1);
+	getUserOrderResourceTotalRows(10,1);
 }
 
 //加载我提交的订单资源
-function getUserOrderSResource(display,currentPage){
-	var url="getUserOrderSResourceAjax";
+function getUserOrderResource(display,currentPage){
+	var url="getUserSendOrderAjax";
 	$.ajax({
 		url:url,
 		data:{
@@ -292,10 +292,15 @@ function getUserOrderSResource(display,currentPage){
 						body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"orderDetail?orderid="+data[i].id+"\" hidefocus=\"true\">"+data[i].orderNum+"</a></td>");
 						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].resourceType+"</td>");
 						body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"javascript:;\" class=\"link1\" hidefocus=\"true\">"+data[i].resourceName+"</a></td>");
-						body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"javascript:;\" class=\"link1\" hidefocus=\"true\">"+data[i].carrierName+"</a></td>");
+						body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"javascript:;\" class=\"link1\" hidefocus=\"true\">"+data[i].companyName+"</a></td>");
 						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].expectedPrice+"</td>");
-						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].actualPrice+"</td>");
-						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].submitTime+"<br /></td>");
+						if(data[i].actualPrice ==undefined){
+							body.append("<td class=\"td_mgmt_right3_td1\">--</td>");
+						}else{
+							body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].actualPrice+"</td>");
+						}
+						//alert(data[i].actualPrice ==undefined);
+						body.append("<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].submitTime)+"<br /></td>");
 						body.append("<td class=\"td_mgmt_right3_td2\">"+data[i].state+"</td>");
 						if(data[i].state == '待受理'){
 							var str="<td class=\"td_mgmt_right3_td3\"><div id=\"handlebox\" style=\"z-index: 204;\">";
@@ -347,8 +352,8 @@ function getUserOrderSResource(display,currentPage){
 	})
 }
 //我提交的订单总条数
-function getUserOrderSResourceTotalRows(display,currentPage){
-	var url="getUserOrderSResourceTotalRowsAjax";
+function getUserOrderResourceTotalRows(display,currentPage){
+	var url="getUseSendOrderTotalRowsAjax";
 	$.ajax({
 		url:url,
 		data:{

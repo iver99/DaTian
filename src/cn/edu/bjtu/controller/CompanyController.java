@@ -93,12 +93,12 @@ public class CompanyController {
 	}
 	
 
-	@RequestMapping(value="/companyDetail",method=RequestMethod.GET)
 	/**
 	 * 返回公司的具体信息
 	 * @param id
 	 * @return
 	 */
+	@RequestMapping(value="/companyDetail",method=RequestMethod.GET)
 	public ModelAndView companyDetail(@RequestParam String id,HttpSession session)
 	{
 		Carrierinfo carrierinfo=companyService.getCompanyById(id);
@@ -119,17 +119,6 @@ public class CompanyController {
 	}
 	
 	@RequestMapping("companyselected")
-	/**
-	 * 查找符合条件的承运方
-	 * @param city
-	 * @param resourceRate
-	 * @param serviceIndustry
-	 * @param creditRate
-	 * @param business
-	 * @param Display
-	 * @param PageNow
-	 * @return
-	 */
 	@Deprecated
 	public ModelAndView getSelectedCompany(@RequestParam String city,
 			@RequestParam String resourceRate,
@@ -162,5 +151,18 @@ public class CompanyController {
 				
 				return mv;
 			}
+	
+	/**
+	 * 获取已经通过验证的公司
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value="getCertificatedCompanyAjax",produces="text/html;charset=UTF-8")
+	@ResponseBody
+	public String getCertificatedCompany(HttpSession session){
+		JSONArray jsonArray=companyService.getCertificatedCompany(session);
+		
+		return jsonArray.toString();
+	}
 
 }

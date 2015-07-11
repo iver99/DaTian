@@ -45,32 +45,26 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 	GoodsClientView goodsClientView;
 	
 	@Override
-	/**
-	 * ����ɸѡ������·
-	 */
 	@Deprecated
 	public List getSelectedGoodsInfo(String startPlace, String endPlace,
 			String transportType, int Display,int PageNow) {
 		
 		String [] paramList={"startPlace","endPlace","transportType"};//ûstartplace1 
 		String [] valueList={startPlace,endPlace,transportType};
-		String hql="from GoodsClientView ";//��仯
+		String hql="from GoodsClientView ";
 		String sql=HQLTool.spellHql2(hql,paramList, valueList);
 		return goodsinfoDao.getSelectedGoodsInfo(sql,Display,PageNow);
 	}
 	
 	@Override
-	/**
-	 * ��ȡ�ܼ�¼���� 
-	 */
 	@Deprecated
 	public int getTotalRows(String startPlace, String endPlace, String transportType) {
 		
 		String [] paramList={"startPlace","endPlace","transportType"};//ûstartplace1 
 		String [] valueList={startPlace,endPlace,transportType};
-		String hql="from GoodsClientView ";//��仯
+		String hql="from GoodsClientView "; 
 		String sql=HQLTool.spellHql2(hql,paramList, valueList);
-		return hqltool.getTotalRows(sql);//�����HQLToolʵ��ǧ�����Լ�new��������@Resource
+		return hqltool.getTotalRows(sql); 
 	}
 	
 	@Override
@@ -88,10 +82,14 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 	//@SuppressWarnings("deprecation")
 	@Override
 	public boolean  insertNewGoods(Goodsform goods,HttpServletRequest request,MultipartFile file){
-		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
-		String fileLocation=UploadFile.uploadFile(file, carrierId, "cargo");
+		String clientId = (String) request.getSession().getAttribute(Constant.USER_ID);
+		String fileLocation=UploadFile.uploadFile(file, clientId, "cargo");
 		
 		goods.setId(IdCreator.createGoodsId());
+		goods.setState("待确认");
+		goods.setRelDate(new Date());
+		goods.setClientId(clientId);
+		
 		
 		//设置文件位置 
 		goods.setRelatedMaterial(fileLocation);
@@ -126,12 +124,11 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 		goodsform.setState("��ȷ��");
 		goodsform.setClientId(clientId);
 		
-		// �����ļ�·��
 		if (path != null && fileName != null) {
 			String fileLocation = path + "//" + fileName;
 			goodsform.setRelatedMaterial(fileLocation);
 		}
-		goodsinfoDao.save(goodsform);//����ʵ��
+		goodsinfoDao.save(goodsform); 
 		return true;
 		
 	}
@@ -193,12 +190,11 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 			goodsform.setLimitDate(stringToDate(limitDate));
 			goodsform.setInvoice(invoice);
 			goodsform.setRemarks(remarks);
-			// �����ļ�·��
 			if (path != null && fileName != null) {
 				String fileLocation = path + "//" + fileName;
 				goodsform.setRelatedMaterial(fileLocation);
 			}
-			goodsinfoDao.update(goodsform);//����ʵ��
+			goodsinfoDao.update(goodsform); 
 			return true;
 			
 		}
@@ -206,7 +202,6 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 	 @Override
 	 public boolean  updateNewGoods(Goodsform goods,HttpServletRequest request,MultipartFile file){
 		 String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
-			//�����ļ�
 			String fileLocation=UploadFile.uploadFile(file, carrierId, "cargo");
 
 			Goodsform goodsInstance = goodsinfoDao.get(Goodsform.class,goods.getId());
@@ -224,10 +219,8 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 			goodsInstance.setInvoice(goods.getInvoice());
 			goodsInstance.setRemarks(goods.getRemarks());
 			goodsInstance.setVipServiceDetail(goods.getVipServiceDetail());
-			//�����ļ�λ�� 
 			goodsInstance.setRelatedMaterial(fileLocation);
 
-			//����
 			goodsinfoDao.update(goodsInstance);
 			return true;
 	 }
@@ -238,17 +231,16 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 		 return goodsinfoDao.deleteGoods(id);
 	 }
 
+	 /**
+	  * 确认反馈
+	  */
 	@Override
-	/**
-	 * ȷ�Ϸ���ʱ�޸Ļ���״̬Ϊ��ȷ��
-	 */
 	public boolean confirmResponse(String goodsId) {
 		
 		Goodsform goodsinfo=goodsinfoDao.getMyGoodsDetail(goodsId);	
 		
 		if(goodsinfo!=null){
-			//�޸Ļ���״̬Ϊ��ȷ��
-			goodsinfo.setState("��ȷ��");
+			goodsinfo.setState("已确认");
 			goodsinfoDao.update(goodsinfo);
 		}
 		
@@ -256,7 +248,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 	}
 
 	/**
-	 * ��Դ��-����-ɸѡ
+	 *资源栏货物筛选
 	 */
 	@Override
 	public JSONArray getSelectedCargoNew(CargoSearchBean cargoBean,
@@ -280,7 +272,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 		}
 		sql+=") t3 on t1.id=t3.focusId ";
 		String wheresql=whereSql(cargoBean,params);
-		sql+=wheresql;
+		sql+=wheresql+" order by t1.relDate desc";
 		
 		JSONArray jsonArray = new JSONArray();
 		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
@@ -309,7 +301,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 	}
 	
 	/**
-	 * ��Դ��-����-ɸѡ-�ܼ�¼�� 
+	 * 资源栏-货物-总记录条数
 	 */
 	@Override
 	public Integer getSelectedCargoTotalRows(CargoSearchBean cargoBean) {
@@ -382,12 +374,12 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 	}
 	 
 	/**
-	 * �ҵ���Ϣ-������Ϣ
+	 * 我的信息-我的货物
 	 */
 	@Override
 	public JSONArray getUserCargoResource(HttpSession session,PageUtil pageUtil) {
 		String userId=(String)session.getAttribute(Constant.USER_ID);
-		  String hql="from Goodsform t where t.clientId=:clientId";
+		  String hql="from Goodsform t where t.clientId=:clientId order by t.relDate desc";
 		  Map<String,Object> params=new HashMap<String,Object>();
 		  params.put("clientId", userId);
 		  int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
@@ -404,7 +396,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 	}
 
 	/**
-	 * �ҵ���Ϣ-������Ϣ-�ܼ�¼��
+	 * 我的资源-货物信息-总记录条数
 	 */
 	@Override
 	public Integer getUserCargoTotalRows(HttpSession session) {
