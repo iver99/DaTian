@@ -23,6 +23,7 @@ import cn.edu.bjtu.service.ComplaintService;
 import cn.edu.bjtu.service.OrderService;
 import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.DownloadFile;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Complaintform;
 import cn.edu.bjtu.vo.Orderform;
@@ -64,8 +65,8 @@ public class ComplaintController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="getUserComplaintAjax",produces="text/html;charset=UTF-8")
-	public String getUserComplaint(HttpSession session){
-		JSONArray jsonArray=complaintService.getUserComplaint(session);
+	public String getUserComplaint(HttpSession session,PageUtil pageUtil,Complaintform complaint){
+		JSONArray jsonArray=complaintService.getUserComplaint(session,pageUtil,complaint);
 		
 		return jsonArray.toString();
 	}
@@ -77,8 +78,8 @@ public class ComplaintController {
 	 */
 	@ResponseBody
 	@RequestMapping("getUserComplaintTotalRowsAjax")
-	public Integer getUserComplaintTotalRows(HttpSession session){
-		return complaintService.getUserComplaintTotalRows(session);
+	public Integer getUserComplaintTotalRows(HttpSession session,Complaintform complaint){
+		return complaintService.getUserComplaintTotalRows(session,complaint);
 	}
 
 	/**

@@ -80,11 +80,12 @@ public class SettlementRecordServiceImpl implements SettlementRecordService{
 	 * 我的结算(与settlement表无关，由订单表得到)
 	 */
 	@Override
-	public JSONArray getUserSettlement(HttpSession session) {
+	public JSONArray getUserSettlement(HttpSession session,String name) {
+		Map<String,Object> params=new HashMap<String,Object>();
 		String userId=(String)session.getAttribute(Constant.USER_ID);
 		Integer userKind=(Integer)session.getAttribute(Constant.USER_KIND);
-		String hql="from Orderform t where t.state='已完成' ";
-		Map<String,Object> params=new HashMap<String,Object>();
+		String hql="from Orderform t "+whereHql(name,params);
+		hql+=" and t.state='已完成' ";
 		if(userKind==2){//个人用户
 			hql+=" and t.clientId=:clientId ";
 			params.put("clientId", userId);
@@ -114,6 +115,17 @@ public class SettlementRecordServiceImpl implements SettlementRecordService{
 		}
 		return jsonArray;
 		
+	}
+	/*
+	 * wherer hql 供搜索使用
+	 */
+	private String whereHql(String name,Map<String,Object> params){
+		String hql="where 1=1 ";
+		if(name !=null){
+			//订单编号或者合同号 
+			//hql+=" and "
+		}
+		return hql;
 	}
 
 	/**

@@ -73,8 +73,8 @@
                                 &nbsp;&nbsp;至&nbsp;&nbsp;
                                 <input type="text" class="input_date1" onclick="SelectDate(this,'yyyy-MM-dd')" value="结束时间" readonly="readonly" title="点击选择" />
                                 &nbsp;&nbsp; -->
-                                <input type="text" class="input_mgmt1" style="width:180px;" placeholder="承运方名称或承运方合同编号" name="name"/>
-                                <input type="submit" id="btn1" value="查询" class="btn_mgmt3" hidefocus="true" />
+                                <input type="text" class="input_mgmt1" style="width:180px;" placeholder="承运方名称或承运方合同编号" name="name" id="name"/>
+                                <input type="button" id="btn1" value="查询" class="btn_mgmt3" hidefocus="true" onclick="OnLoad()" />
                             </div>
                         </td>
                 	</tr>
@@ -173,18 +173,21 @@ function OnLoad() {
 	loadFocus();
 	var display=$("#display").val();
 	var currentPage=$("#currentPage").val();
-	getUserSettleSResource(10,1);
-	getUserSettlementTotalRowsAjax(10,1);
+	var name=$("#name").val();
+	
+	getUserSettleSResource(display,currentPage,name);
+	getUserSettlementTotalRowsAjax(display,currentPage,name);
 }
 
 //加载我的结算（需求方）资源
-function getUserSettleSResource(display,currentPage){
+function getUserSettleSResource(display,currentPage,name){
 	var url="getUserSettlementAjax";
 	$.ajax({
 		url:url,
 		data:{
 			display:display,
-			currentPage:currentPage
+			currentPage:currentPage,
+			name:name
 			},
 		cache:false,
 		dataType:"json",
@@ -217,13 +220,14 @@ function getUserSettleSResource(display,currentPage){
 	})
 }
 //我的结算（需求方）总条数
-function getUserSettleSResourceTotalRows(display,currentPage){
+function getUserSettleSResourceTotalRows(display,currentPage,name){
 	var url="getUserSettlementTotalRowsAjax";
 	$.ajax({
 		url:url,
 		data:{
 			display:display,
-			currentPage:currentPage
+			currentPage:currentPage,
+			name:name
 		},
 		cache:false,
 		dataType:"json",
@@ -244,7 +248,6 @@ $("#btn5").click(function(){
 	var count = 0;
 	$('input:checkbox[name="f1"]:checked').each(function() //multiple checkbox的name  
 	{  
-		//alert($(this).attr("value"));
 		checklist[count++] = $(this).attr("value");
     });
 	if(checklist!=null && checklist!=""){

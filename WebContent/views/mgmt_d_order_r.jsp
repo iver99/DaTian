@@ -259,8 +259,8 @@ function OnLoad() {
 	loadFocus();
 	var display=$("#display").val();
 	var currentPage=$("#currentPage").val();
-	getUserOrderResource(10,1);
-	getUserOrderResourceTotalRows(10,1);
+	getUserOrderResource(display,currentPage);
+	getUserOrderResourceTotalRows(display,currentPage);
 	
 }
 

@@ -19,6 +19,7 @@ import cn.edu.bjtu.service.ComplaintService;
 import cn.edu.bjtu.service.OrderService;
 import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.IdCreator;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Complaintform;
 
 import com.alibaba.fastjson.JSONArray;
@@ -149,29 +150,49 @@ public class ComplaintServiceImpl implements ComplaintService {
 	 * 交易信息-我的投诉
 	 */
 	@Override
-	public JSONArray getUserComplaint(HttpSession session) {
+	public JSONArray getUserComplaint(HttpSession session,PageUtil pageUtil,Complaintform complaint) {
 		String userId=(String)session.getAttribute(Constant.USER_ID);
-		String hql="from Complaintform t where t.clientId=:clientId order by t.relDate desc";
 		Map<String,Object> params=new HashMap<String,Object>();
+		String hql="from Complaintform t "+whereHql(complaint,params);
+				
+		hql+=" and t.clientId=:clientId order by t.relDate desc";
 		params.put("clientId", userId);
 		
-		List<Complaintform> complaintList=complaintDao.find(hql,params);
+		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
+		int display=pageUtil.getDisplay()==0?10:pageUtil.getDisplay();
+		List<Complaintform> complaintList=complaintDao.find(hql,params,page,display);
 		JSONArray jsonArray=new JSONArray();
 		
-		for(Complaintform complaint:complaintList){
-			JSONObject jsonObject=(JSONObject)JSONObject.toJSON(complaint);
+		for(Complaintform complaintIns:complaintList){
+			JSONObject jsonObject=(JSONObject)JSONObject.toJSON(complaintIns);
 			jsonArray.add(jsonObject);
 		}
 		return jsonArray;
 	}
 	/**
+	 * where hql供搜索使用
+	 * @param complaint
+	 * @param params
+	 * @return
+	 */
+	private String whereHql(Complaintform complaint,Map<String,Object> params){
+		String hql=" where 1=1 ";
+		if(complaint !=null && !"".equals(complaint.getTheme())){
+			hql+=" and t.theme like '%"+complaint.getTheme()+"%'";
+		}
+		
+		return hql;
+	}
+	
+	/**
 	 * 交易信息-我的投诉-总记录数
 	 */
 	@Override
-	public Integer getUserComplaintTotalRows(HttpSession session) {
-		String userId=(String)session.getAttribute(Constant.USER_ID);
-		String hql="select count(*) from Complaintform t where t.clientId=:clientId";
+	public Integer getUserComplaintTotalRows(HttpSession session,Complaintform complaint) {
 		Map<String,Object> params=new HashMap<String,Object>();
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+		String hql="select count(*) from Complaintform t  "+whereHql(complaint,params);
+		hql+=" and t.clientId=:clientId";
 		params.put("clientId", userId);
 		
 		Long count=complaintDao.count(hql, params);

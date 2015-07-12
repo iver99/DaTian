@@ -65,7 +65,7 @@ public interface ContractService {
 	 * @author: chendonghao 
 	 * @date: 2015年7月3日 下午5:46:09
 	 */
-	public Integer getUserContractTotalRows(HttpSession session);
+	public Integer getUserContractTotalRows(HttpSession session,Contract contract);
 	
 	
 

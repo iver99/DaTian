@@ -111,97 +111,6 @@ function cancel(id){
 					 <tbody id="result_body">
                     
                     </tbody>
-					<%-- <c:forEach var="orderinfo" items="${orderList }">
-					<tr>
-                        <td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
-                        <td class="td_mgmt_right3_td1"><a href="orderDetail?orderid=${orderinfo.id }" hidefocus="true">${orderinfo.orderNum }</a></td>
-                        <td class="td_mgmt_right3_td1">${orderinfo.resourceType }</td>
-                        <td class="td_mgmt_right3_td1"><a href="resource_detail1.htm" class="link1" hidefocus="true">${orderinfo.resourceName }</a></td>
-                        <td class="td_mgmt_right3_td1"><a href="javascript:;" class="link1" hidefocus="true">${orderinfo.carrierName }</a></td>
-                        <td class="td_mgmt_right3_td1">${orderinfo.expectedPrice }</td>
-                        <td class="td_mgmt_right3_td1">${orderinfo.actualPrice }</td>
-                        <td class="td_mgmt_right3_td1">${orderinfo.submitTime }<br />
-                            </td>
-                        <c:choose>
-                        <c:when test="${orderinfo.state == '待受理' }">
-                        <td class="td_mgmt_right3_td2">待受理</td>
-                        <td class="td_mgmt_right3_td3">
-                            <div id="handlebox" style="z-index:204;">
-                                <ul class="quickmenu">
-                                    <li class="menuitem">
-                                        <div class="menu">
-                                            <a href="updateOrder?orderid=${orderinfo.id }" class="menuhd" hidefocus="true">更新</a>
-                                            <div class="menubd">
-                                                <div class="menubdpanel">
-                                                    <a href="cancelOrder?orderid=${orderinfo.id }" class="a_top3" hidefocus="true">取消</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                        </c:when>
-                        
-                        <c:when test="${orderinfo.state == '待收货' }">
-                        <td class="td_mgmt_right3_td2">待收货</td>
-                        <td class="td_mgmt_right3_td3"><a href="orderDetailWaitToReceive?orderid=${orderinfo.id }" hidefocus="true">查看</a></td>
-                        </c:when>
-                        
-                        <c:when test="${orderinfo.state == '待确认' }">
-                        <td class="td_mgmt_right3_td2">待确认</td>
-                        <td class="td_mgmt_right3_td3">
-                            <div id="handlebox" style="z-index:202;">
-                                <ul class="quickmenu">
-                                    <li class="menuitem">
-                                        <div class="menu">
-                                            <a href="getConfirmForm?orderid=${orderinfo.id }" class="menuhd" hidefocus="true">收货确认</a>
-                                            <div class="menubd">
-                                                <div class="menubdpanel">
-                                                    <a href="orderDetailWaitToReceive?orderid=${orderinfo.id }" class="a_top3" hidefocus="true">查看</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                        </c:when>
-                        
-                        <c:when test="${orderinfo.state == '待评价' }">
-                        <td class="td_mgmt_right3_td2">待评价</td>
-                        <td class="td_mgmt_right3_td3">
-                            <div id="handlebox" style="z-index:201;">
-                                <ul class="quickmenu">
-                                    <li class="menuitem">
-                                        <div class="menu">
-                                            <a href="getCommentForm?orderid=${orderinfo.id }&ordernum=${orderinfo.orderNum}" class="menuhd" hidefocus="true">评价</a>
-                                            <div class="menubd">
-                                                <div class="menubdpanel">
-                                                    <a href="orderDetailComment?orderid=${orderinfo.id }" class="a_top3" hidefocus="true">查看</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                        </c:when>
-                        
-                        <c:when test="${orderinfo.state == '已完成' }">
-                        <td class="td_mgmt_right3_td1">已完成</td>
-                        <td class="td_mgmt_right3_td3"><a href="orderDetailFinish?orderid=${orderinfo.id }" hidefocus="true">查看</a></td>
-                        </c:when>
-                        
-                        <c:when test="${orderinfo.state == '已取消' }">
-                         <td class="td_mgmt_right3_td1">已取消</td>
-                        <td class="td_mgmt_right3_td3"><a href="orderDetailAlreadyCancel?orderid=${orderinfo.id }" hidefocus="true">查看</a></td>
-                        </c:when>
-                        </c:choose>
-                    </tr>
-					</c:forEach>
-					
-                    --%>
                 </table>
 				<table border="0" cellpadding="0" cellspacing="0" class="table_recordnumber">
                     <tr>
@@ -216,16 +125,6 @@ function cancel(id){
                         </td>
                     </tr>
 				</table>
-                <table border="0" cellpadding="0" cellspacing="0" class="table_pagenumber" id="page_layout" >
-                   <!--  <tr>
-                        <td width="45" class="td_pagenumber">首页</td>
-                        <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">上页</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">1</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">2</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">3</a></td>
-                        <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">下页</a></td>
-                        <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">末页</a></td>
-                    </tr> -->
 				</table>
 			</td>
 		</tr>
@@ -267,8 +166,9 @@ function OnLoad() {
 	loadFocus();
 	var display=$("#display").val();
 	var currentPage=$("#currentPage").val();
-	getUserOrderResource(10,1);
-	getUserOrderResourceTotalRows(10,1);
+	
+	getUserOrderResource(display,currentPage);
+	getUserOrderResourceTotalRows(display,currentPage);
 }
 
 //加载我提交的订单资源

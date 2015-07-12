@@ -382,8 +382,8 @@ public class ContractController {
 	 */
 	@RequestMapping("getUserContractTotalRowsAjax")
 	@ResponseBody
-	public Integer getUserContractTotalRows(HttpSession session){
-		return contractService.getUserContractTotalRows(session);
+	public Integer getUserContractTotalRows(HttpSession session,Contract contract){
+		return contractService.getUserContractTotalRows(session,contract);
 	}
 	
 	/**

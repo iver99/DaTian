@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import cn.edu.bjtu.bean.page.ComplaintBean;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Complaintform;
 
 import com.alibaba.fastjson.JSONArray;
@@ -33,12 +34,12 @@ public interface ComplaintService {
 	 * @param session
 	 * @return
 	 */
-	public JSONArray getUserComplaint(HttpSession session);
+	public JSONArray getUserComplaint(HttpSession session,PageUtil pageUtil,Complaintform complaint);
 	
 	/**
 	 * 交易信息-我的投诉-总记录条数
 	 * @param session
 	 * @return
 	 */
-	public Integer getUserComplaintTotalRows(HttpSession session);
+	public Integer getUserComplaintTotalRows(HttpSession session,Complaintform complaint);
 }

@@ -68,9 +68,9 @@ public class SettlementController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="getUserSettlementAjax",produces="text/html;charset=UTF-8")
-	public String getUserSettlement(HttpSession session){
+	public String getUserSettlement(HttpSession session,String name){
 		
-		JSONArray jsonArray=settlementRecordService.getUserSettlement(session);
+		JSONArray jsonArray=settlementRecordService.getUserSettlement(session,name);
 		
 		return jsonArray.toString();
 	}

@@ -279,8 +279,8 @@ public class ContractServiceImpl implements ContractService{
 	 */
 	private String whereHql(Contract contract,Map<String,Object> params){
 		String hql=" where 1=1 ";
-		String startDate=ParseDate.DateToString(contract.getStartDate());
-		String endDate=ParseDate.DateToString(contract.getEndDate());
+		String startDate=contract.getStartDate()==null?"1970-01-01":ParseDate.DateToString(contract.getStartDate());
+		String endDate=contract.getEndDate()==null?"1970-01-01":ParseDate.DateToString(contract.getEndDate());
 		if(!"1970-01-01".equals(startDate)){
 			hql+="and t.startDate >=:startDate ";
 			params.put("startDate", contract.getStartDate());
@@ -290,8 +290,8 @@ public class ContractServiceImpl implements ContractService{
 			params.put("endDate", contract.getEndDate());
 		}
 		if(!"".equals(contract.getName())){
-			hql+=" and t.name like '%:name%' ";
-			params.put("name", contract.getName());
+			hql+=" and t.name like '%"+contract.getName()+"%' ";
+//			params.put("name", contract.getName());
 		}
 		return hql;
 	}
@@ -300,16 +300,16 @@ public class ContractServiceImpl implements ContractService{
 	 * 我的信息-合同信息-总记录数
 	 */
 	@Override
-	public Integer getUserContractTotalRows(HttpSession session) {
+	public Integer getUserContractTotalRows(HttpSession session,Contract contract) {
+		Map<String,Object> params=new HashMap<String,Object>();
 		String userId=(String)session.getAttribute(Constant.USER_ID);
 		Integer userKind=(Integer)session.getAttribute(Constant.USER_KIND);
-		String hql="select count(*) from Contract t where ";
+		String hql="select count(*) from Contract t "+whereHql(contract,params);
 		if(userKind == 2){//个人用户
-			hql+="t.clientId=:userId";
+			hql+=" and t.clientId=:userId";
 		}else if(userKind == 3){//企业用户
-			hql+="t.carrierId=:userId";
+			hql+=" and t.carrierId=:userId";
 		}
-		Map<String,Object> params=new HashMap<String,Object>();
 		params.put("userId", userId);
 		
 		Long count=contractDao.count(hql, params);

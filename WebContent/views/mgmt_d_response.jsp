@@ -192,8 +192,8 @@ function OnLoad() {
 	loadFocus();
 	var display=$("#display").val();
 	var currentPage=$("#currentPage").val();
-	getUserResponseResource(10,1);
-	getUserResponseResourceTotalRows(10,1);
+	getUserResponseResource(display,currentPage);
+	getUserResponseResourceTotalRows(display,currentPage);
 }
 
 //加载反馈资源

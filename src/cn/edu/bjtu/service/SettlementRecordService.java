@@ -34,7 +34,7 @@ public interface SettlementRecordService {
 	 * @param session
 	 * @return
 	 */
-	public JSONArray getUserSettlement(HttpSession session);
+	public JSONArray getUserSettlement(HttpSession session,String name);
 	
 	/**
 	 * 我的结算-总记录条数 

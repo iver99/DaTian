@@ -77,8 +77,8 @@
                         	<span class="span_mgmt_right2_text1">我提交的投诉</span>
                             <span class="span_mgmt_right2_text2"><a href="insert?flag=8" hidefocus="true"><img src="images/btn_add1.png" class="span_mgmt_right2_pic1" title="添加" /></a></span>
                             <div class="div_mgmt_s1">
-                            	<input name="theme" type="text" class="input_mgmt1" style="width:200px;" value="投诉主题" />
-                                <input type="submit" id="btn1" value="查询" class="btn_mgmt3" hidefocus="true" />
+                            	<input id="theme" name="theme" type="text" class="input_mgmt1" style="width:200px;" placeholder="投诉主题" />
+                                <input type="button" id="btn1" value="查询" class="btn_mgmt3" hidefocus="true" onclick="OnLoad()"/>
                             </div>
                         </td>
                 	</tr>
@@ -165,18 +165,20 @@ function OnLoad() {
 	loadFocus();
 	var display=$("#display").val();
 	var currentPage=$("#currentPage").val();
-	getUserComplainResource(10,1);
-	getUserComplainResourceTotalRows(10,1);
+	var theme=$("#theme").val();
+	getUserComplainResource(display,currentPage,theme);
+	getUserComplainResourceTotalRows(display,currentPage,theme);
 }
 
 //加载投诉资源
-function getUserComplainResource(display,currentPage){
+function getUserComplainResource(display,currentPage,theme){
 	var url="getUserComplaintAjax";
 	$.ajax({
 		url:url,
 		data:{
 			display:display,
-			currentPage:currentPage
+			currentPage:currentPage,
+			theme:theme
 			},
 		cache:false,
 		dataType:"json",
@@ -201,13 +203,14 @@ function getUserComplainResource(display,currentPage){
 	})
 }
 //投诉资源总条数
-function getUserComplainResourceTotalRows(display,currentPage){
+function getUserComplainResourceTotalRows(display,currentPage,theme){
 	var url="getUserComplaintTotalRowsAjax";
 	$.ajax({
 		url:url,
 		data:{
 			display:display,
-			currentPage:currentPage
+			currentPage:currentPage,
+			theme:theme
 		},
 		cache:false,
 		dataType:"json",
