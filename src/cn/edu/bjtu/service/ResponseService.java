@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Response;
 
 import com.alibaba.fastjson.JSONArray;
@@ -48,7 +49,7 @@ public interface ResponseService{
 	 * @param session
 	 * @return
 	 */
-	public JSONArray getUserResponse(HttpSession session);
+	public JSONArray getUserResponse(HttpSession session,PageUtil pageUtil);
 	
 	/*
 	 * 我的反馈-总条数

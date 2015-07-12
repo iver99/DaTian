@@ -121,9 +121,9 @@ public class SettlementRecordServiceImpl implements SettlementRecordService{
 	 */
 	private String whereHql(String name,Map<String,Object> params){
 		String hql="where 1=1 ";
-		if(name !=null){
+		if(name !=null && !"".equals(name)){
 			//订单编号或者合同号 
-			//hql+=" and "
+			hql+="and t.orderNum like'%"+name+"%' or t.contractId like '%"+name+"%' ";
 		}
 		return hql;
 	}

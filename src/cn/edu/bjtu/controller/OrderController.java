@@ -30,6 +30,7 @@ import cn.edu.bjtu.service.OrderService;
 import cn.edu.bjtu.service.ResponseService;
 import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.JSON;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carinfo;
 import cn.edu.bjtu.vo.Carrierinfo;
@@ -101,9 +102,8 @@ public class OrderController {
 	 */
 	@RequestMapping(value="getUserSendOrderAjax",produces="text/html;charset=UTF-8")
 	@ResponseBody
-	public String getUserSendOrder(HttpSession session){
-		//XXX unused
-		JSONArray jsonArray=orderService.getUserSendOrder(session);
+	public String getUserSendOrder(HttpSession session,PageUtil pageUtil,Orderform order){
+		JSONArray jsonArray=orderService.getUserSendOrder(session,pageUtil,order);
 		
 		return jsonArray.toString();
 		
@@ -116,9 +116,9 @@ public class OrderController {
 	 */
 	@ResponseBody
 	@RequestMapping("getUseSendOrderTotalRowsAjax")
-	public Integer getUserSendOrderTotalRows(HttpSession session){
+	public Integer getUserSendOrderTotalRows(HttpSession session,Orderform order){
 		//XXX unused
-		return orderService.getUserSendOrderTotalRows(session);
+		return orderService.getUserSendOrderTotalRows(session,order);
 	}
 
 	@RequestMapping("/recieveorderinfo")
@@ -144,9 +144,8 @@ public class OrderController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="getUserRecieveOrderAjax",produces="text/html;charset=UTF-8")
-	public String getUserRecieveOrder(HttpSession session){
-		//XXX unused
-		JSONArray jsonArray=orderService.getUserRecieveOrder(session);
+	public String getUserRecieveOrder(HttpSession session,PageUtil pageUtil,Orderform order){
+		JSONArray jsonArray=orderService.getUserRecieveOrder(session,pageUtil,order);
 		return jsonArray.toString();
 	}
 	
@@ -157,9 +156,8 @@ public class OrderController {
 	 */
 	@ResponseBody
 	@RequestMapping("getUserRecieveOrderTotalRowsAjax")
-	public Integer getUserRevieveOrderTotalRows(HttpSession session){
-		//XXX unused
-		return orderService.getUserRecieveOrderTotalRows(session);
+	public Integer getUserRevieveOrderTotalRows(HttpSession session,Orderform order){
+		return orderService.getUserRecieveOrderTotalRows(session,order);
 	}
 
 	@RequestMapping("/sendorderdetail")

@@ -17,6 +17,7 @@ import cn.edu.bjtu.dao.GoodsInfoDao;
 import cn.edu.bjtu.dao.ResponseDao;
 import cn.edu.bjtu.service.ResponseService;
 import cn.edu.bjtu.util.Constant;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Goodsform;
 import cn.edu.bjtu.vo.Response;
 
@@ -95,14 +96,16 @@ public class ResponseServiceImpl implements ResponseService{
 	 * 红区用户的所有反馈 
 	 */
 	@Override
-	public JSONArray getUserResponse(HttpSession session) {
+	public JSONArray getUserResponse(HttpSession session,PageUtil pageUtil) {
 		
 		String userId=(String)session.getAttribute(Constant.USER_ID);
 		String hql="from Response t where t.carrierId=:carrierId order by t.relDate desc";
 		Map<String,Object> params=new HashMap<String,Object>();
 		params.put("carrierId", userId);
 		
-		List<Response> respList=responseDao.find(hql, params);
+		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
+		int display=pageUtil.getDisplay()==0?10:pageUtil.getDisplay();
+		List<Response> respList=responseDao.find(hql, params,page,display);
 		List<ResponseBean> beanList=new ArrayList<ResponseBean>();
 		for(Response resp:respList){
 			ResponseBean respBean=new ResponseBean();

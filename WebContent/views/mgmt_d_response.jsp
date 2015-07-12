@@ -93,33 +93,6 @@
 						<tbody id="result_body">
                    
                    		</tbody>
-						<%-- <c:forEach var="resp" items="${responseList }">
-							<tr>
-								<td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
-								<td class="td_mgmt_right3_td1">${resp.id }</td>
-								<td class="td_mgmt_right3_td1"><a
-									href="goodsdetail?id=${resp.id }" hidefocus="true">${resp.name }</a></td>
-								<td class="td_mgmt_right3_td1">${resp.relDate }</td>
-								
-								<c:choose>
-									<c:when test="${resp.state=='待确认' }">
-									<td class="td_mgmt_right3_td1">${resp.state }</td>
-										<td class="td_mgmt_right3_td3"><a
-											href="viewResponseInfo?responseid=${resp.responseId }" hidefocus="true">查看</a></td>
-									</c:when>
-									<c:otherwise>
-										<td class="td_mgmt_right3_td1">${resp.state }</td>
-										<td class="td_mgmt_right3_td3"><a href="viewResponseInfo?responseid=${resp.responseId }"
-											hidefocus="true">查看</a></td>
-									</c:otherwise>
-									<c:otherwise>
-									<td class="td_mgmt_right3_td1">${resp.state }</td>
-									<td class="td_mgmt_right3_td3"><a
-											href="getresponseform?goodsid=${resp.id }" hidefocus="true">提交</a></td>
-									</c:otherwise>
-								</c:choose>
-							</tr>
-						</c:forEach> --%>
 
 					</table>
 					<table border="0" cellpadding="0" cellspacing="0"
@@ -135,21 +108,6 @@
 					</table>
 					<table border="0" cellpadding="0" cellspacing="0"
 						class="table_pagenumber" id="page_layout">
-						<!-- <tr>
-							<td width="45" class="td_pagenumber">首页</td>
-							<td width="45" class="td_pagenumber"><a href="javascript:;"
-								class="a_pagenumber" hidefocus="true">上页</a></td>
-							<td width="30" class="td_pagenumber"><a href="javascript:;"
-								class="a_pagenumber" hidefocus="true">1</a></td>
-							<td width="30" class="td_pagenumber"><a href="javascript:;"
-								class="a_pagenumber" hidefocus="true">2</a></td>
-							<td width="30" class="td_pagenumber"><a href="javascript:;"
-								class="a_pagenumber" hidefocus="true">3</a></td>
-							<td width="45" class="td_pagenumber"><a href="javascript:;"
-								class="a_pagenumber" hidefocus="true">下页</a></td>
-							<td width="45" class="td_pagenumber"><a href="javascript:;"
-								class="a_pagenumber" hidefocus="true">末页</a></td>
-						</tr> -->
 					</table>
 				</td>
 			</tr>
@@ -216,14 +174,14 @@ function getUserResponseResource(display,currentPage){
 				body.append("<tr>");
 				body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>");
 				body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].id+"</td>");
-				body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"goodsdetail?id="+data[i].id+"\" hidefocus=\"true\">"+data[i].name+"</a></td>");
+				body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"goodsdetail?id="+data[i].goodsId+"\" hidefocus=\"true\">"+data[i].name+"</a></td>");
 				body.append("<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].relDate)+"</td>");
 				body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].status+"</td>");
 				if(data[i].state == '未提交'){
-					body.append("<td class=\"td_mgmt_right3_td3\"><a href=\"getresponseform?goodsid="+data[i].responseId+"\" hidefocus=\"true\">提交</a></td>");
+					body.append("<td class=\"td_mgmt_right3_td3\"><a href=\"getresponseform?goodsid="+data[i].id+"\" hidefocus=\"true\">提交</a></td>");
 				}
 				else{
-					body.append("<td class=\"td_mgmt_right3_td3\"><a href=\"viewResponseInfo?responseid="+data[i].responseId+"\" hidefocus=\"true\">查看</a></td>");
+					body.append("<td class=\"td_mgmt_right3_td3\"><a href=\"viewResponseInfo?responseid="+data[i].id+"\" hidefocus=\"true\">查看</a></td>");
 				}
 				/* body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].VIPService+"</td>");
 				body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].refPrice+"</td>");

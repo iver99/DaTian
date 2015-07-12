@@ -81,8 +81,8 @@ function cancel(id){
                         <td>
                         	<span class="span_mgmt_right2_text1">我提交的订单</span>
                             <div class="div_mgmt_s1">
-                            	<input type="text" class="input_mgmt1" style="width:200px;" value="订单内容..." />
-                                <input type="button" id="btn1" value="查询" class="btn_mgmt3" hidefocus="true" />
+                            	<input type="text" class="input_mgmt1" style="width:200px;" placeholder="订单编号" name="orderNum" id="orderNum" />
+                                <input type="button" id="btn1" value="查询" class="btn_mgmt3" hidefocus="true" onclick="OnLoad()"/>
                             </div>
                         </td>
                 	</tr>
@@ -166,19 +166,20 @@ function OnLoad() {
 	loadFocus();
 	var display=$("#display").val();
 	var currentPage=$("#currentPage").val();
-	
-	getUserOrderResource(display,currentPage);
-	getUserOrderResourceTotalRows(display,currentPage);
+	var orderNum=$("#orderNum").val();
+	getUserOrderResource(display,currentPage,orderNum);
+	getUserOrderResourceTotalRows(display,currentPage,orderNum);
 }
 
 //加载我提交的订单资源
-function getUserOrderResource(display,currentPage){
+function getUserOrderResource(display,currentPage,orderNum){
 	var url="getUserSendOrderAjax";
 	$.ajax({
 		url:url,
 		data:{
 			display:display,
-			currentPage:currentPage
+			currentPage:currentPage,
+			orderNum:orderNum
 			},
 		cache:false,
 		dataType:"json",
@@ -252,13 +253,14 @@ function getUserOrderResource(display,currentPage){
 	})
 }
 //我提交的订单总条数
-function getUserOrderResourceTotalRows(display,currentPage){
+function getUserOrderResourceTotalRows(display,currentPage,orderNum){
 	var url="getUseSendOrderTotalRowsAjax";
 	$.ajax({
 		url:url,
 		data:{
 			display:display,
-			currentPage:currentPage
+			currentPage:currentPage,
+			orderNum:orderNum
 		},
 		cache:false,
 		dataType:"json",

@@ -21,6 +21,7 @@ import cn.edu.bjtu.service.GoodsInfoService;
 import cn.edu.bjtu.service.ResponseService;
 import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.DownloadFile;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Response;
@@ -188,9 +189,8 @@ public class ResponseController {
 	 */
 	@RequestMapping(value="getUserResponseAjax",produces="text/html;charset=UTF-8")
 	@ResponseBody
-	public String getUserResponse(HttpSession session){
-		//XXX unused
-		JSONArray jsonArray=responseService.getUserResponse(session);
+	public String getUserResponse(HttpSession session,PageUtil pageUtil){
+		JSONArray jsonArray=responseService.getUserResponse(session,pageUtil);
 		
 		return jsonArray.toString();
 	}

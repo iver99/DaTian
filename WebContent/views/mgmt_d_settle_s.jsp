@@ -176,7 +176,7 @@ function OnLoad() {
 	var name=$("#name").val();
 	
 	getUserSettleSResource(display,currentPage,name);
-	getUserSettlementTotalRowsAjax(display,currentPage,name);
+	getUserSettleSResourceTotalRows(display,currentPage,name);
 }
 
 //加载我的结算（需求方）资源
@@ -198,7 +198,7 @@ function getUserSettleSResource(display,currentPage,name){
 			//循环输出结果集
 			  for(var i =0;i<data.length;i++){
 				body.append("<tr>");
-				body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td><input type=\"checkbox\" name=\"f1\" id=\"f1a\" value=\""+data[i].orderNum+"\"/></td>");
+				body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\"><input type=\"checkbox\" name=\"f1\" id=\"f1a\" value=\""+data[i].orderNum+"\"></td>");
                			body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"getOrderDetail?orderid="+data[i].id+"\" hidefocus=\"true\">"+data[i].orderNum+"</a></td>");
 						body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"javascript:;\" class=\"link1\" hidefocus=\"true\">"+data[i].clientName+"</a></td>");
 						body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"javascript:;\" class=\"link1\" hidefocus=\"true\">"+data[i].companyName+"</a></td>");

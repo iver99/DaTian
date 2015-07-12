@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import cn.edu.bjtu.bean.page.OrderBean;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.OrderCarrierView;
 import cn.edu.bjtu.vo.Orderform;
 
@@ -108,27 +109,27 @@ public interface OrderService {
 	 * @param session
 	 * @return
 	 */
-	public Integer getUserSendOrderTotalRows(HttpSession session);
+	public Integer getUserSendOrderTotalRows(HttpSession session,Orderform order);
 	
 	/**
 	 *  我提叫的订单
 	 * @param session
 	 * @return
 	 */
-	public JSONArray getUserSendOrder(HttpSession session);
+	public JSONArray getUserSendOrder(HttpSession session,PageUtil pageUtil,Orderform order);
 
 	/**
 	 * 我收到的订单
 	 * @param session
 	 * @return
 	 */
-	public JSONArray getUserRecieveOrder(HttpSession session);
+	public JSONArray getUserRecieveOrder(HttpSession session,PageUtil pageUtil,Orderform order);
 	
 	/**
 	 * 我收到的订单-总记录是
 	 * @param session
 	 * @return
 	 */
-	public Integer getUserRecieveOrderTotalRows(HttpSession session);
+	public Integer getUserRecieveOrderTotalRows(HttpSession session,Orderform order);
 
 }
