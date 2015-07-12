@@ -229,18 +229,18 @@ public class LinetransportController {
 
 	/**
 	 * 新增干线线路
-	 * @param lineName
-	 * @param startPlace
-	 * @param endPlace
-	 * @param onWayTime
-	 * @param type
-	 * @param refPrice
-	 * @param remarks
+	 * @param line
+	 * @param file
 	 * @param request
-	 * @param response
 	 * @return
 	 */
 	@RequestMapping(value = "insertLine", method = RequestMethod.POST)
+	public String insertNewLinetransport(Linetransport line,MultipartFile file,
+			HttpServletRequest request) {
+		boolean flag=linetransportService.insertNewLinetransport(line,request,file);
+		return "redirect:linetransport?flag=1";
+	}
+	@Deprecated
 	public ModelAndView insertLine(
 			@RequestParam(required = false) MultipartFile file,// new add
 			@RequestParam String lineName, @RequestParam String startPlace,

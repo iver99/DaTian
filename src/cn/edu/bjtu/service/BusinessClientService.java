@@ -45,6 +45,6 @@ public interface BusinessClientService {
 	 */
 	public Integer getUserBusinessClientTotalRows(HttpSession session);
 	
-	
+	public boolean insertNewClient(Businessclient client,MultipartFile file,HttpServletRequest request);
 	public boolean updateNewClient(Businessclient client,MultipartFile file,HttpServletRequest request);
 }

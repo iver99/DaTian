@@ -297,7 +297,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public Integer getUserSendOrderTotalRows(HttpSession session) {
 		String userId=(String)session.getAttribute(Constant.USER_ID);
-		String hql="select count(*) from Orderform t where t.clientId=clientId";
+		String hql="select count(*) from Orderform t where t.clientId=:clientId";
 		Map<String,Object> params=new HashMap<String,Object>();
 		params.put("clientId", userId);
 		
@@ -313,7 +313,7 @@ public class OrderServiceImpl implements OrderService {
 	public JSONArray getUserSendOrder(HttpSession session) {
 		
 		String userId=(String)session.getAttribute(Constant.USER_ID);
-		String hql="from Orderform t where t.clientId=clientId order by t.relDate desc";
+		String hql="from Orderform t where t.clientId=:clientId order by t.submitTime desc";
 		Map<String,Object> params=new HashMap<String,Object>();
 		params.put("clientId", userId);
 		
@@ -341,7 +341,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public JSONArray getUserRecieveOrder(HttpSession session) {
 		String userId=(String)session.getAttribute(Constant.USER_ID);
-		String hql="from Orderform t where t.carrierId=carrierId order by t.relDate desc";
+		String hql="from Orderform t where t.carrierId=:carrierId order by t.submitTime desc";
 		Map<String,Object> params=new HashMap<String,Object>();
 		params.put("carrierId", userId);
 		
@@ -369,7 +369,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public Integer getUserRecieveOrderTotalRows(HttpSession session) {
 		String userId=(String)session.getAttribute(Constant.USER_ID);
-		String hql="select count(*) from Orderform t where t.carrierId=carrierId";
+		String hql="select count(*) from Orderform t where t.carrierId=:carrierId";
 		Map<String,Object> params=new HashMap<String,Object>();
 		params.put("carrierId", userId);
 		

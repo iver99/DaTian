@@ -83,19 +83,17 @@ public class BusinessClientController {
 		return mv;
 	}
 
-	@RequestMapping(value = "insertClient", method = RequestMethod.POST)
 	/**
 	 * 添加businessclient新客户
-	 * @param account
-	 * @param clientName
-	 * @param clientBusiness
-	 * @param contact
-	 * @param phone
-	 * @param remarks
-	 * @param request
-	 * @param response
 	 * @return
 	 */
+	@RequestMapping(value = "insertClient", method = RequestMethod.POST)
+	public String insertNewClient(Businessclient client,MultipartFile file,
+			HttpServletRequest request) {
+		boolean flag=businessClientService.insertNewClient(client,file,request);
+		return "redirect:client";
+	}
+	@Deprecated
 	public ModelAndView insertClient(@RequestParam MultipartFile file,@RequestParam String account,
 			@RequestParam String clientName,
 			@RequestParam String clientBusiness, @RequestParam String contact,

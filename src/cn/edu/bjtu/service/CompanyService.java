@@ -57,4 +57,11 @@ public interface CompanyService {
 	 * @date: 2015年6月15日 下午4:43:04
 	 */
 	public Integer getSelectedCompanyTotalRows(CompanySearchBean companyBean);
+	
+	/**
+	 * 获取已通过验证的公司
+	 * @param session
+	 * @return
+	 */
+	public JSONArray getCertificatedCompany(HttpSession session);
 }

@@ -238,6 +238,20 @@ public class WarehouseServiceImpl implements WarehouseService {
 	}
 
 	@Override
+	public boolean insertNewWarehouse(Warehouse warehouse,HttpServletRequest request,MultipartFile file){
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
+		//保存文件
+		String fileLocation=UploadFile.uploadFile(file, carrierId, "warehouse");
+
+		warehouse.setId(IdCreator.createRepositoryId());
+		warehouse.setCarrierId(carrierId);
+		warehouse.setRelDate(new Date());
+		//设置文件位置 
+		warehouse.setDetailPrice(fileLocation);
+		warehouseDao.save(warehouse);// 保存实体
+		return true;
+	}
+	@Deprecated
 	public boolean insertWarehouse(String name, String city, String address,
 			String type, String kind, float houseArea, float yardArea,
 			float height, String fireRate, String storageForm,
@@ -378,7 +392,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 		}
 		sql+=") t3 on t1.id=t3.focusId ";
 		String wheresql=whereSql(warehouseBean,params);
-		sql+=wheresql;
+		sql+=wheresql+" order by t1.relDate desc";
 		
 		JSONArray jsonArray = new JSONArray();
 		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
@@ -483,7 +497,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 	public JSONArray getUserWarehouseResource(HttpSession session,PageUtil pageUtil) {
 		
 		String carrierId=(String)session.getAttribute(Constant.USER_ID);
-		String hql="from Warehouse t where t.carrierId=:carrierId";
+		String hql="from Warehouse t where t.carrierId=:carrierId order by t.relDate";
 		Map<String,Object> params=new HashMap<String,Object>();
 		params.put("carrierId", carrierId);
 		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();

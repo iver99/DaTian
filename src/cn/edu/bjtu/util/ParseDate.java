@@ -23,5 +23,23 @@ public class ParseDate {
 		}
 		return myDate2;
 	}
+	
+	/**
+	 * 日期转为字符串
+	 * 
+	 * @param date
+	 * @return 返回yyyy-mm-dd
+	 */
+	public static String DateToString(Date date){
+		 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");  
+		    String dateString = formatter.format(date);  
+		    return dateString; 
+	}
+	
+	//test
+	public static void main(String [] args){
+		
+		System.out.println(DateToString(new Date()));
+	}
 
 }

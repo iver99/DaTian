@@ -73,14 +73,21 @@
                                 &nbsp;&nbsp;至&nbsp;&nbsp;
                                 <input type="text" class="input_date1" onclick="SelectDate(this,'yyyy-MM-dd')" value="结束时间" readonly="readonly" title="点击选择" />
                                 &nbsp;&nbsp; -->
-                                <input type="text" class="input_mgmt1" style="width:180px;" placeholder="承运方名称或承运方合同编号" name="name"/>
-                                <input type="submit" id="btn1" value="查询" class="btn_mgmt3" hidefocus="true" />
+                                <input type="text" class="input_mgmt1" style="width:180px;" placeholder="承运方名称或承运方合同编号" name="name" id="name"/>
+                                <input type="button" id="btn1" value="查询" class="btn_mgmt3" hidefocus="true" onclick="OnLoad()" />
                             </div>
                         </td>
                 	</tr>
             	</table>
             	</form>
+            	
+            	<input id="count" value="" type="hidden" /><!--  总记录条数 -->
+				<input id="display" value="10" type="hidden" /> <!-- 每页展示的数量 -->
+				<input id="currentPage" value="1" type="hidden" /><!-- 当前页 -->
+				<inpyt id="is_resource_page" value="0" type="hidden"/><!-- 是否为资源页，资源页需要模拟click按钮 -->
+				
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
+                <thead>
                     <tr>
                         <td width="30" height="40" class="td_mgmt_right3_head1"><input type="checkbox" id="f1_all" onClick="selectall();" /></td>
                         <td width="100" class="td_mgmt_right3_head">订单编号</td>
@@ -93,7 +100,12 @@
                         <td width="60" class="td_mgmt_right3_head">状态</td>
                         <td width="90" class="td_mgmt_right3_head">操作</td>
                     </tr>
-                    <c:forEach var="order" items="${orderList }">
+                    </thead>
+                    <tbody id="result_body">
+                    
+                    </tbody>
+                    
+                    <%-- <c:forEach var="order" items="${orderList }">
                     <tr>
                         <td height="60" class="td_mgmt_right3_td1d"><input type="checkbox" name="f1" id="f1a" value="${order.orderNum }"/></td>
                         <td class="td_mgmt_right3_td1"><a href="getOrderDetail?orderid=${order.id }" hidefocus="true">${order.orderNum }</a></td>
@@ -103,7 +115,7 @@
                         <td class="td_mgmt_right3_td1">${order.submitTime }</td>
                         <td class="td_mgmt_right3_td1">${order.expectedPrice }</td>
                         <td class="td_mgmt_right3_td1">${order.actualPrice }</td>
-                        <%-- <td class="td_mgmt_right3_td2">${order.settlementState }</td> --%>
+                        <td class="td_mgmt_right3_td2">${order.settlementState }</td>
                         <c:choose>
                         	<c:when test="${order.settlementState =='已生成'}">
                         	<td class="td_mgmt_right3_td1">已生成</td>
@@ -117,7 +129,7 @@
                         </c:choose>
                         
                     </tr>
-                    </c:forEach>
+                    </c:forEach> --%>
                    
                 </table>
 				<table border="0" cellpadding="0" cellspacing="0" class="table_recordnumber">
@@ -133,8 +145,8 @@
                         </td>
                     </tr>
 				</table>
-                <table border="0" cellpadding="0" cellspacing="0" class="table_pagenumber">
-                    <tr>
+                <table border="0" cellpadding="0" cellspacing="0" class="table_pagenumber" id="page_layout" >
+                    <!-- <tr>
                         <td width="45" class="td_pagenumber">首页</td>
                         <td width="45" class="td_pagenumber"><a href="mgmt_d_settle_r.htm" class="a_pagenumber" hidefocus="true">上页</a></td>
                         <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">1</a></td>
@@ -142,7 +154,7 @@
                         <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">3</a></td>
                         <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">下页</a></td>
                         <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">末页</a></td>
-                    </tr>
+                    </tr> -->
                 </table>
 			</td>
 		</tr>
@@ -157,9 +169,77 @@
 
 </body>
 <script type="text/javascript">
-	function OnLoad() {
-		loadFocus();
-	}
+function OnLoad() {
+	loadFocus();
+	var display=$("#display").val();
+	var currentPage=$("#currentPage").val();
+	var name=$("#name").val();
+	
+	getUserSettleSResource(display,currentPage,name);
+	getUserSettlementTotalRowsAjax(display,currentPage,name);
+}
+
+//加载我的结算（需求方）资源
+function getUserSettleSResource(display,currentPage,name){
+	var url="getUserSettlementAjax";
+	$.ajax({
+		url:url,
+		data:{
+			display:display,
+			currentPage:currentPage,
+			name:name
+			},
+		cache:false,
+		dataType:"json",
+		success:function(data,status){
+			var body=$("#result_body");
+			body.empty();
+			
+			//循环输出结果集
+			  for(var i =0;i<data.length;i++){
+				body.append("<tr>");
+				body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td><input type=\"checkbox\" name=\"f1\" id=\"f1a\" value=\""+data[i].orderNum+"\"/></td>");
+               			body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"getOrderDetail?orderid="+data[i].id+"\" hidefocus=\"true\">"+data[i].orderNum+"</a></td>");
+						body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"javascript:;\" class=\"link1\" hidefocus=\"true\">"+data[i].clientName+"</a></td>");
+						body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"javascript:;\" class=\"link1\" hidefocus=\"true\">"+data[i].companyName+"</a></td>");
+						body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"javascript:;\" class=\"link1\">"+data[i].contractId+"</a></td>");
+						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].submitTime+"</td>");
+						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].expectedPrice+"</td>");
+						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].actualPrice+"</td>");
+						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].settlementState+"</td>");
+						if(data[i].settlementState == '已生成'){
+							body.append("<td class=\"td_mgmt_right3_td3\"><a href=\"viewSettlementRecord?orderNum="+data[i].orderNum+"\" hidefocus=\"true\">查看记录</a></td>");
+						}
+						else{
+							body.append("<td class=\"td_mgmt_right3_td3\"><a href=\"/DaTian/createSingleStatement?orderNum="+data[i].orderNum+"\" hidefocus=\"true\">生成对账单</a></td>");
+							body.append("</tr>");
+						}
+			}  
+			
+		}
+	})
+}
+//我的结算（需求方）总条数
+function getUserSettleSResourceTotalRows(display,currentPage,name){
+	var url="getUserSettlementTotalRowsAjax";
+	$.ajax({
+		url:url,
+		data:{
+			display:display,
+			currentPage:currentPage,
+			name:name
+		},
+		cache:false,
+		dataType:"json",
+		success:function(data,status){
+			 $('#count').val(data);
+			  pageLayout(data);//页面布局
+		}
+	});
+	
+	
+	
+}
 </script>
 <script type="text/javascript">
 $("#btn5").click(function(){  
@@ -168,7 +248,6 @@ $("#btn5").click(function(){
 	var count = 0;
 	$('input:checkbox[name="f1"]:checked').each(function() //multiple checkbox的name  
 	{  
-		//alert($(this).attr("value"));
 		checklist[count++] = $(this).attr("value");
     });
 	if(checklist!=null && checklist!=""){

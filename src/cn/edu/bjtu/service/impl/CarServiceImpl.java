@@ -17,7 +17,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import cn.edu.bjtu.bean.search.CarSearchBean;
 import cn.edu.bjtu.dao.CarDao;
@@ -28,10 +27,8 @@ import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.util.PageUtil;
-import cn.edu.bjtu.util.UploadFile;
 import cn.edu.bjtu.vo.Carinfo;
 import cn.edu.bjtu.vo.Carteam;
-import cn.edu.bjtu.vo.Linetransport;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -84,7 +81,7 @@ public class CarServiceImpl implements CarService {
 		}
 		sql+=") t3 on t1.id=t3.focusId ";
 		String wheresql=whereSql(carbean,params);
-		sql+=wheresql;
+		sql+=wheresql+" order by t1.relDate desc";
 		
 		JSONArray jsonArray = new JSONArray();
 		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
@@ -226,6 +223,17 @@ public class CarServiceImpl implements CarService {
 	/**
 	 * 增加车辆
 	 */
+	public boolean insertNewCar(Carinfo car,HttpServletRequest request){
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);//保存文件
+
+		car.setId(IdCreator.createlineTransportId());
+		car.setRelDate(new Date());
+		car.setCarrierId(carrierId);
+		car.setCarState("停歇");
+		carDao.save(car);
+		return true;
+	}
+	@Deprecated
 	public boolean insertCar(String carNum, String carTeam,
 			String locationType, String terminalId, String carBase, String carBrand,
 			String carType, String carUse, double carLength, double carWidth,
@@ -411,7 +419,7 @@ public class CarServiceImpl implements CarService {
 	@Override
 	public JSONArray getUserCarResource(HttpSession session,PageUtil pageUtil) {
 		String carrierId=(String)session.getAttribute(Constant.USER_ID);
-		String hql="from Carinfo t where t.carrierId=:carrierId";
+		String hql="from Carinfo t where t.carrierId=:carrierId order by t.relDate desc";
 		Map<String,Object> params=new HashMap<String,Object>();
 		params.put("carrierId", carrierId);
 		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();

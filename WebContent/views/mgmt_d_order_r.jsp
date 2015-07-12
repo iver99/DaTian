@@ -78,7 +78,14 @@
                         </td>
                 	</tr>
             	</table>
+            	
+            	<input id="count" value="" type="hidden" /><!--  总记录条数 -->
+				<input id="display" value="10" type="hidden" /> <!-- 每页展示的数量 -->
+				<input id="currentPage" value="1" type="hidden" /><!-- 当前页 -->
+				<inpyt id="is_resource_page" value="0" type="hidden"/><!-- 是否为资源页，资源页需要模拟click按钮 -->
+            	
 				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
+				<thead>
 					<tr>
                         <td width="20" height="40" class="td_mgmt_right3_head">&nbsp;</td>
                         <td width="100" class="td_mgmt_right3_head">订单编号</td>
@@ -91,8 +98,12 @@
                         <td width="60" class="td_mgmt_right3_head">状态</td>
                         <td width="80" class="td_mgmt_right3_head">操作</td>
 					</tr>
-					
-				 	<%-- <c:forEach var="orderinfo" items="${receiveOrderList }"> --%>
+					</thead>
+					<tbody id="result_body">
+                    
+                    </tbody>
+                    
+				 <%-- 	
 				 	<c:forEach var="orderinfo" items="${receiveOrderList }">
                     <tr>
                         <td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
@@ -182,7 +193,7 @@
                         
                         </c:choose>
                     </tr>
-                    </c:forEach>
+                    </c:forEach> --%>
                     </table>
 				<table border="0" cellpadding="0" cellspacing="0" class="table_recordnumber">
                     <tr>
@@ -197,8 +208,8 @@
                         </td>
                     </tr>
 				</table>
-                <table border="0" cellpadding="0" cellspacing="0" class="table_pagenumber">
-                    <tr>
+                <table border="0" cellpadding="0" cellspacing="0" class="table_pagenumber" id="page_layout" >
+                    <!-- <tr>
                         <td width="45" class="td_pagenumber">首页</td>
                         <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">上页</a></td>
                         <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">1</a></td>
@@ -206,7 +217,7 @@
                         <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">3</a></td>
                         <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">下页</a></td>
                         <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">末页</a></td>
-                    </tr>
+                    </tr> -->
 				</table>
 			</td>
 		</tr>
@@ -244,8 +255,114 @@
 
 </body>
 <script type="text/javascript">
-	function OnLoad() {
-		loadFocus();
-	}
+function OnLoad() {
+	loadFocus();
+	var display=$("#display").val();
+	var currentPage=$("#currentPage").val();
+	getUserOrderResource(display,currentPage);
+	getUserOrderResourceTotalRows(display,currentPage);
+	
+}
+
+//加载我收到的订单资源
+function getUserOrderResource(display,currentPage){
+	var url="getUserRecieveOrderAjax";
+	$.ajax({
+		url:url,
+		data:{
+			display:display,
+			currentPage:currentPage
+			},
+		cache:false,
+		dataType:"json",
+		success:function(data,status){
+			var body=$("#result_body");
+			body.empty();
+			//循环输出结果集
+			//alert(data[i].actualPrice=='undefined');
+			  for(var i =0;i<data.length;i++){
+				body.append("<tr>");
+				body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>");
+						body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"getOrderDetail?orderid="+data[i].id+"\" hidefocus=\"true\">"+data[i].orderNum+"</a></td>");
+						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].resourceType+"</td>");
+						body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"javascript:;\" class=\"link1\" hidefocus=\"true\">"+data[i].resourceName+"</a></td>");
+						body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"javascript:;\" class=\"link1\" hidefocus=\"true\">"+data[i].carrierName+"</a></td>");
+						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].expectedPrice+"</td>");
+						if(data[i].actualPrice== undefined){
+							body.append("<td class=\"td_mgmt_right3_td1\">--</td>");
+						}else{
+							body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].actualPrice+"</td>");
+						}
+						body.append("<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].submitTime)+"<br /></td>");
+						body.append("<td class=\"td_mgmt_right3_td2\">"+data[i].state+"</td>");
+                        
+						if(data[i].state == '待受理'){
+							var str="<td class=\"td_mgmt_right3_td3\"><div id=\"handlebox\" style=\"z-index: 204;\">";
+							str+="<ul class=\"quickmenu\"><li class=\"menuitem\">";
+							str+="<div class=\"menu\">";
+							str+="<a href=\"acceptOrderForm?orderid="+data[i].id+"\" class=\"menuhd\" hidefocus=\"true\">受理</a>";
+							str+="<div class=\"menubd\">";
+							str+="<div class=\"menubdpanel\">";
+							str+="<a href=\"getOrderCancelOrder?orderid="+data[i].id+"\" class=\"a_top3\" hidefocus=\"true\">取消</a>";
+							str+="</div></div></div></li></ul></div></td>";
+							body.append(str);
+							}
+                        
+						else if(data[i].state == '待收货'){
+							var str="<td class=\"td_mgmt_right3_td3\"><div id=\"handlebox\" style=\"z-index: 202;\">";
+							str+="<ul class=\"quickmenu\"><li class=\"menuitem\">";
+							str+="<div class=\"menu\">";
+							str+="<a href=\"getSignBillForm?orderid="+data[i].id+"\" class=\"menuhd\" hidefocus=\"true\">签单上传</a>";
+							str+="<div class=\"menubd\">";
+							str+="<div class=\"menubdpanel\">";
+							str+="<a href=\"getOrderDetailWaitToReceive?orderid="+data[i].id+"\" class=\"a_top3\" hidefocus=\"true\">查看</a>";
+							str+="</div></div></div></li></ul></div></td>";
+							body.append(str);
+						}
+						else if(data[i].state == '待确认'){
+							var str="<td class=\"td_mgmt_right3_td3\"><div id=\"handlebox\" style=\"z-index: 201;\">";
+							str+="<ul class=\"quickmenu\"><li class=\"menuitem\">";
+							str+="<div class=\"menu\">";
+							str+="<a href=\"getOrderWaitToConfirmUpdate?orderid="+data[i].id+"\" class=\"menuhd\" hidefocus=\"true\">更新</a>";
+							str+="<div class=\"menubd\">";
+							str+="<div class=\"menubdpanel\">";
+							str+="<a href=\"getOrderDetailWaitToConfirm?orderid="+data[i].id+"\" class=\"a_top3\" hidefocus=\"true\">查看</a>";
+							str+="</div></div></div></li></ul></div></td>";
+							body.append(str);
+						}
+                        
+						else if(data[i].state == '待评价'){
+							body.append("<td class=\"td_mgmt_right3_td3\"><a href=\"getOrderDetailWaitToConfirm?orderid="+data[i].id+"\" hidefocus=\"true\">查看</a></td>");
+						}
+						else if(data[i].state == '已完成'){
+							body.append("<td class=\"td_mgmt_right3_td3\"><a href=\"getOrderDetailFinish?orderid="+data[i].id+"\" hidefocus=\"true\">查看</a></td>");
+						}
+						else if(data[i].state == '已取消'){
+							body.append("<td class=\"td_mgmt_right3_td3\"><a href=\"getOrderDetailCancel?orderid="+data[i].id+"\" hidefocus=\"true\">查看</a></td>");
+							body.append("</tr>");
+						}
+			}  
+			
+		}
+	})
+}
+//我收到的订单总条数
+function getUserOrderResourceTotalRows(display,currentPage){
+	var url="getUserRecieveOrderTotalRowsAjax";
+	$.ajax({
+		url:url,
+		data:{
+			display:display,
+			currentPage:currentPage
+		},
+		cache:false,
+		dataType:"json",
+		success:function(data,status){
+			 $('#count').val(data);
+			  pageLayout(data);//页面布局
+		}
+	});
+}
+
 </script>
 </html>

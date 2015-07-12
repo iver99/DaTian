@@ -251,26 +251,13 @@ public class WarehouseController {
 	@RequestMapping(value = "/insertWarehouse", method = RequestMethod.POST)
 	/**
 	 * ÐÂÔö²Ö¿â
-	 * @param name
-	 * @param contact
-	 * @param address
-	 * @param city
-	 * @param type
-	 * @param houseArea
-	 * @param yardArea
-	 * @param height
-	 * @param kind
-	 * @param fireRate
-	 * @param storageForm
-	 * @param environment
-	 * @param phone
-	 * @param remarks
-	 * @param serviceContent
-	 * @param fireSecurity
-	 * @param request
-	 * @param response
-	 * @return
 	 */
+	public String insertNewWarehouse(Warehouse warehouse,MultipartFile file,
+			HttpServletRequest request) {
+		boolean flag=warehouseService.insertNewWarehouse(warehouse,request,file);
+		return "redirect:warehouse?flag=1";
+	}
+	@Deprecated
 	public ModelAndView insertWarehouse(@RequestParam MultipartFile file,
 			@RequestParam String name,
 			@RequestParam String contact, @RequestParam String address,

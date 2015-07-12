@@ -87,7 +87,14 @@ function cancel(id){
                         </td>
                 	</tr>
             	</table>
+            	
+            	<input id="count" value="" type="hidden" /><!--  总记录条数 -->
+				<input id="display" value="10" type="hidden" /> <!-- 每页展示的数量 -->
+				<input id="currentPage" value="1" type="hidden" /><!-- 当前页 -->
+				<inpyt id="is_resource_page" value="0" type="hidden"/><!-- 是否为资源页，资源页需要模拟click按钮 -->
+				
 				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
+				<thead>
 					<tr>
                         <td width="20" height="40" class="td_mgmt_right3_head">&nbsp;</td>
                         <td width="100" class="td_mgmt_right3_head">订单编号</td>
@@ -100,97 +107,10 @@ function cancel(id){
                         <td width="60" class="td_mgmt_right3_head">状态</td>
                         <td width="80" class="td_mgmt_right3_head">操作</td>
 					</tr>
-					<c:forEach var="orderinfo" items="${orderList }">
-					<tr>
-                        <td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
-                        <td class="td_mgmt_right3_td1"><a href="orderDetail?orderid=${orderinfo.id }" hidefocus="true">${orderinfo.orderNum }</a></td>
-                        <td class="td_mgmt_right3_td1">${orderinfo.resourceType }</td>
-                        <td class="td_mgmt_right3_td1"><a href="resource_detail1.htm" class="link1" hidefocus="true">${orderinfo.resourceName }</a></td>
-                        <td class="td_mgmt_right3_td1"><a href="javascript:;" class="link1" hidefocus="true">${orderinfo.carrierName }</a></td>
-                        <td class="td_mgmt_right3_td1">${orderinfo.expectedPrice }</td>
-                        <td class="td_mgmt_right3_td1">${orderinfo.actualPrice }</td>
-                        <td class="td_mgmt_right3_td1">${orderinfo.submitTime }<br />
-                            </td>
-                        <c:choose>
-                        <c:when test="${orderinfo.state == '待受理' }">
-                        <td class="td_mgmt_right3_td2">待受理</td>
-                        <td class="td_mgmt_right3_td3">
-                            <div id="handlebox" style="z-index:204;">
-                                <ul class="quickmenu">
-                                    <li class="menuitem">
-                                        <div class="menu">
-                                            <a href="updateOrder?orderid=${orderinfo.id }" class="menuhd" hidefocus="true">更新</a>
-                                            <div class="menubd">
-                                                <div class="menubdpanel">
-                                                    <a href="cancelOrder?orderid=${orderinfo.id }" class="a_top3" hidefocus="true">取消</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                        </c:when>
-                        
-                        <c:when test="${orderinfo.state == '待收货' }">
-                        <td class="td_mgmt_right3_td2">待收货</td>
-                        <td class="td_mgmt_right3_td3"><a href="orderDetailWaitToReceive?orderid=${orderinfo.id }" hidefocus="true">查看</a></td>
-                        </c:when>
-                        
-                        <c:when test="${orderinfo.state == '待确认' }">
-                        <td class="td_mgmt_right3_td2">待确认</td>
-                        <td class="td_mgmt_right3_td3">
-                            <div id="handlebox" style="z-index:202;">
-                                <ul class="quickmenu">
-                                    <li class="menuitem">
-                                        <div class="menu">
-                                            <a href="getConfirmForm?orderid=${orderinfo.id }" class="menuhd" hidefocus="true">收货确认</a>
-                                            <div class="menubd">
-                                                <div class="menubdpanel">
-                                                    <a href="orderDetailWaitToReceive?orderid=${orderinfo.id }" class="a_top3" hidefocus="true">查看</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                        </c:when>
-                        
-                        <c:when test="${orderinfo.state == '待评价' }">
-                        <td class="td_mgmt_right3_td2">待评价</td>
-                        <td class="td_mgmt_right3_td3">
-                            <div id="handlebox" style="z-index:201;">
-                                <ul class="quickmenu">
-                                    <li class="menuitem">
-                                        <div class="menu">
-                                            <a href="getCommentForm?orderid=${orderinfo.id }&ordernum=${orderinfo.orderNum}" class="menuhd" hidefocus="true">评价</a>
-                                            <div class="menubd">
-                                                <div class="menubdpanel">
-                                                    <a href="orderDetailComment?orderid=${orderinfo.id }" class="a_top3" hidefocus="true">查看</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                        </c:when>
-                        
-                        <c:when test="${orderinfo.state == '已完成' }">
-                        <td class="td_mgmt_right3_td1">已完成</td>
-                        <td class="td_mgmt_right3_td3"><a href="orderDetailFinish?orderid=${orderinfo.id }" hidefocus="true">查看</a></td>
-                        </c:when>
-                        
-                        <c:when test="${orderinfo.state == '已取消' }">
-                         <td class="td_mgmt_right3_td1">已取消</td>
-                        <td class="td_mgmt_right3_td3"><a href="orderDetailAlreadyCancel?orderid=${orderinfo.id }" hidefocus="true">查看</a></td>
-                        </c:when>
-                        </c:choose>
-                    </tr>
-					</c:forEach>
-					
-                   
+					</thead>
+					 <tbody id="result_body">
+                    
+                    </tbody>
                 </table>
 				<table border="0" cellpadding="0" cellspacing="0" class="table_recordnumber">
                     <tr>
@@ -205,16 +125,6 @@ function cancel(id){
                         </td>
                     </tr>
 				</table>
-                <table border="0" cellpadding="0" cellspacing="0" class="table_pagenumber">
-                    <tr>
-                        <td width="45" class="td_pagenumber">首页</td>
-                        <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">上页</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">1</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">2</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">3</a></td>
-                        <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">下页</a></td>
-                        <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">末页</a></td>
-                    </tr>
 				</table>
 			</td>
 		</tr>
@@ -252,8 +162,114 @@ function cancel(id){
 </div>
 </body>
 <script type="text/javascript">
-	function OnLoad() {
-		loadFocus();
-	}
+function OnLoad() {
+	loadFocus();
+	var display=$("#display").val();
+	var currentPage=$("#currentPage").val();
+	
+	getUserOrderResource(display,currentPage);
+	getUserOrderResourceTotalRows(display,currentPage);
+}
+
+//加载我提交的订单资源
+function getUserOrderResource(display,currentPage){
+	var url="getUserSendOrderAjax";
+	$.ajax({
+		url:url,
+		data:{
+			display:display,
+			currentPage:currentPage
+			},
+		cache:false,
+		dataType:"json",
+		success:function(data,status){
+			var body=$("#result_body");
+			body.empty();
+			//循环输出结果集
+			  for(var i =0;i<data.length;i++){
+				body.append("<tr>");
+				body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>");
+						body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"orderDetail?orderid="+data[i].id+"\" hidefocus=\"true\">"+data[i].orderNum+"</a></td>");
+						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].resourceType+"</td>");
+						body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"javascript:;\" class=\"link1\" hidefocus=\"true\">"+data[i].resourceName+"</a></td>");
+						body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"javascript:;\" class=\"link1\" hidefocus=\"true\">"+data[i].companyName+"</a></td>");
+						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].expectedPrice+"</td>");
+						if(data[i].actualPrice ==undefined){
+							body.append("<td class=\"td_mgmt_right3_td1\">--</td>");
+						}else{
+							body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].actualPrice+"</td>");
+						}
+						//alert(data[i].actualPrice ==undefined);
+						body.append("<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].submitTime)+"<br /></td>");
+						body.append("<td class=\"td_mgmt_right3_td2\">"+data[i].state+"</td>");
+						if(data[i].state == '待受理'){
+							var str="<td class=\"td_mgmt_right3_td3\"><div id=\"handlebox\" style=\"z-index: 204;\">";
+							str+="<ul class=\"quickmenu\"><li class=\"menuitem\">";
+							str+="<div class=\"menu\">";
+							str+="<a href=\"updateOrder?orderid="+data[i].id+"\" class=\"menuhd\" hidefocus=\"true\">更新</a>";
+							str+="<div class=\"menubd\">";
+							str+="<div class=\"menubdpanel\">";
+							str+="<a href=\"cancelOrder?orderid="+data[i].id+"\" class=\"a_top3\" hidefocus=\"true\">取消</a>";
+							str+="</div></div></div></li></ul></div></td>";
+							body.append(str);
+							}
+						else if(data[i].state == '待收货'){
+							body.append("<td class=\"td_mgmt_right3_td3\"><a href=\"orderDetailWaitToReceive?orderid="+data[i].id+"\" hidefocus=\"true\">查看</a></td>");
+						}
+						else if(data[i].state == '待确认'){
+							var str="<td class=\"td_mgmt_right3_td3\"><div id=\"handlebox\" style=\"z-index: 202;\">";
+							str+="<ul class=\"quickmenu\"><li class=\"menuitem\">";
+							str+="<div class=\"menu\">";
+							str+="<a href=\"getConfirmForm?orderid="+data[i].id+"\" class=\"menuhd\" hidefocus=\"true\">收货确认</a>";
+							str+="<div class=\"menubd\">";
+							str+="<div class=\"menubdpanel\">";
+							str+="<a href=\"orderDetailWaitToReceive?orderid="+data[i].id+"\" class=\"a_top3\" hidefocus=\"true\">查看</a>";
+							str+="</div></div></div></li></ul></div></td>";
+							body.append(str);
+						}
+						else if(data[i].state == '待评价'){
+							var str="<td class=\"td_mgmt_right3_td3\"><div id=\"handlebox\" style=\"z-index: 201;\">";
+							str+="<ul class=\"quickmenu\"><li class=\"menuitem\">";
+							str+="<div class=\"menu\">";
+							str+="<a href=\"getCommentForm?orderid="+data[i].id+"&ordernum="+data[i].orderNum+"\" class=\"menuhd\" hidefocus=\"true\">评价</a>";
+							str+="<div class=\"menubd\">";
+							str+="<div class=\"menubdpanel\">";
+							str+="<a href=\"orderDetailComment?orderid="+data[i].id+"\" class=\"a_top3\" hidefocus=\"true\">查看</a>";
+							str+="</div></div></div></li></ul></div></td>";
+							body.append(str);
+						}
+						else if(data[i].state == '已完成'){
+							body.append("<td class=\"td_mgmt_right3_td3\"><a href=\"orderDetailFinish?orderid="+data[i].id+"\" hidefocus=\"true\">查看</a></td>");
+						}
+						else if(data[i].state == '已取消'){
+							body.append("<td class=\"td_mgmt_right3_td3\"><a href=\"orderDetailAlreadyCancel?orderid="+data[i].id+"\" hidefocus=\"true\">查看</a></td>");
+							body.append("</tr>");
+						}
+						
+			}  
+			
+		}
+	})
+}
+//我提交的订单总条数
+function getUserOrderResourceTotalRows(display,currentPage){
+	var url="getUseSendOrderTotalRowsAjax";
+	$.ajax({
+		url:url,
+		data:{
+			display:display,
+			currentPage:currentPage
+		},
+		cache:false,
+		dataType:"json",
+		success:function(data,status){
+			 $('#count').val(data);
+			  pageLayout(data);//页面布局
+		}
+	});
+	
+	
+	
+}
 </script>
 </html>

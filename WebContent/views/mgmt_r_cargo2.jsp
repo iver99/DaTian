@@ -133,13 +133,13 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">增值服务：</td>
                                     <td>
-                                        <select id="VIPService" style="width:110px;" name="VIPService" onchange="changeHasVIPService2();" required>
+                                        <select id="VIPService" style="width:110px;" name="vipservice" onchange="changeHasVIPService2();" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="需要">需要</option>
                                             <option value="不需要">不需要</option>
                                         </select>
                                         <div id="c_detail" style="display:none;">
-                                            <input type="text" name="VIPServiceDetail" class="input_mgmt1" style="width:186px;" placeholder="请输入内容..."/>
+                                            <input type="text" name="vipServiceDetail" class="input_mgmt1" style="width:186px;" placeholder="请输入内容..."/>
                                         </div>
                                     </td>
                                 </tr>

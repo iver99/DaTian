@@ -5,10 +5,14 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import cn.edu.bjtu.bean.page.ComplaintBean;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Complaintform;
+
+import com.alibaba.fastjson.JSONArray;
 
 public interface ComplaintService {
 
+	@Deprecated
 	public List getUserCompliant(String userId);
 	public List getAllUserCompliant();
 	public Complaintform getComplaintById(String id);
@@ -24,4 +28,18 @@ public interface ComplaintService {
 	 * @return
 	 */
 	public Double getUserComplaintRateAjax(HttpSession session);
+	
+	/**
+	 * 交易信息-我的投诉
+	 * @param session
+	 * @return
+	 */
+	public JSONArray getUserComplaint(HttpSession session,PageUtil pageUtil,Complaintform complaint);
+	
+	/**
+	 * 交易信息-我的投诉-总记录条数
+	 * @param session
+	 * @return
+	 */
+	public Integer getUserComplaintTotalRows(HttpSession session,Complaintform complaint);
 }

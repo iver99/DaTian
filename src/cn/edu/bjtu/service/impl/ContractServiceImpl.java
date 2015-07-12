@@ -5,21 +5,28 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import cn.edu.bjtu.dao.CompanyDao;
 import cn.edu.bjtu.dao.ContractDao;
 import cn.edu.bjtu.service.ContractService;
 import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.util.ParseDate;
+import cn.edu.bjtu.util.UploadFile;
+import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Contract;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.mchange.io.impl.EndsWithFilenameFilter;
 @Transactional
 @Service("contractServiceImpl")
 /**
@@ -35,6 +42,8 @@ public class ContractServiceImpl implements ContractService{
 	Contract contract;
 	@Resource
 	HQLTool hqltool;
+	@Autowired
+	CompanyDao companyDao;
 
 	
 	@Override
@@ -47,7 +56,6 @@ public class ContractServiceImpl implements ContractService{
 		
 		return contractDao.getCompanyContract(carrierId);
 	}
-	
 	
 	@Override
 	public List<Contract> getContractByClientId(String clientId) {
@@ -70,6 +78,23 @@ public class ContractServiceImpl implements ContractService{
 	/**
 	 * 新增合同
 	 */
+	public boolean insertNewContract(Contract contract,HttpServletRequest request,MultipartFile file){
+		String userId = (String) request.getSession().getAttribute(Constant.USER_ID);
+		//保存文件
+		String fileLocation=UploadFile.uploadFile(file, userId, "contract");
+		
+		contract.setClientId(userId);
+		contract.setState("有效");
+		
+		Carrierinfo company=companyDao.get(Carrierinfo.class, contract.getCarrierId());
+		contract.setCarrierAccount(company.getCompanyName());
+		
+		//设置文件位置 
+		contract.setRelatedMaterial(fileLocation);
+		contractDao.save(contract);// 保存实体
+		return true;
+	}
+	@Deprecated
 	public boolean insertContract(String id,String name, String caculateType,
 			String carrierAccount, String carrierId, String startDate, String endDate,
 			String contact, String phone, String remarks, String clientId,
@@ -112,6 +137,7 @@ public class ContractServiceImpl implements ContractService{
 	/**
 	 * 查询合同（需求方）
 	 */
+	@Deprecated
 	public List getFindContract(String clientId,String startDate,String endDate,String name,int Display,int PageNow){
 		String sql="from Contract where clientId='"+clientId+"' and ";
 		if(name.equals("合同名称")){
@@ -146,6 +172,7 @@ public class ContractServiceImpl implements ContractService{
 	/**
 	 * 查询合同（承运方）
 	 */
+	@Deprecated
 	public List getFindContract2(String carrierId,String startDate,String endDate,String name,int Display,int PageNow){
 		String sql="from Contract where carrierId='"+carrierId+"' and ";
 		if(name.equals("合同名称")){
@@ -180,6 +207,7 @@ public class ContractServiceImpl implements ContractService{
 	/**
 	 * 查询合同的结果页数
 	 */
+	@Deprecated
 	public int getFindContractTotalRows(String carrierId,String startDate,String endDate,String name,int Display,int PageNow){
 		String sql="from Contract where carrierId='"+carrierId+"' and ";
 		if(name.equals("合同名称")){
@@ -219,44 +247,69 @@ public class ContractServiceImpl implements ContractService{
 	 * 我的信息-合同信息
 	 */
 	@Override
-	public JSONArray getUserContract(HttpSession session,PageUtil pageUtil) {
+	public JSONArray getUserContract(HttpSession session,PageUtil pageUtil,Contract contract) {
 		String userId=(String)session.getAttribute(Constant.USER_ID);
 		Integer userKind=(Integer)session.getAttribute(Constant.USER_KIND);
-		String hql="from Contract t where ";
-		if(userKind == 2){//个人用户
-			hql+="t.clientId=:userId";
-		}else if(userKind == 3){//企业用户
-			hql+="t.carrierId=:userId";
-		}
 		Map<String,Object> params=new HashMap<String,Object>();
+		String hql="from Contract t "+whereHql(contract,params);
+		if(userKind == 2){//个人用户
+			hql+=" and t.clientId=:userId";
+		}else if(userKind == 3){//企业用户
+			hql+=" and t.carrierId=:userId";
+		}
+		hql+=" order by t.startDate desc";
 		params.put("userId", userId);
 		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
 		int display=pageUtil.getDisplay()==0?10:pageUtil.getDisplay();
 		List<Contract> contractList = contractDao.find(hql, params,page,display);
 		JSONArray jsonArray = new JSONArray();
-		for (Contract contract : contractList) {
-			JSONObject jsonObject = (JSONObject) JSONObject.toJSON(contract);
+		for (Contract contractIns : contractList) {
+			JSONObject jsonObject = (JSONObject) JSONObject.toJSON(contractIns);
 			jsonArray.add(jsonObject);
 		}
 		
 		return jsonArray;
 
 	}
+	
+	/**
+	 * where hql
+	 * @param contract
+	 * @return
+	 */
+	private String whereHql(Contract contract,Map<String,Object> params){
+		String hql=" where 1=1 ";
+		String startDate=contract.getStartDate()==null?"1970-01-01":ParseDate.DateToString(contract.getStartDate());
+		String endDate=contract.getEndDate()==null?"1970-01-01":ParseDate.DateToString(contract.getEndDate());
+		if(!"1970-01-01".equals(startDate)){
+			hql+="and t.startDate >=:startDate ";
+			params.put("startDate", contract.getStartDate());
+		}
+		if(!"1970-01-01".equals(endDate)){
+			hql+=" and t.endDate <=:endDate ";
+			params.put("endDate", contract.getEndDate());
+		}
+		if(!"".equals(contract.getName())){
+			hql+=" and t.name like '%"+contract.getName()+"%' ";
+//			params.put("name", contract.getName());
+		}
+		return hql;
+	}
 
 	/**
 	 * 我的信息-合同信息-总记录数
 	 */
 	@Override
-	public Integer getUserContractTotalRows(HttpSession session) {
+	public Integer getUserContractTotalRows(HttpSession session,Contract contract) {
+		Map<String,Object> params=new HashMap<String,Object>();
 		String userId=(String)session.getAttribute(Constant.USER_ID);
 		Integer userKind=(Integer)session.getAttribute(Constant.USER_KIND);
-		String hql="select count(*) from Contract t where ";
+		String hql="select count(*) from Contract t "+whereHql(contract,params);
 		if(userKind == 2){//个人用户
-			hql+="t.clientId=:userId";
+			hql+=" and t.clientId=:userId";
 		}else if(userKind == 3){//企业用户
-			hql+="t.carrierId=:userId";
+			hql+=" and t.carrierId=:userId";
 		}
-		Map<String,Object> params=new HashMap<String,Object>();
 		params.put("userId", userId);
 		
 		Long count=contractDao.count(hql, params);

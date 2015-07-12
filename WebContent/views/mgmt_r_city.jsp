@@ -206,9 +206,9 @@
 					body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>");
 					body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"citylinedetail?citylineId="+data[i].id+"&carrierId=0&flag=2\" hidefocus=\"true\">"+data[i].name+"</a></td>");
 					body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].cityName+"</td>");
-					body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].VIPService+"</td>");
+					body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].vIPService+"</td>");
 					body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].refPrice+"</td>");
-					body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].relDate+"</td>");
+					body.append("<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].relDate)+"</td>");
 					var str="<td class=\"td_mgmt_right3_td3\"><div id=\"handlebox\" style=\"z-index: 201;\">";
 					str+="<ul class=\"quickmenu\"><li class=\"menuitem\">";
 					str+="<div class=\"menu\">";

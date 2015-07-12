@@ -4,6 +4,7 @@ package cn.edu.bjtu.vo;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 /**
@@ -31,6 +32,7 @@ public class Carinfo implements java.io.Serializable {
 	private Double locLongitude;
 	private Double locLatitude;
 	private String locationType;
+	@DateTimeFormat( pattern = "yyyy-MM-dd" )
 	private Date purchaseTime;
 	private String driverId;
 	private String carBrand;

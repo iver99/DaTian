@@ -98,18 +98,18 @@
                             <tr>
                                 <td height="40" class="td_mgmt_right3_td1b">承运方帐户：</td>
                                 <td>
-                                    <select id="abc" name="carrierId" data-placeholder="请选择" style="width:308px;" required>
+                                    <select id="carrierId" name="carrierId" data-placeholder="请选择" style="width:308px;" required>
                                         <option value=""></option>
-                                            <c:forEach var="companyList" items="${companyList }">
+                                            <%-- <c:forEach var="companyList" items="${companyList }">
                                             <option value="${companyList.id }">${companyList.companyName }</option>
-                                            </c:forEach>
+                                            </c:forEach> --%>
                                     </select>
-                                    <script type="text/javascript">
-                                        $("#abc").chosen({
+                                   <!--  <script type="text/javascript">
+                                        $("#carrierId").chosen({
                                             no_results_text: "无此信息",
                                             search_contains: true,
                                         });
-                                    </script>                                </td>
+                                    </script>    -->                             </td>
                             </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">合同开始日期：</td>
@@ -188,6 +188,8 @@
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
+		//获取已审核 的公司列表
+		getCompanyList();
 	}
 	$(function(){
 		$('reset:button').click(function(){
@@ -195,5 +197,22 @@
 		   $('.select').val("");
 		});
     })
+    
+    //获取承运方列表（已通过审核的）
+	function getCompanyList(){
+		var url="getCertificatedCompanyAjax";
+		$.ajax({
+			url:url,
+			dataType:"json",
+			cache:false,
+			success:function(data,status){
+				var f=$("#carrierId");
+				for(var i =0;i<data.length;i++){
+					var option=$("<option>").text(data[i].companyName).val(data[i].id);
+					f.append(option);
+				}
+			}
+		})
+	}
 </script>
 </html>

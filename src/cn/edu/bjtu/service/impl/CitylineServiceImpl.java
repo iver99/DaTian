@@ -79,7 +79,7 @@ public class CitylineServiceImpl implements CitylineService {
 		}
 		sql+=") t3 on t1.id=t3.focusId ";
 		String wheresql=whereSql(cityLineBean,params);
-		sql+=wheresql;
+		sql+=wheresql+" order by t1.relDate desc";
 		
 		JSONArray jsonArray = new JSONArray();
 		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
@@ -335,6 +335,22 @@ public class CitylineServiceImpl implements CitylineService {
 	/**
 	 * 新增城市配送
 	 */
+	public boolean insertNewCityline(Cityline cityline,
+			HttpServletRequest request, MultipartFile file){
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
+		//保存文件
+		String fileLocation=UploadFile.uploadFile(file, carrierId, "cityline");
+
+		cityline.setCarrierId(carrierId);
+		cityline.setRelDate(new Date());
+		cityline.setId(IdCreator.createCityLineId());
+		
+		//设置文件位置 
+		cityline.setDetailPrice(fileLocation);
+		citylineDao.save(cityline);// 保存实体
+		return true;
+	}
+	@Deprecated
 	public boolean insertCityLine(String name, String cityName,
 			String VIPService, float refPrice, String remarks, String carrierId, String VIPDetail,
 			String path, String fileName) {
@@ -459,7 +475,7 @@ public class CitylineServiceImpl implements CitylineService {
 	@Override
 	public JSONArray getUserCitylineResource(HttpSession session,PageUtil pageUtil) {
 		String carrierId=(String)session.getAttribute(Constant.USER_ID);
-		String hql="from Cityline t where t.carrierId=:carrierId";
+		String hql="from Cityline t where t.carrierId=:carrierId order by t.relDate desc";
 		Map<String,Object> params=new HashMap<String,Object>();
 		params.put("carrierId", carrierId);
 		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();

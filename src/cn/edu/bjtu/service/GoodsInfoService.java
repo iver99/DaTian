@@ -23,7 +23,7 @@ public interface GoodsInfoService {
 	public List getSelectedGoodsInfo(String startPlace, String endPlace, String transportType, int Display,int PageNow);
 	@Deprecated
 	public int getTotalRows(String startPlace, String endPlace, String transportType);
-	
+	@Deprecated
 	public boolean insertGoods(String name,
 			String type,
 			float weight,
@@ -40,6 +40,8 @@ public interface GoodsInfoService {
 			String clientId,
 			String path,
 			String fileName);
+	public boolean  insertNewGoods(Goodsform goods,HttpServletRequest request,MultipartFile file);
+	
 	@Deprecated
 	public boolean updateGoods(String id, String name,
 			String type,

@@ -228,7 +228,7 @@
 							body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].carWeight+"</td>");
 							body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].carState+"</td>");
 							body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].carLocation+"</td>");
-							body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].relDate+"</td>");
+							body.append("<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].relDate)+"</td>");
 							if(data[i].carState == '在途'){
 								body.append("<td class=\"td_mgmt_right3_td3\"><a href=\"cardetail?carId="+data[i].id+"&carrierId=0&linetransportId="+data[i].linetransportId+"&flag=1\" hidefocus=\"true\">查看</a></td>");
 							}

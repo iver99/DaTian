@@ -48,6 +48,7 @@ public class LinetransportServiceImpl implements LinetransportService {
 	LinetransportDao linetransportDao;
 	@Resource
 	Linetransport linetransport;
+	
 	/*@Resource
 	BaseDao baseDao;*/
 	@Resource
@@ -237,6 +238,21 @@ public class LinetransportServiceImpl implements LinetransportService {
 	/**
 	 * 新增干线
 	 */
+	public boolean insertNewLinetransport(Linetransport line,HttpServletRequest request, MultipartFile file){
+		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
+		//保存文件
+		String fileLocation=UploadFile.uploadFile(file, carrierId, "linetransport");
+		
+		line.setRelDate(new Date());
+		line.setCarrierId(carrierId);
+		line.setId(IdCreator.createlineTransportId());
+		
+		//设置文件位置 
+		line.setDetailPrice(fileLocation);
+		linetransportDao.save(line);// 保存实体
+		return true;
+	}
+	@Deprecated
 	public boolean insertLine(String lineName, String startPlace,
 			String endPlace, int onWayTime, String type, float refPrice,
 			String remarks, String carrierId, String path, String fileName) {
@@ -320,7 +336,7 @@ public class LinetransportServiceImpl implements LinetransportService {
 	 * 删除干线
 	 */
 	public boolean deleteLine(String id) {
-		linetransport = getLinetransportInfo(id);// 根据id查找到干线信息
+		Linetransport linetransport = getLinetransportInfo(id);// 根据id查找到干线信息
 
 		linetransportDao.delete(linetransport);
 		
@@ -358,7 +374,7 @@ public class LinetransportServiceImpl implements LinetransportService {
 		}
 		sql+=") t3 on t1.id=t3.focusId ";
 		String wheresql=whereSql(linetransportbean,params);
-		sql+=wheresql;
+		sql+=wheresql+" order by t1.relDate desc";
 		
 		JSONArray jsonArray = new JSONArray();
 		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
@@ -462,7 +478,7 @@ public class LinetransportServiceImpl implements LinetransportService {
 	public JSONArray getUserLinetransportResource(HttpSession session,
 			PageUtil pageUtil) {
 		String carrierId=(String)session.getAttribute(Constant.USER_ID);
-		String hql="from Linetransport t where t.carrierId=:carrierId";
+		String hql="from Linetransport t where t.carrierId=:carrierId order by t.relDate desc";
 		Map<String,Object> params=new HashMap<String,Object>();
 		params.put("carrierId", carrierId);
 		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();

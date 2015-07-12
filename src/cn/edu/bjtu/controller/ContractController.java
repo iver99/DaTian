@@ -153,6 +153,12 @@ public class ContractController {
 	 * @return
 	 */
 	@RequestMapping(value = "insertContract", method = RequestMethod.POST)
+	public String insertNewContract(Contract contract,MultipartFile file,
+			HttpServletRequest request) {
+		boolean flag=contractService.insertNewContract(contract,request,file);
+		return "redirect:contract";
+	}
+	@Deprecated
 	public ModelAndView insertContract(@RequestParam MultipartFile file,@RequestParam String id,
 			@RequestParam String name, @RequestParam String caculateType,
 			//@RequestParam String carrierAccount,
@@ -235,6 +241,7 @@ public class ContractController {
 	/**
 	 * 查找合同
 	 */
+	@Deprecated
 	public ModelAndView findContract(@RequestParam int flag,
 			@RequestParam String startDate,@RequestParam String endDate,
 			@RequestParam String name, HttpServletResponse response, HttpServletRequest request)
@@ -357,8 +364,8 @@ public class ContractController {
 	 */
 	@RequestMapping(value="getUserContractAjax",produces = "text/html;charset=UTF-8")
 	@ResponseBody
-	public String getUserContract(HttpSession session,PageUtil pageUtil){
-		JSONArray jsonArray=contractService.getUserContract(session,pageUtil);
+	public String getUserContract(HttpSession session,PageUtil pageUtil,Contract contract){
+		JSONArray jsonArray=contractService.getUserContract(session,pageUtil,contract);
 		return jsonArray.toString();
 	}
 	
@@ -375,8 +382,28 @@ public class ContractController {
 	 */
 	@RequestMapping("getUserContractTotalRowsAjax")
 	@ResponseBody
-	public Integer getUserContractTotalRows(HttpSession session){
-		return contractService.getUserContractTotalRows(session);
+	public Integer getUserContractTotalRows(HttpSession session,Contract contract){
+		return contractService.getUserContractTotalRows(session,contract);
 	}
+	
+	/**
+	 * 合同信息-上方搜索功能
+	 * @param session
+	 * @param contract
+	 * @return
+	 *//*
+	@ResponseBody
+	@RequestMapping(value="searchContractAjax",produces="text/html;charset=UTF-8")
+	public String searchContract(HttpSession session,Contract contract){
+		
+		return contractService.searchContract(session,contract);
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping("searchContractTotalRowsAjax")
+	public Integer getSearchContractTotalRows(HttpSession session,Contract contract){
+		return contractService.getSearchContractTotalRows(session,contract);
+	}*/
 	
 }

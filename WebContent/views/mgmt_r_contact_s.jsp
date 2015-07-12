@@ -83,11 +83,11 @@
                         	<span class="span_mgmt_right2_text1">合同信息(需求方)</span>
                             <span class="span_mgmt_right2_text2"><a href="insert?flag=7" hidefocus="true"><img src="images/btn_add1.png" class="span_mgmt_right2_pic1" title="添加" /></a></span>
                             <div class="div_mgmt_s1">
-                                <input type="text" class="input_date1" onclick="SelectDate(this,'yyyy-MM-dd')" value="开始时间" readonly="readonly" title="点击选择" name="startDate"/>
+                                <input type="text" class="input_date1" onclick="SelectDate(this,'yyyy-MM-dd')" value="开始时间" readonly="readonly" title="点击选择" name="startDate" id="startDate"/>
                                 &nbsp;&nbsp;至&nbsp;&nbsp;
-                                <input type="text" class="input_date1" onclick="SelectDate(this,'yyyy-MM-dd')" value="结束时间" readonly="readonly" title="点击选择" name="endDate"/>
-                                &nbsp;&nbsp;<input type="text" class="input_mgmt1" style="width:110px;" placeholder="合同名称" name="name"/>
-                                <input type="submit" id="btn1" value="查询" class="btn_mgmt3" hidefocus="true"/>
+                                <input type="text" class="input_date1" onclick="SelectDate(this,'yyyy-MM-dd')" value="结束时间" readonly="readonly" title="点击选择" name="endDate" id="endDate"/>
+                                &nbsp;&nbsp;<input type="text" class="input_mgmt1" style="width:110px;" placeholder="合同名称" name="name" id="name"/>
+                                <input type="button" id="btn1" value="查询" class="btn_mgmt3" hidefocus="true" onclick="OnLoad()"/>
                             </div>
                         </td>
                 	</tr>
@@ -115,28 +115,6 @@
 					 </thead>
 					 <tbody id="result_body">
 					 </tbody>
-					<%-- <c:forEach var="contract" items="${contractList }">
-					<tr>
-                        <td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
-                        <td class="td_mgmt_right3_td1"><a href="contractdetail?contractId=${contract.id }&flag=1" hidefocus="true">${contract.id }</a></td>
-                        <td class="td_mgmt_right3_td1" id="name">${contract.name }</td>
-                        <td class="td_mgmt_right3_td1">${contract.carrierAccount }</td>
-                        <td class="td_mgmt_right3_td1">${contract.monthlyStatementDays }</td>
-                        <td class="td_mgmt_right3_td1">${contract.startDate }</td>
-                        <td class="td_mgmt_right3_td1">${contract.state }</td>
-                        <c:choose>
-                        <c:when test="${contract.state=='有效' }">
-                        <td class="td_mgmt_right3_td3"><a href="contractdetail?contractId=${contract.id }&flag=2" hidefocus="true">终止</a></td>
-						</c:when>
-						<c:when test="${contract.state=='已终止' }">
-                        <td class="td_mgmt_right3_td3"><a href="contractdetail?contractId=${contract.id }&flag=3" hidefocus="true">查看</a></td>
-						</c:when>
-						<c:otherwise>
-						<td class="td_mgmt_right3_td3"><a href="contractdetail?contractId=${contract.id }&flag=1" hidefocus="true">查看</a></td>
-						</c:otherwise>
-						</c:choose>
-					</tr>
-					</c:forEach>  --%>
 					
 				</table>
 				<table border="0" cellpadding="0" cellspacing="0" class="table_recordnumber">
@@ -153,15 +131,6 @@
                     </tr>
 				</table>
             	<table border="0" cellpadding="0" cellspacing="0" class="table_pagenumber" id="page_layout">
-                    <!-- <tr>
-	                    <td width="45" class="td_pagenumber">首页</td>
-                        <td width="45" class="td_pagenumber"><a href="mgmt_r_contact_r.htm" class="a_pagenumber" hidefocus="true">上页</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">1</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">2</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">3</a></td>
-                        <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">下页</a></td>
-                        <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">末页</a></td>
-                  </tr> -->
 				</table>
 			</td>
 		</tr>
@@ -181,43 +150,47 @@
 		
 		var display=$("#display").val();
 		var currentPage=$("#currentPage").val();
-		getUserContractAjax(display,currentPage);
-		getUserContractTotalRowsAjax(display,currentPage);
+		//搜索信息
+		var startDate=$("#startDate").val();
+		var endDate=$("#endDate").val();
+		var name=$("#name").val();
+		//如果没有选择时间，则吧默认的汉字转为时间格式，否则后台接收参数刽报错
+		if(startDate == '开始时间'){
+			startDate='1970-01-01';
+		}
+		if(endDate == '结束时间'){
+			endDate='1970-01-01';
+		}
+		getUserContractAjax(display,currentPage,startDate,endDate,name);
+		getUserContractTotalRowsAjax(display,currentPage,startDate,endDate,name);
 	}
 	
 	//加载合同（需求方）资源
-	function getUserContractAjax(display,currentPage){
+	function getUserContractAjax(display,currentPage,startDate,endDate,name){
 		var url="getUserContractAjax";
 		$.ajax({
 			url:url,
 			data:{
 				display:display,
-				currentPage:currentPage
+				currentPage:currentPage,
+				startDate:startDate,
+				endDate:endDate,
+				name:name
 				},
 			cache:false,
 			dataType:"json",
 			success:function(data,status){
 				var body=$("#result_body");
 				body.empty();
-			/* 	body.append("<tr>");
-				body.append("<td width=\"20\" height=\"40\" class=\"td_mgmt_right3_head1\">&nbsp;</td>");
-				body.append("<td width=\"100\" class=\"td_mgmt_right3_head\">合同编号</td>");
-				body.append("<td class=\"td_mgmt_right3_head\">合同名称</td>");
-				body.append("<td width=\"120\" class=\"td_mgmt_right3_head\">承运方</td>");
-				body.append("<td width=\"50\" class=\"td_mgmt_right3_head\">帐期</td>");
-				body.append("<td width=\"80\" class=\"td_mgmt_right3_head\">创建日期</td>");
-				body.append("<td width=\"50\" class=\"td_mgmt_right3_head\">状态</td>");
-				body.append("<td width=\"80\" class=\"td_mgmt_right3_head\">操作</td>");
-				body.append("</tr>"); */
 				//循环输出结果集
 				 for(var i =0;i<data.length;i++){
 					body.append("<tr>");
 					body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>");
 					body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"contractdetail?contractId="+data[i].id+"&flag=1\" hidefocus=\"true\">"+data[i].id+"</a></td>");
 					body.append("<td class=\"td_mgmt_right3_td1\" id=\"name\">"+data[i].name+"</td>");
-					body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].companyName+"</td>");
+					body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].carrierAccount+"</td>");
 					body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].monthlyStatementDays+"</td>");
-					body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].startDate+"</td>");
+					body.append("<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].startDate)+"</td>");
 					body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].state+"</td>");
 					if(data[i].state=='有效'){
 						body.append("<td class=\"td_mgmt_right3_td3\"><a href=\"contractdetail?contractId="+data[i].id+"&flag=2\" hidefocus=\"true\">终止</a></td>");				
@@ -236,13 +209,16 @@
 		})
 	}
 	//合同（需求方）资源总条数
-	function getUserContractTotalRowsAjax(display,currentPage){
+	function getUserContractTotalRowsAjax(display,currentPage,startDate,endDate,name){
 		var url="getUserContractTotalRowsAjax";
 		$.ajax({
 			url:url,
 			data:{
 				display:display,
-				currentPage:currentPage
+				currentPage:currentPage,
+				startDate:startDate,
+				endDate:endDate,
+				name:name
 			},
 			cache:false,
 			dataType:"json",
@@ -251,10 +227,23 @@
 				  pageLayout(data);//页面布局
 			}
 		});
-		
-		
-		
 	}
+	/* //查询合同
+	function searchContract(){
+		var startDate=$("#startDate").val();
+		var endDate=$("#endDate").val();
+		var name=$("#name").val();
+		var url="searchContractAjax";
+		$.ajax({
+			url:url,
+			dataType:"json",
+			cache:false,
+			success:function(data,status){
+				
+			}
+		})
+	} */
+	
 	
 </script>
 </html>

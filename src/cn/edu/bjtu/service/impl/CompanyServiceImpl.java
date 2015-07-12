@@ -10,16 +10,19 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.bean.search.CompanySearchBean;
 import cn.edu.bjtu.dao.CompanyDao;
+import cn.edu.bjtu.dao.UserinfoDao;
 import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Carrierinfo;
+import cn.edu.bjtu.vo.Userinfo;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -37,6 +40,8 @@ public class CompanyServiceImpl implements CompanyService{
 	CompanyDao companyDao;
 	@Resource
 	HQLTool hqltool;
+	@Autowired
+	UserinfoDao userinfoDao;
 	
 	@Override
 	/**
@@ -238,7 +243,7 @@ public class CompanyServiceImpl implements CompanyService{
 		}
 		sql+=") t3 on t1.id=t3.focusId ";
 		String wheresql=whereSql(companyBean,params);
-		sql+=wheresql;
+		sql+=wheresql+" order by t1.relDate desc";
 		
 		JSONArray jsonArray = new JSONArray();
 		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
@@ -356,6 +361,34 @@ public class CompanyServiceImpl implements CompanyService{
 		
 		return wheresql;
 	}
+
+
+	/**
+	 * 获取已经通过验证的公司列表
+	 */
+	@Override
+	public JSONArray getCertificatedCompany(HttpSession session) {
+		
+		String hql="from Userinfo t where t.status='已审核' and t.userKind=3";
+		List<Userinfo> userList=userinfoDao.find(hql);
+		//通过获取到的userList中取出公司的id获取公司的信息
+		List<Carrierinfo> companyList=new ArrayList<Carrierinfo>();
+		for(Userinfo user:userList){
+			Carrierinfo company=companyDao.get(Carrierinfo.class, user.getId());
+			if(company !=null){
+				companyList.add(company);
+			}
+		}
+		
+		JSONArray jsonArray=new JSONArray();
+		for(Carrierinfo company:companyList){
+			JSONObject jsonObject=(JSONObject)JSONObject.toJSON(company);
+			jsonArray.add(jsonObject);
+		}
+		
+		return jsonArray;
+	}
+	
 	
 	
 }

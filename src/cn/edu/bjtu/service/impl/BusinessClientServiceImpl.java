@@ -1,5 +1,6 @@
 package cn.edu.bjtu.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,10 +16,10 @@ import org.springframework.web.multipart.MultipartFile;
 import cn.edu.bjtu.dao.BusinessClientDao;
 import cn.edu.bjtu.service.BusinessClientService;
 import cn.edu.bjtu.util.Constant;
+import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.util.UploadFile;
 import cn.edu.bjtu.vo.Businessclient;
-import cn.edu.bjtu.vo.Linetransport;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -92,6 +93,23 @@ public class BusinessClientServiceImpl implements BusinessClientService{
 		return count.intValue();
 	}
 
+	/**
+	 * 新增客户信息
+	 */
+	@Override
+	public boolean insertNewClient(Businessclient client,MultipartFile file,HttpServletRequest request){
+		String userId = (String) request.getSession().getAttribute(Constant.USER_ID);
+		//保存文件
+		String fileLocation=UploadFile.uploadFile(file, userId, "businessClient");
+		client.setId(IdCreator.createBusinessClientId());
+		client.setCarrierId(userId);
+		client.setRelDate(new Date());
+		//设置文件位置 
+		client.setRelatedMaterial(fileLocation);
+		businessClientDao.save(client);// 保存实体
+		return true;
+	}
+	
 	@Override
 	public boolean updateNewClient(Businessclient client,MultipartFile file,
 			HttpServletRequest request){

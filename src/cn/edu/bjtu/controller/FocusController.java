@@ -21,12 +21,12 @@ import cn.edu.bjtu.vo.Focus;
 
 import com.alibaba.fastjson.JSONArray;
 
-@Controller
 /**
  * 关注相关控制器
  * @author RussWest0
  *
  */
+@Controller
 public class FocusController {
 
 	@Autowired

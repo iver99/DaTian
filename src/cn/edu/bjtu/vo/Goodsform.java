@@ -4,6 +4,7 @@ package cn.edu.bjtu.vo;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 /**
@@ -19,7 +20,9 @@ public class Goodsform implements java.io.Serializable {
 	//private Float volume;
 	private String startPlace;
 	private String endPlace;
+	@DateTimeFormat( pattern = "yyyy-MM-dd" )
 	private Date relDate;
+	@DateTimeFormat( pattern = "yyyy-MM-dd" )
 	private Date limitDate;
 	//private String declaredValue;
 	private String transportReq;

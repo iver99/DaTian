@@ -26,7 +26,8 @@ public interface CarService {
 	@Deprecated
 	public List getCompanyCar(String carrierId);
 
-
+	public boolean insertNewCar(Carinfo car,HttpServletRequest request);
+	@Deprecated
 	public boolean insertCar(String carNum, String carTeam,
 			String locationType, String terminalId, String carBase, String carBrand,
 			String carType, String carUse, double carLength, double carWidth,
