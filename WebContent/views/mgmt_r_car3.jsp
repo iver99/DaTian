@@ -125,7 +125,7 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">车型：</td>
                                    	<td>
-                                        <select style="width:120px;" name="carType" required>
+                                        <select style="width:120px;" name="carType" id="carType" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="前四后四" >前四后四</option>
                                             <option value="单桥">单桥</option>
@@ -136,7 +136,7 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">厢型：</td>
                                     <td>
-                                    	<select style="width:120px;" name="carBase" required>
+                                    	<select style="width:120px;" name="carBase" id="carBase" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="普通" >普通</option>
                                             <option value="平板">平板</option>
@@ -151,7 +151,7 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">品牌：</td>
                                     <td>
-                                    <select id="menu_name4" class="select_apply1" style="width:120px;" name="carBrand" required>
+                                    <select class="select_apply1" style="width:120px;" id="carBrand" name="carBrand" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="解放">解放</option>
                                             <option value="福田" >福田</option>
@@ -162,7 +162,7 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">用途：</td>
                                     <td>
-                                     	<select style="width:120px;" name="carUse" required>
+                                     	<select style="width:120px;" name="carUse" id="carUse" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="普通运输" >普通运输</option>
                                             <option value="特殊">特殊</option>
@@ -191,7 +191,7 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">冷藏：</td>
                                     <td>
-                                    	<select style="width:120px;" name="storage" required>
+                                    	<select style="width:120px;" name="storage" id="storage" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="冷藏" >是</option>
                                             <option value="非冷藏">否</option>
@@ -256,6 +256,21 @@
 		loadFocus();
 		//获取公司车队列表
 		getCompanyCarteamList();
+		
+		//设置数据
+		setData();
+		//$("#locationType").attr('value','GPS');
+	}
+	//设置数据
+	function setData(){
+		//alert("${carInfo.startPlace}");
+		$("#locationType").attr("value","${carInfo.locationType}");
+		$("#carBase").attr("value","${carInfo.carBase}");
+		$("#carUse").attr("value","${carInfo.carUse}");
+		$("#carType").attr("value","${carInfo.carType}");
+		$("#carBrand").attr("value","${carInfo.carBrand}");
+		$("#storage").attr("value","${carInfo.storage}");
+		
 	}
 	
 	 //获取公司车队列表

@@ -98,7 +98,7 @@
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">所属行业：</td>
 									<td>
-                                        <select style="width:120px;" name="clientBusiness" required>
+                                        <select style="width:120px;" name="clientBusiness" id="clientBusiness" required>
 											<option value="" selected="selected">请选择</option>
                                             <option value="医药" >医药</option>
                                             <option value="电子">电子</option>
@@ -153,6 +153,13 @@
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
+		//设置数据
+		setData();
+		
+	}
+	
+	function setData(){
+		$("#clientBusiness").attr("value","${clientInfo.clientBusiness}");
 	}
 </script>
 </html>
