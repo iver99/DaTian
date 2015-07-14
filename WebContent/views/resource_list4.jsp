@@ -193,47 +193,12 @@
 							</tr>
 						</thead>
 						<tbody id="testbody">
-							<%-- <c:forEach var="warehouse" items="${warehouseList }">
-								<tr>
-									<td class="td_main_list_content"></td>
-									<td class="td_main_list_content"><a
-										href="warehousedetail?warehouseId=${warehouse.id }&carrierId=${warehouse.carrierId}&flag=0"
-										hidefocus="true">${warehouse.name }</a> <br /> <a
-										href="companyDetail?id=${warehouse.carrierId }"
-										style="color:#717071;" hidefocus="true"> ${warehouse.companyName }<img
-											src="images/btn_level1a.png" /></a></td>
-									<td class="td_main_list_content">${warehouse.fireRate }</td>
-									<td class="td_main_list_content">${warehouse.type }</td>
-									<td class="td_main_list_content">${warehouse.houseArea }</td>
-									<td class="td_main_list_content">${warehouse.relDate }</td>
-									<input type="button" value="0" style="display:none" id="i"></input>
-									<td class="td_main_list_content">
-										<script>
-											document.getElementById("i").value=0;
-										</script>
-										<c:forEach var="focus" items="${focusList }">
-										<c:if test="${warehouse.id==focus.focusId}">
-											<script>
-												document.getElementById("i").value=1;
-											</script>
-										</c:if>
-										</c:forEach>
-										<script type="text/javascript">
-											if(document.getElementById("i").value==1)
-												document.write( "<a href=\"javascript:;\" class=\"a_main_list_handle_icon1b\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('${warehouse.id }')\"></a>" );
-											else
-												document.write( "<a href=\"javascript:;\" class=\"a_main_list_handle_icon1a\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('${warehouse.id }')\"></a>" );
-										</script>
-									</td>
-								</tr>
-
-							</c:forEach> --%>
 						</tbody>
 					</table>
 					<table border="0" cellpadding="0" cellspacing="0"
 						class="table_recordnumber">
 						<tr>
-							<td>每页 <select id="Display">
+							<td>每页 <select id="Display" onchange="changeDisplay()">
 									<option value="10" selected="selected">10</option>
 									<option value="20">20</option>
 									<option value="50">50</option>
@@ -265,8 +230,10 @@ function OnLoad() {
 	//Rescreen();
 	loadFocus();
 	if(checkSearch()){
-	getSelectedWarehouseAjax("中文或拼音","All","All","All",10,1);
-	getSelectedWarehouseTotalRows("中文或拼音","All","All","All",10,1);
+		var display = $("#display").val();
+		var currentPage = $("#currentPage").val();
+	getSelectedWarehouseAjax("中文或拼音","All","All","All",display,currentPage);
+	getSelectedWarehouseTotalRows("中文或拼音","All","All","All",display,currentPage);
 		
 	}
 	
@@ -354,6 +321,7 @@ function getSelectedWarehouseTotalRows(city,type,storageForm,houseArea,display,c
 			  //返回总记录数
 			  $('#div_resource_list_head1').text("共"+data+"条记录");
 			  $('#count').val(data);
+			  $("#page_layout").empty();
 			  pageLayout(data);//页面布局
 	  },"text");
 	
@@ -430,6 +398,19 @@ function ChangeTo(page){
 	//点击页码，标志位置为1
 	$('#flag').val(1);
 	$('#btn1').click();
+}
+//变更每页展示数量
+function changeDisplay(){
+	//修改隐藏字段，每页数量
+	$("#display").val($("#Display").val());
+	//加载数据
+	if(checkSearch()){
+		var display = $("#display").val();
+		var currentPage = $("#currentPage").val();
+	getSelectedWarehouseAjax("中文或拼音","All","All","All",display,currentPage);
+	getSelectedWarehouseTotalRows("中文或拼音","All","All","All",display,currentPage);
+		
+	}
 }
 </script>
 </html>

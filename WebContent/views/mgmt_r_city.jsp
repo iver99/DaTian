@@ -86,6 +86,7 @@
 				<input id="display" value="10" type="hidden" /> <!-- 每页展示的数量 -->
 				<input id="currentPage" value="1" type="hidden" /><!-- 当前页 -->
 				<inpyt id="is_resource_page" value="0" type="hidden"/><!-- 是否为资源页，资源页需要模拟click按钮 -->
+				<input id="kind" value="cityline" type="hidden"/><!-- 用于判断是哪一栏的分页,用于splitPage.js -->
             	
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
                    <thead>
@@ -134,10 +135,10 @@
                     <tr>
 	                    <td>
                             每页
-                            <select>
-                                <option value="" selected="selected">10</option>
-                                <option value="a">20</option>
-                                <option value="b">50</option>
+                            <select  id="Display" onchange="changeDisplay()">
+                                <option value="10" selected="selected">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
                             </select>
                             条记录
                         </td>
@@ -190,15 +191,6 @@
 				var body=$("#result_body");
 				body.empty();
 				
-				/* body.append("<tr>");
-				body.append("<td width=\"20\" height=\"40\" class=\"td_mgmt_right3_head1\">&nbsp;</td>");
-				body.append("<td class=\"td_mgmt_right3_head\">名称</td>");
-				body.append("<td width=\"60\" class=\"td_mgmt_right3_head\">配送城市</td>");
-				body.append("<td width=\"80\" class=\"td_mgmt_right3_head\">增值服务</td>");
-				body.append("<td width=\"100\" class=\"td_mgmt_right3_head\">参考价(元/kg)</td>");
-				body.append("<td width=\"80\" class=\"td_mgmt_right3_head\">发布日期</td>");
-				body.append("<td width=\"80\" class=\"td_mgmt_right3_head\">操作</td>");
-				body.append("</tr>"); */
 				//循环输出结果集
 				  for(var i =0;i<data.length;i++){
                                     
@@ -220,16 +212,6 @@
 					str+="</tr>";
 					body.append(str);
 					
-					/* body.append("<td class=\"td_mgmt_right3_td3\"><div id=\"handlebox\" style=\"z-index: 201;\">");
-					body.append("<ul class=\"quickmenu\"><li class=\"menuitem\">");
-					body.append("<div class=\"menu\">");
-					body.append("<a href=\"citylinedetail?citylineId="+data[i].id+"&carrierId=0&flag=3\" class=\"menuhd\" hidefocus=\"true\">更新</a>");
-					body.append("<div class=\"menubd\">");
-					body.append("<div class=\"menubdpanel\">");
-					body.append("<a href=\"citydelete?id="+data[i].id+"\" class=\"a_top3\" hidefocus=\"true\">删除</a>");
-					body.append("</div></div></div></li></ul></div></td>");
-					body.append("</tr>"); */
-					
 				}  
 				
 			}
@@ -248,12 +230,20 @@
 			dataType:"json",
 			success:function(data,status){
 				 $('#count').val(data);
+				 $("#page_layout").empty();
 				  pageLayout(data);//页面布局
 			}
 		});
-		
-		
-		
+	}
+	
+	//变更每页展示数量
+	function changeDisplay(){
+		//修改隐藏字段，每页数量
+		$("#display").val($("#Display").val());
+			var display=$("#display").val();
+			var currentPage=$("#currentPage").val();
+			getUserCitylineResource(display,currentPage);
+			getUserCitylineResourceTotalRows(display,currentPage);
 	}
 	
 </script>

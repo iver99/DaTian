@@ -2413,6 +2413,7 @@ a.a_register {
 	position:fixed;
 	bottom:122px;
 	right:0;
+	width:0;
 	height:120px;
 	}
 .qqserver .qqserver_fold {
@@ -2433,7 +2434,9 @@ a.a_register {
 	}
 
 .qqserver.unfold .qqserver-body {
-	right:2px;
+	right:130px;
+	width:122px;
+	height:140px;
 	}
 .qqserver .qqserver-body {
 	position:absolute;

@@ -18,6 +18,7 @@ function insertMessage()
 function loadMessages()
 {
 	var url="getAllUserMessage";
+	alert("tste");
 	$.post(url,{},
 	  function(data,status){
 			  //alert(data);
@@ -47,7 +48,10 @@ function loadFocus()
         cache:false,
         success:function(responseText){
         	//alert(responseText);
-        	document.getElementById("focusNum").innerHTML = "<img src=\"images/btn_m1.png\" />&nbsp;我的关注("+ responseText +")"; 
+        	if((document.getElementById("loginStatus").innerText.indexOf("登录") != -1)&&(document.getElementById("loginStatus").innerText.indexOf("注册") != -1))
+        		document.getElementById("focusNum").innerHTML = "<img src=\"images/btn_m1.png\" />&nbsp;我的关注(未登录)";
+        	else
+        		document.getElementById("focusNum").innerHTML = "<img src=\"images/btn_m1.png\" />&nbsp;我的关注("+ responseText +")"; 
         }
     })
 	var City = getCookie("city");

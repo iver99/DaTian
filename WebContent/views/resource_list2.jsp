@@ -173,7 +173,7 @@
 					<table border="0" cellpadding="0" cellspacing="0"
 						class="table_recordnumber">
 						<tr>
-							<td>每页 <select id="Display">
+							<td>每页 <select id="Display" onchange="changeDisplay()">
 									<option value="10" selected="selected">10</option>
 									<option value="20">20</option>
 									<option value="50">50</option>
@@ -183,67 +183,6 @@
 					</table>
 					<table border="0" cellpadding="0" cellspacing="0"
 						class="table_pagenumber" id="page_layout" value="1">
-						<%-- <tr>
-							<td width="45" class="td_pagenumber" onclick="ChangeTo('first')"><a href="javascript:;" class="a_pagenumber" hidefocus="true">首页</td>
-                        <td width="45" class="td_pagenumber" onclick="ChangeTo('previous')"><a href="javascript:;" class="a_pagenumber" hidefocus="true">上页</a></td>
-                        <!-- <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">1</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">2</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">3</a></td> -->
-                        <c:if test="${pageNum < 8}">
-                        	<c:forEach begin="1" end="${pageNum }" var="i">
-                        	    <td width="30" class="td_pagenumber" onclick="ChangePage(${i })"><a href="javascript:;" class="a_pagenumber" hidefocus="true">${i }</a></td>
-                        	</c:forEach>
-                        </c:if>
-                        <c:if test="${pageNum >= 8}">
-                        	<c:choose>
-                        		<c:when test="${pageNow <= 3}">
-                        			<c:forEach begin="1" end="5" var="i">
-                        				<td width="30" class="td_pagenumber" onclick="ChangePage(${i })"><a href="javascript:;" class="a_pagenumber" hidefocus="true">${i }</a></td>
-                        			</c:forEach>
-                        			...
-                        		</c:when>
-                        		<c:when test="${pageNow == 4}">
-                        			<c:forEach begin="1" end="6" var="i">
-                        				<td width="30" class="td_pagenumber" onclick="ChangePage(${i })"><a href="javascript:;" class="a_pagenumber" hidefocus="true">${i }</a></td>
-                        			</c:forEach>
-                        			...
-                        		</c:when>
-                        		<c:when test="${pageNow == 5}">
-                        			<c:forEach begin="1" end="7" var="i">
-                        				<td width="30" class="td_pagenumber" onclick="ChangePage(${i })"><a href="javascript:;" class="a_pagenumber" hidefocus="true">${i }</a></td>
-                        			</c:forEach>
-                        			...
-                        		</c:when>
-                        		<c:when test="${pageNow > 5 && pageNow < pageNum - 3}">
-                        		    <td width="30" class="td_pagenumber" onclick="ChangePage('1')"><a href="javascript:;" class="a_pagenumber" hidefocus="true">1</a></td>
-                        		    <td width="30" class="td_pagenumber" onclick="ChangePage('2')"><a href="javascript:;" class="a_pagenumber" hidefocus="true">2</a></td>
-                        		    ...
-                        			<c:forEach begin="${pageNow-2 }" end="${pageNow+2 }" var="i">
-                        				<td width="30" class="td_pagenumber" onclick="ChangePage(${i })"><a href="javascript:;" class="a_pagenumber" hidefocus="true">${i }</a></td>
-                        			</c:forEach>
-                        			...
-                        		</c:when>
-                        		<c:when test="${pageNow == pageNum - 3}">
-                        		    <td width="30" class="td_pagenumber" onclick="ChangePage('1')"><a href="javascript:;" class="a_pagenumber" hidefocus="true">1</a></td>
-                        		    <td width="30" class="td_pagenumber" onclick="ChangePage('2')"><a href="javascript:;" class="a_pagenumber" hidefocus="true">2</a></td>
-                        		    ...
-                        			<c:forEach begin="${pageNow-5 }" end="${pageNow }" var="i">
-                        				<td width="30" class="td_pagenumber" onclick="ChangePage(${i })"><a href="javascript:;" class="a_pagenumber" hidefocus="true">${i }</a></td>
-                        			</c:forEach>
-                        		</c:when>
-                        		<c:when test="${pageNow >= pageNum - 2}">
-                        		    <td width="30" class="td_pagenumber" onclick="ChangePage('1')"><a href="javascript:;" class="a_pagenumber" hidefocus="true">1</a></td>
-                        		    <td width="30" class="td_pagenumber" onclick="ChangePage('2')"><a href="javascript:;" class="a_pagenumber" hidefocus="true">2</a></td>
-                        		    ...
-                        			<c:forEach begin="${pageNow-4 }" end="${pageNow }" var="i">
-                        				<td width="30" class="td_pagenumber" onclick="ChangePage(${i })"><a href="javascript:;" class="a_pagenumber" hidefocus="true">${i }</a></td>
-                        			</c:forEach>
-                        		</c:when>
-                        	</c:choose>
-                        </c:if>
-                        <td width="45" class="td_pagenumber" onclick="ChangeTo('next')"><a href="javascript:;" class="a_pagenumber" hidefocus="true">下页</a></td>
-                        <td width="45" class="td_pagenumber" onclick="ChangeTo('last')"><a href="javascript:;" class="a_pagenumber" hidefocus="true">末页</a></td>
-                    </tr> --%>
 					</table>
 				</td>
 			</tr>
@@ -265,15 +204,19 @@
 		//Rescreen();
 		loadFocus();
 		//GetRequest();
-		if(checkSearch()){
-		getSelectedLineAjax("中文或拼音","All","All",10,1);
-		getSelectedCityLineTotalRowsAjax("中文或拼音","All","All",10,1);
-			
-		}
 		
+		
+	if (checkSearch()) {
+			var display = $("#display").val();
+			var currentPage = $("#currentPage").val();
+			getSelectedLineAjax("中文或拼音", "All", "All", display, currentPage);
+			getSelectedCityLineTotalRowsAjax("中文或拼音", "All", "All", display, currentPage);
+
+		}
+
 		//检查是否需要执行搜索功能
 		//checkSearch();
-		
+
 	}
 </script>
 <script type="text/javascript">
@@ -352,6 +295,7 @@ function getSelectedCityLineTotalRowsAjax(cityName,VIPService,refPrice,display,c
 			  //返回总记录数
 			  $('#div_resource_list_head1').text("共"+data+"条记录");
 			  $('#count').val(data);
+			  $("#page_layout").empty();
 			  pageLayout(data);//页面布局
 	  },"text");
 	
@@ -428,6 +372,20 @@ function ChangeTo(page){
 	//点击页码，标志位置为1
 	$('#flag').val(1);
 	$('#btn1').click();
+}
+
+//变更每页展示数量
+function changeDisplay(){
+	//修改隐藏字段，每页数量
+	$("#display").val($("#Display").val());
+	//加载数据
+	if (checkSearch()) {
+		var display = $("#display").val();
+		var currentPage = $("#currentPage").val();
+		getSelectedLineAjax("中文或拼音", "All", "All", display, currentPage);
+		getSelectedCityLineTotalRowsAjax("中文或拼音", "All", "All", display, currentPage);
+
+	}
 }
 </script>
 

@@ -262,7 +262,7 @@
 					<table border="0" cellpadding="0" cellspacing="0"
 						class="table_recordnumber">
 						<tr>
-							<td>每页 <select id="Display">
+							<td>每页 <select id="Display" onchange="changeDisplay()">
 									<option value="10" selected="selected">10</option>
 									<option value="20">20</option>
 									<option value="50">50</option>
@@ -355,8 +355,10 @@ function OnLoad() {
 	//Rescreen();
 	loadFocus();
 	if(checkSearch()){
-	getSelectedCarAjax("中文或拼音","中文或拼音","All","All","All",10,1);
-	getSelectedCarTotalRows("中文或拼音","中文或拼音","All","All","All",10,1);
+		var display = $("#display").val();
+		var currentPage = $("#currentPage").val();
+	getSelectedCarAjax("中文或拼音","中文或拼音","All","All","All",display,currentPage);
+	getSelectedCarTotalRows("中文或拼音","中文或拼音","All","All","All",display,currentPage);
 		
 	}
 	
@@ -525,7 +527,11 @@ function getSelectedCarAjax(startPlace,endPlace,carBase,carLength,carWeight,disp
 			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].carState+"</td>");
 			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].carLength+"</td>");
 			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].carWeight+"</td>");
-			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].carLocation+"</td>");
+			if(data[i].carLocation == undefined){
+				$("#testbody").append("<td class=\"td_main_list_content\">--</td>");
+			}else{
+				$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].carLocation+"</td>");
+			}
 			$("#testbody").append("<td class=\"td_main_list_content\">"+renderTime(data[i].relDate)+"</td>");
 			if(data[i].status == "有效")
 				$("#testbody").append("<td class=\"td_main_list_content\"><a href=\"javascript:;\" class=\"a_main_list_handle_icon1b\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('"+data[i].id+"')\"></a></td>");
@@ -558,6 +564,7 @@ function getSelectedCarTotalRows(startPlace,endPlace,carBase,carLength,carWeight
 			  //返回总记录数
 			  $('#div_resource_list_head1').text("共"+data+"条记录");
 			  $('#count').val(data);
+			  $("#page_layout").empty();
 			  pageLayout(data);//页面布局
 	  },"text");
 	
@@ -634,5 +641,19 @@ function ChangeTo(page){
 	//点击页码，标志位置为1
 	$('#flag').val(1);
 	$('#btn1').click();
+}
+
+//变更每页展示数量
+function changeDisplay(){
+	//修改隐藏字段，每页数量
+	$("#display").val($("#Display").val());
+	//加载数据
+	if(checkSearch()){
+		var display = $("#display").val();
+		var currentPage = $("#currentPage").val();
+	getSelectedCarAjax("中文或拼音","中文或拼音","All","All","All",display,currentPage);
+	getSelectedCarTotalRows("中文或拼音","中文或拼音","All","All","All",display,currentPage);
+		
+	}
 }
 </script>

@@ -8,12 +8,12 @@
 				if(session.getAttribute("username")!=null)
 				{
 			%>
-			<td width="220" class="td_top1b">您好！<%=session.getAttribute("username") %>&nbsp;&nbsp;&nbsp;<a href="logout">退出</a></td>
+			<td width="220" class="td_top1b" id="loginStatus">您好！<%=session.getAttribute("username") %>&nbsp;&nbsp;&nbsp;<a href="logout">退出</a></td>
 			<%
 				}
 				else{
 			%>
-			<td width="220" class="td_top1b">您好！请&nbsp;<a href="loginForm" hidefocus="true">登录</a>&nbsp;或&nbsp;<a href="registerForm" hidefocus="true">注册</a></td>
+			<td width="220" class="td_top1b" id="loginStatus">您好！请&nbsp;<a href="loginForm" hidefocus="true">登录</a>&nbsp;或&nbsp;<a href="registerForm" hidefocus="true">注册</a></td>
 			<%
 				}
 			%>

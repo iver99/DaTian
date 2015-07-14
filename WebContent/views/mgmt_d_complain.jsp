@@ -88,7 +88,8 @@
             	<input id="count" value="" type="hidden" /><!--  总记录条数 -->
 				<input id="display" value="10" type="hidden" /> <!-- 每页展示的数量 -->
 				<input id="currentPage" value="1" type="hidden" /><!-- 当前页 -->
-				<inpyt id="is_resource_page" value="0" type="hidden"/><!-- 是否为资源页，资源页需要模拟click按钮 -->
+				<input id="is_resource_page" value="0" type="hidden"/><!-- 是否为资源页，资源页需要模拟click按钮 -->
+				<input id="kind" value="comlaint" type="hidden"/><!-- 用于判断是哪一栏的分页,用于splitPage.js -->
 				
 				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
 				<thead>
@@ -105,24 +106,6 @@
                     
                     </tbody>
                     
-                   <%--  <c:forEach var="complain" items="${compliantList }">
-                    <tr>							   
-                        <td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
-                        <td class="td_mgmt_right3_td1">${complain.type }</td>
-                        <td class="td_mgmt_right3_td1">${complain.theme }</td>
-                        <td class="td_mgmt_right3_td1">${complain.relDate }</td>
-                        <c:choose>
-                        <c:when test="${complain.state=='受理中' }">
-                        <td class="td_mgmt_right3_td2">${complain.state }</td>
-                        </c:when>
-                        <c:otherwise>
-                         <td class="td_mgmt_right3_td2">${complain.state }</td>
-                        </c:otherwise>
-                        </c:choose>
-                        <td class="td_mgmt_right3_td3"><a href="complaintdetail?complaintid=${complain.id }&ordernum=${complain.orderNum }" hidefocus="true">查看</a></td>
-                    </tr>
-                    </c:forEach> --%>
-                    
                 </table>
 				<table border="0" cellpadding="0" cellspacing="0" class="table_recordnumber">
                     <tr>
@@ -138,15 +121,6 @@
                     </tr>
 				</table>
                 <table border="0" cellpadding="0" cellspacing="0" class="table_pagenumber" id="page_layout" >
-                    <!-- <tr>
-                        <td width="45" class="td_pagenumber">首页</td>
-                        <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">上页</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">1</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">2</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">3</a></td>
-                        <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">下页</a></td>
-                        <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">末页</a></td>
-                    </tr> -->
 				</table>
 			</td>
 		</tr>

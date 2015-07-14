@@ -84,7 +84,8 @@
             	<input id="count" value="" type="hidden" /><!--  总记录条数 -->
 				<input id="display" value="10" type="hidden" /> <!-- 每页展示的数量 -->
 				<input id="currentPage" value="1" type="hidden" /><!-- 当前页 -->
-				<inpyt id="is_resource_page" value="0" type="hidden"/><!-- 是否为资源页，资源页需要模拟click按钮 -->
+				<input id="is_resource_page" value="0" type="hidden"/><!-- 是否为资源页，资源页需要模拟click按钮 -->
+				<input id="kind" value="car" type="hidden"/><!-- 用于判断是哪一栏的分页,用于splitPage.js -->
             	
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
                 	<thead>
@@ -112,10 +113,10 @@
                     <tr>
 	                    <td>
                             每页
-                            <select>
-                                <option value="" selected="selected">10</option>
-                                <option value="a">20</option>
-                                <option value="b">50</option>
+                            <select id="Display" onchange="changeDisplay()">
+                                <option value="10" selected="selected">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
                             </select>
                             条记录
                         </td>
@@ -209,14 +210,21 @@
 			dataType:"json",
 			success:function(data,status){
 				 $('#count').val(data);
+				 $("#page_layout").empty();
 				  pageLayout(data);//页面布局
 			}
 		});
 		
-		
-		
 	}
-	
+	//变更每页展示数量
+	function changeDisplay(){
+		//修改隐藏字段，每页数量
+		$("#display").val($("#Display").val());
+			var display=$("#display").val();
+			var currentPage=$("#currentPage").val();
+			getUserCarResource(display,currentPage);
+			getUserCarResourceTotalRows(display,currentPage);
+	}
 
 </script>
 </html>

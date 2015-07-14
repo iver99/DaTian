@@ -63,13 +63,94 @@ function pageLayout(totalRows){
 }
 //页面 跳转(资源栏列表页使用)
 function ChangeTo(page){
-	//alert("change to "+page);
 	var page_layout=$('#page_layout');
 	page_layout.empty();
 	$('#currentPage').val(page);
+	
+	var display=$("#display").val();
+	var currentPage=$("#currentPage").val();
 	//点击页码，标志位置为1
-	if($("#is_resource_page").val() == 0){//等于0时此段代码为我的信息栏使用
+	if($("#is_resource_page").val() == 0){//等于0时此段代码为我的信息各栏使用
+		if($("#kind").val() == 'linetransport'){
+			getUserLinetransportResource(display,currentPage);
+			getUserLinetransportResourceTotalRows(display,currentPage);
+		}
+		if($("#kind").val() == 'cityline'){
+			getUserCitylineResource(display,currentPage);
+			getUserCitylineResourceTotalRows(display,currentPage);
+		}
+		if($("#kind").val() == 'car'){
+			getUserCarResource(display,currentPage);
+			getUserCarResourceTotalRows(display,currentPage);		
+		}
+		if($("#kind").val() == 'warehouse'){
+			getUserWarehouseResource(display,currentPage);
+			getUserWarehouseResourceTotalRows(display,currentPage);
+		}
+		if($("#kind").val() == 'driver'){
+			getUserDriverResource(display,currentPage);
+			getUserDriverResourceTotalRows(display,currentPage);
+		}
+		if($("#kind").val() == 'customer'){
+			getUserBusinessClientResourceAjax(display,currentPage);
+			getUserBusinessClientTotalRowsAjax(display,currentPage);
+		}
+		if($("#kind").val() == 'cargo'){
+			getUserCargoResourceAjax(display,currentPage);
+			getUserCargoResourceTotalRowsAjax(display,currentPage);
+		}
+		//s
+		if($("#kind").val() == 'contract_x'){
+			//搜索信息
+			var startDate=$("#startDate").val();
+			var endDate=$("#endDate").val();
+			var name=$("#name").val();
+			//如果没有选择时间，则吧默认的汉字转为时间格式，否则后台接收参数刽报错
+			if(startDate == '开始时间'){
+				startDate='1970-01-01';
+			}
+			if(endDate == '结束时间'){
+				endDate='1970-01-01';
+			}
+			getUserContractAjax(display,currentPage,startDate,endDate,name);
+			getUserContractTotalRowsAjax(display,currentPage,startDate,endDate,name);
+		}
+		//r
+		if($("#kind").val() == 'contract_c'){
+			
+		}
+		//尚未完成
+		if($("#kind").val() == 'focus'){
+			
+		}
+		if($("#kind").val() == 'response'){
+			getUserResponseResource(display,currentPage);
+			getUserResponseResourceTotalRows(display,currentPage);
+		}
+		if($("#kind").val() == 'order_send'){
+			var orderNum=$("#orderNum").val();
+			getUserOrderResource(display,currentPage,orderNum);
+			getUserOrderResourceTotalRows(display,currentPage,orderNum);
+		}
+		if($("#kind").val() == 'order_recieve'){
+			var orderNum=$("#orderNum").val();
+			getUserOrderResource(display,currentPage,orderNum);
+			getUserOrderResourceTotalRows(display,currentPage,orderNum);
+		}
+		if($("#kind").val() == 'settlement'){
+			var name=$("#name").val();
+			
+			getUserSettleSResource(display,currentPage,name);
+			getUserSettleSResourceTotalRows(display,currentPage,name);
+		}
+		if($("#kind").val() == 'complaint'){
+			var theme=$("#theme").val();
+			getUserComplainResource(display,currentPage,theme);
+			getUserComplainResourceTotalRows(display,currentPage,theme);
+		}
+
 		
+
 	}else{//资源列表使用
 		$('#flag').val(1);
 		$('#btn1').click();
