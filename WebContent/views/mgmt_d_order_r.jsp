@@ -109,10 +109,10 @@
                     <tr>
 	                    <td>
                             每页
-                            <select>
-                                <option value="" selected="selected">10</option>
-                                <option value="a">20</option>
-                                <option value="b">50</option>
+                           <select  id="Display" onchange="changeDisplay()">
+                                <option value="10" selected="selected">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
                             </select>
                             条记录
                         </td>
@@ -151,7 +151,7 @@
 </div>
 
 <div id="footer_frame">
-	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="views/footer.jsp"></iframe>
+	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="footer.jsp"></iframe>
 </div>
 
 </body>
@@ -263,9 +263,20 @@ function getUserOrderResourceTotalRows(display,currentPage,orderNum){
 		dataType:"json",
 		success:function(data,status){
 			 $('#count').val(data);
+			 $("#page_layout").empty();
 			  pageLayout(data);//页面布局
 		}
 	});
+}
+//变更每页展示数量
+function changeDisplay(){
+	//修改隐藏字段，每页数量
+	$("#display").val($("#Display").val());
+		var display=$("#display").val();
+		var currentPage=$("#currentPage").val();
+		var orderNum=$("#orderNum").val();
+		getUserOrderResource(display,currentPage,orderNum);
+		getUserOrderResourceTotalRows(display,currentPage,orderNum);
 }
 
 </script>

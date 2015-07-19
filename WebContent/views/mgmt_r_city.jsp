@@ -85,7 +85,7 @@
             	<input id="count" value="" type="hidden" /><!--  总记录条数 -->
 				<input id="display" value="10" type="hidden" /> <!-- 每页展示的数量 -->
 				<input id="currentPage" value="1" type="hidden" /><!-- 当前页 -->
-				<inpyt id="is_resource_page" value="0" type="hidden"/><!-- 是否为资源页，资源页需要模拟click按钮 -->
+				<input id="is_resource_page" value="0" type="hidden"/><!-- 是否为资源页，资源页需要模拟click按钮 -->
 				<input id="kind" value="cityline" type="hidden"/><!-- 用于判断是哪一栏的分页,用于splitPage.js -->
             	
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
@@ -104,32 +104,6 @@
                    
                    </tbody>
                     
-                    <%--    <c:forEach var="citylineList" items="${citylineList }">
-                    <tr>
-                        <td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
-                        <td class="td_mgmt_right3_td1"><a href="citylinedetail?citylineId=${citylineList.id }&carrierId=0&flag=2" hidefocus="true">${citylineList.name }</a></td>
-                        <td class="td_mgmt_right3_td1">${citylineList.cityName }</td>
-                        <td class="td_mgmt_right3_td1">${citylineList.VIPService }</td>
-                        <td class="td_mgmt_right3_td1">${citylineList.refPrice}</td>
-                        <td class="td_mgmt_right3_td1">${citylineList.relDate }</td>
-                        <td class="td_mgmt_right3_td3">
-                            <div id="handlebox" style="z-index:201;">
-                                <ul class="quickmenu">
-                                    <li class="menuitem">
-                                        <div class="menu">
-                                            <a href="citylinedetail?citylineId=${citylineList.id }&carrierId=0&flag=3" class="menuhd" hidefocus="true">更新</a>
-                                            <div class="menubd">
-                                                <div class="menubdpanel">
-                                                    <a href="citydelete?id=${citylineList.id }" class="a_top3" hidefocus="true">删除</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        < /td>
-                    </tr>
-                    </c:forEach> --%>
                 </table>
 				<table border="0" cellpadding="0" cellspacing="0" class="table_recordnumber">
                     <tr>
@@ -145,15 +119,6 @@
                     </tr>
 				</table>
                 <table border="0" cellpadding="0" cellspacing="0" class="table_pagenumber" id="page_layout">
-                    <!-- <tr>
-                        <td width="45" class="td_pagenumber">首页</td>
-                        <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">上页</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">1</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">2</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">3</a></td>
-                        <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">下页</a></td>
-                        <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">末页</a></td>
-                    </tr> -->
                 </table>
 			</td>
 		</tr>
@@ -163,7 +128,7 @@
 <%@ include  file="popup1.jsp"%>
 
 <div id="footer_frame">
-	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="views/footer.jsp"></iframe>
+	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="footer.jsp"></iframe>
 </div>
 
 </body>

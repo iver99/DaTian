@@ -1746,8 +1746,12 @@ a.a_cityswitch1:hover {
 	border:1px solid #0e6fb7;
 	}
 /**********城市切换结束****/
-
-
+/**add by haochendong 2015 7 15**/
+.td_intro1 {
+	line-height:28px;
+	padding:10px 40px;
+	text-indent:2em;
+	}
 
 
 

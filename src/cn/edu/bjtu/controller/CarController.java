@@ -767,5 +767,38 @@ public class CarController {
 		
 		return driverService.getUserDriverResourceTotalRows(session);
 	}
+	
+	/**
+	 * 我的资源-车辆信息-车队i信息
+	 * @Title: getUserCarTeamResource 
+	 * @Description: TODO 
+	 * @param: @param session
+	 * @param: @return 
+	 * @return: String 
+	 * @throws: 异常 
+	 * @author: chendonghao 
+	 * @date: 2015年7月15日 上午11:17:55
+	 */
+	@RequestMapping(value="getUserCarTeamResourceAjax",produces="text/html;charset=UTF-8")
+	@ResponseBody
+	public String getUserCarTeamResource(HttpSession session,PageUtil pageUtil){
+		return carTeamService.getUserCarTeamResource(session,pageUtil);
+	}
+	/**
+	 * 我的资源-车辆信息-车队i信息-总记录数
+	 * @Title: getUserCarTeamResourceTotalRows 
+	 * @Description: TODO 
+	 * @param: @param session
+	 * @param: @return 
+	 * @return: Integer 
+	 * @throws: 异常 
+	 * @author: chendonghao 
+	 * @date: 2015年7月15日 上午11:19:43
+	 */
+	@RequestMapping("getUserCarTeamResourceTotalRowsAjax")
+	@ResponseBody
+	public Integer getUserCarTeamResourceTotalRows(HttpSession session){
+		return carTeamService.getUserCarTeamResourceTotalRows(session);
+	}
 
 }

@@ -36,7 +36,7 @@ public class LoginFilter extends OncePerRequestFilter {
 				"js" ,"images", "css", "Focus", "focus", 
 				"focusNum", "homepage", "linetransport", "footer", "cityline",
 				"car", "warehouse", "company", "goodsform", "allcomplaint",
-				"city","usercheck","goodsdetail"
+				"city","usercheck","goodsdetail","intro"
 		};
 
 		// ÇëÇóµÄuri

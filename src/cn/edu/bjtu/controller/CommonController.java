@@ -150,8 +150,10 @@ public class CommonController {
 		}
 		
 		return jsonArray.toString();
-		
-		
-		
+	}
+	
+	@RequestMapping("intro")
+	public String introPage(){
+		return "intro";
 	}
 }

@@ -83,6 +83,10 @@ function ChangeTo(page){
 			getUserCarResource(display,currentPage);
 			getUserCarResourceTotalRows(display,currentPage);		
 		}
+		if($("#kind").val() == 'carTeam'){
+			getUserCarTeamResource(display,currentPage);
+			getUserCarTeamResourceTotalRows(display,currentPage);
+		}
 		if($("#kind").val() == 'warehouse'){
 			getUserWarehouseResource(display,currentPage);
 			getUserWarehouseResourceTotalRows(display,currentPage);
@@ -99,8 +103,8 @@ function ChangeTo(page){
 			getUserCargoResourceAjax(display,currentPage);
 			getUserCargoResourceTotalRowsAjax(display,currentPage);
 		}
-		//s
-		if($("#kind").val() == 'contract_x'){
+		//需求方
+		if($("#kind").val() == 'contract_s' || $("#kind").val() == 'contract_r'){
 			//搜索信息
 			var startDate=$("#startDate").val();
 			var endDate=$("#endDate").val();
@@ -115,10 +119,10 @@ function ChangeTo(page){
 			getUserContractAjax(display,currentPage,startDate,endDate,name);
 			getUserContractTotalRowsAjax(display,currentPage,startDate,endDate,name);
 		}
-		//r
-		if($("#kind").val() == 'contract_c'){
+		/*//承运方
+		if($("#kind").val() == 'contract_r'){
 			
-		}
+		}*/
 		//尚未完成
 		if($("#kind").val() == 'focus'){
 			
@@ -137,7 +141,7 @@ function ChangeTo(page){
 			getUserOrderResource(display,currentPage,orderNum);
 			getUserOrderResourceTotalRows(display,currentPage,orderNum);
 		}
-		if($("#kind").val() == 'settlement'){
+		if($("#kind").val() == 'settlement_r' || $("#kind").val() == 'settlement_s'){
 			var name=$("#name").val();
 			
 			getUserSettleSResource(display,currentPage,name);

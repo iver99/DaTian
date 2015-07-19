@@ -99,7 +99,7 @@
 				<input id="display" value="10" type="hidden" /> <!-- 每页展示的数量 -->
 				<input id="currentPage" value="1" type="hidden" /><!-- 当前页 -->
 				<input id="is_resource_page" value="0" type="hidden"/><!-- 是否为资源页，资源页需要模拟click按钮 -->
-				<input id="kind" value="contract_c" type="hidden"/><!-- 用于判断是哪一栏的分页,用于splitPage.js -->
+				<input id="kind" value="contract_s" type="hidden"/><!-- 用于判断是哪一栏的分页,用于splitPage.js -->
 				
             	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
 					 <thead>
@@ -141,7 +141,7 @@
 <%@ include  file="popup1.jsp"%>
 
 <div id="footer_frame">
-	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="views/footer.jsp"></iframe>
+	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="footer.jsp"></iframe>
 </div>
 
 </body>
@@ -251,22 +251,6 @@
 		getUserContractAjax(display,currentPage,startDate,endDate,name);
 		getUserContractTotalRowsAjax(display,currentPage,startDate,endDate,name);
 	}
-	/* //查询合同
-	function searchContract(){
-		var startDate=$("#startDate").val();
-		var endDate=$("#endDate").val();
-		var name=$("#name").val();
-		var url="searchContractAjax";
-		$.ajax({
-			url:url,
-			dataType:"json",
-			cache:false,
-			success:function(data,status){
-				
-			}
-		})
-	} */
-	
 	
 </script>
 </html>

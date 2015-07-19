@@ -225,10 +225,21 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 			return true;
 	 }
 	 
-	 
+	 /**
+	  * 删除货物，同时删除反馈表中的记录
+	  */
 	 @Override
 	 public boolean deleteGoods(String id){
-		 return goodsinfoDao.deleteGoods(id);
+		 Goodsform goodsform = goodsinfoDao.get(Goodsform.class, id);
+		 goodsinfoDao.delete(goodsform);
+		 
+		 String hql="delete from Response t where t.goodsId=:goodsId";
+		 Map<String,Object> params=new HashMap<String,Object>();
+		 params.put("goodsId", id);
+		 goodsinfoDao.executeHql(hql, params);
+		 
+		 return true;
+		 
 	 }
 
 	 /**
