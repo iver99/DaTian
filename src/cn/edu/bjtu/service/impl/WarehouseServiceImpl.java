@@ -389,6 +389,8 @@ public class WarehouseServiceImpl implements WarehouseService {
 		if(userId!=null){//如果当前有用户登录在条件中加入用户信息
 			sql+=" where t2.focusType='warehouse' and t2.clientId=:clientId ";
 			params.put("clientId", userId);
+		}else{
+			sql+=" where t2.focusType='warehouse' and t2.clientId='' ";
 		}
 		sql+=") t3 on t1.id=t3.focusId ";
 		String wheresql=whereSql(warehouseBean,params);

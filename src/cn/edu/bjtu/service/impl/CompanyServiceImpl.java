@@ -240,6 +240,8 @@ public class CompanyServiceImpl implements CompanyService{
 		if(userId!=null){
 			sql+=" where t2.focusType='company' and t2.clientId=:clientId ";
 			params.put("clientId", userId);
+		}else{
+			sql+=" where t2.focusType='company' and t2.clientId=''";
 		}
 		sql+=") t3 on t1.id=t3.focusId ";
 		String wheresql=whereSql(companyBean,params);

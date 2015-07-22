@@ -82,7 +82,14 @@
                         </td>
                 	</tr>
             	</table>
+            	
+            	<input id="count" value="" type="hidden" /><!--  总记录条数 -->
+				<input id="display" value="10" type="hidden" /> <!-- 每页展示的数量 -->
+				<input id="currentPage" value="1" type="hidden" /><!-- 当前页 -->
+				<input id="is_resource_page" value="0" type="hidden"/><!-- 是否为资源页，资源页需要模拟click按钮 -->
+				<input id="kind" value="focus" type="hidden"/><!-- 用于判断是哪一栏的分页,用于splitPage.js -->
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
+                <thead>
                     <tr>
                         <td width="30" height="40" class="td_mgmt_right3_head1"><input type="checkbox" id="f1_all" onClick="selectall();" /></td>
 						<td width="60" class="td_mgmt_right3_head">类别</td>
@@ -91,7 +98,10 @@
                         <td width="60" class="td_mgmt_right3_head">状态</td>
                         <td width="80" class="td_mgmt_right3_head">操作</td>
 					</tr>
-                   <c:forEach var="focusLineList" items="${focusLineList }">
+                </thead>
+                <tbody id="result_body">
+                </tbody>
+                  <%--  <c:forEach var="focusLineList" items="${focusLineList }">
                      <tr>
 						<td height="60" class="td_mgmt_right3_td1d"><input type="checkbox" name="f1" id="f1a" /></td>
 						<td class="td_mgmt_right3_td1">运输线路</td>
@@ -289,17 +299,17 @@
                         </c:when>
                         </c:choose>
 					</tr>
-					</c:forEach>
+					</c:forEach> --%>
 					
                 </table>
 				<table border="0" cellpadding="0" cellspacing="0" class="table_recordnumber">
                     <tr>
 	                    <td>
                             每页
-                            <select>
-                                <option value="" selected="selected">10</option>
-                                <option value="a">20</option>
-                                <option value="b">50</option>
+                            <select  id="Display" onchange="changeDisplay()">
+                                <option value="10" selected="selected">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
                             </select>
                             条记录
                         </td>
@@ -351,6 +361,43 @@
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
+	}
+	
+	//获取用户的关注列表
+	function getUserFocusAjax(search_content,display,currentPage){
+		var url="getUserFocusAjax";
+		$.ajax({
+			url:url,
+			data:{
+				search_content:search_content,
+				display:display,
+				currentPage:currentPage
+			}
+			dataType:"json",
+			cache:false,
+			success:function(data,status){
+				
+			}
+				
+		});
+	}
+	//总记录数
+	function getUserFocusTotalRowsAjax(search_content,display,currentPage){
+		var url="getUserFocusTotalRowsAjax";
+		$.ajax({
+			url:url,
+			data:{
+				search_content:search_content,
+				display:display,
+				currentPage:currentPage
+			}
+			dataType:"json",
+			cache:false,
+			success:function(data,status){
+				
+			}
+				
+		});
 	}
 </script>
 </html>

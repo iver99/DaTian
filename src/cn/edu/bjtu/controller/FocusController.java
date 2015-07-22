@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.edu.bjtu.bean.page.FocusBean;
 import cn.edu.bjtu.service.FocusService;
 import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.vo.Focus;
@@ -79,13 +80,14 @@ public class FocusController {
 			return null;
 		}
 	
-	@RequestMapping("getallfocus")
 	/**
 	 *获取当前用户的所有关注
 	 * @param request
 	 * @param response
 	 * @return
 	 */
+	@Deprecated
+	@RequestMapping("getallfocus")
 	public ModelAndView getAllFocus(HttpServletRequest request,
 			HttpServletResponse response) {
 		String clientId = (String) request.getSession().getAttribute(Constant.USER_ID);
@@ -183,13 +185,25 @@ public class FocusController {
 	 * @author: chendonghao 
 	 * @date: 2015年7月6日 上午11:44:57
 	 */
-	@RequestMapping(value="searchFocus",produces="text/html;charset=UTF-8")
+	@RequestMapping(value="getUserFocusAjax",produces="text/html;charset=UTF-8")
 	@ResponseBody
-	public String searchFocus(String search_content,HttpSession session){
-		JSONArray jsonArray=focusService.searchFocus(search_content,session);
+	public String searchFocus(FocusBean focusBean,HttpSession session){
+		JSONArray jsonArray=focusService.searchFocus(focusBean,session);
 		
 		return jsonArray.toString();
 	}
+	
+	/**
+	 * 获取用户的关注
+	 * @param focusBean
+	 * @param session
+	 * @return
+	 */
+	/*@ResponseBody
+	@RequestMapping(value="getUserFocusAjax",produces="text/html;charset=UTF-8")
+	public String getUserFocus(FocusBean focusBean,HttpSession session){
+		return focusService.getUserFocus(session);
+	}*/
 
 	
 }

@@ -167,7 +167,7 @@ public class UploadPath {
 		else//linux系统 (未测试)
 		{
 			//如果文件夹不存在情况没有处理
-			String path= "/usr/local/tomcat7_v2/webapps/DaTian/signBill";
+			String path= "/usr/local/tomcat7_v2/webapps/DaTian/file/signBill";
 			file=new File(path);
 			file.mkdirs();//防止文件夹不存在
 			return path;
