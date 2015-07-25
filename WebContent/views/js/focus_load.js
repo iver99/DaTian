@@ -18,10 +18,8 @@ function insertMessage()
 function loadMessages()
 {
 	var url="getAllUserMessage";
-	alert("tste");
 	$.post(url,{},
 	  function(data,status){
-			  //alert(data);
 			  $("#getmessage").empty();
 		for(var i=0; i<data.length; i++) {
 			$("#getmessage").append("<tr>");

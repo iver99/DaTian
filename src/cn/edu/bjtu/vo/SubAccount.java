@@ -15,8 +15,10 @@ public class SubAccount {
 	private String id;
 	private String username;
 	private String password;
-	private String phone;
-	private String email;
+	@Deprecated
+	private String phone;//·Ï³ý
+	@Deprecated
+	private String email;//·Ï³ý
 	private String hostAccountId;
 	private String hostAccountName;
 	private String status;

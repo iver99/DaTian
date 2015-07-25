@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-  
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <% String id=(String)request.getAttribute("id"); %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -70,19 +70,18 @@
 						<td class="td_mgmt_right3_td1a"> 
                             <br />   	          
 							<table width="90%" border="0" cellspacing="0" cellpadding="0">
-							<c var="subAccount" items="${subAccount }">
 							<tr>
 									<td width="120" height="40" class="td_mgmt_right3_td1b">帐户名称：</td>
-									<td>${subAccount.hostAccountName }-${subAccount.username }</td>
+									<td id="username"><%-- ${subAccount.hostAccountName }-${subAccount.username } --%></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">初始密码：</td>
-									<td>不可见</td>
+									<td>·······</td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">权限：</td>
-									 <td>
-									 <c:choose>
+									 <td id="privilege">
+									<%--  <c:choose>
                                      <c:when test="${subAccount.resourceManagement == '有' }">
                        				资源管理&nbsp;
                                      </c:when>
@@ -101,17 +100,14 @@
                                      <c:when test="${subAccount.statisticsManagement == '有' }">
                        				统计分析&nbsp;
                                      </c:when>	
-                                     </c:choose>
+                                     </c:choose> --%>
 									</td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">备注：</td>
-									<td>${subAccount.remarks }</td>
+									<td id="remarks"><%-- ${subAccount.remarks } --%></td>
 								</tr>
-								</c>
 							</table>
-
-
 						</td>
 					</tr>
 				</table>
@@ -130,6 +126,53 @@
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
+		getSubAccountInfo();
+	}
+	
+	//获取附属账户信息
+	function getSubAccountInfo(){
+		var url="getSubAccountInfoAjax";
+		var id="<%=id %>"
+		$.ajax({
+			url:url,
+			data:{id:id},
+			cache:false,
+			dataType:"json",
+			success:function(data,status){
+				var usernames=new Array();//前缀和后缀
+				usernames=data["username"].split("-");
+				$("#username").html(usernames[0]);
+				$("#remarks").html(data.remarks);
+				var pri=$("#privilege");
+				if(data.resourceManagement == 'on'){
+					pri.append("资源管理&nbsp;");
+				}
+				if(data.transactionManagement == 'on'){
+					pri.append("交易管理&nbsp;");				
+				}
+				if(data.schemaManagement  == 'on'){
+					pri.append("方案管理&nbsp;");
+				}
+				if(data.statisticsManagement == 'on'){
+					pri.append("统计分析&nbsp;");
+				}
+				/* $("#username").val(usernames[1]);
+				$("#remarks").text(data["remarks"]);
+				if(data.resourceManagement =='on'){
+					$("#resourceManagement").attr("checked","checked");
+				}
+				if(data.transactionManagement =='on'){
+					$("#transactionManagement").attr("checked","checked");					
+				}
+				if(data.schemaManagement =='on'){
+					$("#schemaManagement").attr("checked","checked");
+				}
+				if(data.statisticsManagement =='on'){
+					$("#statisticsManagement").attr("checked","checked");
+				} */
+			}
+			
+		});
 	}
 </script>
 </html>

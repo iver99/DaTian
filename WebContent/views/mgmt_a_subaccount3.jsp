@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-  
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <% String id=(String) request.getAttribute("id"); %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -72,69 +72,35 @@
 					<tr>
 						<td class="td_mgmt_right3_td1a"> 
                             <br /> 
-                            <form action="doupdate?id=${subAccount.id }" method="post">
+                            <form action="doupdate" method="post">
 							<table width="90%" border="0" cellspacing="0" cellpadding="0">
 								<tr>
 									<td width="120" height="40" class="td_mgmt_right3_td1b">帐户名称：</td>
-									<td><input type="text" class="input_mgmt1" style="width:100px;" value="${subAccount.hostAccountName }" readonly="readonly" />&nbsp;-&nbsp;<input type="text" class="input_mgmt1" style="width:180px;" value="${subAccount.username }" name="username" required/></td>
+									<td><input type="text" id="hostAccountName" name="hostAccountName" class="input_mgmt1" style="width:100px;" value="" readonly="readonly" />&nbsp;-&nbsp;
+									<input type="text" class="input_mgmt1" style="width:180px;" value="" id="username" name="username" required/></td>
+									<td><input type="hidden" value="<%=id %>" name="id" id="id"/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">初始密码：</td>
-									<td><input type="password" class="input_mgmt1" style="width:300px;" value="${subAccount.password }" name="password" required/></td>
+									<td><input type="password" class="input_mgmt1" style="width:300px;" value="" id="password" name="password" placeholder="▪▪▪▪▪▪▪▪▪▪▪▪" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">权限：</td>
 									<td>
-									<c:choose>
-                                    <c:when test="${subAccount.resourceManagement == '有' }">
-                       				<input type="checkbox" id="checkbox" checked="checked" name="resourceManagement"/>
+									<input type="checkbox" id="resourceManagement" name="resourceManagement"/>
                                       	  资源管理&nbsp;&nbsp;&nbsp; 
-                                    </c:when>
-                                    <c:when test="${subAccount.resourceManagement == '无' }">
-                       				<input type="checkbox" id="checkbox" name="resourceManagement"/>
-                                      	  资源管理&nbsp;&nbsp;&nbsp; 
-                                    </c:when>
-                        			</c:choose>
-                        			
-                        			<c:choose>
-                                    <c:when test="${subAccount.transactionManagement == '有' }">
-                       				<input type="checkbox" id="checkbox" checked="checked" name="transactionManagement"/>
+                                    <input type="checkbox" id="transactionManagement" name="transactionManagement"/>
                                       	  交易管理&nbsp;&nbsp;&nbsp; 
-                                    </c:when>
-                                    <c:when test="${subAccount.transactionManagement == '无' }">
-                       				<input type="checkbox" id="checkbox" name="transactionManagement"/>
-                                      	  交易管理&nbsp;&nbsp;&nbsp; 
-                                    </c:when>
-                        			</c:choose>
-                        			
-                        			<c:choose>
-                                    <c:when test="${subAccount.schemaManagement == '有' }">
-                       				<input type="checkbox" id="checkbox" checked="checked" name="schemaManagement"/>
-                                      	  方案管理&nbsp;&nbsp;&nbsp; 
-                                    </c:when>
-                                    <c:when test="${subAccount.schemaManagement == '无' }">
-                       				<input type="checkbox" id="checkbox" name="schemaManagement"/>
-                                      	  方案管理&nbsp;&nbsp;&nbsp; 
-                                    </c:when>
-                        			</c:choose>
-                        			
-                        			<c:choose>
-                                    <c:when test="${subAccount.statisticsManagement == '有' }">
-                       				<input type="checkbox" id="checkbox" checked="checked" name="statisticsManagement"/>
-                                      	 统计分析&nbsp;&nbsp;&nbsp; 
-                                    </c:when>
-                                    <c:when test="${subAccount.statisticsManagement == '无' }">
-                       				<input type="checkbox" id="checkbox" name="statisticsManagement"/>
-                                      	 统计分析&nbsp;&nbsp;&nbsp; 
-                                    </c:when>
-                        			</c:choose>
-                        			
+                                    <input type="checkbox" id="schemaManagement" name="schemaManagement"/>
+                                      	  方案管理&nbsp;&nbsp;&nbsp;
+                                     <input type="checkbox" id="statisticsManagement" name="statisticsManagement"/>
+                                      	 统计分析&nbsp;&nbsp;&nbsp;  
                                     </td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">备注：</td>
 									<td>
-                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="remarks" required>${subAccount.remarks }</textarea>
+                                    	<textarea class="textarea_rating" placeholder="请输入内容..." id="remarks" name="remarks" required></textarea>
                                     </td>
 								</tr>
 								<tr>
@@ -163,6 +129,40 @@
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
+		getSubAccountInfo();
 	}
+	
+	//获取附属账户信息
+	function getSubAccountInfo(){
+		var url="getSubAccountInfoAjax";
+		var id=$("#id").val();
+		$.ajax({
+			url:url,
+			data:{id:id},
+			cache:false,
+			dataType:"json",
+			success:function(data,status){
+				var usernames=new Array();//前缀和后缀
+				usernames=data["username"].split("-");
+				$("#hostAccountName").val(usernames[0]);
+				$("#username").val(usernames[1]);
+				$("#remarks").text(data["remarks"]);
+				if(data.resourceManagement =='on'){
+					$("#resourceManagement").attr("checked","checked");
+				}
+				if(data.transactionManagement =='on'){
+					$("#transactionManagement").attr("checked","checked");					
+				}
+				if(data.schemaManagement =='on'){
+					$("#schemaManagement").attr("checked","checked");
+				}
+				if(data.statisticsManagement =='on'){
+					$("#statisticsManagement").attr("checked","checked");
+				}
+			}
+			
+		});
+	}
+	
 </script>
 </html>

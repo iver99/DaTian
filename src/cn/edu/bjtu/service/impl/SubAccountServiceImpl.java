@@ -4,17 +4,24 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import cn.edu.bjtu.dao.BaseDao;
+import cn.edu.bjtu.bean.page.SubAccountBean;
 import cn.edu.bjtu.dao.SubAccountDao;
+import cn.edu.bjtu.dao.UserinfoDao;
 import cn.edu.bjtu.service.SubAccountService;
+import cn.edu.bjtu.util.Constant;
+import cn.edu.bjtu.util.Encrypt;
 import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.vo.SubAccount;
+import cn.edu.bjtu.vo.Userinfo;
 
 
 @Transactional
@@ -36,6 +43,8 @@ public class SubAccountServiceImpl implements SubAccountService{
 	HQLTool hqltool;
 	@Resource
 	SubAccount subAccount;
+	@Autowired
+	UserinfoDao userinfoDao;
 	
 	@Override
 	/**
@@ -70,32 +79,38 @@ public class SubAccountServiceImpl implements SubAccountService{
 		return subAccountDao.getFindSubAccount(sql);
 	}
 	
-	@Override
-	public SubAccount getSubAccountDetail(String id){
-		
-		return subAccountDao.getSubAccountDetail(id);
-	}
 	
 	@Override
 	public boolean changeStatus(String id){
 		return subAccountDao.changeStatus(id);
 	}
 	
+	/**
+	 * 删除公司子账户
+	 */
 	@Override
 	public boolean deleteSubAccount(String id){
-		return subAccountDao.deleteSubAccount(id);
+		subAccountDao.deleteSubAccount(id);
+		//删除userinfo表
+		Userinfo user=userinfoDao.get(Userinfo.class, id);
+		
+		userinfoDao.delete(user);
+		
+		return true;
+		
 	}
 	
-	@Override
 	/**
 	 * 添加新的附属账户
 	 */
+	@Override
+	@Deprecated
 	public boolean insertSubAccount(String username,String password,String resourceManagement,
 			String transactionManagement,String schemaManagement,
 			String statisticsManagement,String remarks,
 			String hostAccountId,String hostAccountName){
 		
-		if(resourceManagement==null){
+		/*if(resourceManagement==null){
 			resourceManagement = new String("无");}
 		else if (resourceManagement.equals("on"))
 		{resourceManagement = new String("有");}
@@ -125,44 +140,76 @@ public class SubAccountServiceImpl implements SubAccountService{
 		subAccount.setRelDate(new Date());
 		subAccount.setStatus("正常");
 		
-		subAccountDao.save(subAccount);
+		subAccountDao.save(subAccount);*/
 		return true;
 	}
 	
 	@Override
-	public boolean updateSubAccount(String id, String username,String password,String resourceManagement,
-			String transactionManagement,String schemaManagement,
-			String statisticsManagement,String remarks){
+	public boolean updateSubAccount(SubAccountBean subAccountBean,HttpSession session){
 		
-		if(resourceManagement==null){
-			resourceManagement = new String("无");}
-		else if (resourceManagement.equals("on"))
-		{resourceManagement = new String("有");}
-		if(transactionManagement==null){
-			transactionManagement = new String("无");}
-		else if (transactionManagement.equals("on"))
-		{transactionManagement = new String("有");}
-		if(schemaManagement==null){
-			schemaManagement = new String("无");}
-		else if (schemaManagement.equals("on"))
-		{schemaManagement = new String("有");}
-		if(statisticsManagement==null){
-			statisticsManagement = new String("无");}
-		else if (statisticsManagement.equals("on"))
-		{statisticsManagement = new String("有");}
+		SubAccount sub_account=subAccountDao.get(SubAccount.class, subAccountBean.getId());
+		sub_account.setPassword(Encrypt.MD5(subAccountBean.getPassword()));
+		sub_account.setRemarks(subAccountBean.getRemarks());
+		sub_account.setResourceManagement(subAccountBean.getResourceManagement());
+		sub_account.setSchemaManagement(subAccountBean.getSchemaManagement());
+		sub_account.setStatisticsManagement(subAccountBean.getStatisticsManagement());
+		sub_account.setTransactionManagement(subAccountBean.getTransactionManagement());
+		//账户为父username-子username格式
+		sub_account.setUsername(subAccountBean.getHostAccountName().trim()+"-"+subAccountBean.getUsername());
 		
-		subAccount = subAccountDao.getSubAccountDetail(id);// 根据id查找到子账户
-
-		subAccount.setUsername(username);
-		subAccount.setPassword(password);
-		subAccount.setResourceManagement(resourceManagement);
-		subAccount.setTransactionManagement(transactionManagement);
-		subAccount.setSchemaManagement(schemaManagement);
-		subAccount.setStatisticsManagement(statisticsManagement);
-		subAccount.setRemarks(remarks);
+		subAccountDao.update(sub_account);
 		
-		 subAccountDao.update(subAccount);
-		 return true;
+		//更新userinfo表
+		Userinfo user=userinfoDao.get(Userinfo.class, subAccountBean.getId());
+		user.setUsername(subAccountBean.getHostAccountName().trim()+"-"+subAccountBean.getUsername());
+		user.setPassword(Encrypt.MD5(subAccountBean.getPassword()));//未加密
+		return true;
 	}
+
+	/**
+	 * 新增附属庄户
+	 */
+	@Override
+	public boolean addNewSubAccount(SubAccountBean subAccountBean,
+			HttpSession session) {
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+		SubAccount sub_account=new SubAccount();
+		BeanUtils.copyProperties(subAccountBean, sub_account);
+		sub_account.setUsername(subAccountBean.getHostAccountName().trim()+"-"+subAccountBean.getUsername());
+		sub_account.setPassword(Encrypt.MD5(subAccountBean.getPassword()));
+		sub_account.setId(IdCreator.createSubAccountId());
+		sub_account.setHostAccountId(userId);
+		sub_account.setRelDate(new Date());
+		sub_account.setStatus("正常");
+		subAccountDao.save(sub_account);
+		
+		//保存userinfo表
+		Userinfo userInfo=new Userinfo();
+		userInfo.setUsername(subAccountBean.getHostAccountName().trim()+"-"+subAccountBean.getUsername());
+		//userInfo.setPhone(phone);
+		userInfo.setId(sub_account.getId());
+		userInfo.setPassword(Encrypt.MD5(subAccountBean.getPassword()));//未加密
+		userInfo.setStatus("未验证");
+		userInfo.setEmailStatus("未绑定");
+		userInfo.setPhoneStatus("已绑定");
+		userInfo.setSecurityQuestionStatus("未设置");
+		//userInfo.setPrivilege(privilege);
+		userInfo.setStatus("未验证");
+		userInfo.setUserKind(3);//默认作为企业用户
+		userInfo.setHeadIcon("未设置");// add by RussWest0 at 2015年6月2日,下午11:56:49 
+		userinfoDao.save(userInfo);//保存实体
+		return true;
+	}
+
+	/**
+	 * 获取附属账户
+	 */
+	@Override
+	public SubAccount getSubAccountDetail(String id) {
+		
+		return subAccountDao.get(SubAccount.class, id);
+	}
+	
+	
 	
 }
