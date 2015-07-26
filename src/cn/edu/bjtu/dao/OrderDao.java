@@ -26,7 +26,6 @@ public interface OrderDao extends BaseDao<Orderform> {
 	
 	public float getExpectedMoney(String orderId);
 	
-	public boolean signBill(String orderId,float actualPrice,String explainReason,String path,String fileName);
 	
 	public Orderform getOrderInfo(String orderId);
 	

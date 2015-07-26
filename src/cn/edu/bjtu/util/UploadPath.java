@@ -159,7 +159,7 @@ public class UploadPath {
 	//签单上传图像
 	public static String getSignBillPath() {
 		if (isWindows()) {//windows系统
-			String path = "D://uploadFile//signBill";//上传到D盘
+			String path = "D://eclipse_project//.metadata//.plugins//org.eclipse.wst.server.core//tmp0//wtpwebapps//DaTian//file//signBill";//上传到D盘
 			file = new File(path);
 			file.mkdirs();//以防文件夹不存在
 			return path;

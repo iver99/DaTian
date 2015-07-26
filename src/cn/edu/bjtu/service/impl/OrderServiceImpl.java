@@ -102,12 +102,21 @@ public class OrderServiceImpl implements OrderService {
 		return orderDao.getExpectedMoney(orderId);
 	}
 
+	/**
+	 * 签单上传操作
+	 */
 	@Override
 	public boolean signBill(String orderId, float actualPrice,
-			String explainReason,String path,String fileName) {
+			String explainReason,String fileLocation) {
+		Orderform order = orderDao.get(Orderform.class, orderId);
+		order.setState("待确认");//修改 订单状态
+		order.setActualPrice(actualPrice);
+		order.setExplainReason(explainReason);
+		order.setAcceptPicture(fileLocation);
 		
+		orderDao.update(order);
+		return true;
 		
-		return orderDao.signBill(orderId, actualPrice, explainReason,path,fileName);
 	}
 
 	@Override
@@ -159,11 +168,22 @@ public class OrderServiceImpl implements OrderService {
 	}*/
 	
 
+	/**
+	 * 承运方签单上传后的更新
+	 */
 	@Override
-	public boolean DoGetOrderWaitToConfirmUpdate(String orderId,
-			float actualPrice, String explainReason,String path,String fileName) {
+	public boolean updateSignBill(String orderId,
+			float actualPrice, String explainReason,String fileLocation) {
 		
-		return orderDao.signBill(orderId, actualPrice, explainReason,path,fileName);
+		Orderform order=orderDao.get(Orderform.class, orderId);
+		order.setActualPrice(actualPrice);
+		order.setExplainReason(explainReason);
+		order.setAcceptPicture(fileLocation);
+		
+		orderDao.update(order);
+		
+		return true;
+		//return orderDao.signBill(orderId, actualPrice, explainReason,path,fileName);
 	}
 
 	/**

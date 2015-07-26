@@ -30,7 +30,7 @@ public interface OrderService {
 	public float getExpectedMoney(String orderId);
 
 	public boolean signBill(String orderId, float actualPrice,
-			String explainReason,String path,String fileName);
+			String explainReason,String fileLocation);
 
 	public Orderform getOrderInfo(String orderId);
 
@@ -45,8 +45,8 @@ public interface OrderService {
 			String deliveryPhone, String deliveryAddr, String recieverName,
 			String recieverPhone, String recieverAddr, String remarks);
 */
-	public boolean DoGetOrderWaitToConfirmUpdate(String orderId,
-			float actualPrice, String explainReason,String path,String fileName);
+	public boolean updateSignBill(String orderId,
+			float actualPrice, String explainReason,String fileLocation);
 	
 /*	@Deprecated
 	public boolean createNewOrder(String userId, String hasCarrierContract,

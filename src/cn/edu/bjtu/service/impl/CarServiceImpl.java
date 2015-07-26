@@ -155,7 +155,7 @@ public class CarServiceImpl implements CarService {
 				wheresql+=" and t1.carWeight=8";
 			}
 			if (carWeight.equals("12ถึ")) {
-				wheresql+=" and t1.carWeight=10";
+				wheresql+=" and t1.carWeight=12";
 			}
 			if (carWeight.equals("16ถึ")) {
 				wheresql+=" and t1.carWeight=16";

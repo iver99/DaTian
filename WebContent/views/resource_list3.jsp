@@ -133,7 +133,7 @@
 									</dd>
 								</dl>
 							</li>
-					 	<li class="resource_list">
+					 	<!-- <li class="resource_list">
 								<dl>
 									<dt>车辆位置：</dt>
 									<dd>
@@ -143,7 +143,7 @@
 											readonly="readonly" onclick="showid('popup2');map()" />
 									</dd>
 								</dl>
-							</li> 
+							</li>  -->
 							<li class="resource_result">
 								<dl>
 									<dt>已选条件：</dt>

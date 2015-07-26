@@ -31,6 +31,7 @@ import cn.edu.bjtu.service.ResponseService;
 import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.JSON;
 import cn.edu.bjtu.util.PageUtil;
+import cn.edu.bjtu.util.UploadFile;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Carinfo;
 import cn.edu.bjtu.vo.Carrierinfo;
@@ -275,6 +276,16 @@ public class OrderController {
 		return mv;
 	}
 
+	/**
+	 * 签单上传
+	 * @param file
+	 * @param orderid
+	 * @param actualPrice
+	 * @param explainReason
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping("signBill")
 	public ModelAndView SignBill(@RequestParam(required = false) MultipartFile file,String orderid, float actualPrice,
 			String explainReason, HttpServletRequest request,
@@ -282,7 +293,9 @@ public class OrderController {
 		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		// ////////////////////////////////////////////////////////////////////////
 
-		String path = null;
+		//保存文件
+		String fileLocation=UploadFile.uploadFile(file, carrierId, "signBill");
+		/*String path = null;
 		String fileName = null;
 		if (file.getSize() != 0)// 有上传文件的情况
 		{
@@ -295,10 +308,10 @@ public class OrderController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} 
+		} */
 		//没有上传文件的情况path 和 filenName默认为null
 		boolean flag = orderService.signBill(orderid, actualPrice,
-				explainReason,path,fileName);
+				explainReason,fileLocation);
 		try {
 			if (flag == true)
 				response.sendRedirect("recieveorderinfo");
@@ -727,37 +740,26 @@ public class OrderController {
 		return mv;
 	}
 
+	/**
+	 * 承运方签单上传后的跟新
+	 * @param orderid
+	 * @param actualPrice
+	 * @param explainReason
+	 * @param request
+	 * @param response
+	 * @param file
+	 * @return
+	 */
 	@RequestMapping("updateSignBill")
-	public ModelAndView updateSignBill(String orderid,
+	public String updateSignBill(String orderid,
 			float actualPrice, String explainReason,
 			HttpServletRequest request, HttpServletResponse response,@RequestParam(required = false) MultipartFile file) {
 		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
-		String path = null;
-		String fileName = null;
-		if (file.getSize() != 0)// 有上传文件的情况
-		{
-			path = UploadPath.getSignBillPath();// 不同的地方取不同的上传路径
-			fileName = file.getOriginalFilename();
-			fileName = carrierId + "_" + fileName;// 文件名
-			File targetFile = new File(path, fileName);
-			try { // 保存 文件
-				file.transferTo(targetFile);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} 
-		boolean flag = orderService.DoGetOrderWaitToConfirmUpdate(orderid,
-				actualPrice, explainReason,path,fileName);
-		try {
-			if (flag == true)
-				response.sendRedirect("recieveorderinfo");
-			else
-				System.out.println("待确认失败");// logging...
-		} catch (IOException e) {
-			// 
-			e.printStackTrace();
-		}
-		return mv;
+
+		String fileLocation=UploadFile.uploadFile(file, carrierId, "signBill");
+		orderService.updateSignBill(orderid,
+				actualPrice, explainReason,fileLocation);
+		return "redirect:recieveorderinfo";
 	}
 
 	@RequestMapping("getneworderform")
@@ -827,45 +829,6 @@ public class OrderController {
 		return "redirect:sendorderinfo";
 	}
 	
-	/*@Deprecated
-	@RequestMapping("createNewOrderFromGoods")
-	public ModelAndView createNewOrderFromGoods(String carrierid, String clientName,
-			String hasCarrierContract, @RequestParam String deliveryName,
-			@RequestParam String recieverName,
-			@RequestParam String deliveryPhone,
-			@RequestParam String recieverPhone,
-			@RequestParam String deliveryAddr,
-			@RequestParam String recieverAddr, String remarks,
-			String goodsName, float goodsWeight, float goodsVolume,
-			float declaredPrice, float expectedPrice, float insurance,
-			String contractId, HttpServletRequest request,
-			HttpServletResponse response,@RequestParam String isLinkToClientWayBill,
-			@RequestParam(required=false) String clientWayBillNum,String resourceName,String resourceType,String companyName,
-			String responseid,String goodsid) {
-		// 页面有许多字段没有传入
-		// clientName参数里有，但是没有使用
-		String userId = (String) request.getSession().getAttribute(Constant.USER_ID);
-		boolean flag = orderService.createNewOrder(userId, hasCarrierContract,
-				deliveryName, recieverName, deliveryPhone, recieverPhone,
-				deliveryAddr, recieverAddr, remarks, goodsName, goodsVolume,
-				goodsWeight, expectedPrice, declaredPrice, insurance,
-				contractId, carrierid,isLinkToClientWayBill,clientWayBillNum,resourceName,resourceType,companyName,clientName);
-		if (flag == true) {
-			//反馈表修改状态
-			responseService.confirmResponse(responseid,carrierid,goodsid);//修改确认反馈信息为已确认，其它反馈信息为已取消状态
-			//货物表修改状态
-			goodsInfoService.confirmResponse(goodsid);
-			
-			try {
-				response.sendRedirect("sendorderinfo");
-			} catch (IOException e) {
-				// 
-				e.printStackTrace();
-			}
-		}
-		mv.setViewName("mgmt_d_order_s");
-		return mv;
-	}*/
 	
 	/**
 	 * 从我的货物栏下订单
