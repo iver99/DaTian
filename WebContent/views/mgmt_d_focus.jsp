@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-  
-    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="d" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -75,7 +72,7 @@
                             <!-- <span class="span_mgmt_right2_text2"><a href="javascript:;" hidefocus="true" class="a_btn_mgmt3">取消关注</a></span> -->
                             <div class="div_mgmt_s1">
                             <form action="findfocus" method="post">
-                            	<input type="text" class="input_mgmt1" style="width:200px;" value="关注内容" name="text"/>
+                            	<input type="text" class="input_mgmt1" style="width:200px;" placeholder="关注内容" name="search_focus" id="search_focus"/>
                                 <input type="submit" id="btn1" value="查询" class="btn_mgmt3" hidefocus="true" />
                                 </form>
                             </div>
@@ -361,6 +358,10 @@
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
+		var search_content=$("#search_focus").val();
+		var display=$("#display").val();
+		var currentPage=$("#currentPage").val();
+		getUserFocusAjax(search_content,display,currentPage);
 	}
 	
 	//获取用户的关注列表
@@ -372,11 +373,33 @@
 				search_content:search_content,
 				display:display,
 				currentPage:currentPage
-			}
+			},
 			dataType:"json",
 			cache:false,
 			success:function(data,status){
-				
+				var body=$("#result_body");
+				for(var i=0;i<data.length;i++){
+					if(data[i].focusType == 'linetransport'){
+						body.append("");
+						//......
+					}
+					if(data[i].focusType == 'cityline'){
+											
+					}
+					if(data[i].focusType == 'car'){
+						
+					}
+					if(data[i].focusType == 'warehouse'){
+						
+					}
+					if(data[i].focusType == 'goods'){
+						
+					}
+					if(data[i].focusType == 'company'){
+						
+					}
+
+				}
 			}
 				
 		});
@@ -390,7 +413,7 @@
 				search_content:search_content,
 				display:display,
 				currentPage:currentPage
-			}
+			},
 			dataType:"json",
 			cache:false,
 			success:function(data,status){

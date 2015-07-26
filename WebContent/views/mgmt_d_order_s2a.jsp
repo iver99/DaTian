@@ -345,10 +345,8 @@
 	function getUserContract(){
 		var url="getUserContractIdAjax";
 		$.post(url,{currentUserId:$('#currentUserId').val()},function(data,status){
-			//alert(data);
 			var CONTRACTID=$('#contractId');
-			//var option = $("<option>").text("").val("");
-			//debugger;
+			CONTRACTID.empty();
 			 for(var i=0;i<data.length;i++) {
 		         option = $("<option>").text(data[i].id).val(data[i].id);
 		         CONTRACTID.append(option);
@@ -360,7 +358,7 @@
 		var url="getUserBusinessClientAjax";
 		$.post(url,{currentUserId:$('#currentUserId').val()},function(data,status){
 			var client_name=$('#clientName');
-			//var option = $("<option>").text("").val("");
+			client_name.empty();
 			 for(var i=0;i<data.length;i++) {
 		         var option = $("<option>").text(data[i].clientName).val(data[i].clientName);
 		         client_name.append(option);
