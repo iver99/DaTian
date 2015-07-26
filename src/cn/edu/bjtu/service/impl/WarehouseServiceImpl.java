@@ -499,7 +499,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 	public JSONArray getUserWarehouseResource(HttpSession session,PageUtil pageUtil) {
 		
 		String carrierId=(String)session.getAttribute(Constant.USER_ID);
-		String hql="from Warehouse t where t.carrierId=:carrierId order by t.relDate";
+		String hql="from Warehouse t where t.carrierId=:carrierId order by t.relDate desc ";
 		Map<String,Object> params=new HashMap<String,Object>();
 		params.put("carrierId", carrierId);
 		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();

@@ -115,31 +115,6 @@
 					</thead>
 					<tbody id="result_body">
 					</tbody>
-					<%-- <c:forEach var="contract" items="${contractList }">
-					<tr>
-                        <td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
-                        <td class="td_mgmt_right3_td1"><a href="contractdetail?contractId=${contract.id }&flag=44" hidefocus="true">${contract.id }</a></td>
-                        <td class="td_mgmt_right3_td1" id="name">${contract.name }</td>
-                        <td class="td_mgmt_right3_td1">${carrierInfo.companyName }</td>
-                        <td class="td_mgmt_right3_td1">${contract.monthlyStatementDays }</td>
-                        <td class="td_mgmt_right3_td1">${contract.startDate }</td>
-                        <td class="td_mgmt_right3_td1">${contract.state }</td>
-                        <c:choose>
-                        <c:when test="${contract.state=='待确认' }">
-                        <td class="td_mgmt_right3_td3"><a href="contractdetail?contractId=${contract.id }&flag=11" hidefocus="true">确认</a></td>
-						</c:when>
-						<c:when test="${contract.state=='有效' }">
-                        <td class="td_mgmt_right3_td3"><a href="contractdetail?contractId=${contract.id }&flag=22" hidefocus="true">终止</a></td>
-						</c:when>
-						<c:when test="${contract.state=='已终止' }">
-                        <td class="td_mgmt_right3_td3"><a href="contractdetail?contractId=${contract.id }&flag=33" hidefocus="true">查看</a></td>
-						</c:when>
-						<c:otherwise>
-						<td class="td_mgmt_right3_td3"><a href="contractdetail?contractId=${contract.id }&flag=44" hidefocus="true">查看</a></td>
-						</c:otherwise>
-						</c:choose>
-					</tr>
-					</c:forEach> --%> 
 				</table>
 				<table border="0" cellpadding="0" cellspacing="0" class="table_recordnumber">
                     <tr>
@@ -171,6 +146,7 @@
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
+		debugger;
 		var display=$("#display").val();
 		var currentPage=$("#currentPage").val();
 		//搜索信息
