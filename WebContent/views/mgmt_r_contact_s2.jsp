@@ -99,7 +99,6 @@
                                 <td height="40" class="td_mgmt_right3_td1b">承运方帐户：</td>
                                 <td>
                                     <select id="carrierId" name="carrierId" data-placeholder="请选择" style="width:308px;" required>
-                                        <option value=""></option>
                                             <%-- <c:forEach var="companyList" items="${companyList }">
                                             <option value="${companyList.id }">${companyList.companyName }</option>
                                             </c:forEach> --%>
@@ -181,7 +180,7 @@
 <%@ include  file="popup1.jsp"%>
 
 <div id="footer_frame">
-	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="views/footer.jsp"></iframe>
+	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="footer.jsp"></iframe>
 </div>
 
 </body>

@@ -94,7 +94,7 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">性别：</td>
                                      <td>
-                                    <select style="width:120px;" name="sex" required>
+                                    <select style="width:120px;" name="sex" id="sex" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="男" >男</option>
                                             <option value="女">女</option>
@@ -115,7 +115,7 @@
                                     
                                     <c:choose>
                                     <c:when test="${driver.licenceRate == '' }">
-                                    	<select style="width:120px;" name="licenceRate" required>
+                                    	<select style="width:120px;" name="licenceRate" id="licenceRate" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="A">A</option>
                                             <option value="B">B</option>
@@ -189,13 +189,21 @@
 <%@ include  file="popup1.jsp"%>
 
 <div id="footer_frame">
-	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="views/footer.jsp"></iframe>
+	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="footer.jsp"></iframe>
 </div>
 
 </body>
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
+		//设置数据
+		setData();
+	}
+	
+	function setData(){
+		$("#licenceRate").attr("value","${driver.licenceRate}");
+		$("#sex").attr("value","${driver.sex}");
+		
 	}
 </script>
 </html>

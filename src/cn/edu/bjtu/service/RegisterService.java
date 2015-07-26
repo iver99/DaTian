@@ -12,13 +12,4 @@ public interface RegisterService {
 	public List getUserCheck(String username);
 	//public boolean registerInfo(String userId);
 	
-	
-	/**
-	 * ×¢²á£¨Ìí¼Ó£©¸½ÊôÕË»§
-	 * @param username
-	 * @param password
-	 * @param userKind
-	 * @return
-	 */
-	public boolean registerSubAccount(String username,String password,int  userKind);
 }

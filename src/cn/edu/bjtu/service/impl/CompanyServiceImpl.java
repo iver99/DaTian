@@ -53,25 +53,6 @@ public class CompanyServiceImpl implements CompanyService{
 		return companyDao.getAllCompany(Display,PageNow);
 	}
 	
-
-	@Override
-	/**
-	 * 返回所有公司
-	 */
-	@Deprecated
-	public List getAllCompanyWithoutPage(){
-		return companyDao.getAllCompanyWithoutPage();
-	}
-
-	/*@Override
-	*//**
-	 * 返回公司信息
-	 *//*
-	public Carrierinfo getCarrierInfo(String id) {
-		
-		return companyDao.getCarrierInfo(id);
-	}*/
-	
 	@Override
 	/**
 	 * 条件筛选公司
@@ -240,6 +221,8 @@ public class CompanyServiceImpl implements CompanyService{
 		if(userId!=null){
 			sql+=" where t2.focusType='company' and t2.clientId=:clientId ";
 			params.put("clientId", userId);
+		}else{
+			sql+=" where t2.focusType='company' and t2.clientId=''";
 		}
 		sql+=") t3 on t1.id=t3.focusId ";
 		String wheresql=whereSql(companyBean,params);

@@ -73,7 +73,8 @@
 							<table width="90%" border="0" cellspacing="0" cellpadding="0">
 								<tr>
 									<td width="120" height="40" class="td_mgmt_right3_td1b">帐户名称：</td>
-									<td><input type="text" class="input_mgmt1" style="width:100px;" value="${username } " readonly="readonly" />&nbsp;-&nbsp;<input type="text" class="input_mgmt1" style="width:180px;" value="" name="username" id="username" required/>&nbsp;&nbsp;<a href="javascript:;" hidefocus="true" onclick="loadXMLDoc()">检查用户名</a></td>
+									<td><input type="text" class="input_mgmt1" style="width:100px;" value="${username } " name="hostAccountName" readonly="readonly" />&nbsp;-&nbsp;
+									<input type="text" class="input_mgmt1" style="width:180px;" value="" name="username" id="username" required/>&nbsp;&nbsp;<a href="javascript:;" hidefocus="true" onclick="loadXMLDoc()">检查用户名</a></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">初始密码：</td>
@@ -117,7 +118,7 @@
 <%@ include  file="popup1.jsp"%>
 
 <div id="footer_frame">
-	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="views/footer.jsp"></iframe>
+	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="footer.jsp"></iframe>
 </div>
 
 </body>

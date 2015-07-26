@@ -60,8 +60,10 @@ public class UploadFile {
 		}
 		
 			fileLocation = path + "//" + fileName;
-			
-			return fileLocation;
+			if ("signBill".equals(fileType)){
+				return fileName;
+			}else
+				return fileLocation;
 		
 	}
 

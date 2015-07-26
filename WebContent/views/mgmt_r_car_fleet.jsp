@@ -80,7 +80,14 @@
                         </td>
                 	</tr>
             	</table>
+            	<input id="count" value="" type="hidden" /><!--  总记录条数 -->
+				<input id="display" value="10" type="hidden" /> <!-- 每页展示的数量 -->
+				<input id="currentPage" value="1" type="hidden" /><!-- 当前页 -->
+				<input id="is_resource_page" value="0" type="hidden"/><!-- 是否为资源页，资源页需要模拟click按钮 -->
+				<input id="kind" value="carTeam" type="hidden"/><!-- 用于判断是哪一栏的分页,用于splitPage.js -->
+            	
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
+                	<thead>
                     <tr>
                         <td width="20" height="40" class="td_mgmt_right3_head1">&nbsp;</td>
                         <td class="td_mgmt_right3_head">车队名称</td>
@@ -90,7 +97,10 @@
                         <td width="80" class="td_mgmt_right3_head">发布日期</td>
                         <td width="80" class="td_mgmt_right3_head">操作</td>
                     </tr>
-                    <c:forEach var="carteam" items="${carteamList }">
+                	</thead>
+                	<tbody id="result_body">
+                	</tbody>
+                   <%--  <c:forEach var="carteam" items="${carteamList }">
                     <tr>
                         <td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
                         <td class="td_mgmt_right3_td1"><a href="carteamdetail?id=${carteam.id }&flag=1" hidefocus="true">${carteam.teamName }</a></td>
@@ -116,31 +126,22 @@
                             </div>
                         </td>
                     </tr>
-                    </c:forEach>
+                    </c:forEach> --%>
                 </table>
 				<table border="0" cellpadding="0" cellspacing="0" class="table_recordnumber">
                     <tr>
 	                    <td>
                             每页
-                            <select>
-                                <option value="" selected="selected">10</option>
-                                <option value="a">20</option>
-                                <option value="b">50</option>
+                            <select id="Display" onchange="changeDisplay()">
+                                <option value="10" selected="selected">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
                             </select>
                             条记录
                         </td>
                     </tr>
 				</table>
-                <table border="0" cellpadding="0" cellspacing="0" class="table_pagenumber">
-                    <tr>
-                        <td width="45" class="td_pagenumber">首页</td>
-                        <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">上页</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">1</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">2</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">3</a></td>
-                        <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">下页</a></td>
-                        <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">末页</a></td>
-                    </tr>
+                <table border="0" cellpadding="0" cellspacing="0" class="table_pagenumber" id="page_layout">
 				</table>
 			</td>
 		</tr>
@@ -150,13 +151,87 @@
 <%@ include  file="popup1.jsp"%>
 
 <div id="footer_frame">
-	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="views/footer.jsp"></iframe>
+	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="footer.jsp"></iframe>
 </div>
 
 </body>
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
+		
+		//加载资源
+		var display=$("#display").val();
+		var currentPage=$("#currentPage").val();
+		getUserCarTeamResource(display,currentPage);
+		getUserCarTeamResourceTotalRows(display,currentPage);
+	}
+	
+	//加载车队资源
+	function getUserCarTeamResource(display,currentPage){
+		var url="getUserCarTeamResourceAjax";
+		$.ajax({
+			url:url,
+			dataType:"json",
+			data:{
+				display:display,
+				currentPage:currentPage
+				},
+			cache:false,
+			success:function(data,status){
+				
+				var body=$("#result_body");
+				body.empty();
+				for(var i=0;i<data.length;i++){
+					body.append("<tr>");
+					body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>");
+					body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"carteamdetail?id=${carteam.id }&flag=1\" hidefocus=\"true\">${carteam.teamName }</a></td>");
+					body.append("<td class=\"td_mgmt_right3_td1\">${carteam.carCount }</td>");
+					body.append("<td class=\"td_mgmt_right3_td1\">${carteam.chief }</td>");
+					body.append("<td class=\"td_mgmt_right3_td1\">${carteam.phone }</td>");
+					body.append("<td class=\"td_mgmt_right3_td1\">${carteam.relDate }</td>");
+					var str="<td class=\"td_mgmt_right3_td3\">";
+					str+="<div id=\"handlebox\" style=\"z-index:203;\">";
+					str+="<ul class=\"quickmenu\">";
+					str+="<li class=\"menuitem\">";
+					str+="<div class=\"menu\">";
+					str+="<a href=\"carteamdetail?id=${carteam.id }&flag=2\" class=\"menuhd\" hidefocus=\"true\">更新</a>";
+					str+="<div class=\"menubd\">";
+					str+="<div class=\"menubdpanel\">";
+					str+="<a href=\"deletecarteam?id=${carteam.id }\" class=\"a_top3\" hidefocus=\"true\">删除</a>";
+					/* str+="<a href=\"javascript:;\" class=\"a_top3\" hidefocus=\"true\">切换</a>"; */
+					str+="</div></div></div></li></ul></div></td></tr>";
+					body.append(str);
+				}
+			}
+		});
+	}
+	
+	//加载车队资源数目
+	function getUserCarTeamResourceTotalRows(display,currentPage){
+		var url="getUserCarTeamResourceTotalRowsAjax";
+		$.ajax({
+			url:url,
+			dataType:"json",
+			data:{
+				display:display,
+				currentPage:currentPage
+				},
+			cache:false,
+			success:function(data,status){
+				 $('#count').val(data);
+				 $("#page_layout").empty();
+				  pageLayout(data);//页面布局
+			}
+		});
+	}
+	//变更每页展示数量
+	function changeDisplay(){
+		//修改隐藏字段，每页数量
+		$("#display").val($("#Display").val());
+			var display=$("#display").val();
+			var currentPage=$("#currentPage").val();
+			getUserCarTeamResource(display,currentPage);
+			getUserCarTeamResourceTotalRows(display,currentPage);
 	}
 </script>
 </html>

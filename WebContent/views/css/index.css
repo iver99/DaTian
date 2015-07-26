@@ -1746,8 +1746,12 @@ a.a_cityswitch1:hover {
 	border:1px solid #0e6fb7;
 	}
 /**********城市切换结束****/
-
-
+/**add by haochendong 2015 7 15**/
+.td_intro1 {
+	line-height:28px;
+	padding:10px 40px;
+	text-indent:2em;
+	}
 
 
 
@@ -2413,6 +2417,7 @@ a.a_register {
 	position:fixed;
 	bottom:122px;
 	right:0;
+	width:0;
 	height:120px;
 	}
 .qqserver .qqserver_fold {
@@ -2433,7 +2438,9 @@ a.a_register {
 	}
 
 .qqserver.unfold .qqserver-body {
-	right:2px;
+	right:130px;
+	width:122px;
+	height:140px;
 	}
 .qqserver .qqserver-body {
 	position:absolute;

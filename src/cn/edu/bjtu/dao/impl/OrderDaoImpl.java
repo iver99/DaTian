@@ -106,25 +106,6 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 			return 0.0f;
 	}
 
-	@Override
-	/**
-	 * 承运方修改订单状态为待确认
-	 */
-	public boolean signBill(String orderId,float actualPrice,String explainReason,String path,String fileName) {
-		
-		
-		Orderform order = (Orderform) ht.get(Orderform.class, orderId);
-		order.setState("待确认");//修改 订单状态
-		order.setActualPrice(actualPrice);
-		order.setExplainReason(explainReason);
-		// 保存文件路径
-				if (path != null && fileName != null) {
-					String fileLocation = path + "//" + fileName;
-					order.setAcceptPicture(fileLocation);
-				}
-		this.update(order);
-		return true;
-	}
 
 	@Override
 	/**

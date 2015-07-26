@@ -47,14 +47,14 @@ public class ContractController {
 
 	ModelAndView mv = new ModelAndView();
 
-	@RequestMapping("/contract")
-	/**
+	/*@RequestMapping("/contract")
+	*//**
 	 * 获取个人用户所有的合同
 	 * @param contractId
 	 * @param flag
 	 * @param request
 	 * @return
-	 */
+	 *//*
 	@Deprecated
 	public ModelAndView getCompanyContractForUser(HttpServletRequest request) {
 		String clientId=(String)request.getSession().getAttribute(Constant.USER_ID);
@@ -62,21 +62,36 @@ public class ContractController {
 		List<Contract> contractList = contractService.getContractByClientId(clientId);
 		mv.addObject("contractList", contractList);
 		
-		List companyList = companyService.getAllCompanyWithoutPage();
 		mv.addObject("companyList", companyList);
 		mv.setViewName("mgmt_r_contact_s");
 		return mv;
 
+	}*/
+	/**
+	 * 获取需求方合同页面
+	 * @return
+	 */
+	@RequestMapping("contract")
+	public String getUserContractPage(){
+		return "mgmt_r_contact_s";
 	}
 	
-	@RequestMapping("/contract2")
+	/**
+	 * 获取承运方合同页面 
+	 * @return
+	 */
+	@RequestMapping("contract2")
+	public String getCarrierContractPage(){
+		return "mgmt_r_contact_r";
+	}
 	/**
 	 * 获取公司所有的合同
 	 * @param contractId
 	 * @param flag
 	 * @param request
 	 * @return
-	 */
+	 *//*
+	@RequestMapping("/contract2")
 	@Deprecated
 	public ModelAndView getCompanyContractForCompany(HttpServletRequest request) {
 		String carrierId=(String)request.getSession().getAttribute(Constant.USER_ID);
@@ -88,7 +103,7 @@ public class ContractController {
 		mv.setViewName("mgmt_r_contact_r");
 		return mv;
 
-	}
+	}*/
 	
 	@RequestMapping("contractdetail")
 	/**
@@ -139,17 +154,9 @@ public class ContractController {
 
 	/**
 	 * 新增合同
-	 * @param id
-	 * @param name
-	 * @param caculateType
-	 * @param carrierAccount
-	 * @param startDate
-	 * @param endDate
-	 * @param contact
-	 * @param phone
-	 * @param remarks
+	 * @param contract
+	 * @param file
 	 * @param request
-	 * @param response
 	 * @return
 	 */
 	@RequestMapping(value = "insertContract", method = RequestMethod.POST)
@@ -386,24 +393,6 @@ public class ContractController {
 		return contractService.getUserContractTotalRows(session,contract);
 	}
 	
-	/**
-	 * 合同信息-上方搜索功能
-	 * @param session
-	 * @param contract
-	 * @return
-	 *//*
-	@ResponseBody
-	@RequestMapping(value="searchContractAjax",produces="text/html;charset=UTF-8")
-	public String searchContract(HttpSession session,Contract contract){
-		
-		return contractService.searchContract(session,contract);
-		
-	}
 	
-	@ResponseBody
-	@RequestMapping("searchContractTotalRowsAjax")
-	public Integer getSearchContractTotalRows(HttpSession session,Contract contract){
-		return contractService.getSearchContractTotalRows(session,contract);
-	}*/
 	
 }

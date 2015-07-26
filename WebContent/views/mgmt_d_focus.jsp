@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-  
-    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="d" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -75,14 +72,21 @@
                             <!-- <span class="span_mgmt_right2_text2"><a href="javascript:;" hidefocus="true" class="a_btn_mgmt3">取消关注</a></span> -->
                             <div class="div_mgmt_s1">
                             <form action="findfocus" method="post">
-                            	<input type="text" class="input_mgmt1" style="width:200px;" value="关注内容" name="text"/>
+                            	<input type="text" class="input_mgmt1" style="width:200px;" placeholder="关注内容" name="search_focus" id="search_focus"/>
                                 <input type="submit" id="btn1" value="查询" class="btn_mgmt3" hidefocus="true" />
                                 </form>
                             </div>
                         </td>
                 	</tr>
             	</table>
+            	
+            	<input id="count" value="" type="hidden" /><!--  总记录条数 -->
+				<input id="display" value="10" type="hidden" /> <!-- 每页展示的数量 -->
+				<input id="currentPage" value="1" type="hidden" /><!-- 当前页 -->
+				<input id="is_resource_page" value="0" type="hidden"/><!-- 是否为资源页，资源页需要模拟click按钮 -->
+				<input id="kind" value="focus" type="hidden"/><!-- 用于判断是哪一栏的分页,用于splitPage.js -->
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
+                <thead>
                     <tr>
                         <td width="30" height="40" class="td_mgmt_right3_head1"><input type="checkbox" id="f1_all" onClick="selectall();" /></td>
 						<td width="60" class="td_mgmt_right3_head">类别</td>
@@ -91,7 +95,10 @@
                         <td width="60" class="td_mgmt_right3_head">状态</td>
                         <td width="80" class="td_mgmt_right3_head">操作</td>
 					</tr>
-                   <c:forEach var="focusLineList" items="${focusLineList }">
+                </thead>
+                <tbody id="result_body">
+                </tbody>
+                  <%--  <c:forEach var="focusLineList" items="${focusLineList }">
                      <tr>
 						<td height="60" class="td_mgmt_right3_td1d"><input type="checkbox" name="f1" id="f1a" /></td>
 						<td class="td_mgmt_right3_td1">运输线路</td>
@@ -289,17 +296,17 @@
                         </c:when>
                         </c:choose>
 					</tr>
-					</c:forEach>
+					</c:forEach> --%>
 					
                 </table>
 				<table border="0" cellpadding="0" cellspacing="0" class="table_recordnumber">
                     <tr>
 	                    <td>
                             每页
-                            <select>
-                                <option value="" selected="selected">10</option>
-                                <option value="a">20</option>
-                                <option value="b">50</option>
+                            <select  id="Display" onchange="changeDisplay()">
+                                <option value="10" selected="selected">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
                             </select>
                             条记录
                         </td>
@@ -344,13 +351,76 @@
 </div> --%>
 
 <div id="footer_frame">
-	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="views/footer.jsp"></iframe>
+	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="footer.jsp"></iframe>
 </div>
 
 </body>
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
+		var search_content=$("#search_focus").val();
+		var display=$("#display").val();
+		var currentPage=$("#currentPage").val();
+		getUserFocusAjax(search_content,display,currentPage);
+	}
+	
+	//获取用户的关注列表
+	function getUserFocusAjax(search_content,display,currentPage){
+		var url="getUserFocusAjax";
+		$.ajax({
+			url:url,
+			data:{
+				search_content:search_content,
+				display:display,
+				currentPage:currentPage
+			},
+			dataType:"json",
+			cache:false,
+			success:function(data,status){
+				var body=$("#result_body");
+				for(var i=0;i<data.length;i++){
+					if(data[i].focusType == 'linetransport'){
+						body.append("");
+						//......
+					}
+					if(data[i].focusType == 'cityline'){
+											
+					}
+					if(data[i].focusType == 'car'){
+						
+					}
+					if(data[i].focusType == 'warehouse'){
+						
+					}
+					if(data[i].focusType == 'goods'){
+						
+					}
+					if(data[i].focusType == 'company'){
+						
+					}
+
+				}
+			}
+				
+		});
+	}
+	//总记录数
+	function getUserFocusTotalRowsAjax(search_content,display,currentPage){
+		var url="getUserFocusTotalRowsAjax";
+		$.ajax({
+			url:url,
+			data:{
+				search_content:search_content,
+				display:display,
+				currentPage:currentPage
+			},
+			dataType:"json",
+			cache:false,
+			success:function(data,status){
+				
+			}
+				
+		});
 	}
 </script>
 </html>

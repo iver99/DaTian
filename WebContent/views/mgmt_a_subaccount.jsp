@@ -66,7 +66,7 @@
                         	<span class="span_mgmt_right2_text1">附属帐户</span>
                             <span class="span_mgmt_right2_text2"><a href="addsubaccount" hidefocus="true"><img src="images/btn_add1.png" class="span_mgmt_right2_pic1" title="添加" /></a></span>
                             <div class="div_mgmt_s1">
-                            	<input name="username" type="text" class="input_mgmt1" style="width:200px;" value="账户名称" />
+                            	<input name="username" type="text" class="input_mgmt1" style="width:200px;"placeholder="账户名称" />
                                 <input type="submit" id="btn1" value="查询" class="btn_mgmt3" hidefocus="true" />
                             </div>
                         </td>
@@ -87,7 +87,7 @@
                     
                     <tr>
                         <td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
-                        <td class="td_mgmt_right3_td1">${subAccount.hostAccountName }-${subAccount.username }</td>
+                        <td class="td_mgmt_right3_td1">${subAccount.username }</td>
                         <td class="td_mgmt_right3_td1">${subAccount.relDate }</td>
                         <td class="td_mgmt_right3_td2">${subAccount.status }</td>
                         <td class="td_mgmt_right3_td3">
@@ -98,7 +98,7 @@
                                             <a href="subaccountdetail?id=${subAccount.id }" class="menuhd" hidefocus="true">查看</a>
                                             <div class="menubd">
                                                 <div class="menubdpanel">
-                                                    <a href="updatesubaccount?id=${subAccount.id }" class="a_top3" hidefocus="true">更新</a>
+                                                    <a href="getUpdateSubAccountPage?id=${subAccount.id }" class="a_top3" hidefocus="true">更新</a>
                                                     
                                                    <c:choose>
                                                     <c:when test="${subAccount.status == '正常' }">
@@ -154,7 +154,7 @@
 <%@ include  file="popup1.jsp"%>
 
 <div id="footer_frame">
-	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="views/footer.jsp"></iframe>
+	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="footer.jsp"></iframe>
 </div>
 
 </body>

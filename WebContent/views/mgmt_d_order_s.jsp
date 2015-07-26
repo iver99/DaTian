@@ -81,8 +81,8 @@ function cancel(id){
                         <td>
                         	<span class="span_mgmt_right2_text1">我提交的订单</span>
                             <div class="div_mgmt_s1">
-                            	<input type="text" class="input_mgmt1" style="width:200px;" value="订单内容..." />
-                                <input type="button" id="btn1" value="查询" class="btn_mgmt3" hidefocus="true" />
+                            	<input type="text" class="input_mgmt1" style="width:200px;" placeholder="订单编号" name="orderNum" id="orderNum" />
+                                <input type="button" id="btn1" value="查询" class="btn_mgmt3" hidefocus="true" onclick="OnLoad()"/>
                             </div>
                         </td>
                 	</tr>
@@ -91,7 +91,8 @@ function cancel(id){
             	<input id="count" value="" type="hidden" /><!--  总记录条数 -->
 				<input id="display" value="10" type="hidden" /> <!-- 每页展示的数量 -->
 				<input id="currentPage" value="1" type="hidden" /><!-- 当前页 -->
-				<inpyt id="is_resource_page" value="0" type="hidden"/><!-- 是否为资源页，资源页需要模拟click按钮 -->
+				<input id="is_resource_page" value="0" type="hidden"/><!-- 是否为资源页，资源页需要模拟click按钮 -->
+				<input id="kind" value="order_send" type="hidden"/><!-- 用于判断是哪一栏的分页,用于splitPage.js -->
 				
 				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
 				<thead>
@@ -116,15 +117,16 @@ function cancel(id){
                     <tr>
 	                    <td>
                             每页
-                            <select>
-                                <option value="" selected="selected">10</option>
-                                <option value="a">20</option>
-                                <option value="b">50</option>
+                           <select  id="Display" onchange="changeDisplay()">
+                                <option value="10" selected="selected">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
                             </select>
                             条记录
                         </td>
                     </tr>
 				</table>
+				 <table border="0" cellpadding="0" cellspacing="0" class="table_pagenumber" id="page_layout" >
 				</table>
 			</td>
 		</tr>
@@ -158,7 +160,7 @@ function cancel(id){
 </div>
 
 <div id="footer_frame">
-	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="views/footer.jsp"></iframe>
+	<iframe allowtransparency="true" width="100%" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0" src="footer.jsp"></iframe>
 </div>
 </body>
 <script type="text/javascript">
@@ -166,19 +168,20 @@ function OnLoad() {
 	loadFocus();
 	var display=$("#display").val();
 	var currentPage=$("#currentPage").val();
-	
-	getUserOrderResource(display,currentPage);
-	getUserOrderResourceTotalRows(display,currentPage);
+	var orderNum=$("#orderNum").val();
+	getUserOrderResource(display,currentPage,orderNum);
+	getUserOrderResourceTotalRows(display,currentPage,orderNum);
 }
 
 //加载我提交的订单资源
-function getUserOrderResource(display,currentPage){
+function getUserOrderResource(display,currentPage,orderNum){
 	var url="getUserSendOrderAjax";
 	$.ajax({
 		url:url,
 		data:{
 			display:display,
-			currentPage:currentPage
+			currentPage:currentPage,
+			orderNum:orderNum
 			},
 		cache:false,
 		dataType:"json",
@@ -252,24 +255,35 @@ function getUserOrderResource(display,currentPage){
 	})
 }
 //我提交的订单总条数
-function getUserOrderResourceTotalRows(display,currentPage){
+function getUserOrderResourceTotalRows(display,currentPage,orderNum){
 	var url="getUseSendOrderTotalRowsAjax";
 	$.ajax({
 		url:url,
 		data:{
 			display:display,
-			currentPage:currentPage
+			currentPage:currentPage,
+			orderNum:orderNum
 		},
 		cache:false,
 		dataType:"json",
 		success:function(data,status){
 			 $('#count').val(data);
+			 $("#page_layout").empty();
 			  pageLayout(data);//页面布局
 		}
 	});
 	
-	
-	
+}
+
+//变更每页展示数量
+function changeDisplay(){
+	//修改隐藏字段，每页数量
+	$("#display").val($("#Display").val());
+		var display=$("#display").val();
+		var currentPage=$("#currentPage").val();
+		var orderNum=$("#orderNum").val();
+		getUserOrderResource(display,currentPage,orderNum);
+		getUserOrderResourceTotalRows(display,currentPage,orderNum);
 }
 </script>
 </html>

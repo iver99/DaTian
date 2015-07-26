@@ -83,9 +83,6 @@ public class CommonController {
 		{
 			String id=IdCreator.createContractId();
 			mv.addObject("id", id);
-			String clientId=(String)request.getSession().getAttribute(Constant.USER_ID);
-			List companyList = companyService.getAllCompanyWithoutPage();
-			mv.addObject("companyList", companyList);
 			mv.setViewName("mgmt_r_contact_s2");//ºÏÍ¬
 		}
 		else if (flag == 8)
@@ -150,8 +147,10 @@ public class CommonController {
 		}
 		
 		return jsonArray.toString();
-		
-		
-		
+	}
+	
+	@RequestMapping("intro")
+	public String introPage(){
+		return "intro";
 	}
 }

@@ -177,7 +177,7 @@
 					<table border="0" cellpadding="0" cellspacing="0"
 						class="table_recordnumber">
 						<tr>
-							<td>每页  <select id="Display">
+							<td>每页  <select id="Display" onchange="changeDisplay()">
                                 <option value="10" selected="selected">10</option>
                                 <option value="20">20</option>
                                 <option value="50">50</option>
@@ -199,7 +199,7 @@
 	<div id="footer_frame">
 		<iframe allowtransparency="true" width="100%" frameborder="0"
 			hspace="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0"
-			src="views/footer.jsp"></iframe>
+			src="footer.jsp"></iframe>
 	</div>
 	<!-- <div id="myDiv"></div> -->
 </body>
@@ -207,8 +207,10 @@
 	function OnLoad() {
 		loadFocus();
 		if(checkSearch()){
-		getSelectedLineAjax("中文或拼音","中文或拼音","All","All","All",10,1);
-		getSelectedLineTotalRowsAjax("中文或拼音","中文或拼音","All","All","All",10,1);
+			var display=$("#display").val();
+			var currentPage=$("#currentPage").val();
+		getSelectedLineAjax("中文或拼音","中文或拼音","All","All","All",display,currentPage);
+		getSelectedLineTotalRowsAjax("中文或拼音","中文或拼音","All","All","All",display,currentPage);
 		}
 		//检查是否需要执行搜索功能
 		//checkSearch();
@@ -310,6 +312,7 @@ function getSelectedLineTotalRowsAjax(startPlace,
 			  //返回总记录数
 			  $('#div_resource_list_head1').text("共"+data+"条记录");
 			  $('#count').val(data);
+			  $("#page_layout").empty();
 			  pageLayout(data);//页面布局
 	  },"text");
 	
@@ -317,11 +320,9 @@ function getSelectedLineTotalRowsAjax(startPlace,
 
 //控制页码显示
 function pageLayout(totalRows){
-	//alert(totalRows);
 	var display=parseInt($('#display').val());
 	var currentPage=parseInt($('#currentPage').val());
 	var pageNum=Math.ceil(totalRows/display);
-	//alert(pageNum);
 	var page_layout=$('#page_layout');//onclick='ChangeTo("+pageNum+")'
 	page_layout.append("<tr>");
 	page_layout.append("<td width='45' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+1+");' class='a_pagenumber' hidefocus='true'>首页</a></td>");
@@ -329,45 +330,45 @@ function pageLayout(totalRows){
 	page_layout.append("<td width='45' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+pre+");' class='a_pagenumber' hidefocus='true'>上页</a></td>");
 	if(pageNum< 8){
 		for(var i=1;i<=pageNum;i++){
-			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+i+");' class='a_pagenumber' hidefocus='true'>"+i+"</a></td>");
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+i+");' class='a_pagenumber' hidefocus='true' id="+i+">"+i+"</a></td>");
 		}
 	}
 	if(pageNum>=8){
 		if(currentPage<=3){
-			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+i+");' class='a_pagenumber' hidefocus='true'>"+i+"</a></td>");
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+i+");' class='a_pagenumber' hidefocus='true' id="+i+">"+i+"</a></td>");
 			page_layout.append("...");
 		}
 		if(currentPage==4){
-			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+i+");' class='a_pagenumber' hidefocus='true'>"+i+"</a></td>");
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+i+");' class='a_pagenumber' hidefocus='true' id="+i+">"+i+"</a></td>");
 			page_layout.append("...");
 		}
 		if(currentPage==5){
-			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+i+");' class='a_pagenumber' hidefocus='true'>"+i+"</a></td>");
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+i+");' class='a_pagenumber' hidefocus='true' id="+i+">"+i+"</a></td>");
 			page_layout.append("...");
 		}
 		if(currentPage>5 && currentPage<=pageNum-3){
-			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo('1');' class='a_pagenumber' hidefocus='true'>1</a></td>");
-			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo('2');' class='a_pagenumber' hidefocus='true'>2</a></td>");
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo('1');' class='a_pagenumber' hidefocus='true' id='1'>1</a></td>");
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo('2');' class='a_pagenumber' hidefocus='true' id='2'>2</a></td>");
 			page_layout.append("...");
 			for(var j=currentPage-2;j<currentPage+2;j++){
-				page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+j+");' class='a_pagenumber' hidefocus='true'>"+j+"</a></td>");
+				page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+j+");' class='a_pagenumber' hidefocus='true' id="+j+">"+j+"</a></td>");
 			}
 			page_layout.append("...");
 		}
 		if(currentPage==pageNum-3){
-			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo('1');' class='a_pagenumber' hidefocus='true'>1</a></td>");
-			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo('2');' class='a_pagenumber' hidefocus='true'>2</a></td>");
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo('1');' class='a_pagenumber' hidefocus='true' id='1'>1</a></td>");
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo('2');' class='a_pagenumber' hidefocus='true' id='2'>2</a></td>");
 			page_layout.append("...");
 			for(var i=currentPage-5;i<=currentPage;i++){
-				page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+i+");' class='a_pagenumber' hidefocus='true'>"+i+"</a></td>");
+				page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+i+");' class='a_pagenumber' hidefocus='true' id="+i+">"+i+"</a></td>");
 			}
 		}
 		if(currentPage==pageNum-2){
-			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo('1');' class='a_pagenumber' hidefocus='true'>1</a></td>");
-			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo('2');' class='a_pagenumber' hidefocus='true'>2</a></td>");
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo('1');' class='a_pagenumber' hidefocus='true' id='1'>1</a></td>");
+			page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo('2');' class='a_pagenumber' hidefocus='true' id='2'>2</a></td>");
 			page_layout.append("...");
 			for(var i=currentPage-4;i<=currentPage;i++){
-				page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+i+");' class='a_pagenumber' hidefocus='true'>"+i+"</a></td>");
+				page_layout.append("<td width='30' class='td_pagenumber' onclick=''><a href='javascript:ChangeTo("+i+");' class='a_pagenumber' hidefocus='true' id="+i+">"+i+"</a></td>");
 			}
 		}
 	}
@@ -377,6 +378,7 @@ function pageLayout(totalRows){
 	page_layout.append("<td width='45' class='td_pagenumber' ><a href='javascript:ChangeTo("+pageNum+");' class='a_pagenumber' hidefocus='true'>末页</a></td>");
 	page_layout.append("</tr>");
    
+	$("#"+currentPage).css("background","#7EBFEF");
 }
 //页面 跳转
 function ChangeTo(page){
@@ -387,6 +389,18 @@ function ChangeTo(page){
 	//点击页码，标志位置为1
 	$('#flag').val(1);
 	$('#btn1').click();
+}
+
+//变更每页展示数量
+function changeDisplay(){
+	//修改隐藏字段，每页数量
+	$("#display").val($("#Display").val());
+	if(checkSearch()){
+		var display=$("#display").val();
+		var currentPage=$("#currentPage").val();
+	getSelectedLineAjax("中文或拼音","中文或拼音","All","All","All",display,currentPage);
+	getSelectedLineTotalRowsAjax("中文或拼音","中文或拼音","All","All","All",display,currentPage);
+	}
 }
 
 </script>

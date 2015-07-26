@@ -23,6 +23,16 @@ public class FocusBean {
 	private String carNum;//车牌
 	
 	
+	private String search_content;//供搜索使用 
+	
+	
+	
+	public String getSearch_content() {
+		return search_content;
+	}
+	public void setSearch_content(String search_content) {
+		this.search_content = search_content;
+	}
 	public String getLineName() {
 		return lineName;
 	}

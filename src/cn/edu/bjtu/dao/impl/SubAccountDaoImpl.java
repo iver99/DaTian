@@ -42,11 +42,6 @@ public class SubAccountDaoImpl extends BaseDaoImpl<SubAccount> implements SubAcc
 	}
 	
 	@Override
-	public SubAccount getSubAccountDetail(String id){
-		return ht.get(SubAccount.class, id);
-	}
-	
-	@Override
 	public boolean changeStatus(String id){
 		
 		SubAccount subAccount = (SubAccount) ht.get(SubAccount.class, id);

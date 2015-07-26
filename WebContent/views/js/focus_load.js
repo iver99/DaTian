@@ -20,7 +20,6 @@ function loadMessages()
 	var url="getAllUserMessage";
 	$.post(url,{},
 	  function(data,status){
-			  //alert(data);
 			  $("#getmessage").empty();
 		for(var i=0; i<data.length; i++) {
 			$("#getmessage").append("<tr>");
@@ -47,7 +46,10 @@ function loadFocus()
         cache:false,
         success:function(responseText){
         	//alert(responseText);
-        	document.getElementById("focusNum").innerHTML = "<img src=\"images/btn_m1.png\" />&nbsp;我的关注("+ responseText +")"; 
+        	if((document.getElementById("loginStatus").innerText.indexOf("登录") != -1)&&(document.getElementById("loginStatus").innerText.indexOf("注册") != -1))
+        		document.getElementById("focusNum").innerHTML = "<img src=\"images/btn_m1.png\" />&nbsp;我的关注(未登录)";
+        	else
+        		document.getElementById("focusNum").innerHTML = "<img src=\"images/btn_m1.png\" />&nbsp;我的关注("+ responseText +")"; 
         }
     })
 	var City = getCookie("city");

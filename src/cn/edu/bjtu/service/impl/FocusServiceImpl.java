@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Service;
@@ -192,87 +193,94 @@ public class FocusServiceImpl extends BaseDaoImpl<Focus> implements FocusService
 	 * ËÑË÷¹Ø×¢
 	 */
 	@Override
-	public JSONArray searchFocus(String search_content, HttpSession session) {
+	public JSONArray searchFocus(FocusBean bean, HttpSession session) {
 		
 		String userId=(String)session.getAttribute(Constant.USER_ID);
 		String hql="from Focus t where t.clientId=:clientId ";
 		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("clientId", userId);
 		List<Focus> focusList=focusDao.find(hql, params);
-		List<FocusBean> focusBeanList=new ArrayList();
-		
-		for(Focus focus:focusList){
+		List<FocusBean> focusBeanList=new ArrayList<FocusBean>();
+		/*for(Focus focus:focusList){
 			FocusBean focusBean=new FocusBean();
-			if("linetransport".equals(focus.getFocusType())){
-				Linetransport line=linetransportDao.get(Linetransport.class, focus.getFocusId());
-				if(line.getLineName().contains(search_content)){
-//					BeanUtils.copyProperties(line, focusBean);
-					focusBean.setId(focus.getId());
-					focusBean.setStatus(focus.getStatus());
-					focusBean.setFocusType(focus.getFocusType());
-					focusBean.setStartPlace(line.getStartPlace());
-					focusBean.setEndPlace(line.getEndPlace());
-					focusBean.setLineName(line.getLineName());
-					focusBean.setRelDate(line.getRelDate());
-					focusBeanList.add(focusBean);
+			BeanUtils.copyProperties(focus, focusBean);
+			focusBeanList.add(focusBean);
+		}*/
+		String search_content=bean.getSearch_content();
+//		if(!"".equals(search_content) && search_content!=null){
+			for(Focus focus:focusList){
+				FocusBean focusBean=new FocusBean();
+				if("linetransport".equals(focus.getFocusType())){
+					Linetransport line=linetransportDao.get(Linetransport.class, focus.getFocusId());
+					if("".equals(search_content) || (!"".equals(search_content) && line.getLineName().contains(search_content))){
+						focusBean.setId(focus.getId());
+						focusBean.setStatus(focus.getStatus());
+						focusBean.setFocusType(focus.getFocusType());
+						focusBean.setStartPlace(line.getStartPlace());
+						focusBean.setEndPlace(line.getEndPlace());
+						focusBean.setLineName(line.getLineName());
+						focusBean.setRelDate(line.getRelDate());
+						focusBeanList.add(focusBean);
+					}
+				}else if("cityline".equals(focus.getFocusType())){
+					Cityline cityline=citylineDao.get(Cityline.class, focus.getFocusId());
+					if("".equals(search_content) || (!"".equals(search_content) && cityline.getName().contains(search_content))){
+						focusBean.setId(focus.getId());
+						focusBean.setStatus(focus.getStatus());
+						focusBean.setFocusType(focus.getFocusType());
+						focusBean.setName(cityline.getName());
+						focusBean.setRelDate(cityline.getRelDate());
+						focusBeanList.add(focusBean);
+					}
+				}else if("car".equals(focus.getFocusType())){
+					Carinfo car=carDao.get(Carinfo.class, focus.getFocusId());
+					if("".equals(search_content) || (!"".equals(search_content) && car.getCarNum().contains(search_content))){
+						focusBean.setId(focus.getId());
+						focusBean.setStatus(focus.getStatus());
+						focusBean.setFocusType(focus.getFocusType());
+						focusBean.setCarNum(car.getCarNum());
+						focusBean.setRelDate(car.getRelDate());
+						focusBeanList.add(focusBean);
+					}
+				}else if("company".equals(focus.getFocusType())){
+					Carrierinfo company=companyDao.get(Carrierinfo.class, focus.getFocusId());
+					if("".equals(search_content) || (!"".equals(search_content) &&company.getCompanyName().contains(search_content))){
+						focusBean.setId(focus.getId());
+						focusBean.setStatus(focus.getStatus());
+						focusBean.setFocusType(focus.getFocusType());
+						focusBean.setCompanyName(company.getCompanyName());
+						focusBean.setRelDate(company.getRelDate());
+						focusBeanList.add(focusBean);
+					}
+				}else if("warehouse".equals(focus.getFocusType())){
+					Warehouse warehouse=warehouseDao.get(Warehouse.class, focus.getFocusId());
+					if("".equals(search_content) || (!"".equals(search_content) && warehouse.getName().contains(search_content))){
+						focusBean.setId(focus.getId());
+						focusBean.setStatus(focus.getStatus());
+						focusBean.setFocusType(focus.getFocusType());
+						focusBean.setRelDate(warehouse.getRelDate());
+						focusBean.setName(warehouse.getName());
+						focusBeanList.add(focusBean);
+					}
 					
+				}else if("goods".equals(focus.getFocusType())){
+					Goodsform cargo=goodsinfoDao.get(Goodsform.class, focus.getFocusId());
+					if("".equals(search_content) || (!"".equals(search_content) && cargo.getName().contains(search_content))){
+						focusBean.setId(focus.getId());
+						focusBean.setStatus(focus.getStatus());
+						focusBean.setFocusType(focus.getFocusType());
+						focusBean.setRelDate(cargo.getRelDate());
+						focusBean.setName(cargo.getName());
+						focusBeanList.add(focusBean);
+					}
 				}
-			}else if("cityline".equals(focus.getFocusType())){
-				Cityline cityline=citylineDao.get(Cityline.class, focus.getFocusId());
-				if(cityline.getName().contains(search_content)){
-					focusBean.setId(focus.getId());
-					focusBean.setStatus(focus.getStatus());
-					focusBean.setFocusType(focus.getFocusType());
-					focusBean.setName(cityline.getName());
-					focusBean.setRelDate(cityline.getRelDate());
-					focusBeanList.add(focusBean);
-				}
-			}else if("car".equals(focus.getFocusType())){
-				Carinfo car=carDao.get(Carinfo.class, focus.getFocusId());
-				if(car.getCarNum().contains(search_content)){
-					focusBean.setId(focus.getId());
-					focusBean.setStatus(focus.getStatus());
-					focusBean.setFocusType(focus.getFocusType());
-					focusBean.setCarNum(car.getCarNum());
-					focusBean.setRelDate(car.getRelDate());
-					focusBeanList.add(focusBean);
-				}
-			}else if("company".equals(focus.getFocusType())){
-				Carrierinfo company=companyDao.get(Carrierinfo.class, focus.getFocusId());
-				if(company.getCompanyName().contains(search_content)){
-					focusBean.setId(focus.getId());
-					focusBean.setStatus(focus.getStatus());
-					focusBean.setFocusType(focus.getFocusType());
-					focusBean.setCompanyName(company.getCompanyName());
-					focusBean.setRelDate(company.getRelDate());
-					focusBeanList.add(focusBean);
-				}
-			}else if("warehouse".equals(focus.getFocusType())){
-				Warehouse warehouse=warehouseDao.get(Warehouse.class, focus.getFocusId());
-				if(warehouse.getName().contains(search_content)){
-					focusBean.setId(focus.getId());
-					focusBean.setStatus(focus.getStatus());
-					focusBean.setFocusType(focus.getFocusType());
-					focusBean.setRelDate(warehouse.getRelDate());
-					focusBean.setName(warehouse.getName());
-					focusBeanList.add(focusBean);
-				}
-				
-			}else if("goods".equals(focus.getFocusType())){
-				Goodsform cargo=goodsinfoDao.get(Goodsform.class, focus.getFocusId());
-				if(cargo.getName().contains(search_content)){
-					focusBean.setId(focus.getId());
-					focusBean.setStatus(focus.getStatus());
-					focusBean.setFocusType(focus.getFocusType());
-					focusBean.setRelDate(cargo.getRelDate());
-					focusBean.setName(cargo.getName());
-					focusBeanList.add(focusBean);
-				}
-			}
+//			}
 		}
+		
 		//×ª³Éjsonarray
 		JSONArray jsonArray=new JSONArray();
-		for(FocusBean bean: focusBeanList){
-			JSONObject jsonObject=(JSONObject)JSONObject.toJSON(bean);
+		for(FocusBean fBean: focusBeanList){
+			JSONObject jsonObject=(JSONObject)JSONObject.toJSON(fBean);
 			jsonArray.add(jsonObject);
 		}
 		

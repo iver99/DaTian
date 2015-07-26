@@ -27,8 +27,6 @@ public interface CompanyService {
 	public List getwarehouseByCarrierId(String id);
 
 	public Carrierinfo getCompanyById(String carrierId);
-	@Deprecated
-	public List getAllCompanyWithoutPage();
 	
 	/**
 	 * 资源栏-公司筛选

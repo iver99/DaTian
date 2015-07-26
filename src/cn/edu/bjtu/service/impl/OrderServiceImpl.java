@@ -20,6 +20,7 @@ import cn.edu.bjtu.dao.OrderDao;
 import cn.edu.bjtu.service.OrderService;
 import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.IdCreator;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.OrderCarrierView;
 import cn.edu.bjtu.vo.Orderform;
@@ -101,12 +102,21 @@ public class OrderServiceImpl implements OrderService {
 		return orderDao.getExpectedMoney(orderId);
 	}
 
+	/**
+	 * 签单上传操作
+	 */
 	@Override
 	public boolean signBill(String orderId, float actualPrice,
-			String explainReason,String path,String fileName) {
+			String explainReason,String fileLocation) {
+		Orderform order = orderDao.get(Orderform.class, orderId);
+		order.setState("待确认");//修改 订单状态
+		order.setActualPrice(actualPrice);
+		order.setExplainReason(explainReason);
+		order.setAcceptPicture(fileLocation);
 		
+		orderDao.update(order);
+		return true;
 		
-		return orderDao.signBill(orderId, actualPrice, explainReason,path,fileName);
 	}
 
 	@Override
@@ -158,11 +168,22 @@ public class OrderServiceImpl implements OrderService {
 	}*/
 	
 
+	/**
+	 * 承运方签单上传后的更新
+	 */
 	@Override
-	public boolean DoGetOrderWaitToConfirmUpdate(String orderId,
-			float actualPrice, String explainReason,String path,String fileName) {
+	public boolean updateSignBill(String orderId,
+			float actualPrice, String explainReason,String fileLocation) {
 		
-		return orderDao.signBill(orderId, actualPrice, explainReason,path,fileName);
+		Orderform order=orderDao.get(Orderform.class, orderId);
+		order.setActualPrice(actualPrice);
+		order.setExplainReason(explainReason);
+		order.setAcceptPicture(fileLocation);
+		
+		orderDao.update(order);
+		
+		return true;
+		//return orderDao.signBill(orderId, actualPrice, explainReason,path,fileName);
 	}
 
 	/**
@@ -295,10 +316,11 @@ public class OrderServiceImpl implements OrderService {
 	 * @see cn.edu.bjtu.service.OrderService#getUserSendOrderTotalRows(javax.servlet.http.HttpSession)
 	 */
 	@Override
-	public Integer getUserSendOrderTotalRows(HttpSession session) {
-		String userId=(String)session.getAttribute(Constant.USER_ID);
-		String hql="select count(*) from Orderform t where t.clientId=:clientId";
+	public Integer getUserSendOrderTotalRows(HttpSession session,Orderform order) {
 		Map<String,Object> params=new HashMap<String,Object>();
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+		String hql="select count(*) from Orderform t "+whereHql(order,params);
+		hql+=" and t.clientId=:clientId";
 		params.put("clientId", userId);
 		
 		Long count=orderDao.count(hql, params);
@@ -310,19 +332,20 @@ public class OrderServiceImpl implements OrderService {
 	 * 我提交的订单
 	 */
 	@Override
-	public JSONArray getUserSendOrder(HttpSession session) {
+	public JSONArray getUserSendOrder(HttpSession session,PageUtil pageUtil,Orderform order) {
 		
-		String userId=(String)session.getAttribute(Constant.USER_ID);
-		String hql="from Orderform t where t.clientId=:clientId order by t.submitTime desc";
 		Map<String,Object> params=new HashMap<String,Object>();
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+		String hql="from Orderform t "+whereHql(order,params);
+		hql+=" and t.clientId=:clientId order by t.submitTime desc";
 		params.put("clientId", userId);
 		
 		List<Orderform> orderList=orderDao.find(hql,params);
 		List<OrderBean> beanList=new ArrayList<OrderBean>();
-		for(Orderform order:orderList){
+		for(Orderform orderIns:orderList){
 			OrderBean bean=new OrderBean();
-			BeanUtils.copyProperties(order, bean);
-			Carrierinfo company=companyDao.get(Carrierinfo.class, order.getCarrierId());
+			BeanUtils.copyProperties(orderIns, bean);
+			Carrierinfo company=companyDao.get(Carrierinfo.class, orderIns.getCarrierId());
 			
 			bean.setCompanyName(company.getCompanyName());
 			beanList.add(bean);
@@ -335,22 +358,40 @@ public class OrderServiceImpl implements OrderService {
 		}
 		return jsonArray;
 	}
+	
+	/**
+	 * where hql 用于搜索功能
+	 * @param order
+	 * @param params
+	 * @return
+	 */
+	private String whereHql(Orderform order,Map<String,Object> params){
+		String hql=" where 1=1 ";
+		if(order!= null){
+			if(!"".equals(order.getOrderNum()) && order.getOrderNum() !=null){
+				hql+=" and t.orderNum like '%"+order.getOrderNum()+"%'";
+			}
+		}
+		return hql;
+	}
+	
 	/**
 	 * 我收到的订单
 	 */
 	@Override
-	public JSONArray getUserRecieveOrder(HttpSession session) {
-		String userId=(String)session.getAttribute(Constant.USER_ID);
-		String hql="from Orderform t where t.carrierId=:carrierId order by t.submitTime desc";
+	public JSONArray getUserRecieveOrder(HttpSession session,PageUtil pageUtil,Orderform order) {
 		Map<String,Object> params=new HashMap<String,Object>();
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+		String hql="from Orderform t "+whereHql(order,params);
+		hql+=" and t.carrierId=:carrierId order by t.submitTime desc";
 		params.put("carrierId", userId);
 		
 		List<Orderform> orderList=orderDao.find(hql,params);
 		List<OrderBean> beanList=new ArrayList<OrderBean>();
-		for(Orderform order:orderList){
+		for(Orderform orderIns:orderList){
 			OrderBean bean=new OrderBean();
-			BeanUtils.copyProperties(order, bean);
-			Carrierinfo company=companyDao.get(Carrierinfo.class, order.getCarrierId());
+			BeanUtils.copyProperties(orderIns, bean);
+			Carrierinfo company=companyDao.get(Carrierinfo.class, orderIns.getCarrierId());
 			
 			bean.setCompanyName(company.getCompanyName());
 			beanList.add(bean);
@@ -367,10 +408,11 @@ public class OrderServiceImpl implements OrderService {
 	 * 我收到的订单-总记录数
 	 */
 	@Override
-	public Integer getUserRecieveOrderTotalRows(HttpSession session) {
-		String userId=(String)session.getAttribute(Constant.USER_ID);
-		String hql="select count(*) from Orderform t where t.carrierId=:carrierId";
+	public Integer getUserRecieveOrderTotalRows(HttpSession session,Orderform order) {
 		Map<String,Object> params=new HashMap<String,Object>();
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+		String hql="select count(*) from Orderform t "+whereHql(order,params);
+		hql+=" and t.carrierId=:carrierId";
 		params.put("carrierId", userId);
 		
 		Long count=orderDao.count(hql, params);

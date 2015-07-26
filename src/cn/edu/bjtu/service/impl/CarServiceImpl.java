@@ -78,6 +78,8 @@ public class CarServiceImpl implements CarService {
 		if(userId!=null){//如果当前有用户登录在条件中加入用户信息
 			sql+=" where t2.focusType='car' and t2.clientId=:clientId ";
 			params.put("clientId", userId);
+		}else{
+			sql+=" where t2.focusType='car' and t2.clientId='' ";
 		}
 		sql+=") t3 on t1.id=t3.focusId ";
 		String wheresql=whereSql(carbean,params);
@@ -153,7 +155,7 @@ public class CarServiceImpl implements CarService {
 				wheresql+=" and t1.carWeight=8";
 			}
 			if (carWeight.equals("12吨")) {
-				wheresql+=" and t1.carWeight=10";
+				wheresql+=" and t1.carWeight=12";
 			}
 			if (carWeight.equals("16吨")) {
 				wheresql+=" and t1.carWeight=16";
