@@ -19,6 +19,7 @@ import cn.edu.bjtu.bean.page.SubAccountBean;
 import cn.edu.bjtu.service.RegisterService;
 import cn.edu.bjtu.service.SubAccountService;
 import cn.edu.bjtu.util.Constant;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.SubAccount;
 
 import com.alibaba.fastjson.JSONObject;
@@ -39,7 +40,7 @@ public class SubAccountController {
 	 * @param response
 	 * @return
 	 */
-	@RequestMapping("getsubaccount")
+	/*@RequestMapping("getsubaccount")
 	public ModelAndView getSubAccount(HttpServletRequest request,HttpServletResponse response)
 	{
 		String userId=(String)request.getSession().getAttribute(Constant.USER_ID);
@@ -48,7 +49,7 @@ public class SubAccountController {
 		mv.setViewName("mgmt_a_subaccount");
 		return mv;
 	}
-	
+	*/
 	@RequestMapping("findbyaccountname")
 	/**
 	 * 子账户的查询功能
@@ -191,6 +192,55 @@ public class SubAccountController {
 			subAccountService.updateSubAccount(subAccountBean,session);
 			
 			return "redirect:getsubaccount";
+		}
+		
+		/**
+		 * 
+		 * @Title: getSubAccountPage 
+		 * @Description: TODO 
+		 * @param: @return 
+		 * @return: String 
+		 * @throws: 异常 
+		 * @author: chendonghao 
+		 * @date: 2015年7月27日 下午3:59:57
+		 */
+		@RequestMapping("getsubaccount")
+		public String getSubAccountPage(){
+			return "mgmt_a_subaccount";
+		}
+		/**
+		 * 获取附属账户列表
+		 * @Title: getSubAccountList 
+		 * @Description: TODO 
+		 * @param: @param session
+		 * @param: @return 
+		 * @return: String 
+		 * @throws: 异常 
+		 * @author: chendonghao 
+		 * @date: 2015年7月27日 下午4:02:21
+		 */
+		@ResponseBody
+		@RequestMapping(value="getSubAccountAjax",produces="text/html;charset=UTF-8")
+		public String getSubAccountList(HttpSession session,SubAccount subAccount,PageUtil pageUtil){
+			return subAccountService.getSubAccountList(session,subAccount,pageUtil);
+		}
+		
+		/**
+		 * 附属账户-总记录条数
+		 * @Title: getSubAccountTotalRows 
+		 * @Description: TODO 
+		 * @param: @param session
+		 * @param: @return 
+		 * @return: Integer 
+		 * @throws: 异常 
+		 * @author: chendonghao 
+		 * @date: 2015年7月27日 下午4:03:41
+		 */
+		@ResponseBody
+		@RequestMapping("getSubAccountTotalRowsAjax")
+		public Integer getSubAccountTotalRows(HttpSession session,SubAccount subAccount){
+			
+			return subAccountService.getSubAccountTotalRows(session,subAccount);
 		}
 	 
 }

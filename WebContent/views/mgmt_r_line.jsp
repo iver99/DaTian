@@ -130,7 +130,7 @@
 				</td>
 			</tr>
 		</table> 
-		<table border="0" cellpadding="0" cellspacing="0" id="page_layout" class="table_pagenumber" id="PageNow" value="1">
+		<table border="0" cellpadding="0" cellspacing="0" id="page_layout" class="table_pagenumber">
 			<!--  page -->
 		</table>
 

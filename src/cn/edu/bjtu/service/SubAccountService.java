@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import cn.edu.bjtu.bean.page.SubAccountBean;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.SubAccount;
 
 public interface SubAccountService {
@@ -38,4 +39,30 @@ public interface SubAccountService {
 	 * @return
 	 */
 	public SubAccount getSubAccountDetail(String id);
+	
+	/**
+	 * 附属账户-列表
+	 * @Title: getSubAccountList 
+	 * @Description: TODO 
+	 * @param: @param session
+	 * @param: @return 
+	 * @return: String 
+	 * @throws: 异常 
+	 * @author: chendonghao 
+	 * @date: 2015年7月27日 下午4:07:01
+	 */
+	public String getSubAccountList(HttpSession session,SubAccount subAccount,PageUtil pageUtil);
+	
+	/**
+	 * 附属账户-总记录数
+	 * @Title: getSubAccountTotalRows 
+	 * @Description: TODO 
+	 * @param: @param session
+	 * @param: @return 
+	 * @return: Integer 
+	 * @throws: 异常 
+	 * @author: chendonghao 
+	 * @date: 2015年7月27日 下午4:07:28
+	 */
+	public Integer getSubAccountTotalRows(HttpSession session,SubAccount subAccount);
 }

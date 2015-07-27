@@ -58,7 +58,6 @@
 			</td>
             <td class="td_leftnav_top">
             
-             <form action="findbyaccountname" method="post">	          
              
 				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right2">
 					<tr>
@@ -66,15 +65,21 @@
                         	<span class="span_mgmt_right2_text1">附属帐户</span>
                             <span class="span_mgmt_right2_text2"><a href="addsubaccount" hidefocus="true"><img src="images/btn_add1.png" class="span_mgmt_right2_pic1" title="添加" /></a></span>
                             <div class="div_mgmt_s1">
-                            	<input name="username" type="text" class="input_mgmt1" style="width:200px;"placeholder="账户名称" />
-                                <input type="submit" id="btn1" value="查询" class="btn_mgmt3" hidefocus="true" />
+                            	<input name="username" id="username" type="text" class="input_mgmt1" style="width:200px;"placeholder="账户名称" />
+                                <input type="button" id="btn1" value="查询" class="btn_mgmt3" hidefocus="true" onclick="OnLoad()"/>
                             </div>
                         </td>
                 	</tr>
             	</table>
-            	</form>
+            	<!-- 页码相关 -->
+				<input id="count" value="" type="hidden" /><!--  总记录条数 -->
+				<input id="display" value="10" type="hidden" /> <!-- 每页展示的数量 -->
+				<input id="currentPage" value="1" type="hidden" /><!-- 当前页 -->
+				<input id="is_resource_page" value="0" type="hidden"/><!-- 是否为资源页，资源页需要模拟click按钮 -->
+				<input id="kind" value="subAccount" type="hidden"/><!-- 用于判断是哪一栏的分页,用于splitPage.js -->
             	
             	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
+            		<thead>
 					<tr>
                         <td width="20" height="40" class="td_mgmt_right3_head">&nbsp;</td>
                         <td class="td_mgmt_right3_head">帐户名称</td>
@@ -82,7 +87,10 @@
                         <td width="60" class="td_mgmt_right3_head">状态</td>
                         <td width="80" class="td_mgmt_right3_head">操作</td>
 					</tr>
-					<c:forEach var="subAccount" items="${subAccountList }">
+            		</thead>
+            		<tbody id="result_body">
+            		</tbody>
+					<%-- <c:forEach var="subAccount" items="${subAccountList }">
 				
                     
                     <tr>
@@ -120,31 +128,23 @@
                         
                 	
                     </tr>
-                    </c:forEach>
+                    </c:forEach> --%>
                 </table>
 				<table border="0" cellpadding="0" cellspacing="0" class="table_recordnumber">
                     <tr>
 	                    <td>
                             每页
-                            <select>
-                                <option value="" selected="selected">10</option>
-                                <option value="a">20</option>
-                                <option value="b">50</option>
-                            </select>
+                            <select id="Display" onchange="changeDisplay()">
+						<option value="10" selected="selected">10</option>
+						<option value="20">20</option>
+						<option value="50">50</option>
+							</select>
                             条记录
                         </td>
                     </tr>
 				</table>
-                <table border="0" cellpadding="0" cellspacing="0" class="table_pagenumber">
-                    <tr>
-                        <td width="45" class="td_pagenumber">首页</td>
-                        <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">上页</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">1</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">2</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">3</a></td>
-                        <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">下页</a></td>
-                        <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">末页</a></td>
-                    </tr>
+                <table border="0" cellpadding="0" cellspacing="0" class="table_pagenumber" id="page_layout" >
+                  <!--  page -->
 				</table>
 			</td>
 		</tr>
@@ -161,6 +161,75 @@
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
+		var username=$("#username").val();
+		var display=$("#display").val();
+		var currentPage=$("#currentPage").val();
+		getSubAccountList(username,display,currentPage);
+		getSubAccountListTotalRows(username,display,currentPage);
+		
+	}
+	
+	//获取附属账户
+	function getSubAccountList(username,display,currentPage){
+		var url="getSubAccountAjax";
+		$.ajax({
+			url:url,
+			dataType:"json",
+			cache:false,
+			data:{
+				username:username,
+				display:display,
+				currentPage:currentPage
+			},
+			success:function(data,status){
+				var body=$("#result_body");
+				for(var i=0;i<data.length;i++){
+					var str="<tr>";
+					str+="<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>";
+					str+="<td class=\"td_mgmt_right3_td1\">"+data[i].username+"</td>";
+					str+="<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].relDate)+"</td>";
+					str+="<td class=\"td_mgmt_right3_td2\">"+data[i].status+"</td>";
+					str+="<td class=\"td_mgmt_right3_td3\">";
+					str+="<div id=\"handlebox\" style=\"z-index:203;\">";
+					str+="<ul class=\"quickmenu\">";
+					str+="<li class=\"menuitem\">";
+					str+="<div class=\"menu\">";
+					str+="<a href=\"subaccountdetail?id="+data[i].id+"\" class=\"menuhd\" hidefocus=\"true\" >查看</a>";
+					str+="<div class=\"menubd\">";
+					str+="<div class=\"menubdpanel\">";
+					str+="<a href=\"getUpdateSubAccountPage?id="+data[i].id+"\" class=\"a_top3\" hidefocus=\"true\">更新</a>";
+					if(data[i].status== '正常'){
+						str+="<a href=\"changestatus?id="+data[i].id+"\" class=\"a_top3\" hidefocus=\"true\">停用</a>";
+					}else if(data[i].status== '已停用'){
+						str+="<a href=\"changestatus?id="+data[i].id+"\" class=\"a_top3\" hidefocus=\"true\">启用</a>";
+					}
+					str+="<a href=\"deletesubaccount?id="+data[i].id+"\" class=\"a_top3\" hidefocus=\"true\">删除</a>";
+					str+="</div></div></div></li></ul></div></td>";
+					str+="</tr>";
+					body.append(str);
+				}
+				
+			}
+		});
+	}
+	//总记录条数
+	function getSubAccountListTotalRows(username,display,currentPage){
+		var url="getSubAccountTotalRowsAjax";
+		$.ajax({
+			url:url,
+			dataType:"json",
+			cache:false,
+			data:{
+				username:username,
+				display:display,
+				currentPage:currentPage
+			},
+			success:function(data,status){
+				 $('#count').val(data);
+				 $("#page_layout").empty();
+				  pageLayout(data);//页面布局
+			}
+		});
 	}
 </script>
 </html>
