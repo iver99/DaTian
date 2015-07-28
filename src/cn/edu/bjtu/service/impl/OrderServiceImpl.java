@@ -15,12 +15,14 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.bean.page.OrderBean;
+import cn.edu.bjtu.dao.AddressDao;
 import cn.edu.bjtu.dao.CompanyDao;
 import cn.edu.bjtu.dao.OrderDao;
 import cn.edu.bjtu.service.OrderService;
 import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.util.PageUtil;
+import cn.edu.bjtu.vo.Address;
 import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.OrderCarrierView;
 import cn.edu.bjtu.vo.Orderform;
@@ -43,7 +45,8 @@ public class OrderServiceImpl implements OrderService {
 	Orderform orderform;
 	@Autowired
 	CompanyDao companyDao;
-
+	@Autowired
+	AddressDao addressDao;
 	@Override
 	@Deprecated
 	public List getAllSendOrderInfo(String userId) {
@@ -241,6 +244,31 @@ public class OrderServiceImpl implements OrderService {
 		
 		orderDao.save(orderInstance);
 		
+		//如果选中了保存常用地址，则进行常用地址保存
+		//发货人信息 
+		if("on".equals(orderBean.getSender_info())){
+			Address address=new Address();
+			address.setName(orderBean.getDeliveryName());
+			address.setPhone(orderBean.getDeliveryPhone());
+			address.setAddress(orderBean.getDeliveryAddr());
+			address.setId(IdCreator.createAddressId());
+			address.setRelDate(new Date());
+			address.setClientId(userId);
+			addressDao.save(address);
+			
+		}
+		//收货人信息
+		if("on".equals(orderBean.getReciever_info())){
+			Address address=new Address();
+			address.setName(orderBean.getRecieverName());
+			address.setPhone(orderBean.getRecieverPhone());
+			address.setAddress(orderBean.getRecieverAddr());
+			address.setId(IdCreator.createAddressId());
+			address.setRelDate(new Date());
+			address.setClientId(userId);
+			addressDao.save(address);
+		}
+				
 		return true;
 	}
 

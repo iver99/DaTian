@@ -27,32 +27,7 @@
 	$(function() {
 		$('input, textarea').placeholder(); 
 	});
-	//获取用户的合同id
-	$(function(){
-		//alert("test");
-		var url="getUserContractIdAjax";
-		$.post(url,{currentUserId:$('#currentUserId').val()},function(data,status){
-			//alert(data);
-			var CONTRACTID=$('#contractId');
-			var option = $("<option>").text("").val("");
-			 for(var i=0;i<data.length;i++) {
-		         option = $("<option>").text(data[i].id).val(data[i].id);
-		         CONTRACTID.append(option);
-		      }    
-		},"json");
-	});
-	//获取用户所属客户
-	$(function(){
-		var url="getUserBusinessClientAjax";
-		$.post(url,{currentUserId:$('#currentUserId').val()},function(data,status){
-			var client_name=$('#clientName');
-			//var option = $("<option>").text("").val("");
-			 for(var i=0;i<data.length;i++) {
-		         var option = $("<option>").text(data[i].clientName).val(data[i].clientName);
-		         client_name.append(option);
-		      }    
-		},"json");
-	});
+	
 </script>
 </head>
 
@@ -266,7 +241,7 @@
 								</tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
-                                    <td><input type="button" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="addAddress()"/>
+                                    <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" />
                                     <input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
                                 </tr>
                             </table>
@@ -403,7 +378,7 @@
     })
     
     //如果选中了添加常用地址的选项则在提交表单时添加常用地址
-    function addAddress(){
+    /* function addAddress(){
 		var url="addAddressAjax";
 		var name;
 		var phone;
@@ -450,7 +425,7 @@
 		
 		//提交订单
 		$('#new_order').submit();
-	}
+	} */
 	
     
 </script>

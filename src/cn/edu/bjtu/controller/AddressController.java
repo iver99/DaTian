@@ -168,6 +168,7 @@ public class AddressController {
 	  */
 	 @RequestMapping("addAddressAjax")
 	 @ResponseBody
+	 @Deprecated
 	 public void addAddressAjax(HttpSession session,Address address){
 		 addressService.addUserAddress(session,address);
 		 return ;
