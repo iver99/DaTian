@@ -102,6 +102,11 @@ function ChangeTo(page){
 			getUserCargoResourceAjax(display,currentPage);
 			getUserCargoResourceTotalRowsAjax(display,currentPage);
 		}
+		if($("#kind").val() == 'subAccount'){
+			var username=$("#username").val();
+			getSubAccountList(username,display,currentPage);
+			getSubAccountListTotalRows(username,display,currentPage);
+		}
 		//需求方
 		if($("#kind").val() == 'contract_s' || $("#kind").val() == 'contract_r'){
 			//搜索信息

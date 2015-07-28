@@ -83,7 +83,6 @@ public class SubAccountController {
 		return "mgmt_a_subaccount4";
 	}
 	
-	@RequestMapping("changestatus")
 	/**
 	 * 更改用户停用启用状态
 	 * @param id
@@ -91,25 +90,15 @@ public class SubAccountController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView changeStatus(
+	@RequestMapping("changestatus")
+	public String changeStatus(
 			@RequestParam String id,
 			HttpServletRequest request,HttpServletResponse response){
 		
-		String userId=(String)request.getSession().getAttribute(Constant.USER_ID);
+//		String userId=(String)request.getSession().getAttribute(Constant.USER_ID);
 		boolean flag = subAccountService.changeStatus(id);
-		try {
-			if (flag == true)
-				response.sendRedirect("getsubaccount");
-			else
-				System.out.println("更改用户停用启用失败");// 应记录日志
-		} catch (IOException e) {
-			// 
-			// 此处应记录日志
-			e.printStackTrace();
-
-		}
 		
-		return mv;
+		return "redirect:getsubaccount";
 	}
 	
 	/**

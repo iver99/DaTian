@@ -47,17 +47,16 @@ function loadFocus()
         success:function(responseText){
         	//alert(responseText);
         	if((document.getElementById("loginStatus").innerText.indexOf("登录") != -1)&&(document.getElementById("loginStatus").innerText.indexOf("注册") != -1))
-        		document.getElementById("focusNum").innerHTML = "<img src=\"images/btn_m1.png\" />&nbsp;我的关注(未登录)";
+        		document.getElementById("focusNum").innerHTML = "<img src=\"images/btn_m1.png\" />&nbsp;我的关注";
         	else
         		document.getElementById("focusNum").innerHTML = "<img src=\"images/btn_m1.png\" />&nbsp;我的关注("+ responseText +")"; 
         }
     })
-	var City = getCookie("city");
-	//alert(City);
+	/*var City = getCookie("city");
 	if(City == null)
 		document.getElementById("city").innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;北京&nbsp;<a href=\"city\" hidefocus=\"true\">[更换]</a>";
 	else
-		document.getElementById("city").innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;"+City+"&nbsp;<a href=\"city\" hidefocus=\"true\">[更换]</a>";
+		document.getElementById("city").innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;"+City+"&nbsp;<a href=\"city\" hidefocus=\"true\">[更换]</a>";*/
 }
 
 function getCookie(name) 

@@ -183,6 +183,7 @@
 			},
 			success:function(data,status){
 				var body=$("#result_body");
+				body.empty();
 				for(var i=0;i<data.length;i++){
 					var str="<tr>";
 					str+="<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>";
@@ -230,6 +231,17 @@
 				  pageLayout(data);//页面布局
 			}
 		});
+	}
+	
+	//变更每页展示数量
+	function changeDisplay(){
+		//修改隐藏字段，每页数量
+		$("#display").val($("#Display").val());
+			var display=$("#display").val();
+			var currentPage=$("#currentPage").val();
+			var username=$("#username").val();
+			getSubAccountList(username,display,currentPage);
+			getSubAccountListTotalRows(username,display,currentPage);
 	}
 </script>
 </html>
