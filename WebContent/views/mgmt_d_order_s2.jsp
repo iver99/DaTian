@@ -251,9 +251,9 @@
                                 </tr>
                                 <tr>
                                     <td height="20" class="td_mgmt_right3_td1b">&nbsp;</td>
-                                    <td><input type="checkbox" id="sender_info"/>&nbsp;加入常用发货地址</td>
+                                    <td><input type="checkbox" id="sender_info" name="sender_info"/>&nbsp;加入常用发货地址</td>
                                     <td class="td_mgmt_right3_td1b">&nbsp;</td>
-                                    <td><input type="checkbox" id="receiver_info"/>&nbsp;加入常用收货地址</td>
+                                    <td><input type="checkbox" id="reciever_info" name="reciever_info"/>&nbsp;加入常用收货地址</td>
                                 </tr>
                             </table>
                             <div class="span_mgmt_right3_text4">备注信息</div>      	          

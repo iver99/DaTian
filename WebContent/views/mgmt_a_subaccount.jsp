@@ -190,11 +190,11 @@
 					str+="<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].relDate)+"</td>";
 					str+="<td class=\"td_mgmt_right3_td2\">"+data[i].status+"</td>";
 					str+="<td class=\"td_mgmt_right3_td3\">";
-					str+="<div id=\"handlebox\" style=\"z-index:203;\">";
+					str+="<div id=\"handlebox\" >";
 					str+="<ul class=\"quickmenu\">";
 					str+="<li class=\"menuitem\">";
 					str+="<div class=\"menu\">";
-					str+="<a href=\"subaccountdetail?id="+data[i].id+"\" class=\"menuhd\" hidefocus=\"true\" >查看</a>";
+					str+="<a href=\"subaccountdetail?id="+data[i].id+"\" class=\"menuhd\" hidefocus=\"true\" style=\"z-index:106;\" >查看</a>";
 					str+="<div class=\"menubd\">";
 					str+="<div class=\"menubdpanel\">";
 					str+="<a href=\"getUpdateSubAccountPage?id="+data[i].id+"\" class=\"a_top3\" hidefocus=\"true\">更新</a>";
