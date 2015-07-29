@@ -235,6 +235,8 @@
 	function changeDisplay(){
 		//修改隐藏字段，每页数量
 		$("#display").val($("#Display").val());
+		//当前页归1
+		$("#currentPage").val(1);
 		var display=$("#display").val();
 		var currentPage=$("#currentPage").val();
 		//搜索信息

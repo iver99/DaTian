@@ -44,3 +44,5 @@ Temporary Items
 
 /build
 *.class
+#忽略上传文件
+/file
