@@ -128,5 +128,8 @@
         <property name="companyName" type="string">
             <column name="companyName" />
         </property>
+        <property name="finishTime" type="timestamp">
+            <column name="finishTime" length="19" />
+        </property>
     </class>
 </hibernate-mapping>

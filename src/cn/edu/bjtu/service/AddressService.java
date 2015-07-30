@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Address;
 
 import com.alibaba.fastjson.JSONArray;
@@ -33,4 +34,31 @@ public interface AddressService {
 	 * @return
 	 */
 	public JSONArray getUserFrequentAddress(HttpSession session);
+	
+	/**
+	 * 常用发货地址
+	 * @Title: getSendAddress 
+	 * @Description: TODO 
+	 * @param: @param session
+	 * @param: @param pageUtil
+	 * @param: @return 
+	 * @return: String 
+	 * @throws: 异常 
+	 * @author: chendonghao 
+	 * @date: 2015年7月29日 上午11:31:25
+	 */
+	public String getAddress(HttpSession session,PageUtil pageUtil,Address address);
+	
+	/**
+	 * 常用发货地址-总记录数
+	 * @Title: getSendAddressTotalRows 
+	 * @Description: TODO 
+	 * @param: @param session
+	 * @param: @return 
+	 * @return: Integer 
+	 * @throws: 异常 
+	 * @author: chendonghao 
+	 * @date: 2015年7月29日 上午11:32:18
+	 */
+	public Integer getAddressTotalRows(HttpSession session,Address address);
 }

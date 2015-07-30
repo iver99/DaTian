@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.AddressService;
 import cn.edu.bjtu.util.Constant;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Address;
 
 import com.alibaba.fastjson.JSONArray;
@@ -31,15 +32,22 @@ public class AddressController {
 	AddressService addressService;
 	@Resource
 	Address address;
-	
+	/**
+	 * 跳转到常用发货地址
+	 * @return
+	 */
 	@RequestMapping("getaddress")
-	public ModelAndView getAddress(HttpServletRequest request,HttpServletResponse response)
-	{
-		String userId=(String)request.getSession().getAttribute(Constant.USER_ID);
-		List addressList = addressService.getAddress(userId);
-		mv.addObject("addressList", addressList);
-		mv.setViewName("mgmt_a_address");
-		return mv;
+	public String getAddress(){
+		return "mgmt_a_address";
+	}
+	
+	/**
+	 * 跳转道常用收货地址
+	 * @return
+	 */
+	@RequestMapping("getRecieveAddress")
+	public String getRecieveAddress(){
+		return "mgmt_a_address1";
 	}
 	
 	
@@ -178,6 +186,7 @@ public class AddressController {
 	  * @param session
 	  * @param address
 	  */
+	 @Deprecated
 	 @RequestMapping(value="getUserFrequentAddressAjax",produces="text/html;charset=UTF-8")
 	 @ResponseBody
 	 public String getUserFrequentAddress(HttpSession session){
@@ -187,4 +196,42 @@ public class AddressController {
 		 
 	 }
 	 
+	/**
+	 * 获取常用发货地址
+	 * 
+	 * @Title: getSendAddress
+	 * @Description: TODO
+	 * @param: @param session
+	 * @param: @param pageUtil
+	 * @param: @return
+	 * @return: String
+	 * @throws: 异常
+	 * @author: chendonghao
+	 * @date: 2015年7月29日 上午11:24:19
+	 */
+	@RequestMapping(value = "getAddressAjax", produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String getSendAddress(HttpSession session, PageUtil pageUtil,
+			Address address) {
+		return addressService.getAddress(session, pageUtil, address);
+	}
+
+	/**
+	 * 常用发货地址-总记录数
+	 * 
+	 * @Title: getSendAddressTotalRows
+	 * @Description: TODO
+	 * @param: @param session
+	 * @param: @return
+	 * @return: Integer
+	 * @throws: 异常
+	 * @author: chendonghao
+	 * @date: 2015年7月29日 上午11:30:34
+	 */
+	@RequestMapping("getAddressTotalRowsAjax")
+	@ResponseBody
+	public Integer getSendAddressTotalRows(HttpSession session, Address address) {
+		return addressService.getAddressTotalRows(session, address);
+	}
+
 }

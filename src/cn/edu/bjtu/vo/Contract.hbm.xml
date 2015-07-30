@@ -14,6 +14,9 @@
         <property name="carrierAccount" type="string">
             <column name="carrierAccount" />
         </property>
+        <property name="createTime" type="date">
+            <column name="createTime" length="10" />
+        </property>
         <property name="startDate" type="date">
             <column name="startDate" length="10" />
         </property>

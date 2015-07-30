@@ -118,7 +118,6 @@ public class OrderController {
 	@ResponseBody
 	@RequestMapping("getUseSendOrderTotalRowsAjax")
 	public Integer getUserSendOrderTotalRows(HttpSession session,Orderform order){
-		//XXX unused
 		return orderService.getUserSendOrderTotalRows(session,order);
 	}
 
@@ -287,41 +286,17 @@ public class OrderController {
 	 * @return
 	 */
 	@RequestMapping("signBill")
-	public ModelAndView SignBill(@RequestParam(required = false) MultipartFile file,String orderid, float actualPrice,
+	public String SignBill(@RequestParam(required = false) MultipartFile file,String orderid, float actualPrice,
 			String explainReason, HttpServletRequest request,
 			HttpServletResponse response) {
 		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
-		// ////////////////////////////////////////////////////////////////////////
 
 		//保存文件
 		String fileLocation=UploadFile.uploadFile(file, carrierId, "signBill");
-		/*String path = null;
-		String fileName = null;
-		if (file.getSize() != 0)// 有上传文件的情况
-		{
-			path = UploadPath.getSignBillPath();// 不同的地方取不同的上传路径
-			fileName = file.getOriginalFilename();
-			fileName = carrierId + "_" + fileName;// 文件名
-			File targetFile = new File(path, fileName);
-			try { // 保存 文件
-				file.transferTo(targetFile);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} */
-		//没有上传文件的情况path 和 filenName默认为null
-		boolean flag = orderService.signBill(orderid, actualPrice,
+		orderService.signBill(orderid, actualPrice,
 				explainReason,fileLocation);
-		try {
-			if (flag == true)
-				response.sendRedirect("recieveorderinfo");
-			else
-				System.out.println("签单上传失败");// logging...
-		} catch (IOException e) {
-			// 
-			e.printStackTrace();
-		}
-		return mv;
+
+		return "redirect:recieveorderinfo";
 	}
 
 	/*
@@ -337,12 +312,12 @@ public class OrderController {
 	 * 
 	 * // 需要更新订单状态为已收货(评价状态) mv.setViewName("mgmt_d_order_s5"); return mv; }
 	 */
-	@RequestMapping("getConfirmForm")
 	/**
 	 * 获取确认收货表单
 	 * @param orderid
 	 * @return
 	 */
+	@RequestMapping("getConfirmForm")
 	public ModelAndView getConfirmForm(String orderid) {
 		// 跳到确认收货页面
 		// 需要规定费用，实际费用，说明

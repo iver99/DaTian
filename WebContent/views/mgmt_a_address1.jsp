@@ -60,7 +60,9 @@
             	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right2">
                     <tr>
                     	<td>
-                        	<span class="span_mgmt_right2_text1">常用发货地址&nbsp;&nbsp;/&nbsp;&nbsp;<a href="getRecieveAddress" hidefocus="true">常用收货地址</a></span>
+                        	<!-- <span class="span_mgmt_right2_text1">常用发货地址&nbsp;&nbsp;/&nbsp;&nbsp;<a href="getaddress" hidefocus="true">常用收货地址</a></span>
+                            <span class="span_mgmt_right2_text2"><a href="addaddress" hidefocus="true"><img src="images/btn_add1.png" class="span_mgmt_right2_pic1" title="添加" /></a></span> -->
+                        	<span class="span_mgmt_right2_text1"><a href="getaddress" hidefocus="true">常用发货地址</a>&nbsp;&nbsp;/&nbsp;&nbsp;常用收货地址</span>
                             <span class="span_mgmt_right2_text2"><a href="addaddress" hidefocus="true"><img src="images/btn_add1.png" class="span_mgmt_right2_pic1" title="添加" /></a></span>
                         </td>
                 	</tr>
@@ -70,7 +72,7 @@
 				<input id="display" value="10" type="hidden" /> <!-- 每页展示的数量 -->
 				<input id="currentPage" value="1" type="hidden" /><!-- 当前页 -->
 				<input id="is_resource_page" value="0" type="hidden"/><!-- 是否为资源页，资源页需要模拟click按钮 -->
-				<input id="kind" value="address_s" type="hidden"/><!-- 用于判断是哪一栏的分页,用于splitPage.js -->
+				<input id="kind" value="address_r" type="hidden"/><!-- 用于判断是哪一栏的分页,用于splitPage.js -->
             	
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3" >
                 	<thead>
@@ -119,79 +121,11 @@
 		
 		var display=$("#display").val();
 		var currentPage=$("#currentPage").val();
-		getSendAddress(display,currentPage,1);
-		getSendAddressTotalRows(display,currentPage,1);
+		getRecieveAddress(display,currentPage,2);
+		getRecieveAddressTotalRows(display,currentPage,2);
 	}
 	
-	//获取常用发货地址列表
-	function getSendAddress(display,currentPage,kind){
-		var url="getAddressAjax";
-		$.ajax({
-			url:url,
-			data:{
-				display:display,
-				currentPage:currentPage,
-				kind:kind
-			},
-			dataType:"json",
-			success:function(data,status){
-				var body=$("#result_body");
-				body.empty();
-				for(var i=0;i<data.length;i++){
-					var str="<tr>";
-					str+="<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>";
-					str+="<td class=\"td_mgmt_right3_td1\">"+data[i].name+"</td>";
-					str+="<td class=\"td_mgmt_right3_td1\">"+data[i].address+"</td>";
-					str+="<td class=\"td_mgmt_right3_td1\">"+data[i].phone+"</td>";
-					str+="<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].relDate)+"</td>";
-					str+="<td class=\"td_mgmt_right3_td3\">";
-					str+="<div id=\"handlebox\" style=\"z-index:203;\">";
-					str+="<ul class=\"quickmenu\">";
-					str+="<li class=\"menuitem\">";
-					str+="<div class=\"menu\">";
-					str+="<a href=\"updateaddress?id="+data[i].id+"\" class=\"menuhd\" hidefocus=\"true\">更新</a>";
-					str+="<div class=\"menubd\">";
-					str+="<div class=\"menubdpanel\">";
-					str+="<a href=\"deleteaddress?id="+data[i].id+"\" class=\"a_top3\" hidefocus=\"true\">删除</a>";
-					str+="</div></div></div></li></ul></div></td>";
-					str+="</tr>";
-					body.append(str);
-				}
-			}
-		})
-		
-	}
 	
-	//获取常用发货地址总记录条数
-	function getSendAddressTotalRows(display,currentPage,kind){
-		var url="getAddressTotalRowsAjax";
-		$.ajax({
-			url:url,
-			data:{
-				display:display,
-				currentPage:currentPage,
-				kind:kind
-			},
-			dataType:"json",
-			success:function(data,status){
-				$('#count').val(data);
-				 $("#page_layout").empty();
-				  pageLayout(data);//页面布局
-			}
-		})
-	}
-	
-	//变更每页展示数量
-	function changeDisplay(){
-		//修改隐藏字段，每页数量
-		$("#display").val($("#Display").val());
-		//当前页归1
-		$("#currentPage").val(1);
-			var display=$("#display").val();
-			var currentPage=$("#currentPage").val();
-			getSubAccountList(username,display,currentPage,1);
-			getSubAccountListTotalRows(username,display,currentPage,1);
-	}
 	//*****************************************/以下为收货地址
 	//获取常用发货地址列表
 	function getRecieveAddress(display,currentPage,kind){
@@ -248,6 +182,18 @@
 				  pageLayout(data);//页面布局
 			}
 		})
+	}
+	
+	//变更每页展示数量
+	function changeDisplay(){
+		//修改隐藏字段，每页数量
+		$("#display").val($("#Display").val());
+		//当前页归1
+		$("#currentPage").val(1);
+			var display=$("#display").val();
+			var currentPage=$("#currentPage").val();
+			getSubAccountList(username,display,currentPage,2);
+			getSubAccountListTotalRows(username,display,currentPage,2);
 	}
 </script>
 </html>

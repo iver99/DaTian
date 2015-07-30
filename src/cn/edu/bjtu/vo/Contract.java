@@ -30,6 +30,23 @@ public class Contract implements java.io.Serializable {
 	private String reason;
 	private String monthlyStatementDays;
 	private String clientId;
+	//add by RussWest0 at 2015年7月29日,下午9:28:07 
+	private Date createTime;
+
+	
+	/**
+	 * @return the createTime
+	 */
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	/**
+	 * @param createTime the createTime to set
+	 */
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
 
 	public String getClientId() {
 		return clientId;

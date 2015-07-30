@@ -109,6 +109,16 @@ function ChangeTo(page){
 			getSubAccountList(username,display,currentPage);
 			getSubAccountListTotalRows(username,display,currentPage);
 		}
+		//发货地址
+		if($("#kind").val() == 'address_s'){
+			getSendAddress(display,currentPage,1);
+			getSendAddressTotalRows(display,currentPage,1);
+		}
+		//收货地址 
+		if($("#kind").val() == 'address_r'){
+			getRecieveAddress(display,currentPage,2);
+			getRecieveAddressTotalRows(display,currentPage,2);
+		}
 		//需求方
 		if($("#kind").val() == 'contract_s' || $("#kind").val() == 'contract_r'){
 			//搜索信息

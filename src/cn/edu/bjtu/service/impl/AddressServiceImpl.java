@@ -17,6 +17,7 @@ import cn.edu.bjtu.dao.AddressDao;
 import cn.edu.bjtu.service.AddressService;
 import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.IdCreator;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Address;
 
 import com.alibaba.fastjson.JSONArray;
@@ -124,6 +125,46 @@ public class AddressServiceImpl implements AddressService{
 			jsonArray.add(jsonObject);
 		}
 		return jsonArray;
+	}
+	
+	/**
+	 * 获取发货地址
+	 */
+	@Override
+	public String getAddress(HttpSession session, PageUtil pageUtil,Address address) {
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+		String hql="from Address t where t.clientId=:clientId and t.kind=:kind ";//1为发货地址,2为收货地址
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("clientId", userId);
+		params.put("kind", address.getKind());
+		
+		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
+		int display=pageUtil.getDisplay()==0?10:pageUtil.getDisplay();
+		List<Address> addressList=addressDao.find(hql, params, page, display);
+		
+		JSONArray jsonArray=new JSONArray();
+		for(Address addr:addressList){
+			JSONObject jsonObject=(JSONObject)JSONObject.toJSON(addr);
+			jsonArray.add(jsonObject);
+		}
+		
+		return jsonArray.toString();
+	}
+
+	/**
+	 * 常用发货地址-总记录数
+	 */
+	@Override
+	public Integer getAddressTotalRows(HttpSession session,Address address) {
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+		String hql="select count (*) from Address t where t.clientId=:clientId and t.kind=:kind ";//1为发货地址,2为收货地址
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("clientId", userId);
+		params.put("kind", address.getKind());
+		
+		Long count =addressDao.count(hql, params);
+		
+		return count.intValue();
 	}
 	
 }

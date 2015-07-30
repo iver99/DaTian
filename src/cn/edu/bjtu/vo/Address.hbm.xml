@@ -26,6 +26,9 @@
         <property name="frequency" type="int">
             <column name="frequency" />
         </property>
+        <property name="kind" type="int">
+            <column name="kind" />
+        </property>
        
         
     </class>
