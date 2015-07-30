@@ -63,32 +63,28 @@ public class AddressServiceImpl implements AddressService{
 	public boolean deleteAddress(String id){
 		return addressDao.deleteAddress(id);
 	}
-	
-	@Override
 	/**
-	 * 表内address与address对象重名，参数address重命名
+	 * 新增常用地址
 	 */
-	public boolean insertAddress(String name, String paramaddress, String phone, String clientId){
+	@Override
+	public boolean insertAddress(HttpSession session,Address address){
 		
+		String userId=(String)session.getAttribute(Constant.USER_ID);
 		address.setId(IdCreator.createAddressId());
-		address.setName(name);
-		address.setAddress(paramaddress);
-		address.setPhone(phone);
 		address.setRelDate(new Date());
-		address.setClientId(clientId);
+		address.setClientId(userId);
 		 addressDao.save(address);
 		 return true;
 	}
 	
 	@Override
-	public boolean updateAddress(String id, String name, String paramaddress, String phone){
+	public boolean updateAddress(HttpSession session,Address address){
 	
-		address = addressDao.getAddressDetail(id);// 根据id查找
-
-		address.setAddress(paramaddress);
-		address.setName(name);
-		address.setPhone(phone);
-		addressDao.update(address);
+		Address addr= addressDao.getAddressDetail(address.getId());// 根据id查找
+		addr.setName(address.getName());
+		addr.setPhone(address.getPhone());
+		addr.setAddress(address.getAddress());
+		addressDao.update(addr);
 		return true;
 	}
 	
@@ -133,7 +129,7 @@ public class AddressServiceImpl implements AddressService{
 	@Override
 	public String getAddress(HttpSession session, PageUtil pageUtil,Address address) {
 		String userId=(String)session.getAttribute(Constant.USER_ID);
-		String hql="from Address t where t.clientId=:clientId and t.kind=:kind ";//1为发货地址,2为收货地址
+		String hql="from Address t where t.clientId=:clientId and t.kind=:kind order by t.relDate desc ";//1为发货地址,2为收货地址
 		Map<String,Object> params=new HashMap<String,Object>();
 		params.put("clientId", userId);
 		params.put("kind", address.getKind());

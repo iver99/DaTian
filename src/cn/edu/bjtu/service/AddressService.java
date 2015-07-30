@@ -15,11 +15,20 @@ public interface AddressService {
 	public List getAddress(String userId);
 	public Address getAddressDetail(String id);
 	public boolean deleteAddress(String id);
-	
-	//表内address与address对象重名，参数address重命名
-	public boolean insertAddress(String name, String paramaddress, String phone, String clientId);
-	
-	public boolean updateAddress(String id, String name, String paramaddress, String phone);
+	/**
+	 * 新增常用地址
+	 * @param session
+	 * @param address
+	 * @return
+	 */
+	public boolean insertAddress(HttpSession session,Address address);
+	/**
+	 * 更新常用地址
+	 * @param session
+	 * @param address
+	 * @return
+	 */
+	public boolean updateAddress(HttpSession session,Address address);
 	
 	/**
 	 * 添加用户常用地址

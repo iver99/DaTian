@@ -95,33 +95,18 @@ public class AddressController {
 	}
 	
 	/**
-	 * 跳转到新增界面
+	 * 新增常用地址
 	 * @param request
 	 * @param response
 	 * @return
 	 */
 	@RequestMapping("insertaddress")
-	public ModelAndView insertAddress(
-		@RequestParam String name,
-		@RequestParam String address,
-		@RequestParam String phone,
-		HttpServletRequest request,HttpServletResponse response){
+	public String insertAddress(HttpSession session,Address address){
 		
-		String clientId=(String)request.getSession().getAttribute(Constant.USER_ID);
-		boolean flag = addressService.insertAddress(name,address,phone,clientId);
-			try {
-				if (flag == true)
-					response.sendRedirect("getaddress");
-				else
-					System.out.println("添加失败");// 应记录日志
-			} catch (IOException e) {
-				// 
-				// 此处应记录日志
-				e.printStackTrace();
+		//String clientId=(String)request.getSession().getAttribute(Constant.USER_ID);
+		boolean flag = addressService.insertAddress(session,address);
 
-			}
-			
-		return mv;
+		return "redirect:getaddress";
 	}
 	
 		/**
@@ -144,29 +129,18 @@ public class AddressController {
 			return mv;
 	 }
 	
-	 @RequestMapping("doupdateaddress")
-		public ModelAndView doUpdateAddress(
-			@RequestParam String id,
-			@RequestParam String name,
-			@RequestParam String address,
-			@RequestParam String phone,
-			HttpServletRequest request,HttpServletResponse response){
-			//System.out.println("已经进入updatesubaccount控制器");
+		/**
+		 * 更新常用地址
+		 * @param session
+		 * @param address
+		 * @return
+		 */
+		@RequestMapping("doupdateaddress")
+		public String updateAddress(HttpSession session,Address address){
 				
-			boolean flag = addressService.updateAddress(id, name, address,
-					phone);
-			try {
-				if (flag == true)
-					response.sendRedirect("getaddress");
-				else
-					System.out.println("更新失败");// 应记录日志
-			} catch (IOException e) {
-				// 
-				// 此处应记录日志
-				e.printStackTrace();
-			}
-			
-			return mv;
+			addressService.updateAddress(session,address);
+
+			return "redirect:getaddress";
 		}
 	 
 	 /**

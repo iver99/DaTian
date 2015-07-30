@@ -167,7 +167,7 @@
 	
 	//获取常用发货地址总记录条数
 	function getRecieveAddressTotalRows(display,currentPage,kind){
-		var url="getAddressAjaxTotalRows";
+		var url="getAddressTotalRowsAjax";
 		$.ajax({
 			url:url,
 			data:{
