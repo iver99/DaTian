@@ -146,7 +146,6 @@
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
-		debugger;
 		var display=$("#display").val();
 		var currentPage=$("#currentPage").val();
 		//搜索信息
