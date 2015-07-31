@@ -185,24 +185,24 @@
 				body.empty();
 				//循环输出结果集
 				 for(var i =0;i<data.length;i++){
-					body.append("<tr>");
-					body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>");
-					body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"contractdetail?contractId="+data[i].id+"&flag=1\" hidefocus=\"true\">"+data[i].id+"</a></td>");
-					body.append("<td class=\"td_mgmt_right3_td1\" id=\"name\">"+data[i].name+"</td>");
-					body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].carrierAccount+"</td>");
-					body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].monthlyStatementDays+"</td>");
-					body.append("<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].startDate)+"</td>");
-					body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].state+"</td>");
-					if(data[i].state=='有效'){
-						body.append("<td class=\"td_mgmt_right3_td3\"><a href=\"contractdetail?contractId="+data[i].id+"&flag=2\" hidefocus=\"true\">终止</a></td>");				
-					}
-					else if(data[i].state=='已终止'){
-						body.append("<td class=\"td_mgmt_right3_td3\"><a href=\"contractdetail?contractId="+data[i].id+"&flag=3\" hidefocus=\"true\">查看</a></td>");
-					}
-					else{
-						body.append("<td class=\"td_mgmt_right3_td3\"><a href=\"contractdetail?contractId="+data[i].id+"&flag=1\" hidefocus=\"true\">查看</a></td>");
-					}
-					body.append("</tr>");
+					 
+					 var str="<tr>";
+					 str+="<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>";
+					 str+="<td class=\"td_mgmt_right3_td1\"><a href=\"contractdetail?contractId="+data[i].id+"&flag=1\" hidefocus=\"true\">"+data[i].id+"</a></td>";
+					 str+="<td class=\"td_mgmt_right3_td1\" id=\"name\">"+data[i].name+"</td>";
+					 str+="<td class=\"td_mgmt_right3_td1\">"+data[i].carrierAccount+"</td>";
+					 str+="<td class=\"td_mgmt_right3_td1\">"+data[i].monthlyStatementDays+"</td>";
+					 str+="<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].startDate)+"</td>";
+					 str+="<td class=\"td_mgmt_right3_td1\">"+data[i].state+"</td>";
+					 if(data[i].state=='有效'){
+						 str+="<td class=\"td_mgmt_right3_td3\"><a href=\"contractdetail?contractId="+data[i].id+"&flag=2\" hidefocus=\"true\">终止</a></td>";
+					 }else if(data[i].state=='已终止'){
+						 str+="<td class=\"td_mgmt_right3_td3\"><a href=\"contractdetail?contractId="+data[i].id+"&flag=3\" hidefocus=\"true\">查看</a></td>";
+					 }else{
+						 str+="<td class=\"td_mgmt_right3_td3\"><a href=\"contractdetail?contractId="+data[i].id+"&flag=1\" hidefocus=\"true\">查看</a></td>";
+					 }
+					 str+="</tr>";
+					body.append(str);
 					
 				} 
 				

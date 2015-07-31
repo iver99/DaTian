@@ -178,37 +178,36 @@
 				body.empty();
 				//循环输出结果集
 				 for(var i =0;i<data.length;i++){
-					body.append("<tr>");
-					body.append("<td class=\"td_main_list_content\"></td>");
-					body.append("<td class=\"td_main_list_content\">"+data[i].id+"</td>");
-					body.append("<td class=\"td_main_list_content\"><a href=\"mygoodsdetail?id="+data[i].id+"&flag=1\" hidefocus=\"true\">"+data[i].name+"</a></td>");
-					body.append("<td class=\"td_main_list_content\">"+renderTime(data[i].relDate)+"</td>");
-					body.append("<td class=\"td_main_list_content\">"+renderTime(data[i].limitDate)+"</td>");
-					body.append("<td class=\"td_main_list_content\">"+data[i].oriented+"</td>");
-					body.append("<td class=\"td_main_list_content\">"+data[i].feedbackQuantity+"</td>");
-					if(data[i].state=='已确认'){
-						body.append("<td class=\"td_mgmt_right3_td1\">已确认</td>");
-						body.append("<td class=\"td_mgmt_right3_td3\"><a href=\"viewResponseDetailAfter?goodsid="+data[i].id+"\" hidefocus=\"true\">查看反馈</a></td>");
-					}
-					else if(data[i].state=='已取消'){
-						body.append("<td class=\"td_mgmt_right3_td1\">已取消</td>");
-						body.append("<td class=\"td_mgmt_right3_td3\"><a href=\"mygoodsdetail?id="+data[i].id+"&flag=1\" hidefocus=\"true\">查看</a></td>");
-					}
-					else{
-						var str="<td class=\"td_mgmt_right3_td2\">待确认</td>";
-						str+="<td class=\"td_mgmt_right3_td3\"><div id=\"handlebox\" style=\"z-index: 203;\">";
-						str+="<ul class=\"quickmenu\"><li class=\"menuitem\">";
-						str+="<div class=\"menu\">";
-						str+="<a href=\"viewResponseDetail?goodsid="+data[i].id+"\" class=\"menuhd\" hidefocus=\"true\">查看反馈</a>";
-						str+="<div class=\"menubd\">";
-						str+="<div class=\"menubdpanel\">";
-						str+="<a href=\"mygoodsdetail?id="+data[i].id+"&flag=2\" class=\"a_top3\" hidefocus=\"true\">更新</a>";
-						str+="<a href=\"deletegoods?id="+data[i].id+"\" class=\"a_top3\" hidefocus=\"true\">删除</a>";
-						str+="</div></div></div></li></ul></div></td>";
-						str+="</tr>";
-						body.append(str);
-					}
-					
+					 
+					 var str="<tr>";
+					 str+="<td class=\"td_main_list_content\"></td>";
+					 str+="<td class=\"td_main_list_content\">"+data[i].id+"</td>";
+					 str+="<td class=\"td_main_list_content\"><a href=\"mygoodsdetail?id="+data[i].id+"&flag=1\" hidefocus=\"true\">"+data[i].name+"</a></td>";
+					 str+="<td class=\"td_main_list_content\">"+renderTime(data[i].relDate)+"</td>";
+					 str+="<td class=\"td_main_list_content\">"+renderTime(data[i].limitDate)+"</td>";
+					 str+="<td class=\"td_main_list_content\">"+data[i].oriented+"</td>";
+					 str+="<td class=\"td_main_list_content\">"+data[i].feedbackQuantity+"</td>";
+					 if(data[i].state=='已确认'){
+						 str+="<td class=\"td_mgmt_right3_td1\">已确认</td>";
+						 str+="<td class=\"td_mgmt_right3_td3\"><a href=\"viewResponseDetailAfter?goodsid="+data[i].id+"\" hidefocus=\"true\">查看反馈</a></td>";
+					 }else if(data[i].state=='已取消'){
+						 str+="<td class=\"td_mgmt_right3_td1\">已取消</td>";
+						 str+="<td class=\"td_mgmt_right3_td3\"><a href=\"mygoodsdetail?id="+data[i].id+"&flag=1\" hidefocus=\"true\">查看</a></td>";
+						 
+					 }else{
+						 str+="<td class=\"td_mgmt_right3_td2\">待确认</td>";
+						 str+="<td class=\"td_mgmt_right3_td3\"><div id=\"handlebox\" style=\"z-index: 203;\">";
+							str+="<ul class=\"quickmenu\"><li class=\"menuitem\">";
+							str+="<div class=\"menu\">";
+							str+="<a href=\"viewResponseDetail?goodsid="+data[i].id+"\" class=\"menuhd\" hidefocus=\"true\">查看反馈</a>";
+							str+="<div class=\"menubd\">";
+							str+="<div class=\"menubdpanel\">";
+							str+="<a href=\"mygoodsdetail?id="+data[i].id+"&flag=2\" class=\"a_top3\" hidefocus=\"true\">更新</a>";
+							str+="<a href=\"deletegoods?id="+data[i].id+"\" class=\"a_top3\" hidefocus=\"true\">删除</a>";
+							str+="</div></div></div></li></ul></div></td>";
+					 }
+					 str+="</tr>";
+					 body.append(str);
 				} 
 				
 			}

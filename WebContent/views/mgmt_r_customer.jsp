@@ -182,25 +182,23 @@
 				body.empty();
 				//循环输出结果集
 				 for(var i =0;i<data.length;i++){
-					body.append("<tr>");
-					body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>");
-							body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"clientdetail?clientId="+data[i].id+"&flag=1\" hidefocus=\"true\">"+data[i].account+"</a></td>");
-							body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].clientName+"</td>");
-							body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].clientBusiness+"</td>");
-							body.append("<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].relDate)+"</td>");
-							
-							var str="<td class=\"td_mgmt_right3_td3\"><div id=\"handlebox\" style=\"z-index: 203;\">";
-							str+="<ul class=\"quickmenu\"><li class=\"menuitem\">";
-							str+="<div class=\"menu\">";
-							str+="<a href=\"clientdetail?clientId="+data[i].id+"&flag=2\" class=\"menuhd\" hidefocus=\"true\">更新</a>";
-							str+="<div class=\"menubd\">";
-							str+="<div class=\"menubdpanel\">";
-							str+="<a href=\"clientdelete?id="+data[i].id+"\" class=\"a_top3\" hidefocus=\"true\">删除</a>";
-							str+="</div></div></div></li></ul></div></td>";
-							str+="</tr>";
-							body.append(str);
-							
-					
+					 
+					 var str="<tr>";
+					 str+="<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>";
+					 str+="<td class=\"td_mgmt_right3_td1\"><a href=\"clientdetail?clientId="+data[i].id+"&flag=1\" hidefocus=\"true\">"+data[i].account+"</a></td>";
+					 str+="<td class=\"td_mgmt_right3_td1\">"+data[i].clientName+"</td>";
+					 str+="<td class=\"td_mgmt_right3_td1\">"+data[i].clientBusiness+"</td>";
+					 str+="<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].relDate)+"</td>";
+					 str+="<td class=\"td_mgmt_right3_td3\"><div id=\"handlebox\" style=\"z-index: 203;\">";
+					 str+="<ul class=\"quickmenu\"><li class=\"menuitem\">";
+						str+="<div class=\"menu\">";
+						str+="<a href=\"clientdetail?clientId="+data[i].id+"&flag=2\" class=\"menuhd\" hidefocus=\"true\">更新</a>";
+						str+="<div class=\"menubd\">";
+						str+="<div class=\"menubdpanel\">";
+						str+="<a href=\"clientdelete?id="+data[i].id+"\" class=\"a_top3\" hidefocus=\"true\">删除</a>";
+						str+="</div></div></div></li></ul></div></td>";
+						str+="</tr>";
+						body.append(str);
 				} 
 				
 			}

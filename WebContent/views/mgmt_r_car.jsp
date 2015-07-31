@@ -162,36 +162,34 @@
 				body.empty();
 				//循环输出结果集
 				  for(var i =0;i<data.length;i++){
-					body.append("<tr>");
-					body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>");
-                  
-							body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"cardetail?carId="+data[i].id+"&carrierId=0&linetransportId="+data[i].linetransportId+"&flag=1\" hidefocus=\"true\">"+data[i].carNum+"</a></td>");
-							body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].carTeam+"</td>");
-							body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].carUse+"</td>");
-							body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].carLength+"</td>");
-							body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].carWeight+"</td>");
-							body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].carState+"</td>");
-							if(data[i].carLocation == undefined){
-								body.append("<td class=\"td_mgmt_right3_td1\">--</td>");
-							}else{
-								body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].carLocation+"</td>");
-							}
-							body.append("<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].relDate)+"</td>");
-							if(data[i].carState == '在途'){
-								body.append("<td class=\"td_mgmt_right3_td3\"><a href=\"cardetail?carId="+data[i].id+"&carrierId=0&linetransportId="+data[i].linetransportId+"&flag=1\" hidefocus=\"true\">查看</a></td>");
-							}
-							else{
-								var str="<td class=\"td_mgmt_right3_td3\"><div id=\"handlebox\" style=\"z-index: 203;\">";
-								str+="<ul class=\"quickmenu\"><li class=\"menuitem\">";
-								str+="<div class=\"menu\">";
-								str+="<a href=\"cardetail?carId="+data[i].id+"&carrierId="+data[i].carrierId+"&linetransportId="+data[i].linetransportId+"&flag=2\" class=\"menuhd\" hidefocus=\"true\">更新</a>";
-								str+="<div class=\"menubd\">";
-								str+="<div class=\"menubdpanel\">";
-								str+="<a href=\"cardelete?id="+data[i].id+"\" class=\"a_top3\" hidefocus=\"true\">删除</a>";
-								str+="</div></div></div></li></ul></div></td>";
-								str+="</tr>";
-								body.append(str);
-							}
+					  var str="<tr>";
+					  str+="<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>";
+					  str+="<td class=\"td_mgmt_right3_td1\"><a href=\"cardetail?carId="+data[i].id+"&carrierId=0&linetransportId="+data[i].linetransportId+"&flag=1\" hidefocus=\"true\">"+data[i].carNum+"</a></td>";
+					  str+="<td class=\"td_mgmt_right3_td1\">"+data[i].carTeam+"</td>";
+					  str+="<td class=\"td_mgmt_right3_td1\">"+data[i].carUse+"</td>";
+					  str+="<td class=\"td_mgmt_right3_td1\">"+data[i].carLength+"</td>";
+					  str+="<td class=\"td_mgmt_right3_td1\">"+data[i].carWeight+"</td>";
+					  str+="<td class=\"td_mgmt_right3_td1\">"+data[i].carState+"</td>";
+					  if(data[i].carLocation == undefined){
+					  	str+="<td class=\"td_mgmt_right3_td1\">--</td>";
+					  }else{
+					 	str+="<td class=\"td_mgmt_right3_td1\">"+data[i].carLocation+"</td>";
+					  }
+					  str+="<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].relDate)+"</td>";
+					  if(data[i].carState == '在途'){
+						  str+="<td class=\"td_mgmt_right3_td3\"><a href=\"cardetail?carId="+data[i].id+"&carrierId=0&linetransportId="+data[i].linetransportId+"&flag=1\" hidefocus=\"true\">查看</a></td>";
+					  }else{
+						  str+="<td class=\"td_mgmt_right3_td3\"><div id=\"handlebox\" style=\"z-index: 203;\">";
+						  str+="<ul class=\"quickmenu\"><li class=\"menuitem\">";
+							str+="<div class=\"menu\">";
+							str+="<a href=\"cardetail?carId="+data[i].id+"&carrierId="+data[i].carrierId+"&linetransportId="+data[i].linetransportId+"&flag=2\" class=\"menuhd\" hidefocus=\"true\">更新</a>";
+							str+="<div class=\"menubd\">";
+							str+="<div class=\"menubdpanel\">";
+							str+="<a href=\"cardelete?id="+data[i].id+"\" class=\"a_top3\" hidefocus=\"true\">删除</a>";
+							str+="</div></div></div></li></ul></div></td>";
+					  }
+					  str+="</tr>";
+					  body.append(str);
 				}  
 				
 			}
