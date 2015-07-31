@@ -297,7 +297,7 @@
         </tr>
         <tr>
             <td class="td_popup1">
-                <input type="button" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="insertMessage()"/><input type="button" id="btn2" value="éå¡«" class="btn_mgmt2" hidefocus="true" />
+                <input type="button" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="insertMessage()"/><input type="button" id="btn2" value="重填" class="btn_mgmt2" hidefocus="true" />
             </td>
         </tr>
     </table>
