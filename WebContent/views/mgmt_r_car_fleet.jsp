@@ -100,33 +100,6 @@
                 	</thead>
                 	<tbody id="result_body">
                 	</tbody>
-                   <%--  <c:forEach var="carteam" items="${carteamList }">
-                    <tr>
-                        <td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>
-                        <td class="td_mgmt_right3_td1"><a href="carteamdetail?id=${carteam.id }&flag=1" hidefocus="true">${carteam.teamName }</a></td>
-                        <td class="td_mgmt_right3_td1">${carteam.carCount }</td>
-                        <td class="td_mgmt_right3_td1">${carteam.chief }</td>
-                        <td class="td_mgmt_right3_td1">${carteam.phone }</td>
-                        <td class="td_mgmt_right3_td1">${carteam.relDate }</td>
-                        <td class="td_mgmt_right3_td3">
-                            <div id="handlebox" style="z-index:203;">
-                                <ul class="quickmenu">
-                                    <li class="menuitem">
-                                        <div class="menu">
-                                            <a href="carteamdetail?id=${carteam.id }&flag=2" class="menuhd" hidefocus="true">更新</a>
-                                            <div class="menubd">
-                                                <div class="menubdpanel">
-                                                    <a href="deletecarteam?id=${carteam.id }" class="a_top3" hidefocus="true">删除</a>
-                                                    <a href="javascript:;" class="a_top3" hidefocus="true">切换</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    </c:forEach> --%>
                 </table>
 				<table border="0" cellpadding="0" cellspacing="0" class="table_recordnumber">
                     <tr>
@@ -182,14 +155,15 @@
 				var body=$("#result_body");
 				body.empty();
 				for(var i=0;i<data.length;i++){
-					body.append("<tr>");
-					body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>");
-					body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"carteamdetail?id=${carteam.id }&flag=1\" hidefocus=\"true\">${carteam.teamName }</a></td>");
-					body.append("<td class=\"td_mgmt_right3_td1\">${carteam.carCount }</td>");
-					body.append("<td class=\"td_mgmt_right3_td1\">${carteam.chief }</td>");
-					body.append("<td class=\"td_mgmt_right3_td1\">${carteam.phone }</td>");
-					body.append("<td class=\"td_mgmt_right3_td1\">${carteam.relDate }</td>");
-					var str="<td class=\"td_mgmt_right3_td3\">";
+					
+					var str="<tr>";
+					str+="<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>";
+					str+="<td class=\"td_mgmt_right3_td1\"><a href=\"carteamdetail?id=${carteam.id }&flag=1\" hidefocus=\"true\">${carteam.teamName }</a></td>";
+					str+="<td class=\"td_mgmt_right3_td1\">${carteam.carCount }</td>";
+					str+="<td class=\"td_mgmt_right3_td1\">${carteam.chief }</td>";
+					str+="<td class=\"td_mgmt_right3_td1\">${carteam.phone }</td>";
+					str+="<td class=\"td_mgmt_right3_td1\">${carteam.relDate }</td>";
+					str+="<td class=\"td_mgmt_right3_td3\">";
 					str+="<div id=\"handlebox\" style=\"z-index:203;\">";
 					str+="<ul class=\"quickmenu\">";
 					str+="<li class=\"menuitem\">";
@@ -198,8 +172,9 @@
 					str+="<div class=\"menubd\">";
 					str+="<div class=\"menubdpanel\">";
 					str+="<a href=\"deletecarteam?id=${carteam.id }\" class=\"a_top3\" hidefocus=\"true\">删除</a>";
-					/* str+="<a href=\"javascript:;\" class=\"a_top3\" hidefocus=\"true\">切换</a>"; */
+					
 					str+="</div></div></div></li></ul></div></td></tr>";
+					
 					body.append(str);
 				}
 			}
@@ -228,6 +203,8 @@
 	function changeDisplay(){
 		//修改隐藏字段，每页数量
 		$("#display").val($("#Display").val());
+		//当前页归1
+		$("#currentPage").val(1);
 			var display=$("#display").val();
 			var currentPage=$("#currentPage").val();
 			getUserCarTeamResource(display,currentPage);

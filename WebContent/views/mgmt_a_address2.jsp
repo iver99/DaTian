@@ -19,6 +19,9 @@
 <script type="text/javascript" src="js/popup.js"></script>
 <script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
 <script type="text/javascript" src="js/focus_load.js"></script>
+
+<script type="text/javascript" src="js/html5.js"></script>
+
 <%@ include file="jsTool.jsp" %>
 <script type="text/javascript"> 
 	$(function() {
@@ -82,6 +85,11 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">联系电话：</td>
                                     <td><input name="phone" type="text" class="input_mgmt1" style="width:300px;" required/></td>
+                                </tr>
+                                <tr>
+                                    <td height="40" class="td_mgmt_right3_td1b">地址类型：</td>
+                                    <td>发货地址&nbsp;&nbsp;<input name="kind" value="1" type="radio" class="input_mgmt1" checked="checked"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    	收货地址&nbsp;&nbsp;<input name="kind" value="2" type="radio" class="input_mgmt1" /></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>

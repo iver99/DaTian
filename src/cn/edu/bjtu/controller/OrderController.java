@@ -95,6 +95,21 @@ public class OrderController {
 		}
 		return mv;
 	}
+	/**
+	 * 跳转到订单列表页面
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("turnToOrderPage")
+	public String orderPage(HttpSession session){
+		Integer userKind=(Integer)session.getAttribute(Constant.USER_KIND);
+		if(userKind==2){//个人用户
+			return "mgmt_d_order_s";
+		}else if(userKind==3){//企业用户
+			return "mgmt_d_order_r";
+		}
+		return "index";
+	}
 	
 	/**
 	 * u获取用户提交的订单
@@ -118,7 +133,6 @@ public class OrderController {
 	@ResponseBody
 	@RequestMapping("getUseSendOrderTotalRowsAjax")
 	public Integer getUserSendOrderTotalRows(HttpSession session,Orderform order){
-		//XXX unused
 		return orderService.getUserSendOrderTotalRows(session,order);
 	}
 
@@ -287,41 +301,17 @@ public class OrderController {
 	 * @return
 	 */
 	@RequestMapping("signBill")
-	public ModelAndView SignBill(@RequestParam(required = false) MultipartFile file,String orderid, float actualPrice,
+	public String SignBill(@RequestParam(required = false) MultipartFile file,String orderid, float actualPrice,
 			String explainReason, HttpServletRequest request,
 			HttpServletResponse response) {
 		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
-		// ////////////////////////////////////////////////////////////////////////
 
 		//保存文件
 		String fileLocation=UploadFile.uploadFile(file, carrierId, "signBill");
-		/*String path = null;
-		String fileName = null;
-		if (file.getSize() != 0)// 有上传文件的情况
-		{
-			path = UploadPath.getSignBillPath();// 不同的地方取不同的上传路径
-			fileName = file.getOriginalFilename();
-			fileName = carrierId + "_" + fileName;// 文件名
-			File targetFile = new File(path, fileName);
-			try { // 保存 文件
-				file.transferTo(targetFile);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} */
-		//没有上传文件的情况path 和 filenName默认为null
-		boolean flag = orderService.signBill(orderid, actualPrice,
+		orderService.signBill(orderid, actualPrice,
 				explainReason,fileLocation);
-		try {
-			if (flag == true)
-				response.sendRedirect("recieveorderinfo");
-			else
-				System.out.println("签单上传失败");// logging...
-		} catch (IOException e) {
-			// 
-			e.printStackTrace();
-		}
-		return mv;
+
+		return "redirect:recieveorderinfo";
 	}
 
 	/*
@@ -337,12 +327,12 @@ public class OrderController {
 	 * 
 	 * // 需要更新订单状态为已收货(评价状态) mv.setViewName("mgmt_d_order_s5"); return mv; }
 	 */
-	@RequestMapping("getConfirmForm")
 	/**
 	 * 获取确认收货表单
 	 * @param orderid
 	 * @return
 	 */
+	@RequestMapping("getConfirmForm")
 	public ModelAndView getConfirmForm(String orderid) {
 		// 跳到确认收货页面
 		// 需要规定费用，实际费用，说明
@@ -359,23 +349,14 @@ public class OrderController {
 	}
 
 	@RequestMapping("confirm")
-	public ModelAndView confirm(String orderid, HttpServletRequest request,
+	public String confirm(String orderid, HttpServletRequest request,
 			HttpServletResponse response) {
 		// 修改订单为待评价
 		boolean flag = orderService.confirmCargo(orderid);
 		mv.addObject("orderId", orderid);
-		if (flag == true)
-			try {
-				response.sendRedirect("sendorderinfo");
-			} catch (IOException e) {
-				// 
-				e.printStackTrace();
-				// logging
-			}
-		else
-			System.out.println("确认收货失败");// logging
 
-		return mv;
+
+		return "redirect:turnToOrderPage";
 	}
 
 	@RequestMapping("getCommentForm")
@@ -419,49 +400,7 @@ public class OrderController {
 		return mv;
 	}
 
-	/**
-	 *更新订单操作
-	 * @return
-	 *//*
-	@Deprecated
-	@RequestMapping(value = "doUpdate", method = RequestMethod.POST)
-	public ModelAndView doUpdate(
-	@RequestParam String orderid, @RequestParam String clientName,
-			@RequestParam String hasCarrierContract,
-			@RequestParam String contractId, @RequestParam String goodsName,
-			@RequestParam float goodsWeight, @RequestParam float goodsVolume,
-			@RequestParam float declaredPrice, @RequestParam float insurance,
-			@RequestParam float expectedPrice,
-			@RequestParam String deliveryName,
-			@RequestParam String recieverName,
-			@RequestParam String deliveryPhone,
-			@RequestParam String recieverPhone,
-			@RequestParam String deliveryAddr,
-			@RequestParam String recieverAddr, @RequestParam String remarks,
-			HttpServletRequest request, HttpServletResponse response
-
-	) {
-		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
-		// 字符串拆解
-		
-		boolean flag = orderService.updateOrder(orderid, clientName,
-				hasCarrierContract, contractId, goodsName, goodsWeight,
-				goodsVolume, declaredPrice, insurance, expectedPrice,
-				deliveryName, deliveryPhone, deliveryAddr, recieverName,
-				recieverPhone, recieverAddr, remarks);
-		if (flag == true) {
-
-			try {
-				response.sendRedirect("sendorderinfo");// 重定向，显示最新的结果
-			} catch (IOException e) {
-				// 
-				// 此处应该记录日志
-				e.printStackTrace();
-			}
-		} else
-			mv.setViewName("fail");
-		return mv;
-	}*/
+	
 	/**
 	 * 更新订单
 	 * @param session
@@ -472,7 +411,7 @@ public class OrderController {
 	public String updateOrder(HttpSession session,OrderBean orderBean){
 		
 		boolean flag=orderService.updateOrder(session, orderBean);
-		return "redirect:sendorderinfo";
+		return "redirect:turnToOrderPage";
 		
 	}
 
@@ -513,22 +452,11 @@ public class OrderController {
 	 * @param orderid
 	 * @return
 	 */
-	public ModelAndView doCancel(HttpServletRequest request,
+	public String doCancel(HttpServletRequest request,
 			HttpServletResponse response, @RequestParam String cancelReason,
 			String orderid) {
 		boolean flag = orderService.cancel(cancelReason, orderid);
-		if (flag == true)
-			try {
-				response.sendRedirect("sendorderinfo");
-			} catch (IOException e) {
-				// 
-				e.printStackTrace();
-				// logging
-			}
-		else
-			System.out.println("取消失败");// logging
-
-		return mv;
+		return "redirect:turnToOrderPage";
 	}
 
 	@RequestMapping(value = "getOrderDoCancel", method = RequestMethod.POST)
@@ -826,7 +754,7 @@ public class OrderController {
 			json.setSuccess(false);
 		}
 		
-		return "redirect:sendorderinfo";
+		return "redirect:turnToOrderPage";
 	}
 	
 	
@@ -847,7 +775,7 @@ public class OrderController {
 			responseService.confirmResponse(responseId,carrierId,goodsId);//修改确认反馈信息为已确认，其它反馈信息为已取消状态
 			//货物表修改状态
 			goodsInfoService.confirmResponse(goodsId);
-			return "redirect:sendorderinfo";
+			return "redirect:turnToOrderPage";
 		}
 		return "redirect:mgmt_d_order_s";
 	}

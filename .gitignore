@@ -46,5 +46,7 @@ Temporary Items
 
 =======
 /build
->>>>>>> haochendong
 *.class
+#忽略上传文件
+/file
+

@@ -158,24 +158,23 @@
 				
 				//循环输出结果集
 				  for(var i =0;i<data.length;i++){
-                                    
-					body.append("<tr>");
-					body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>");
-					body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"citylinedetail?citylineId="+data[i].id+"&carrierId=0&flag=2\" hidefocus=\"true\">"+data[i].name+"</a></td>");
-					body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].cityName+"</td>");
-					body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].vIPService+"</td>");
-					body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].refPrice+"</td>");
-					body.append("<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].relDate)+"</td>");
-					var str="<td class=\"td_mgmt_right3_td3\"><div id=\"handlebox\" style=\"z-index: 201;\">";
-					str+="<ul class=\"quickmenu\"><li class=\"menuitem\">";
-					str+="<div class=\"menu\">";
-					str+="<a href=\"citylinedetail?citylineId="+data[i].id+"&carrierId=0&flag=3\" class=\"menuhd\" hidefocus=\"true\">更新</a>";
-					str+="<div class=\"menubd\">";
-					str+="<div class=\"menubdpanel\">";
-					str+="<a href=\"citydelete?id="+data[i].id+"\" class=\"a_top3\" hidefocus=\"true\">删除</a>";
-					str+="</div></div></div></li></ul></div></td>";
-					str+="</tr>";
-					body.append(str);
+					  var str="<tr>";
+					  str+="<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>";
+					  str+="<td class=\"td_mgmt_right3_td1\"><a href=\"citylinedetail?citylineId="+data[i].id+"&carrierId=0&flag=2\" hidefocus=\"true\">"+data[i].name+"</a></td>";
+					  str+="<td class=\"td_mgmt_right3_td1\">"+data[i].cityName+"</td>";
+					  str+="<td class=\"td_mgmt_right3_td1\">"+data[i].vIPService+"</td>";
+					  str+="<td class=\"td_mgmt_right3_td1\">"+data[i].refPrice+"</td>";
+					  str+="<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].relDate)+"</td>";
+					  str+="<td class=\"td_mgmt_right3_td3\"><div id=\"handlebox\" style=\"z-index: 201;\">";
+					  str+="<ul class=\"quickmenu\"><li class=\"menuitem\">";
+						str+="<div class=\"menu\">";
+						str+="<a href=\"citylinedetail?citylineId="+data[i].id+"&carrierId=0&flag=3\" class=\"menuhd\" hidefocus=\"true\">更新</a>";
+						str+="<div class=\"menubd\">";
+						str+="<div class=\"menubdpanel\">";
+						str+="<a href=\"citydelete?id="+data[i].id+"\" class=\"a_top3\" hidefocus=\"true\">删除</a>";
+						str+="</div></div></div></li></ul></div></td>";
+						str+="</tr>";
+						body.append(str);
 					
 				}  
 				
@@ -205,6 +204,8 @@
 	function changeDisplay(){
 		//修改隐藏字段，每页数量
 		$("#display").val($("#Display").val());
+		//当前页归1
+		$("#currentPage").val(1);
 			var display=$("#display").val();
 			var currentPage=$("#currentPage").val();
 			getUserCitylineResource(display,currentPage);

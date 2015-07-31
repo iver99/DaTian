@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.AddressService;
 import cn.edu.bjtu.util.Constant;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Address;
 
 import com.alibaba.fastjson.JSONArray;
@@ -31,89 +32,65 @@ public class AddressController {
 	AddressService addressService;
 	@Resource
 	Address address;
-	
+	/**
+	 * 跳转到常用发货地址
+	 * @return
+	 */
 	@RequestMapping("getaddress")
-	public ModelAndView getAddress(HttpServletRequest request,HttpServletResponse response)
-	{
-		String userId=(String)request.getSession().getAttribute(Constant.USER_ID);
-		List addressList = addressService.getAddress(userId);
-		mv.addObject("addressList", addressList);
-		mv.setViewName("mgmt_a_address");
-		return mv;
+	public String getAddress(){
+		return "mgmt_a_address";
 	}
 	
-	
-	@RequestMapping("deleteaddress")
 	/**
-	 * 删除
+	 * 跳转道常用收货地址
+	 * @return
+	 */
+	@RequestMapping("getRecieveAddress")
+	public String getRecieveAddress(){
+		return "mgmt_a_address1";
+	}
+	
+	/**
+	 * 删除常用地址 
 	 * @param id
 	 * @param request
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView deleteAddress(
+	@RequestMapping("deleteaddress")
+	public String deleteAddress(
 			@RequestParam String id,
 			HttpServletRequest request,HttpServletResponse response){
 		
-		boolean flag = addressService.deleteAddress(id);
-		try {
-			if (flag == true)
-				response.sendRedirect("getaddress");
-			else
-				System.out.println("删除失败");// 应记录日志
-		} catch (IOException e) {
-			// 
-			// 此处应记录日志
-			e.printStackTrace();
+		addressService.deleteAddress(id);
 
-		}
-		
-		return mv;
+		return "redirect:getaddress";
 	}
 	
-	@RequestMapping("addaddress")
 	/**
 	 * 跳转到新增界面
 	 * @param request
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView addAddress(
+	@RequestMapping("addaddress")
+	public String addAddress(
 			HttpServletRequest request,HttpServletResponse response){
 		
-		String userId=(String)request.getSession().getAttribute(Constant.USER_ID);
-		mv.setViewName("mgmt_a_address2");
-		return mv;
+		return "mgmt_a_address2";
 	}
 	
 	/**
-	 * 跳转到新增界面
+	 * 新增常用地址
 	 * @param request
 	 * @param response
 	 * @return
 	 */
 	@RequestMapping("insertaddress")
-	public ModelAndView insertAddress(
-		@RequestParam String name,
-		@RequestParam String address,
-		@RequestParam String phone,
-		HttpServletRequest request,HttpServletResponse response){
+	public String insertAddress(HttpSession session,Address address){
 		
-		String clientId=(String)request.getSession().getAttribute(Constant.USER_ID);
-		boolean flag = addressService.insertAddress(name,address,phone,clientId);
-			try {
-				if (flag == true)
-					response.sendRedirect("getaddress");
-				else
-					System.out.println("添加失败");// 应记录日志
-			} catch (IOException e) {
-				// 
-				// 此处应记录日志
-				e.printStackTrace();
-
-			}
-			
-		return mv;
+		addressService.insertAddress(session,address);
+		return "redirect:getaddress";
 	}
 	
 		/**
@@ -122,43 +99,27 @@ public class AddressController {
 		 * @return
 		 */
 	@RequestMapping("updateaddress")
-	 	public ModelAndView updateAddress(
-	 			@RequestParam String id,
-				HttpServletRequest request,HttpServletResponse response){
+	public ModelAndView updateAddress(@RequestParam String id,
+			HttpServletRequest request, HttpServletResponse response){
 			
-			String userId=(String)request.getSession().getAttribute(Constant.USER_ID);
-			System.out.println("已经进入address控制器");
-
 			Address address = addressService.getAddressDetail(id);
-			System.out.println("address+" + address);
 			mv.addObject("address", address);
 			mv.setViewName("mgmt_a_address3");
 			return mv;
 	 }
 	
-	 @RequestMapping("doupdateaddress")
-		public ModelAndView doUpdateAddress(
-			@RequestParam String id,
-			@RequestParam String name,
-			@RequestParam String address,
-			@RequestParam String phone,
-			HttpServletRequest request,HttpServletResponse response){
-			//System.out.println("已经进入updatesubaccount控制器");
+		/**
+		 * 更新常用地址
+		 * @param session
+		 * @param address
+		 * @return
+		 */
+		@RequestMapping("doupdateaddress")
+		public String updateAddress(HttpSession session,Address address){
 				
-			boolean flag = addressService.updateAddress(id, name, address,
-					phone);
-			try {
-				if (flag == true)
-					response.sendRedirect("getaddress");
-				else
-					System.out.println("更新失败");// 应记录日志
-			} catch (IOException e) {
-				// 
-				// 此处应记录日志
-				e.printStackTrace();
-			}
-			
-			return mv;
+			addressService.updateAddress(session,address);
+
+			return "redirect:getaddress";
 		}
 	 
 	 /**
@@ -168,6 +129,7 @@ public class AddressController {
 	  */
 	 @RequestMapping("addAddressAjax")
 	 @ResponseBody
+	 @Deprecated
 	 public void addAddressAjax(HttpSession session,Address address){
 		 addressService.addUserAddress(session,address);
 		 return ;
@@ -177,13 +139,52 @@ public class AddressController {
 	  * @param session
 	  * @param address
 	  */
-	 @RequestMapping(value="getUserFrequentAddressAjax",produces="text/html;charset=UTF-8")
+	 
+	 @RequestMapping(value="getUserAddressAjax",produces="text/html;charset=UTF-8")
 	 @ResponseBody
-	 public String getUserFrequentAddress(HttpSession session){
+	 public String getUserFrequentAddress(HttpSession session,Integer kind){
 		 
-		 JSONArray jsonArray=addressService.getUserFrequentAddress(session);
+		 JSONArray jsonArray=addressService.getUserAddress(session,kind);
 		 return jsonArray.toString();
 		 
 	 }
 	 
+	/**
+	 * 获取常用发货地址
+	 * 
+	 * @Title: getSendAddress
+	 * @Description: TODO
+	 * @param: @param session
+	 * @param: @param pageUtil
+	 * @param: @return
+	 * @return: String
+	 * @throws: 异常
+	 * @author: chendonghao
+	 * @date: 2015年7月29日 上午11:24:19
+	 */
+	@RequestMapping(value = "getAddressAjax", produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String getSendAddress(HttpSession session, PageUtil pageUtil,
+			Address address) {
+		return addressService.getAddress(session, pageUtil, address);
+	}
+
+	/**
+	 * 常用发货地址-总记录数
+	 * 
+	 * @Title: getSendAddressTotalRows
+	 * @Description: TODO
+	 * @param: @param session
+	 * @param: @return
+	 * @return: Integer
+	 * @throws: 异常
+	 * @author: chendonghao
+	 * @date: 2015年7月29日 上午11:30:34
+	 */
+	@RequestMapping("getAddressTotalRowsAjax")
+	@ResponseBody
+	public Integer getSendAddressTotalRows(HttpSession session, Address address) {
+		return addressService.getAddressTotalRows(session, address);
+	}
+
 }

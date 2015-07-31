@@ -1,7 +1,9 @@
 package cn.edu.bjtu.service.impl;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -20,8 +22,12 @@ import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.Encrypt;
 import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.util.IdCreator;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.SubAccount;
 import cn.edu.bjtu.vo.Userinfo;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 
 @Transactional
@@ -210,6 +216,55 @@ public class SubAccountServiceImpl implements SubAccountService{
 		return subAccountDao.get(SubAccount.class, id);
 	}
 	
+	/**
+	 * 附属账户
+	 */
+	@Override
+	public String getSubAccountList(HttpSession session,SubAccount subAccount,PageUtil pageUtil) {
+		String carrierId=(String)session.getAttribute(Constant.USER_ID);
+		Map<String,Object> params=new HashMap<String,Object>();
+		String hql="from SubAccount t "+whereHql(subAccount,params);
+		hql+=" and t.hostAccountId=:hostAccountId ";
+		params.put("hostAccountId", carrierId);
+		List<SubAccount> subAccountList=subAccountDao.find(hql, params);
+		JSONArray jsonArray=new JSONArray();
+		for(SubAccount sub:subAccountList){
+			JSONObject jsonObject=(JSONObject)JSONObject.toJSON(sub);
+			jsonArray.add(jsonObject);
+		}
+		return jsonArray.toString();
+	}
+
+	/**
+	 * 附属账户-总记录数
+	 */
+	@Override
+	public Integer getSubAccountTotalRows(HttpSession session,SubAccount subAccount) {
+		String carrierId=(String)session.getAttribute(Constant.USER_ID);
+		String hql="select count(*) from SubAccount t where t.hostAccountId=:hostAccountId";
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("hostAccountId", carrierId);
+		Long count=subAccountDao.count(hql, params);
+		
+		return count.intValue();
+		
+	}
 	
+	/**
+	 * where hql
+	 * @param subAccount
+	 * @param params
+	 * @return
+	 */
+	private String whereHql(SubAccount subAccount,Map<String,Object> params){
+		String hql="where 1=1 ";
+		if(subAccount !=null){
+			if(!"".equals(subAccount.getUsername()) && subAccount.getUsername()!=null){
+				hql+=" and t.username like '%"+subAccount.getUsername()+"%'";
+			}
+		}
+		
+		return hql;
+	}
 	
 }

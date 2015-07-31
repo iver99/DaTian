@@ -52,7 +52,7 @@ public class CommentController {
 		boolean flag=commentService.commitComment(rate1,rate2,rate3,rate4,remarks,userId,orderid);
 		if(flag==true){
 			try {
-				response.sendRedirect("sendorderinfo");
+				response.sendRedirect("turnToOrderPage");
 			} catch (IOException e) {
 				// 
 				e.printStackTrace();

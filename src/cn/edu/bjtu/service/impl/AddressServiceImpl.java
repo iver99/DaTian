@@ -17,6 +17,7 @@ import cn.edu.bjtu.dao.AddressDao;
 import cn.edu.bjtu.service.AddressService;
 import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.IdCreator;
+import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Address;
 
 import com.alibaba.fastjson.JSONArray;
@@ -62,32 +63,28 @@ public class AddressServiceImpl implements AddressService{
 	public boolean deleteAddress(String id){
 		return addressDao.deleteAddress(id);
 	}
-	
-	@Override
 	/**
-	 * 表内address与address对象重名，参数address重命名
+	 * 新增常用地址
 	 */
-	public boolean insertAddress(String name, String paramaddress, String phone, String clientId){
+	@Override
+	public boolean insertAddress(HttpSession session,Address address){
 		
+		String userId=(String)session.getAttribute(Constant.USER_ID);
 		address.setId(IdCreator.createAddressId());
-		address.setName(name);
-		address.setAddress(paramaddress);
-		address.setPhone(phone);
 		address.setRelDate(new Date());
-		address.setClientId(clientId);
+		address.setClientId(userId);
 		 addressDao.save(address);
 		 return true;
 	}
 	
 	@Override
-	public boolean updateAddress(String id, String name, String paramaddress, String phone){
+	public boolean updateAddress(HttpSession session,Address address){
 	
-		address = addressDao.getAddressDetail(id);// 根据id查找
-
-		address.setAddress(paramaddress);
-		address.setName(name);
-		address.setPhone(phone);
-		addressDao.update(address);
+		Address addr= addressDao.getAddressDetail(address.getId());// 根据id查找
+		addr.setName(address.getName());
+		addr.setPhone(address.getPhone());
+		addr.setAddress(address.getAddress());
+		addressDao.update(addr);
 		return true;
 	}
 	
@@ -108,14 +105,15 @@ public class AddressServiceImpl implements AddressService{
 
 
 	/**
-	 * 下订单时获取用于的藏用地址列表
+	 * 下订单时获取用于的发货地址列表
 	 */
 	@Override
-	public JSONArray getUserFrequentAddress(HttpSession session) {
+	public JSONArray getUserAddress(HttpSession session,Integer kind) {
 		String userId=(String)session.getAttribute(Constant.USER_ID);
-		String hql="from Address t where t.clientId=:clientId";
+		String hql="from Address t where t.clientId=:clientId and t.kind=:kind";
 		Map<String,Object> params=new HashMap<String,Object>();
 		params.put("clientId", userId);
+		params.put("kind", kind);
 		List<Address> addressList=addressDao.find(hql, params);
 		
 		JSONArray jsonArray=new JSONArray();
@@ -124,6 +122,46 @@ public class AddressServiceImpl implements AddressService{
 			jsonArray.add(jsonObject);
 		}
 		return jsonArray;
+	}
+	
+	/**
+	 * 获取发货地址
+	 */
+	@Override
+	public String getAddress(HttpSession session, PageUtil pageUtil,Address address) {
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+		String hql="from Address t where t.clientId=:clientId and t.kind=:kind order by t.relDate desc ";//1为发货地址,2为收货地址
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("clientId", userId);
+		params.put("kind", address.getKind());
+		
+		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
+		int display=pageUtil.getDisplay()==0?10:pageUtil.getDisplay();
+		List<Address> addressList=addressDao.find(hql, params, page, display);
+		
+		JSONArray jsonArray=new JSONArray();
+		for(Address addr:addressList){
+			JSONObject jsonObject=(JSONObject)JSONObject.toJSON(addr);
+			jsonArray.add(jsonObject);
+		}
+		
+		return jsonArray.toString();
+	}
+
+	/**
+	 * 常用发货地址-总记录数
+	 */
+	@Override
+	public Integer getAddressTotalRows(HttpSession session,Address address) {
+		String userId=(String)session.getAttribute(Constant.USER_ID);
+		String hql="select count (*) from Address t where t.clientId=:clientId and t.kind=:kind ";//1为发货地址,2为收货地址
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("clientId", userId);
+		params.put("kind", address.getKind());
+		
+		Long count =addressDao.count(hql, params);
+		
+		return count.intValue();
 	}
 	
 }

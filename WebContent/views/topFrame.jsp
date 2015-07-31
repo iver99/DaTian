@@ -17,7 +17,7 @@
 			<%
 				}
 			%>
-			<td class="td_top1a"><span class="span_top1a" id="city">&nbsp;&nbsp;&nbsp;&nbsp;北京&nbsp;<a href="city" hidefocus="true">[更换]</a></span></td>
+			<td class="td_top1a"><!-- <span class="span_top1a" id="city">&nbsp;&nbsp;&nbsp;&nbsp;北京&nbsp;<a href="city" hidefocus="true">[更换]</a></span> --></td>
 			<td class="td_top1a" width="90">
             	<div id="topinfo">
                     <ul class="quickmenu">
@@ -26,8 +26,8 @@
                                 <a href="myinfo" class="menuhd" hidefocus="true">我的信息</a> 
                                 <div class="menubd">
                                     <div class="menubdpanel">
-                                        <a href="sendorderinfo" class="a_top1" hidefocus="true">我的订单</a>
-                                        <a href="linetransport?flag=1&Display=10&PageNow=1" class="a_top1" hidefocus="true">我的资源</a>
+                                        <a href="turnToOrderPage" class="a_top1" hidefocus="true">我的订单</a>
+                                        <a href="turnToResourcePage" class="a_top1" hidefocus="true">我的资源</a>
                                         <a href="accountinfo" class="a_top1" hidefocus="true">帐户信息</a>
                                     </div>
                                 </div>

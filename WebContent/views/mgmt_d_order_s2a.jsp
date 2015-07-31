@@ -196,7 +196,7 @@
                                     <td width="250">&nbsp;</td>
                                     <td width="100" class="td_mgmt_right3_td1b">
                                     	收货人信息
-                                        <a href="javascript:;" onclick="showid('popup2');" hidefocus="true"><img src="images/btn_address.png" title="查询" /></a>
+                                        <a href="javascript:;" onclick="showid('popup3');" hidefocus="true"><img src="images/btn_address.png" title="查询" /></a>
                                     </td>
                                     <td>&nbsp;</td>
                                 </tr>
@@ -220,9 +220,9 @@
                                 </tr>
                                 <tr>
                                     <td height="20" class="td_mgmt_right3_td1b">&nbsp;</td>
-                                    <td><input type="checkbox" id="sender_info"/>&nbsp;加入常用发货地址</td>
+                                    <td><input type="checkbox" id="sender_info" name="sender_info"/>&nbsp;加入常用发货地址</td>
                                     <td class="td_mgmt_right3_td1b">&nbsp;</td>
-                                    <td><input type="checkbox" id="receiver_info"/>&nbsp;加入常用收货地址</td>
+                                    <td><input type="checkbox" id="reciever_info" name="reciever_info"/>&nbsp;加入常用收货地址</td>
                                 </tr>
                             </table>
                             <div class="span_mgmt_right3_text4">备注信息</div>      	          
@@ -235,7 +235,7 @@
 								</tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
-                                    <td><input type="button" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="addAddress()"/>
+                                    <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" />
                                     <input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
                                 </tr>
                             </table>
@@ -266,7 +266,7 @@
         </tr>
         <tr>
             <td class="td_popup1">
-                <input type="button" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="insertMessage()"/><input type="button" id="btn2" value="éå¡«" class="btn_mgmt2" hidefocus="true" />
+                <input type="button" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="insertMessage()"/><input type="button" id="btn2" value="重填" class="btn_mgmt2" hidefocus="true" />
             </td>
         </tr>
     </table>
@@ -275,7 +275,7 @@
 	<div id="popup2" style="display:none;">
     <table border="0" cellpadding="0" cellspacing="0">
         <tr>
-            <td width="610"><div class="div_popup_title1">常用地址</div></td>
+            <td width="610"><div class="div_popup_title1">常用发货地址</div></td>
             <td>
                 <div id="close2" style="cursor:pointer; margin-right:10px;"><img src="images/btn_cancel1.png" title="关闭本窗口" /></div>
             </td>
@@ -290,12 +290,32 @@
     </table>
 	<div class="div_popup_address">
         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_popup_address2" >
-           <!-- <tr>
-                <td width="100" class="td_popup_address2a">李刚</td>
-                <td width="120" class="td_popup_address2">13720099880</td>
-                <td class="td_popup_address2">天津市西市大街12号</td>
-            </tr> -->
-            <tbody id="frequent_address">
+            <tbody id="send_info">
+            
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div id="popup3" style="display:none;">
+    <table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td width="610"><div class="div_popup_title1">常用收货地址</div></td>
+            <td>
+                <div id="close3" style="cursor:pointer; margin-right:10px;"><img src="images/btn_cancel1.png" title="关闭本窗口" /></div>
+            </td>
+        </tr>
+    </table>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_popup_address1">
+        <tr>
+            <td width="100" class="td_popup_address1">姓名</td>
+            <td width="120" class="td_popup_address1">电话</td>
+            <td class="td_popup_address1">地址</td>
+        </tr>
+    </table>
+	<div class="div_popup_address">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_popup_address2" >
+            <tbody id="recieve_info">
             
             </tbody>
         </table>
@@ -316,19 +336,28 @@
 		getUserContract();
 		getUserClientName();
 		
-		//获取常用地址
-		getFrequentAddress();
+		//获取常用发货地址
+		getFrequentAddress(1);
+		//获取常用收货地址
+		getFrequentAddress(2);
 	}
 	
 	//获取常用地址]
-	function getFrequentAddress(){
-		var url="getUserFrequentAddressAjax";
+	function getFrequentAddress(kind){
+		var url="getUserAddressAjax";
 		$.ajax({
 			url:url,
 			cache:false,
 			dataType:"json",
+			data:{kind:kind},
 			success:function(data,status){
-				var f=$("#frequent_address");
+				var f;
+				//debugger;
+				if(kind ==1){
+				 	f=$("#send_info");
+				}else{
+					f=$("#recieve_info");
+				}
 				f.empty();
 				for(var i=0;i<data.length;i++){
 					f.append("<tr>");
@@ -367,7 +396,7 @@
 	}
 	
 	//如果选中了添加常用地址的选项则在提交表单时添加常用地址
-    function addAddress(){
+   /*  function addAddress(){
 		var url="addAddressAjax";
 		var name;
 		var phone;
@@ -413,7 +442,7 @@
 		}
 		//提交订单
 		$('#new_order').submit();
-	}
+	} */
 	
 	//根据选择不同的资源，获得不同的资源列表
 	function getResource(kind){

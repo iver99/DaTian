@@ -130,7 +130,7 @@
 				</td>
 			</tr>
 		</table> 
-		<table border="0" cellpadding="0" cellspacing="0" id="page_layout" class="table_pagenumber" id="PageNow" value="1">
+		<table border="0" cellpadding="0" cellspacing="0" id="page_layout" class="table_pagenumber">
 			<!--  page -->
 		</table>
 
@@ -175,17 +175,17 @@ function getUserLinetransportResource(display,currentPage){
 			//循环输出结果集
 			body.empty();
 			   for(var i =0;i<data.length;i++){
-				  		body.append("<tr>");
-						body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>");
-						body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"linetransportdetail?linetransportid="+data[i].id+"&carrierId=0&flag=1\" hidefocus=\"true\">"+data[i].startPlace+"→"+data[i].endPlace+"</a></td>");
-						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].type+"</td>");
-						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].startPlace+"</td>");
-						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].endPlace+"</td>");
-						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].onWayTime+"</td>");
-						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].refPrice+"</td>");
-						body.append("<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].relDate)+"</td>");
-						var str="<td class='td_mgmt_right3_td3'>";
-						str+="<div id=\"handlebox\" style=\"z-index: 201;\">";
+				   		var str="<tr>";
+				   		str+="<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>";
+				   		str+="<td class=\"td_mgmt_right3_td1\"><a href=\"linetransportdetail?linetransportid="+data[i].id+"&carrierId=0&flag=1\" hidefocus=\"true\">"+data[i].startPlace+"→"+data[i].endPlace+"</a></td>";
+				   		str+="<td class=\"td_mgmt_right3_td1\">"+data[i].type+"</td>";
+				   		str+="<td class=\"td_mgmt_right3_td1\">"+data[i].startPlace+"</td>";
+				   		str+="<td class=\"td_mgmt_right3_td1\">"+data[i].endPlace+"</td>";
+				   		str+="<td class=\"td_mgmt_right3_td1\">"+data[i].onWayTime+"</td>";
+				   		str+="<td class=\"td_mgmt_right3_td1\">"+data[i].refPrice+"</td>";
+				   		str+="<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].relDate)+"</td>";
+				   		str+="<td class='td_mgmt_right3_td3'>";
+				   		str+="<div id=\"handlebox\" style=\"z-index: 201;\">";
 						str+="<ul class=\"quickmenu\">";
 						str+="<li class=\"menuitem\">";
 						str+="<div class=\"menu\">";
@@ -194,6 +194,7 @@ function getUserLinetransportResource(display,currentPage){
 						str+="<div class=\"menubdpanel\">";
 						str+="<a href=\"linetransportdelete?id="+data[i].id+"\" class=\"a_top3\" hidefocus=\"true\">删除</a>";
 						str+="</div></div></div></li></ul></div></td></tr>";
+						
 						body.append(str);
 			}   
 			
@@ -223,6 +224,8 @@ function getUserLinetransportResourceTotalRows(display,currentPage){
 function changeDisplay(){
 	//修改隐藏字段，每页数量
 	$("#display").val($("#Display").val());
+	//当前页归1
+	$("#currentPage").val(1);
 		var display=$("#display").val();
 		var currentPage=$("#currentPage").val();
 		//加载用户干线资源

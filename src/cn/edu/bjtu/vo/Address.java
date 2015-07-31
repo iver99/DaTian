@@ -14,6 +14,22 @@ public class Address {
 	private Date relDate;
 	private String clientId;
 	private int frequency;
+	
+	private Integer kind;//1代表发货地址2表示收货地址
+	
+	
+	/**
+	 * @return the kind
+	 */
+	public Integer getKind() {
+		return kind;
+	}
+	/**
+	 * @param kind the kind to set
+	 */
+	public void setKind(Integer kind) {
+		this.kind = kind;
+	}
 	public String getId() {
 		return id;
 	}

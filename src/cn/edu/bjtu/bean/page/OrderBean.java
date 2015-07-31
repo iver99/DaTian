@@ -52,8 +52,36 @@ public class OrderBean {
 	private String goodsId;
 	private String responseId;
 	
+	//用于确定是否保存信息为常用地址
+	private String reciever_info;
+	private String sender_info;
 	
 	
+	
+	/**
+	 * @return the reciever_info
+	 */
+	public String getReciever_info() {
+		return reciever_info;
+	}
+	/**
+	 * @param reciever_info the reciever_info to set
+	 */
+	public void setReciever_info(String reciever_info) {
+		this.reciever_info = reciever_info;
+	}
+	/**
+	 * @return the sender_info
+	 */
+	public String getSender_info() {
+		return sender_info;
+	}
+	/**
+	 * @param sender_info the sender_info to set
+	 */
+	public void setSender_info(String sender_info) {
+		this.sender_info = sender_info;
+	}
 	public Date getSubmitTime() {
 		return submitTime;
 	}

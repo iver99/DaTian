@@ -118,22 +118,38 @@ public class CommonController {
 		return mv;
 	}
 	
-	@RequestMapping(value="homepage",method=RequestMethod.GET)
 	/**
 	 * 回到首页
 	 * @return
 	 */
+	@RequestMapping(value="homepage",method=RequestMethod.GET)
 	public String gotoHomePage()
 	{
 		return "index";
 	}
-	
+	/**
+	 * 跳转到资源页面 
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("turnToResourcePage")
+	public String turnToResourcePage(HttpSession session){
+		Integer userId=(Integer)session.getAttribute(Constant.USER_KIND);
+		
+		if(userId==2){
+			return "mgmt_r_customer";
+		}else if(userId==3){
+			return "mgmt_r_line";
+		}
+		
+		return "index";
+	}
 	/**
 	 * 下面方法供测试使用
 	 * @param msg
 	 * @return
 	 */
-	@RequestMapping("/views/testAjax")
+	/*@RequestMapping("/views/testAjax")
 	@ResponseBody
 	public String testAjax(String msg){
 		logger.info(msg+"--");
@@ -147,7 +163,7 @@ public class CommonController {
 		}
 		
 		return jsonArray.toString();
-	}
+	}*/
 	
 	@RequestMapping("intro")
 	public String introPage(){

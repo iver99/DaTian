@@ -146,7 +146,6 @@
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
-		debugger;
 		var display=$("#display").val();
 		var currentPage=$("#currentPage").val();
 		//搜索信息
@@ -183,28 +182,26 @@
 				body.empty();
 				//循环输出结果集
 				for(var i =0;i<data.length;i++){
-					body.append("<tr>");
-					body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>");
-					body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"contractdetail?contractId="+data[i].id+"&flag=44\" hidefocus=\"true\">"+data[i].id+"</a></td>");
-					body.append("<td class=\"td_mgmt_right3_td1\" id=\"name\">"+data[i].name+"</td>");
-					body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].carrierAccount+"</td>");
-					body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].monthlyStatementDays+"</td>");
-					body.append("<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].startDate)+"</td>");
-					body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].state+"</td>");
+					var str="<tr>";
+					str+="<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>";
+					str+="<td class=\"td_mgmt_right3_td1\"><a href=\"contractdetail?contractId="+data[i].id+"&flag=44\" hidefocus=\"true\">"+data[i].id+"</a></td>";
+					str+="<td class=\"td_mgmt_right3_td1\" id=\"name\">"+data[i].name+"</td>";
+					str+="<td class=\"td_mgmt_right3_td1\">"+data[i].carrierAccount+"</td>";
+					str+="<td class=\"td_mgmt_right3_td1\">"+data[i].monthlyStatementDays+"</td>";
+					str+="<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].startDate)+"</td>";
+					str+="<td class=\"td_mgmt_right3_td1\">"+data[i].state+"</td>";
 					if(data[i].state=='待确认'){
-						body.append("<td class=\"td_mgmt_right3_td3\"><a href=\"contractdetail?contractId="+data[i].id+"&flag=11\" hidefocus=\"true\">确认</a></td>");
+						str+="<td class=\"td_mgmt_right3_td3\"><a href=\"contractdetail?contractId="+data[i].id+"&flag=11\" hidefocus=\"true\">确认</a></td>";
+					}else if(data[i].state=='有效'){
+						str+="<td class=\"td_mgmt_right3_td3\"><a href=\"contractdetail?contractId="+data[i].id+"&flag=22\" hidefocus=\"true\">终止</a></td>";
+					}else if(data[i].state=='已终止'){
+						str+="<td class=\"td_mgmt_right3_td3\"><a href=\"contractdetail?contractId="+data[i].id+"&flag=33\" hidefocus=\"true\">查看</a></td>";
+					}else{
+						str+="<td class=\"td_mgmt_right3_td3\"><a href=\"contractdetail?contractId="+data[i].id+"&flag=44\" hidefocus=\"true\">查看</a></td>";
 					}
-					else if(data[i].state=='有效'){
-						body.append("<td class=\"td_mgmt_right3_td3\"><a href=\"contractdetail?contractId="+data[i].id+"&flag=22\" hidefocus=\"true\">终止</a></td>");				
-					}
-					else if(data[i].state=='已终止'){
-						body.append("<td class=\"td_mgmt_right3_td3\"><a href=\"contractdetail?contractId="+data[i].id+"&flag=33\" hidefocus=\"true\">查看</a></td>");
-					}
-					else{
-						body.append("<td class=\"td_mgmt_right3_td3\"><a href=\"contractdetail?contractId="+data[i].id+"&flag=44\" hidefocus=\"true\">查看</a></td>");
-					}
-					body.append("</tr>");
+					str+="</tr>";
 					
+					body.append(str);
 				} 
 				
 			}
@@ -236,6 +233,8 @@
 	function changeDisplay(){
 		//修改隐藏字段，每页数量
 		$("#display").val($("#Display").val());
+		//当前页归1
+		$("#currentPage").val(1);
 		var display=$("#display").val();
 		var currentPage=$("#currentPage").val();
 		//搜索信息
