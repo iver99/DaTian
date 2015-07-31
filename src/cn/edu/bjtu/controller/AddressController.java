@@ -50,48 +50,34 @@ public class AddressController {
 		return "mgmt_a_address1";
 	}
 	
-	
-	@RequestMapping("deleteaddress")
 	/**
-	 * 删除
+	 * 删除常用地址 
 	 * @param id
 	 * @param request
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView deleteAddress(
+	@RequestMapping("deleteaddress")
+	public String deleteAddress(
 			@RequestParam String id,
 			HttpServletRequest request,HttpServletResponse response){
 		
-		boolean flag = addressService.deleteAddress(id);
-		try {
-			if (flag == true)
-				response.sendRedirect("getaddress");
-			else
-				System.out.println("删除失败");// 应记录日志
-		} catch (IOException e) {
-			// 
-			// 此处应记录日志
-			e.printStackTrace();
+		addressService.deleteAddress(id);
 
-		}
-		
-		return mv;
+		return "redirect:getaddress";
 	}
 	
-	@RequestMapping("addaddress")
 	/**
 	 * 跳转到新增界面
 	 * @param request
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView addAddress(
+	@RequestMapping("addaddress")
+	public String addAddress(
 			HttpServletRequest request,HttpServletResponse response){
 		
-		String userId=(String)request.getSession().getAttribute(Constant.USER_ID);
-		mv.setViewName("mgmt_a_address2");
-		return mv;
+		return "mgmt_a_address2";
 	}
 	
 	/**
@@ -103,9 +89,7 @@ public class AddressController {
 	@RequestMapping("insertaddress")
 	public String insertAddress(HttpSession session,Address address){
 		
-		//String clientId=(String)request.getSession().getAttribute(Constant.USER_ID);
-		boolean flag = addressService.insertAddress(session,address);
-
+		addressService.insertAddress(session,address);
 		return "redirect:getaddress";
 	}
 	
@@ -115,15 +99,10 @@ public class AddressController {
 		 * @return
 		 */
 	@RequestMapping("updateaddress")
-	 	public ModelAndView updateAddress(
-	 			@RequestParam String id,
-				HttpServletRequest request,HttpServletResponse response){
+	public ModelAndView updateAddress(@RequestParam String id,
+			HttpServletRequest request, HttpServletResponse response){
 			
-			String userId=(String)request.getSession().getAttribute(Constant.USER_ID);
-			System.out.println("已经进入address控制器");
-
 			Address address = addressService.getAddressDetail(id);
-			System.out.println("address+" + address);
 			mv.addObject("address", address);
 			mv.setViewName("mgmt_a_address3");
 			return mv;
@@ -160,12 +139,12 @@ public class AddressController {
 	  * @param session
 	  * @param address
 	  */
-	 @Deprecated
-	 @RequestMapping(value="getUserFrequentAddressAjax",produces="text/html;charset=UTF-8")
+	 
+	 @RequestMapping(value="getUserAddressAjax",produces="text/html;charset=UTF-8")
 	 @ResponseBody
-	 public String getUserFrequentAddress(HttpSession session){
+	 public String getUserFrequentAddress(HttpSession session,Integer kind){
 		 
-		 JSONArray jsonArray=addressService.getUserFrequentAddress(session);
+		 JSONArray jsonArray=addressService.getUserAddress(session,kind);
 		 return jsonArray.toString();
 		 
 	 }

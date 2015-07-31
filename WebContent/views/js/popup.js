@@ -1,5 +1,4 @@
 function showid(idname) {
-
 	document.body.style.overflow = "hidden";
 
 	var isIE = (document.all) ? true : false;
@@ -61,18 +60,18 @@ function showid(idname) {
 		layer.style.display = "none";
 		document.body.style.overflow = "auto";
 	}
-	// document.getElementById("close_2").onclick=function(){newbox.style.display="none";layer.style.display="none";}
-
+	//关闭发货人信息弹窗
 	document.getElementById("close2").onclick = function() {
 		newbox.style.display = "none";
 		layer.style.display = "none";
 		document.body.style.overflow = "auto";
 	}
-
-	/*document.getElementById("close2a").onclick = function() {
-		document.getElementById('location1').value = '北京市顺义区天竺空港工业区天柱中路16号';
+	//关闭收货人信息弹窗
+	document.getElementById("close3").onclick = function() {
 		newbox.style.display = "none";
 		layer.style.display = "none";
-	}*/
+		document.body.style.overflow = "auto";
+	}
+
 
 }

@@ -201,7 +201,7 @@
                                     <td width="250">&nbsp;</td>
                                     <td width="100" class="td_mgmt_right3_td1b">
                                     	收货人信息
-                                        <a href="javascript:;" onclick="showid('popup2');" hidefocus="true"><img src="images/btn_address.png" title="查询" /></a>
+                                        <a href="javascript:;" onclick="showid('popup3');" hidefocus="true"><img src="images/btn_address.png" title="查询" /></a>
                                     </td>
                                     <td>&nbsp;</td>
                                 </tr>
@@ -281,7 +281,7 @@
 <div id="popup2" style="display:none;">
     <table border="0" cellpadding="0" cellspacing="0">
         <tr>
-            <td width="610"><div class="div_popup_title1">常用地址</div></td>
+            <td width="610"><div class="div_popup_title1">常用发货地址</div></td>
             <td>
                 <div id="close2" style="cursor:pointer; margin-right:10px;"><img src="images/btn_cancel1.png" title="关闭本窗口" /></div>
             </td>
@@ -296,12 +296,32 @@
     </table>
 	<div class="div_popup_address">
         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_popup_address2" >
-           <!-- <tr>
-                <td width="100" class="td_popup_address2a">李刚</td>
-                <td width="120" class="td_popup_address2">13720099880</td>
-                <td class="td_popup_address2">天津市西市大街12号</td>
-            </tr> -->
-            <tbody id="frequent_address">
+            <tbody id="send_info">
+            
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div id="popup3" style="display:none;">
+    <table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td width="610"><div class="div_popup_title1">常用收货地址</div></td>
+            <td>
+                <div id="close3" style="cursor:pointer; margin-right:10px;"><img src="images/btn_cancel1.png" title="关闭本窗口" /></div>
+            </td>
+        </tr>
+    </table>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_popup_address1">
+        <tr>
+            <td width="100" class="td_popup_address1">姓名</td>
+            <td width="120" class="td_popup_address1">电话</td>
+            <td class="td_popup_address1">地址</td>
+        </tr>
+    </table>
+	<div class="div_popup_address">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_popup_address2" >
+            <tbody id="recieve_info">
             
             </tbody>
         </table>
@@ -320,18 +340,26 @@
 		getUserContract();
 		getUserClientName();
 		
-		//获取常用地址
-		getFrequentAddress();
+		//获取常用发货地址
+		getFrequentAddress(1);
+		//获取常用收货地址
+		getFrequentAddress(2);
 	}
 	//获取常用地址]
-	function getFrequentAddress(){
-		var url="getUserFrequentAddressAjax";
+	function getFrequentAddress(kind){
+		var url="getUserAddressAjax";
 		$.ajax({
 			url:url,
 			cache:false,
 			dataType:"json",
+			data:{kind:kind},
 			success:function(data,status){
-				var f=$("#frequent_address");
+				var f;
+				if(kind ==1){
+				 	f=$("#send_info");
+				}else{
+					f=$("#recieve_info");
+				}
 				f.empty();
 				for(var i=0;i<data.length;i++){
 					f.append("<tr>");

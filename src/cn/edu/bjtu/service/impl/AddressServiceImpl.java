@@ -105,14 +105,15 @@ public class AddressServiceImpl implements AddressService{
 
 
 	/**
-	 * 下订单时获取用于的藏用地址列表
+	 * 下订单时获取用于的发货地址列表
 	 */
 	@Override
-	public JSONArray getUserFrequentAddress(HttpSession session) {
+	public JSONArray getUserAddress(HttpSession session,Integer kind) {
 		String userId=(String)session.getAttribute(Constant.USER_ID);
-		String hql="from Address t where t.clientId=:clientId";
+		String hql="from Address t where t.clientId=:clientId and t.kind=:kind";
 		Map<String,Object> params=new HashMap<String,Object>();
 		params.put("clientId", userId);
+		params.put("kind", kind);
 		List<Address> addressList=addressDao.find(hql, params);
 		
 		JSONArray jsonArray=new JSONArray();

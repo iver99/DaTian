@@ -42,7 +42,14 @@ public interface AddressService {
 	 * @param session
 	 * @return
 	 */
-	public JSONArray getUserFrequentAddress(HttpSession session);
+	public JSONArray getUserAddress(HttpSession session,Integer kind);
+	
+	/**
+	 * 下订单时获取用户的常用收货地址列表
+	 * @param session
+	 * @return
+	 */
+	/*public JSONArray getUserRecieveAddress(HttpSession session);*/
 	
 	/**
 	 * 常用发货地址
