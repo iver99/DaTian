@@ -363,7 +363,7 @@
 				f.empty();
 				for(var i=0;i<data.length;i++){
 					f.append("<tr>");
-					f.append("<td width=\"100\" class=\"td_popup_address2a\">"+data[i].name+"</td>");
+					f.append("<td width=\"100\" class=\"td_popup_address2a\" onclick=\"completeAddress("+data[i].name+","+data[i].phone+","+data[i].address+")\">"+data[i].name+"</td>");
 					f.append("<td width=\"120\" class=\"td_popup_address2\">"+data[i].phone+"</td>");
 					f.append("<td class=\"td_popup_address2\">"+data[i].address+"</td>");
 					f.append("</tr>");
@@ -372,7 +372,12 @@
 			}
 		})
 	}
-	
+	//填充收发货人信息
+	function completeAddress(name,phone,address){
+		alert(name);
+		alert(phone);
+		alert(address);
+	}
 	//返回用户的合同编号
 	function getUserContract(){
 		var url="getUserContractIdAjax";
