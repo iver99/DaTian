@@ -220,6 +220,8 @@ public class FocusServiceImpl extends BaseDaoImpl<Focus> implements FocusService
 						focusBean.setEndPlace(line.getEndPlace());
 						focusBean.setLineName(line.getLineName());
 						focusBean.setRelDate(line.getRelDate());
+						focusBean.setResourceId(line.getId());
+						focusBean.setCarrierId(line.getCarrierId());
 						focusBeanList.add(focusBean);
 					}
 				}else if("cityline".equals(focus.getFocusType())){
@@ -230,6 +232,8 @@ public class FocusServiceImpl extends BaseDaoImpl<Focus> implements FocusService
 						focusBean.setFocusType(focus.getFocusType());
 						focusBean.setName(cityline.getName());
 						focusBean.setRelDate(cityline.getRelDate());
+						focusBean.setResourceId(cityline.getId());
+						focusBean.setCarrierId(cityline.getCarrierId());
 						focusBeanList.add(focusBean);
 					}
 				}else if("car".equals(focus.getFocusType())){
@@ -240,6 +244,8 @@ public class FocusServiceImpl extends BaseDaoImpl<Focus> implements FocusService
 						focusBean.setFocusType(focus.getFocusType());
 						focusBean.setCarNum(car.getCarNum());
 						focusBean.setRelDate(car.getRelDate());
+						focusBean.setResourceId(car.getId());
+						focusBean.setCarrierId(car.getCarrierId());
 						focusBeanList.add(focusBean);
 					}
 				}else if("company".equals(focus.getFocusType())){
@@ -250,6 +256,8 @@ public class FocusServiceImpl extends BaseDaoImpl<Focus> implements FocusService
 						focusBean.setFocusType(focus.getFocusType());
 						focusBean.setCompanyName(company.getCompanyName());
 						focusBean.setRelDate(company.getRelDate());
+						focusBean.setResourceId(company.getId());
+						focusBean.setCarrierId(company.getId());
 						focusBeanList.add(focusBean);
 					}
 				}else if("warehouse".equals(focus.getFocusType())){
@@ -260,6 +268,8 @@ public class FocusServiceImpl extends BaseDaoImpl<Focus> implements FocusService
 						focusBean.setFocusType(focus.getFocusType());
 						focusBean.setRelDate(warehouse.getRelDate());
 						focusBean.setName(warehouse.getName());
+						focusBean.setResourceId(warehouse.getId());
+						focusBean.setCarrierId(warehouse.getCarrierId());
 						focusBeanList.add(focusBean);
 					}
 					
@@ -271,6 +281,10 @@ public class FocusServiceImpl extends BaseDaoImpl<Focus> implements FocusService
 						focusBean.setFocusType(focus.getFocusType());
 						focusBean.setRelDate(cargo.getRelDate());
 						focusBean.setName(cargo.getName());
+						focusBean.setResourceId(cargo.getId());
+						
+						//FIXME  //√ª”–…Ë÷√id
+						//focusBean.setCarrierId(line.getCarrierId());
 						focusBeanList.add(focusBean);
 					}
 				}

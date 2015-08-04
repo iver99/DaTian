@@ -383,13 +383,13 @@
 						body.append("<tr>");
 						body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\"><input type=\"checkbox\" name=\"f1\" id=\"f1a\" /></td>");
 						body.append("<td class=\"td_mgmt_right3_td1\">运输线路</td>");
-						var str="<td class=\"td_mgmt_right3_td1\">");
-						str+="<a href=\"linetransportdetail?linetransportid="+data[i].focusId+"&carrierId="+data[i].carrierId+"&linetransportId="+data[i].id+"&flag=0\" hidefocus=\"true\">"+data[i].startPlace+"→"+data[i].endPlace+"&nbsp;<img src=\"images/btn_new1.png\" /></a>");
-						str+="<br />");
-						str+="<a href=\"companyDetail?id="+data[i].carrierId+"\" class=\"link1\" hidefocus=\"true\">"+data[i].companyName+"&nbsp;<img src=\"images/btn_level1a.png\" /></a>");
-						str+="</td>");
+						var str="<td class=\"td_mgmt_right3_td1\">";
+						str+="<a href=\"linetransportdetail?linetransportid="+data[i].focusId+"&carrierId="+data[i].carrierId+"&linetransportId="+data[i].id+"&flag=0\" hidefocus=\"true\">"+data[i].startPlace+"→"+data[i].endPlace+"&nbsp;<img src=\"images/btn_new1.png\" /></a>";
+						str+="<br />";
+						str+="<a href=\"companyDetail?id="+data[i].carrierId+"\" class=\"link1\" hidefocus=\"true\">"+data[i].companyName+"&nbsp;<img src=\"images/btn_level1a.png\" /></a>";
+						str+="</td>";
 						body.append(str);	
-						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].relDate+"</td>");
+						body.append("<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].relDate)+"</td>");
 						
 						if(data[i].status == '有效'){
 							var str="<td class=\"td_mgmt_right3_td1\">有效</td>";
@@ -415,13 +415,13 @@
 						body.append("<tr>");
 						body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\"><input type=\"checkbox\" name=\"f1\" id=\"f1a\" /></td>");
 						body.append("<td class=\"td_mgmt_right3_td1\">配送城市</td>");
-						var str="<td class=\"td_mgmt_right3_td1\">");
-						str+="<a href=\"citylinedetail?citylineId="+data[i].focusId+"&carrierId="+data[i].carrierId+"&flag=0\" hidefocus=\"true\">"+data[i].name+"&nbsp;<img src=\"images/btn_new1.png\" /></a>");
-						str+="<br />");
-						str+="<a href=\"companyDetail?id="+data[i].carrierId+"\" class=\"link1\" hidefocus=\"true\">"+data[i].companyName+"&nbsp;<img src=\"images/btn_level1a.png\" /></a>");
-						str+="</td>");
+						var str="<td class=\"td_mgmt_right3_td1\">";
+						str+="<a href=\"citylinedetail?citylineId="+data[i].focusId+"&carrierId="+data[i].carrierId+"&flag=0\" hidefocus=\"true\">"+data[i].name+"&nbsp;<img src=\"images/btn_new1.png\" /></a>";
+						str+="<br />";
+						str+="<a href=\"companyDetail?id="+data[i].carrierId+"\" class=\"link1\" hidefocus=\"true\">"+data[i].companyName+"&nbsp;<img src=\"images/btn_level1a.png\" /></a>";
+						str+="</td>";
 						body.append(str);	
-						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].relDate+"</td>");
+						body.append("<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].relDate)+"</td>");
 						
 						if(data[i].status == '有效'){
 							var str="<td class=\"td_mgmt_right3_td1\">有效</td>";
@@ -447,13 +447,13 @@
 						body.append("<tr>");
 						body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\"><input type=\"checkbox\" name=\"f1\" id=\"f1a\" /></td>");
 						body.append("<td class=\"td_mgmt_right3_td1\">车辆</td>");
-						var str="<td class=\"td_mgmt_right3_td1\">");
-						str+="<a href=\"cardetail?carId="+data[i].focusId+"&carrierId="+data[i].carrierId+"&linetransportId="+data[i].id+"&flag=0\" hidefocus=\"true\">"+data[i].carNum+"&nbsp;<img src=\"images/btn_new1.png\" /></a>");
-						str+="<br />");
-						str+="<a href=\"companyDetail?id="+data[i].carrierId+"\" class=\"link1\" hidefocus=\"true\">"+data[i].companyName+"&nbsp;<img src=\"images/btn_level1a.png\" /></a>");
-						str+="</td>");
+						var str="<td class=\"td_mgmt_right3_td1\">";
+						str+="<a href=\"cardetail?carId="+data[i].focusId+"&carrierId="+data[i].carrierId+"&linetransportId="+data[i].id+"&flag=0\" hidefocus=\"true\">"+data[i].carNum+"&nbsp;<img src=\"images/btn_new1.png\" /></a>";
+						str+="<br />";
+						str+="<a href=\"companyDetail?id="+data[i].carrierId+"\" class=\"link1\" hidefocus=\"true\">"+data[i].companyName+"&nbsp;<img src=\"images/btn_level1a.png\" /></a>";
+						str+="</td>";
 						body.append(str);	
-						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].relDate+"</td>");
+						body.append("<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].relDate)+"</td>");
 						
 						if(data[i].status == '有效'){
 							var str="<td class=\"td_mgmt_right3_td1\">有效</td>";
@@ -480,13 +480,13 @@
 						body.append("<tr>");
 						body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\"><input type=\"checkbox\" name=\"f1\" id=\"f1a\" /></td>");
 						body.append("<td class=\"td_mgmt_right3_td1\">仓库</td>");
-						var str="<td class=\"td_mgmt_right3_td1\">");
-						str+="<a href=\"warehousedetail?warehouseId="+data[i].focusId+"&carrierId="+data[i].carrierId+"&flag=0\" hidefocus=\"true\">"+data[i].name+"&nbsp;<img src=\"images/btn_new1.png\" /></a>");
-						str+="<br />");
-						str+="<a href=\"companyDetail?id="+data[i].carrierId+"\" class=\"link1\" hidefocus=\"true\">"+data[i].companyName+"&nbsp;<img src=\"images/btn_level1a.png\" /></a>");
-						str+="</td>");
+						var str="<td class=\"td_mgmt_right3_td1\">";
+						str+="<a href=\"warehousedetail?warehouseId="+data[i].focusId+"&carrierId="+data[i].carrierId+"&flag=0\" hidefocus=\"true\">"+data[i].name+"&nbsp;<img src=\"images/btn_new1.png\" /></a>";
+						str+="<br />";
+						str+="<a href=\"companyDetail?id="+data[i].carrierId+"\" class=\"link1\" hidefocus=\"true\">"+data[i].companyName+"&nbsp;<img src=\"images/btn_level1a.png\" /></a>";
+						str+="</td>";
 						body.append(str);	
-						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].relDate+"</td>");
+						body.append("<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].relDate)+"</td>");
 						
 						if(data[i].status == '有效'){
 							body.append("<td class=\"td_mgmt_right3_td1\">有效</td>");
@@ -504,11 +504,11 @@
 						body.append("<tr>");
 						body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\"><input type=\"checkbox\" name=\"f1\" id=\"f1a\" /></td>");
 						body.append("<td class=\"td_mgmt_right3_td1\">货物</td>");
-						var str="<td class=\"td_mgmt_right3_td1\">");
-						str+="<a href=\"goodsdetail?id="+data[i].focusId+"\" hidefocus=\"true\">"+data[i].name+"</a>");
-						str+="</td>");
+						var str="<td class=\"td_mgmt_right3_td1\">";
+						str+="<a href=\"goodsdetail?id="+data[i].focusId+"\" hidefocus=\"true\">"+data[i].name+"</a>";
+						str+="</td>";
 						body.append(str);	
-						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].relDate+"</td>");
+						body.append("<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].relDate)+"</td>");
 						
 						if(data[i].status == '有效'){
 							body.append("<td class=\"td_mgmt_right3_td1\">有效</td>");
@@ -525,11 +525,11 @@
 						body.append("<tr>");
 						body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\"><input type=\"checkbox\" name=\"f1\" id=\"f1a\" /></td>");
 						body.append("<td class=\"td_mgmt_right3_td1\">公司</td>");
-						var str="<td class=\"td_mgmt_right3_td1\">");
-						str+="<a href=\"companyDetail?id="+data[i].focusId+"\" hidefocus=\"true\">"+data[i].companyName+"&nbsp;<img src=\"images/btn_level1a.png\" /></a>");
-						str+="</td>");
+						var str="<td class=\"td_mgmt_right3_td1\">";
+						str+="<a href=\"companyDetail?id="+data[i].focusId+"\" hidefocus=\"true\">"+data[i].companyName+"&nbsp;<img src=\"images/btn_level1a.png\" /></a>";
+						str+="</td>";
 						body.append(str);	
-						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].relDate+"</td>");
+						body.append("<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].relDate)+"</td>");
 						
 						if(data[i].status == '有效'){
 							var str="<td class=\"td_mgmt_right3_td1\">有效</td>";

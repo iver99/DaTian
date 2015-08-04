@@ -206,7 +206,7 @@
 <script type="text/javascript" charset="utf-8">
 	function OnLoad() {
 		loadFocus();
-		if(checkSearch()){
+		if(checkSearch()){//checkSearch返回true则不执行搜索功能
 			var display=$("#display").val();
 			var currentPage=$("#currentPage").val();
 		getSelectedLineAjax("中文或拼音","中文或拼音","All","All","All",display,currentPage);

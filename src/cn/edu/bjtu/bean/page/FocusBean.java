@@ -23,6 +23,7 @@ public class FocusBean {
 	private String carNum;//车牌
 	
 	
+	
 	private String search_content;//供搜索使用 
 	
 	
