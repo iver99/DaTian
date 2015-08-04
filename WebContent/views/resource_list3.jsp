@@ -163,7 +163,7 @@
 						<input id="currentPage" value="1" type="hidden"/>
 						<input id="flag" value=0 type="hidden"/><!-- 点击页码和点击筛选标识位 -->
 						
-						<div id="middlesort">
+						<!-- <div id="middlesort">
 							<ul class="quickmenu">
 								<li class="menuitem">
 									<div class="menu">
@@ -228,7 +228,7 @@
 									</div>
 								</li>
 							</ul>
-						</div>
+						</div> -->
 					</div>
 					<table border="0" cellspacing="0" cellpadding="0"
 						class="table_main_list" id="list1">
