@@ -172,46 +172,36 @@
 		
 	}
 	
-	function formValidate(){
-		$("#insertLine").validate({  
-			   rules: {  
-			   lineName: "required", 
-			   startPlace: "required",
-			   endPlace: "required",
-			   onWayTime: {
-				   		required:true,
-				   		number:true
-			   },
-			   type:{
-				   required:true,
-				   minlength:1
-			   },
-			   refPrice: {
-			   		required:true,
-			   		number:true
-		   },
-			   remarks:"required"
-			   
-			}/* , 
-			submitHandler:function(form){
-				alert("submit");
-				form.submit();
-			} */
-			/*   
-			   messages: {  
-			   lineName: "请输入名称",   
-			   startPlace:"请输入起始城市",
-			   endPlace:"请输入终点城市",
-			   onWayTime:"请输入时间"
-			}  */
-			});
-	}
-	$(function(){
-		$('reset:button').click(function(){
-		   $('.input').val("");
-		   $('.select').val("");
-		   $('.checkbox').val("");
+	
+	function formValidate() {
+		$("#insertLine").validate({
+			rules : {
+				lineName : "required",
+				city1 : "required",
+				city2 : "required",
+				onWayTime : {
+					required : true,
+					number : true
+				},
+				type : {
+					required : true,
+					minlength : 1
+				},
+				refPrice : {
+					required : true,
+					number : true
+				},
+				remarks : "required"
+
+			}
 		});
-    })
+	}
+	$(function() {
+		$('reset:button').click(function() {
+			$('.input').val("");
+			$('.select').val("");
+			$('.checkbox').val("");
+		});
+	})
 </script>
 </html>
