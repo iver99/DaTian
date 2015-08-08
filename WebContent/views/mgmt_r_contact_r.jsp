@@ -25,7 +25,6 @@
 	$(function() {
 		$('input, textarea').placeholder(); 
 		
-		OnLoad();
 	});
 </script>
 </head>
@@ -164,7 +163,7 @@
 	}
 	
 	//加载合同（承运方）资源
-	function getUserContractAjax(display,currentPage){
+	function getUserContractAjax(display,currentPage,startDate,endDate,name){
 		var url="getUserContractAjax";
 		$.ajax({
 			url:url,
@@ -208,7 +207,7 @@
 		})
 	}
 	//合同（承运方）资源总条数
-	function getUserContractTotalRowsAjax(display,currentPage){
+	function getUserContractTotalRowsAjax(display,currentPage,startDate,endDate,name){
 		var url="getUserContractTotalRowsAjax";
 		$.ajax({
 			url:url,
