@@ -85,7 +85,7 @@
 					<tr>
 						<td class="td_mgmt_right3_td1a"> 
 						<br />
-						<form action="insertContract" method="post" enctype="multipart/form-data">   	          
+						<form action="insertContract" id="insertContract" method="post" enctype="multipart/form-data">   	          
 							<table width="90%" border="0" cellspacing="0" cellpadding="0">
 								<tr>
 									<td width="120" height="40" class="td_mgmt_right3_td1b">合同编号：</td>
@@ -93,7 +93,7 @@
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">合同名称：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="name" required/></td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" id="name" name="name" required/></td>
 								</tr>
                             <tr>
                                 <td height="40" class="td_mgmt_right3_td1b">承运方帐户：</td>
@@ -112,11 +112,11 @@
                             </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">合同开始日期：</td>
-                                    <td><input type="text" class="input_date1" onclick="SelectDate(this,'yyyy-MM-dd')" readonly="readonly" title="点击此处选择" name="startDate" required/></td>
+                                    <td><input type="text" class="input_date1" onclick="SelectDate(this,'yyyy-MM-dd')" readonly="readonly" title="点击此处选择" id="startDate" name="startDate" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">合同截止日期：</td>
-                                    <td><input type="text" class="input_date1" onclick="SelectDate(this,'yyyy-MM-dd')" readonly="readonly" title="点击此处选择" name="endDate" required/></td>
+                                    <td><input type="text" class="input_date1" onclick="SelectDate(this,'yyyy-MM-dd')" readonly="readonly" title="点击此处选择" id="endDate" name="endDate" required/></td>
                                     
                                 </tr>
 								<tr>
@@ -129,7 +129,7 @@
                                             <option value="到付">到付</option>
                                         </select>
                                         <div id="v_detail" style="display:none;">
-                                            <select style="width:80px;" name="monthlyStatementDays">
+                                            <select style="width:80px;" name="monthlyStatementDays" id="monthlyStatementDays">
                                                 <option value="" selected="selected">请选择</option>
                                                 <option value="30天">30天</option>
                                                 <option value="60天">60天</option>
@@ -140,11 +140,11 @@
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">联系人：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="contact" required/></td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="contact" id="contact" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">手机号：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="phone" required/></td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="phone" id="phone" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">相关材料：</td>
@@ -158,7 +158,7 @@
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">补充信息：</td>
 									<td>
-                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="remarks" required></textarea>
+                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="remarks" id="remarks" required></textarea>
                                     </td>
 								</tr>
 								<tr>
@@ -189,7 +189,30 @@
 		loadFocus();
 		//获取已审核 的公司列表
 		getCompanyList();
+		
+		//validate
+		formValidate();
 	}
+	
+	function formValidate(){
+		$("#insertContract").validate({
+			rules : {
+				carrierId : "required",
+				name : "required",
+				startDate : "required",
+				calculateType : "required",
+				monthluStatementDays : "required",
+				contract : "required",
+				phone : {
+					required : true,
+					number : true
+				},
+				remarks : "required"
+				
+			}
+		});
+	}
+	
 	$(function(){
 		$('reset:button').click(function(){
 		   $('.input').val("");

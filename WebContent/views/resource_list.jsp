@@ -115,7 +115,7 @@
 						<input id="currentPage" value="1" type="hidden"/>
 						<input id="flag" value=0 type="hidden"/><!-- 点击页码和点击筛选标识位 -->
 						
-						<div id="middlesort">
+						<!-- <div id="middlesort">
 							 <ul class="quickmenu">
 								<li class="menuitem">
 									<div class="menu">
@@ -154,7 +154,7 @@
 									</div>
 								</li>
 							</ul>
-						</div>
+						</div> -->
 					</div>
 					<table border="0" cellspacing="0" cellpadding="0"
 						class="table_main_list" id="list">
@@ -206,7 +206,7 @@
 <script type="text/javascript" charset="utf-8">
 	function OnLoad() {
 		loadFocus();
-		if(checkSearch()){
+		if(checkSearch()){//checkSearch返回true则不执行搜索功能
 			var display=$("#display").val();
 			var currentPage=$("#currentPage").val();
 		getSelectedLineAjax("中文或拼音","中文或拼音","All","All","All",display,currentPage);
@@ -267,18 +267,6 @@ function getSelectedLineAjax(startPlace,
 			  //alert(data);
 			  $("#testbody").empty();
 		for(var i=0; i<data.length; i++) {
-			/* $("#testbody").append("<tr>");
-			$("#testbody").append("<td class=\"td_main_list_content\"></td>");
-			$("#testbody").append("<td class=\"td_main_list_content\"><a href=\"linetransportdetail?linetransportid="+data[i].id+"&carrierId="+data[i].carrierId+"&linetransportId="+data[i].carrierid+"&flag=0\" hidefocus=\"true\">"+data[i].startPlace+"→"+data[i].endPlace+"</a><br /><a style=\"color:#717071;\" href=\"companyDetail?id="+data[i].carrierId+"\" hidefocus=\"true\">"+data[i].companyName+"<img src=\"images/btn_level1a.png\" /></a></td>");
-			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].refPrice+"</td>");
-			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].transportType+"</td>");
-			$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].onWayTime+"</td>");
-			$("#testbody").append("<td class=\"td_main_list_content\">"+renderTime(data[i].relDate)+"</td>");
-			if(data[i].status == "有效")
-				$("#testbody").append("<td class=\"td_main_list_content\"><a href=\"javascript:;\" class=\"a_main_list_handle_icon1b\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('"+data[i].id+"')\"></a></td>");
-			else
-				$("#testbody").append("<td class=\"td_main_list_content\"><a href=\"javascript:;\" class=\"a_main_list_handle_icon1a\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('"+data[i].id+"')\"></a></td>");
-			$("#testbody").append("</tr>"); */
 			var str="<tr>";
 			str+="<td class=\"td_main_list_content\"></td>";
 			str+="<td class=\"td_main_list_content\"><a href=\"linetransportdetail?linetransportid="+data[i].id+"&carrierId="+data[i].carrierId+"&linetransportId="+data[i].carrierid+"&flag=0\" hidefocus=\"true\">"+data[i].startPlace+"→"+data[i].endPlace+"</a><br /><a style=\"color:#717071;\" href=\"companyDetail?id="+data[i].carrierId+"\" hidefocus=\"true\">"+data[i].companyName+"<img src=\"images/btn_level1a.png\" /></a></td>";

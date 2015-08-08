@@ -20,8 +20,8 @@
 	font-family: "微软雅黑";
 }
 </style>
-<script type="text/javascript"
-	src="http://api.map.baidu.com/api?v=2.0&ak=osuO3WDtmGYEK9nMYGZimjkb"></script>
+<!-- <script type="text/javascript"
+	src="http://api.map.baidu.com/api?v=2.0&ak=osuO3WDtmGYEK9nMYGZimjkb"></script> -->
 
 <link rel="shortcut icon" href="/images/fav.ico" type="image/x-icon" />
 	<link rel="icon" href="/images/fav.ico" type="image/x-icon" />
@@ -163,7 +163,7 @@
 						<input id="currentPage" value="1" type="hidden"/>
 						<input id="flag" value=0 type="hidden"/><!-- 点击页码和点击筛选标识位 -->
 						
-						<div id="middlesort">
+						<!-- <div id="middlesort">
 							<ul class="quickmenu">
 								<li class="menuitem">
 									<div class="menu">
@@ -228,7 +228,7 @@
 									</div>
 								</li>
 							</ul>
-						</div>
+						</div> -->
 					</div>
 					<table border="0" cellspacing="0" cellpadding="0"
 						class="table_main_list" id="list1">
@@ -303,7 +303,7 @@
     </table>
 </div>
 
-	<div id="popup2" style="display: inline;">
+	<!-- <div id="popup2" style="display: inline;">
 		<table border="0" cellpadding="0" cellspacing="0">
 			<tr>
 				<td width="610"><div class="div_popup_title1">地图</div></td>
@@ -314,9 +314,9 @@
 				</td>
 			</tr>
 		</table>
-		<!-- <div class="div_popup_content1">
+		<div class="div_popup_content1">
     	<img src="images/illust_4.jpg" width="100%" height="100%" />
-    </div> -->
+    </div>
 		<div class="div_popup_content1">
 			<div id="allmap"></div>
 		</div>
@@ -342,7 +342,7 @@
 				</td>
 			</tr>
 		</table>
-	</div>
+	</div> -->
 
 	<div id="footer_frame">
 		<iframe allowtransparency="true" width="100%" frameborder="0"
@@ -378,7 +378,7 @@ function Reset()
 
 </html>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 	// 百度地图API功能
 	var map = new BMap.Map("allmap"); // 创建Map实例
 	map.centerAndZoom(new BMap.Point(116.403851, 39.915295), 12); // 初始化地图,设置中心点坐标和地图级别
@@ -482,7 +482,7 @@ function search() {
 	}
 }
 document.getElementById('popup2').style.display = "none";
-</script>
+</script> -->
 <script type="text/javascript">
 function loadXMLDoc(id)
 {
@@ -505,8 +505,6 @@ function loadXMLDoc(id)
 
 //车辆筛选
 function getSelectedCarAjax(startPlace,endPlace,carBase,carLength,carWeight,display,currentPage){
-	//alert("ajax_post");
-	//alert(carLength+"carlength");
       var url="getSelectedCarAjax";
 	  $.post(url,{
 		  startPlace:startPlace,

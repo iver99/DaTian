@@ -163,31 +163,31 @@
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">货物名称：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="goodsName" required/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" id="goodsName" name="goodsName" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">货物重量：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="goodsWeight" required/>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" id="goodsWeight" name="goodsWeight" required/>
                                     (公斤)</td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">货物体积：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="goodsVolume" required/>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" id="goodsVolume" name="goodsVolume" required/>
                                     (立方米)</td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">货物声明价值：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="declaredPrice" required/>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" id="declaredPrice" name="declaredPrice" required/>
                                     (元)</td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">保险费：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="insurance" required/>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" id="insurance" name="insurance" required/>
                                     (元)</td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">运费：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="expectedPrice" required/>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" id="expectedPrice" name="expectedPrice" required/>
                                     (元)</td>
                                 </tr>
                             </table>
@@ -198,7 +198,7 @@
                                     	发货人信息
                                         <a href="javascript:;" onclick="showid('popup2');" hidefocus="true"><img src="images/btn_address.png" title="查询" /></a>
                                     </td>
-                                    <td width="250">&nbsp;</td>
+                                    <td width="270">&nbsp;</td>
                                     <td width="100" class="td_mgmt_right3_td1b">
                                     	收货人信息
                                         <a href="javascript:;" onclick="showid('popup3');" hidefocus="true"><img src="images/btn_address.png" title="查询" /></a>
@@ -344,69 +344,144 @@
 		getFrequentAddress(1);
 		//获取常用收货地址
 		getFrequentAddress(2);
-	}
-	//获取常用地址]
-	function getFrequentAddress(kind){
-		var url="getUserAddressAjax";
-		$.ajax({
-			url:url,
-			cache:false,
-			dataType:"json",
-			data:{kind:kind},
-			success:function(data,status){
-				var f;
-				if(kind ==1){
-				 	f=$("#send_info");
-				}else{
-					f=$("#recieve_info");
-				}
-				f.empty();
-				for(var i=0;i<data.length;i++){
-					f.append("<tr>");
-					f.append("<td width=\"100\" class=\"td_popup_address2a\">"+data[i].name+"</td>");
-					f.append("<td width=\"120\" class=\"td_popup_address2\">"+data[i].phone+"</td>");
-					f.append("<td class=\"td_popup_address2\">"+data[i].address+"</td>");
-					f.append("</tr>");
-					
-				}
-			}
-		})
+		
+		//validate
+		formValidate();
 	}
 	
+	function formValidate(){
+		
+	$("#new_order").validate({
+			rules : {
+				clientName : "required",
+				isLinkToClientWayBill : "required",
+				hasCarrierContract : "required",
+				goodsName : "required",
+				driverName : "required",
+				goodsVolume : {
+					required : true,
+					number : true
+				},
+				goodsWeight : {
+					required : true,
+					number : true
+				},
+				declaredPrice : {
+					required : true,
+					number : true
+				},
+				insurance : {
+					required : true,
+					number : true
+				},
+				expectedPrice : {
+					required : true,
+					number : true
+				},
+				deliveryName : "required",
+				recieverName : "required",
+				recieverphone : {
+					required : true,
+					number : true
+				},
+				deliveryphone : {
+					required : true,
+					number : true
+				},
+				deliveryAddr : "required",
+				recieverAddr : "required",
+				remarks : "required",
+
+			}
+		});
+	}
+
+	//获取常用地址]
+	function getFrequentAddress(kind) {
+		var url = "getUserAddressAjax";
+		$
+				.ajax({
+					url : url,
+					cache : false,
+					dataType : "json",
+					data : {
+						kind : kind
+					},
+					success : function(data, status) {
+						var f;
+						if (kind == 1) {
+							f = $("#send_info");
+						} else {
+							f = $("#recieve_info");
+						}
+						f.empty();
+						for (var i = 0; i < data.length; i++) {
+							f.append("<tr>");
+							f
+									.append("<td width=\"100\" class=\"td_popup_address2a\" onclick=\"completeAddress("
+											+ data[i].name
+											+ ","
+											+ data[i].phone
+											+ ","
+											+ data[i].address
+											+ ")\">"
+											+ data[i].name + "</td>");
+							f
+									.append("<td width=\"120\" class=\"td_popup_address2\">"
+											+ data[i].phone + "</td>");
+							f.append("<td class=\"td_popup_address2\">"
+									+ data[i].address + "</td>");
+							f.append("</tr>");
+
+						}
+					}
+				})
+	}
+	//填充收发货人信息
+	function completeAddress(name, phone, address) {
+		alert(name);
+		alert(phone);
+		alert(address);
+	}
 	//返回用户的合同编号
-	function getUserContract(){
-		var url="getUserContractIdAjax";
-		$.post(url,{currentUserId:$('#currentUserId').val()},function(data,status){
-			var CONTRACTID=$('#contractId');
+	function getUserContract() {
+		var url = "getUserContractIdAjax";
+		$.post(url, {
+			currentUserId : $('#currentUserId').val()
+		}, function(data, status) {
+			var CONTRACTID = $('#contractId');
 			CONTRACTID.empty();
-			 for(var i=0;i<data.length;i++) {
-		         option = $("<option>").text(data[i].id).val(data[i].id);
-		         CONTRACTID.append(option);
-		      }     
-		},"json");
+			for (var i = 0; i < data.length; i++) {
+				option = $("<option>").text(data[i].id).val(data[i].id);
+				CONTRACTID.append(option);
+			}
+		}, "json");
 	}
 	//返回用户的客户信息
-	function getUserClientName(){
-		var url="getUserBusinessClientAjax";
-		$.post(url,{currentUserId:$('#currentUserId').val()},function(data,status){
-			var client_name=$('#clientName');
+	function getUserClientName() {
+		var url = "getUserBusinessClientAjax";
+		$.post(url, {
+			currentUserId : $('#currentUserId').val()
+		}, function(data, status) {
+			var client_name = $('#clientName');
 			client_name.empty();
-			 for(var i=0;i<data.length;i++) {
-		         var option = $("<option>").text(data[i].clientName).val(data[i].clientName);
-		         client_name.append(option);
-		      }    
-		},"json");
+			for (var i = 0; i < data.length; i++) {
+				var option = $("<option>").text(data[i].clientName).val(
+						data[i].clientName);
+				client_name.append(option);
+			}
+		}, "json");
 	}
-	
-	$(function(){
-		$('reset:button').click(function(){
-		   $('.input').val("");
-		   $('.select').val("");
+
+	$(function() {
+		$('reset:button').click(function() {
+			$('.input').val("");
+			$('.select').val("");
 		});
-    })
-    
-    //如果选中了添加常用地址的选项则在提交表单时添加常用地址
-    /* function addAddress(){
+	})
+
+	//如果选中了添加常用地址的选项则在提交表单时添加常用地址
+	/* function addAddress(){
 		var url="addAddressAjax";
 		var name;
 		var phone;
@@ -454,7 +529,5 @@
 		//提交订单
 		$('#new_order').submit();
 	} */
-	
-    
 </script>
 </html>

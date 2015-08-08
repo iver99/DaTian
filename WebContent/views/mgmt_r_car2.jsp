@@ -84,7 +84,7 @@
                         </td>
                     </tr>
 				</table>
-				<form action="insertCar" method="post" name="insertCar">
+				<form action="insertCar" method="post" name="insertCar" id="insertCar">
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
                     <tr>
                         <td class="td_mgmt_right3_td1a">
@@ -92,7 +92,7 @@
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">牌照：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="carNum" required/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" id="carNum" name="carNum" required/></td>
                                 </tr>
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">所属车队：</td>
@@ -122,7 +122,7 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">车型：</td>
                                     <td>
-                                        <select style="width:120px;" name="carType" required>
+                                        <select style="width:120px;" id="carType" name="carType" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="前四后四">前四后四</option>
                                             <option value="单桥">单桥</option>
@@ -133,7 +133,7 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">厢型：</td>
                                     <td>
-                                        <select style="width:120px;" name="carBase" required>
+                                        <select style="width:120px;" id="carBase" name="carBase" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="普通">普通</option>
                                             <option value="平板">平板</option>
@@ -148,7 +148,7 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">品牌：</td>
                                     <td>
-                                        <select name="carBrand" id="menu_name4" class="select_apply1" style="width:120px;" required>
+                                        <select name="carBrand" id="carBrand" class="select_apply1" style="width:120px;" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="解放">解放</option>
                                             <option value="福田">福田</option>
@@ -159,7 +159,7 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">用途：</td>
                                     <td>
-                                        <select style="width:120px;" name="carUse" required>
+                                        <select style="width:120px;" id="carUse" name="carUse" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="普通运输">普通运输</option>
                                             <option value="特殊">特殊</option>
@@ -169,26 +169,26 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">规格：</td>
                                     <td>
-                                    长&nbsp;<input type="text" class="input_mgmt1" style="width:46px;" name="carLength" required/>
-                                    (米)&nbsp;&nbsp;×&nbsp;&nbsp;宽&nbsp;<input type="text" class="input_mgmt1" style="width:46px;" name="carWidth" required/>
-                                    (米)&nbsp;&nbsp;×&nbsp;&nbsp;高&nbsp;<input type="text" class="input_mgmt1" style="width:46px;" name="carHeight" required/>
+                                    长&nbsp;<input type="text" class="input_mgmt1" style="width:46px;" id="carLength"name="carLength" required/>
+                                    (米)&nbsp;&nbsp;×&nbsp;&nbsp;宽&nbsp;<input type="text" class="input_mgmt1" style="width:46px;" id="carWidth" name="carWidth" required/>
+                                    (米)&nbsp;&nbsp;×&nbsp;&nbsp;高&nbsp;<input type="text" class="input_mgmt1" style="width:46px;" id="carHeight" name="carHeight" required/>
                                     (米)
                                     </td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">载重：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="carWeight" required/>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" id="carWeight" name="carWeight" required/>
                                     (吨)
                                     </td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">购置日期：</td>
-                                    <td><input type="text" class="input_date1" onclick="SelectDate(this,'yyyy-MM-dd')" readonly="readonly" title="点击此处选择" name="purchaseTime" required/></td>
+                                    <td><input type="text" class="input_date1" onclick="SelectDate(this,'yyyy-MM-dd')" readonly="readonly" title="点击此处选择" id="purchaseTime" name="purchaseTime" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b" >冷藏：</td>
                                     <td>
-                                        <select style="width:120px;" name="storage" required>
+                                        <select style="width:120px;" name="storage" id="storage" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="冷藏">是</option>
                                             <option value="非冷藏">否</option>
@@ -198,7 +198,7 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">司机姓名：</td>
                                     <td>
-                                        <select style="width:120px;" name="driverId" required>
+                                        <select style="width:120px;" id="driverId" name="driverId" required>
                                             <option value="" selected="selected">请选择</option>
                                             <c:forEach var="driverList" items="${driverList }">
                                             <option value="${driverList.id }">${driverList.driverName }</option>
@@ -218,7 +218,7 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">经停城市：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${carInfo.stopPlace }" name="stopPlace" required/>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${carInfo.stopPlace }" id="stopPlace" name="stopPlace" required/>
                                 </tr>
                                 <tr>
                                     <td height="1"></td>
@@ -252,7 +252,46 @@
 		loadFocus();
 		//获取公司车队列表
 		getCompanyCarteamList();
+		
+		//表单验证
+		formValidation();
 	}
+	
+	function formValidation(){
+		$("#insertCar").validate({
+			rules : {
+				carNum : "required",
+				carTeam : "required",
+				locationType : "required",
+				carBase : "required",
+				carBrand : "required",
+				carUse : "required",
+				city1: "required",
+				city2 : "required",
+				storage : "required",
+				driverId : "required",
+				purchaseTime : "required",
+				carLength : {
+					required : true,
+					number : true
+				},
+				carHeight : {
+					required : true,
+					number : true
+				},
+				carWidth : {
+					required : true,
+					number : true
+				},
+				carWeight : {
+					required : true,
+					number : true
+				},
+
+			}
+		});
+	}
+	
 	$(function(){
 		$('reset:button').click(function(){
 		   $('.input').val("");

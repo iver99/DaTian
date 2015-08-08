@@ -43,7 +43,7 @@ public interface SubAccountService {
 	/**
 	 * 附属账户-列表
 	 * @Title: getSubAccountList 
-	 * @Description: TODO 
+	 *  
 	 * @param: @param session
 	 * @param: @return 
 	 * @return: String 
@@ -56,7 +56,7 @@ public interface SubAccountService {
 	/**
 	 * 附属账户-总记录数
 	 * @Title: getSubAccountTotalRows 
-	 * @Description: TODO 
+	 *  
 	 * @param: @param session
 	 * @param: @return 
 	 * @return: Integer 

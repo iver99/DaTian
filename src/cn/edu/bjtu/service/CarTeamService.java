@@ -19,7 +19,7 @@ public interface CarTeamService {
 	/**
 	 * 我的信息-我的资源-车辆信息-车队信息
 	 * @Title: getUserCarTeamResource 
-	 * @Description: TODO 
+	 *  
 	 * @param: @param session
 	 * @param: @param pageUtil
 	 * @param: @return 
@@ -33,7 +33,7 @@ public interface CarTeamService {
 	/**
 	 * 我的信息-我的资源-车辆信息=车队信息=总记录是
 	 * @Title: getUserCarTeamResourceTotalRows 
-	 * @Description: TODO 
+	 *  
 	 * @param: @param session
 	 * @param: @return 
 	 * @return: Integer 

@@ -158,31 +158,31 @@
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">货物名称：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="goodsName" required/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" id="goodsName" name="goodsName" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">货物重量：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="goodsWeight" required/>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" id="goodsWeight" name="goodsWeight" required/>
                                     (公斤)</td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">货物体积：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="goodsVolume" required/>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" id="goodsVolume" name="goodsVolume" required/>
                                     (立方米)</td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">货物声明价值：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="declaredPrice" required/>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" id="declaredPrice" name="declaredPrice" required/>
                                     (元)</td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">保险费：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="insurance" required/>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" id="insurance" name="insurance" required/>
                                     (元)</td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">运费：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="expectedPrice" required/>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" id="expectedPrice" name="expectedPrice" required/>
                                     (元)</td>
                                 </tr>
                             </table>
@@ -193,7 +193,7 @@
                                     	发货人信息
                                         <a href="javascript:;" onclick="showid('popup2');" hidefocus="true"><img src="images/btn_address.png" title="查询" /></a>
                                     </td>
-                                    <td width="250">&nbsp;</td>
+                                    <td width="270">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                                     <td width="100" class="td_mgmt_right3_td1b">
                                     	收货人信息
                                         <a href="javascript:;" onclick="showid('popup3');" hidefocus="true"><img src="images/btn_address.png" title="查询" /></a>
@@ -230,7 +230,7 @@
 								<tr>
 									<td width="120" height="40" class="td_mgmt_right3_td1b">备注：</td>
 									<td>
-                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="remarks" required></textarea>
+                                    	<textarea class="textarea_rating" placeholder="请输入内容..." id="remarks" name="remarks" required></textarea>
                                     </td>
 								</tr>
                                 <tr>
@@ -340,7 +340,58 @@
 		getFrequentAddress(1);
 		//获取常用收货地址
 		getFrequentAddress(2);
+		
+		//validate
+		formValidate();
 	}
+	
+	function formValidate(){
+		
+		$("#new_order").validate({
+				rules : {
+					clientName : "required",
+					isLinkToClientWayBill : "required",
+					hasCarrierContract : "required",
+					goodsName : "required",
+					driverName : "required",
+					goodsVolume : {
+						required : true,
+						number : true
+					},
+					goodsWeight : {
+						required : true,
+						number : true
+					},
+					declaredPrice : {
+						required : true,
+						number : true
+					},
+					insurance : {
+						required : true,
+						number : true
+					},
+					expectedPrice : {
+						required : true,
+						number : true
+					},
+					deliveryName : "required",
+					recieverName : "required",
+					recieverphone : {
+						required : true,
+						number : true
+					},
+					deliveryphone : {
+						required : true,
+						number : true
+					},
+					deliveryAddr : "required",
+					recieverAddr : "required",
+					remarks : "required",
+
+				}
+			});
+		}
+	
 	
 	//获取常用地址]
 	function getFrequentAddress(kind){

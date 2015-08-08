@@ -86,11 +86,11 @@
                     <tr>
                         <td class="td_mgmt_right3_td1a"> 
                             <br />   
-                            <form action="insertCityLine" method="post" name="insertCityLine" enctype="multipart/form-data">         
+                            <form action="insertCityLine" method="post" name="insertCityLine" id="insertCityLine" enctype="multipart/form-data">         
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">网络名称：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="name" required/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" id="name" name="name" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">配送城市：</td>
@@ -111,20 +111,20 @@
                                             <option value="无" selected="selected">无</option>
                                         </select>
                                         <div id="v_detail" style="display:none;">
-                                            <input type="text" class="input_mgmt1" style="width:176px;" placeholder="请输入内容..." name="VIPDetail"/>
+                                            <input type="text" class="input_mgmt1" style="width:176px;" placeholder="请输入内容..." id="VIPDetail" name="VIPDetail"/>
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">参考价：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" name="refPrice" required/>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" id="refPrice" name="refPrice" required/>
                                     (元/kg)</td>
                                 </tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">详细报价：</td>
 									<td>
                                     	<div style="position:relative;">
-                                        	<input id="apply_attachment1" type="text" class="input_attachment1" style="width:230px;" value="请参照模板格式要求填写后提交..." />
+                                        	<input id="apply_attachment1" type="text" class="input_attachment1" style="width:230px;" value="请上传文件..." />
                                         	<input id="upload_btn3" type="button" value="添加" class="input_attachment_btn1" style="width:60px; margin-left:10px;" />
       <input id="upload_btn4" type="file" name="file" onchange="document.getElementById('apply_attachment1').value=/[^\\]+\.\w+$/.exec(this.value)[0]" class="input_attachment_btn1_hidden" style="width:300px;" hidefocus="true" required/>
                                         </div>
@@ -137,7 +137,7 @@
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">补充信息：</td>
 									<td>
-                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="remarks" required></textarea>
+                                    	<textarea class="textarea_rating" placeholder="请输入内容..." id="remarks" name="remarks" required></textarea>
                                     </td>
 								</tr>
                                 <tr>
@@ -164,12 +164,32 @@
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
+		
+		//表单验证
+		validateForm();
 	}
-	$(function(){
-		$('reset:button').click(function(){
-		   $('.input').val("");
-		   $('.select').val("");
+	
+	
+	
+	function validateForm() {
+		$("#insertCityLine").validate({
+			rules : {
+				name : "required",
+				city1 : "required",
+				refPrice : {
+					required : true,
+					number : true
+				},
+				remarks : "required"
+
+			}
 		});
-    })
+	}
+	$(function() {
+		$('reset:button').click(function() {
+			$('.input').val("");
+			$('.select').val("");
+		});
+	})
 </script>
 </html>
