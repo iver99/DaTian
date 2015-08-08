@@ -54,7 +54,7 @@ public interface AddressService {
 	/**
 	 * 常用发货地址
 	 * @Title: getSendAddress 
-	 * @Description: TODO 
+	 *  
 	 * @param: @param session
 	 * @param: @param pageUtil
 	 * @param: @return 
@@ -68,7 +68,7 @@ public interface AddressService {
 	/**
 	 * 常用发货地址-总记录数
 	 * @Title: getSendAddressTotalRows 
-	 * @Description: TODO 
+	 *  
 	 * @param: @param session
 	 * @param: @return 
 	 * @return: Integer 

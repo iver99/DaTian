@@ -33,7 +33,7 @@ public interface FocusService extends BaseDao<Focus>{
 	/**
 	 * ËÑË÷¹Ø×¢
 	 * @Title: searchFocus 
-	 * @Description: TODO 
+	 *  
 	 * @param: @param search_content
 	 * @param: @param session
 	 * @param: @return 

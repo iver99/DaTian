@@ -186,7 +186,7 @@ public class SubAccountController {
 		/**
 		 * 
 		 * @Title: getSubAccountPage 
-		 * @Description: TODO 
+		 *  
 		 * @param: @return 
 		 * @return: String 
 		 * @throws: 异常 
@@ -200,7 +200,7 @@ public class SubAccountController {
 		/**
 		 * 获取附属账户列表
 		 * @Title: getSubAccountList 
-		 * @Description: TODO 
+		 *  
 		 * @param: @param session
 		 * @param: @return 
 		 * @return: String 
@@ -217,7 +217,7 @@ public class SubAccountController {
 		/**
 		 * 附属账户-总记录条数
 		 * @Title: getSubAccountTotalRows 
-		 * @Description: TODO 
+		 *  
 		 * @param: @param session
 		 * @param: @return 
 		 * @return: Integer 

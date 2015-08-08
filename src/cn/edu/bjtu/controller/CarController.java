@@ -771,7 +771,7 @@ public class CarController {
 	/**
 	 * 我的资源-车辆信息-车队i信息
 	 * @Title: getUserCarTeamResource 
-	 * @Description: TODO 
+	 *  
 	 * @param: @param session
 	 * @param: @return 
 	 * @return: String 
@@ -787,7 +787,7 @@ public class CarController {
 	/**
 	 * 我的资源-车辆信息-车队i信息-总记录数
 	 * @Title: getUserCarTeamResourceTotalRows 
-	 * @Description: TODO 
+	 *  
 	 * @param: @param session
 	 * @param: @return 
 	 * @return: Integer 
