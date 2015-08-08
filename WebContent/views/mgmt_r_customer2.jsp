@@ -87,20 +87,20 @@
 					<tr>
 						<td class="td_mgmt_right3_td1a"> 
 						<br />   	
-						<form action="insertClient" method="post" enctype="multipart/form-data">         
+						<form action="insertClient" id="insertClient" method="post" enctype="multipart/form-data">         
 							<table width="90%" border="0" cellspacing="0" cellpadding="0">
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">客户帐号：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="account" required/></td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" id="account" name="account" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">客户名称：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="clientName" required/></td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" id="clientName" name="clientName" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">所属行业：</td>
 									<td>
-										<select style="width:120px;" name="clientBusiness" required>
+										<select style="width:120px;" name="clientBusiness" id="clientBusiness" required>
 											<option value="" selected="selected">请选择</option>
                                             <option value="医药">医药</option>
                                             <option value="电子">电子</option>
@@ -110,11 +110,11 @@
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">联系人：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="contact" required/></td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" id="contact" name="contact" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">手机号：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="phone" required/></td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" id="phone" name="phone" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">相关材料：</td>
@@ -128,7 +128,7 @@
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">补充信息：</td>
 									<td>
-                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="remarks" required></textarea>
+                                    	<textarea class="textarea_rating" placeholder="请输入内容..." id="remarks" name="remarks" required></textarea>
                                     </td>
 								</tr>
 								<tr>
@@ -155,7 +155,27 @@
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
+		
+		//validate
+		formValidate();
 	}
+	function formValidate(){
+		$("#insertClient").validate({
+			rules : {
+				account : "required",
+				clientName : "required",
+				clientBusiness : "required",
+				contact : "required",
+				phone : {
+					required : true,
+					number : true
+				},
+				remarks : "required"
+				
+			}
+		});
+	}
+	
 	$(function(){
 		$('reset:button').click(function(){
 		   $('.input').val("");

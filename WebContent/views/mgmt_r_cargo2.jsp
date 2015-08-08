@@ -85,11 +85,11 @@
                     <tr>
                         <td class="td_mgmt_right3_td1a"> 
                             <br />   	          
-                            <form action="insertGoods"  method="post" name="insertGoods" enctype="multipart/form-data"> 
+                            <form action="insertGoods"  method="post" id="insertGoods" name="insertGoods" enctype="multipart/form-data"> 
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">货物名称：</td>
-                                    <td><input type="text" class="input_mgmt1" name="name" style="width:300px;" required/></td>
+                                    <td><input type="text" class="input_mgmt1" id="name" name="name" style="width:300px;" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">类型：</td>
@@ -101,7 +101,7 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">重量：</td>
-                                    <td><input type="text" class="input_mgmt1" name="weight" style="width:300px;" required/>
+                                    <td><input type="text" class="input_mgmt1" id="weight" name="weight" style="width:300px;" required/>
                                     (吨)</td>
                                 </tr>
                                 <tr>
@@ -113,7 +113,7 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">关于运输的要求：</td>
-                                    <td><input type="text" class="input_mgmt1" name="transportReq" style="width:300px;" required/></td>
+                                    <td><input type="text" class="input_mgmt1" id="transportReq" name="transportReq" style="width:300px;" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">线路起止：</td>
@@ -128,7 +128,7 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">关于赔偿的要求：</td>
-                                    <td><input type="text" class="input_mgmt1" name="damageReq" style="width:300px;" required/></td>
+                                    <td><input type="text" class="input_mgmt1" id="damageReq" name="damageReq" style="width:300px;" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">增值服务：</td>
@@ -163,12 +163,12 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">有效期至：</td>
-                                    <td><input type="text" class="input_date1" title="点击此处选择" name="limitDate" onclick="SelectDate(this,'yyyy-MM-dd')" readonly="readonly" required/></td>
+                                    <td><input type="text" class="input_date1" title="点击此处选择" id="limitDate" name="limitDate" onclick="SelectDate(this,'yyyy-MM-dd')" readonly="readonly" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">发票要求：</td>
                                     <td>
-                                        <select style="width:110px;" name="invoice" required>
+                                        <select style="width:110px;" id="invoice" name="invoice" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="需要">需要</option>
                                             <option value="不需要">不需要</option>
@@ -187,7 +187,7 @@
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">补充信息：</td>
 									<td>
-                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="remarks" required></textarea>
+                                    	<textarea class="textarea_rating" placeholder="请输入内容..." id="remarks" name="remarks" required></textarea>
                                     </td>
 								</tr>
                                 <tr>
@@ -217,7 +217,30 @@
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
+		//validate
+		formValidate();
 	}
+	
+	function formValidate(){
+		$("#insertGoods").validate({
+			rules : {
+				name : "required",
+				transportReq : "required",
+				damageReq : "required",
+				city1 : "required",
+				VIPService : "required",
+				valueadd : "required",
+				limitDate : "required",
+				remarks : "required",
+				weight : {
+					required : true,
+					number : true
+				}
+
+			}
+		});
+	}
+	
 	$(function(){
 		$('reset:button').click(function(){
 		   $('.input').val("");
