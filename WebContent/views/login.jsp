@@ -13,10 +13,6 @@
 <link rel="bookmark" href="/images/fav.ico" type="image/x-icon" />
 <link type="text/css" rel="stylesheet" href="css/index.css" />
 <script type="text/javascript" src="js/jquery.min.1.7.2.js"></script>
-<!-- 用于表单验证 -->
-<script type="text/javascript" src="js/jquery.metadata.js"></script>
-<script type="text/javascript" src="js/jquery.validate.js"></script>
-<script type="text/javascript" src="js/messages_zh.js"></script>
 
 <script type="text/javascript" src="js/top_search.js"></script>
 <script type="text/javascript" src="js/main_nav.js"></script>
@@ -26,37 +22,26 @@
 <script type="text/javascript" src="js/focus_load.js"></script>
 <%@ include file="jsTool.jsp" %>
 <script type="text/javascript"> 
-	/* $(function() {
-		$('input, textarea').placeholder(); 
-		$("#loginForm").validate({
-			rules:{
-				username:{required : true},
-				password:{required : true}
-			},
-			errorPlacement: function( error, element ) {
-				error.insertAfter( element.parent() );
-			}
-		});
-		alert("finish")
-		
-	}); */
-	/* $().ready(function(){
-		//debugger;
-		$("#loginForm").validate({
-			rules:{
-				username:{required : true,minlength:5,maxlength:10},
-				password:{required : true,minlength:5,maxlength:10}
-			},
-			message:{
-				username:"用户名不能为空",
-				password:"密码不能为空"
-			},
-			errorPlacement: function( error, element ) {
-				error.insertAfter( element.parent() );
-			}
-		});
-		//alert("finish");
-	}); */
+/* $().ready(function() {  
+	//alert("test");
+$("#loginForm").validate({  
+   rules: {  
+   username: "required",    
+   password: {  
+    required: true,  
+    minlength: 5  
+   }  
+},  
+   messages: {  
+   username: "请输入姓名",   
+   password: {  
+    required: "请输入密码",  
+    minlength: $.validator.format("密码不能小于{0}个字符")  
+   } 
+}  
+    });  
+});  */
+
 </script>
 </head>
 
