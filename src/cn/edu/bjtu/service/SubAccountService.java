@@ -65,4 +65,11 @@ public interface SubAccountService {
 	 * @date: 2015年7月27日 下午4:07:28
 	 */
 	public Integer getSubAccountTotalRows(HttpSession session,SubAccount subAccount);
+	
+	/**
+	 * 检查附属账户是否存在
+	 * @param username
+	 * @return
+	 */
+	public boolean checkSubAccountUsername(String username);
 }

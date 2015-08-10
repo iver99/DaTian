@@ -231,5 +231,22 @@ public class SubAccountController {
 			
 			return subAccountService.getSubAccountTotalRows(session,subAccount);
 		}
+		
+		/**
+		 * 检查附属账户是否已经存在
+		 * @param username
+		 * @return
+		 */
+		@ResponseBody
+		@RequestMapping(value="checkSubAccountUsername",produces="text/html;charset=UTF-8")
+		public String checkSubAccountUsername(String username){
+			
+			boolean flag=subAccountService.checkSubAccountUsername(username);
+			if(flag){
+				return "用户已存在！";
+			}else{
+				return "用户不存在，可以使用！";
+			}
+		}
 	 
 }

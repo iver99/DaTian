@@ -73,8 +73,8 @@
 							<table width="90%" border="0" cellspacing="0" cellpadding="0">
 								<tr>
 									<td width="120" height="40" class="td_mgmt_right3_td1b">帐户名称：</td>
-									<td><input type="text" class="input_mgmt1" style="width:100px;" value="${username } " name="hostAccountName" readonly="readonly" />&nbsp;-&nbsp;
-									<input type="text" class="input_mgmt1" style="width:180px;" value="" name="username" id="username" required/>&nbsp;&nbsp;<a href="javascript:;" hidefocus="true" onclick="loadXMLDoc()">检查用户名</a></td>
+									<td><input type="text" class="input_mgmt1" style="width:100px;" value="${username }" id="hostAccountName" name="hostAccountName" readonly="readonly" />&nbsp;-&nbsp;
+									<input type="text" class="input_mgmt1" style="width:180px;" value="" name="username" id="username" required/>&nbsp;&nbsp;<a href="javascript:;" hidefocus="true" onclick="checkUserName()">检查用户名</a></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">初始密码：</td>
@@ -123,7 +123,31 @@
 
 </body>
 <script type="text/javascript">
-function loadXMLDoc()
+//检查附属账户用户名是否存在
+function checkUserName(){
+	
+	var user_name=$("#username").val();
+	if(user_name == ""){
+		alert("请填写用户名!");
+		return;
+	}
+	var host_name=$("#hostAccountName").val();
+	var name=host_name+"-"+user_name;
+	var url="checkSubAccountUsername";
+	$.ajax({
+		url:url,
+		data:{
+			username:name
+		},
+		cache:false,
+		dataType:"text",
+		success:function(data,status){
+			alert(data);
+		}
+	});
+}
+
+/* function loadXMLDoc()
 {
 	var curWwwPath=window.document.location.href;
     var pathName=window.document.location.pathname;
@@ -139,7 +163,7 @@ function loadXMLDoc()
 				   alert("该用户存在~");
 		   }
 		});
-}
+} */
 </script>
 <script type="text/javascript">
 	function OnLoad() {
