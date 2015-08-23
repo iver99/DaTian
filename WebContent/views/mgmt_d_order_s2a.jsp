@@ -146,9 +146,6 @@
 									<td>
 										<select name="resourceName" id="resourceName" style="width:120px;" required>
 											<option value="" selected="selected">请选择</option>
-                                            <!--  <option value="北京→上海">北京→上海</option>
-                                            <option value="北京→天津">北京→天津</option>
-                                            <option value="北京→广州">北京→广州</option> --> 
                                         </select>
 									</td>
                                 </tr>
@@ -412,15 +409,48 @@
 				}
 				f.empty();
 				for(var i=0;i<data.length;i++){
-					f.append("<tr>");
-					f.append("<td width=\"100\" class=\"td_popup_address2a\">"+data[i].name+"</td>");
-					f.append("<td width=\"120\" class=\"td_popup_address2\">"+data[i].phone+"</td>");
-					f.append("<td class=\"td_popup_address2\">"+data[i].address+"</td>");
-					f.append("</tr>");
+					var str="<tr>";
+					str+="<td width=\"100\" class=\"td_popup_address2a\">"+data[i].name+"</td>";
+					str+="<td width=\"120\" class=\"td_popup_address2\">"+data[i].phone+"</td>";
+					str+="<td class=\"td_popup_address2\">"+data[i].address+"</td>";
+					
+					//str+="<td class=\"td_popup_address2a\"><input type=\"radio\" name=\"address_choose\" id=\"address_choose\" /></td>"
+					if(kind ==1){
+						str+="<td class=\"td_popup_address2a\"><input type=\"button\" value=\"选择\" onclick=\"chooseSendAddress('"+data[i].name+"','"+data[i].phone+"','"+data[i].address+"')\" name=\"address_choose\" id=\"address_choose\" /></td>"
+					}else{
+						str+="<td class=\"td_popup_address2a\"><input type=\"button\" value=\"选择\" onclick=\"chooseRecieveAddress('"+data[i].name+"','"+data[i].phone+"','"+data[i].address+"')\" name=\"address_choose\" id=\"address_choose\" /></td>"
+					}
+					str+="</tr>";
+					f.append(str);
 					
 				}
+				/* var s="";
+				s+="<tr>";
+				s+="<td class=\"td_popup_address2a\"><input width=\"100\" type=\"button\" onclick=\"chooseAddress()\" /></td>";
+				s+="</tr>";
+				f.append(s); */
+				
 			}
 		})
+	}
+	//选择发货人
+	function chooseSendAddress(name,phone,address){
+		//关闭窗口
+		$("#close2").click();
+		$("#deliveryAddress").val(address);
+		$("#deliveryName").val(name);
+		$("#deliveryPhone").val(phone);
+		
+	}
+	
+	//选择收货人
+	function chooseRecieveAddress(name,phone,address){
+		//关闭窗口
+		$("#close3").click();
+		$("#recieverAddress").val(address);
+		$("#recieverName").val(name);
+		$("#recieverPhone").val(phone);
+		
 	}
 	//返回用户的合同编号
 	function getUserContract(){
@@ -447,54 +477,6 @@
 		},"json");
 	}
 	
-	//如果选中了添加常用地址的选项则在提交表单时添加常用地址
-   /*  function addAddress(){
-		var url="addAddressAjax";
-		var name;
-		var phone;
-		var address;
-		//debugger;
-		var sender_info=$("#sender_info");
-		var receiver_info=$("#receiver_info");
-		if($("#sender_info").attr("checked") == "checked"){//发货人添加常用地址选中
-			name=$("#deliveryName").val();
-			address=$("#deliveryAddr").val();
-			phone=$("#deliveryPhone").val();
-			$.ajax({
-				type: "GET",
-				url:url,
-				data:{"name":name,
-					"address":address,
-					"phone":phone
-					},
-				cache:false,
-				success:function(data){
-					//不做任何操作
-				}
-			});
-		}
-		
-		if(receiver_info.attr("checked") == "checked"){//收货人常用地址选中
-			name=$("#recieverName").val();
-			address=$("#recieverAddr").val();
-			phone=$("#recieverPhone").val();
-			
-			$.ajax({
-				type: "GET",
-				url:url,
-				data:{"name":name,
-					"address":address,
-					"phone":phone
-					},
-				cache:false,
-				success:function(data){
-					//不做任何操作
-				}
-			});
-		}
-		//提交订单
-		$('#new_order').submit();
-	} */
 	
 	//根据选择不同的资源，获得不同的资源列表
 	function getResource(){
