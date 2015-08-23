@@ -71,10 +71,10 @@
                         	<span class="span_mgmt_right2_text1">我的关注</span>
                             <!-- <span class="span_mgmt_right2_text2"><a href="javascript:;" hidefocus="true" class="a_btn_mgmt3">取消关注</a></span> -->
                             <div class="div_mgmt_s1">
-                            <form action="findfocus" method="post">
+                            <!-- <form action="getallfocus" method="post"> -->
                             	<input type="text" class="input_mgmt1" style="width:200px;" placeholder="关注内容" name="search_focus" id="search_focus"/>
-                                <input type="submit" id="btn1" value="查询" class="btn_mgmt3" hidefocus="true" />
-                                </form>
+                                <input type="button" id="btn1" value="查询" class="btn_mgmt3" hidefocus="true" onclick="searchFocus()"/>
+                              <!--   </form> -->
                             </div>
                         </td>
                 	</tr>
@@ -98,205 +98,6 @@
                 </thead>
                 <tbody id="result_body">
                 </tbody>
-                  <%--  <c:forEach var="focusLineList" items="${focusLineList }">
-                     <tr>
-						<td height="60" class="td_mgmt_right3_td1d"><input type="checkbox" name="f1" id="f1a" /></td>
-						<td class="td_mgmt_right3_td1">运输线路</td>
-						<td class="td_mgmt_right3_td1">
-                            <a href="linetransportdetail?linetransportid=${focusLineList.focusId }&carrierId=${focusLineList.carrierId}&linetransportId=${focusLineList.id }&flag=0" hidefocus="true">
-                            ${focusLineList.startPlace }→${focusLineList.endPlace }&nbsp;<img src="images/btn_new1.png" /></a>
-                            <br />
-                            <a href="companyDetail?id=${focusLineList.carrierId }" class="link1" hidefocus="true">${focusLineList.companyName }&nbsp;<img src="images/btn_level1a.png" /></a>
-                        </td>
-                        <td class="td_mgmt_right3_td1">${focusLineList.relDate }</td>
-                        <c:choose>
-                        <c:when test="${focusLineList.status == '有效' }">
-						<td class="td_mgmt_right3_td1">有效</td>
-                        <td class="td_mgmt_right3_td3">
-                            <div id="handlebox" style="z-index:205;">
-                                <ul class="quickmenu">
-                                    <li class="menuitem">
-                                        <div class="menu">
-                                            <a href="getneworderform?carrierid=${focusLineList.carrierId}&flag=1&resourceId=${focusLineList.focusId}" class="menuhd" hidefocus="true">提交订单</a> 
-                                            <div class="menubd">
-                                                <div class="menubdpanel">
-                                                    <a href="deletefocus?id=${focusLineList.id }" class="a_top3" hidefocus="true">取消关注</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                        </c:when>
-                        <c:when test="${focusLineList.status == '失效' }">
-                        <td class="td_mgmt_right3_td1"><span class="span_mgmt_right3_text3">失效</span></td>
-                        <td class="td_mgmt_right3_td3"><a href="deletefocus?id=${focusLineList.id }" hidefocus="true">取消关注</a></td>
-                        </c:when>
-                        </c:choose>
-					</tr>
-					</c:forEach>
-				<c:forEach var="focusCitylineList" items="${focusCitylineList }">
-                     <tr>
-						<td height="60" class="td_mgmt_right3_td1d"><input type="checkbox" name="f1" id="f1a" /></td>
-						<td class="td_mgmt_right3_td1">配送城市</td>
-						<td class="td_mgmt_right3_td1">
-                            <a href="citylinedetail?citylineId=${focusCitylineList.focusId }&carrierId=${focusCitylineList.carrierId }&flag=0" hidefocus="true">
-                            ${focusCitylineList.name }&nbsp;<img src="images/btn_new1.png" /></a>
-                            <br />
-                            <a href="companyDetail?id=${focusCitylineList.carrierId }" class="link1" hidefocus="true">${focusCitylineList.companyName }&nbsp;<img src="images/btn_level1a.png" /></a>
-                        </td>
-                        <td class="td_mgmt_right3_td1">${focusCitylineList.relDate }</td>
-                        <c:choose>
-                        <c:when test="${focusCitylineList.status == '有效' }">
-						<td class="td_mgmt_right3_td1">有效</td>
-                        <td class="td_mgmt_right3_td3">
-                            <div id="handlebox" style="z-index:205;">
-                                <ul class="quickmenu">
-                                    <li class="menuitem">
-                                        <div class="menu">
-                                            <a href="getneworderform?carrierid=${focusCitylineList.carrierId}&flag=2&resourceId=${focusCitylineList.focusId}" class="menuhd" hidefocus="true">提交订单</a> 
-                                            <div class="menubd">
-                                                <div class="menubdpanel">
-                                                    <a href="deletefocus?id=${focusCitylineList.id }" class="a_top3" hidefocus="true">取消关注</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                        </c:when>
-                        <c:when test="${focusCitylineList.status == '失效' }">
-                        <td class="td_mgmt_right3_td1"><span class="span_mgmt_right3_text3">失效</span></td>
-                        <td class="td_mgmt_right3_td3"><a href="deletefocus?id=${focusCitylineList.id }" hidefocus="true">取消关注</a></td>
-                        </c:when>
-                        </c:choose>
-					</tr>
-					</c:forEach>
-				
-				<c:forEach var="focusCarList" items="${focusCarList }">
-                     <tr>
-						<td height="60" class="td_mgmt_right3_td1d"><input type="checkbox" name="f1" id="f1a" /></td>
-						<td class="td_mgmt_right3_td1">车辆</td>
-						<td class="td_mgmt_right3_td1">
-                            <a href="cardetail?carId=${focusCarList.focusId }&carrierId=${focusCarList.carrierId}&linetransportId=${focusCarList.linetransportId }&flag=0" hidefocus="true">
-                            ${focusCarList.carNum }&nbsp;<img src="images/btn_new1.png" /></a>
-                            <br />
-                            <a href="companyDetail?id=${focusCarList.carrierId }" class="link1" hidefocus="true">${focusCarList.companyName }&nbsp;<img src="images/btn_level1a.png" /></a>
-                        </td>
-                        <td class="td_mgmt_right3_td1">${focusCarList.relDate }</td>
-                        <c:choose>
-                        <c:when test="${focusCarList.status == '有效' }">
-						<td class="td_mgmt_right3_td1">有效</td>
-                        <td class="td_mgmt_right3_td3">
-                            <div id="handlebox" style="z-index:205;">
-                                <ul class="quickmenu">
-                                    <li class="menuitem">
-                                        <div class="menu">
-                                            <a href="getneworderform?carrierid=${focusCarList.carrierId}&flag=3&resourceId=${focusCarList.focusId}" class="menuhd" hidefocus="true">提交订单</a> 
-                                            <div class="menubd">
-                                                <div class="menubdpanel">
-                                                    <a href="deletefocus?id=${focusCarList.id }" class="a_top3" hidefocus="true">取消关注</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                        </c:when>
-                        <c:when test="${focusCarList.status == '失效' }">
-                        <td class="td_mgmt_right3_td1"><span class="span_mgmt_right3_text3">失效</span></td>
-                        <td class="td_mgmt_right3_td3"><a href="deletefocus?id=${focusCarList.id }" hidefocus="true">取消关注</a></td>
-                        </c:when>
-                        </c:choose>
-					</tr>
-					</c:forEach>
-				
-				<c:forEach var="focusWarehouseList" items="${focusWarehouseList }">
-                     <tr>
-						<td height="60" class="td_mgmt_right3_td1d"><input type="checkbox" name="f1" id="f1a" /></td>
-						<td class="td_mgmt_right3_td1">仓库</td>
-						<td class="td_mgmt_right3_td1">
-                            <a href="warehousedetail?warehouseId=${focusWarehouseList.focusId }&carrierId=${focusWarehouseList.carrierId}&flag=0" hidefocus="true">
-                            ${focusWarehouseList.name }&nbsp;<img src="images/btn_new1.png" /></a>
-                            <br />
-                            <a href="companyDetail?id=${focusWarehouseList.carrierId }" class="link1" hidefocus="true">${focusWarehouseList.companyName }&nbsp;<img src="images/btn_level1a.png" /></a>
-                        </td>
-                        <td class="td_mgmt_right3_td1">${focusWarehouseList.relDate }</td>
-                        <c:choose>
-                        <c:when test="${focusWarehouseList.status == '有效' }">
-						<td class="td_mgmt_right3_td1">有效</td>
-                        <td class="td_mgmt_right3_td3"><a href="deletefocus?id=${focusWarehouseList.id }" hidefocus="true">取消关注</a></td>
-                        
-                        </c:when>
-                        <c:when test="${focusWarehouseList.status == '失效' }">
-                        <td class="td_mgmt_right3_td1"><span class="span_mgmt_right3_text3">失效</span></td>
-                        <td class="td_mgmt_right3_td3"><a href="deletefocus?id=${focusWarehouseList.id }" hidefocus="true">取消关注</a></td>
-                        </c:when>
-                        </c:choose>
-					</tr>
-					</c:forEach>
-					
-					<c:forEach var="focusCompanyList" items="${focusCompanyList }">
-                     <tr>
-						<td height="60" class="td_mgmt_right3_td1d"><input type="checkbox" name="f1" id="f1a" /></td>
-						<td class="td_mgmt_right3_td1">公司</td>
-						<td class="td_mgmt_right3_td1">
-                            <a href="companyDetail?id=${focusCompanyList.focusId }" hidefocus="true">
-                            ${focusCompanyList.companyName }&nbsp;<img src="images/btn_level1a.png" /></a>
-                        </td>
-                        <td class="td_mgmt_right3_td1">${focusCompanyList.relDate }</td>
-                        <c:choose>
-                        <c:when test="${focusCompanyList.status == '有效' }">
-						<td class="td_mgmt_right3_td1">有效</td>
-                       <td class="td_mgmt_right3_td3">
-                            <div id="handlebox" style="z-index:205;">
-                                <ul class="quickmenu">
-                                    <li class="menuitem">
-                                        <div class="menu">
-                                            <a href="getneworderform?carrierid=${focusCompanyList.carrierId}&flag=4" class="menuhd" hidefocus="true">提交订单</a> 
-                                            <div class="menubd">
-                                                <div class="menubdpanel">
-                                                    <a href="deletefocus?id=${focusCompanyList.id }" class="a_top3" hidefocus="true">取消关注</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                        </c:when>
-                        <c:when test="${focusCompanyList.status == '失效' }">
-                        <td class="td_mgmt_right3_td1"><span class="span_mgmt_right3_text3">失效</span></td>
-                        <td class="td_mgmt_right3_td3"><a href="deletefocus?id=${focusCompanyList.id }" hidefocus="true">取消关注</a></td>
-                        </c:when>
-                        </c:choose>
-					</tr>
-					</c:forEach>
-					
-					<c:forEach var="focusGoodsList" items="${focusGoodsList }">
-                     <tr>
-						<td height="60" class="td_mgmt_right3_td1d"><input type="checkbox" name="f1" id="f1a" /></td>
-						<td class="td_mgmt_right3_td1">货物</td>
-						<td class="td_mgmt_right3_td1">
-                            <a href="goodsdetail?id=${focusGoodsList.focusId }" hidefocus="true">
-                            ${focusGoodsList.name }</a>
-                        </td>
-                        <td class="td_mgmt_right3_td1">${focusGoodsList.relDate }</td>
-                        <c:choose>
-                        <c:when test="${focusGoodsList.status == '有效' }">
-						<td class="td_mgmt_right3_td1">有效</td>
-                       <td class="td_mgmt_right3_td3"><a href="deletefocus?id=${focusGoodsList.id }" hidefocus="true">取消关注</a></td>
-                        </c:when>
-                        <c:when test="${focusGoodsList.status == '失效' }">
-                        <td class="td_mgmt_right3_td1"><span class="span_mgmt_right3_text3">失效</span></td>
-                        <td class="td_mgmt_right3_td3"><a href="deletefocus?id=${focusGoodsList.id }" hidefocus="true">取消关注</a></td>
-                        </c:when>
-                        </c:choose>
-					</tr>
-					</c:forEach> --%>
 					
                 </table>
 				<table border="0" cellpadding="0" cellspacing="0" class="table_recordnumber">
@@ -312,16 +113,7 @@
                         </td>
                     </tr>
 				</table>
-                <table border="0" cellpadding="0" cellspacing="0" class="table_pagenumber">
-                    <tr>
-                        <td width="45" class="td_pagenumber">首页</td>
-                        <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">上页</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">1</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">2</a></td>
-                        <td width="30" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">3</a></td>
-                        <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">下页</a></td>
-                        <td width="45" class="td_pagenumber"><a href="javascript:;" class="a_pagenumber" hidefocus="true">末页</a></td>
-                    </tr>
+                <table border="0" cellpadding="0" cellspacing="0" class="table_pagenumber" id="page_layout">
                 </table>
 			</td>
 		</tr>
@@ -362,6 +154,8 @@
 		var display=$("#display").val();
 		var currentPage=$("#currentPage").val();
 		getUserFocusAjax(search_content,display,currentPage);
+		//总数
+		getUserFocusTotalRowsAjax(search_content,display,currentPage);
 	}
 	
 	//获取用户的关注列表
@@ -378,15 +172,16 @@
 			cache:false,
 			success:function(data,status){
 				var body=$("#result_body");
+				body.empty();
 				for(var i=0;i<data.length;i++){
 					if(data[i].focusType == 'linetransport'){
 						body.append("<tr>");
 						body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\"><input type=\"checkbox\" name=\"f1\" id=\"f1a\" /></td>");
 						body.append("<td class=\"td_mgmt_right3_td1\">运输线路</td>");
 						var str="<td class=\"td_mgmt_right3_td1\">";
-						str+="<a href=\"linetransportdetail?linetransportid="+data[i].focusId+"&carrierId="+data[i].carrierId+"&linetransportId="+data[i].id+"&flag=0\" hidefocus=\"true\">"+data[i].startPlace+"→"+data[i].endPlace+"&nbsp;<img src=\"images/btn_new1.png\" /></a>";
+						str+="<a href=\"linetransportdetail?linetransportid="+data[i].resourceId+"&carrierId="+data[i].carrierId+"&linetransportId="+data[i].id+"&flag=0\" hidefocus=\"true\">"+data[i].startPlace+"→"+data[i].endPlace+"&nbsp;<img src=\"images/btn_new1.png\" /></a>";
 						str+="<br />";
-						str+="<a href=\"companyDetail?id="+data[i].carrierId+"\" class=\"link1\" hidefocus=\"true\">"+data[i].companyName+"&nbsp;<img src=\"images/btn_level1a.png\" /></a>";
+						/* str+="<a href=\"companyDetail?id="+data[i].carrierId+"\" class=\"link1\" hidefocus=\"true\">"+data[i].companyName+"&nbsp;<img src=\"images/btn_level1a.png\" /></a>"; */
 						str+="</td>";
 						body.append(str);	
 						body.append("<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].relDate)+"</td>");
@@ -416,9 +211,9 @@
 						body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\"><input type=\"checkbox\" name=\"f1\" id=\"f1a\" /></td>");
 						body.append("<td class=\"td_mgmt_right3_td1\">配送城市</td>");
 						var str="<td class=\"td_mgmt_right3_td1\">";
-						str+="<a href=\"citylinedetail?citylineId="+data[i].focusId+"&carrierId="+data[i].carrierId+"&flag=0\" hidefocus=\"true\">"+data[i].name+"&nbsp;<img src=\"images/btn_new1.png\" /></a>";
+						str+="<a href=\"citylinedetail?citylineId="+data[i].resourceId+"&carrierId="+data[i].carrierId+"&flag=0\" hidefocus=\"true\">"+data[i].name+"&nbsp;<img src=\"images/btn_new1.png\" /></a>";
 						str+="<br />";
-						str+="<a href=\"companyDetail?id="+data[i].carrierId+"\" class=\"link1\" hidefocus=\"true\">"+data[i].companyName+"&nbsp;<img src=\"images/btn_level1a.png\" /></a>";
+						/* str+="<a href=\"companyDetail?id="+data[i].carrierId+"\" class=\"link1\" hidefocus=\"true\">"+data[i].companyName+"&nbsp;<img src=\"images/btn_level1a.png\" /></a>"; */
 						str+="</td>";
 						body.append(str);	
 						body.append("<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].relDate)+"</td>");
@@ -448,9 +243,9 @@
 						body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\"><input type=\"checkbox\" name=\"f1\" id=\"f1a\" /></td>");
 						body.append("<td class=\"td_mgmt_right3_td1\">车辆</td>");
 						var str="<td class=\"td_mgmt_right3_td1\">";
-						str+="<a href=\"cardetail?carId="+data[i].focusId+"&carrierId="+data[i].carrierId+"&linetransportId="+data[i].id+"&flag=0\" hidefocus=\"true\">"+data[i].carNum+"&nbsp;<img src=\"images/btn_new1.png\" /></a>";
+						str+="<a href=\"cardetail?carId="+data[i].resourceId+"&carrierId="+data[i].carrierId+"&linetransportId="+data[i].id+"&flag=0\" hidefocus=\"true\">"+data[i].carNum+"&nbsp;<img src=\"images/btn_new1.png\" /></a>";
 						str+="<br />";
-						str+="<a href=\"companyDetail?id="+data[i].carrierId+"\" class=\"link1\" hidefocus=\"true\">"+data[i].companyName+"&nbsp;<img src=\"images/btn_level1a.png\" /></a>";
+						/* str+="<a href=\"companyDetail?id="+data[i].carrierId+"\" class=\"link1\" hidefocus=\"true\">"+data[i].companyName+"&nbsp;<img src=\"images/btn_level1a.png\" /></a>"; */
 						str+="</td>";
 						body.append(str);	
 						body.append("<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].relDate)+"</td>");
@@ -481,9 +276,9 @@
 						body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\"><input type=\"checkbox\" name=\"f1\" id=\"f1a\" /></td>");
 						body.append("<td class=\"td_mgmt_right3_td1\">仓库</td>");
 						var str="<td class=\"td_mgmt_right3_td1\">";
-						str+="<a href=\"warehousedetail?warehouseId="+data[i].focusId+"&carrierId="+data[i].carrierId+"&flag=0\" hidefocus=\"true\">"+data[i].name+"&nbsp;<img src=\"images/btn_new1.png\" /></a>";
+						str+="<a href=\"warehousedetail?warehouseId="+data[i].resourceId+"&carrierId="+data[i].carrierId+"&flag=0\" hidefocus=\"true\">"+data[i].name+"&nbsp;<img src=\"images/btn_new1.png\" /></a>";
 						str+="<br />";
-						str+="<a href=\"companyDetail?id="+data[i].carrierId+"\" class=\"link1\" hidefocus=\"true\">"+data[i].companyName+"&nbsp;<img src=\"images/btn_level1a.png\" /></a>";
+						/* str+="<a href=\"companyDetail?id="+data[i].carrierId+"\" class=\"link1\" hidefocus=\"true\">"+data[i].companyName+"&nbsp;<img src=\"images/btn_level1a.png\" /></a>"; */
 						str+="</td>";
 						body.append(str);	
 						body.append("<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].relDate)+"</td>");
@@ -505,7 +300,7 @@
 						body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\"><input type=\"checkbox\" name=\"f1\" id=\"f1a\" /></td>");
 						body.append("<td class=\"td_mgmt_right3_td1\">货物</td>");
 						var str="<td class=\"td_mgmt_right3_td1\">";
-						str+="<a href=\"goodsdetail?id="+data[i].focusId+"\" hidefocus=\"true\">"+data[i].name+"</a>";
+						str+="<a href=\"goodsdetail?id="+data[i].resourceId+"\" hidefocus=\"true\">"+data[i].name+"</a>";
 						str+="</td>";
 						body.append(str);	
 						body.append("<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].relDate)+"</td>");
@@ -526,7 +321,7 @@
 						body.append("<td height=\"60\" class=\"td_mgmt_right3_td1d\"><input type=\"checkbox\" name=\"f1\" id=\"f1a\" /></td>");
 						body.append("<td class=\"td_mgmt_right3_td1\">公司</td>");
 						var str="<td class=\"td_mgmt_right3_td1\">";
-						str+="<a href=\"companyDetail?id="+data[i].focusId+"\" hidefocus=\"true\">"+data[i].companyName+"&nbsp;<img src=\"images/btn_level1a.png\" /></a>";
+						str+="<a href=\"companyDetail?id="+data[i].resourceId+"\" hidefocus=\"true\">"+data[i].companyName+"&nbsp;<img src=\"images/btn_level1a.png\" /></a>";
 						str+="</td>";
 						body.append(str);	
 						body.append("<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].relDate)+"</td>");
@@ -570,10 +365,42 @@
 			dataType:"json",
 			cache:false,
 			success:function(data,status){
-				
+				 $('#count').val(data);
+				 $("#page_layout").empty();
+				  pageLayout(data);//页面布局
 			}
 				
 		});
+	}
+	
+	//搜素关注
+	function searchFocus(){
+		$("#result_body").empty();
+		var search_content=$("#search_focus").val();
+		//reset page
+		$("#display").val(1);
+		$("#currentPage").val(1);
+		
+		var display=$("#display").val();
+		var currentPage=$("#currentPage").val();
+		getUserFocusAjax(search_content,display,currentPage);
+		//总数
+		getUserFocusTotalRowsAjax(search_content,display,currentPage);
+		
+	}
+	
+	//变更每页展示数量
+	function changeDisplay(){
+		//修改隐藏字段，每页数量
+		$("#display").val($("#Display").val());
+		//当前页归1
+		$("#currentPage").val(1);
+			var display=$("#display").val();
+			var currentPage=$("#currentPage").val();
+			var search_content=$("#search_focus").val();
+			getUserFocusAjax(search_content,display,currentPage);
+			//总数
+			getUserFocusTotalRowsAjax(search_content,display,currentPage);
 	}
 </script>
 </html>

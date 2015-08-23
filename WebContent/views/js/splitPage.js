@@ -141,7 +141,10 @@ function ChangeTo(page){
 		}*/
 		//尚未完成
 		if($("#kind").val() == 'focus'){
-			
+			var search_content=$("#search_focus").val();
+			getUserFocusAjax(search_content,display,currentPage);
+			//总数
+			getUserFocusTotalRowsAjax(search_content,display,currentPage);
 		}
 		if($("#kind").val() == 'response'){
 			getUserResponseResource(display,currentPage);

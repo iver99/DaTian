@@ -87,7 +87,7 @@ public class FocusController {
 	 * @return
 	 */
 	@Deprecated
-	@RequestMapping("getallfocus")
+	//@RequestMapping("getallfocus")
 	public ModelAndView getAllFocus(HttpServletRequest request,
 			HttpServletResponse response) {
 		String clientId = (String) request.getSession().getAttribute(Constant.USER_ID);
@@ -112,13 +112,17 @@ public class FocusController {
 		return mv;
 	}
 	
-	@RequestMapping("deletefocus")
+	@RequestMapping("getallfocus")
+	public String getFocusPage(){
+		return "mgmt_d_focus";
+	}
 	/**
 	 * 关注页面
 	 * @param request
 	 * @param response
 	 * @return
 	 */
+	@RequestMapping("deletefocus")
 	public ModelAndView deleteFocus(HttpServletRequest request,
 			HttpServletResponse response,@RequestParam String id) {
 		String clientId = (String) request.getSession().getAttribute(Constant.USER_ID);
@@ -142,14 +146,8 @@ public class FocusController {
 		
 		return mv;
 	}
-	
+	@Deprecated
 	@RequestMapping("findfocus")
-	/**
-	 * 子账户的查询功能
-	 * @param request
-	 * @param response
-	 * @return
-	 */
 	public ModelAndView findFocus(
 			@RequestParam String text,
 			HttpServletRequest request,HttpServletResponse response){
@@ -194,16 +192,16 @@ public class FocusController {
 	}
 	
 	/**
-	 * 获取用户的关注
+	 * 我的关注总记录数 
 	 * @param focusBean
 	 * @param session
 	 * @return
 	 */
-	/*@ResponseBody
-	@RequestMapping(value="getUserFocusAjax",produces="text/html;charset=UTF-8")
-	public String getUserFocus(FocusBean focusBean,HttpSession session){
-		return focusService.getUserFocus(session);
-	}*/
+	@RequestMapping("getUserFocusTotalRowsAjax")
+	@ResponseBody
+	public Integer getUserFocusTotalRows(FocusBean focusBean,HttpSession session){
+		return focusService.getUserFocusTotalRowsAjax(focusBean,session);
+	}
 
 	
 }
