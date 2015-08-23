@@ -492,4 +492,29 @@ public class CitylineServiceImpl implements CitylineService {
 		return jsonArray;
 		
 	}
+
+	/**
+	 * 获取公司城市配送资源
+	 */
+	@Override
+	public String getCompanyCitylineResource(String carrierId) {
+		String hql = "from Cityline t where t.carrierId=:carrierId order by t.relDate desc";
+
+		Map<String, Object> params = new HashMap<String, Object>();
+
+		params.put("carrierId", carrierId);
+
+		List<Cityline> cityLineList = citylineDao.find(hql, params);
+
+		JSONArray jsonArray = new JSONArray();
+
+		for (Cityline cityLine : cityLineList) {
+			JSONObject jsonObject = (JSONObject) JSONObject.toJSON(cityLine);
+			jsonArray.add(jsonObject);
+		}
+
+		return jsonArray.toString();
+	}
+	
+	
 }

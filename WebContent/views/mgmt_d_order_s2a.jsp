@@ -111,7 +111,7 @@
                                     <td height="40" class="td_mgmt_right3_td1b">承运方：</td>
                                     <td><input name="companyName" type="text" readonly="readonly" value="${carrierInfo.companyName }" required/></td>
                                 	<!-- 隐藏字段 -->
-                                	 <td><input name="carrierId" value="${carrierId }" type="hidden"/> </td>
+                                	 <td><input id="carrierId" name="carrierId" value="${carrierId }" type="hidden"/> </td>
                                 	  <td><input name="goodsId" value="${goodsId  }" type="hidden"/> </td>
                                 	   <td><input name="responseId" value="${responseId}" type="hidden"/> </td>
                                 </tr>
@@ -133,11 +133,11 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">资源分类：</td>
 									<td>
-										<select name="resourceType" style="width:120px;" required>
+										<select name="resourceType" id="resourceType" style="width:120px;" onchange="getResource()" required>
 											<option value="" selected="selected">请选择</option>
-                                            <option value="线路" onclick="getResource('线路')">线路</option>
-                                            <option value="网格" onclick="getResource('配送')">配送</option>
-                                            <option value="车辆" onclick="getResource('车辆')">车辆</option>
+                                            <option value="线路" >线路</option>
+                                            <option value="配送" >配送</option>
+                                            <option value="车辆" >车辆</option>
                                         </select>
 									</td>
                                 </tr>
@@ -146,9 +146,9 @@
 									<td>
 										<select name="resourceName" id="resourceName" style="width:120px;" required>
 											<option value="" selected="selected">请选择</option>
-                                             <option value="北京→上海">北京→上海</option>
+                                            <!--  <option value="北京→上海">北京→上海</option>
                                             <option value="北京→天津">北京→天津</option>
-                                            <option value="北京→广州">北京→广州</option> 
+                                            <option value="北京→广州">北京→广州</option> --> 
                                         </select>
 									</td>
                                 </tr>
@@ -343,6 +343,7 @@
 		
 		//validate
 		formValidate();
+		
 	}
 	
 	function formValidate(){
@@ -496,7 +497,9 @@
 	} */
 	
 	//根据选择不同的资源，获得不同的资源列表
-	function getResource(kind){
+	function getResource(){
+		var kind=$("#resourceType").val();
+		var carrierId=$("#carrierId").val();
 		var url ="";
 		if(kind == '线路'){//加载公司的线路资源
 			url="getCompanyLinetransportAjax";
@@ -509,10 +512,11 @@
 		$.ajax({
 			url:url,
 			cache:false,
+			data:{carrierId:carrierId},
 			dataType:"json",
 			success:function(data,status){
 				var resource_name=$("#resourceName");
-				
+				resource_name.empty();
 				for(var i=0;i<data.length;i++){
 					if(kind == '线路'){
 						var option =$("<option>").text(data[i].lineName);

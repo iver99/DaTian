@@ -93,4 +93,11 @@ public interface LinetransportService {
 	public boolean updateLinetransport(Linetransport line,HttpServletRequest request,MultipartFile file);
 
 	
+	/**
+	 * 获取公司的所有 干线资源
+	 * @param carrierId
+	 * @return
+	 */
+	public String getCompanyLinetransport(String carrierId);
+	
 }

@@ -101,6 +101,11 @@ public interface CarService {
 	 */
 	public JSONArray getUserCarResource(HttpSession session,PageUtil pageUtil);
 	
-	
+	/**
+	 * 获取公司车辆字眼 
+	 * @param carrierId
+	 * @return
+	 */
+	public String getCompanyCarAjax(String carrierId);
 	
 }

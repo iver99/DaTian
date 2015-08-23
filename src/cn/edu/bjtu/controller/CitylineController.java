@@ -390,5 +390,17 @@ public class CitylineController {
 		
 		return citylineService.getUserCitylineResourceTotalRows(session);
 	}
+	
+	/**
+	 * 从公司详情页面进入订单加载城市配送资源 
+	 * @param carrierId
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="getCompanyCitylineAjax",produces = "text/html;charset=UTF-8")
+	public String getCompanyCitylineAjax(String carrierId){
+		
+		return citylineService.getCompanyCitylineResource(carrierId);
+	}
 
 }
