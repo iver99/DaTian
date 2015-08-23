@@ -84,7 +84,7 @@
                                 <input type="text" class="input_date1" onclick="SelectDate(this,'yyyy-MM-dd')" value="开始时间" readonly="readonly" title="点击选择" name="startDate" id="startDate"/>
                                 &nbsp;&nbsp;至&nbsp;&nbsp;
                                 <input type="text" class="input_date1" onclick="SelectDate(this,'yyyy-MM-dd')" value="结束时间" readonly="readonly" title="点击选择" name="endDate" id="endDate"/> 
-                                &nbsp;&nbsp;<input type="text" class="input_mgmt1" style="width:110px;" placeholder="合同名称" name="name"/>
+                                &nbsp;&nbsp;<input type="text" class="input_mgmt1" style="width:110px;" placeholder="合同名称" name="name" id="name"/>
                                 <input type="button" id="btn1" value="查询" class="btn_mgmt3" hidefocus="true" onclick="OnLoad()"/>
                             </div>
                         </td>

@@ -116,36 +116,22 @@ public class FocusController {
 	public String getFocusPage(){
 		return "mgmt_d_focus";
 	}
+	
 	/**
-	 * 关注页面
+	 * 取消关注页面
 	 * @param request
 	 * @param response
 	 * @return
 	 */
 	@RequestMapping("deletefocus")
-	public ModelAndView deleteFocus(HttpServletRequest request,
+	public String deleteFocus(HttpServletRequest request,
 			HttpServletResponse response,@RequestParam String id) {
-		String clientId = (String) request.getSession().getAttribute(Constant.USER_ID);
-		if (clientId == null) {
-			mv.setViewName("login");
-			return mv;
-		}
-		boolean flag = focusService.deleteFocus(id);
+		//String clientId = (String) request.getSession().getAttribute(Constant.USER_ID);
+		focusService.deleteFocus(id);
 		
-		try {
-			if (flag == true)
-				response.sendRedirect("getallfocus");
-			else
-				System.out.println("删除失败");// 应记录日志
-		} catch (IOException e) {
-			// 
-			// 此处应记录日志
-			e.printStackTrace();
-
-		}
-		
-		return mv;
+		return "redirect:getallfocus";
 	}
+	
 	@Deprecated
 	@RequestMapping("findfocus")
 	public ModelAndView findFocus(

@@ -126,7 +126,7 @@
                             </tr>
                             <tr>
                                 <td width="120" height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
-                                <td><input type="submit" id="btn1" value="终止" class="btn_mgmt1" hidefocus="true" onclick="showid('popup2');" /></td>
+                                <td><input type="submit" id="btn1" value="终止" class="btn_mgmt1" hidefocus="true" onclick="showid('popup3');" /></td>
                             </tr>
                         </table>
                     </td>
@@ -139,7 +139,7 @@
 
 <%@ include  file="popup1.jsp"%>
 
-<div id="popup2" style="display:none;">
+<div id="popup3" style="display:none;">
     <table border="0" cellpadding="0" cellspacing="0">
         <tr>
             <td width="510"><div class="div_popup_title1">终止合同的原因</div></td>

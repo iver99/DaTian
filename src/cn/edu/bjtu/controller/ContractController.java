@@ -162,9 +162,11 @@ public class ContractController {
 	@RequestMapping(value = "insertContract", method = RequestMethod.POST)
 	public String insertNewContract(Contract contract,MultipartFile file,
 			HttpServletRequest request) {
-		boolean flag=contractService.insertNewContract(contract,request,file);
+		contractService.insertNewContract(contract,request,file);
 		return "redirect:contract";
 	}
+	
+	
 	@Deprecated
 	public ModelAndView insertContract(@RequestParam MultipartFile file,@RequestParam String id,
 			@RequestParam String name, @RequestParam String caculateType,
@@ -191,9 +193,6 @@ public class ContractController {
 				e.printStackTrace();
 			}
 		}
-		// 没有上传文件的情况path 和 filenName默认为null
-
-		// ////////////////////////////////////////////
 	
 		String carrierAccount=companyService.getCompanyById(carrierId).getCompanyName();
 		
