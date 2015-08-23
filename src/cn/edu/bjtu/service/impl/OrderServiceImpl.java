@@ -254,6 +254,7 @@ public class OrderServiceImpl implements OrderService {
 			address.setId(IdCreator.createAddressId());
 			address.setRelDate(new Date());
 			address.setClientId(userId);
+			address.setKind(1);
 			addressDao.save(address);
 			
 		}
@@ -266,6 +267,7 @@ public class OrderServiceImpl implements OrderService {
 			address.setId(IdCreator.createAddressId());
 			address.setRelDate(new Date());
 			address.setClientId(userId);
+			address.setKind(2);
 			addressDao.save(address);
 		}
 				
