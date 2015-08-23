@@ -133,6 +133,7 @@
 				currentPage:currentPage,
 				kind:kind
 			},
+			cache:false,
 			dataType:"json",
 			success:function(data,status){
 				var body=$("#result_body");
@@ -173,6 +174,7 @@
 				kind:kind
 			},
 			dataType:"json",
+			cache:false,
 			success:function(data,status){
 				$('#count').val(data);
 				 $("#page_layout").empty();
@@ -194,7 +196,7 @@
 	}
 	//*****************************************/以下为收货地址
 	//获取常用发货地址列表
-	function getRecieveAddress(display,currentPage,kind){
+	/* function getRecieveAddress(display,currentPage,kind){
 		var url="getAddressAjax";
 		$.ajax({
 			url:url,
@@ -204,6 +206,7 @@
 				kind:kind
 			},
 			dataType:"json",
+			cache:false,
 			success:function(data,status){
 				var body=$("#result_body");
 				body.empty();
@@ -241,6 +244,7 @@
 				currentPage:currentPage,
 				kind:kind
 			},
+			cache:false,
 			dataType:"json",
 			success:function(data,status){
 				$('#count').val(data);
@@ -248,6 +252,6 @@
 				  pageLayout(data);//页面布局
 			}
 		})
-	}
+	} */
 </script>
 </html>
