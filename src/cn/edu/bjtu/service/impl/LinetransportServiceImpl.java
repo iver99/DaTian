@@ -543,7 +543,34 @@ public class LinetransportServiceImpl implements LinetransportService {
 		
 		
 	}
+
+
+	/**
+	 * 获取公司干线资源 
+	 */
+	@Override
+	public String getCompanyLinetransport(String carrierId) {
 		
+		String hql="from Linetransport t where t.carrierId=:carrierId order by t.relDate desc";
+		
+		Map<String,Object> params=new HashMap<String,Object>();
+		
+		params.put("carrierId", carrierId);
+		
+		List<Linetransport> lineList=linetransportDao.find(hql, params);
+		
+		JSONArray jsonArray=new JSONArray();
+		
+		for(Linetransport line:lineList){
+			JSONObject jsonObject=(JSONObject)JSONObject.toJSON(line);
+			jsonArray.add(jsonObject);
+		}
+		
+		return jsonArray.toString();
+	}
+		
+	
+	
 	
 
 }

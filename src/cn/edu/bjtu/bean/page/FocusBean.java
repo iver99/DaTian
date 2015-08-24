@@ -17,7 +17,7 @@ public class FocusBean {
 	private String endPlace;//干线
 	private String lineName;//干线名称
 	private String carrierId;
-	private String companyName;//干线
+	private String companyName;//公司名字
 	private Date relDate;
 	private String name;//城市配送的name,或者仓库 name，或者货物名
 	private String carNum;//车牌

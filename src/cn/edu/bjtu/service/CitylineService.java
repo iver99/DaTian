@@ -80,6 +80,13 @@ public interface CitylineService {
 	 * @date: 2015年7月3日 上午9:57:01
 	 */
 	public JSONArray getUserCitylineResource(HttpSession session,PageUtil pageUtil);
+	
+	/**
+	 * 获取用户城市配送资源
+	 * @param carrierId
+	 * @return
+	 */
+	public String getCompanyCitylineResource(String carrierId);
 		
 	
 }

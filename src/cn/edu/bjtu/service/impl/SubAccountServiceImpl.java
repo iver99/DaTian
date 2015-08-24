@@ -266,5 +266,25 @@ public class SubAccountServiceImpl implements SubAccountService{
 		
 		return hql;
 	}
+
+	
+	/**
+	 * 检查附属账户是否存在
+	 */
+	@Override
+	public boolean checkSubAccountUsername(String username) {
+		String hql="select count(*) from SubAccount t where t.username=:username";
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("username", username);
+		
+		Long count=subAccountDao.count(hql, params);
+		if(count ==0){//不存在
+			return false;
+		}else
+			return true;
+		
+	}
+	
+	
 	
 }

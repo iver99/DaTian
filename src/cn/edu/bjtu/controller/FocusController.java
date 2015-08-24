@@ -87,7 +87,7 @@ public class FocusController {
 	 * @return
 	 */
 	@Deprecated
-	@RequestMapping("getallfocus")
+	//@RequestMapping("getallfocus")
 	public ModelAndView getAllFocus(HttpServletRequest request,
 			HttpServletResponse response) {
 		String clientId = (String) request.getSession().getAttribute(Constant.USER_ID);
@@ -112,44 +112,28 @@ public class FocusController {
 		return mv;
 	}
 	
-	@RequestMapping("deletefocus")
-	/**
-	 * 关注页面
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	public ModelAndView deleteFocus(HttpServletRequest request,
-			HttpServletResponse response,@RequestParam String id) {
-		String clientId = (String) request.getSession().getAttribute(Constant.USER_ID);
-		if (clientId == null) {
-			mv.setViewName("login");
-			return mv;
-		}
-		boolean flag = focusService.deleteFocus(id);
-		
-		try {
-			if (flag == true)
-				response.sendRedirect("getallfocus");
-			else
-				System.out.println("删除失败");// 应记录日志
-		} catch (IOException e) {
-			// 
-			// 此处应记录日志
-			e.printStackTrace();
-
-		}
-		
-		return mv;
+	@RequestMapping("getallfocus")
+	public String getFocusPage(){
+		return "mgmt_d_focus";
 	}
 	
-	@RequestMapping("findfocus")
 	/**
-	 * 子账户的查询功能
+	 * 取消关注页面
 	 * @param request
 	 * @param response
 	 * @return
 	 */
+	@RequestMapping("deletefocus")
+	public String deleteFocus(HttpServletRequest request,
+			HttpServletResponse response,@RequestParam String id) {
+		//String clientId = (String) request.getSession().getAttribute(Constant.USER_ID);
+		focusService.deleteFocus(id);
+		
+		return "redirect:getallfocus";
+	}
+	
+	@Deprecated
+	@RequestMapping("findfocus")
 	public ModelAndView findFocus(
 			@RequestParam String text,
 			HttpServletRequest request,HttpServletResponse response){
@@ -194,16 +178,16 @@ public class FocusController {
 	}
 	
 	/**
-	 * 获取用户的关注
+	 * 我的关注总记录数 
 	 * @param focusBean
 	 * @param session
 	 * @return
 	 */
-	/*@ResponseBody
-	@RequestMapping(value="getUserFocusAjax",produces="text/html;charset=UTF-8")
-	public String getUserFocus(FocusBean focusBean,HttpSession session){
-		return focusService.getUserFocus(session);
-	}*/
+	@RequestMapping("getUserFocusTotalRowsAjax")
+	@ResponseBody
+	public Integer getUserFocusTotalRows(FocusBean focusBean,HttpSession session){
+		return focusService.getUserFocusTotalRowsAjax(focusBean,session);
+	}
 
 	
 }

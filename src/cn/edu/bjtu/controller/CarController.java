@@ -801,4 +801,16 @@ public class CarController {
 		return carTeamService.getUserCarTeamResourceTotalRows(session);
 	}
 
+	
+	/**
+	 * 从公司详情页面进入订单加载公司的车辆资源  
+	 * @param carrierId
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="getCompanyCarAjax",produces="text/html;charset=UTF-8")
+	public String getCompanyCarAjax(String carrierId){
+		return carService.getCompanyCarAjax(carrierId);
+		
+	}
 }

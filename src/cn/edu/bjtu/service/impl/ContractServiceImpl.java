@@ -74,17 +74,17 @@ public class ContractServiceImpl implements ContractService{
 		
 		return contractDao.getContractInfo(contractId);
 	}
-	@Override
 	/**
 	 * 新增合同
 	 */
+	@Override
 	public boolean insertNewContract(Contract contract,HttpServletRequest request,MultipartFile file){
 		String userId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		//保存文件
 		String fileLocation=UploadFile.uploadFile(file, userId, "contract");
-		
+		contract.setCarrierId(contract.getCarrierId());
 		contract.setClientId(userId);
-		contract.setState("有效");
+		contract.setState("待确认");//新建合同的初始状态为待确认  
 		
 		Carrierinfo company=companyDao.get(Carrierinfo.class, contract.getCarrierId());
 		contract.setCarrierAccount(company.getCompanyName());
@@ -289,7 +289,7 @@ public class ContractServiceImpl implements ContractService{
 			hql+=" and t.endDate <=:endDate ";
 			params.put("endDate", contract.getEndDate());
 		}
-		if(!"".equals(contract.getName())){
+		if(!"".equals(contract.getName()) && contract.getName()!=null){
 			hql+=" and t.name like '%"+contract.getName()+"%' ";
 //			params.put("name", contract.getName());
 		}

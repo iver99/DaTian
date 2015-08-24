@@ -29,6 +29,7 @@ import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Carinfo;
 import cn.edu.bjtu.vo.Carteam;
+import cn.edu.bjtu.vo.Cityline;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -435,5 +436,31 @@ public class CarServiceImpl implements CarService {
 		
 		return jsonArray;
 	}
+
+	/*
+	 * 获取公司车辆 资源
+	 * @see cn.edu.bjtu.service.CarService#getCompanyCarAjax(java.lang.String)
+	 */
+	@Override
+	public String getCompanyCarAjax(String carrierId) {
+		String hql = "from Carinfo t where t.carrierId=:carrierId order by t.relDate desc";
+
+		Map<String, Object> params = new HashMap<String, Object>();
+
+		params.put("carrierId", carrierId);
+
+		List<Carinfo> carList = carDao.find(hql, params);
+
+		JSONArray jsonArray = new JSONArray();
+
+		for (Carinfo car : carList) {
+			JSONObject jsonObject = (JSONObject) JSONObject.toJSON(car);
+			jsonArray.add(jsonObject);
+		}
+
+		return jsonArray.toString();
+	}
+	
+	
 	
 }

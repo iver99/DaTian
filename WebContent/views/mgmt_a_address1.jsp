@@ -137,6 +137,7 @@
 				currentPage:currentPage,
 				kind:kind
 			},
+			cache:false,
 			dataType:"json",
 			success:function(data,status){
 				var body=$("#result_body");
@@ -175,6 +176,7 @@
 				currentPage:currentPage,
 				kind:kind
 			},
+			cache:false,
 			dataType:"json",
 			success:function(data,status){
 				$('#count').val(data);

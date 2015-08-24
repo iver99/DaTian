@@ -379,10 +379,10 @@ public class LinetransportController {
 
 	}
 
-	@RequestMapping(value = "downloadlinedetailprice", method = RequestMethod.GET)
 	/**
 	 * 删除
 	 */
+	@RequestMapping(value = "downloadlinedetailprice", method = RequestMethod.GET)
 	public ModelAndView downloadLineDetailPrice(@RequestParam String id,// GET方式传入，在action中
 			HttpServletRequest request, HttpServletResponse response) {
 		Linetransport linetransportInfo = linetransportService.getLinetransportInfo(id);
@@ -391,6 +391,18 @@ public class LinetransportController {
 		return mv;
 
 	}
+	
+	/*
+	 * 从公司详情页面进入订单页面加载干线资源名称 
+	 */
+	@ResponseBody
+	@RequestMapping(value="getCompanyLinetransportAjax",produces = "text/html;charset=UTF-8")
+	public String getCompanyLinetransportAjax(String carrierId,HttpSession session){
+		
+		return linetransportService.getCompanyLinetransport(carrierId);
+	}
+	
+	
 	@Autowired
 	CommentService commentService;
 	@Resource

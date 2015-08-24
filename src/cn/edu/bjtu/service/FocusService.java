@@ -44,6 +44,12 @@ public interface FocusService extends BaseDao<Focus>{
 	 */
 	public JSONArray searchFocus(FocusBean focusBean,HttpSession session);
 	
-	
+	/**
+	 * 关注总记录数 
+	 * @param focusBean
+	 * @param session
+	 * @return
+	 */
+	public Integer getUserFocusTotalRowsAjax(FocusBean focusBean,HttpSession session);
 
 }
