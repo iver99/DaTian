@@ -140,8 +140,15 @@ public class SubAccountController {
 	 */
 	@RequestMapping("insertsubaccount")
 	public String insertSubAccount(SubAccountBean subAccountBean,HttpSession session){
-			boolean flag=subAccountService.addNewSubAccount(subAccountBean,session);
-	
+		
+			/*boolean flag=subAccountService.checkSubAccountUsername(subAccountBean.getHostAccountName());
+			if(flag){
+				subAccountService.addNewSubAccount(subAccountBean,session);
+				
+			}else{
+				return "redirect:getsubaccount";
+			}*/
+			subAccountService.addNewSubAccount(subAccountBean,session);
 			return "redirect:getsubaccount";
 	}
 	

@@ -69,12 +69,12 @@
 					<tr>
 						<td class="td_mgmt_right3_td1a"> 
                             <br />   	          
-							<form action="insertsubaccount" method="post">
+							<form id="add_subAccount" action="insertsubaccount" method="post" >
 							<table width="90%" border="0" cellspacing="0" cellpadding="0">
 								<tr>
 									<td width="120" height="40" class="td_mgmt_right3_td1b">帐户名称：</td>
 									<td><input type="text" class="input_mgmt1" style="width:100px;" value="${username }" id="hostAccountName" name="hostAccountName" readonly="readonly" />&nbsp;-&nbsp;
-									<input type="text" class="input_mgmt1" style="width:180px;" value="" name="username" id="username" required/>&nbsp;&nbsp;<a href="javascript:;" hidefocus="true" onclick="checkUserName()">检查用户名</a></td>
+									<input type="text" class="input_mgmt1" style="width:180px;" value="" name="username" id="username" required/>&nbsp;&nbsp;<a href="javascript:;" hidefocus="true" onclick="checkUserName(0)">检查用户名</a></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">初始密码：</td>
@@ -101,7 +101,7 @@
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
-									<td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" /><input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
+									<td><input type="button" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="checkUserName(1)" /><input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /></td>
 								</tr>
 							</table>
 						</form>
@@ -124,7 +124,8 @@
 </body>
 <script type="text/javascript">
 //检查附属账户用户名是否存在
-function checkUserName(){
+//0不提交表单 flag=1提交表单
+function checkUserName(flag){
 	
 	var user_name=$("#username").val();
 	if(user_name == ""){
@@ -142,28 +143,16 @@ function checkUserName(){
 		cache:false,
 		dataType:"text",
 		success:function(data,status){
-			alert(data);
+			if(flag == 0 || (flag == 1 && data == '用户已存在！')){
+				alert(data);
+			}
+			if(data == '用户不存在，可以使用！' && flag==1){
+				$("#add_subAccount").submit();
+			}
 		}
 	});
+	
 }
-
-/* function loadXMLDoc()
-{
-	var curWwwPath=window.document.location.href;
-    var pathName=window.document.location.pathname;
-    var pos=curWwwPath.indexOf(pathName);
-	$.ajax({
-		   type: "GET",
-		   url: curWwwPath.substring(0,pos) + "/DaTian/usercheck",//请求的后台地址
-		   data: "username=" + document.getElementById("username").value,//前台传给后台的参数
-		   success: function(msg){//msg:返回值
-			   if(msg == "true")
-				   alert("该用户不存在！");
-			   else
-				   alert("该用户存在~");
-		   }
-		});
-} */
 </script>
 <script type="text/javascript">
 	function OnLoad() {
