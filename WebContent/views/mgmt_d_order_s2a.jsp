@@ -424,11 +424,6 @@
 					f.append(str);
 					
 				}
-				/* var s="";
-				s+="<tr>";
-				s+="<td class=\"td_popup_address2a\"><input width=\"100\" type=\"button\" onclick=\"chooseAddress()\" /></td>";
-				s+="</tr>";
-				f.append(s); */
 				
 			}
 		})
