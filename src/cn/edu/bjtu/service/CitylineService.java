@@ -15,26 +15,10 @@ import cn.edu.bjtu.vo.Linetransport;
 import com.alibaba.fastjson.JSONArray;
 
 public interface CitylineService {
-	@Deprecated
-	public List getSelectedCityline(String resourceRate, String serviceIndustry, String creditRate, int Display,int PageNow);
-	@Deprecated
-	public int getTotalRows(String resourceRate, String serviceIndustry, String creditRate);
 	
 	public Cityline getCitylineInfo(String citylineid);
-	@Deprecated
-	public List getCompanyCityline(String carrierId);
-	@Deprecated
-	public boolean insertCityLine(String name,String cityName,String VIPService,
-			float refPrice,String remarks,String carrierId, String VIPDetail,
-			String path,String fileName);
 	public boolean insertNewCityline(Cityline cityline,
 			HttpServletRequest request, MultipartFile file);
-		
-	
-	@Deprecated
-	public boolean updateLine(String id, String citylineName, String cityName, String VIPService,
-			String VIPDetail,float refPrice, String remarks, String carrierId,
-			String path,String fileName);
 	public boolean updateNewCityline(Cityline cityline,HttpServletRequest request,MultipartFile file);
 	
 	public boolean deleteCityline(String id);

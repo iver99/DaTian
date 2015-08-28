@@ -7,9 +7,5 @@ import cn.edu.bjtu.vo.Cityline;
 public interface CitylineDao extends BaseDao<Cityline> {
 	
 	public Cityline getCitylineInfo(String citylineid);
-	@Deprecated
-	public List getCompanyCityline(String carrierId);
-	@Deprecated
-	public List getSelectedCityline(String hql,int Display,int PageNow);
 	
 }
