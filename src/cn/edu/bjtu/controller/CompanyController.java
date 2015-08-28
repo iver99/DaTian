@@ -41,28 +41,14 @@ public class CompanyController {
 	FocusService focusService;
 	ModelAndView mv=new ModelAndView();
 	
-	@RequestMapping("/company")
 	/**
 	 * 返回所有公司信息
 	 * @return
 	 */
-	@Deprecated
-	public ModelAndView getAllCompany(HttpSession session)
+	@RequestMapping("/company")
+	public String getAllCompany(HttpSession session)
 	{	
-		int Display=10;//默认的每页大小
-		int PageNow=1;//默认的当前页面
-		List companyList = companyService.getAllCompany(Display,PageNow);
-		int count = companyService.getTotalRows("All", "All", "All", "All");// 获取总记录数,不需要where子句，所以参数都是All
-		String clientId = (String) session.getAttribute(Constant.USER_ID);
-		List focusList = focusService.getFocusList(clientId,"company");
-		int pageNum = (int) Math.ceil(count * 1.0 / Display);// 页数
-		mv.addObject("count", count);
-		mv.addObject("pageNum", pageNum);
-		mv.addObject("pageNow", PageNow);
-		mv.addObject("focusList", focusList);
-		mv.addObject("companyList", companyList);
-		mv.setViewName("resource_list5");// 点击资源栏城市配送显示所有信息
-		return mv;
+		return "resource_list5";
 	}
 	/**
 	 * 资源栏-公司筛选
@@ -118,39 +104,6 @@ public class CompanyController {
 		return mv;
 	}
 	
-	@RequestMapping("companyselected")
-	@Deprecated
-	public ModelAndView getSelectedCompany(@RequestParam String city,
-			@RequestParam String resourceRate,
-			@RequestParam String serviceIndustry,
-			@RequestParam String creditRate,
-			@RequestParam String business,
-			@RequestParam int Display,
-			@RequestParam int PageNow,
-			HttpServletRequest request, HttpServletResponse response)
-			{
-				try {
-					response.setCharacterEncoding("UTF-8");
-					request.setCharacterEncoding("UTF-8");
-				} catch (UnsupportedEncodingException e) {
-					// 
-					e.printStackTrace();
-				}
-				
-				List companyList = companyService.getSelectedCompany(
-						resourceRate, serviceIndustry, creditRate, business, Display,
-						PageNow);
-				int count = companyService.getTotalRows(resourceRate, serviceIndustry, creditRate, business);// 获取总记录数
-
-				int pageNum = (int) Math.ceil(count * 1.0 / Display);// 页数
-				mv.addObject("companyList", companyList);
-				mv.addObject("count", count);
-				mv.addObject("pageNum", pageNum);
-				mv.addObject("pageNow", PageNow);
-				mv.setViewName("resource_list5");
-				
-				return mv;
-			}
 	
 	/**
 	 * 获取已经通过验证的公司
