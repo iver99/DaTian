@@ -81,19 +81,8 @@ public class OrderController {
 	 * 我提交的订单信息
 	 * @return
 	 */
-	@Deprecated
-	public ModelAndView getAllSendOrderInfo(HttpSession session) {
-		// 从session获取用户Id
-		String userId = (String) session.getAttribute(Constant.USER_ID);
-		List orderList = orderService.getAllSendOrderInfo(userId);
-		mv.addObject("orderList", orderList);
-		if (userId == null){
-			mv.setViewName("login");
-		}
-		else{
-			mv.setViewName("mgmt_d_order_s");
-		}
-		return mv;
+	public String getAllSendOrderInfo(HttpSession session) {
+		return "mgmt_d_order_s";
 	}
 	/**
 	 * 跳转到订单列表页面
@@ -141,15 +130,9 @@ public class OrderController {
 	 * 我收到的订单信息
 	 * @return
 	 */
-	@Deprecated
-	public ModelAndView getAllRecieveOrderInfo(HttpServletRequest request,
+	public String  getAllRecieveOrderInfo(HttpServletRequest request,
 			HttpServletResponse response) {
-		String userId = (String) request.getSession().getAttribute(Constant.USER_ID);
-		List orderList = orderService.getAllRecieveOrderInfo(userId);
-		mv.addObject("receiveOrderList", orderList);
-		mv.setViewName("mgmt_d_order_r");
-
-		return mv;
+		return "mgmt_d_order_r";
 	}
 	
 	/**
@@ -175,12 +158,12 @@ public class OrderController {
 		return orderService.getUserRecieveOrderTotalRows(session,order);
 	}
 
-	@RequestMapping("/sendorderdetail")
 	/**
 	 * 提交订单详情
 	 * @param id
 	 * @return
 	 */
+	@RequestMapping("/sendorderdetail")
 	public ModelAndView getSendOrderDetail(@RequestParam String id) {
 		OrderCarrierView sendorderdetail = orderService.getSendOrderDetail(id);
 		mv.addObject("sendorderdetail", sendorderdetail);
@@ -190,12 +173,12 @@ public class OrderController {
 		return mv;
 	}
 
-	@RequestMapping("/recieveorderdetail")
 	/**
 	 * 收到订单详情
 	 * @param id
 	 * @return
 	 */
+	@RequestMapping("/recieveorderdetail")
 	public ModelAndView getAllRecieveOrderDetail(@RequestParam String id) {
 		Orderform recieveorderdetail = orderService.getRecieveOrderDetail(id);
 		mv.addObject("recieveorderdetail", recieveorderdetail);
@@ -204,12 +187,12 @@ public class OrderController {
 		return mv;
 	}
 
-	@RequestMapping("getUpdateOrderForm")
 	/**
 	 * 获取更新订单表单
 	 * @param orderId
 	 * @return
 	 */
+	@RequestMapping("getUpdateOrderForm")
 	public ModelAndView getUpdateOrderForm(String orderId) {
 
 		OrderCarrierView orderCarrierView = orderService
@@ -242,7 +225,6 @@ public class OrderController {
 		return mv;
 	}
 
-	@RequestMapping("acceptOrder")
 	/**
 	 * 受理操作
 	 * @param orderid
@@ -250,6 +232,7 @@ public class OrderController {
 	 * @param response
 	 * @return
 	 */
+	@RequestMapping("acceptOrder")
 	public ModelAndView acceptOrder(String orderid, HttpServletRequest request,
 			HttpServletResponse response,String driver) {
 
@@ -272,12 +255,12 @@ public class OrderController {
 		return mv;
 	}
 
-	@RequestMapping("getSignBillForm")
 	/**
 	 * 获取签单上传表单
 	 * @param orderid
 	 * @return
 	 */
+	@RequestMapping("getSignBillForm")
 	public ModelAndView getSignBillForm(String orderid) {
 		// 上传图片，添加实际运费，修改订单状态为待确认
 		// 需要再页面上显示合同规定运费和预期运费
@@ -314,19 +297,6 @@ public class OrderController {
 		return "redirect:recieveorderinfo";
 	}
 
-	/*
-	 * @RequestMapping("receivecargoform")
-	 *//**
-	 * 获取收货表单
-	 * 
-	 * @param orderid
-	 * @return
-	 */
-	/*
-	 * public ModelAndView getReceiveCargoForm(String orderid) {
-	 * 
-	 * // 需要更新订单状态为已收货(评价状态) mv.setViewName("mgmt_d_order_s5"); return mv; }
-	 */
 	/**
 	 * 获取确认收货表单
 	 * @param orderid
@@ -378,6 +348,7 @@ public class OrderController {
 	public ModelAndView comment(String orderid, int serviceAttitude,
 			int transportEfficiency, int cargoSafety, int totalMoney,
 			HttpServletRequest request, HttpServletResponse response) {
+		//FIXME
 		// 修改订单状态为已完成
 		// 存储评价内容
 		// 评价页面错误
@@ -415,13 +386,13 @@ public class OrderController {
 		
 	}
 
-	@RequestMapping(value = "cancelOrder")
 	/**
 	 * 取消订单
 	 * 
 	 * @param orderid
 	 * @return
 	 */
+	@RequestMapping(value = "cancelOrder")
 	public ModelAndView cancelOrder(HttpServletRequest request,
 			HttpServletResponse response, String orderid) {
 		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);
@@ -430,13 +401,13 @@ public class OrderController {
 		return mv;
 	}
 
-	@RequestMapping(value = "getOrderCancelOrder")
 	/**
 	 * 取消订单
 	 * 
 	 * @param orderid
 	 * @return
 	 */
+	@RequestMapping(value = "getOrderCancelOrder")
 	public ModelAndView getOrderCancelOrder(HttpServletRequest request,
 			HttpServletResponse response, String orderid) {
 		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);
@@ -445,13 +416,13 @@ public class OrderController {
 		return mv;
 	}
 
-	@RequestMapping(value = "doCancel", method = RequestMethod.POST)
 	/**
 	 * 取消订单
 	 * 
 	 * @param orderid
 	 * @return
 	 */
+	@RequestMapping(value = "doCancel", method = RequestMethod.POST)
 	public String doCancel(HttpServletRequest request,
 			HttpServletResponse response, @RequestParam String cancelReason,
 			String orderid) {
@@ -459,29 +430,18 @@ public class OrderController {
 		return "redirect:turnToOrderPage";
 	}
 
-	@RequestMapping(value = "getOrderDoCancel", method = RequestMethod.POST)
 	/**
 	 * 取消订单
 	 * 
 	 * @param orderid
 	 * @return
 	 */
-	public ModelAndView getOrderDoCancel(HttpServletRequest request,
+	@RequestMapping(value = "getOrderDoCancel", method = RequestMethod.POST)
+	public String getOrderDoCancel(HttpServletRequest request,
 			HttpServletResponse response, @RequestParam String cancelReason,
 			String orderid) {
-		boolean flag = orderService.cancel(cancelReason, orderid);
-		if (flag == true)
-			try {
-				response.sendRedirect("recieveorderinfo");
-			} catch (IOException e) {
-				// 
-				e.printStackTrace();
-				// logging
-			}
-		else
-			System.out.println("取消失败");// logging
-
-		return mv;
+		 orderService.cancel(cancelReason, orderid);
+		return "redirect:recieveorderinfo";
 	}
 
 	@RequestMapping(value = "orderDetail")
@@ -499,13 +459,13 @@ public class OrderController {
 		return mv;
 	}
 
-	@RequestMapping(value = "orderDetailWaitToReceive")
 	/**
 	 * 
 	 * 
 	 * @param orderid
 	 * @return
 	 */
+	@RequestMapping(value = "orderDetailWaitToReceive")
 	public ModelAndView orderDetailWaitToReceive(HttpServletRequest request,
 			HttpServletResponse response, String orderid) {
 		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);
@@ -514,13 +474,13 @@ public class OrderController {
 		return mv;
 	}
 
-	@RequestMapping(value = "orderDetailAlreadyCancel")
 	/**
 	 * 
 	 * 
 	 * @param orderid
 	 * @return
 	 */
+	@RequestMapping(value = "orderDetailAlreadyCancel")
 	public ModelAndView orderDetailAlreadyCancel(HttpServletRequest request,
 			HttpServletResponse response, String orderid) {
 		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);
@@ -529,13 +489,13 @@ public class OrderController {
 		return mv;
 	}
 
-	@RequestMapping(value = "orderDetailFinish")
 	/**
 	 * 
 	 * 订单完成后查看操作
 	 * @param orderid
 	 * @return
 	 */
+	@RequestMapping(value = "orderDetailFinish")
 	public ModelAndView orderDetailFinish(HttpServletRequest request,
 			HttpServletResponse response, String orderid) {
 		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);
@@ -548,12 +508,6 @@ public class OrderController {
 	}
 
 	@RequestMapping(value = "orderDetailComment")
-	/**
-	 * 
-	 * 
-	 * @param orderid
-	 * @return
-	 */
 	public ModelAndView orderDetailComment(HttpServletRequest request,
 			HttpServletResponse response, String orderid) {
 		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);
@@ -562,13 +516,13 @@ public class OrderController {
 		return mv;
 	}
 
-	@RequestMapping(value = "getOrderDetail")
 	/**
 	 * 
 	 * 
 	 * @param orderid
 	 * @return
 	 */
+	@RequestMapping(value = "getOrderDetail")
 	public ModelAndView getOrderDetail(HttpServletRequest request,
 			HttpServletResponse response, String orderid) {
 		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);
@@ -577,13 +531,13 @@ public class OrderController {
 		return mv;
 	}
 
-	@RequestMapping(value = "getOrderDetailCancel")
 	/**
 	 * 
 	 * 
 	 * @param orderid
 	 * @return
 	 */
+	@RequestMapping(value = "getOrderDetailCancel")
 	public ModelAndView getOrderDetailCancel(HttpServletRequest request,
 			HttpServletResponse response, String orderid) {
 		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);
@@ -592,13 +546,13 @@ public class OrderController {
 		return mv;
 	}
 
-	@RequestMapping(value = "getOrderDetailWaitToReceive")
 	/**
 	 * 
 	 * 
 	 * @param orderid
 	 * @return
 	 */
+	@RequestMapping(value = "getOrderDetailWaitToReceive")
 	public ModelAndView getOrderDetailWaitToReceive(HttpServletRequest request,
 			HttpServletResponse response, String orderid) {
 		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);
@@ -607,13 +561,13 @@ public class OrderController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "getOrderDetailCargoTrack")
 	/**
 	 * 
 	 * 
 	 * @param orderid
 	 * @return
 	 */
+	@RequestMapping(value = "getOrderDetailCargoTrack")
 	public ModelAndView getOrderDetailCargoTrack(HttpServletRequest request,
 			HttpServletResponse response, @RequestParam String orderNum, 
 			@RequestParam String carNum) {
@@ -623,13 +577,13 @@ public class OrderController {
 		return mv;
 	}
 
-	@RequestMapping(value = "getOrderDetailWaitToConfirm")
 	/**
 	 * 
 	 * 
 	 * @param orderid
 	 * @return
 	 */
+	@RequestMapping(value = "getOrderDetailWaitToConfirm")
 	public ModelAndView getOrderDetailWaitToConfirm(HttpServletRequest request,
 			HttpServletResponse response, String orderid) {
 		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);
@@ -638,13 +592,13 @@ public class OrderController {
 		return mv;
 	}
 
-	@RequestMapping(value = "getOrderDetailFinish")
 	/**
 	 * 
 	 * 承运方-我收到的订单-已完成-查看
 	 * @param orderid
 	 * @return
 	 */
+	@RequestMapping(value = "getOrderDetailFinish")
 	public ModelAndView getOrderDetailFinish(HttpServletRequest request,
 			HttpServletResponse response, String orderid) {
 		OrderCarrierView orderInfo = orderService.getOrderByOrderId(orderid);

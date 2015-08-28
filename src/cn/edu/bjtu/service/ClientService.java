@@ -14,8 +14,6 @@ import cn.edu.bjtu.vo.Userinfo;
  *
  */
 public interface ClientService {
-	@Deprecated
-	public List getCompanyClient(String carrierId);
 	/**
 	 * 通过clientId查找clientinfo对象
 	 *

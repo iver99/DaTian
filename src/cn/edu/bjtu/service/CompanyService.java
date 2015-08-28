@@ -12,14 +12,6 @@ import com.alibaba.fastjson.JSONArray;
 
 public interface CompanyService {
 	
-	@Deprecated
-	public List getAllCompany(int Display,int PageNow);
-	@Deprecated
-	public List getSelectedCompany(String resourceRate, String serviceIndustry, 
-			String creditRate, String business, int Display,int PageNow);
-	@Deprecated
-	public int getTotalRows(String resourceRate, String serviceIndustry, 
-			String creditRate, String business);
 	
 	/*public Carrierinfo getCarrierInfo(String id);*/
 	public List getLinetransportByCarrierId(String id);

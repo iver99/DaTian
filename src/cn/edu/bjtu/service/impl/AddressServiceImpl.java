@@ -88,20 +88,6 @@ public class AddressServiceImpl implements AddressService{
 		return true;
 	}
 	
-	/**
-	 * 添加用户常用地址
-	 */
-	@Override
-	public void addUserAddress(HttpSession session,Address address) {
-		String userId=(String)session.getAttribute(Constant.USER_ID);
-		address.setClientId(userId);
-		address.setFrequency(0);
-		address.setId(IdCreator.createAddressId());
-		address.setRelDate(new Date());
-		
-		addressDao.save(address);
-		
-	}
 
 
 	/**

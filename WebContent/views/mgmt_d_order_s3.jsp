@@ -176,7 +176,7 @@
                                     <td width="250">&nbsp;</td>
                                     <td width="100" class="td_mgmt_right3_td1b">
                                     	收货人信息
-                                        <a href="javascript:;" onclick="showid('popup2');" hidefocus="true"><img src="images/btn_address.png" title="查询" /></a>
+                                        <a href="javascript:;" onclick="showid('popup3');" hidefocus="true"><img src="images/btn_address.png" title="查询" /></a>
                                     </td>
                                     <td>&nbsp;</td>
                                 </tr>
@@ -200,9 +200,9 @@
                                 </tr>
                                 <tr>
                                     <td height="20" class="td_mgmt_right3_td1b">&nbsp;</td>
-                                    <td><input type="checkbox" id="sender_info"/>&nbsp;加入常用发货地址<!-- (未实现) --></td>
+                                    <td><input type="checkbox" id="sender_info"/>&nbsp;加入常用发货地址</td>
                                     <td class="td_mgmt_right3_td1b">&nbsp;</td>
-                                    <td><input type="checkbox" id="receiver_info"/>&nbsp;加入常用收货地址<!-- (未实现) --></td>
+                                    <td><input type="checkbox" id="receiver_info"/>&nbsp;加入常用收货地址</td>
                                 </tr>
                             </table>
                             <div class="span_mgmt_right3_text4" style="float:none;">备注信息</div>      	          
@@ -215,7 +215,8 @@
 								</tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
-                                    <td><input type="button" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="addAddress()"/><!-- <input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /> --></td>
+                                    <td><input type="submit" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" />
+                                    <!-- <input type="reset" id="btn1" value="重填" class="btn_mgmt2" hidefocus="true" /> --></td>
                                 </tr>
                             
                             </table>
@@ -227,65 +228,77 @@
     </table>
 </div>
 
-<%@ include  file="popup1.jsp"%>
+<%-- <%@ include  file="popup1.jsp"%> --%>
+
+<div id="popup1" style="display:none;">
+    <table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td width="510"><div class="div_popup_title1">留言</div></td>
+            <td>
+                <div id="close" style="cursor:pointer;"><img src="images/btn_cancel1.png" title="关闭本窗口" /></div>
+            </td>
+        </tr>
+    </table>
+    <table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td width="540">
+            	<textarea class="textarea_popup1" placeholder="请输入内容..." id="message"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td class="td_popup1">
+                <input type="button" id="btn1" value="提交" class="btn_mgmt1" hidefocus="true" onclick="insertMessage()"/><input type="button" id="btn2" value="重填" class="btn_mgmt2" hidefocus="true" />
+            </td>
+        </tr>
+    </table>
+</div>
 
 <div id="popup2" style="display:none;">
     <table border="0" cellpadding="0" cellspacing="0">
         <tr>
-            <td width="610"><div class="div_popup_title1">常用地址</div></td>
+            <td width="610"><div class="div_popup_title1">常用发货地址</div></td>
             <td>
                 <div id="close2" style="cursor:pointer; margin-right:10px;"><img src="images/btn_cancel1.png" title="关闭本窗口" /></div>
             </td>
         </tr>
     </table>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_popup_address1">
+        <tr>
+            <td width="100" class="td_popup_address1">姓名</td>
+            <td width="120" class="td_popup_address1">电话</td>
+            <td class="td_popup_address1">地址</td>
+        </tr>
+    </table>
 	<div class="div_popup_address">
-        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_popup_address2">
-            <tr>
-                <td width="100" class="td_popup_address2a">李刚</td>
-                <td width="120" class="td_popup_address2">13720099880</td>
-                <td class="td_popup_address2">天津市西市大街12号</td>
-            </tr>
-            <tr>
-                <td class="td_popup_address2a">李刚</td>
-                <td class="td_popup_address2">13720099880</td>
-                <td class="td_popup_address2">天津市西市大街12号</td>
-            </tr>
-            <tr>
-                <td class="td_popup_address2a">李刚</td>
-                <td class="td_popup_address2">13720099880</td>
-                <td class="td_popup_address2">天津市西市大街12号</td>
-            </tr>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_popup_address2" >
+            <tbody id="send_info">
+            
+            </tbody>
+        </table>
+    </div>
+</div>
 
-            <tr>
-                <td class="td_popup_address2a">李刚</td>
-                <td class="td_popup_address2">13720099880</td>
-                <td class="td_popup_address2">天津市西市大街12号</td>
-            </tr>
-            <tr>
-                <td class="td_popup_address2a">李刚</td>
-                <td class="td_popup_address2">13720099880</td>
-                <td class="td_popup_address2">天津市西市大街12号</td>
-            </tr>
-            <tr>
-                <td class="td_popup_address2a">李刚</td>
-                <td class="td_popup_address2">13720099880</td>
-                <td class="td_popup_address2">天津市西市大街12号</td>
-            </tr>
-            <tr>
-                <td class="td_popup_address2a">李刚</td>
-                <td class="td_popup_address2">13720099880</td>
-                <td class="td_popup_address2">天津市西市大街12号</td>
-            </tr>
-            <tr>
-                <td class="td_popup_address2a">李刚</td>
-                <td class="td_popup_address2">13720099880</td>
-                <td class="td_popup_address2">天津市西市大街12号</td>
-            </tr>
-            <tr>
-                <td class="td_popup_address2a">李刚</td>
-                <td class="td_popup_address2">13720099880</td>
-                <td class="td_popup_address2">天津市西市大街12号</td>
-            </tr>
+<div id="popup3" style="display:none;">
+    <table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td width="610"><div class="div_popup_title1">常用收货地址</div></td>
+            <td>
+                <div id="close3" style="cursor:pointer; margin-right:10px;"><img src="images/btn_cancel1.png" title="关闭本窗口" /></div>
+            </td>
+        </tr>
+    </table>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_popup_address1">
+        <tr>
+            <td width="100" class="td_popup_address1">姓名</td>
+            <td width="120" class="td_popup_address1">电话</td>
+            <td class="td_popup_address1">地址</td>
+        </tr>
+    </table>
+	<div class="div_popup_address">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_popup_address2" >
+            <tbody id="recieve_info">
+            
+            </tbody>
         </table>
     </div>
 </div>
@@ -304,6 +317,11 @@
 		getUserClientName();
 		//设置订单的原始数据,主要是select标签的内容
 		setOrderValue();
+		
+		//获取常用发货地址
+		getFrequentAddress(1);
+		//获取常用收货地址
+		getFrequentAddress(2);
 	}
 	//设置订单的原始数据
 	function setOrderValue(){
@@ -349,54 +367,62 @@
 		},"json");
 	}
 	
-	//如果选中了添加常用地址的选项则在提交表单时添加常用地址
-     function addAddress(){
-		var url="addAddressAjax";
-		var name;
-		var phone;
-		var address;
-		//debugger;
-		var sender_info=$("#sender_info");
-		var receiver_info=$("#receiver_info");
-		if($("#sender_info").attr("checked") == "checked"){//发货人添加常用地址选中
-			name=$("#deliveryName").val();
-			address=$("#deliveryAddr").val();
-			phone=$("#deliveryPhone").val();
-			$.ajax({
-				type: "GET",
-				url:url,
-				data:{"name":name,
-					"address":address,
-					"phone":phone
+	//获取常用地址]
+	function getFrequentAddress(kind) {
+		var url = "getUserAddressAjax";
+		$
+				.ajax({
+					url : url,
+					cache : false,
+					dataType : "json",
+					data : {
+						kind : kind
 					},
-				cache:false,
-				success:function(data){
-					//不做任何操作
-				}
-			});
-		}
+					success : function(data, status) {
+						var f;
+						if (kind == 1) {
+							f = $("#send_info");
+						} else {
+							f = $("#recieve_info");
+						}
+						f.empty();
+						for (var i = 0; i < data.length; i++) {
+							var str="<tr>";
+							str+="<td width=\"100\" class=\"td_popup_address2a\">"+data[i].name+"</td>";
+							str+="<td width=\"120\" class=\"td_popup_address2\">"+data[i].phone+"</td>";
+							str+="<td class=\"td_popup_address2\">"+data[i].address+"</td>";
+							
+							//str+="<td class=\"td_popup_address2a\"><input type=\"radio\" name=\"address_choose\" id=\"address_choose\" /></td>"
+							if(kind ==1){
+								str+="<td class=\"td_popup_address2a\"><input type=\"button\" value=\"选择\" onclick=\"chooseSendAddress('"+data[i].name+"','"+data[i].phone+"','"+data[i].address+"')\" name=\"address_choose\" id=\"address_choose\" /></td>"
+							}else{
+								str+="<td class=\"td_popup_address2a\"><input type=\"button\" value=\"选择\" onclick=\"chooseRecieveAddress('"+data[i].name+"','"+data[i].phone+"','"+data[i].address+"')\" name=\"address_choose\" id=\"address_choose\" /></td>"
+							}
+							str+="</tr>";
+							f.append(str);
+						}
+					}
+				})
+	}
+	
+	//选择发货人
+	function chooseSendAddress(name,phone,address){
+		//关闭窗口
+		$("#close2").click();
+		$("#deliveryAddr").val(address);
+		$("#deliveryName").val(name);
+		$("#deliveryPhone").val(phone);
 		
-		if(receiver_info.attr("checked") == "checked"){//收货人常用地址选中
-			name=$("#recieverName").val();
-			address=$("#recieverAddr").val();
-			phone=$("#recieverPhone").val();
-			
-			$.ajax({
-				type: "GET",
-				url:url,
-				data:{"name":name,
-					"address":address,
-					"phone":phone
-					},
-				cache:false,
-				success:function(data){
-					//不做任何操作
-				}
-			});
-		}
+	}
+	
+	//选择收货人
+	function chooseRecieveAddress(name,phone,address){
+		//关闭窗口
+		$("#close3").click();
+		$("#recieverAddr").val(address);
+		$("#recieverName").val(name);
+		$("#recieverPhone").val(phone);
 		
-		//提交订单
-		$('#new_order').submit();
 	}
 </script>
 </html>

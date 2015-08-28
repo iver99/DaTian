@@ -37,13 +37,13 @@ public class FocusController {
 
 	ModelAndView mv = new ModelAndView();
 
-	@RequestMapping("focus")
 	/**
 	  * 关注页面
 	  * @param request
 	  * @param response
 	  * @return
  	  */
+	@RequestMapping("focus")
 	public String insertFocus(
 			HttpServletRequest request,HttpServletResponse response) throws Exception{
 			String clientId=(String)request.getSession().getAttribute(Constant.USER_ID);
@@ -55,10 +55,6 @@ public class FocusController {
 			    response.getWriter().print("login");
 				return null;
 			}
-			/*//保险起见 add by RussWest0 at 2015年6月8日,下午11:08:13 
-			if(userKind==null){
-				response.sendRedirect("loginForm");
-			}*/
 			String focusType = request.getParameter("type");
 			String foucsId = request.getParameter("id");
 			List focusJudgement = focusService.getFocusJudgement(clientId,focusType,foucsId);
@@ -80,37 +76,6 @@ public class FocusController {
 			return null;
 		}
 	
-	/**
-	 *获取当前用户的所有关注
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	@Deprecated
-	//@RequestMapping("getallfocus")
-	public ModelAndView getAllFocus(HttpServletRequest request,
-			HttpServletResponse response) {
-		String clientId = (String) request.getSession().getAttribute(Constant.USER_ID);
-		if (clientId == null) {
-			mv.setViewName("login");
-			return mv;
-		}
-		List focusLineList = focusService.getAllFocusLine(clientId);
-		mv.addObject("focusLineList", focusLineList);
-		List focusCitylineList = focusService.getAllFocusCityline(clientId);
-		mv.addObject("focusCitylineList", focusCitylineList);
-		List focusWarehouseList = focusService.getAllFocusWarehouse(clientId);
-		mv.addObject("focusWarehouseList", focusWarehouseList);
-		List focusCarList = focusService.getAllFocusCar(clientId);
-		mv.addObject("focusCarList", focusCarList);
-		List focusCompanyList = focusService.getAllFocusCompany(clientId);
-		mv.addObject("focusCompanyList", focusCompanyList);
-		List focusGoodsList = focusService.getAllFocusGoods(clientId);
-		mv.addObject("focusGoodsList", focusGoodsList);
-		mv.setViewName("mgmt_d_focus");
-		
-		return mv;
-	}
 	
 	@RequestMapping("getallfocus")
 	public String getFocusPage(){
@@ -132,30 +97,6 @@ public class FocusController {
 		return "redirect:getallfocus";
 	}
 	
-	@Deprecated
-	@RequestMapping("findfocus")
-	public ModelAndView findFocus(
-			@RequestParam String text,
-			HttpServletRequest request,HttpServletResponse response){
-		
-		String clientId=(String)request.getSession().getAttribute(Constant.USER_ID);	
-		
-		List focusLineList = focusService.findFocusLine(text,clientId);
-		mv.addObject("focusLineList", focusLineList);
-		List focusCitylineList = focusService.findFocusCityline(text,clientId);
-		mv.addObject("focusCitylineList", focusCitylineList);
-		List focusWarehouseList = focusService.findFocusWarehouse(text,clientId);
-		mv.addObject("focusWarehouseList", focusWarehouseList);
-		List focusCarList = focusService.findFocusCar(text,clientId);
-		mv.addObject("focusCarList", focusCarList);
-		List focusCompanyList = focusService.findFocusCompany(text,clientId);
-		mv.addObject("focusCompanyList", focusCompanyList);
-		List focusGoodsList = focusService.findFocusGoods(text,clientId);
-		mv.addObject("focusGoodsList", focusGoodsList);
-		mv.setViewName("mgmt_d_focus");
-		
-		return mv;
-	}
 	
 	/**
 	 * 搜索关注

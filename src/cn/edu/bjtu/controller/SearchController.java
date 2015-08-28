@@ -44,7 +44,6 @@ public class SearchController {
 	@ResponseBody
 	public String getSearchResult(String search_content, String resource_kind,
 			PageUtil pageUtil, HttpSession session,HttpServletRequest request,HttpServletResponse response) {
-		logger.info(request.getHeader("referer"));
 		String request_url=request.getHeader("referer");
 		String url="";
 		if(!checkURL(request_url)){

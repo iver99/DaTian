@@ -39,21 +39,21 @@ public class ClientSecurityController {
 
 	}
 
-	@RequestMapping("getchangepasswordpage")
 	/**
 	 * 获取修改密码表单
 	 * @return
 	 */
+	@RequestMapping("getchangepasswordpage")
 	public ModelAndView gotoChangePasswordPage() {
 
 		mv.setViewName("mgmt_a_security2");
 		return mv;
 	}
 
-	@RequestMapping("changepassword")
 	/*
 	 * 修改密码
 	 */
+	@RequestMapping("changepassword")
 	public ModelAndView changePassword(HttpSession session, String oldPassword,
 			String newPassword, String repeatPassword) {
 		String userId = (String) session.getAttribute(Constant.USER_ID);
@@ -89,12 +89,12 @@ public class ClientSecurityController {
 		}
 	}
 
-	@RequestMapping("getbindemailpage")
 	/**
 	 * 绑定邮箱页面
 	 * @param session
 	 * @return
 	 */
+	@RequestMapping("getbindemailpage")
 	public ModelAndView gotoBindEmailPage() {
 		mv.setViewName("mgmt_a_security4");
 		return mv;

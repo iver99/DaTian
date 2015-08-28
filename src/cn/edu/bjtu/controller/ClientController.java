@@ -96,7 +96,6 @@ public class ClientController {
 			HttpServletResponse response) {
 		String userId=(String)request.getSession().getAttribute(Constant.USER_ID);
 		
-		// ////////////////////////////////////////////
 		String path = null;
 		String fileName = null;
 		if (file.getSize() != 0)// 有上传文件的情况

@@ -31,13 +31,6 @@ public interface AddressService {
 	public boolean updateAddress(HttpSession session,Address address);
 	
 	/**
-	 * 添加用户常用地址
-	 * @param session
-	 * @param address
-	 */
-	public void addUserAddress(HttpSession session,Address address);
-	
-	/**
 	 * 下订单时获取用户的常用地址列表
 	 * @param session
 	 * @return
