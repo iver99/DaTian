@@ -77,36 +77,6 @@ public class LoginController {
 			return "mgmt";
 		}
 	}
-	/*@RequestMapping("adminLogin")
-	
-	 * 管理员登录
-	 * @param session
-	 * @param response
-	 * @return
-	 
-	// add by RussWest0 at 2015年5月30日,上午11:24:12 
-	public ModelAndView adminLogin(Userinfo userinfo,HttpSession session,HttpServletRequest request,HttpServletResponse response){
-		
-		
-		String psw = Encrypt.MD5(userinfo.getPassword());
-		Userinfo user = loginService.checkLogin(userinfo.getUsername(),psw,userinfo.getUserKind());
-		if(user!=null){
-			session.setAttribute("username", userinfo.getUsername());
-			session.setAttribute("userId",userinfo.getId());
-			session.setAttribute("email",userinfo.getEmail());
-			session.setAttribute("userKind",userinfo.getUserKind());//用户类型
-				//request.getRequestDispatcher("allcomplaint");
-				//response.sendRedirect("allcomplaint");
-				List allCompliantList=complaintService.getAllUserCompliant();
-				mv.addObject("allCompliantList", allCompliantList);
-				mv.setViewName("mgmt_m_complain");
-				return mv;
-		}else{
-			mv.addObject("msg", "登录用户或密码错误，请重新登录");
-			mv.setViewName("adminLogin");
-			return mv;
-		}
-	}*/
 	
 	/**
 	 * 退出登录

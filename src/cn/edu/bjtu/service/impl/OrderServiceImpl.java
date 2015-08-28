@@ -47,18 +47,6 @@ public class OrderServiceImpl implements OrderService {
 	CompanyDao companyDao;
 	@Autowired
 	AddressDao addressDao;
-	@Override
-	@Deprecated
-	public List getAllSendOrderInfo(String userId) {
-		
-		return orderDao.getAllSendOrderInfo(userId);
-	}
-	@Deprecated
-	@Override
-	public List getAllRecieveOrderInfo(String userId) {
-		
-		return orderDao.getAllRecieveOrderInfo(userId);
-	}
 
 	@Override
 	public OrderCarrierView getSendOrderDetail(String id) {

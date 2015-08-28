@@ -12,10 +12,6 @@ import cn.edu.bjtu.vo.Orderform;
 import com.alibaba.fastjson.JSONArray;
 
 public interface OrderService {
-	@Deprecated
-	public List getAllSendOrderInfo(String userId);
-	@Deprecated
-	public List getAllRecieveOrderInfo(String userId);
 
 	public OrderCarrierView getSendOrderDetail(String id);
 

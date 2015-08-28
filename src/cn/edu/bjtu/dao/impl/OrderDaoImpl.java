@@ -21,34 +21,12 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 	@Resource
 	private HibernateTemplate ht;
 
-	/*@Resource
-	private BaseDao baseDao;*/
-	/*@Autowired
-	OrderDao orderDao;*/
-	@Deprecated
-	@Override
-	/**
-	 * 
-	 */
-	public List getAllSendOrderInfo(String userId) {
-		
-		return this.find("from OrderCarrierView where clientId='"+userId+"'");
-
-	}
-	@Deprecated
-	@Override
-	public List getAllRecieveOrderInfo(String userId) {
-		
-		return this.find("from OrderCarrierView where carrierId='" + userId + "'");
-	}
 
 	@Override
 	public OrderCarrierView getSendOrderDetail(String id) {
 		
 		return ht.get(OrderCarrierView.class, id);
 	}
-
-	
 
 	@Override
 	public Orderform getRecieveOrderDetail(String id) {
