@@ -34,22 +34,6 @@ public class SubAccountController {
 	@Autowired
 	RegisterService registerService;
 	
-	/**
-	 * 获取公司子账户
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	/*@RequestMapping("getsubaccount")
-	public ModelAndView getSubAccount(HttpServletRequest request,HttpServletResponse response)
-	{
-		String userId=(String)request.getSession().getAttribute(Constant.USER_ID);
-		List subAccountList = subAccountService.getSubAccount(userId);
-		mv.addObject("subAccountList", subAccountList);
-		mv.setViewName("mgmt_a_subaccount");
-		return mv;
-	}
-	*/
 	@RequestMapping("findbyaccountname")
 	/**
 	 * 子账户的查询功能
@@ -141,13 +125,6 @@ public class SubAccountController {
 	@RequestMapping("insertsubaccount")
 	public String insertSubAccount(SubAccountBean subAccountBean,HttpSession session){
 		
-			/*boolean flag=subAccountService.checkSubAccountUsername(subAccountBean.getHostAccountName());
-			if(flag){
-				subAccountService.addNewSubAccount(subAccountBean,session);
-				
-			}else{
-				return "redirect:getsubaccount";
-			}*/
 			subAccountService.addNewSubAccount(subAccountBean,session);
 			return "redirect:getsubaccount";
 	}
