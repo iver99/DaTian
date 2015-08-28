@@ -41,17 +41,6 @@ public class DriverServiceImpl implements DriverService{
 	@Autowired
 	CarDao carDao;
 	
-	
-	@Override
-	/**
-	 * 返回所有司机信息
-	 */
-	@Deprecated
-	public List getAllDriver() {
-		
-		return driverDao.getAllDriver();
-	}
-
 	@Override
 	/**
 	 * 通过driverid找到司机信息
@@ -91,7 +80,7 @@ public class DriverServiceImpl implements DriverService{
 	@Override
 	// 未实现
 	public String getDriverIdByName(String driverName) {
-		
+		//FIXME
 		return "";
 	}
 
@@ -111,69 +100,7 @@ public class DriverServiceImpl implements DriverService{
 		driverDao.save(driver);// 保存实体
 		return true;
 	}
-	@Deprecated
-	public boolean insertDriver(String name, String sex, String licenceRate,
-			String phone, String IDCard, String licenceNum, String licenceTime,
-			String carrierId, String path, String fileName) {
-		
-		// driverinfo.setAge(age);
-		driverinfo.setCarrierId(carrierId);
-		driverinfo.setDriverName(name);
-		driverinfo.setId(IdCreator.createDriverId());
-		driverinfo.setIDCard(IDCard);
-		driverinfo.setLicenceNum(licenceNum);
-		driverinfo.setLicenceRate(licenceRate);
-		driverinfo.setLicenceTime(stringToDate(licenceTime));
-		driverinfo.setPhone(phone);
-		driverinfo.setRelDate(new Date());
-		driverinfo.setSex(sex);
-		// 保存文件路径
-		if (path != null && fileName != null) {
-			String fileLocation = path + "//" + fileName;
-			driverinfo.setIdscans(fileLocation);
-		}
-		driverDao.save(driverinfo);// 保存实体
-		return true;
-	}
 
-	@Override
-	/**
-	 * 返回公司司机
-	 */
-	@Deprecated
-	public List getCompanyDriver(String carrierId) {
-		
-		return driverDao.getCompanyDriver(carrierId);
-	}
-	
-	@Override
-	/**
-	 * 更新司机
-	 */
-	@Deprecated
-	public boolean updateDriver(String id, String name, String sex,
-			String IDCard, String licenceNum, String licenceRate,
-			String licenceTime, String phone, String carrierId, String path,
-			String fileName) {
-		
-		// driverinfo.setAge(age);
-		driverinfo = getDriverInfo(id);// 根据id查找到车辆信息
-		driverinfo.setDriverName(name);
-		driverinfo.setSex(sex);
-		driverinfo.setIDCard(IDCard);
-		driverinfo.setLicenceNum(licenceNum);
-		driverinfo.setLicenceRate(licenceRate);
-		driverinfo.setLicenceTime(stringToDate(licenceTime));
-		driverinfo.setPhone(phone);
-		//driverinfo.setRelDate(new Date());
-		// 保存文件路径
-		if (path != null && fileName != null) {
-			String fileLocation = path + "//" + fileName;
-			driverinfo.setIdscans(fileLocation);
-		}
-		driverDao.update(driverinfo);// 保存实体
-		return true;
-	}
 	@Override
 	public boolean updateNewDriver(Driverinfo driver,HttpServletRequest request,MultipartFile file){
 		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
@@ -230,7 +157,7 @@ public class DriverServiceImpl implements DriverService{
 	@Override
 	public JSONArray getUserDriverResource(HttpSession session,PageUtil pageUtil) {
 		String carrierId=(String)session.getAttribute(Constant.USER_ID);
-		String hql="from Driverinfo t where t.carrierId=:carrierId";
+		String hql="from Driverinfo t where t.carrierId=:carrierId order by t.relDate desc ";
 		Map<String,Object> params=new HashMap<String,Object>();
 		params.put("carrierId", carrierId);
 		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();

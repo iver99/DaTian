@@ -176,53 +176,7 @@ public class CarController {
 		boolean flag=driverService.insertNewDriver(driver,request,file);
 		return "redirect:driver?flag=1";
 	}
-	@Deprecated
-	public ModelAndView insertDriver(
-			@RequestParam(required = false) MultipartFile file,// new add
-			@RequestParam String name, @RequestParam String sex,
-			@RequestParam String licenceRate, @RequestParam String phone,
-			@RequestParam String IDCard, @RequestParam String licenceNum,
-			@RequestParam String licenceTime,
-
-			HttpServletRequest request, HttpServletResponse response) {
-		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
-		// String carrierId = "C-0002";// 删除
-		// ////////////////////////////////////////////////////////////////////////
-
-		String path = null;
-		String fileName = null;
-		if (file.getSize() != 0)// 有上传文件的情况
-		{
-			path = UploadPath.getDriverPath();// 不同的地方取不同的上传路径
-			fileName = file.getOriginalFilename();
-			fileName = carrierId + "_" + fileName;// 文件名
-			File targetFile = new File(path, fileName);
-			try { // 保存 文件
-				file.transferTo(targetFile);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			// //////////////////////////////////////////////////////////////////
-		}
-		// 没有上传文件的情况path 和 filenName默认为null
-
-		boolean flag = driverService.insertDriver(name, sex, licenceRate, phone,
-				IDCard, licenceNum, licenceTime, carrierId, path, fileName);
-		if (flag == true) {
-			try {
-				response.sendRedirect("driver?flag=1");// 重定向，显示最新的结果
-														// error,无法重定向
-				// mv.setViewName("mgmt_r_car");
-			} catch (Exception e) {
-				// 
-				// 此处应该记录日志
-				e.printStackTrace();
-			}
-		} else
-			mv.setViewName("mgmt_r_driver");
-		return mv;
-	}
-
+	
 
 	@RequestMapping(value = "updateCar", method = RequestMethod.POST)
 	public String updateNewCar(Carinfo car,
@@ -232,14 +186,6 @@ public class CarController {
 	}
 	
 
-	@RequestMapping(value = "/updateDriver", method = RequestMethod.POST)
-	public String updateNewDriver(Driverinfo driver,MultipartFile file,
-			HttpServletRequest request) {
-		boolean flag=driverService.updateNewDriver(driver,request,file);
-		return "redirect:driver?flag=1";
-	}
-	
-	
 	@RequestMapping(value = "cardelete", method = RequestMethod.GET)
 	/**
 	 * 删除
@@ -262,27 +208,7 @@ public class CarController {
 
 	}
 
-	@RequestMapping(value = "driverdelete", method = RequestMethod.GET)
-	/**
-	 * 删除
-	 */
-	public ModelAndView deleteDriver(@RequestParam String id,// GET方式传入，在action中
-			HttpServletRequest request, HttpServletResponse response) {
-		boolean flag = driverService.deleteDriver(id);
-		if (flag == true) {
-			// mv.setViewName("mgmt_r_line");
-			try {
-				response.sendRedirect("driver?flag=1");// 重定向，显示最新的结果
-			} catch (IOException e) {
-				// 
-				// 此处应该记录日志
-				e.printStackTrace();
-			}
-		} else
-			mv.setViewName("mgmt_r_driver");
-		return mv;
-
-	}
+	
 
 	/**
 	 * 获取车队列表
@@ -371,8 +297,6 @@ public class CarController {
 	}
 
 	@RequestMapping(value = "updatecarteam", method = RequestMethod.POST)
-	/**
-	 */
 	public ModelAndView updateCarteam(@RequestParam String id,
 			@RequestParam String teamName, @RequestParam String carCount,
 			@RequestParam String chief, @RequestParam String phone,

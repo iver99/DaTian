@@ -1,5 +1,6 @@
 package cn.edu.bjtu.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,7 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.bjtu.service.DriverService;
@@ -31,25 +34,10 @@ public class DriverController {
 	 * @return
 	 */
 	@RequestMapping("driver")
-	@Deprecated
-	public ModelAndView getAllDriver(@RequestParam int flag,
+	public String getAllDriver(@RequestParam int flag,
 			HttpServletRequest request, HttpServletResponse response) {
-		// 从session里取出id查询
-		if (flag == 0) {// 所有的司机信息
-			List driverList = driverService.getAllDriver();
-			mv.addObject("driverList", driverList);
-			mv.setViewName("mgmt_r_driver");
-		} else if (flag == 1) {// 公司司机列表
-			// 这里用session取id
-			String carrierId = (String) request.getSession().getAttribute(
-					"userId");
-			// String carrierId = "C-0002";// 删除
-			List driverList = driverService.getCompanyDriver(carrierId);
-			mv.addObject("driverList", driverList);
-			mv.setViewName("mgmt_r_driver");
-		}
 
-		return mv;
+		return "mgmt_r_driver";
 	}
 
 	/**
@@ -71,5 +59,24 @@ public class DriverController {
 		}
 
 		return mv;
+	}
+	
+	/**
+	 * 删除
+	 */
+	@RequestMapping(value = "driverdelete", method = RequestMethod.GET)
+	public String deleteDriver(@RequestParam String id,// GET方式传入，在action中
+			HttpServletRequest request, HttpServletResponse response) {
+		boolean flag = driverService.deleteDriver(id);
+		return "redirect:driver?flag=1";
+
+	}
+	
+	
+	@RequestMapping(value = "/updateDriver", method = RequestMethod.POST)
+	public String updateNewDriver(Driverinfo driver,MultipartFile file,
+			HttpServletRequest request) {
+		boolean flag=driverService.updateNewDriver(driver,request,file);
+		return "redirect:driver?flag=1";
 	}
 }
