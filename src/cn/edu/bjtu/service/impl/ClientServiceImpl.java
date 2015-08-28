@@ -40,28 +40,19 @@ public class ClientServiceImpl implements ClientService{
 	@Autowired
 	OrderService orderService;
 	
-	@Override
-	/**
-	 *返回公司客户 
-	 */
-	@Deprecated
-	public List getCompanyClient(String carrierId) {
-		
-		return clientDao.getCompanyClient(carrierId);
-	}
-	@Override
 	/**
 	 * 通过id获取客户信息
 	 */
+	@Override
 	public Clientinfo getClientInfo(String clientId) {
 		
 		return clientDao.getClientInfo(clientId);
 	}
 	
-	@Override
 	/**
 	 * 获取客户信息(businessclient)
 	 */
+	@Override
 	public Businessclient getBusinessclientInfo(String businessclientId) {
 		
 		return clientDao.getBusinessclientInfo(businessclientId);
@@ -94,10 +85,10 @@ public class ClientServiceImpl implements ClientService{
 		return true;
 	}
 	
-	@Override
 	/**
 	 * 更新客户
 	 */
+	@Override
 	public boolean updateBusinessClient(String id, String account, String clientName,
 			String clientBusiness, String contact, String phone,
 			String remarks, String carrierId,String path,String fileName) {
@@ -120,10 +111,10 @@ public class ClientServiceImpl implements ClientService{
 		businessClientDao.update(businessClient);//保存实体
 		return true;
 	}
-	@Override
 	/**
 	 * 删除客户
 	 */
+	@Override
 	public boolean deleteBusinessClient(String id){
 		businessClient=getBusinessclientInfo(id);//根据id查找到客户信息
 		businessClientDao.delete(businessClient);
@@ -139,10 +130,10 @@ public class ClientServiceImpl implements ClientService{
 		
 		return userinfoDao.get(Userinfo.class, userId);
 	}
-	@Override
 	/**
 	 * 检查用户头像设置的状态
 	 */
+	@Override
 	public boolean checkHeadIconStatus(String userId) {
 		
 		Userinfo userinfo=userinfoDao.get(Userinfo.class, userId);

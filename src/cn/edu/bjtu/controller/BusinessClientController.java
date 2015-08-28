@@ -29,12 +29,12 @@ import cn.edu.bjtu.vo.Linetransport;
 
 import com.alibaba.fastjson.JSONArray;
 
-@Controller
 /**
  * 公司客户businessclient相关控制器
  * @author RussWest0
  * @date   2015年5月28日 下午11:16:36
  */
+@Controller
 public class BusinessClientController {
 	
 	@Resource
@@ -45,21 +45,14 @@ public class BusinessClientController {
 	ModelAndView mv=new ModelAndView();
 	
 	
-	@RequestMapping("/client")
 	/**
 	 * 获取公司所有客户
 	 * @param request
 	 * @return
 	 */
-	@Deprecated
-	public ModelAndView getCompanyClient(HttpServletRequest request) {
-		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
-		// String carrierId = "C-0002";// 删除
-		List clientList = clientService.getCompanyClient(carrierId);// 获取businessclient，不是user
-																	// client
-		mv.addObject("clientList", clientList);
-		mv.setViewName("mgmt_r_customer");
-		return mv;
+	@RequestMapping("/client")
+	public String getCompanyClient(HttpServletRequest request) {
+		return "mgmt_r_customer";
 	}
 	
 	@RequestMapping("clientdetail")
@@ -71,7 +64,6 @@ public class BusinessClientController {
 	 */
 	public ModelAndView getClientInfo(@RequestParam String clientId,
 			@RequestParam int flag) {
-		// Clientinfo clientInfo = clientService.getClientInfo(clientId);
 		Businessclient clientInfo = clientService
 				.getBusinessclientInfo(clientId);
 		mv.addObject("clientInfo", clientInfo);
@@ -93,107 +85,6 @@ public class BusinessClientController {
 		boolean flag=businessClientService.insertNewClient(client,file,request);
 		return "redirect:client";
 	}
-	@Deprecated
-	public ModelAndView insertClient(@RequestParam MultipartFile file,@RequestParam String account,
-			@RequestParam String clientName,
-			@RequestParam String clientBusiness, @RequestParam String contact,
-			@RequestParam String phone, @RequestParam String remarks,
-			HttpServletRequest request, HttpServletResponse response) {
-		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
-
-		String path = null;
-		String fileName = null;
-		if (file.getSize() != 0)// 有上传文件的情况
-		{
-			path = UploadPath.getClientPath();// 不同的地方取不同的上传路径
-			fileName = file.getOriginalFilename();
-			fileName = carrierId + "_" + fileName;// 文件名
-			File targetFile = new File(path, fileName);
-			try { // 保存 文件
-				file.transferTo(targetFile);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		// 没有上传文件的情况path 和 filenName默认为null
-		
-		boolean flag = clientService.insertBusinessClient(account, clientName,
-				clientBusiness, contact, phone, remarks, carrierId,path,fileName);
-		if (flag == true) {
-			try {
-				response.sendRedirect("client");// 重定向，显示最新的结果
-												// error,无法重定向
-			} catch (Exception e) {
-				// 
-				// 此处应该记录日志
-				e.printStackTrace();
-			}
-		} else
-			mv.setViewName("mgmt_r_customer");
-		return mv;
-	}
-	/**
-	 * 更新businessclient信息
-	 */
-	//@RequestMapping(value = "updateClient", method = RequestMethod.POST)
-	/**
-	 * 
-	 * 更新businessclient信息
-	 * @param id
-	 * @param account
-	 * @param clientName
-	 * @param clientBusiness
-	 * @param contact
-	 * @param phone
-	 * @param remarks
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	@Deprecated
-	public ModelAndView updateClientInfo(@RequestParam MultipartFile file,
-			@RequestParam String id,// GET方式传入，在action中
-			@RequestParam String account, @RequestParam String clientName,
-			@RequestParam String clientBusiness, @RequestParam String contact,
-			@RequestParam String phone, @RequestParam String remarks,
-			HttpServletRequest request, HttpServletResponse response) {
-		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
-		// String carrierId = "C-0002";// 删除
-
-		String path = null;
-		String fileName = null;
-		if (file.getSize() != 0)// 有上传文件的情况
-		{
-			path = UploadPath.getClientPath();// 不同的地方取不同的上传路径
-			fileName = file.getOriginalFilename();
-			fileName = carrierId + "_" + fileName;// 文件名
-			File targetFile = new File(path, fileName);
-			try { // 保存 文件
-				file.transferTo(targetFile);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		// 没有上传文件的情况path 和 filenName默认为null
-
-		// ////////////////////////////////////////////
-	
-		
-		boolean flag = clientService.updateBusinessClient(id, account, clientName,
-				clientBusiness, contact, phone, remarks, carrierId,path,fileName);
-		if (flag == true) {
-			try {
-				response.sendRedirect("client");// 重定向，显示最新的结果
-												// error,无法重定向
-			} catch (Exception e) {
-				// 
-				// 此处应该记录日志
-				e.printStackTrace();
-			}
-		} else
-			mv.setViewName("mgmt_r_customer");
-		return mv;
-	}
 
 	@RequestMapping(value = "updateClient", method = RequestMethod.POST)
 	public String updateNewClient(Businessclient client,MultipartFile file,
@@ -202,10 +93,10 @@ public class BusinessClientController {
 		return "redirect:client";
 	}
 	
-	@RequestMapping(value = "clientdelete", method = RequestMethod.GET)
 	/**
 	 * 删除businessclient
 	 */
+	@RequestMapping(value = "clientdelete", method = RequestMethod.GET)
 	public ModelAndView deleteClient(@RequestParam String id,// GET方式传入，在action中
 			HttpServletRequest request, HttpServletResponse response) {
 		boolean flag = clientService.deleteBusinessClient(id);

@@ -36,7 +36,7 @@ public class BusinessClientServiceImpl implements BusinessClientService{
 	public JSONArray getUserBusinessClient(HttpSession session,PageUtil pageUtil) {
 		String userId=(String)session.getAttribute(Constant.USER_ID);
 		Map<String,Object> params=new HashMap<String,Object>();
-		String hql="from Businessclient t where t.carrierId=:userId";
+		String hql="from Businessclient t where t.carrierId=:userId order by t.relDate desc ";
 		params.put("userId", userId);
 		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
 		int display=pageUtil.getDisplay()==0?10:pageUtil.getDisplay();
