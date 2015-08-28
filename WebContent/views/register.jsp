@@ -38,11 +38,11 @@
     <div class="div_register_content1">
     	欢迎您的访问，填写基本信息后即可成为会员！
     </div>
-    <form action="register" method="post">
+    <form id="register_form" action="register" method="post">
     <table border="0" cellspacing="0" cellpadding="0" class="table_register1">
         <tr>
             <td width="120" height="40" class="td_mgmt_right3_td1b">用户名：</td>
-            <td><input type="text" class="input_mgmt1" style="width:300px;" name="username" id="username" required/>&nbsp;&nbsp;<a href="javascript:;" hidefocus="true" onclick="loadXMLDoc()">检查用户名</a></td>
+            <td><input type="text" class="input_mgmt1" style="width:300px;" name="username" id="username" required/>&nbsp;&nbsp;<a href="javascript:;" hidefocus="true" onclick="loadXMLDoc(0)">检查用户名</a></td>
         </tr>
         <tr>
         	<td width="120" height="40" class="td_mgmt_right3_td1b">用户类型：</td>
@@ -97,7 +97,7 @@
         <tr>
             <td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
             <td>
-                <input type="submit" id="btn2" value="注册" class="btn_register_submit" hidefocus="true"  />
+                <input type="button" id="btn2" value="注册" class="btn_register_submit" hidefocus="true" onclick="loadXMLDoc(1)" />
                 <input type="button" id="btn2" value="取消" class="btn_register_cancel" hidefocus="true" />
             </td>
         </tr>
@@ -117,7 +117,7 @@
 	}
 </script>
 <script type="text/javascript">
-function loadXMLDoc()
+function loadXMLDoc(flag)
 {
 	var curWwwPath=window.document.location.href;
     var pathName=window.document.location.pathname;
@@ -127,10 +127,18 @@ function loadXMLDoc()
 		   url: curWwwPath.substring(0,pos) + "/DaTian/usercheck",//请求的后台地址
 		   data: "username=" + document.getElementById("username").value,//前台传给后台的参数
 		   success: function(msg){//msg:返回值
-			   if(msg == "true")
+			   /* if(flag == 0 || (flag == 1 && msg == "false")){
 				   alert("该用户名可以使用~");
-			   else
+			   } */
+			   if(flag ==0 && msg == "true"){
+				   alert("该用户名可以使用~");
+			   }else if(msg == "false"){
 				   alert("该用户名已被使用！");
+			   }
+			   if(flag == 1 && msg == "true"){
+				   $("#register_form").submit();
+			   }
+			   
 		   }
 		});
 }

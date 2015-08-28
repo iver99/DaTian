@@ -158,11 +158,11 @@
 					
 					var str="<tr>";
 					str+="<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>";
-					str+="<td class=\"td_mgmt_right3_td1\"><a href=\"carteamdetail?id=${carteam.id }&flag=1\" hidefocus=\"true\">${carteam.teamName }</a></td>";
-					str+="<td class=\"td_mgmt_right3_td1\">${carteam.carCount }</td>";
-					str+="<td class=\"td_mgmt_right3_td1\">${carteam.chief }</td>";
-					str+="<td class=\"td_mgmt_right3_td1\">${carteam.phone }</td>";
-					str+="<td class=\"td_mgmt_right3_td1\">${carteam.relDate }</td>";
+					str+="<td class=\"td_mgmt_right3_td1\"><a href=\"carteamdetail?id=${carteam.id }&flag=1\" hidefocus=\"true\">"+data[i].teamName+"</a></td>";
+					str+="<td class=\"td_mgmt_right3_td1\">"+data[i].carCount+"</td>";
+					str+="<td class=\"td_mgmt_right3_td1\">"+data[i].chief+"</td>";
+					str+="<td class=\"td_mgmt_right3_td1\">"+data[i].phone+"</td>";
+					str+="<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].relDate)+"</td>";
 					str+="<td class=\"td_mgmt_right3_td3\">";
 					str+="<div id=\"handlebox\" style=\"z-index:203;\">";
 					str+="<ul class=\"quickmenu\">";

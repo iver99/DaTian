@@ -38,22 +38,22 @@ import cn.edu.bjtu.vo.Linetransport;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
-@Controller
 /**
  * 干线相关控制器
  * @author RussWest0
  *
  */
+@Controller
 public class LinetransportController {
 
 	private Logger logger = Logger.getLogger(LinetransportController.class);
 	
 	
-	@RequestMapping(value="/linetransport",params="flag=0",produces = "text/html;charset=UTF-8")
 	/**
 	 * 资源栏所有干线信息
 	 * @return
 	 */
+	@RequestMapping(value="/linetransport",params="flag=0",produces = "text/html;charset=UTF-8")
 	public String getAllLinetransport() {
  		
 		return "resource_list";
@@ -67,20 +67,9 @@ public class LinetransportController {
 	 */
 	@Deprecated
 	@RequestMapping(value="/linetransport",params="flag=1")
-	public ModelAndView getAllCompanyLine(@RequestParam int flag,
+	public String getAllCompanyLine(@RequestParam int flag,
 			PageUtil page, HttpSession session) {
-		String userId = (String) session.getAttribute(Constant.USER_ID);
-		if(userId==null)
-		{
-			mv.setViewName("login");
-			return mv;
-		}
-		List linetransportList = linetransportService.getCompanyLine(
-				userId, 10, 1);// 新增两个参数
-
-		mv.addObject("linetransportList", linetransportList);
-			mv.setViewName("mgmt_r_line");
-			return mv;
+		return "mgmt_r_line";
 	}
 	/**
 	 * 我的信息-干线资源 
@@ -147,50 +136,6 @@ public class LinetransportController {
 		}
 		return mv;
 	}
-	// 同时拦截两种请求
-		/**              
-		 * 返回干线符合筛选的条件的信息
-		 * @param startPlace
-		 * @param endPlace
-		 * @param type
-		 * @param startPlace
-		 * @param refPrice
-		 * @param Display
-		 * @param PageNow
-		 * @return
-		 */
-	@Deprecated
-	@RequestMapping(value = { "linetransportselected", "searchResourceselected" })
-	public ModelAndView getSelectedLine(@RequestParam String startPlace,
-			@RequestParam String endPlace, @RequestParam String type,
-			@RequestParam String startPlace1, @RequestParam String refPrice,
-			@RequestParam int Display, @RequestParam int PageNow,
-			HttpServletRequest request, HttpServletResponse response) {
-
-		try {
-			response.setCharacterEncoding("UTF-8");
-			request.setCharacterEncoding("UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			// 
-			e.printStackTrace();
-		}
-
-		List linetransportList = linetransportService.getSelectedLine(
-				startPlace, endPlace, type, startPlace1, refPrice, Display,
-				PageNow);
-		int count = linetransportService.getTotalRows(startPlace, endPlace,
-				type, startPlace1, refPrice);// 获取总记录数
-
-		int pageNum = (int) Math.ceil(count * 1.0 / Display);// 页数
-		mv.addObject("linetransportList", linetransportList);
-		mv.addObject("count", count);
-		mv.addObject("pageNum", pageNum);
-		mv.addObject("pageNow", PageNow);
-		mv.setViewName("resource_list");
-
-		return mv;
-	}
-	
 	/**
 	 * 返回新干线信息
 	 * @return
@@ -240,110 +185,7 @@ public class LinetransportController {
 		boolean flag=linetransportService.insertNewLinetransport(line,request,file);
 		return "redirect:linetransport?flag=1";
 	}
-	@Deprecated
-	public ModelAndView insertLine(
-			@RequestParam(required = false) MultipartFile file,// new add
-			@RequestParam String lineName, @RequestParam String startPlace,
-			@RequestParam String endPlace, @RequestParam int onWayTime,
-			@RequestParam String type,
-			@RequestParam float refPrice,// 缺少详细报价参数
-			@RequestParam String remarks, HttpServletRequest request,
-			HttpServletResponse response) {
-		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
-		// ////////////////////////////////////////////////////////////////////////
 
-		String path = null;
-		String fileName = null;
-		if (file.getSize() != 0)// 有上传文件的情况
-		{
-			path = UploadPath.getLinetransportPath();// 不同的地方取不同的上传路径
-			fileName = file.getOriginalFilename();
-			fileName = carrierId + "_" + fileName;// 文件名
-			File targetFile = new File(path, fileName);
-			try { // 保存 文件
-				file.transferTo(targetFile);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			// //////////////////////////////////////////////////////////////////
-		} 
-		//没有上传文件的情况path 和 filenName默认为null
-		boolean flag = linetransportService.insertLine(lineName, startPlace,
-				endPlace, onWayTime, type, refPrice, remarks, carrierId, path,
-				fileName);
-		// 修改此方法,增加两个参数
-		if (flag == true) {
-			try {
-				response.sendRedirect("linetransport?flag=1");// 重定向，显示最新的结果
-			} catch (IOException e) {
-				// 
-				// 此处应该记录日志
-				e.printStackTrace();
-			}
-		} else
-			mv.setViewName("mgmt_r_line");
-		return mv;
-	}
-
-	/**
-	 * 更新干线信息
-	 * @param id
-	 * @param lineName
-	 * @param startPlace
-	 * @param endPlace
-	 * @param onWayTime
-	 * @param type
-	 * @param refPrice
-	 * @param remarks
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	//@RequestMapping(value = "updateLine", method = RequestMethod.POST)
-	@Deprecated
-	public ModelAndView updateLine(@RequestParam MultipartFile file,
-			@RequestParam String id,// GET方式传入，在action中
-			@RequestParam String lineName, @RequestParam String startPlace,
-			@RequestParam String endPlace, @RequestParam int onWayTime,
-			@RequestParam String type,
-			@RequestParam float refPrice,// 缺少详细报价参数
-			@RequestParam String remarks, HttpServletRequest request,
-			HttpServletResponse response) {
-		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
-		//////////////////////////////////////////////
-		String path = null;
-		String fileName = null;
-		if (file.getSize() != 0)// 有上传文件的情况
-		{
-			path = UploadPath.getLinetransportPath();// 不同的地方取不同的上传路径
-			fileName = file.getOriginalFilename();
-			fileName = carrierId + "_" + fileName;// 文件名
-			File targetFile = new File(path, fileName);
-			try { // 保存 文件
-				file.transferTo(targetFile);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} 
-		//没有上传文件的情况path 和 filenName默认为null
-		
-		//////////////////////////////////////////////
-		
-		boolean flag = linetransportService.updateLine(id, lineName,
-				startPlace, endPlace, onWayTime, type, refPrice, remarks,
-				carrierId,path,fileName);//change
-		if (flag == true) {
-			try {
-				response.sendRedirect("linetransport?flag=1");// 重定向，显示最新的结果
-			} catch (IOException e) {
-				// 此处应该记录日志
-				e.printStackTrace();
-			}
-		} else
-			mv.setViewName("mgmt_r_line");
-		return mv;
-
-	}
 	/**
 	 * 更新干线信息
 	 * @param line

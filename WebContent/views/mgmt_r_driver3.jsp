@@ -89,7 +89,7 @@
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td width="120" height="40" class="td_mgmt_right3_td1b">姓名：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${driver.driverName }" name="name" required/></td>
+                                    <td><input type="text" class="input_mgmt1" style="width:300px;" value="${driver.driverName }" name="driverName" required/></td>
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">性别：</td>

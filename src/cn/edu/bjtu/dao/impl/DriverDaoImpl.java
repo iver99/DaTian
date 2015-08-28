@@ -8,15 +8,6 @@ import cn.edu.bjtu.dao.DriverDao;
 import cn.edu.bjtu.vo.Driverinfo;
 @Repository
 public class DriverDaoImpl extends BaseDaoImpl<Driverinfo> implements DriverDao{
-	@Override
-	/**
-	 * 返回所有司机信息
-	 */
-	@Deprecated
-	public List getAllDriver() {
-		
-		return this.find("from Driverinfo");
-	}
 
 	@Override
 	public Driverinfo getDriverInfo(String driverId) {
@@ -49,14 +40,5 @@ public class DriverDaoImpl extends BaseDaoImpl<Driverinfo> implements DriverDao{
 		return "";
 	}
 
-	@Override
-	/**
-	 * 返回公司司机
-	 */
-	@Deprecated
-	public List getCompanyDriver(String carrier) {
-		
-		return this.find("from Driverinfo where carrierId='"+carrier+"'");
-	}
 
 }

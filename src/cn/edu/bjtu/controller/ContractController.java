@@ -47,26 +47,6 @@ public class ContractController {
 
 	ModelAndView mv = new ModelAndView();
 
-	/*@RequestMapping("/contract")
-	*//**
-	 * 获取个人用户所有的合同
-	 * @param contractId
-	 * @param flag
-	 * @param request
-	 * @return
-	 *//*
-	@Deprecated
-	public ModelAndView getCompanyContractForUser(HttpServletRequest request) {
-		String clientId=(String)request.getSession().getAttribute(Constant.USER_ID);
-		//String carrierId = "C-0002";
-		List<Contract> contractList = contractService.getContractByClientId(clientId);
-		mv.addObject("contractList", contractList);
-		
-		mv.addObject("companyList", companyList);
-		mv.setViewName("mgmt_r_contact_s");
-		return mv;
-
-	}*/
 	/**
 	 * 获取需求方合同页面
 	 * @return
@@ -84,26 +64,6 @@ public class ContractController {
 	public String getCarrierContractPage(){
 		return "mgmt_r_contact_r";
 	}
-	/**
-	 * 获取公司所有的合同
-	 * @param contractId
-	 * @param flag
-	 * @param request
-	 * @return
-	 *//*
-	@RequestMapping("/contract2")
-	@Deprecated
-	public ModelAndView getCompanyContractForCompany(HttpServletRequest request) {
-		String carrierId=(String)request.getSession().getAttribute(Constant.USER_ID);
-		//String carrierId = "C-0002";
-		List contractList = contractService.getCompanyContract(carrierId);
-		mv.addObject("contractList", contractList);
-		Carrierinfo carrierInfo = companyService.getCompanyById(carrierId);
-		mv.addObject("carrierInfo", carrierInfo);
-		mv.setViewName("mgmt_r_contact_r");
-		return mv;
-
-	}*/
 	
 	@RequestMapping("contractdetail")
 	/**
@@ -167,50 +127,6 @@ public class ContractController {
 	}
 	
 	
-	@Deprecated
-	public ModelAndView insertContract(@RequestParam MultipartFile file,@RequestParam String id,
-			@RequestParam String name, @RequestParam String caculateType,
-			//@RequestParam String carrierAccount,
-			@RequestParam String carrierId,
-			@RequestParam String startDate, @RequestParam String endDate,
-			@RequestParam String contact, @RequestParam String phone,
-			@RequestParam String remarks,
-			@RequestParam(required=false) String monthlyStatementDays, 
-			HttpServletRequest request,	HttpServletResponse response) {
-		String clientId=(String)request.getSession().getAttribute(Constant.USER_ID);
-
-		String path = null;
-		String fileName = null;
-		if (file.getSize() != 0)// 有上传文件的情况
-		{
-			path = UploadPath.getContractPath();// 不同的地方取不同的上传路径
-			fileName = file.getOriginalFilename();
-			fileName = carrierId + "_" + fileName;// 文件名
-			File targetFile = new File(path, fileName);
-			try { // 保存 文件
-				file.transferTo(targetFile);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	
-		String carrierAccount=companyService.getCompanyById(carrierId).getCompanyName();
-		
-		boolean flag = contractService.insertContract(id, name, caculateType,
-				carrierAccount,carrierId, startDate, endDate, contact, phone, remarks,
-				clientId, monthlyStatementDays, path, fileName);
-		if (flag == true) {
-			try {
-				response.sendRedirect("contract");// 重定向，显示最新的结果
-			} catch (IOException e) {
-				// 
-				// 此处应该记录日志
-				e.printStackTrace();
-			}
-		} else
-			mv.setViewName("mgmt_r_contact_s");
-		return mv;
-	}
 	/**
 	 * 终止合同
 	 * @param contractId
@@ -243,70 +159,11 @@ public class ContractController {
 		return mv;
 	}
 	
-	@RequestMapping(value="findcontract",method = RequestMethod.POST)
-	/**
-	 * 查找合同
-	 */
-	@Deprecated
-	public ModelAndView findContract(@RequestParam int flag,
-			@RequestParam String startDate,@RequestParam String endDate,
-			@RequestParam String name, HttpServletResponse response, HttpServletRequest request)
-	{
-		int PageNow=1;//默认的当前页面
-		int Display=10;//默认的每页大小
-		
-		try {
-			response.setCharacterEncoding("UTF-8");
-			request.setCharacterEncoding("UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			// 
-			e.printStackTrace();
-		}
-		
-		
-		if(flag==1){//需求方
 
-		String clientId=(String)request.getSession().getAttribute(Constant.USER_ID);
-		//String carrierId = "C-0002";
-		List contractList = contractService.getFindContract(clientId, startDate, endDate, name, Display, PageNow);
-		mv.addObject("contractList", contractList);
-		/*Carrierinfo carrierInfo = companyService.getCompanyById(clientId);
-		mv.addObject("carrierInfo", carrierInfo);*/
-		
-		int count = contractService.getFindContractTotalRows(clientId, startDate, endDate, name, Display, PageNow);// 获取查询总记录数
-		int pageNum = (int) Math.ceil(count * 1.0 / Display);// 页数
-		mv.addObject("count", count);
-		mv.addObject("pageNum", pageNum);
-		mv.addObject("pageNow", PageNow);
-
-			mv.setViewName("mgmt_r_contact_s");
-		}
-		if(flag==2){//承运方
-
-			String carrierId=(String)request.getSession().getAttribute(Constant.USER_ID);
-			//String carrierId = "C-0002";
-			List contractList = contractService.getFindContract2(carrierId, startDate, endDate, name, Display, PageNow);
-			mv.addObject("contractList", contractList);
-			/*Carrierinfo carrierInfo = companyService.getCompanyById(carrierId);
-			mv.addObject("carrierInfo", carrierInfo);*/
-			
-			int count = contractService.getFindContractTotalRows(carrierId, startDate, endDate, name, Display, PageNow);// 获取查询总记录数
-			int pageNum = (int) Math.ceil(count * 1.0 / Display);// 页数
-			mv.addObject("count", count);
-			mv.addObject("pageNum", pageNum);
-			mv.addObject("pageNow", PageNow);
-
-			mv.setViewName("mgmt_r_contact_s");
-			mv.setViewName("mgmt_r_contact_r");
-		}
-		return mv;
-		
-	}
-
-	@RequestMapping(value = "downloadcontactrelated", method = RequestMethod.GET)
 	/**
 	 * 删除
 	 */
+	@RequestMapping(value = "downloadcontactrelated", method = RequestMethod.GET)
 	public ModelAndView downloadContactRelated(@RequestParam String id,// GET方式传入，在action中
 			HttpServletRequest request, HttpServletResponse response) {
 		Contract contract = contractService.getContractInfo(id);

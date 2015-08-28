@@ -414,7 +414,7 @@
 						}
 						f.empty();
 						for (var i = 0; i < data.length; i++) {
-							f.append("<tr>");
+							/* f.append("<tr>");
 							f
 									.append("<td width=\"100\" class=\"td_popup_address2a\" onclick=\"completeAddress("
 											+ data[i].name
@@ -429,18 +429,51 @@
 											+ data[i].phone + "</td>");
 							f.append("<td class=\"td_popup_address2\">"
 									+ data[i].address + "</td>");
-							f.append("</tr>");
-
+							f.append("</tr>"); */
+							var str="<tr>";
+							str+="<td width=\"100\" class=\"td_popup_address2a\">"+data[i].name+"</td>";
+							str+="<td width=\"120\" class=\"td_popup_address2\">"+data[i].phone+"</td>";
+							str+="<td class=\"td_popup_address2\">"+data[i].address+"</td>";
+							
+							//str+="<td class=\"td_popup_address2a\"><input type=\"radio\" name=\"address_choose\" id=\"address_choose\" /></td>"
+							if(kind ==1){
+								str+="<td class=\"td_popup_address2a\"><input type=\"button\" value=\"选择\" onclick=\"chooseSendAddress('"+data[i].name+"','"+data[i].phone+"','"+data[i].address+"')\" name=\"address_choose\" id=\"address_choose\" /></td>"
+							}else{
+								str+="<td class=\"td_popup_address2a\"><input type=\"button\" value=\"选择\" onclick=\"chooseRecieveAddress('"+data[i].name+"','"+data[i].phone+"','"+data[i].address+"')\" name=\"address_choose\" id=\"address_choose\" /></td>"
+							}
+							str+="</tr>";
+							f.append(str);
 						}
 					}
 				})
 	}
-	//填充收发货人信息
+	
+	//选择发货人
+	function chooseSendAddress(name,phone,address){
+		//关闭窗口
+		$("#close2").click();
+		$("#deliveryAddr").val(address);
+		$("#deliveryName").val(name);
+		$("#deliveryPhone").val(phone);
+		
+	}
+	
+	//选择收货人
+	function chooseRecieveAddress(name,phone,address){
+		//关闭窗口
+		$("#close3").click();
+		$("#recieverAddr").val(address);
+		$("#recieverName").val(name);
+		$("#recieverPhone").val(phone);
+		
+	}
+	
+	/* //填充收发货人信息
 	function completeAddress(name, phone, address) {
 		alert(name);
 		alert(phone);
 		alert(address);
-	}
+	} */
 	//返回用户的合同编号
 	function getUserContract() {
 		var url = "getUserContractIdAjax";

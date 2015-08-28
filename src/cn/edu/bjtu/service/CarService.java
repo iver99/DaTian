@@ -16,32 +16,10 @@ import cn.edu.bjtu.vo.Linetransport;
 import com.alibaba.fastjson.JSONArray;
 
 public interface CarService {
-	@Deprecated
-	public List getSelectedCar(String carLocation, String carBase, String carLength, String carWeight, int Display,int PageNow);
-	@Deprecated
-	public int getTotalRows(String carLocation, String carBase, String carLength, String carWeight);
 	
 	public Carinfo getCarInfo(String carid);
 
-	@Deprecated
-	public List getCompanyCar(String carrierId);
-
 	public boolean insertNewCar(Carinfo car,HttpServletRequest request);
-	@Deprecated
-	public boolean insertCar(String carNum, String carTeam,
-			String locationType, String terminalId, String carBase, String carBrand,
-			String carType, String carUse, double carLength, double carWidth,
-			double carHeight, double carWeight, String driverId,
-			String purchaseTime, String storage, String startPlace,
-			String endPlace, String stopPlace, String carrierId);
-
-	
-	@Deprecated
-	public boolean updateCar(String id, String carNum, String carTeam, String locType, 
-			String terminalId, String carType, String carBase, String carBrand, String carUse,
-			double carLength, double carWidth, double carHeight, double carWeight, String carPurTime,
-			String storage,String driverId, String startPlace,String endPlace,
-			String stopPlace,String carrierId);
 	public boolean updateNewCar(Carinfo car,HttpServletRequest request);
 	
 	public boolean deleteCar(String id);

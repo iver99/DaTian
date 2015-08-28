@@ -20,55 +20,7 @@ public class CompanyDaoImpl extends BaseDaoImpl<Carrierinfo> implements CompanyD
 	
 	@Resource
 	private HibernateTemplate ht;
-	@Resource 
-	private HQLTool hqltool;
 	
-	
-	@Override
-	/**
-	 * 返回所有公司信息
-	 */
-	@Deprecated
-	public List getAllCompany(int Display,int PageNow) {
-		
-		//return ht.find("from Carrierinfo");
-		int page = PageNow;
-		int pageSize = Display;
-		String hql=" from Carrierinfo";
-		
-		return hqltool.getQueryList(hql, page, pageSize);//dao层分批取数据方法
-		
-		
-	}
-
-	@Override
-	/**
-	 * 返回所有公司信息,不用分页
-	 */
-	@Deprecated
-	public List getAllCompanyWithoutPage() {
-		
-		//return ht.find("from Carrierinfo");
-		return ht.find("from Carrierinfo");
-		
-		
-		
-	}
-
-	@Override
-	/**
-	 * 返回符合筛选条件的公司信息
-	 */
-	@Deprecated
-	public List getSelectedCompany(String hql, int display, int pageNow) {
-		
-		int page = pageNow;
-		int pageSize = display;
-
-		return hqltool.getQueryList(hql, page, pageSize);//Dao层分页函数提取到此方法
-	}
-
-
 	@Override
 	/**
 	 * 返回特定的公司信息

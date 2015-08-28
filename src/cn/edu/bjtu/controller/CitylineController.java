@@ -96,22 +96,15 @@ public class CitylineController {
 		return count;
 	}
 	
-	@RequestMapping(value="/cityline",params="flag=1")
 	/**
 	 * 我的信息-用户的所有城市配送线路信息
 	 * @param flag
 	 * @return
 	 */
-	@Deprecated
-	public ModelAndView getUserCityline(@RequestParam int flag,
+	@RequestMapping(value="/cityline",params="flag=1")
+	public String getUserCityline(@RequestParam int flag,
 			HttpServletRequest request) {
-		// 这里用session取id
-		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
-		// String carrierId = "C-0002";// 删除
-		List citylineList = citylineService.getCompanyCityline(carrierId);
-		mv.addObject("citylineList", citylineList);
-		mv.setViewName("mgmt_r_city");// 点击左边城市配送显示所有信息
-		return mv;
+		return "mgmt_r_city";// 点击左边城市配送显示所有信息
 	}
 
 	@RequestMapping(value = "/citylinedetail", method = RequestMethod.GET)
@@ -150,43 +143,6 @@ public class CitylineController {
 		return mv;
 	}
 
-	@RequestMapping("citylineselected")
-	/**
-	 * 获取满足条件的城市配送线路
-	 * @param cityName
-	 * @param VIPService
-	 * @param refPrice
-	 * @param Display
-	 * @param PageNow
-	 * @return
-	 */
-	@Deprecated
-	public ModelAndView getSelectedCityLine(@RequestParam String cityName,
-			@RequestParam String VIPService, @RequestParam String refPrice,
-			@RequestParam int Display, @RequestParam int PageNow,
-			HttpServletRequest request, HttpServletResponse response) {
-
-		try {
-			response.setCharacterEncoding("UTF-8");
-			request.setCharacterEncoding("UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			// 
-			e.printStackTrace();
-		}
-
-		List citylineList = citylineService.getSelectedCityline(cityName,
-				VIPService, refPrice, Display, PageNow);
-		int count = citylineService
-				.getTotalRows(cityName, VIPService, refPrice);// 获取总记录数
-		int pageNum = (int) Math.ceil(count * 1.0 / Display);// 页数
-		mv.addObject("citylineList", citylineList);
-		mv.addObject("count", count);
-		mv.addObject("pageNum", pageNum);
-		mv.addObject("pageNow", PageNow);
-		mv.setViewName("resource_list2");
-
-		return mv;
-	}
 
 	/**
 	 * 新增城市配送线路
@@ -196,118 +152,6 @@ public class CitylineController {
 			HttpServletRequest request) {
 		boolean flag=citylineService.insertNewCityline(cityline,request,file);
 		return "redirect:cityline?flag=1";
-	}
-	@Deprecated
-	public ModelAndView insertCityLine(@RequestParam MultipartFile file,
-			@RequestParam String name, @RequestParam String cityName,
-			@RequestParam String VIPService, @RequestParam float refPrice,
-			@RequestParam String remarks,
-			@RequestParam(required = false) String VIPDetail,
-			HttpServletRequest request, HttpServletResponse response) {
-		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
-		// carrierId = "C-0002";// 删除
-		/*
-		 * boolean flag = linetransportService.insertLine(lineName, startPlace,
-		 * endPlace, onWayTime, type, refPrice, remarks, carrierId);
-		 */
-
-
-		String path = null;
-		String fileName = null;
-		if (file.getSize() != 0)// 有上传文件的情况
-		{
-			path = UploadPath.getCitylinePath();// 不同的地方取不同的上传路径
-			fileName = file.getOriginalFilename();
-			fileName = carrierId + "_" + fileName;// 文件名
-			File targetFile = new File(path, fileName);
-			try { // 保存 文件
-				file.transferTo(targetFile);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			// //////////////////////////////////////////////////////////////////
-		}
-
-		boolean flag = citylineService.insertCityLine(name, cityName,
-				VIPService, refPrice, remarks, carrierId, VIPDetail, path,
-				fileName);
-		if (flag == true) {
-			// mv.setViewName("mgmt_r_line");
-			try {
-				response.sendRedirect("cityline?flag=1");// 重定向，显示最新的结果
-			} catch (IOException e) {
-				// 
-				// 此处应该记录日志
-				e.printStackTrace();
-			}
-		} else
-			mv.setViewName("mgmt_r_line");
-		return mv;
-	}
-
-	//@RequestMapping(value = "/updateCityline", method = RequestMethod.POST)
-	/**
-	 * * 更新城市配送信息
-	 * @param id
-	 * @param citylineName
-	 * @param cityName
-	 * @param VIPService
-	 * @param refPrice
-	 * @param remarks
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	@Deprecated
-	public ModelAndView updateCityline(
-			@RequestParam MultipartFile file,
-			@RequestParam String id,// GET方式传入，在action中
-			@RequestParam String citylineName,
-			@RequestParam String cityName,
-			@RequestParam String VIPService,
-			@RequestParam String VIPDetail,// 缺少详细增值服务参数
-			@RequestParam float refPrice, @RequestParam String remarks,
-			HttpServletRequest request, HttpServletResponse response) {
-
-		// 此处获取session里的carrierid，下面方法增加一个参数
-		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
-		// String carrierId = "C-0002";// 删除
-
-		// ////////////////////////////////////////////
-		String path = null;
-		String fileName = null;
-		if (file.getSize() != 0)// 有上传文件的情况
-		{
-			path = UploadPath.getCitylinePath();// 不同的地方取不同的上传路径
-			fileName = file.getOriginalFilename();
-			fileName = carrierId + "_" + fileName;// 文件名
-			File targetFile = new File(path, fileName);
-			try { // 保存 文件
-				file.transferTo(targetFile);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		// 没有上传文件的情况path 和 filenName默认为null
-
-		// ////////////////////////////////////////////
-
-		boolean flag = citylineService.updateLine(id, citylineName, cityName,
-				VIPService, VIPDetail, refPrice, remarks, carrierId, path,
-				fileName);
-		if (flag == true) {
-
-			try {
-				response.sendRedirect("cityline?flag=1");// 重定向，显示最新的结果
-			} catch (IOException e) {
-				// 
-				// 此处应该记录日志
-				e.printStackTrace();
-			}
-		} else
-			mv.setViewName("mgmt_r_line");
-		return mv;
-
 	}
 	
 	@RequestMapping(value = "/updateCityline", method = RequestMethod.POST)
@@ -319,25 +163,13 @@ public class CitylineController {
 	
 	//public 
 
-	@RequestMapping(value = "citydelete", method = RequestMethod.GET)
 	/**
 	 * 删除
 	 */
-	public ModelAndView deleteCityline(@RequestParam String id,// GET方式传入，在action中
-			HttpServletRequest request, HttpServletResponse response) {
-		boolean flag = citylineService.deleteCityline(id);
-		if (flag == true) {
-			// mv.setViewName("mgmt_r_line");
-			try {
-				response.sendRedirect("cityline?flag=1");// 重定向，显示最新的结果
-			} catch (IOException e) {
-				// 
-				// 此处应该记录日志
-				e.printStackTrace();
-			}
-		} else
-			mv.setViewName("mgmt_r_line");
-		return mv;
+	@RequestMapping(value = "citydelete", method = RequestMethod.GET)
+	public String deleteCityline(@RequestParam String id) {
+		citylineService.deleteCityline(id);
+			return "redirect:cityline?flag=1";
 
 	}
 

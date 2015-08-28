@@ -48,8 +48,6 @@ public class CarServiceImpl implements CarService {
 	LinetransportService linetransportService;
 	@Resource
 	Carteam carteam;
-	@Resource
-	HQLTool hqltool;
 	
 	
 	/**
@@ -168,40 +166,6 @@ public class CarServiceImpl implements CarService {
 		
 		return wheresql;
 	}
-
-
-	@Override
-	/**
-	 * 条件筛选车辆
-	 */
-	@Deprecated
-	public List getSelectedCar(String carLocation, String carBase,
-			String carLength, String carWeight, int Display, int PageNow) {
-
-		String[] paramList = { "carLocation", "carBase", "carLength",
-				"carWeight" };// 没startplace1
-		String[] valueList = { carLocation, carBase, carLength, carWeight };
-		String hql = "from CarCarrierView ";// 会变化
-		String sql = HQLTool.spellHql2(hql, paramList, valueList);
-		return carDao.getSelectedCar(sql, Display, PageNow);
-	}
-
-	@Override
-	/**
-	 * 获取总记录条数 
-	 */
-	@Deprecated
-	public int getTotalRows(String carLocation, String carBase,
-			String carLength, String carWeight) {
-		
-		String[] paramList = { "carLocation", "carBase", "carLength",
-				"carWeight" };// 没startplace1
-		String[] valueList = { carLocation, carBase, carLength, carWeight };
-		String hql = "from CarCarrierView ";// 会变化
-		String sql = HQLTool.spellHql2(hql, paramList, valueList);
-		return hqltool.getTotalRows(sql);// 这里的HQLTool实例千万不能自己new出来，用@Resource
-	}
-
 	@Override
 	/**
 	 * 返回特定车辆信息
@@ -211,16 +175,6 @@ public class CarServiceImpl implements CarService {
 
 		return carDao.getCarInfo(carid);
 	}
-
-	
-	@Deprecated
-	@Override
-	public List getCompanyCar(String carrierId) {
-		
-		return carDao.getCompanyCar(carrierId);
-	}
-
-	
 
 	@Override
 	/**
@@ -273,46 +227,9 @@ public class CarServiceImpl implements CarService {
 
 	
 
-	@Override
-	/**
-	 * 更新车辆信息
-	 */
-	@Deprecated
-	public boolean updateCar(String id, String carNum, String carTeam,
-			String locType, String terminalId, String carType, String carBase,
-			String carBrand, String carUse, double carLength, double carWidth,
-			double carHeight, double carWeight, String carPurTime,
-			String storage, String driverId, String startPlace,// 缺少参数
-			String endPlace,// 缺少参数
-			String stopPlace,// 缺少参数
-			String carrierId) {
-		
-		carinfo = getCarInfo(id);// 根据id查找到车辆信息
-		carinfo.setCarTeam(carTeam);
-		carinfo.setLocationType(locType);
-		carinfo.setTerminalId(terminalId);
-		carinfo.setCarType(carType);
-		carinfo.setCarBase(carBase);
-		carinfo.setCarBrand(carBrand);
-		carinfo.setCarUse(carUse);
-		carinfo.setCarLength(carLength);
-		carinfo.setCarWidth(carWidth);
-		carinfo.setCarHeight(carHeight);
-		carinfo.setCarWeight(carWeight);
-		carinfo.setPurchaseTime(stringToDate(carPurTime));
-		carinfo.setStorage(storage);
-		carinfo.setDriverId(driverId);
-		carinfo.setStopPlace(stopPlace);
-		carinfo.setStartPlace(startPlace);
-		carinfo.setEndPlace(endPlace);
-		carDao.update(carinfo);
-		return true;
-
-	}
 	
 	@Override
 	public boolean updateNewCar(Carinfo car,HttpServletRequest request){
-		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
 
 		Carinfo carInstance = carDao.get(Carinfo.class,car.getId());
 		carInstance.setCarTeam(car.getCarTeam());
