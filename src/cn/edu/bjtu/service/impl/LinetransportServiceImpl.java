@@ -58,15 +58,6 @@ public class LinetransportServiceImpl implements LinetransportService {
 	private String hql = "";
 	private static boolean flag = false;
 
-	@Override
-	/**
-	 * 返回所有干线列表
-	 */
-	public List getAllLinetransport(int Display, int PageNow) {
-		
-		return linetransportDao.getAllLinetransport(Display, PageNow);
-	}
-	
 
 	@Override
 	/**
@@ -77,162 +68,6 @@ public class LinetransportServiceImpl implements LinetransportService {
 		return linetransportDao.getLinetransportInfo(linetransportid);
 	}
 
-	@Deprecated
-	@Override
-	/**
-	 * 条件筛选干线
-	 */
-	public List getSelectedLine(String startPlace, String endPlace,
-			String type, String startPlace1, String refPrice, int Display,
-			int PageNow) {
-		
-
-		String sql = "";
-		if (refPrice.equals("大于2元/kg")) {
-			String[] paramList = { "startPlace", "endPlace", "type" };// 没startplace1
-			String[] valueList = { startPlace, endPlace, type };
-			sql = spellHql2(paramList, valueList);
-			int i = 0;
-			for (; i < paramList.length; i++) {
-				if (!(valueList[i].equals("All"))) {
-					break;
-				}
-			}
-			if (i == paramList.length) {
-				// 要是所有项都等于All，即要补上where字段
-				sql += "where refPrice > 2";
-			} else
-				sql += "and refPrice > 2";
-		} else if (refPrice.equals("1至2元/kg")) {
-			String[] paramList = { "startPlace", "endPlace", "type" };// 没startplace1
-			String[] valueList = { startPlace, endPlace, type };
-			sql = spellHql2(paramList, valueList);
-			int i = 0;
-			for (; i < paramList.length; i++) {
-				if (!(valueList[i].equals("All"))) {
-					break;
-				}
-			}
-			if (i == paramList.length) {
-				// 要是所有项都等于All，即要补上where字段
-				sql += "where refPrice >= 1 and refPrice <= 2";
-			} else
-				sql += "and refPrice >= 1 and refPrice <= 2";
-		} else if (refPrice.equals("小于1元/kg")) {
-			String[] paramList = { "startPlace", "endPlace", "type" };// 没startplace1
-			String[] valueList = { startPlace, endPlace, type };
-			sql = spellHql2(paramList, valueList);
-			int i = 0;
-			for (; i < paramList.length; i++) {
-				if (!(valueList[i].equals("All"))) {
-					break;
-				}
-			}
-			if (i == paramList.length) {
-				// 要是所有项都等于All，即要补上where字段
-				sql += "where refPrice < 1";
-			} else
-				sql += "and refPrice < 1";
-		} else {
-			String[] paramList = { "startPlace", "endPlace", "type", "refPrice" };// 没startplace1
-			String[] valueList = { startPlace, endPlace, type, refPrice };
-			sql = spellHql2(paramList, valueList);
-		}
-
-		return linetransportDao.getSelectedLine(sql, Display, PageNow);
-		// return null;
-
-	}
-
-	@Override
-	/**
-	 * 获取总记录条数 
-	 */
-	@Deprecated
-	public int getTotalRows(String startPlace, String endPlace, String type,
-			String startPlace1, String refPrice) {
-		
-		String sql = "";
-		if (refPrice.equals("大于2元/kg")) {
-			String[] paramList = { "startPlace", "endPlace", "type" };// 没startplace1
-			String[] valueList = { startPlace, endPlace, type };
-			sql = spellHql2(paramList, valueList);
-			int i = 0;
-			for (; i < paramList.length; i++) {
-				if (!(valueList[i].equals("All"))) {
-					break;
-				}
-			}
-			if (i == paramList.length) {
-				// 要是所有项都等于All，即要补上where字段
-				sql += "where refPrice > 2";
-			} else
-				sql += "and refPrice > 2";
-		} else if (refPrice.equals("1至2元/kg")) {
-			String[] paramList = { "startPlace", "endPlace", "type" };// 没startplace1
-			String[] valueList = { startPlace, endPlace, type };
-			sql = spellHql2(paramList, valueList);
-			int i = 0;
-			for (; i < paramList.length; i++) {
-				if (!(valueList[i].equals("All"))) {
-					break;
-				}
-			}
-			if (i == paramList.length) {
-				// 要是所有项都等于All，即要补上where字段
-				sql += "where refPrice >= 1 and refPrice <= 2";
-			} else
-				sql += "and refPrice >= 1 and refPrice <= 2";
-		} else if (refPrice.equals("小于1元/kg")) {
-			String[] paramList = { "startPlace", "endPlace", "type" };// 没startplace1
-			String[] valueList = { startPlace, endPlace, type };
-			sql = spellHql2(paramList, valueList);
-			int i = 0;
-			for (; i < paramList.length; i++) {
-				if (!(valueList[i].equals("All"))) {
-					break;
-				}
-			}
-			if (i == paramList.length) {
-				// 要是所有项都等于All，即要补上where字段
-				sql += "where refPrice < 1";
-			} else
-				sql += "and refPrice < 1";
-		} else {
-			String[] paramList = { "startPlace", "endPlace", "type", "refPrice" };// 没startplace1
-			String[] valueList = { startPlace, endPlace, type, refPrice };
-			sql = spellHql2(paramList, valueList);
-		}
-		// System.out.println("hql+"+sql);
-		return hqltool.getTotalRows(sql);// 这里的HQLTool实例千万不能自己new出来，用@Resource
-	}
-
-	/**
-	 * 工具函数-拼接hql
-	 * 
-	 * @param paramList
-	 * @param valueList
-	 * @return 返回拼接好的hql语句
-	 */
-	@Deprecated
-	private String spellHql2(String[] paramList, String[] valueList) {
-		HQL_POJO hqlobj = new HQL_POJO();
-		hqlobj.hql = "from LineCarrierView ";// 会变化
-		for (int i = 0; i < paramList.length; i++) {
-			if (!(valueList[i].equals("All")||valueList[i].equals("中文或拼音")||valueList[i].equals("")))// 要是等于all，说明是默认的，即不写到where子句
-			{
-				hqlobj.hql += HQLTool.spellHql(hqlobj).hql;
-				hqlobj.hql += paramList[i] + "='" + valueList[i] + "' ";
-			}
-		}
-		return hqlobj.hql;
-	}
-
-	/*
-	 * public static void main(String[] args) { int i = new
-	 * LinetransportServiceImpl().getTotalRows("All", "All", "All", "All",
-	 * "All"); }
-	 */
 
 	@Override
 	/**
@@ -252,84 +87,13 @@ public class LinetransportServiceImpl implements LinetransportService {
 		linetransportDao.save(line);// 保存实体
 		return true;
 	}
-	@Deprecated
-	public boolean insertLine(String lineName, String startPlace,
-			String endPlace, int onWayTime, String type, float refPrice,
-			String remarks, String carrierId, String path, String fileName) {
-		
-		linetransport.setId(IdCreator.createlineTransportId());
-		linetransport.setCarrierId(carrierId);// 插入session里的carrierid
-		linetransport.setLineName(lineName);
-		linetransport.setStartPlace(startPlace);
-		linetransport.setEndPlace(endPlace);
-		linetransport.setOnWayTime(onWayTime);
-		linetransport.setRefPrice(refPrice);
-		linetransport.setRelDate(new Date());
-		linetransport.setRemarks(remarks);
-		linetransport.setType(type);
-		// 保存文件路径
-		if (path != null && fileName != null) {
-			String fileLocation = path + "//" + fileName;
-			linetransport.setDetailPrice(fileLocation);
-		}
-		linetransportDao.save(linetransport);// 保存实体
-		return true;
-
-	}
-
-	@Override
-	/**
-	 * 返回某公司的所有干线信息
-	 */
-	@Deprecated
-	public List getCompanyLine(String carrierId, int Display, int PageNow) {
-		
-		return linetransportDao.getCompanyLine(carrierId, Display, PageNow);// 未完成
-	}
-
 	@Override
 	// 未实现
 	public String getLinetransportIdByCity(String startPlace, String endPlace) {
-		
+		//FIXME 
 		return "";
 	}
 
-	@Override
-	@Deprecated
-	public int getCompanyTotalRows(String carrierId) {
-		
-		return linetransportDao.getCompanyTotalRows(carrierId);
-	}
-
-	@Override
-	/**
-	 * 更新干线
-	 */
-	@Deprecated
-	public boolean updateLine(String id, String lineName, String startPlace,
-			String endPlace, int onWayTime, String type, float refPrice,
-			String remarks, String carrierId, String path, String fileName) {
-		
-
-		linetransport = getLinetransportInfo(id);// 根据id查找到干线信息
-		linetransport.setLineName(lineName);
-		linetransport.setStartPlace(startPlace);
-		linetransport.setEndPlace(endPlace);
-		linetransport.setOnWayTime(onWayTime);
-		linetransport.setType(type);
-		linetransport.setRefPrice(refPrice);
-		linetransport.setRemarks(remarks);
-		linetransport.setRelDate(new Date());
-		// 保存文件路径
-		if (path != null && fileName != null) {
-			String fileLocation = path + "//" + fileName;
-			linetransport.setDetailPrice(fileLocation);
-		}
-
-		linetransportDao.update(linetransport);
-		return true;
-
-	}
 
 	@Override
 	/**
@@ -344,10 +108,10 @@ public class LinetransportServiceImpl implements LinetransportService {
 	}
 	
 	
-	@Override
 	/**
 	 * 新条件筛选干线
 	 */
+	@Override
 	public DataModel getSelectedLineNew(LinetransportSearchBean linetransportbean,
 			PageUtil pageUtil,HttpSession session) {
 		
@@ -464,8 +228,6 @@ public class LinetransportServiceImpl implements LinetransportService {
 		Map<String,Object> params=new HashMap<String,Object>();
 		//String countsql="select count(t1.id) from line_carrier_view t1"+whereSql(lineBean,params);
 		String hql="select count(*) from LineCarrierView t1"+whereSql(lineBean, params);
-		//Long count=linetransportDao.countBySql(countsql, params);
-		//Long count=linetransportDao.countBySql("select count(*) from linetransport");
 		Long count=linetransportDao.count(hql, params);
 		
 		return count.intValue();
