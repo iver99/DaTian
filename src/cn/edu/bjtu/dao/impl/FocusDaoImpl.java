@@ -50,36 +50,6 @@ public class FocusDaoImpl extends BaseDaoImpl<Focus> implements FocusDao{
 			return ht.find("from Focus where clientId='"+clientId+"'");
 	}
 	
-	@Override
-	public List getAllFocusLine(String clientId) {
-		
-		return ht.find("from FocusLinetransportView where clientId='"+clientId+"'");
-	}
-	@Override
-	public List getAllFocusCityline(String clientId) {
-		
-		return ht.find("from FocusCitylineView where clientId='"+clientId+"'");
-	}
-	@Override
-	public List getAllFocusWarehouse(String clientId) {
-		
-		return ht.find("from FocusWarehouseView where clientId='"+clientId+"'");
-	}
-	@Override
-	public List getAllFocusCar(String clientId) {
-		
-		return ht.find("from FocusCarView where clientId='"+clientId+"'");
-	}
-	@Override
-	public List getAllFocusCompany(String clientId) {
-		
-		return ht.find("from FocusCompanyView where clientId='"+clientId+"'");
-	}
-	@Override
-	public List getAllFocusGoods(String clientId) {
-		
-		return ht.find("from FocusGoodsView where clientId='"+clientId+"'");
-	}
 
 	@Override
 	public List getFind(String sql) {

@@ -29,7 +29,6 @@ public class CommentController {
 	
 	ModelAndView mv=new ModelAndView();
 	
-	@RequestMapping("/commitcomment")
 	/**
 	 * Ã·Ωª∆¿¬€
 	 * @param session
@@ -40,6 +39,7 @@ public class CommentController {
 	 * @param remarks
 	 * @return
 	 */
+	@RequestMapping("/commitcomment")
 	public ModelAndView commitComment(HttpSession session ,
 			String rate1,String rate2,String rate3,String rate4,
 			String remarks,String orderid,HttpServletResponse response)

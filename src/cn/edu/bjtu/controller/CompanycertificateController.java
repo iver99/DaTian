@@ -40,10 +40,10 @@ public class CompanycertificateController {
 	}
 	
 	
-	@RequestMapping("companycertificate")
 	/**
 	 * 验证公司信息
 	 */
+	@RequestMapping("companycertificate")
 	public ModelAndView companycertificate(
 			@RequestParam(required = false) MultipartFile file,
 			@RequestParam(required = false) String companyName, @RequestParam(required = false) String divisionCode,
@@ -108,13 +108,13 @@ public class CompanycertificateController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "downloadcompanycertificatematerial", method = RequestMethod.GET)
 	/**
 	 * 下载认证公司的相关材料
 	 * @param request
 	 * @param response
 	 * @return
 	 */
+	@RequestMapping(value = "downloadcompanycertificatematerial", method = RequestMethod.GET)
 	public ModelAndView downloadCompanyCertificateMaterial(String id,
 			HttpServletRequest request, HttpServletResponse response) {
 			Companycertificate companycertificate = companycertificateService.getCompanycertificate(id);
@@ -124,10 +124,10 @@ public class CompanycertificateController {
 
 	}
 	
-	@RequestMapping("companycertificateupdate")
 	/**
 	 * 验证公司
 	 */
+	@RequestMapping("companycertificateupdate")
 	public ModelAndView companycertificateUpdate(
 			@RequestParam(required = false) MultipartFile file,
 			@RequestParam(required = false) String companyName, @RequestParam(required = false) String divisionCode,
