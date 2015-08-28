@@ -16,10 +16,6 @@ public class WarehouseDaoImpl extends BaseDaoImpl<Warehouse> implements Warehous
 	
 	@Resource
 	private HibernateTemplate ht;
-	@Resource 
-	private HQLTool hqltool;
-	
-	
 	@Override
 	/**
 	 * 返回具体货物信息
@@ -30,20 +26,4 @@ public class WarehouseDaoImpl extends BaseDaoImpl<Warehouse> implements Warehous
 		
 	}
 
-	@Override
-	@Deprecated
-	public List getCompanyWarehouse(String carrierId) {
-		
-		return ht.find("from Warehouse where carrierId='"+carrierId+"'");
-	}
-	
-	@Override
-	@Deprecated
-	public List getSelectedWarehouse(String hql, int display, int pageNow) {
-		
-		int page = pageNow;
-		int pageSize = display;
-
-		return hqltool.getQueryList(hql, page, pageSize);//Dao层分页函数提取到此方法
-	}
 }

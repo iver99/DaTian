@@ -16,25 +16,9 @@ import com.alibaba.fastjson.JSONArray;
 
 public interface WarehouseService {
 
-	@Deprecated
-	public List getSelectedWarehouse(String city, String type, String storageForm, String houseArea, int Display,int PageNow);
-	@Deprecated
-	public int getTotalRows(String city, String type, String storageForm, String houseArea);
 	
 	public Warehouse getWarehouseInfo(String warehouseid);
-	@Deprecated
-	public List getCompanyWarehouse(String carrierId);
-	@Deprecated
-	public boolean insertWarehouse(String name,String city,String address,String type,String kind,
-			float houseArea,float yardArea,float height,String fireRate,String storageForm,
-			String fireSecurity,String environment,String serviceContent,String contact,
-			String phone,String remarks,String carrierId,String path,String fileName);
 	public boolean insertNewWarehouse(Warehouse warehouse,HttpServletRequest request,MultipartFile file);
-	@Deprecated
-	public boolean updateWarehouse(String id, String name,String city,String address,String type,String kind,
-			float houseArea,float yardArea,float height,String fireRate,String storageForm,
-			String fireSecurity,String environment,String serviceContent,
-			String contact,String phone,String remarks,String carrierId,String path,String fileName);
 	public boolean updateNewWarehouse(Warehouse warehouse,HttpServletRequest request,MultipartFile file);
 	
 	
