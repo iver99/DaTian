@@ -123,18 +123,6 @@ public class AddressController {
 		}
 	 
 	 /**
-	  * 添加常用地址
-	  * @param session
-	  * @param address
-	  */
-	 @RequestMapping("addAddressAjax")
-	 @ResponseBody
-	 @Deprecated
-	 public void addAddressAjax(HttpSession session,Address address){
-		 addressService.addUserAddress(session,address);
-		 return ;
-	 }
-	 /**
 	  * 下订单时获取用户常用地址列表
 	  * @param session
 	  * @param address
