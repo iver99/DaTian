@@ -76,18 +76,9 @@ public class CarController {
 	 * 获取我的信息-车辆信息
 	 * @return
 	 */
-	@Deprecated
 	@RequestMapping(value="car",params="flag=1")
-	public ModelAndView getMyInfoCar(HttpServletRequest request){
-		String carrierId = (String) request.getSession().getAttribute(
-				"userId");
-		// String carrierId = "C-0002";// 删除
-		List carList = carService.getCompanyCar(carrierId);
-		mv.addObject("carList", carList);
-		List driverList = driverService.getAllDriverName(carrierId);
-		mv.addObject("driverList", driverList);
-		mv.setViewName("mgmt_r_car");// 后台还没实现
-		return mv;
+	public String getMyInfoCar(HttpServletRequest request){
+		return "mgmt_r_car";
 		
 	}
 	
@@ -164,148 +155,22 @@ public class CarController {
 		return mv;
 	}
 
-	@RequestMapping("carselected")
-	/**
-	 * 返回符合筛选条件的车辆信息
-	 * @param carLocation1
-	 * @param endPlace
-	 * @param carUse
-	 * @param carColdStorage
-	 * @param carLength
-	 * @param carLocation
-	 * @param Display
-	 * @param PageNow
-	 * @return
-	 */
-	@Deprecated
-	public ModelAndView getSelectedCar(@RequestParam String carLocation,
-			@RequestParam String endPlace, @RequestParam String carBase,
-			@RequestParam String carLength, @RequestParam String carWeight,
-			// @RequestParam String location,
-			@RequestParam int Display, @RequestParam int PageNow,
-			HttpServletRequest request, HttpServletResponse response) {
+	
 
-		try {
-			response.setCharacterEncoding("UTF-8");
-			request.setCharacterEncoding("UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			// 
-			e.printStackTrace();
-		}
-
-		List carList = carService.getSelectedCar(carLocation,
-		// endPlace, 没有目的城市
-				carBase, carLength, carWeight,
-				// location, 没有定位信息
-				Display, PageNow);
-		int count = carService.getTotalRows(carLocation,
-		// endPlace,
-				carBase, carLength, carWeight
-		// , location
-				);// 获取总记录数
-
-		int pageNum = (int) Math.ceil(count * 1.0 / Display);// 页数
-		mv.addObject("carList", carList);
-		mv.addObject("count", count);
-		mv.addObject("pageNum", pageNum);
-		mv.addObject("pageNow", PageNow);
-		mv.setViewName("resource_list3");
-
-		return mv;
-	}
-
-	@RequestMapping("driver")
-	/**
-	 * 获取司机列表
-	 * @param flag
-	 * @return
-	 */
-	@Deprecated
-	public ModelAndView getAllDriver(@RequestParam int flag,
-			HttpServletRequest request, HttpServletResponse response) {
-		// 从session里取出id查询
-		if (flag == 0) {// 所有的司机信息
-			List driverList = driverService.getAllDriver();
-			mv.addObject("driverList", driverList);
-			mv.setViewName("mgmt_r_driver");
-		} else if (flag == 1) {// 公司司机列表
-			// 这里用session取id
-			String carrierId = (String) request.getSession().getAttribute(
-					"userId");
-			// String carrierId = "C-0002";// 删除
-			List driverList = driverService.getCompanyDriver(carrierId);
-			mv.addObject("driverList", driverList);
-			mv.setViewName("mgmt_r_driver");
-		}
-
-		return mv;
-	}
-
-	@RequestMapping("driverdetail")
-	/**
-	 * 司机信息详情
-	 * @param driverId
-	 * @param flag
-	 * @return
-	 */
-	public ModelAndView getDriverInfo(@RequestParam String driverId,
-			@RequestParam int flag) {
-		Driverinfo driver = driverService.getDriverInfo(driverId);
-		mv.addObject("driver", driver);
-		if (flag == 1) {// 对应司机详情
-			mv.setViewName("mgmt_r_driver4");
-		} else if (flag == 2)// 对应司机更新
-		{
-			mv.setViewName("mgmt_r_driver3");
-		}
-
-		return mv;
-	}
-
-	@RequestMapping(value = "insertCar", method = RequestMethod.POST)
 	/**
 	 * 新增车辆信息
 	 */
+	@RequestMapping(value = "insertCar", method = RequestMethod.POST)
 	public String insertNewCar(Carinfo car,
 			HttpServletRequest request) {
 		boolean flag=carService.insertNewCar(car,request);
 		return "redirect:car?flag=1";
 	}
-	@Deprecated
-	public ModelAndView insertCar(@RequestParam String carNum,
-			@RequestParam String carTeam, @RequestParam String locationType,
-			@RequestParam(required = false) String terminalId,
-			@RequestParam String carType, @RequestParam String carBase,
-			@RequestParam String carBrand, @RequestParam String carUse,
-			@RequestParam double carLength, @RequestParam double carWidth,
-			@RequestParam double carHeight, @RequestParam double carWeight,
-			@RequestParam String driverId, @RequestParam String purchaseTime,
-			@RequestParam String storage, @RequestParam String startPlace,
-			@RequestParam String endPlace, @RequestParam String stopPlace,
-			HttpServletRequest request,	HttpServletResponse response) {
-		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
-		boolean flag = carService.insertCar(carNum, carTeam, locationType, terminalId,
-				carBase, carBrand, carType, carUse, carLength, carWidth,
-				carHeight, carWeight, driverId, purchaseTime, storage,
-				startPlace, endPlace, stopPlace, carrierId);
-		if (flag == true) {
-			try {
-				response.sendRedirect("car?flag=1");// 重定向，显示最新的结果 error,无法重定向
-				// mv.setViewName("mgmt_r_car");
-			} catch (Exception e) {
-				// 
-				// 此处应该记录日志
-				e.printStackTrace();
-			}
-		} else
-			mv.setViewName("mgmt_r_car");
-		return mv;
-	}
 
-	@RequestMapping(value = "/insertDriver", method = RequestMethod.POST)
 	/**
 	 * 新增司机
 	 */
+	@RequestMapping(value = "/insertDriver", method = RequestMethod.POST)
 	public String insertNewDriver(Driverinfo driver,MultipartFile file,
 			HttpServletRequest request) {
 		boolean flag=driverService.insertNewDriver(driver,request,file);
@@ -358,71 +223,6 @@ public class CarController {
 		return mv;
 	}
 
-	//@RequestMapping(value = "updateCar", method = RequestMethod.POST)
-	/**
-	 * * 更新车辆信息（不包括司机和路线）
-	 * @param id
-	 * @param carNum
-	 * @param carTeam
-	 * @param locType
-	 * @param GPSText
-	 * @param carType
-	 * @param carBase
-	 * @param carBrand
-	 * @param carUse
-	 * @param carLength
-	 * @param carWidth
-	 * @param carHeight
-	 * @param carWeight
-	 * @param carPurTime
-	 * @param storage
-	 * @param driverName
-	 * @param startPlace
-	 * @param endPlace
-	 * @param stopPlace
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	@Deprecated
-	public ModelAndView updateCar(
-			@RequestParam String id,// GET方式传入，在action中
-			@RequestParam String carNum,
-			@RequestParam String carTeam,
-			@RequestParam String locType,
-			@RequestParam String terminalId,
-			@RequestParam String carType, @RequestParam String carBase,
-			@RequestParam String carBrand, @RequestParam String carUse,
-			@RequestParam double carLength, @RequestParam double carWidth,
-			@RequestParam double carHeight, @RequestParam double carWeight,
-			@RequestParam String carPurTime, @RequestParam String storage,
-			@RequestParam String driverId, @RequestParam String startPlace,
-			@RequestParam String endPlace, @RequestParam String stopPlace,
-			HttpServletRequest request, HttpServletResponse response) {
-
-		// 此处获取session里的carrierid，下面方法增加一个参数
-		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
-		// String carrierId = "C-0002";// 删除
-
-		boolean flag = carService.updateCar(id, carNum, carTeam, locType,
-				terminalId, carType, carBase, carBrand, carUse, carLength,
-				carWidth, carHeight, carWeight, carPurTime, storage, driverId,
-				startPlace, endPlace, stopPlace, carrierId);
-
-		if (flag == true) {
-			// mv.setViewName("mgmt_r_line");
-			try {
-				response.sendRedirect("car?flag=1");// 重定向，显示最新的结果
-			} catch (IOException e) {
-				// 
-				// 此处应该记录日志
-				e.printStackTrace();
-			}
-		} else
-			mv.setViewName("mgmt_r_car");
-		return mv;
-
-	}
 
 	@RequestMapping(value = "updateCar", method = RequestMethod.POST)
 	public String updateNewCar(Carinfo car,
@@ -431,65 +231,6 @@ public class CarController {
 		return "redirect:car?flag=1";
 	}
 	
-	//@RequestMapping(value = "/updateDriver", method = RequestMethod.POST)
-	/**
-	 * * 更新司机信息
-	 * @param id
-	 * @param name
-	 * @param sex
-	 * @param IDCard
-	 * @param licenceNum
-	 * @param licenceRate
-	 * @param licenceTime
-	 * @param phone
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	@Deprecated
-	public ModelAndView updateDriver(
-			@RequestParam(required = false) MultipartFile file,// new add
-			@RequestParam String id,// GET方式传入，在action中
-			@RequestParam String name, @RequestParam String sex,
-			@RequestParam String IDCard, @RequestParam String licenceNum,
-			@RequestParam String licenceRate, @RequestParam String licenceTime,
-			@RequestParam String phone, HttpServletRequest request,
-			HttpServletResponse response) {
-		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
-		// String carrierId = "C-0002";// 删除
-
-		// ////////////////////////////////////////////////////////////////////////
-		String path = null;
-		String fileName = null;
-		if (file.getSize() != 0)// 有上传文件的情况
-		{
-			path = UploadPath.getDriverPath();// 不同的地方取不同的上传路径
-			fileName = file.getOriginalFilename();
-			fileName = carrierId + "_" + fileName;// 文件名
-			File targetFile = new File(path, fileName);
-			try { // 保存 文件
-				file.transferTo(targetFile);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		// 没有上传文件的情况path 和 filenName默认为null
-		boolean flag = driverService.updateDriver(id, name, sex, IDCard,
-				licenceNum, licenceRate, licenceTime, phone, carrierId, path, fileName);
-		if (flag == true) {
-			try {
-				response.sendRedirect("driver?flag=1");// 重定向，显示最新的结果
-														// error,无法重定向
-				// mv.setViewName("mgmt_r_car");
-			} catch (Exception e) {
-				// 
-				// 此处应该记录日志
-				e.printStackTrace();
-			}
-		} else
-			mv.setViewName("mgmt_r_driver");
-		return mv;
-	}
 
 	@RequestMapping(value = "/updateDriver", method = RequestMethod.POST)
 	public String updateNewDriver(Driverinfo driver,MultipartFile file,
@@ -561,12 +302,12 @@ public class CarController {
 		return mv;
 	}
 
-	@RequestMapping(value = "/carteamdetail", method = RequestMethod.GET)
 	/**
 	 * 获取特定的车队信息
 	 * @param
 	 * @return
 	 */
+	@RequestMapping(value = "/carteamdetail", method = RequestMethod.GET)
 	public ModelAndView getCarteamDetail(@RequestParam String id,
 			@RequestParam("flag") int flag, HttpServletRequest request) {
 		Carteam carteaminfo = carTeamService.getCarteamInfo(id);// 车队信息
@@ -581,9 +322,9 @@ public class CarController {
 		return mv;
 	}
 
-	@RequestMapping(value = "insertcarteam", method = RequestMethod.POST)
 	/**
 	 */
+	@RequestMapping(value = "insertcarteam", method = RequestMethod.POST)
 	public ModelAndView insertCarteam(@RequestParam String teamName,
 			@RequestParam String carCount, @RequestParam String chief,
 			@RequestParam String phone, @RequestParam String explaination,
@@ -606,10 +347,10 @@ public class CarController {
 		return mv;
 	}
 
-	@RequestMapping(value = "deletecarteam", method = RequestMethod.GET)
 	/**
 	 * 删除
 	 */
+	@RequestMapping(value = "deletecarteam", method = RequestMethod.GET)
 	public ModelAndView deleteCarteam(@RequestParam String id,// GET方式传入，在action中
 			HttpServletRequest request, HttpServletResponse response) {
 
