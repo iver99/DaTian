@@ -45,7 +45,7 @@ public class MessageController {
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping("getAllUserMessage")
+	@RequestMapping(value="getAllUserMessage",produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String getAllUserMessage(HttpSession session){
 		JSONArray jsonArray = messageService.getAllUserMessage(session);

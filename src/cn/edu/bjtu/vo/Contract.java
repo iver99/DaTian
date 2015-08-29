@@ -31,7 +31,7 @@ public class Contract implements java.io.Serializable {
 	private String monthlyStatementDays;
 	private String clientId;
 	//add by RussWest0 at 2015年7月29日,下午9:28:07 
-	private Date createTime;
+	private Date createTime;//创建时间
 
 	
 	/**
