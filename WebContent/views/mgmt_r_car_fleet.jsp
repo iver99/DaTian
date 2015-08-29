@@ -158,7 +158,7 @@
 					
 					var str="<tr>";
 					str+="<td height=\"60\" class=\"td_mgmt_right3_td1d\">&nbsp;</td>";
-					str+="<td class=\"td_mgmt_right3_td1\"><a href=\"carteamdetail?id=${carteam.id }&flag=1\" hidefocus=\"true\">"+data[i].teamName+"</a></td>";
+					str+="<td class=\"td_mgmt_right3_td1\"><a href=\"carteamdetail?id="+data[i].id+"&flag=1\" hidefocus=\"true\">"+data[i].teamName+"</a></td>";
 					str+="<td class=\"td_mgmt_right3_td1\">"+data[i].carCount+"</td>";
 					str+="<td class=\"td_mgmt_right3_td1\">"+data[i].chief+"</td>";
 					str+="<td class=\"td_mgmt_right3_td1\">"+data[i].phone+"</td>";
@@ -168,7 +168,7 @@
 					str+="<ul class=\"quickmenu\">";
 					str+="<li class=\"menuitem\">";
 					str+="<div class=\"menu\">";
-					str+="<a href=\"carteamdetail?id=${carteam.id }&flag=2\" class=\"menuhd\" hidefocus=\"true\">更新</a>";
+					str+="<a href=\"carteamdetail?id="+data[i].id+"&flag=2\" class=\"menuhd\" hidefocus=\"true\">更新</a>";
 					str+="<div class=\"menubd\">";
 					str+="<div class=\"menubdpanel\">";
 					str+="<a href=\"deletecarteam?id=${carteam.id }\" class=\"a_top3\" hidefocus=\"true\">删除</a>";

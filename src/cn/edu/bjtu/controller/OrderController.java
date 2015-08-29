@@ -381,7 +381,7 @@ public class OrderController {
 	@RequestMapping("doUpdate")
 	public String updateOrder(HttpSession session,OrderBean orderBean){
 		
-		boolean flag=orderService.updateOrder(session, orderBean);
+		orderService.updateOrder(session, orderBean);
 		return "redirect:turnToOrderPage";
 		
 	}

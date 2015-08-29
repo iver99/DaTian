@@ -165,6 +165,16 @@
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
+		
+		
+		//setValue
+		setValue();
+	}
+	//set city line value
+	function setValue(){
+		var vip_service="${citylineInfo.VIPService}";
+		var vipservice=$("#VIPService");
+		vipservice.val(vip_service);
 	}
 </script>
 </html>

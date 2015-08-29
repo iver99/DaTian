@@ -182,7 +182,7 @@ public class OrderServiceImpl implements OrderService {
 	 */
 	@Override
 	public boolean updateOrder(HttpSession session, OrderBean orderBean) {
-//		String userId=(String)session.getAttribute(Constant.USER_ID);
+		String userId=(String)session.getAttribute(Constant.USER_ID);
 		Orderform orderInstance=orderDao.get(Orderform.class,orderBean.getId());
 
 		orderInstance.setClientName(orderBean.getClientName());
@@ -209,6 +209,9 @@ public class OrderServiceImpl implements OrderService {
 		
 		orderDao.update(orderInstance);
 		
+		//如果需要，保存常用收发货地址
+		saveAddress(orderBean, userId);
+		
 		return true;
 		
 	}
@@ -232,8 +235,15 @@ public class OrderServiceImpl implements OrderService {
 		
 		orderDao.save(orderInstance);
 		
-		//如果选中了保存常用地址，则进行常用地址保存
-		//发货人信息 
+		saveAddress(orderBean, userId);
+				
+		return true;
+	}
+	
+	//如果选中了保存常用地址，则进行常用地址保存
+    //发货人信息 
+	private void saveAddress(OrderBean orderBean, String userId) {
+		
 		if("on".equals(orderBean.getSender_info())){
 			Address address=new Address();
 			address.setName(orderBean.getDeliveryName());
@@ -258,8 +268,6 @@ public class OrderServiceImpl implements OrderService {
 			address.setKind(2);
 			addressDao.save(address);
 		}
-				
-		return true;
 	}
 
 	/**
