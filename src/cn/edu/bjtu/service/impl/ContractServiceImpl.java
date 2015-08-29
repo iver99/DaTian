@@ -1,5 +1,6 @@
 package cn.edu.bjtu.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,6 @@ import cn.edu.bjtu.dao.CompanyDao;
 import cn.edu.bjtu.dao.ContractDao;
 import cn.edu.bjtu.service.ContractService;
 import cn.edu.bjtu.util.Constant;
-import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.util.ParseDate;
 import cn.edu.bjtu.util.UploadFile;
@@ -26,7 +26,6 @@ import cn.edu.bjtu.vo.Contract;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.mchange.io.impl.EndsWithFilenameFilter;
 @Transactional
 @Service("contractServiceImpl")
 /**
@@ -73,7 +72,7 @@ public class ContractServiceImpl implements ContractService{
 		contract.setCarrierId(contract.getCarrierId());
 		contract.setClientId(userId);
 		contract.setState("待确认");//新建合同的初始状态为待确认  
-		
+		contract.setCreateTime(new Date());//设置创建合同时间  add by russwest at 2015年8月29日,上午11:30:29 
 		Carrierinfo company=companyDao.get(Carrierinfo.class, contract.getCarrierId());
 		contract.setCarrierAccount(company.getCompanyName());
 		
@@ -82,36 +81,7 @@ public class ContractServiceImpl implements ContractService{
 		contractDao.save(contract);// 保存实体
 		return true;
 	}
-	@Deprecated
-	public boolean insertContract(String id,String name, String caculateType,
-			String carrierAccount, String carrierId, String startDate, String endDate,
-			String contact, String phone, String remarks, String clientId,
-			String monthlyStatementDays,String path, String fileName) {
-		
-		contract.setCaculateType(caculateType);
-		contract.setCarrierAccount(carrierAccount);
-		contract.setClientId(clientId);
-		contract.setCarrierId(carrierId);
-		contract.setContact(contact);
-		contract.setEndDate(ParseDate.parseDate(startDate));
-		contract.setStartDate(ParseDate.parseDate(endDate));
-		contract.setName(name);
-		contract.setPhone(phone);
-		contract.setRemarks(remarks);
-		contract.setId(id);
-		contract.setState("待确认");
-		if(monthlyStatementDays != ""){
-			contract.setMonthlyStatementDays(monthlyStatementDays);
-		}
-		// 保存文件路径
-		if (path != null && fileName != null) {
-			String fileLocation = path + "//" + fileName;
-			contract.setRelatedMaterial(fileLocation);
-		}
-		contractDao.save(contract);//保存实体
-		return true;
-		
-	}
+	
 	@Override
 	/**
 	 * 终止合同
@@ -141,7 +111,7 @@ public class ContractServiceImpl implements ContractService{
 		}else if(userKind == 3){//企业用户
 			hql+=" and t.carrierId=:userId";
 		}
-		hql+=" order by t.startDate desc";
+		hql+=" order by t.createTime desc";
 		params.put("userId", userId);
 		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
 		int display=pageUtil.getDisplay()==0?10:pageUtil.getDisplay();
