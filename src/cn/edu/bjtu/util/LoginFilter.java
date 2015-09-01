@@ -51,6 +51,7 @@ public class LoginFilter extends OncePerRequestFilter {
 			filterChain.doFilter(request, response);
 			return ;
 		}
+		
 		// 是否过滤,true时过滤 false不过滤
 		boolean doFilter = true;
 		for (String s : notFilter) {
@@ -60,16 +61,20 @@ public class LoginFilter extends OncePerRequestFilter {
 				break;
 			}
 		}
+		//未登陆直接点击我的关注需要拦截 add by russwest at 2015年9月1日,下午5:27:52 
+		if(uri.indexOf("getallfocus") != -1){
+			doFilter=true;
+		}
 		if (doFilter) {
 			// 执行过滤
 			// 从session中获取登录者实体
-			System.out.println(">>>>" + uri + ">>>>" + doFilter);
+//			System.out.println(">>>>" + uri + ">>>>" + doFilter);
 			Object obj = request.getSession().getAttribute(Constant.USER_NAME);
 			if (null == obj) {
 				request.setCharacterEncoding("UTF-8");
 				response.setCharacterEncoding("UTF-8");
 				//跳转至登录页面
-				response.sendRedirect("loginForm");
+				response. sendRedirect("loginForm");
 				return;
 			} else {
 				// 如果session中存在登录者实体，则继续
