@@ -14,12 +14,14 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import cn.edu.bjtu.bean.search.CargoSearchBean;
 import cn.edu.bjtu.dao.GoodsInfoDao;
+import cn.edu.bjtu.service.FocusService;
 import cn.edu.bjtu.service.GoodsInfoService;
 import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.HQLTool;
@@ -40,32 +42,10 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 	@Resource
 	Goodsform goodsform;
 	@Resource
-	HQLTool hqltool;
-	@Resource
 	GoodsClientView goodsClientView;
+	@Autowired
+	FocusService focusService;
 	
-	@Override
-	@Deprecated
-	public List getSelectedGoodsInfo(String startPlace, String endPlace,
-			String transportType, int Display,int PageNow) {
-		
-		String [] paramList={"startPlace","endPlace","transportType"};//ûstartplace1 
-		String [] valueList={startPlace,endPlace,transportType};
-		String hql="from GoodsClientView ";
-		String sql=HQLTool.spellHql2(hql,paramList, valueList);
-		return goodsinfoDao.getSelectedGoodsInfo(sql,Display,PageNow);
-	}
-	
-	@Override
-	@Deprecated
-	public int getTotalRows(String startPlace, String endPlace, String transportType) {
-		
-		String [] paramList={"startPlace","endPlace","transportType"};//ûstartplace1 
-		String [] valueList={startPlace,endPlace,transportType};
-		String hql="from GoodsClientView "; 
-		String sql=HQLTool.spellHql2(hql,paramList, valueList);
-		return hqltool.getTotalRows(sql); 
-	}
 	
 	@Override
 	public GoodsClientView getAllGoodsDetail(String id) {
@@ -232,12 +212,14 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 	 public boolean deleteGoods(String id){
 		 Goodsform goodsform = goodsinfoDao.get(Goodsform.class, id);
 		 goodsinfoDao.delete(goodsform);
-		 
+		 //删除反馈表记录
 		 String hql="delete from Response t where t.goodsId=:goodsId";
 		 Map<String,Object> params=new HashMap<String,Object>();
 		 params.put("goodsId", id);
 		 goodsinfoDao.executeHql(hql, params);
 		 
+		 //设置关注表中为失效
+		 focusService.setInvalid(id);
 		 return true;
 		 
 	 }

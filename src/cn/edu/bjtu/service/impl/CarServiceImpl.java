@@ -22,14 +22,13 @@ import cn.edu.bjtu.bean.search.CarSearchBean;
 import cn.edu.bjtu.dao.CarDao;
 import cn.edu.bjtu.dao.CarTeamDao;
 import cn.edu.bjtu.service.CarService;
+import cn.edu.bjtu.service.FocusService;
 import cn.edu.bjtu.service.LinetransportService;
 import cn.edu.bjtu.util.Constant;
-import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Carinfo;
 import cn.edu.bjtu.vo.Carteam;
-import cn.edu.bjtu.vo.Cityline;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -48,6 +47,9 @@ public class CarServiceImpl implements CarService {
 	LinetransportService linetransportService;
 	@Resource
 	Carteam carteam;
+	
+	@Autowired
+	FocusService focusService;
 	
 	
 	/**
@@ -289,6 +291,9 @@ public class CarServiceImpl implements CarService {
 		carinfo = getCarInfo(id);// 根据id查找到车辆信息
 
 		carDao.delete(carinfo);
+		
+		//设置关注表中的此资源为失效
+		focusService.setInvalid(id);
 		return true;
 	}
 

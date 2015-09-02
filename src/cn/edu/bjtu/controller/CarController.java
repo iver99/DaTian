@@ -186,25 +186,14 @@ public class CarController {
 	}
 	
 
-	@RequestMapping(value = "cardelete", method = RequestMethod.GET)
 	/**
 	 * 删除
 	 */
-	public ModelAndView deleteCar(@RequestParam String id,// GET方式传入，在action中
+	@RequestMapping(value = "cardelete", method = RequestMethod.GET)
+	public String deleteCar(@RequestParam String id,// GET方式传入，在action中
 			HttpServletRequest request, HttpServletResponse response) {
-		boolean flag = carService.deleteCar(id);
-		if (flag == true) {
-			// mv.setViewName("mgmt_r_line");
-			try {
-				response.sendRedirect("car?flag=1");// 重定向，显示最新的结果
-			} catch (IOException e) {
-				// 
-				// 此处应该记录日志
-				e.printStackTrace();
-			}
-		} else
-			mv.setViewName("mgmt_r_car");
-		return mv;
+		carService.deleteCar(id);
+		return "redirect:car?flag=1";
 
 	}
 

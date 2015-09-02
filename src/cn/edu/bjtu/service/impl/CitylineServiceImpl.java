@@ -11,25 +11,23 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-
 import cn.edu.bjtu.bean.search.CityLineSearchBean;
-import cn.edu.bjtu.bean.search.LinetransportSearchBean;
-import cn.edu.bjtu.dao.BaseDao;
 import cn.edu.bjtu.dao.CitylineDao;
 import cn.edu.bjtu.service.CitylineService;
+import cn.edu.bjtu.service.FocusService;
 import cn.edu.bjtu.util.Constant;
-import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.util.UploadFile;
 import cn.edu.bjtu.vo.Cityline;
-import cn.edu.bjtu.vo.Linetransport;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 @Transactional
 @Repository
 /**
@@ -43,7 +41,8 @@ public class CitylineServiceImpl implements CitylineService {
 	CitylineDao citylineDao;
 	@Resource
 	Cityline cityline;
-	
+	@Autowired 
+	FocusService focusService;
 	/**
 	 * 资源栏获取筛选城市配送
 	 */
@@ -203,13 +202,17 @@ public class CitylineServiceImpl implements CitylineService {
 	}
 	
 	
-	@Override
 	/**
 	 * 删除城市配送
 	 */
+	@Override
 	public boolean deleteCityline(String id) {
 		cityline = getCitylineInfo(id);// 根据id查找到城市配送信息
 		citylineDao.delete(cityline);
+		
+		//把此关注表中的此干线信息设置为失效
+		focusService.setInvalid(id);
+		
 		return true;
 	}
 

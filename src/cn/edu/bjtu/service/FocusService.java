@@ -38,5 +38,12 @@ public interface FocusService extends BaseDao<Focus>{
 	 * @return
 	 */
 	public Integer getUserFocusTotalRowsAjax(FocusBean focusBean,HttpSession session);
+	
+	/**
+	 * 设置关注为失效状态
+	 * @param id
+	 * @return
+	 */
+	public boolean setInvalid(String id);
 
 }

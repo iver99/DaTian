@@ -293,6 +293,32 @@ public class FocusServiceImpl extends BaseDaoImpl<Focus> implements FocusService
 		
 	return count;
 	}
+
+	/**
+	 * 设置关注信息为失效状态，id为资源id
+	 */
+	@Override
+	public boolean setInvalid(String id) {
+		String hql="from Focus t where t.focusId=:focusId";
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("focusId", id);
+		List<Focus> focusList=focusDao.find(hql, params);
+		if(focusList !=null){
+			for(Focus focus:focusList){
+				/*focus.setStatus("失效");
+				focusDao.update(focus);*/
+				/**
+				 * 目前解决方案：
+				 * 当资源删除后直接将关注表中的对应的记录也删除
+				 */
+				focusDao.delete(focus);
+			}
+
+		}
+				
+		return true;
+	}
+	
 	
 	
 	

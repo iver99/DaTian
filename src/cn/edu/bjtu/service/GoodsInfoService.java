@@ -19,27 +19,6 @@ public interface GoodsInfoService {
 	
 	public GoodsClientView getAllGoodsDetail(String id);
 	public Goodsform getMyGoodsDetail(String id);
-	@Deprecated
-	public List getSelectedGoodsInfo(String startPlace, String endPlace, String transportType, int Display,int PageNow);
-	@Deprecated
-	public int getTotalRows(String startPlace, String endPlace, String transportType);
-	@Deprecated
-	public boolean insertGoods(String name,
-			String type,
-			float weight,
-			String transportType,
-			String transportReq,
-			String startPlace,
-			String endPlace,
-			String damageReq,
-			String VIPService,
-			String oriented,
-			String limitDate,
-			String invoice,
-			String remarks,
-			String clientId,
-			String path,
-			String fileName);
 	public boolean  insertNewGoods(Goodsform goods,HttpServletRequest request,MultipartFile file);
 	
 	@Deprecated

@@ -111,100 +111,12 @@ public class GoodsInfoController {
 		return mv;
 	}
 
-	@RequestMapping("goodsformselected")
-	/**
-	 *  * 获取满足条件的货物
-	 * @param startPlace
-	 * @param endPlace
-	 * @param transportType
-	 * @param Display
-	 * @param PageNow
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	@Deprecated
-	public ModelAndView getSelectedGoodsInfo(@RequestParam String startPlace,
-			@RequestParam String endPlace, @RequestParam String transportType,
-			@RequestParam int Display, @RequestParam int PageNow,
-			HttpServletRequest request, HttpServletResponse response) {
-
-		try {
-			response.setCharacterEncoding("UTF-8");
-			request.setCharacterEncoding("UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			// 
-			e.printStackTrace();
-		}
-
-		List goodsInfoList = goodsInfoService.getSelectedGoodsInfo(startPlace,
-				endPlace, transportType, Display, PageNow);
-		int count = goodsInfoService.getTotalRows(startPlace, endPlace,
-				transportType);// 获取总记录数
-
-		int pageNum = (int) Math.ceil(count * 1.0 / Display);// 页数
-		// System.out.println("总记录数+"+count);
-		// System.out.println("页数+"+pageNum);
-		mv.addObject("goodsformInfo", goodsInfoList);
-		mv.addObject("count", count);
-		mv.addObject("pageNum", pageNum);
-		mv.addObject("pageNow", PageNow);
-		mv.setViewName("resource_list6");
-
-		return mv;
-	}
 
 	@RequestMapping(value = "insertGoods", method = RequestMethod.POST)
 	public String insertNewGoods(Goodsform goods,MultipartFile file,
 			HttpServletRequest request) {
 		boolean flag=goodsInfoService.insertNewGoods(goods,request,file);
 		return "redirect:goodsform?flag=1";
-	}
-	@Deprecated
-	public ModelAndView insertGoods(@RequestParam MultipartFile file,
-			@RequestParam String name, @RequestParam String type,
-			@RequestParam float weight, @RequestParam String transportType,
-			@RequestParam String transportReq, @RequestParam String startPlace,
-			@RequestParam String endPlace, @RequestParam String damageReq,
-			@RequestParam String VIPService,
-			@RequestParam(required = false) String VIPServiceDetail,
-			@RequestParam String oriented,
-			@RequestParam String limitDate, @RequestParam String invoice,
-			@RequestParam(required = false) String relatedMaterial,
-			@RequestParam String remarks, HttpServletRequest request,
-			HttpServletResponse response) {
-
-		String clientId = (String) request.getSession().getAttribute(Constant.USER_ID);
-		String path = null;
-		String fileName = null;
-		if (file.getSize() != 0)// 有上传文件的情况
-		{
-			path = UploadPath.getGoodsPath();// 不同的地方取不同的上传路径
-			fileName = file.getOriginalFilename();
-			fileName = clientId + "_" + fileName;// 文件名
-			File targetFile = new File(path, fileName);
-			try { // 保存 文件
-				file.transferTo(targetFile);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		// 没有上传文件的情况path 和 filenName默认为null
-
-
-		boolean flag = goodsInfoService.insertGoods(name, type, weight,
-				transportType, transportReq, startPlace, endPlace, damageReq,
-				VIPService, oriented, limitDate, invoice, remarks, clientId,
-				path, fileName);
-		if (flag == true) {
-			try {
-				response.sendRedirect("goodsform?flag=1");
-			} catch (IOException e) {
-				// 
-				e.printStackTrace();
-			}
-		}
-		return mv;
 	}
 
 	@RequestMapping("mygoodsdetail")
@@ -226,58 +138,6 @@ public class GoodsInfoController {
 		return mv;
 	}
 
-	//@RequestMapping(value = "updategoods", method = RequestMethod.POST)
-	@Deprecated
-	public ModelAndView updateGoods(@RequestParam MultipartFile file,
-			@RequestParam String id,
-			@RequestParam String name, @RequestParam String type,
-			@RequestParam float weight, @RequestParam String transportType,
-			@RequestParam String transportReq, @RequestParam String startPlace,
-			@RequestParam String endPlace, @RequestParam String damageReq,
-			@RequestParam String VIPService,
-			@RequestParam(required = false) String VIPServiceDetail,
-			@RequestParam(required = false) String oriented,
-			@RequestParam String limitDate, @RequestParam String invoice,
-			@RequestParam(required = false) String relatedMaterial,
-			@RequestParam String remarks, HttpServletRequest request,
-			HttpServletResponse response) {
-
-		String clientId = (String) request.getSession().getAttribute(Constant.USER_ID);
-
-		String path = null;
-		String fileName = null;
-		// System.out.println("file+"+file+"filename"+file.getOriginalFilename());//不上传文件还是会显示有值
-		if (file.getSize() != 0)// 有上传文件的情况
-		{
-			path = UploadPath.getGoodsPath();// 不同的地方取不同的上传路径
-			fileName = file.getOriginalFilename();
-			fileName = clientId + "_" + fileName;// 文件名
-			File targetFile = new File(path, fileName);
-			try { // 保存 文件
-				file.transferTo(targetFile);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			// System.out.println("path+fileName+" + path + "-" + fileName);
-		}
-		// 没有上传文件的情况path 和 filenName默认为null
-
-		// ////////////////////////////////////////////
-		
-		boolean flag = goodsInfoService.updateGoods(id, name, type, weight,
-				transportType, transportReq, startPlace, endPlace, damageReq,
-				VIPService, oriented, limitDate, invoice, remarks, clientId,
-				path, fileName);
-		if (flag == true) {
-			try {
-				response.sendRedirect("goodsform?flag=1");
-			} catch (IOException e) {
-				// 
-				e.printStackTrace();
-			}
-		}
-		return mv;
-	}
 	
 	@RequestMapping(value = "updategoods", method = RequestMethod.POST)
 	public String updateNewGoods(Goodsform goods,MultipartFile file,
@@ -286,31 +146,16 @@ public class GoodsInfoController {
 		return "redirect:goodsform?flag=1";
 	}
 
-	@RequestMapping("deletegoods")
 	/**
-	 * 删除用户
+	 * 删除货物
 	 * @param id
-	 * @param request
-	 * @param response
 	 * @return
 	 */
-	public ModelAndView deleteGoods(@RequestParam String id,
-			HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping("deletegoods")
+	public String deleteGoods(@RequestParam String id) {
 
 		boolean flag = goodsInfoService.deleteGoods(id);
-		try {
-			if (flag == true)
-				response.sendRedirect("goodsform?flag=1");
-			else
-				System.out.println("删除失败");// 应记录日志
-		} catch (IOException e) {
-			// 
-			// 此处应记录日志
-			e.printStackTrace();
-
-		}
-
-		return mv;
+		return "redirect:goodsform?flag=1";
 	}
 	
 	@RequestMapping(value = "downloadgoodsrelated", method = RequestMethod.GET)
