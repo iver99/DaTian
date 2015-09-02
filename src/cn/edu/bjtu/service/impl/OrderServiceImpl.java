@@ -128,35 +128,6 @@ public class OrderServiceImpl implements OrderService {
 		return orderDao.cancel(cancelReason, orderId);
 	}
 
-	/*@Override
-	@Deprecated
-	public boolean updateOrder(String orderid, String clientName,
-			String hasCarrierContract, String contractId, String goodsName,
-			float goodsWeight, float goodsVolume, float declaredPrice,
-			float insurance, float expectedPrice, String deliveryName,
-			String deliveryPhone, String deliveryAddr, String recieverName,
-			String recieverPhone, String recieverAddr, String remarks) {
-		orderform = getOrderInfo(orderid);
-		orderform.setClientName(clientName);
-		orderform.setHasCarrierContract(hasCarrierContract);
-		orderform.setContractId(contractId);
-		orderform.setGoodsName(goodsName);
-		orderform.setGoodsWeight(goodsWeight);
-		orderform.setGoodsVolume(goodsVolume);
-		orderform.setDeclaredPrice(declaredPrice);
-		orderform.setInsurance(insurance);
-		orderform.setExpectedPrice(expectedPrice);
-		orderform.setDeliveryName(deliveryName);
-		orderform.setDeliveryPhone(deliveryPhone);
-		orderform.setDeliveryAddr(deliveryAddr);
-		orderform.setRecieverName(recieverName);
-		orderform.setRecieverPhone(recieverPhone);
-		orderform.setRecieverAddr(recieverAddr);
-		orderform.setRemarks(remarks);
-		orderDao.update(orderform);
-		return true;
-
-	}*/
 	
 
 	/**

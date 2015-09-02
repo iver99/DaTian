@@ -37,12 +37,6 @@ public class ComplaintServiceImpl implements ComplaintService {
 	OrderService orderService;
 	@Autowired
 	OrderDao orderDao;
-	@Deprecated
-	@Override
-	public List getUserCompliant(String userId) {
-		
-		return complaintDao.getUserCompliant(userId);
-	}
 
 	@Override
 	public List getAllUserCompliant() {

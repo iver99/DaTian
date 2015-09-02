@@ -21,30 +21,9 @@ public interface GoodsInfoService {
 	public Goodsform getMyGoodsDetail(String id);
 	public boolean  insertNewGoods(Goodsform goods,HttpServletRequest request,MultipartFile file);
 	
-	@Deprecated
-	public boolean updateGoods(String id, String name,
-			String type,
-			float weight,
-			String transportType,
-			String transportReq,
-			String startPlace,
-			String endPlace,
-			String damageReq,
-			String VIPService,
-			String oriented,
-			String limitDate,
-			String invoice,
-			String remarks,
-			String clientId,
-			String path,
-			String fileName);
 	public boolean  updateNewGoods(Goodsform goods,HttpServletRequest request,MultipartFile file);
 	
 	public boolean commitResponse(String goodsId,String remarks,String userId,String path,String fileName);
-	@Deprecated
-	public List getAllResponse(String carrierId);
-	@Deprecated
-	public List getUserGoodsInfo(String clientId);
 	
 	public boolean deleteGoods(String id);
 	

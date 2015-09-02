@@ -6,8 +6,6 @@ public interface ClientSecurityDao {
 	public boolean checkOldPassword(String oldPassword,String userId);
 	
 	public boolean changePassword(String newPassword,String userId);
-	@Deprecated
-	public boolean bindEmail(String email ,String userId);
 	
 	public Userinfo getUserById(String userId);
 	

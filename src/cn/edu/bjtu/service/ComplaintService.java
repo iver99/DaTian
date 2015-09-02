@@ -12,8 +12,6 @@ import com.alibaba.fastjson.JSONArray;
 
 public interface ComplaintService {
 
-	@Deprecated
-	public List getUserCompliant(String userId);
 	public List getAllUserCompliant();
 	public Complaintform getComplaintById(String id);
 	/*public boolean insertComplaint(String type, String theme,

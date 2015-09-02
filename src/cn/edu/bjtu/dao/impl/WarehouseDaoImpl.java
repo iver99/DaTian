@@ -8,7 +8,7 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import cn.edu.bjtu.dao.WarehouseDao;
-import cn.edu.bjtu.util.HQLTool;
+
 import cn.edu.bjtu.vo.Warehouse;
 
 @Repository

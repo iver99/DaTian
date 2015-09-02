@@ -9,15 +9,13 @@ import org.springframework.stereotype.Repository;
 
 import cn.edu.bjtu.dao.BaseDao;
 import cn.edu.bjtu.dao.FocusDao;
-import cn.edu.bjtu.util.HQLTool;
+
 import cn.edu.bjtu.vo.Address;
 import cn.edu.bjtu.vo.Focus;
 @Repository
 public class FocusDaoImpl extends BaseDaoImpl<Focus> implements FocusDao{
 	@Resource
 	private HibernateTemplate ht;
-	@Resource
-	private HQLTool hqltool;
 	/*@Resource
 	BaseDao baseDao;*/
 	

@@ -24,28 +24,9 @@ public class CompanycertificateDaoImpl extends BaseDaoImpl<Companycertificate> i
 	HibernateTemplate ht;
 	
 	@Autowired
-	
-	/*@Resource
-	BaseDao baseDao;*/
-	/*@Autowired
-	ClientDao clientDao;*/
-	/*@Resource
-	Companycertificate companycertificate;*/
 	@Resource
 	RegisterDao registerDao; 
 	
-	@Deprecated
-	@Override
-	public boolean validateCompany(String userId, String companyName,
-			String divisionCode, String legalName, String legalIDCard,
-			String companyAddr, String companyType, String companyScale,
-			String invoiceKind, String serviceIndustry, String businessKind,
-			String companyContact, String phone, String basicSituation,
-			String path, String fileName){
-		
-		
-		return true;
-	}
 
 	@Override
 	public Companycertificate getCompanycertificate(String companyId){

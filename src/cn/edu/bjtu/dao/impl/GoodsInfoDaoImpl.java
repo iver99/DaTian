@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import cn.edu.bjtu.dao.CompanyDao;
 import cn.edu.bjtu.dao.GoodsInfoDao;
 import cn.edu.bjtu.dao.ResponseDao;
-import cn.edu.bjtu.util.HQLTool;
+
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.GoodsClientView;
@@ -24,19 +24,11 @@ public class GoodsInfoDaoImpl extends BaseDaoImpl<Goodsform> implements GoodsInf
 
 	@Resource
 	private HibernateTemplate ht;
-	@Resource
-	private HQLTool hqltool;
 	
 	@Autowired
 	private CompanyDao companyDao;
 	@Autowired
 	private ResponseDao responseDao;
-
-	/*@Resource
-	private BaseDao baseDao;*/
-	/*@Autowired
-	GoodsInfoDao goodsInfoDao;*/
-
 
 	@Override
 	public GoodsClientView getAllGoodsDetail(String id) {
@@ -56,15 +48,6 @@ public class GoodsInfoDaoImpl extends BaseDaoImpl<Goodsform> implements GoodsInf
 
 	}
 
-	@Override
-	@Deprecated
-	public List getSelectedGoodsInfo(String hql, int display, int pageNow) {
-		
-		int page = pageNow;
-		int pageSize = display;
-
-		return hqltool.getQueryList(hql, page, pageSize);// Dao层分页函数提取到此方法
-	}
 
 	@Override
 	/**
@@ -111,19 +94,6 @@ public class GoodsInfoDaoImpl extends BaseDaoImpl<Goodsform> implements GoodsInf
 		return true;
 	}
 
-	@Override
-	@Deprecated
-	public List getAllResponse(String carrierId) {
-		
-		//return ht.find("from Goodsform where clientId='" + carrierId + "'");
-		return this.find("from GoodsResponseView where carrierId='"+carrierId+"'");
-	}
-	@Deprecated
-	@Override
-	public List getUserGoodsInfo(String clientId) {
-		
-		return ht.find("from Goodsform where clientId='" + clientId + "'");
-	}
 
 	@Override
 	public boolean deleteGoods(String id) {

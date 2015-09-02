@@ -9,7 +9,7 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import cn.edu.bjtu.dao.ContractDao;
-import cn.edu.bjtu.util.HQLTool;
+
 import cn.edu.bjtu.vo.Contract;
 import cn.edu.bjtu.vo.SubAccount;
 @Repository
@@ -22,12 +22,6 @@ public class ContractDaoImpl extends BaseDaoImpl<Contract> implements ContractDa
 
 	@Resource
 	HibernateTemplate ht;
-	/*@Resource
-	BaseDao baseDao;*/
-	/*@Autowired
-	ContractDao contractDao;*/
-	@Resource 
-	private HQLTool hqltool;
 	
 	Contract contract=null;
 	@Override
@@ -68,14 +62,6 @@ public class ContractDaoImpl extends BaseDaoImpl<Contract> implements ContractDa
 	}
 	
 	
-	@Override
-	public List getFindContract(String hql, int display, int pageNow) {
-		
-		int page = pageNow;
-		int pageSize = display;
-		
-		return hqltool.getQueryList(hql, page, pageSize);//Dao层分页函数提取到此方法
-	}
 	@Override
 	public boolean changeStatus(String id) {
 		

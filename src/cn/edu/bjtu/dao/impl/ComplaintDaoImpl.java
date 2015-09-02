@@ -8,7 +8,7 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import cn.edu.bjtu.dao.ComplaintDao;
-import cn.edu.bjtu.util.HQLTool;
+
 import cn.edu.bjtu.vo.Complaintform;
 
 @Repository
@@ -16,14 +16,6 @@ public class ComplaintDaoImpl extends BaseDaoImpl<Complaintform> implements Comp
 {
 	@Resource
 	HibernateTemplate ht;
-	@Resource
-	private HQLTool hqltool;
-	@Deprecated
-	@Override
-	public List getUserCompliant(String userId) {
-		
-		return ht.find("from Complaintform where clientId='"+userId+"'");
-	}
 
 	@Override
 	/**
@@ -35,11 +27,6 @@ public class ComplaintDaoImpl extends BaseDaoImpl<Complaintform> implements Comp
 	}
 
 	
-	/*@Override
-	public Complaintform getComplaintInfo(String id) {
-		return this.get(Complaintform.class, id);
-	}
-	*/
 	@Override
 	public List getFindComplaint(String sql){
 		return ht.find(sql);

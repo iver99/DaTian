@@ -46,25 +46,6 @@ public class ClientSecurityDaoImpl implements ClientSecurityDao {
 		return true;
 	}
 
-	@Override
-	/**
-	 * °ó¶¨ÓÊÏä
-	 */
-	@Deprecated
-	public boolean bindEmail(String email, String userId) {
-		
-		Userinfo user = ht.get(Userinfo.class, userId);
-		user.setEmail(email);
-		user.setEmailStatus("ÒÑ°ó¶¨");// ÐÞ¸Ä×´Ì¬
-		Clientinfo clientinfo = ht.get(Clientinfo.class, userId);
-		clientinfo.setEmail(email);
-
-		/*baseDao.update(user);
-		baseDao.update(clientinfo);*/
-		userinfoDao.update(user);
-		clientDao.update(clientinfo);
-		return true;
-	}
 
 	@Override
 	/**

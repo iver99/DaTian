@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import cn.edu.bjtu.dao.AuthenticationDao;
 import cn.edu.bjtu.dao.UserinfoDao;
 import cn.edu.bjtu.service.AuthenticationService;
-import cn.edu.bjtu.util.HQLTool;
+
 import cn.edu.bjtu.vo.Clientinfo;
 import cn.edu.bjtu.vo.Userinfo;
 @Transactional
@@ -26,10 +26,6 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 	@Autowired
 	UserinfoDao userinfoDao;	
 	
-	/*@Resource
-	BaseDao baseDao;*/
-	@Resource
-	HQLTool hqltool;
 	@Resource
 	private HibernateTemplate ht;
 

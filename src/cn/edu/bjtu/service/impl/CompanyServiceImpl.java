@@ -19,7 +19,7 @@ import cn.edu.bjtu.dao.CompanyDao;
 import cn.edu.bjtu.dao.UserinfoDao;
 import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.util.Constant;
-import cn.edu.bjtu.util.HQLTool;
+
 import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Userinfo;

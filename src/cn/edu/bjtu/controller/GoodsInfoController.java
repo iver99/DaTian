@@ -84,17 +84,9 @@ public class GoodsInfoController {
 	 * @param request
 	 * @return
 	 */
-	@Deprecated
 	@RequestMapping(value="/goodsform",params="flag=1")
-	public ModelAndView getMyInfoGoods(@RequestParam int flag,
-			HttpSession session) {
-			String clientId = (String) session.getAttribute(
-					"userId");
-			List goodsList = goodsInfoService.getUserGoodsInfo(clientId);
-			mv.addObject("goodsList", goodsList);
-			mv.setViewName("mgmt_r_cargo");
-
-		return mv;
+	public String getMyInfoGoods() {
+			return"mgmt_r_cargo";
 	}
 
 	@RequestMapping("/goodsdetail")

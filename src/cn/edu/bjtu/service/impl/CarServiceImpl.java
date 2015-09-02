@@ -192,42 +192,6 @@ public class CarServiceImpl implements CarService {
 		carDao.save(car);
 		return true;
 	}
-	@Deprecated
-	public boolean insertCar(String carNum, String carTeam,
-			String locationType, String terminalId, String carBase, String carBrand,
-			String carType, String carUse, double carLength, double carWidth,
-			double carHeight, double carWeight, String driverId,
-			String purchaseTime, String storage, String startPlace,
-			String endPlace, String stopPlace, String carrierId) {
-		
-		
-		carinfo.setId(IdCreator.createCarId());
-		carinfo.setCarNum(carNum);
-		carinfo.setCarTeam(carTeam);
-		carinfo.setLocationType(locationType);
-		carinfo.setTerminalId(terminalId);
-		carinfo.setCarBase(carBase);
-		carinfo.setCarBrand(carBrand);
-		carinfo.setCarType(carType);
-		carinfo.setCarUse(carUse);
-		carinfo.setCarLength(carLength);
-		carinfo.setCarWidth(carWidth);
-		carinfo.setCarHeight(carHeight);
-		carinfo.setCarWeight(carWeight);
-		carinfo.setDriverId(driverId);
-		carinfo.setPurchaseTime(stringToDate(purchaseTime));
-		carinfo.setStorage(storage);
-		carinfo.setStartPlace(startPlace);
-		carinfo.setEndPlace(endPlace);
-		carinfo.setStopPlace(stopPlace);
-		carinfo.setCarrierId(carrierId);
-		carinfo.setRelDate(new Date());
-		
-		carDao.save(carinfo);
-		return true;
-	}
-
-	
 
 	
 	@Override

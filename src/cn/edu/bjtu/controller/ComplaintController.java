@@ -48,15 +48,8 @@ public class ComplaintController {
 	ModelAndView mv = new ModelAndView();
 
 	@RequestMapping("/mycomplaint")
-	@Deprecated
-	public ModelAndView getUserComplaint(HttpServletRequest request,
-			HttpServletResponse response) {
-		String userId = (String) request.getSession().getAttribute(Constant.USER_ID);
-
-		List compliantList = complaintService.getUserCompliant(userId);
-		mv.addObject("compliantList", compliantList);
-		mv.setViewName("mgmt_d_complain");
-		return mv;
+	public String getUserComplaint() {
+		return "mgmt_d_complain";
 	}
 	/**
 	 * 交易信息-我的投诉

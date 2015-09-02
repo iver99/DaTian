@@ -9,7 +9,7 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import cn.edu.bjtu.dao.SubAccountDao;
-import cn.edu.bjtu.util.HQLTool;
+
 import cn.edu.bjtu.vo.SubAccount;
 
 
@@ -23,22 +23,11 @@ public class SubAccountDaoImpl extends BaseDaoImpl<SubAccount> implements SubAcc
 
 	@Resource
 	HibernateTemplate ht;
-	/*@Resource
-	BaseDao baseDao;*/
-	/*@Autowired
-	SubAccountDao subAccountDao;*/
-	@Resource 
-	private HQLTool hqltool;
 	
 	@Override
 	public List getSubAccount(String userId) {
 		
 		return ht.find("from SubAccount where hostAccountId='"+userId+"'");
-	}
-	
-	@Override
-	public List getFindSubAccount(String sql){
-		return hqltool.getQueryListSubAccount(sql);
 	}
 	
 	@Override

@@ -24,7 +24,7 @@ import cn.edu.bjtu.dao.GoodsInfoDao;
 import cn.edu.bjtu.service.FocusService;
 import cn.edu.bjtu.service.GoodsInfoService;
 import cn.edu.bjtu.util.Constant;
-import cn.edu.bjtu.util.HQLTool;
+
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.util.UploadFile;
@@ -77,41 +77,6 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 		return true;
 		
 	}
-	@Deprecated
-	public boolean insertGoods(String name, String type, float weight,
-		String transportType, String transportReq, String startPlace, String endPlace,
-		String damageReq, String VIPService, String oriented, String limitDate,
-		String invoice, String remarks,String clientId,String path,
-		String fileName) {
-		
-		
-		goodsform.setId(IdCreator.createGoodsId());
-		goodsform.setName(name);
-		goodsform.setType(type);
-		goodsform.setWeight(weight);
-		goodsform.setTransportType(transportType);
-		goodsform.setTransportReq(transportReq);
-		goodsform.setStartPlace(startPlace);
-		goodsform.setEndPlace(endPlace);
-		goodsform.setDamageReq(damageReq);
-		goodsform.setVipservice(VIPService);
-		goodsform.setOriented(oriented);
-		goodsform.setLimitDate(stringToDate(limitDate));
-		goodsform.setInvoice(invoice);
-		goodsform.setRemarks(remarks);
-		
-		goodsform.setRelDate(new Date());
-		goodsform.setState("��ȷ��");
-		goodsform.setClientId(clientId);
-		
-		if (path != null && fileName != null) {
-			String fileLocation = path + "//" + fileName;
-			goodsform.setRelatedMaterial(fileLocation);
-		}
-		goodsinfoDao.save(goodsform); 
-		return true;
-		
-	}
 
 	@Override
 	public boolean commitResponse(String goodsId, String remarks, String userId,String path,String fileName) {
@@ -119,19 +84,6 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 		return goodsinfoDao.commitResponse(goodsId,remarks,userId,path,fileName);
 	}
 
-	@Override
-	@Deprecated
-	public List getAllResponse(String userId) {
-		
-		return goodsinfoDao.getAllResponse(userId);
-	}
-	@Deprecated
-	@Override
-	public List getUserGoodsInfo(String userId) {
-		
-		
-		return goodsinfoDao.getUserGoodsInfo(userId);
-	}
 	
 	 public static Date stringToDate(String str) {  
 	        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");  
@@ -148,36 +100,6 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
 	        return date;  
 	} 
 	
-	 @Override
-	 @Deprecated
-		public boolean updateGoods(String id, String name, String type, float weight,
-			String transportType, String transportReq, String startPlace, String endPlace,
-			String damageReq, String VIPService, String oriented, String limitDate,
-			String invoice, String remarks,String clientId,String path, String fileName) {
-			
-			goodsform = getMyGoodsDetail(id);
-
-			goodsform.setName(name);
-			goodsform.setType(type);
-			goodsform.setWeight(weight);
-			goodsform.setTransportType(transportType);
-			goodsform.setTransportReq(transportReq);
-			goodsform.setStartPlace(startPlace);
-			goodsform.setEndPlace(endPlace);
-			goodsform.setDamageReq(damageReq);
-			goodsform.setVipservice(VIPService);
-			goodsform.setOriented(oriented);
-			goodsform.setLimitDate(stringToDate(limitDate));
-			goodsform.setInvoice(invoice);
-			goodsform.setRemarks(remarks);
-			if (path != null && fileName != null) {
-				String fileLocation = path + "//" + fileName;
-				goodsform.setRelatedMaterial(fileLocation);
-			}
-			goodsinfoDao.update(goodsform); 
-			return true;
-			
-		}
 	 
 	 @Override
 	 public boolean  updateNewGoods(Goodsform goods,HttpServletRequest request,MultipartFile file){

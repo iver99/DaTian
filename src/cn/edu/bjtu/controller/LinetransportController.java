@@ -65,7 +65,6 @@ public class LinetransportController {
 	 * @param session
 	 * @return
 	 */
-	@Deprecated
 	@RequestMapping(value="/linetransport",params="flag=1")
 	public String getAllCompanyLine(@RequestParam int flag,
 			PageUtil page, HttpSession session) {
