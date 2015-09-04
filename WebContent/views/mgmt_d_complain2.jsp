@@ -79,13 +79,13 @@
 					<tr>
 						<td class="td_mgmt_right3_td1a"> 
 						<br />   
-						<form action="insertComplaint" method="post"  enctype="multipart/form-data">      
+						<form action="insertComplaint" id="insert_complaint" method="post"  enctype="multipart/form-data">      
                             	          
 							<table width="90%" border="0" cellspacing="0" cellpadding="0">
 								<tr>
 									<td width="120" height="40" class="td_mgmt_right3_td1b">类型：</td>
 									<td>
-										<select style="width:120px;" name="type" required>
+										<select style="width:120px;" id="type" name="type" required>
 											<option value="" selected="selected">请选择</option>
                                             <option value="服务">服务</option>
                                             <option value="质量">质量</option>
@@ -94,24 +94,25 @@
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">主题：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="theme" required/></td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" id="theme" name="theme" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">内容：</td>
 									<td>
-                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="content" required></textarea>
+                                    	<textarea class="textarea_rating" placeholder="请输入内容..." id="content" name="content" required></textarea>
                                     </td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">订单编号：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="orderNum"/> (非必填项)</td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" id="orderNum" name="orderNum"/> (非必填项)</td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">相关材料：</td>
 									<td>
                                     	<div style="position:relative;">
-                                        	<input id="apply_attachment1" type="text" class="input_attachment1" style="width:230px;" value="" /><input id="upload_btn3" type="button" value="添加" class="input_attachment_btn1" style="width:60px; margin-left:10px;" />
-      <input id="upload_btn4" type="file" name="file" onchange="document.getElementById('apply_attachment1').value=/[^\\]+\.\w+$/.exec(this.value)[0]" class="input_attachment_btn1_hidden" style="width:300px;" hidefocus="true" required/>
+                                        	<input id="apply_attachment1" type="text" class="input_attachment1" style="width:230px;" value="" />
+                                        	<input id="upload_btn3" type="button" value="添加" class="input_attachment_btn1" style="width:60px; margin-left:10px;" />
+      										<input id="file" type="file" name="file" onchange="document.getElementById('apply_attachment1').value=/[^\\]+\.\w+$/.exec(this.value)[0]" class="input_attachment_btn1_hidden" style="width:300px;" hidefocus="true" required/>
                                         </div>
                                     </td>
 								</tr>
@@ -139,7 +140,24 @@
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
+		//validate
+		validateForm();
 	}
+	//验证表单
+	function validateForm(){
+		$("#insert_complaint").validate({
+			rules : {
+				//orderNum : "required",
+				type : "required",
+				theme : "required",
+				content : "required",
+				file:"required"
+				
+
+			}
+		});
+	}
+	
 	$(function(){
 		$('reset:button').click(function(){
 		   $('.input').val("");

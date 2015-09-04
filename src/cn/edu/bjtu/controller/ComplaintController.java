@@ -24,6 +24,7 @@ import cn.edu.bjtu.service.OrderService;
 import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.DownloadFile;
 import cn.edu.bjtu.util.PageUtil;
+import cn.edu.bjtu.util.UploadFile;
 import cn.edu.bjtu.util.UploadPath;
 import cn.edu.bjtu.vo.Complaintform;
 import cn.edu.bjtu.vo.Orderform;
@@ -112,49 +113,24 @@ public class ComplaintController {
 	 * @return
 	 */
 	@RequestMapping(value = "insertComplaint", method = RequestMethod.POST)
-	public ModelAndView insertComplaint(
+	public String insertComplaint(
 			@RequestParam(required = false) MultipartFile file,
 			ComplaintBean complaintBean, HttpServletRequest request,
 			HttpServletResponse response) {
-		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
-
-		String path = null;
-		String fileName = null;
-		if (file.getSize() != 0)// 有上传文件的情况
-		{
-			path = UploadPath.getComplaintPath();// 不同的地方取不同的上传路径
-			fileName = file.getOriginalFilename();
-			fileName = carrierId + "_" + fileName;// 文件名
-			File targetFile = new File(path, fileName);
-			try { // 保存 文件
-				file.transferTo(targetFile);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
-		boolean flag = complaintService.insertComplaint(complaintBean, carrierId, path, fileName);
-		if (flag == true) {
-			// mv.setViewName("mgmt_r_line");
-			try {
-				response.sendRedirect("mycomplaint");// 重定向，显示最新的结果
-			} catch (IOException e) {
-				// 
-				// 此处应该记录日志
-				e.printStackTrace();
-			}
-		} else
-			mv.setViewName("mgmt");
-		return mv;
+		String userId = (String) request.getSession().getAttribute(Constant.USER_ID);
+		String fileLocation=UploadFile.uploadFile(file, userId, "complaint");
+		complaintBean.setRelativeMaterial(fileLocation);
+		complaintService.insertComplaint(complaintBean, userId);
+		return "redirect:mycomplaint";
 	}
 
-	@RequestMapping("/allcomplaint")
 	/**
 	 * 后台投诉管理(管理员)
 	 * @param request
 	 * @param response
 	 * @return
 	 */
+	@RequestMapping("/allcomplaint")
 	public ModelAndView getAllUserComplaint(HttpSession session) {
 		String userId = (String) session.getAttribute(Constant.USER_ID);
 		// add by RussWest0 at 2015年5月30日,上午10:40:43

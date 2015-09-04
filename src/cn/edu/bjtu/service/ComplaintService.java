@@ -16,7 +16,7 @@ public interface ComplaintService {
 	public Complaintform getComplaintById(String id);
 	/*public boolean insertComplaint(String type, String theme,
 			String content, String orderNum, String carrierId,String path,String fileName);*/
-	public boolean insertComplaint(ComplaintBean complaintBean,String carrierId,String path,String fileName);
+	public boolean insertComplaint(ComplaintBean complaintBean,String userId);
 	public boolean doAcceptComplaint(String id, String feedback);
 	public List getFindComplaint(String theme,int flag, String clientId);
 	

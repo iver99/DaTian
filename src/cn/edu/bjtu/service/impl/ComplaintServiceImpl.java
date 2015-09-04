@@ -54,7 +54,7 @@ public class ComplaintServiceImpl implements ComplaintService {
 	/**
 	 * 新增投诉
 	 */
-	public boolean insertComplaint(ComplaintBean complaintBean, String carrierId, String path, String fileName) {
+	public boolean insertComplaint(ComplaintBean complaintBean, String userId) {
 		
 
 		complaintform.setId(IdCreator.createCityLineId());
@@ -62,18 +62,13 @@ public class ComplaintServiceImpl implements ComplaintService {
 		complaintform.setTheme(complaintBean.getTheme());
 		complaintform.setContent(complaintBean.getContent());
 		complaintform.setOrderNum(complaintBean.getOrderNum());
-		
-		complaintform.setCarrierId(carrierId);
-		complaintform.setClientId(carrierId);
+		complaintform.setRelatedMaterial(complaintBean.getRelativeMaterial());//add by russwest at 2015年9月4日,下午1:18:44 
+		//FIXME ??BUG?
+		complaintform.setCarrierId(userId);
+		complaintform.setClientId(userId);
 		complaintform.setRelDate(new Date());
 		// add by RussWest0 at 2015年5月30日,下午10:05:22
-		
-		// 保存文件路径
-		if (path != null && fileName != null) {
-			String fileLocation = path + "//" + fileName;
-			complaintform.setRelatedMaterial(fileLocation);
-		}
-
+ 
 		complaintform.setState("受理中");
 		complaintDao.save(complaintform);
 		return true;
