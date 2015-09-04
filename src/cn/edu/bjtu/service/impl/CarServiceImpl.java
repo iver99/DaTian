@@ -175,7 +175,7 @@ public class CarServiceImpl implements CarService {
 	public Carinfo getCarInfo(String carid) {
 		
 
-		return carDao.getCarInfo(carid);
+		return carDao.get(Carinfo.class, carid);
 	}
 
 	@Override

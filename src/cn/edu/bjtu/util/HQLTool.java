@@ -6,7 +6,6 @@ import javax.annotation.Resource;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Component;
 
 *//**
@@ -17,8 +16,6 @@ import org.springframework.stereotype.Component;
 @Component
 @Deprecated
 public class HQLTool {
-	@Resource
-	public HibernateTemplate ht;
 	@Deprecated
 	public static HQL_POJO spellHql(HQL_POJO hql) {
 		if (hql.flag == false) {

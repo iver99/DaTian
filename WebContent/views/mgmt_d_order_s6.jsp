@@ -75,7 +75,7 @@
                     <tr>
                         <td class="td_mgmt_right3_td1a">
                         	<div class="span_mgmt_right3_text4">物流信息</div>
-                            <%-- <div class="span_mgmt_right3_text2a"><a href="getOrderDetailCargoTrack?orderNum=${orderInfo.orderNum }&carNum=${orderInfo.carNum }" hidefocus="true">切换到货物轨迹</a></div>
+                            <%-- <div class="span_mgmt_right3_text2a"><a href="" hidefocus="true">切换到货物轨迹</a></div>
                             <table width="90%" border="0" cellspacing="0" cellpadding="0" style="clear:both; margin-left:24px;">
                                 <tr>
                                     <td width="120" height="35" class="td_mgmt_right3_td1c">2014-03-11 12:29:33</td>

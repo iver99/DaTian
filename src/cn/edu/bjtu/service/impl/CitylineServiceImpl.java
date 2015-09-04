@@ -149,7 +149,7 @@ public class CitylineServiceImpl implements CitylineService {
 	 * 获取城市配送信息
 	 */
 	public Cityline getCitylineInfo(String citylineid) {
-		return citylineDao.getCitylineInfo(citylineid);
+		return citylineDao.get(Cityline.class, citylineid);
 	}
 
 

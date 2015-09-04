@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,8 +38,6 @@ import com.alibaba.fastjson.JSONObject;
  */
 public class SubAccountServiceImpl implements SubAccountService{
 	
-	@Resource
-	HibernateTemplate ht;
 	@Resource 
 	SubAccountDao subAccountDao;
 	@Resource

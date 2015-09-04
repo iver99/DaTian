@@ -1,18 +1,14 @@
 package cn.edu.bjtu.dao.impl;
 
 import java.util.Date;
-import java.util.List;
-
-import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import cn.edu.bjtu.dao.CompanyDao;
+import cn.edu.bjtu.dao.GoodsClientViewDao;
 import cn.edu.bjtu.dao.GoodsInfoDao;
 import cn.edu.bjtu.dao.ResponseDao;
-
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.GoodsClientView;
@@ -22,19 +18,18 @@ import cn.edu.bjtu.vo.Response;
 @Repository
 public class GoodsInfoDaoImpl extends BaseDaoImpl<Goodsform> implements GoodsInfoDao {
 
-	@Resource
-	private HibernateTemplate ht;
-	
 	@Autowired
 	private CompanyDao companyDao;
 	@Autowired
 	private ResponseDao responseDao;
+	@Autowired
+	GoodsClientViewDao goodsClientViewDao;
 
 	@Override
 	public GoodsClientView getAllGoodsDetail(String id) {
 		
 
-		return ht.get(GoodsClientView.class, id);
+		return goodsClientViewDao.get(GoodsClientView.class, id);
 
 	}
 
@@ -98,7 +93,7 @@ public class GoodsInfoDaoImpl extends BaseDaoImpl<Goodsform> implements GoodsInf
 	@Override
 	public boolean deleteGoods(String id) {
 
-		Goodsform goodsform = ht.get(Goodsform.class, id);
+		Goodsform goodsform = this.get(Goodsform.class, id);
 		this.delete(goodsform);
 		return true;
 	}

@@ -18,7 +18,6 @@ public interface ComplaintService {
 			String content, String orderNum, String carrierId,String path,String fileName);*/
 	public boolean insertComplaint(ComplaintBean complaintBean,String userId);
 	public boolean doAcceptComplaint(String id, String feedback);
-	public List getFindComplaint(String theme,int flag, String clientId);
 	
 	/**
 	 * 获取用户投诉率

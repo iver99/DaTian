@@ -5,13 +5,11 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import cn.edu.bjtu.dao.ContractDao;
 
 import cn.edu.bjtu.vo.Contract;
-import cn.edu.bjtu.vo.SubAccount;
 @Repository
 /**
  * 合同dao层实现
@@ -20,8 +18,6 @@ import cn.edu.bjtu.vo.SubAccount;
  */
 public class ContractDaoImpl extends BaseDaoImpl<Contract> implements ContractDao{
 
-	@Resource
-	HibernateTemplate ht;
 	
 	Contract contract=null;
 	@Override
@@ -30,7 +26,7 @@ public class ContractDaoImpl extends BaseDaoImpl<Contract> implements ContractDa
 	 */
 	public List getCompanyContract(String carrierId) {
 		
-		return ht.find("from Contract where carrierId='"+carrierId+"'");
+		return this.find("from Contract where carrierId='"+carrierId+"'");
 	}
 	
 	/*@Override
@@ -45,7 +41,7 @@ public class ContractDaoImpl extends BaseDaoImpl<Contract> implements ContractDa
 	 */
 	public Contract getContractInfo(String contractId) {
 		
-		return ht.get(Contract.class, contractId);
+		return this.get(Contract.class, contractId);
 	}
 	@Override
 	/**
@@ -53,7 +49,7 @@ public class ContractDaoImpl extends BaseDaoImpl<Contract> implements ContractDa
 	 */
 	public boolean shutdownContract(String contractId, String reason) {
 		
-		contract=ht.get(Contract.class, contractId);
+		contract=this.get(Contract.class, contractId);
 		contract.setState("已终止");//更新状态
 		contract.setReason(reason);
 		/*baseDao.update(contract);		*/
@@ -65,7 +61,7 @@ public class ContractDaoImpl extends BaseDaoImpl<Contract> implements ContractDa
 	@Override
 	public boolean changeStatus(String id) {
 		
-		Contract contract = (Contract) ht.get(Contract.class, id);
+		Contract contract = this.get(Contract.class, id);
 		String temp="";
 		temp=contract.getState();
 		if(temp.equals("待确认")){

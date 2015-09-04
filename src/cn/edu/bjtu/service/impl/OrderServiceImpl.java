@@ -60,12 +60,6 @@ public class OrderServiceImpl implements OrderService {
 		return orderDao.getRecieveOrderDetail(id);
 	}
 
-	@Override
-	public List getCargoTrack(String orderNum, String carNum) {
-		
-		return orderDao.getCargoTrack(orderNum, carNum);
-	}
-
 
 	@Override
 	public Orderform getOrderByOrderNum(String orderNum) {

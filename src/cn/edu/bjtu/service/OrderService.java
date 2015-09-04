@@ -37,7 +37,6 @@ public interface OrderService {
 			float actualPrice, String explainReason,String fileLocation);
 	
 
-	public List getCargoTrack(String orderNum, String carNum);
 	
 	/**
 	 * 返回用户待受理订单数

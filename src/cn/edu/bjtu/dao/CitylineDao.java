@@ -6,6 +6,5 @@ import cn.edu.bjtu.vo.Cityline;
 
 public interface CitylineDao extends BaseDao<Cityline> {
 	
-	public Cityline getCitylineInfo(String citylineid);
 	
 }

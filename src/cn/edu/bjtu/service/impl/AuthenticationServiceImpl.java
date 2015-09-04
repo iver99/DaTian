@@ -5,7 +5,6 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,12 +24,6 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 	AuthenticationDao authenticationDao;
 	@Autowired
 	UserinfoDao userinfoDao;	
-	
-	@Resource
-	private HibernateTemplate ht;
-
-	private String hql = "";
-	private static boolean flag = false;
 	
 	@Override
 	/**

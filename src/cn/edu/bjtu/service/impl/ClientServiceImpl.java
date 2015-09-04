@@ -1,7 +1,8 @@
 package cn.edu.bjtu.service.impl;
 
 import java.util.Date;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -46,7 +47,7 @@ public class ClientServiceImpl implements ClientService{
 	@Override
 	public Clientinfo getClientInfo(String clientId) {
 		
-		return clientDao.getClientInfo(clientId);
+		return clientDao.get(Clientinfo.class, clientId);
 	}
 	
 	/**
@@ -55,7 +56,7 @@ public class ClientServiceImpl implements ClientService{
 	@Override
 	public Businessclient getBusinessclientInfo(String businessclientId) {
 		
-		return clientDao.getBusinessclientInfo(businessclientId);
+		return businessClientDao.get(Businessclient.class, businessclientId);
 	}
 	
 	@Override
@@ -146,10 +147,20 @@ public class ClientServiceImpl implements ClientService{
 		return false;
 		
 	}
+	/**
+	 * »ñÈ¡ÕË»§×´Ì¬
+	 */
 	@Override
 	public String getStatus(String userId) {
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("id", userId);
+		Userinfo userinfo=userinfoDao.get("from Userinfo t where t.id=:id",params);
 		
-		return clientDao.getStatus(userId);
+		if(userinfo != null){
+			return userinfo.getStatus();
+		}else
+			return "";
+		
 	}
 	@Override
 	/**

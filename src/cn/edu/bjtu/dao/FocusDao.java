@@ -11,5 +11,4 @@ public interface FocusDao extends BaseDao<Focus>{
 	
 	public List getFocusList(String clientId,String focusType);
 
-	public List getFind(String sql);
 }

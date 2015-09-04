@@ -555,22 +555,6 @@ public class OrderController {
 	 * @param orderid
 	 * @return
 	 */
-	@RequestMapping(value = "getOrderDetailCargoTrack")
-	public ModelAndView getOrderDetailCargoTrack(HttpServletRequest request,
-			HttpServletResponse response, @RequestParam String orderNum, 
-			@RequestParam String carNum) {
-		List cargoTrackList = orderService.getCargoTrack(orderNum,carNum);
-		mv.addObject("cargoTrackList", cargoTrackList);
-		mv.setViewName("mgmt_d_order_s7");
-		return mv;
-	}
-
-	/**
-	 * 
-	 * 
-	 * @param orderid
-	 * @return
-	 */
 	@RequestMapping(value = "getOrderDetailWaitToConfirm")
 	public ModelAndView getOrderDetailWaitToConfirm(HttpServletRequest request,
 			HttpServletResponse response, String orderid) {

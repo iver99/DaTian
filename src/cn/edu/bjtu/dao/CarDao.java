@@ -8,7 +8,6 @@ import cn.edu.bjtu.vo.Driverinfo;
 
 public interface CarDao extends BaseDao<Carinfo>{
 	
-	public Carinfo getCarInfo(String carid);
 	
 	
 }

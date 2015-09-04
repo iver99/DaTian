@@ -87,11 +87,10 @@ public class CompanycertificateController {
 		return mv;
 	}
 	
-	@RequestMapping("detailcompanycertificate")
 	/**
 	 * 查看公司验证信息
 	 */
-	
+	@RequestMapping("detailcompanycertificate")
 	public ModelAndView detailCompanyCertificate(
 			@RequestParam int flag,
 			HttpServletRequest request, HttpServletResponse response) {

@@ -5,7 +5,6 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.catalina.ha.backend.Sender;
-import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import cn.edu.bjtu.dao.SearchDao;
@@ -18,12 +17,9 @@ import cn.edu.bjtu.dao.SearchDao;
 @Repository
 public class SearchDaoImpl implements SearchDao{
 
-	@Resource 
-	HibernateTemplate ht;
 	@Override
 	public List getLineResourceByStartPlace(String startPlace) {
 		
-		return ht.find("from LineCarrierView where startPlace like '%"+startPlace+"%'");
 	}
 
 	@Override

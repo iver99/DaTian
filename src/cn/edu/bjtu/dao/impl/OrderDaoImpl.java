@@ -5,11 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
-import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import cn.edu.bjtu.dao.OrderCarrierViewDao;
 import cn.edu.bjtu.dao.OrderDao;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.vo.OrderCarrierView;
@@ -18,27 +17,21 @@ import cn.edu.bjtu.vo.Orderform;
 @Repository
 public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 
-	@Resource
-	private HibernateTemplate ht;
-
-
+	@Autowired
+	OrderCarrierViewDao orderCarrierViewDao;
+	
 	@Override
 	public OrderCarrierView getSendOrderDetail(String id) {
 		
-		return ht.get(OrderCarrierView.class, id);
+		return orderCarrierViewDao.get(OrderCarrierView.class, id);
 	}
 
 	@Override
 	public Orderform getRecieveOrderDetail(String id) {
 		
-		return ht.get(Orderform.class, id);
+		return this.get(Orderform.class, id);
 	}
 	
-	@Override
-	public List getCargoTrack(String orderNum, String carNum) {
-		
-		return ht.find("from Track where orderNum='" + orderNum + "' and carNum='" + carNum + "'");
-	}
 
 	@Override
 	/**
@@ -54,7 +47,7 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 	@Override
 	public OrderCarrierView getOrderByOrderId(String orderId) {
 		
-		return ht.get(OrderCarrierView.class, orderId);
+		return orderCarrierViewDao.get(OrderCarrierView.class, orderId);
 	}
 
 	@Override
@@ -74,7 +67,7 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 	@Override
 	public float getExpectedMoney(String orderId) {
 		
-		List list = ht.find("select expectedPrice from Orderform where id='" + orderId + "'");
+		List list = this.find("select expectedPrice from Orderform where id='" + orderId + "'");
 		if (list != null)
 		{
 			//Orderform order=(Float)list.get(0);
@@ -91,7 +84,7 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 	 */
 	public Orderform getOrderInfo(String orderId) {
 		
-		return (Orderform) ht.get(Orderform.class, orderId);
+		return this.get(Orderform.class, orderId);
 	}
 
 	@Override
@@ -100,7 +93,7 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 	 */
 	public boolean confirmCargo(String orderId) {
 		
-		Orderform order=ht.get(Orderform.class, orderId);
+		Orderform order=this.get(Orderform.class, orderId);
 		order.setState("待评价");
 		
 		this.update(order);
@@ -113,7 +106,7 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 	 */
 	public boolean cancel(String cancelReason, String orderId) {
 		
-		Orderform order=ht.get(Orderform.class, orderId);
+		Orderform order=this.get(Orderform.class, orderId);
 		order.setCancelReason(cancelReason);
 		order.setState("已取消");
 		
@@ -127,7 +120,7 @@ public class OrderDaoImpl extends BaseDaoImpl<Orderform> implements OrderDao {
 	 */
 	public boolean DoGetOrderWaitToConfirmUpdate(String orderId,float actualPrice,String explainReason) {
 		
-		Orderform order = (Orderform) ht.get(Orderform.class, orderId);
+		Orderform order = this.get(Orderform.class, orderId);
 		order.setActualPrice(actualPrice);
 		order.setExplainReason(explainReason);
 		this.update(order);

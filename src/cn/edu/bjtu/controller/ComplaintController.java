@@ -190,32 +190,6 @@ public class ComplaintController {
 		return "redirect:allcomplaint";
 	}
 
-	@RequestMapping("findbycomplainttheme")
-	/**
-	 * 子账户的查询功能
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	public ModelAndView findByComplaintTheme(@RequestParam String theme,
-			@RequestParam int flag, HttpServletRequest request,
-			HttpServletResponse response) {
-
-		String clientId = (String) request.getSession().getAttribute(Constant.USER_ID);
-		if (flag == 0) {// 后台管理的搜索
-			List complaintList = complaintService.getFindComplaint(theme, flag,
-					clientId);
-			mv.addObject("allCompliantList", complaintList);
-			mv.setViewName("mgmt_m_complain");
-		} else if (flag == 1) {// 我的交易-我的投诉的搜索
-			List complaintList = complaintService.getFindComplaint(theme, flag,
-					clientId);
-			mv.addObject("compliantList", complaintList);
-			mv.setViewName("mgmt_d_complain");
-		}
-		return mv;
-	}
-
 	@RequestMapping(value = "downloadrelatedmaterial", method = RequestMethod.GET)
 	public ModelAndView downloadRelatedMaterial(@RequestParam String id,// GET方式传入，在action中
 			HttpServletRequest request, HttpServletResponse response) {
