@@ -240,72 +240,37 @@ public class CarController {
 	/**
 	 */
 	@RequestMapping(value = "insertcarteam", method = RequestMethod.POST)
-	public ModelAndView insertCarteam(@RequestParam String teamName,
+	public String insertCarteam(@RequestParam String teamName,
 			@RequestParam String carCount, @RequestParam String chief,
 			@RequestParam String phone, @RequestParam String explaination,
 			HttpServletRequest request, HttpServletResponse response) {
 		String carrierId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		boolean flag = carTeamService.insertCarteam(teamName, carCount, chief,
 				phone, explaination, carrierId);
-		// boolean flag=true;
-		if (flag == true) {
-			// mv.setViewName("mgmt_r_line");
-			try {
-				response.sendRedirect("carteam");// 重定向，显示最新的结果
-			} catch (IOException e) {
-				// 
-				// 此处应该记录日志
-				e.printStackTrace();
-			}
-		} else
-			mv.setViewName("mgmt_r_car");
-		return mv;
+		return "redirect:carteam";
 	}
 
 	/**
 	 * 删除
 	 */
 	@RequestMapping(value = "deletecarteam", method = RequestMethod.GET)
-	public ModelAndView deleteCarteam(@RequestParam String id,// GET方式传入，在action中
+	public String deleteCarteam(@RequestParam String id,// GET方式传入，在action中
 			HttpServletRequest request, HttpServletResponse response) {
 
-		boolean flag = carTeamService.deleteCarteam(id);
-		if (flag == true) {
-			// mv.setViewName("mgmt_r_line");
-			try {
-				response.sendRedirect("carteam");// 重定向，显示最新的结果
-			} catch (IOException e) {
-				// 
-				// 此处应该记录日志
-				e.printStackTrace();
-			}
-		} else
-			mv.setViewName("mgmt_r_car");
-		return mv;
+		carTeamService.deleteCarteam(id);
+		return "redirect:carteam";
 
 	}
 
 	@RequestMapping(value = "updatecarteam", method = RequestMethod.POST)
-	public ModelAndView updateCarteam(@RequestParam String id,
+	public String updateCarteam(@RequestParam String id,
 			@RequestParam String teamName, @RequestParam String carCount,
 			@RequestParam String chief, @RequestParam String phone,
 			@RequestParam String explaination, HttpServletRequest request,
 			HttpServletResponse response) {
-		boolean flag = carTeamService.updateCarteam(id, teamName, carCount, chief,
+		carTeamService.updateCarteam(id, teamName, carCount, chief,
 				phone, explaination);
-		// boolean flag=true;
-		if (flag == true) {
-			// mv.setViewName("mgmt_r_line");
-			try {
-				response.sendRedirect("carteam");// 重定向，显示最新的结果
-			} catch (IOException e) {
-				// 
-				// 此处应该记录日志
-				e.printStackTrace();
-			}
-		} else
-			mv.setViewName("mgmt_r_car");
-		return mv;
+		return "redirect:carteam";
 	}
 	
 	@RequestMapping(value = "downloadidscans", method = RequestMethod.GET)

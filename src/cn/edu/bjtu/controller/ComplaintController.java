@@ -182,22 +182,12 @@ public class ComplaintController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView doAcceptComplaint(@RequestParam String id,
+	public String doAcceptComplaint(@RequestParam String id,
 			@RequestParam String feedback, HttpServletRequest request,
 			HttpServletResponse response) {
 
-		boolean flag = complaintService.doAcceptComplaint(id, feedback);
-		if (flag == true) {
-			try {
-				response.sendRedirect("allcomplaint");
-			} catch (IOException e) {
-				// 
-				// 此处应该记录日志
-				e.printStackTrace();
-			}
-		} else
-			mv.setViewName("mgmt_m_complain");
-		return mv;
+		complaintService.doAcceptComplaint(id, feedback);
+		return "redirect:allcomplaint";
 	}
 
 	@RequestMapping("findbycomplainttheme")
