@@ -193,7 +193,7 @@ function getUserOrderResource(display,currentPage,orderNum){
 						body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"orderDetail?orderid="+data[i].id+"\" hidefocus=\"true\">"+data[i].orderNum+"</a></td>");
 						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].resourceType+"</td>");
 						body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"javascript:;\" class=\"link1\" hidefocus=\"true\">"+data[i].resourceName+"</a></td>");
-						body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"javascript:;\" class=\"link1\" hidefocus=\"true\">"+data[i].companyName+"</a></td>");
+						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].companyName+"</td>");
 						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].expectedPrice+"</td>");
 						if(data[i].actualPrice ==undefined){
 							body.append("<td class=\"td_mgmt_right3_td1\">--</td>");

@@ -221,11 +221,9 @@ public class WarehouseController {
 	 * 删除
 	 */
 	@RequestMapping(value = "warehousedelete", method = RequestMethod.GET)
-	public String deleteWarehouse(
-			@RequestParam String id,// GET方式传入，在action中
-			HttpServletRequest request,
-			HttpServletResponse response) {
-		boolean flag = warehouseService.deleteWarehouse(id);
+	public String deleteWarehouse(@RequestParam String id,// GET方式传入，在action中
+			HttpServletRequest request, HttpServletResponse response) {
+		warehouseService.deleteWarehouse(id);
 		return "redirect:warehouse?flag=1";
 
 	}

@@ -27,13 +27,13 @@ public class CompanycertificateController {
 	ModelAndView mv = new ModelAndView();
 	
 
-	@RequestMapping("getcompanyvalidateform")
 	/**
 	 * 验证公司表单
 	 * @param request
 	 * @param response
 	 * @return
 	 */
+	@RequestMapping("getcompanyvalidateform")
 	public ModelAndView getCompanyValidateForm() {
 		mv.setViewName("mgmt_a_info4");
 		return mv;
@@ -87,11 +87,10 @@ public class CompanycertificateController {
 		return mv;
 	}
 	
-	@RequestMapping("detailcompanycertificate")
 	/**
 	 * 查看公司验证信息
 	 */
-	
+	@RequestMapping("detailcompanycertificate")
 	public ModelAndView detailCompanyCertificate(
 			@RequestParam int flag,
 			HttpServletRequest request, HttpServletResponse response) {

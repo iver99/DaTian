@@ -2,13 +2,12 @@ package cn.edu.bjtu.dao.impl;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
-import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import cn.edu.bjtu.dao.AuthenticationDao;
-import cn.edu.bjtu.util.HQLTool;
+import cn.edu.bjtu.dao.ClientDao;
+import cn.edu.bjtu.dao.UserinfoDao;
 import cn.edu.bjtu.vo.Clientinfo;
 import cn.edu.bjtu.vo.Userinfo;
 @Repository
@@ -19,13 +18,10 @@ import cn.edu.bjtu.vo.Userinfo;
  */
 public class AuthenticationDaoImpl extends BaseDaoImpl<Userinfo> implements AuthenticationDao{
 
-	@Resource
-	HibernateTemplate ht;
-	/*@Resource
-	BaseDao baseDao;*/
-	@Resource 
-	private HQLTool hqltool;
-	
+	@Autowired
+	ClientDao clientInfoDao;
+	@Autowired
+	UserinfoDao userinfoDao;
 	Userinfo userinfo=null;
 	@Override
 	/**
@@ -42,7 +38,7 @@ public class AuthenticationDaoImpl extends BaseDaoImpl<Userinfo> implements Auth
 	 */
 	public Clientinfo getAuthenticationInfo(String clientId) {
 		
-		return ht.get(Clientinfo.class, clientId);
+		return clientInfoDao.get(Clientinfo.class, clientId);
 	}
 
 	@Override
@@ -53,7 +49,7 @@ public class AuthenticationDaoImpl extends BaseDaoImpl<Userinfo> implements Auth
 	public Userinfo getMyUserDetail(String clientId) {
 		
 		
-		return ht.get(Userinfo.class,clientId);
+		return userinfoDao.get(Userinfo.class,clientId);
 		
 	}
 
@@ -65,7 +61,7 @@ public class AuthenticationDaoImpl extends BaseDaoImpl<Userinfo> implements Auth
 				// 查找时不考虑用户名
 			} else
 				sql += "and username like '%" + username + "%'";
-		return ht.find(sql);
+		return userinfoDao.find(sql);
 	}
 
 	

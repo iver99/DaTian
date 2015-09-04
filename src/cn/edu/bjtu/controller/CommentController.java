@@ -40,27 +40,14 @@ public class CommentController {
 	 * @return
 	 */
 	@RequestMapping("/commitcomment")
-	public ModelAndView commitComment(HttpSession session ,
+	public String commitComment(HttpSession session ,
 			String rate1,String rate2,String rate3,String rate4,
 			String remarks,String orderid,HttpServletResponse response)
 	{
 		String userId=(String)session.getAttribute(Constant.USER_ID);
-		if(userId==null)//Î´µÇÂ¼
-		{
-			mv.setViewName("login");
-		}
-		boolean flag=commentService.commitComment(rate1,rate2,rate3,rate4,remarks,userId,orderid);
-		if(flag==true){
-			try {
-				response.sendRedirect("turnToOrderPage");
-			} catch (IOException e) {
-				// 
-				e.printStackTrace();
-			}
-		}
-			
-		mv.setViewName("mgmt_d_order_s");
-		return mv;
+		commentService.commitComment(rate1,rate2,rate3,rate4,remarks,userId,orderid);
+		
+		return "redirect:turnToOrderPage";
 		
 	}
 	

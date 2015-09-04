@@ -2,13 +2,13 @@ package cn.edu.bjtu.dao.impl;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
-import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import cn.edu.bjtu.dao.CitylineDao;
 import cn.edu.bjtu.dao.CompanyDao;
-import cn.edu.bjtu.util.HQLTool;
+import cn.edu.bjtu.dao.LinetransportDao;
+import cn.edu.bjtu.dao.WarehouseDao;
 import cn.edu.bjtu.vo.Carrierinfo;
 /**
  * 
@@ -18,8 +18,12 @@ import cn.edu.bjtu.vo.Carrierinfo;
 @Repository
 public class CompanyDaoImpl extends BaseDaoImpl<Carrierinfo> implements CompanyDao{
 	
-	@Resource
-	private HibernateTemplate ht;
+	@Autowired
+	LinetransportDao linetransportDao;
+	@Autowired
+	CitylineDao citylineDao;
+	@Autowired
+	WarehouseDao warehouseDao;
 	
 	@Override
 	/**
@@ -28,22 +32,22 @@ public class CompanyDaoImpl extends BaseDaoImpl<Carrierinfo> implements CompanyD
 	public Carrierinfo getCarrierInfo(String id) {
 		
 		
-		return ht.get(Carrierinfo.class, id);
+		return this.get(Carrierinfo.class, id);
 	}
 	
 	@Override
 	public List getLinetransportByCarrierId(String id){
-		return ht.find("from Linetransport as s where s.carrierId='" + id+ "'");
+		return linetransportDao.find("from Linetransport as s where s.carrierId='" + id+ "'");
 	}
 	
 	@Override
 	public List getCitylineByCarrierId(String id){
-		return ht.find("from Cityline as s where s.carrierId='" + id+ "'");
+		return citylineDao.find("from Cityline as s where s.carrierId='" + id+ "'");
 	}
 	
 	@Override
 	public List getwarehouseByCarrierId(String id){
-		return ht.find("from Warehouse as s where s.carrierId='" + id+ "'");
+		return warehouseDao.find("from Warehouse as s where s.carrierId='" + id+ "'");
 	}
 	
 	

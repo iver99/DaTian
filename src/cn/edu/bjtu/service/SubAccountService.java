@@ -11,14 +11,8 @@ import cn.edu.bjtu.vo.SubAccount;
 public interface SubAccountService {
 
 	public List getSubAccount(String userId);
-	public List getFindSubAccount(String userId, String username);
 	public boolean changeStatus(String id);
 	public boolean deleteSubAccount(String id);
-	@Deprecated
-	public boolean insertSubAccount(String username,String password,String resourceManagement,
-			String transactionManagement,String schemaManagement,
-			String statisticsManagement,String remarks,
-			String hostAccountId,String hostAccountName);
 	
 	/**
 	 * ¸üÐÂ¸½ÊôÕË»§

@@ -11,19 +11,19 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import cn.edu.bjtu.bean.search.WarehouseSearchBean;
 import cn.edu.bjtu.dao.WarehouseDao;
+import cn.edu.bjtu.service.FocusService;
 import cn.edu.bjtu.service.WarehouseService;
 import cn.edu.bjtu.util.Constant;
-import cn.edu.bjtu.util.HQLTool;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.util.UploadFile;
-import cn.edu.bjtu.vo.Linetransport;
 import cn.edu.bjtu.vo.Warehouse;
 
 import com.alibaba.fastjson.JSONArray;
@@ -42,6 +42,8 @@ public class WarehouseServiceImpl implements WarehouseService {
 	WarehouseDao warehouseDao;
 	@Resource
 	Warehouse warehouse;
+	@Autowired
+	FocusService focusService;
 
 	@Override
 	public Warehouse getWarehouseInfo(String Warehouseid) {
@@ -61,42 +63,6 @@ public class WarehouseServiceImpl implements WarehouseService {
 		warehouse.setDetailPrice(fileLocation);
 		warehouseDao.save(warehouse);// 保存实体
 		return true;
-	}
-	@Deprecated
-	public boolean insertWarehouse(String name, String city, String address,
-			String type, String kind, float houseArea, float yardArea,
-			float height, String fireRate, String storageForm,
-			String fireSecurity, String environment, String serviceContent,
-			String contact, String phone, String remarks, String carrierId,String path,String fileName) {
-		
-		warehouse.setAddress(address);
-		warehouse.setCarrierId(carrierId);
-		warehouse.setCity(city);
-		warehouse.setContact(contact);
-		// warehouse.setDetailPrice(detailPrice);
-		warehouse.setEnvironment(environment);
-		warehouse.setFireRate(fireRate);
-		warehouse.setFireSecurity(fireSecurity);
-		warehouse.setHeight(height);
-		warehouse.setHouseArea(houseArea);
-		warehouse.setId(IdCreator.createRepositoryId());
-		warehouse.setKind(kind);
-		warehouse.setName(name);
-		warehouse.setPhone(phone);
-		warehouse.setRelDate(new Date());
-		warehouse.setRemarks(remarks);
-		warehouse.setServiceContent(serviceContent);
-		warehouse.setStorageForm(storageForm);
-		warehouse.setType(type);
-		warehouse.setYardArea(yardArea);
-		
-		// 保存文件路径
-		if (path != null && fileName != null) {
-			String fileLocation = path + "//" + fileName;
-			warehouse.setDetailPrice(fileLocation);
-		}
-		 warehouseDao.save(warehouse);// 保存实体
-		 return true;
 	}
 
 	@Override
@@ -136,6 +102,9 @@ public class WarehouseServiceImpl implements WarehouseService {
 	public boolean deleteWarehouse(String id){
 		warehouse = getWarehouseInfo(id);// 根据id查找到仓库信息
 		warehouseDao.delete(warehouse);
+		//设置关注信息为失效
+		focusService.setInvalid(id);
+		
 		return true;
 	}
 

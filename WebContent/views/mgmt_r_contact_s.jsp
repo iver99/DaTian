@@ -192,7 +192,7 @@
 					 str+="<td class=\"td_mgmt_right3_td1\" id=\"name\">"+data[i].name+"</td>";
 					 str+="<td class=\"td_mgmt_right3_td1\">"+data[i].carrierAccount+"</td>";
 					 str+="<td class=\"td_mgmt_right3_td1\">"+data[i].monthlyStatementDays+"</td>";
-					 str+="<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].startDate)+"</td>";
+					 str+="<td class=\"td_mgmt_right3_td1\">"+renderTime(data[i].createTime)+"</td>";
 					 str+="<td class=\"td_mgmt_right3_td1\">"+data[i].state+"</td>";
 					 if(data[i].state=='有效'){
 						 str+="<td class=\"td_mgmt_right3_td3\"><a href=\"contractdetail?contractId="+data[i].id+"&flag=2\" hidefocus=\"true\">终止</a></td>";

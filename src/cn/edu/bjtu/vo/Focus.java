@@ -14,9 +14,9 @@ public class Focus implements java.io.Serializable {
 
 	private String id;
 	private String clientId;
-	private String focusType;
-	private String focusId;
-	private String status;
+	private String focusType;//关注的资源类型
+	private String focusId;//资源id
+	private String status;//关注状态
 
 	public Focus() {
 	}

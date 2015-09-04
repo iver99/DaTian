@@ -19,6 +19,20 @@ public class ComplaintBean {
 	private String theme;
 	private String content;
 	private String orderNum;
+	private String relativeMaterial;//œ‡πÿ≤ƒ¡œ
+	
+	/**
+	 * @return the relativeMaterial
+	 */
+	public String getRelativeMaterial() {
+		return relativeMaterial;
+	}
+	/**
+	 * @param relativeMaterial the relativeMaterial to set
+	 */
+	public void setRelativeMaterial(String relativeMaterial) {
+		this.relativeMaterial = relativeMaterial;
+	}
 	public String getType() {
 		return type;
 	}

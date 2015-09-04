@@ -60,7 +60,7 @@
 			</td>
 			<td class="td_leftnav_top">
 			
-			 <form action="findsettlement" method="post">	      
+			 <form action="" method="post">	      
             	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right2">
                     <tr>
                     	<td>

@@ -9,7 +9,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,19 +31,15 @@ import com.alibaba.fastjson.JSONObject;
  */
 public class AddressServiceImpl implements AddressService{
 	
-	@Resource
-	HibernateTemplate ht;
-	/*@Resource 
-	BaseDao baseDao;*/
 	@Autowired
 	AddressDao addressDao;
 	@Resource 
 	Address address;
 	
-	@Override
 	/**
 	 * 获取地址列表
 	 */
+	@Override
 	public List getAddress(String userId) {
 		
 		
@@ -61,7 +56,10 @@ public class AddressServiceImpl implements AddressService{
 	
 	@Override
 	public boolean deleteAddress(String id){
-		return addressDao.deleteAddress(id);
+		Address address=addressDao.get(Address.class, id);
+		addressDao.delete(address);
+		
+		return true;
 	}
 	/**
 	 * 新增常用地址

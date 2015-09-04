@@ -5,14 +5,13 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.dao.AuthenticationDao;
 import cn.edu.bjtu.dao.UserinfoDao;
 import cn.edu.bjtu.service.AuthenticationService;
-import cn.edu.bjtu.util.HQLTool;
+
 import cn.edu.bjtu.vo.Clientinfo;
 import cn.edu.bjtu.vo.Userinfo;
 @Transactional
@@ -25,16 +24,6 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 	AuthenticationDao authenticationDao;
 	@Autowired
 	UserinfoDao userinfoDao;	
-	
-	/*@Resource
-	BaseDao baseDao;*/
-	@Resource
-	HQLTool hqltool;
-	@Resource
-	private HibernateTemplate ht;
-
-	private String hql = "";
-	private static boolean flag = false;
 	
 	@Override
 	/**

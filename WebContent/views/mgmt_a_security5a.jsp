@@ -66,7 +66,7 @@
 					<tr>
 						<td class="td_mgmt_right3_td1a"> 
                         	<div class="span_mgmt_right3_text4">1、请先回答之前设置密保问题的答案</div>
-                        	<form action="checkanswer" method="post">
+                        	<form action="checkanswer" id="check_answer" method="post">
 							<table width="90%" border="0" cellspacing="0" cellpadding="0">
 								<tr>
 									<td width="120" height="40" class="td_mgmt_right3_td1b">问题一：</td>
@@ -74,7 +74,7 @@
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">答案：</td>
-									<td><input type="text" class="input_mgmt1" style="width:252px;" value="" name="answer1" required/></td>
+									<td><input type="text" class="input_mgmt1" style="width:252px;" value="" id="answer1" name="answer1" required/></td>
 								</tr>
 								<tr>
 									<td width="120" height="40" class="td_mgmt_right3_td1b">问题二：</td>
@@ -82,7 +82,7 @@
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">答案：</td>
-									<td><input type="text" class="input_mgmt1" style="width:252px;" value="" name="answer2" required/></td>
+									<td><input type="text" class="input_mgmt1" style="width:252px;" value="" id="answer2" name="answer2" required/></td>
 								</tr>
 								<tr>
 									<td width="120" height="40" class="td_mgmt_right3_td1b">问题三：</td>
@@ -90,7 +90,7 @@
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">答案：</td>
-									<td><input type="text" class="input_mgmt1" style="width:252px;" value="" name="answer3" required/></td>
+									<td><input type="text" class="input_mgmt1" style="width:252px;" value="" id="answer3" name="answer3" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
@@ -116,7 +116,20 @@
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
+		//validate
+		validateForm();
 	}
+	//验证表单
+	function validateForm(){
+		$("#check_answer").validate({
+			rules : {
+				answer1 : "required",
+				answer2 : "required",
+				answer3 : "required",
+			}
+		});
+	}
+	
 	$(function(){
 		$('reset:button').click(function(){
 		   $('.input').val("");

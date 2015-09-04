@@ -168,18 +168,9 @@ public class ResponseController {
 	 * @param response
 	 * @return
 	 */
-	@Deprecated
 	@RequestMapping("getallresponse")
-	public ModelAndView getAllResponse(HttpServletRequest request,
-			HttpServletResponse response) {
-		String userId = (String) request.getSession().getAttribute(Constant.USER_ID);
-
-		List responseList = goodsInfoService.getAllResponse(userId);
-		//responseListÖÐµÄidÊÇgoodsid
-
-		mv.addObject("responseList", responseList);
-		mv.setViewName("mgmt_d_response");
-		return mv;
+	public String getAllResponse() {
+		return "mgmt_d_response";
 	}
 	
 	/**

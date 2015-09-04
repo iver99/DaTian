@@ -33,28 +33,10 @@ public interface OrderService {
 	public boolean confirmCargo(String orderId);
 
 	public boolean cancel(String cancelReason, String orderId);
-	/*@Deprecated
-	public boolean updateOrder(String orderid, String clientName,
-			String hasCarrierContract, String contractId, String goodsName,
-			float goodsWeight, float goodsVolume, float declaredPrice,
-			float insurance, float expectedPrice, String deliveryName,
-			String deliveryPhone, String deliveryAddr, String recieverName,
-			String recieverPhone, String recieverAddr, String remarks);
-*/
 	public boolean updateSignBill(String orderId,
 			float actualPrice, String explainReason,String fileLocation);
 	
-/*	@Deprecated
-	public boolean createNewOrder(String userId, String hasCarrierContract,
-			String deliveryName, String receiverName, String deliveryPhone,
-			String receiverPhone, String deliveryAddr, String receiverAddr,
-			String remarks, String goodsName, float goodsVolume,
-			float goodsWeight, float expectedPrice, float declaredPrice,
-			float insurance, String contractId, String carrierId,
-			String isLinkToClientWayBill,String clientWayBillNum, 
-			String resourceName, String resourceType,String companyName,String clientName);*/
 
-	public List getCargoTrack(String orderNum, String carNum);
 	
 	/**
 	 * 返回用户待受理订单数

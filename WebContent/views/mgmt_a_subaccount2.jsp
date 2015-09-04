@@ -69,7 +69,7 @@
 					<tr>
 						<td class="td_mgmt_right3_td1a"> 
                             <br />   	          
-							<form id="add_subAccount" action="insertsubaccount" method="post" >
+							<form id="add_subAccount" id="add_subAccount" action="insertsubaccount" method="post" >
 							<table width="90%" border="0" cellspacing="0" cellpadding="0">
 								<tr>
 									<td width="120" height="40" class="td_mgmt_right3_td1b">帐户名称：</td>
@@ -78,25 +78,25 @@
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">初始密码：</td>
-									<td><input type="password" class="input_mgmt1" style="width:300px;" value="" name="password" required/></td>
+									<td><input type="password" class="input_mgmt1" style="width:300px;" value="" name="password" id="password" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">权限：</td>
 									<td>
-                                        <input type="checkbox" id="checkbox" name="resourceManagement"/>
+                                        <input type="checkbox" id="privilege" name="resourceManagement"/>
                                         资源管理&nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox" id="checkbox2" name="transactionManagement"/>
+                                        <input type="checkbox" id="privilege" name="transactionManagement"/>
                                         交易管理&nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox" id="checkbox3" name="schemaManagement"/>
+                                        <input type="checkbox" id="privilege" name="schemaManagement"/>
                                         方案管理&nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox" id="checkbox4" name="statisticsManagement"/>
+                                        <input type="checkbox" id="privilege" name="statisticsManagement"/>
                                         统计分析
                                     </td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">备注：</td>
 									<td>
-                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="remarks" required></textarea>
+                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="remarks" id="remarks" required></textarea>
                                     </td>
 								</tr>
 								<tr>
@@ -157,7 +157,24 @@ function checkUserName(flag){
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
+		//validate
+		validateForm();
 	}
+	//验证表单
+	function validateForm(){
+		$("#add_subAccount").validate({
+			rules : {
+				hostAccountName : "required",
+				username : "required",
+				privilege : "required",
+				password : "required",
+				remarks : "required"
+			}
+		});
+	}
+	
+	
+	
 	$(function(){
 		$('reset:button').click(function(){
 		   $('.input').val("");

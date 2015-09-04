@@ -61,7 +61,7 @@
                         </td>
                 	</tr>
             	</table>
-            	<form action="setquestion" method="post">
+            	<form action="setquestion" id="set_question" method="post">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
 					<tr>
 						<td class="td_mgmt_right3_td1a"> 
@@ -80,7 +80,7 @@
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">答案：</td>
-									<td><input type="text" class="input_mgmt1" style="width:252px;" value="" name="answer1" required/></td>
+									<td><input type="text" class="input_mgmt1" style="width:252px;" value="" id="answer1" name="answer1" required/></td>
 								</tr>
 								<tr>
 									<td width="120" height="40" class="td_mgmt_right3_td1b">问题二：</td>
@@ -95,7 +95,7 @@
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">答案：</td>
-									<td><input type="text" class="input_mgmt1" style="width:252px;" value="" name="answer2" required/></td>
+									<td><input type="text" class="input_mgmt1" style="width:252px;" value="" id="answer2" name="answer2" required/></td>
 								</tr>
 								<tr>
 									<td width="120" height="40" class="td_mgmt_right3_td1b">问题三：</td>
@@ -110,7 +110,7 @@
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">答案：</td>
-									<td><input type="text" class="input_mgmt1" style="width:252px;" value="" name="answer3" required/></td>
+									<td><input type="text" class="input_mgmt1" style="width:252px;" value="" id="answer3" name="answer3" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
@@ -136,7 +136,20 @@
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
+		//validate
+		validateForm();
 	}
+	//验证表单
+	function validateForm(){
+		$("#set_question").validate({
+			rules : {
+				answer1 : "required",
+				answer2 : "required",
+				answer3 : "required",
+			}
+		});
+	}
+	
 	$(function(){
 		$('reset:button').click(function(){
 		   $('.input').val("");

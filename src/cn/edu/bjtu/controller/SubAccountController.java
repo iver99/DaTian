@@ -34,25 +34,6 @@ public class SubAccountController {
 	@Autowired
 	RegisterService registerService;
 	
-	@RequestMapping("findbyaccountname")
-	/**
-	 * 子账户的查询功能
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	public ModelAndView findByAccountName(
-			@RequestParam String username,
-			HttpServletRequest request,HttpServletResponse response){
-		
-		String userId=(String)request.getSession().getAttribute(Constant.USER_ID);
-
-		List subAccountList = subAccountService.getFindSubAccount(userId, username);
-		mv.addObject("subAccountList", subAccountList);
-		mv.setViewName("mgmt_a_subaccount");
-		return mv;
-	}
-	
 	/**
 	 * 显示具体子账户信息
 	 * @param id

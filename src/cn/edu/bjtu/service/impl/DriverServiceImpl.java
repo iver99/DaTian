@@ -56,7 +56,7 @@ public class DriverServiceImpl implements DriverService{
 	 */
 	public Driverinfo getDriverByCarId(String carId) {
 		
-		String driverId = ((Carinfo) carDao.getCarInfo(carId)).getDriverId();
+		String driverId = carDao.get(Carinfo.class, carId).getDriverId();
 
 		return driverDao.getDriverInfo(driverId);
 	}

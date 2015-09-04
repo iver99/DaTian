@@ -47,18 +47,14 @@ public class SettlementController {
 	 * @return
 	 */
 	@RequestMapping("/mysettlement")
-	@Deprecated
-	public ModelAndView getMySettlement(HttpSession session,HttpServletResponse response)
+	public String getMySettlement(HttpSession session,HttpServletResponse response)
 	{
 		Integer userKind=(Integer)session.getAttribute(Constant.USER_KIND);
-		List orderList=settlementService.getUserSettlementList(session);
-		mv.addObject("orderList", orderList);
-		if(userKind == 2){
-			mv.setViewName("mgmt_d_settle_s");
-		}else if(userKind ==3){
-			mv.setViewName("mgmt_d_settle_r");
+		if(userKind == 2){//普通用户页面
+			return "mgmt_d_settle_s";
+		}else {//企业用户页面
+			return "mgmt_d_settle_r";
 		}
-		return mv;
 	}
 	
 	/**
@@ -151,33 +147,6 @@ public class SettlementController {
 	    return "mgmt_d_settle_s";
 	}
 	
-	/**
-	 * 查找合同
-	 */
-	@RequestMapping(value="findsettlement",method = RequestMethod.POST)
-	public ModelAndView findSettlement(//@RequestParam String startDate,@RequestParam String endDate,
-			@RequestParam String name, HttpServletResponse response, HttpServletRequest request)
-	{
-		int PageNow=1;//默认的当前页面
-		int Display=10;//默认的每页大小
-		
-		try {
-			response.setCharacterEncoding("UTF-8");
-			request.setCharacterEncoding("UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			// 
-			e.printStackTrace();
-		}
-
-		String carrierId=(String)request.getSession().getAttribute(Constant.USER_ID);
-		//String carrierId = "C-0002";
-		List settlementList = settlementService.getFindSettlement(carrierId, name, Display, PageNow);
-		mv.addObject("orderList", settlementList);
-		
-		mv.setViewName("mgmt_d_settle_s");
-		return mv;
-		
-	}
 	
 	/**
 	 * 返回我的信息-本月已结算金额

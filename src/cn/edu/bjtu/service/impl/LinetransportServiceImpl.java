@@ -1,6 +1,5 @@
 package cn.edu.bjtu.service.impl;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -14,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,15 +21,14 @@ import org.springframework.web.multipart.MultipartFile;
 import cn.edu.bjtu.bean.page.LinetransportBean;
 import cn.edu.bjtu.bean.search.LinetransportSearchBean;
 import cn.edu.bjtu.dao.LinetransportDao;
+import cn.edu.bjtu.service.FocusService;
 import cn.edu.bjtu.service.LinetransportService;
 import cn.edu.bjtu.util.Constant;
 import cn.edu.bjtu.util.DataModel;
-import cn.edu.bjtu.util.HQLTool;
-import cn.edu.bjtu.util.HQL_POJO;
 import cn.edu.bjtu.util.IdCreator;
 import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.util.UploadFile;
-import cn.edu.bjtu.util.UploadPath;
+import cn.edu.bjtu.vo.Focus;
 import cn.edu.bjtu.vo.Linetransport;
 
 import com.alibaba.fastjson.JSONArray;
@@ -48,16 +47,10 @@ public class LinetransportServiceImpl implements LinetransportService {
 	LinetransportDao linetransportDao;
 	@Resource
 	Linetransport linetransport;
+	@Autowired
+	FocusService focusService;
 	
-	/*@Resource
-	BaseDao baseDao;*/
-	@Resource
-	HQLTool hqltool;
 	private Logger logger=Logger.getLogger(LinetransportServiceImpl.class);
-
-	private String hql = "";
-	private static boolean flag = false;
-
 
 	@Override
 	/**
@@ -103,6 +96,10 @@ public class LinetransportServiceImpl implements LinetransportService {
 		Linetransport linetransport = getLinetransportInfo(id);// 根据id查找到干线信息
 
 		linetransportDao.delete(linetransport);
+		
+		//把此关注表中的此干线信息设置为失效
+		
+		focusService.setInvalid(id);
 		
 		return true;
 	}

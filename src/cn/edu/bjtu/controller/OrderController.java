@@ -233,26 +233,14 @@ public class OrderController {
 	 * @return
 	 */
 	@RequestMapping("acceptOrder")
-	public ModelAndView acceptOrder(String orderid, HttpServletRequest request,
+	public String acceptOrder(String orderid, HttpServletRequest request,
 			HttpServletResponse response,String driver) {
 
 		// 需要更新订单的司机列表，并且修改订单状态为已受理(待收货)
 		// 需要重定向,用来更新页面
 		//获取到司机，但是未作处理 add by RussWest0 at 2015年6月7日,下午8:03:50 
-		boolean flag = orderService.acceptOrder(orderid);
-		try {
-			if (flag == true)
-				response.sendRedirect("recieveorderinfo");
-			else
-				System.out.println("接收订单失败");// 应记录日志
-		} catch (IOException e) {
-			// 
-			// 此处应记录日志
-			e.printStackTrace();
-
-		}
-		// mv.setViewName("mgmt_d_order_r");
-		return mv;
+		orderService.acceptOrder(orderid);
+		return "redirect:recieveorderinfo";
 	}
 
 	/**
@@ -381,7 +369,7 @@ public class OrderController {
 	@RequestMapping("doUpdate")
 	public String updateOrder(HttpSession session,OrderBean orderBean){
 		
-		boolean flag=orderService.updateOrder(session, orderBean);
+		orderService.updateOrder(session, orderBean);
 		return "redirect:turnToOrderPage";
 		
 	}
@@ -561,22 +549,6 @@ public class OrderController {
 		return mv;
 	}
 	
-	/**
-	 * 
-	 * 
-	 * @param orderid
-	 * @return
-	 */
-	@RequestMapping(value = "getOrderDetailCargoTrack")
-	public ModelAndView getOrderDetailCargoTrack(HttpServletRequest request,
-			HttpServletResponse response, @RequestParam String orderNum, 
-			@RequestParam String carNum) {
-		List cargoTrackList = orderService.getCargoTrack(orderNum,carNum);
-		mv.addObject("cargoTrackList", cargoTrackList);
-		mv.setViewName("mgmt_d_order_s7");
-		return mv;
-	}
-
 	/**
 	 * 
 	 * 

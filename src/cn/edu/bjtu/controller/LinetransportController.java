@@ -65,7 +65,6 @@ public class LinetransportController {
 	 * @param session
 	 * @return
 	 */
-	@Deprecated
 	@RequestMapping(value="/linetransport",params="flag=1")
 	public String getAllCompanyLine(@RequestParam int flag,
 			PageUtil page, HttpSession session) {
@@ -199,25 +198,14 @@ public class LinetransportController {
 		return "redirect:linetransport?flag=1";
 	}
 
-	@RequestMapping(value = "linetransportdelete", method = RequestMethod.GET)
 	/**
 	 * 删除干线
 	 */
-	public ModelAndView deleteLine(@RequestParam String id,// GET方式传入，在action中
+	@RequestMapping(value = "linetransportdelete", method = RequestMethod.GET)
+	public String deleteLine(@RequestParam String id,// GET方式传入，在action中
 			HttpServletRequest request, HttpServletResponse response) {
-		boolean flag = linetransportService.deleteLine(id);
-		if (flag == true) {
-			// mv.setViewName("mgmt_r_line");
-			try {
-				response.sendRedirect("linetransport?flag=1");// 重定向，显示最新的结果
-			} catch (IOException e) {
-				// 
-				// 此处应该记录日志
-				e.printStackTrace();
-			}
-		} else
-			mv.setViewName("mgmt_r_line");
-		return mv;
+		linetransportService.deleteLine(id);
+		return "redirect:linetransport?flag=1";
 
 	}
 

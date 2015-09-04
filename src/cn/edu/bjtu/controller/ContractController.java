@@ -135,28 +135,19 @@ public class ContractController {
 	 * @return
 	 */
 	@RequestMapping(value="shutdownContract",method = RequestMethod.POST)
-	public ModelAndView shutdownContract(@RequestParam String contractId,
+	public String shutdownContract(@RequestParam String contractId,
 			@RequestParam int rorsflag,//标识是承运方还是需求方
 			@RequestParam String reason,HttpServletResponse response)
 	{
 		
 		boolean flag=false;
 		flag=contractService.shutdownContract(contractId, reason);
-		if(flag==true&&rorsflag==1)
-			try {
-				response.sendRedirect("contract");
-			} catch (IOException e) {
-				// 
-				e.printStackTrace();
-			}
-		else if(flag==true&&rorsflag==2)
-			try {
-				response.sendRedirect("contract2");
-			} catch (IOException e) {
-				// 
-				e.printStackTrace();
-			}
-		return mv;
+		if(flag==true&&rorsflag==1){
+			return "redirect:contract";
+		}else {
+			return "redirect:contract2";
+		}
+			
 	}
 	
 
@@ -175,22 +166,10 @@ public class ContractController {
 	
 	
 	@RequestMapping(value = "confirmcontract", method = RequestMethod.POST)
-	public ModelAndView confirmContract(@RequestParam String id,// GET方式传入，在action中
+	public String confirmContract(@RequestParam String id,// GET方式传入，在action中
 			HttpServletRequest request, HttpServletResponse response) {
-		String userId=(String)request.getSession().getAttribute(Constant.USER_ID);
 		boolean flag = contractService.changeStatus(id);
-		try {
-			if (flag == true)
-				response.sendRedirect("contract2");
-			else
-				System.out.println("确认合同失败");// 应记录日志
-		} catch (IOException e) {
-			// 
-			// 此处应记录日志
-			e.printStackTrace();
-
-		}
-		return mv;
+		return "redirect:contract2";
 	}
 	
 	/**

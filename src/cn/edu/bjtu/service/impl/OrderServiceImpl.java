@@ -60,12 +60,6 @@ public class OrderServiceImpl implements OrderService {
 		return orderDao.getRecieveOrderDetail(id);
 	}
 
-	@Override
-	public List getCargoTrack(String orderNum, String carNum) {
-		
-		return orderDao.getCargoTrack(orderNum, carNum);
-	}
-
 
 	@Override
 	public Orderform getOrderByOrderNum(String orderNum) {
@@ -128,35 +122,6 @@ public class OrderServiceImpl implements OrderService {
 		return orderDao.cancel(cancelReason, orderId);
 	}
 
-	/*@Override
-	@Deprecated
-	public boolean updateOrder(String orderid, String clientName,
-			String hasCarrierContract, String contractId, String goodsName,
-			float goodsWeight, float goodsVolume, float declaredPrice,
-			float insurance, float expectedPrice, String deliveryName,
-			String deliveryPhone, String deliveryAddr, String recieverName,
-			String recieverPhone, String recieverAddr, String remarks) {
-		orderform = getOrderInfo(orderid);
-		orderform.setClientName(clientName);
-		orderform.setHasCarrierContract(hasCarrierContract);
-		orderform.setContractId(contractId);
-		orderform.setGoodsName(goodsName);
-		orderform.setGoodsWeight(goodsWeight);
-		orderform.setGoodsVolume(goodsVolume);
-		orderform.setDeclaredPrice(declaredPrice);
-		orderform.setInsurance(insurance);
-		orderform.setExpectedPrice(expectedPrice);
-		orderform.setDeliveryName(deliveryName);
-		orderform.setDeliveryPhone(deliveryPhone);
-		orderform.setDeliveryAddr(deliveryAddr);
-		orderform.setRecieverName(recieverName);
-		orderform.setRecieverPhone(recieverPhone);
-		orderform.setRecieverAddr(recieverAddr);
-		orderform.setRemarks(remarks);
-		orderDao.update(orderform);
-		return true;
-
-	}*/
 	
 
 	/**
@@ -182,7 +147,7 @@ public class OrderServiceImpl implements OrderService {
 	 */
 	@Override
 	public boolean updateOrder(HttpSession session, OrderBean orderBean) {
-//		String userId=(String)session.getAttribute(Constant.USER_ID);
+		String userId=(String)session.getAttribute(Constant.USER_ID);
 		Orderform orderInstance=orderDao.get(Orderform.class,orderBean.getId());
 
 		orderInstance.setClientName(orderBean.getClientName());
@@ -209,6 +174,9 @@ public class OrderServiceImpl implements OrderService {
 		
 		orderDao.update(orderInstance);
 		
+		//如果需要，保存常用收发货地址
+		saveAddress(orderBean, userId);
+		
 		return true;
 		
 	}
@@ -232,8 +200,15 @@ public class OrderServiceImpl implements OrderService {
 		
 		orderDao.save(orderInstance);
 		
-		//如果选中了保存常用地址，则进行常用地址保存
-		//发货人信息 
+		saveAddress(orderBean, userId);
+				
+		return true;
+	}
+	
+	//如果选中了保存常用地址，则进行常用地址保存
+    //发货人信息 
+	private void saveAddress(OrderBean orderBean, String userId) {
+		
 		if("on".equals(orderBean.getSender_info())){
 			Address address=new Address();
 			address.setName(orderBean.getDeliveryName());
@@ -258,8 +233,6 @@ public class OrderServiceImpl implements OrderService {
 			address.setKind(2);
 			addressDao.save(address);
 		}
-				
-		return true;
 	}
 
 	/**

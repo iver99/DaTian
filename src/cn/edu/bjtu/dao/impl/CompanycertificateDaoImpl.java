@@ -1,14 +1,11 @@
 package cn.edu.bjtu.dao.impl;
 
-import javax.annotation.Resource;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import cn.edu.bjtu.dao.CompanycertificateDao;
 import cn.edu.bjtu.dao.RegisterDao;
-import cn.edu.bjtu.util.IdCreator;
+import cn.edu.bjtu.dao.UserinfoDao;
 import cn.edu.bjtu.vo.Companycertificate;
 import cn.edu.bjtu.vo.Userinfo;
 
@@ -20,36 +17,15 @@ import cn.edu.bjtu.vo.Userinfo;
  */
 public class CompanycertificateDaoImpl extends BaseDaoImpl<Companycertificate> implements CompanycertificateDao {
 
-	@Resource
-	HibernateTemplate ht;
-	
 	@Autowired
-	
-	/*@Resource
-	BaseDao baseDao;*/
-	/*@Autowired
-	ClientDao clientDao;*/
-	/*@Resource
-	Companycertificate companycertificate;*/
-	@Resource
 	RegisterDao registerDao; 
+	@Autowired
+	UserinfoDao userinfoDao;
 	
-	@Deprecated
-	@Override
-	public boolean validateCompany(String userId, String companyName,
-			String divisionCode, String legalName, String legalIDCard,
-			String companyAddr, String companyType, String companyScale,
-			String invoiceKind, String serviceIndustry, String businessKind,
-			String companyContact, String phone, String basicSituation,
-			String path, String fileName){
-		
-		
-		return true;
-	}
 
 	@Override
 	public Companycertificate getCompanycertificate(String companyId){
-		return ht.get(Companycertificate.class, companyId);
+		return this.get(Companycertificate.class, companyId);
 	}
 
 	@Override
@@ -83,7 +59,7 @@ public class CompanycertificateDaoImpl extends BaseDaoImpl<Companycertificate> i
 		/*baseDao.update(clientInfo);*/
 		this.update(companycertificate);
 		
-		Userinfo userInfo=ht.get(Userinfo.class, userId);
+		Userinfo userInfo=userinfoDao.get(Userinfo.class, userId);
 		userInfo.setStatus("…Û∫À÷–");
 		/*baseDao.update(userInfo);*/
 		registerDao.update(userInfo);

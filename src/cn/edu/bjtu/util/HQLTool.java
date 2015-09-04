@@ -1,4 +1,4 @@
-package cn.edu.bjtu.util;
+/*package cn.edu.bjtu.util;
 
 import java.util.List;
 
@@ -6,19 +6,16 @@ import javax.annotation.Resource;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Component;
 
-/**
+*//**
  * hql工具类
  * @author RussWest0
  *
- */
+ *//*
 @Component
 @Deprecated
 public class HQLTool {
-	@Resource
-	public HibernateTemplate ht;
 	@Deprecated
 	public static HQL_POJO spellHql(HQL_POJO hql) {
 		if (hql.flag == false) {
@@ -31,12 +28,12 @@ public class HQLTool {
 		return hql;
 	}
 	
-	/**
+	*//**
 	 * 返回总记录数
 	 * 
 	 * @param hql
 	 * @return
-	 */
+	 *//*
 	@Deprecated
 	public int getTotalRows(String hql) {
 		int count = 0;
@@ -87,3 +84,4 @@ public class HQLTool {
 	
 
 }
+*/

@@ -101,27 +101,12 @@ public class ClientSecurityController {
 	}
 
 	@RequestMapping("bindemail")
-	public ModelAndView bindEmail(HttpSession session, String email,
+	public String bindEmail(HttpSession session, String email,
 			HttpServletRequest request, HttpServletResponse response) {
 		//String userId = (String) session.getAttribute(Constant.USER_ID);
-		boolean flag = clientSecurityService.bindEmail(email, session);
-		if (flag == true) {
-			try {
-				response.sendRedirect("mysecurity");
-		} catch (IOException e) {
-			// 此处应记录日志
-			e.printStackTrace();
-
-		}
-			String msg = "邮箱绑定成功";
-			mv.addObject("msg", msg);
-			return mv;
-		} else {
-			mv.setViewName("mgmt_a_security4");
-			String msg = "绑定失败";
-			mv.addObject("msg", msg);
-			return mv;
-		}
+		clientSecurityService.bindEmail(email, session);
+		
+		return "redirect:mysecurity";
 		
 	}
 
@@ -141,33 +126,11 @@ public class ClientSecurityController {
 	}
 
 	@RequestMapping("changebindemail")
-	public ModelAndView changeBindEmail(HttpSession session, String newEmail,
+	public String changeBindEmail(HttpSession session, String newEmail,
 			HttpServletRequest request, HttpServletResponse response) {
-		boolean flag = false;
-		flag = clientSecurityService.changeBindEmail(newEmail, session);
-		if (flag == true) {
-			String msg = "修改绑定邮箱成功";
-			mv.addObject("msg", msg);
-			try {
-					response.sendRedirect("mysecurity");
-			} catch (IOException e) {
-				// 
-				// 此处应记录日志
-				e.printStackTrace();
-			}
-			return mv;
-		} else {
-			String msg = "修改绑定邮箱错误，请重新填写!";
-			mv.addObject("msg", msg);
-			try {
-				response.sendRedirect("mysecurity");
-			} catch (IOException e) {
-				// 
-				// 此处应记录日志
-				e.printStackTrace();
-			}
-			return mv;
-		}
+		clientSecurityService.changeBindEmail(newEmail, session);
+		return "redirect:mysecurity";
+
 	}
 	@RequestMapping("getsetquestionpage")
 	public ModelAndView gotoSetSecurityQuestionPage()

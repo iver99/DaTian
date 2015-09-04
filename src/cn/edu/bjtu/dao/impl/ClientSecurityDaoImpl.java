@@ -1,20 +1,16 @@
 package cn.edu.bjtu.dao.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import cn.edu.bjtu.dao.ClientDao;
 import cn.edu.bjtu.dao.ClientSecurityDao;
 import cn.edu.bjtu.dao.UserinfoDao;
-import cn.edu.bjtu.vo.Clientinfo;
 import cn.edu.bjtu.vo.Userinfo;
 
 @Repository
 public class ClientSecurityDaoImpl implements ClientSecurityDao {
 
-	@Autowired
-	private HibernateTemplate ht;
 
 	@Autowired
 	ClientDao clientDao;
@@ -27,7 +23,7 @@ public class ClientSecurityDaoImpl implements ClientSecurityDao {
 	 */
 	public boolean checkOldPassword(String oldPassword, String userId) {
 		
-		Userinfo user = ht.get(Userinfo.class, userId);
+		Userinfo user = userinfoDao.get(Userinfo.class, userId);
 
 		if (user.getPassword().equals(oldPassword))
 			return true;
@@ -40,31 +36,12 @@ public class ClientSecurityDaoImpl implements ClientSecurityDao {
 	 */
 	public boolean changePassword(String newPassword, String userId) {
 		
-		Userinfo user = ht.get(Userinfo.class, userId);
+		Userinfo user =userinfoDao.get(Userinfo.class, userId);
 		user.setPassword(newPassword);
 		userinfoDao.save(user);
 		return true;
 	}
 
-	@Override
-	/**
-	 * °ó¶¨ÓÊÏä
-	 */
-	@Deprecated
-	public boolean bindEmail(String email, String userId) {
-		
-		Userinfo user = ht.get(Userinfo.class, userId);
-		user.setEmail(email);
-		user.setEmailStatus("ÒÑ°ó¶¨");// ÐÞ¸Ä×´Ì¬
-		Clientinfo clientinfo = ht.get(Clientinfo.class, userId);
-		clientinfo.setEmail(email);
-
-		/*baseDao.update(user);
-		baseDao.update(clientinfo);*/
-		userinfoDao.update(user);
-		clientDao.update(clientinfo);
-		return true;
-	}
 
 	@Override
 	/**
@@ -72,7 +49,7 @@ public class ClientSecurityDaoImpl implements ClientSecurityDao {
 	 */
 	public Userinfo getUserById(String userId) {
 		
-		return ht.get(Userinfo.class, userId);
+		return userinfoDao.get(Userinfo.class, userId);
 	}
 
 
@@ -80,7 +57,7 @@ public class ClientSecurityDaoImpl implements ClientSecurityDao {
 	public boolean setSecurityQuestion(String q1, String q2, String q3,
 			String a1, String a2, String a3, String uId) {
 		
-		Userinfo userinfo = ht.get(Userinfo.class, uId);
+		Userinfo userinfo = userinfoDao.get(Userinfo.class, uId);
 
 		userinfo.setSecurityAnswerOne(a1.trim());
 		userinfo.setSecurityAnswerTwo(a2.trim());
@@ -107,7 +84,7 @@ public class ClientSecurityDaoImpl implements ClientSecurityDao {
 	 */
 	public boolean checkAnswer(String a1, String a2, String a3, String userId) {
 		
-		Userinfo userinfo = ht.get(Userinfo.class, userId);
+		Userinfo userinfo = userinfoDao.get(Userinfo.class, userId);
 
 		if (a1.trim().endsWith(userinfo.getSecurityAnswerOne())
 				&& a2.trim().equals(userinfo.getSecurityAnswerTwo())

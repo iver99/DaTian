@@ -19,7 +19,7 @@ import cn.edu.bjtu.dao.CompanyDao;
 import cn.edu.bjtu.dao.UserinfoDao;
 import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.util.Constant;
-import cn.edu.bjtu.util.HQLTool;
+
 import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Userinfo;
@@ -83,7 +83,7 @@ public class CompanyServiceImpl implements CompanyService{
 				+ "t1.creditRate,"
 				+ "t1.relDate,"
 				+ "t3.status "
-				+ " from carrierinfo t1 "
+				+ " from Carrierinfo t1 "
 				+ "left join ("
 				+ "select * from focus t2 ";
 		if(userId!=null){
@@ -209,6 +209,8 @@ public class CompanyServiceImpl implements CompanyService{
 				wheresql+=" and t1.warehouse=1";
 			}
 		}
+		
+		//wheresql+=" and t4.status='已审核'";//只显示已审核的公司
 		
 		return wheresql;
 	}

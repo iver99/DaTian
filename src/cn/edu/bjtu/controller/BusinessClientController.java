@@ -97,21 +97,10 @@ public class BusinessClientController {
 	 * 删除businessclient
 	 */
 	@RequestMapping(value = "clientdelete", method = RequestMethod.GET)
-	public ModelAndView deleteClient(@RequestParam String id,// GET方式传入，在action中
+	public String deleteClient(@RequestParam String id,// GET方式传入，在action中
 			HttpServletRequest request, HttpServletResponse response) {
-		boolean flag = clientService.deleteBusinessClient(id);
-		if (flag == true) {
-			// mv.setViewName("mgmt_r_line");
-			try {
-				response.sendRedirect("client");// 重定向，显示最新的结果
-			} catch (IOException e) {
-				// 
-				// 此处应该记录日志
-				e.printStackTrace();
-			}
-		} else
-			mv.setViewName("mgmt_r_customer");
-		return mv;
+		clientService.deleteBusinessClient(id);
+		return "redirect:client";
 	}
 	
 	/**
