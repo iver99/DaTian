@@ -66,7 +66,7 @@
                         </td>
                 	</tr>
             	</table>
-            	<form action="validateuser" method="post" enctype="multipart/form-data">
+            	<form action="validateuser" id="validateuser" method="post" enctype="multipart/form-data">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
 					<tr>
 						<td class="td_mgmt_right3_td1a"> 
@@ -78,12 +78,12 @@
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">姓名：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="realName" required/></td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="realName" id="realName" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">性别：</td>
 									<td>
-										<select style="width:120px;" name="sex" required>
+										<select style="width:120px;" name="sex" id="sex" required>
 											<option value="" selected="selected">请选择</option>
                                             <option value="男">男</option>
                                             <option value="女">女</option>
@@ -92,18 +92,19 @@
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">身份证号码：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="IDCard" required/></td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="IDCard" id="IDCard" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">联系电话：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="phone" required/></td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="phone" id="phone" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">身份证扫描件：</td>
 											<td>
                                     	<div style="position:relative;">
-                                        	<input id="apply_attachment1" type="text" class="input_attachment1" style="width:230px;" value="" /><input id="upload_btn3" type="button" value="添加" class="input_attachment_btn1" style="width:60px; margin-left:10px;" />
-      										<input id="upload_btn4" type="file" name="file" onchange="document.getElementById('apply_attachment1').value=/[^\\]+\.\w+$/.exec(this.value)[0]" class="input_attachment_btn1_hidden" style="width:300px;" hidefocus="true" required/>
+                                        	<input id="apply_attachment1" type="text" class="input_attachment1" style="width:230px;" value="" />
+                                        	<input id="upload_btn3" type="button" value="添加" class="input_attachment_btn1" style="width:60px; margin-left:10px;" />
+      										<input id="file" type="file" name="file" onchange="document.getElementById('apply_attachment1').value=/[^\\]+\.\w+$/.exec(this.value)[0]" class="input_attachment_btn1_hidden" style="width:300px;" hidefocus="true" required/>
                                         </div>
                           			          </td>
 										</tr>
@@ -131,7 +132,27 @@
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
+		//validate
+		validateForm();
 	}
+	//验证表单
+	function validateForm(){
+		$("#validateuser").validate({
+			rules : {
+				realName : "required",
+				sex : "required",
+				IDCard : "required",
+				phone : {
+					required : true,
+					number : true
+				},
+				file:"required"
+				
+
+			}
+		});
+	}
+	
 	 $(function(){
 			$('reset:button').click(function(){
 			   $('.input').val("");

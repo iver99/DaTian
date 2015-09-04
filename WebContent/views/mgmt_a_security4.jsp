@@ -66,11 +66,11 @@
 					<tr>
 						<td class="td_mgmt_right3_td1a"> 
 						<br /> 
-						<form action="bindemail" method="post">	          
+						<form action="bindemail" id="bindemail" method="post">	          
 							<table width="90%" border="0" cellspacing="0" cellpadding="0">
 								<tr>
 									<td width="120" height="40" class="td_mgmt_right3_td1b">邮箱地址：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" name="email" required/></td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" id="email" name="email" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
@@ -96,7 +96,21 @@
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
+		//validate
+		validateForm();
 	}
+	//验证表单
+	function validateForm(){
+		$("#bindemail").validate({
+			rules : {
+				email : {
+					required : true,
+					email : true
+				}
+			}
+		});
+	}
+	
 	 $(function(){
 			$('reset:button').click(function(){
 			   $('.input').val("");

@@ -66,19 +66,19 @@
 					<tr>
 						<td class="td_mgmt_right3_td1a"> 
                             <br />
-                            <form action="changepassword" method="post">  	          
+                            <form id="change_password" action="changepassword" method="post">  	          
 							<table width="90%" border="0" cellspacing="0" cellpadding="0">
 								<tr>
 									<td width="120" height="40" class="td_mgmt_right3_td1b">原密码：</td>
-									<td><input type="password" class="input_mgmt1" style="width:300px;" value="" name="oldPassword" required/></td>
+									<td><input type="password" class="input_mgmt1" style="width:300px;" value="" id="oldPassword" name="oldPassword" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">新密码：</td>
-									<td><input type="password" class="input_mgmt1" style="width:300px;" value="" name="newPassword" required/></td>
+									<td><input type="password" class="input_mgmt1" style="width:300px;" value="" id="newPassword" name="newPassword" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">重复新密码：</td>
-									<td><input type="password" class="input_mgmt1" style="width:300px;" value="" name="repeatPassword" required/></td>
+									<td><input type="password" class="input_mgmt1" style="width:300px;" value="" id="repeatPassword" name="repeatPassword" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
@@ -105,7 +105,21 @@
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
+		//validate
+		validateForm();
 	}
+	
+	//验证表单
+	function validateForm(){
+		$("#change_password").validate({
+			rules : {
+				oldPassword : "required",
+				newPassword : "required",
+				repeatPassword : "required",
+			}
+		});
+	}
+	
 	 $(function(){
 			$('reset:button').click(function(){
 			   $('.input').val("");

@@ -62,7 +62,7 @@
                         </td>
                 	</tr>
             	</table>
-            	<form action="changebindemail" method="post">
+            	<form action="changebindemail" id="change_email" method="post">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
 					<tr>
 						<td class="td_mgmt_right3_td1a"> 
@@ -74,7 +74,7 @@
 								</tr>
 								<tr>
 									<td width="120" height="40" class="td_mgmt_right3_td1b">新邮箱地址：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" name="newEmail" required/></td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" id="newEmail" name="newEmail" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">&nbsp;</td>
@@ -100,6 +100,19 @@
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
+		//validate
+		validateForm();
+	}
+	//验证表单
+	function validateForm(){
+		$("#change_email").validate({
+			rules : {
+				newEmail : {
+					required : true,
+					email : true
+				}
+			}
+		});
 	}
 	$(function(){
 		$('reset:button').click(function(){

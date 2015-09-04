@@ -66,7 +66,7 @@
 					<tr>
 						<td class="td_mgmt_right3_td1a"> 
                         	<div class="span_mgmt_right3_text4">2、请设置新的密保问题及答案</div>
-                        	<form action="setquestion" method="post">
+                        	<form action="setquestion" id="set_question" method="post">
 							<table width="90%" border="0" cellspacing="0" cellpadding="0">
 								<tr>
 									<td width="120" height="40" class="td_mgmt_right3_td1b">问题一：</td>
@@ -137,6 +137,19 @@
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
+		//validate
+		validateForm();
+	}
+	
+	//验证表单
+	function validateForm(){
+		$("#set_question").validate({
+			rules : {
+				answer1 : "required",
+				answer2 : "required",
+				answer3 : "required",
+			}
+		});
 	}
 	$(function(){
 		$('reset:button').click(function(){

@@ -27,7 +27,7 @@
 </script>
 </head>
 
-<body>
+<body onload="OnLoad();">
 
 <%@ include file="qq.jsp"%>
 
@@ -66,7 +66,7 @@
                         </td>
                 	</tr>
             	</table>
-            	<form action="companycertificate" method="post" name="companycertificate" enctype="multipart/form-data">
+            	<form action="companycertificate" method="post" name="companycertificate" id="companycertificate" enctype="multipart/form-data">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
 					<tr>
 						<td class="td_mgmt_right3_td1a"> 
@@ -78,28 +78,28 @@
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">公司名称：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="companyName" required/></td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" id="companyName" name="companyName" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">组织机构代码：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="divisionCode" required/></td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" id="divisionCode" name="divisionCode" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">法人姓名：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="legalName" required/></td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" id="legalName" name="legalName" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">法人身份证号：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="legalIDCard" required/></td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" id="legalIDCard" name="legalIDCard" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">公司地址：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="companyAddr" required/></td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" id="companyAddr" name="companyAddr" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">公司性质：</td>
 									<td>
-										<select style="width:120px;" name="companyType" required>
+										<select style="width:120px;" id="companyType" name="companyType" required>
 											<option value="" selected="selected">请选择</option>
                                             <option value="国有企业">国有企业</option>
                                             <option value="外资企业">外资企业</option>
@@ -111,7 +111,7 @@
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">公司规模：</td>
 									<td>
-										<select style="width:120px;" name="companyScale" required>
+										<select style="width:120px;" id="companyScale" name="companyScale" required>
 											<option value="" selected="selected">请选择</option>
                                             <option value="1-50人">1-50人</option>
                                             <option value="50-200人">50-200人</option>
@@ -124,7 +124,7 @@
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">发票种类：</td>
 									<td>
-										<select style="width:120px;" name="invoiceKind" required>
+										<select style="width:120px;" id="invoiceKind" name="invoiceKind" required>
 											<option value="" selected="selected">请选择</option>
                                             <option value="增值税发票">增值税发票</option>
                                             <option value="非增值税发票">非增值税发票</option>
@@ -134,45 +134,46 @@
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">服务行业：</td>
                                     <td>
-                                        <input type="checkbox" name="serviceIndustry" id="checkbox" value="医药"/>
+                                        <input type="checkbox" name="serviceIndustry" id="serviceIndustry" value="医药"/>
                                         医药&nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox" name="serviceIndustry" id="checkbox" value="电子"/>
+                                        <input type="checkbox" name="serviceIndustry" id="serviceIndustry" value="电子"/>
                                         电子&nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox" name="serviceIndustry" id="checkbox" value="汽车"/>
+                                        <input type="checkbox" name="serviceIndustry" id="serviceIndustry" value="汽车"/>
                                         汽车
                                     </td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">业务种类：</td>
 									<td>
-                                        <input type="checkbox" name="businessKind" id="checkbox2" value="干线运输线路"/>
+                                        <input type="checkbox" name="businessKind" id="businessKind" value="干线运输线路"/>
                                         干线运输线路&nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox" name="businessKind" id="checkbox2" value="城市配送网络"/>
+                                        <input type="checkbox" name="businessKind" id="businessKind" value="城市配送网络"/>
                                         城市配送网络&nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox" name="businessKind" id="checkbox2" value="仓储"/>
+                                        <input type="checkbox" name="businessKind" id="businessKind" value="仓储"/>
                                         仓储
 									</td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">联系人：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="companyContact" required/></td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" id="companyContact" name="companyContact" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">手机号：</td>
-									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="phone" required/></td>
+									<td><input type="text" class="input_mgmt1" style="width:300px;" value="" id="phone" name="phone" required/></td>
 								</tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">公司基本情况：</td>
 									<td>
-                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="basicSituation" required></textarea>
+                                    	<textarea class="textarea_rating" placeholder="请输入内容..." id="basicSituation" name="basicSituation" required></textarea>
                                     </td>
 								</tr>								
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">相关资质材料：</td>
 									<td>
                                     	<div style="position:relative;">
-                                        	<input id="apply_attachment1" type="text" class="input_attachment1" style="width:230px;" value="" /><input id="upload_btn3" type="button" value="添加" class="input_attachment_btn1" style="width:60px; margin-left:10px;" />
-      <input id="upload_btn4" type="file" name="file" onchange="document.getElementById('apply_attachment1').value=/[^\\]+\.\w+$/.exec(this.value)[0]" class="input_attachment_btn1_hidden" style="width:300px;" hidefocus="true" required/>
+                                        	<input id="apply_attachment1" type="text" class="input_attachment1" style="width:230px;" value="" />
+                                        	<input id="upload_btn3" type="button" value="添加" class="input_attachment_btn1" style="width:60px; margin-left:10px;" />
+      										<input id="file" type="file" name="file" onchange="document.getElementById('apply_attachment1').value=/[^\\]+\.\w+$/.exec(this.value)[0]" class="input_attachment_btn1_hidden" style="width:300px;" hidefocus="true" required/>
                                         </div>
                                     </td>
 								</tr>
@@ -200,6 +201,48 @@
 
 </body>
 <script type="text/javascript">
+	function OnLoad(){
+		//validate
+		validateForm();
+	}
+	
+	//验证表单
+	function validateForm(){
+		$("#companycertificate").validate({
+			rules : {
+				companyName : "required",
+				divisionCode : "required",
+				legalName : "required",
+				companyAddr : "required",
+				companyType : "required",
+				companyScale : "required",
+				invoiceKind : "required",
+				serviceIndustry : "required",
+				businessKind : "required",
+				companyContact : "required",
+				phone : "required",
+				basicSituation : "required",
+				file : "required",
+				legalIDCard : {
+					required : true,
+					number : true
+				},
+				legalIDCard : {
+					required : true,
+					number : true
+				},
+				legalIDCard : {
+					required : true,
+					number : true
+				},
+				file:"required"
+				
+
+			}
+		});
+	}
+
+
 	 $(function(){
 			$('reset:button').click(function(){
 			   $('.input').val("");
