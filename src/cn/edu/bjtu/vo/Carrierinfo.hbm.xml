@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 2015-1-31 22:44:34 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="cn.edu.bjtu.vo.Carrierinfo" table="carrierinfo" catalog="datian">
+    <class name="cn.edu.bjtu.vo.Carrierinfo" table="carrierinfo">
         <id name="id" type="string">
             <column name="id" />
             <generator class="assigned" />

@@ -407,7 +407,7 @@ function checkSearch(){
 	//debugger;
 	var paraStr=window.location.search;
 	paraStr=UrlDecode(paraStr);//汉字解析
-	//alert(paraStr);
+//	alert("搜索功能...");
 	//debugger;
 	if(paraStr.indexOf("resource_kind")>0 || paraStr.indexOf("search_content")>0){//参数串中存在搜索信息
 		var para=new Array();

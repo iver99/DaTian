@@ -9,17 +9,19 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import javax.xml.ws.Dispatch;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.bjtu.bean.search.CompanySearchBean;
 import cn.edu.bjtu.dao.CompanyDao;
+import cn.edu.bjtu.dao.FocusDao;
 import cn.edu.bjtu.dao.UserinfoDao;
 import cn.edu.bjtu.service.CompanyService;
 import cn.edu.bjtu.util.Constant;
-
 import cn.edu.bjtu.util.PageUtil;
 import cn.edu.bjtu.vo.Carrierinfo;
 import cn.edu.bjtu.vo.Userinfo;
@@ -40,6 +42,8 @@ public class CompanyServiceImpl implements CompanyService{
 	CompanyDao companyDao;
 	@Autowired
 	UserinfoDao userinfoDao;
+	@Autowired
+	FocusDao focusDao;
 	
 	
 	
@@ -70,13 +74,17 @@ public class CompanyServiceImpl implements CompanyService{
 	
 	/**
 	 * 资源栏-公司筛选
+	 *
 	 */
+	//add by russwest at 2015年9月7日,下午6:56:29 线上服务器公司资源栏出现bug报500，
+	//错误为[ERROR]  Table 'datian.Carrierinfo' doesn't exist
+	//但是本地测试没有问题，所以此方法重写了一遍
 	@Override
 	public JSONArray getSelectedCompanyNew(CompanySearchBean companyBean,
 			PageUtil pageUtil, HttpSession session) {
 		String userId=(String)session.getAttribute(Constant.USER_ID);
-		Map<String,Object> params=new HashMap<String,Object>();
-			String sql = "select t1.id,"
+	//	Map<String,Object> params=new HashMap<String,Object>();
+			/*String sql = "select t1.id,"
 				+ "t1.companyName,"
 				+ "t1.resourceRate,"
 				+ "t1.companyType,"
@@ -100,7 +108,6 @@ public class CompanyServiceImpl implements CompanyService{
 		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
 		int display=pageUtil.getDisplay()==0?10:pageUtil.getDisplay();
 		List<Object[]> objectList=companyDao.findBySql(sql, params,page,display);
-		
 		List<CompanySearchBean> companyList=new ArrayList<CompanySearchBean>();
 		for(Iterator<Object[]> it=objectList.iterator();it.hasNext();){
 			CompanySearchBean instanceBean=new CompanySearchBean();
@@ -114,12 +121,60 @@ public class CompanyServiceImpl implements CompanyService{
 			instanceBean.setStatus((String)obj[6]);
 			companyList.add(instanceBean);
 		}
-		
 		for(int i=0;i<companyList.size();i++){
 			JSONObject jsonObject=(JSONObject)JSONObject.toJSON(companyList.get(i));
 			jsonArray.add(jsonObject);
 		}
 		return jsonArray;
+		*/
+		
+		
+		String hql="from Carrierinfo t";
+		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
+		int display=pageUtil.getDisplay()==0?10:pageUtil.getDisplay();
+		List<Carrierinfo> companyList=companyDao.find(hql,page,display);
+		JSONArray jsonArray = new JSONArray();
+		List<CompanySearchBean> companyBeanList=new ArrayList<CompanySearchBean>();
+		for(Carrierinfo company:companyList){
+			CompanySearchBean csb=new CompanySearchBean();
+			//BeanUtils.copyProperties(company, csb);
+			csb.setId(company.getId());
+			csb.setCompanyName(company.getCompanyName());
+			csb.setResourceRate(company.getResourceRate());
+			csb.setCreditRate(company.getCreditRate()+"");
+			csb.setRelDate(company.getRelDate());
+			csb.setCompanyKind(company.getCompanyType());
+			if(userId !=null){
+				boolean status=checkCompanyFocus(company,userId);
+				if(status){
+					csb.setStatus("有效");
+				}
+			}
+			
+			companyBeanList.add(csb);
+		}
+		for(int i=0;i<companyBeanList.size();i++){
+			JSONObject jsonObject=(JSONObject)JSONObject.toJSON(companyBeanList.get(i));
+			jsonArray.add(jsonObject);
+		}
+		return jsonArray;
+	}
+	//检查是否有关注信息
+	private boolean checkCompanyFocus(Carrierinfo company,String userId){
+		String company_id=company.getId();
+		Map<String,Object> params=new HashMap<String,Object>();
+		String hql="select count(*) from Focus t where t.focusType='company' and t.focusId=:focusId";
+		
+		hql+=" and t.clientId=:clientId ";
+		params.put("clientId", userId);
+		params.put("focusId", company_id);
+		Long count=focusDao.count(hql, params);
+		//存在关注记录
+		if(count.intValue()>0){
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 	/**

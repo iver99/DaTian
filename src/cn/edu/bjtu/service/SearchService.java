@@ -49,4 +49,12 @@ public interface SearchService {
 	 * @return
 	 */
 	public JSONArray getWarehouseResourceByName(String name,PageUtil pageUtil,HttpSession session);
+	
+	/**
+	 * 搜索功能功能总计路数
+	 * @param resource_kind
+	 * @param search_content
+	 * @return
+	 */
+	public Integer searchLinetransportTotalRows(String resource_kind,String search_content);
 }

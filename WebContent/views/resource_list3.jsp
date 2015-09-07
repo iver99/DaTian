@@ -355,16 +355,84 @@ function OnLoad() {
 	//Rescreen();
 	loadFocus();
 	if(checkSearch()){
-		var display = $("#display").val();
-		var currentPage = $("#currentPage").val();
-	getSelectedCarAjax("中文或拼音","中文或拼音","All","All","All",display,currentPage);
-	getSelectedCarTotalRows("中文或拼音","中文或拼音","All","All","All",display,currentPage);
-		
+		if(checkRecommend()){
+			var display = $("#display").val();
+			var currentPage = $("#currentPage").val();
+		getSelectedCarAjax("中文或拼音","中文或拼音","All","All","All",display,currentPage);
+		getSelectedCarTotalRows("中文或拼音","中文或拼音","All","All","All",display,currentPage);
+			
+		}
 	}
 	
 	//检查是否需要执行搜索功能
 	checkSearch();
 }
+//用于上方下拉页的链接
+function checkRecommend(){
+	var paraStr=window.location.search;
+	paraStr=UrlDecode(paraStr);//汉字解析
+	if(paraStr.indexOf("city1")>0 || paraStr.indexOf("vip_service")){//参数串中存在搜索信息
+		var para=new Array();
+		var carBase;//箱型
+		var carLength;//长度
+		var carWeight;//载重 
+		//debugger;
+		para=paraStr.split("&");
+		for(var i=0;i<para.length;i++){
+			//alert(para[i]);
+			if(para[i].indexOf("carBase")>=0){//解析搜索类型
+				var para_kind=new Array();
+				para_kind=para[i].split("=");
+				carBase=para_kind[1];//第二个值为参数值
+			}
+			if(para[i].indexOf("carLength")>=0){//解析运输类型
+				var para_content=new Array();
+				para_content=para[i].split("=");
+				carLength=para_content[1];//第二个值为参数值
+			}
+			if(para[i].indexOf("carWeight")>=0){//解析运输类型
+				var para_content=new Array();
+				para_content=para[i].split("=");
+				carWeight=para_content[1];//第二个值为参数值
+			}
+		}
+		//set value
+		if(carBase == '普通'){
+			$("#select1_1").click(); 
+		}
+		if(carBase == '集装箱'){
+			$("#select1_3").click(); 
+		}
+		if(carBase == '平板'){
+			$("#select1_2").click(); 
+		}
+		if(carLength =='10米'){
+			$("#select2_1").click();
+		}
+		if(carLength =='12米'){
+			$("#select2_2").click();
+		}
+		if(carLength =='14米'){
+			$("#select2_3").click();
+		}
+		if(carWeight == '8吨'){
+			$("#select3_1").click();
+		}
+		if(carWeight == '16吨'){
+			$("#select3_3").click();		
+		}
+		if(carWeight == '20吨'){
+			$("#select3_4").click();
+		}
+
+
+		$("#btn1").click();
+		return false;
+	}
+	
+	return true;
+}
+
 function Reset()
 {
 	document.getElementById("select1_0").click();

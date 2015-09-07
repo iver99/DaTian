@@ -29,35 +29,6 @@ public class Driverinfo implements java.io.Serializable {
 	private String carId;
 	private String idscans;
 
-	public Driverinfo() {
-	}
-
-	public Driverinfo(String id) {
-		this.id = id;
-	}
-
-
-	public Driverinfo(String id, String driverName, String sex, Integer age,
-			String licenceRate, String phone, Date relDate, String iDCard,
-			String licenceNum, Date licenceTime, String carrierId,
-			String remarks, String carId, String idscans) {
-		super();
-		this.id = id;
-		this.driverName = driverName;
-		this.sex = sex;
-		this.age = age;
-		this.licenceRate = licenceRate;
-		this.phone = phone;
-		this.relDate = relDate;
-		IDCard = iDCard;
-		this.licenceNum = licenceNum;
-		this.licenceTime = licenceTime;
-		this.carrierId = carrierId;
-		this.remarks = remarks;
-		this.carId = carId;
-		this.idscans= idscans;
-	}
-
 	public String getIdscans() {
 		return idscans;
 	}

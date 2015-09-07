@@ -126,6 +126,18 @@ public class SearchController {
 			return false;
 		
 	}
+	/**
+	 * 搜索功能总记录数
+	 * @param resource_kind
+	 * @param search_content
+	 * @return
+	 */
+	@RequestMapping("searchResourceTotalRowsAjax")
+	@ResponseBody
+	public Integer searchLinetransportTotalRows(String resource_kind,String search_content){
+		
+		return searchService.searchLinetransportTotalRows(resource_kind,search_content);
+	}
 
 	
 }

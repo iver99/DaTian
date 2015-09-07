@@ -206,17 +206,56 @@
 		//GetRequest();
 		
 		
-	if (checkSearch()) {
-			var display = $("#display").val();
-			var currentPage = $("#currentPage").val();
-			getSelectedLineAjax("中文或拼音", "All", "All", display, currentPage);
-			getSelectedCityLineTotalRowsAjax("中文或拼音", "All", "All", display, currentPage);
-
+	
+	if (checkSearch()) {//返回true说明不执行上方搜索功能
+			if (checkRecommend()) {//返回true说明不是推荐
+				var display = $("#display").val();
+				var currentPage = $("#currentPage").val();
+				getSelectedLineAjax("中文或拼音", "All", "All", display, currentPage);
+				getSelectedCityLineTotalRowsAjax("中文或拼音", "All", "All",
+						display, currentPage);
+			}
 		}
 
-		//检查是否需要执行搜索功能
-		//checkSearch();
-
+	}
+	
+	//用于上方下拉页的链接
+	function checkRecommend(){
+		var paraStr=window.location.search;
+		paraStr=UrlDecode(paraStr);//汉字解析
+		if(paraStr.indexOf("city1")>0 || paraStr.indexOf("vip_service")){//参数串中存在搜索信息
+			var para=new Array();
+			var city1;//存储搜索种类
+			var vip_service//增值服务
+			//debugger;
+			para=paraStr.split("&");
+			for(var i=0;i<para.length;i++){
+				//alert(para[i]);
+				if(para[i].indexOf("city1")>=0){//解析搜索类型
+					var para_kind=new Array();
+					para_kind=para[i].split("=");
+					city1=para_kind[1];//第二个值为参数值
+				}
+				if(para[i].indexOf("vip_service")>=0){//解析运输类型
+					var para_content=new Array();
+					para_content=para[i].split("=");
+					vip_service=para_content[1];//第二个值为参数值
+				}
+			}
+			//set value
+			$("#city1").val(city1);
+			//这里没有设置运输类型的显示效果
+			if(vip_service == '有'){
+				$("#select1_1").click(); 
+			}
+			if(vip_service == '无'){
+				$("#select1_2").click(); 
+			}
+			$("#btn1").click();
+			return false;
+		}
+		
+		return true;
 	}
 </script>
 <script type="text/javascript">
