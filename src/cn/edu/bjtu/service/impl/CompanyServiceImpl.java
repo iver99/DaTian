@@ -206,7 +206,8 @@ public class CompanyServiceImpl implements CompanyService{
 		if (companyBean.getCity() != null
 				&& !companyBean.getCity().equals("中文或拼音")
 				&& !companyBean.getCity().equals("All")
-				&& !companyBean.getCity().equals("")){
+				&& !companyBean.getCity().equals("")
+				&& !companyBean.getCity().equals("全国")){
 			wheresql+=" and ( t1.companyName like '%"+companyBean.getCity()+"%' "
 					+ "or t1.companyAddr like '%"+companyBean.getCity()+"%' ) ";
 		}

@@ -175,7 +175,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 	 */
 	private String whereSql(WarehouseSearchBean warehouseBean,Map<String,Object> params){
 		String wheresql=" where 1=1 ";
-		if(warehouseBean.getCity()!=null && !warehouseBean.getCity().equals("中文或拼音") && !warehouseBean.getCity().equals("All") && !warehouseBean.getCity().equals("")){
+		if(warehouseBean.getCity()!=null && !warehouseBean.getCity().equals("中文或拼音") && !warehouseBean.getCity().equals("All") && !warehouseBean.getCity().equals("") && !warehouseBean.getCity().equals("全国")){
 			wheresql+=" and t1.city=:city";
 			params.put("city", warehouseBean.getCity());
 		}
