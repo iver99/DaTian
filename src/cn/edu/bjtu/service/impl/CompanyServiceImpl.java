@@ -83,7 +83,7 @@ public class CompanyServiceImpl implements CompanyService{
 	public JSONArray getSelectedCompanyNew(CompanySearchBean companyBean,
 			PageUtil pageUtil, HttpSession session) {
 		String userId=(String)session.getAttribute(Constant.USER_ID);
-	//	Map<String,Object> params=new HashMap<String,Object>();
+		Map<String,Object> params=new HashMap<String,Object>();
 			/*String sql = "select t1.id,"
 				+ "t1.companyName,"
 				+ "t1.resourceRate,"
@@ -129,7 +129,9 @@ public class CompanyServiceImpl implements CompanyService{
 		*/
 		
 		
-		String hql="from Carrierinfo t";
+		String hql="from Carrierinfo t1 ";
+		String wherehql=whereSql(companyBean,params);
+		hql+=wherehql+" order by t1.relDate desc";
 		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
 		int display=pageUtil.getDisplay()==0?10:pageUtil.getDisplay();
 		List<Carrierinfo> companyList=companyDao.find(hql,page,display);
@@ -202,7 +204,7 @@ public class CompanyServiceImpl implements CompanyService{
 	 * @date: 2015年6月15日 下午4:51:20
 	 */
 	private String whereSql(CompanySearchBean companyBean,Map<String ,Object> params){
-		String wheresql="where 1=1 ";
+		String wheresql=" where 1=1 ";
 		if (companyBean.getCity() != null
 				&& !companyBean.getCity().equals("中文或拼音")
 				&& !companyBean.getCity().equals("All")
