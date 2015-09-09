@@ -83,7 +83,7 @@
                         <td class="td_mgmt_right3_td1">手机绑定</td>
                         <td class="td_mgmt_right3_td3">找回登录密码的方式之一。也可用于移动端设备的登录。</td>
                         <td class="td_mgmt_right3_td4"><img src="images/btn_hint1.png" />&nbsp;已绑定</td>
-                        <td class="td_mgmt_right3_td3"><a href="#" hidefocus="true">更换</a></td>
+                        <td class="td_mgmt_right3_td3"><a href="javascript:alert('请等待短信验证功能开通!')" hidefocus="true">更换</a></td>
                     </tr>
 					<tr>
 					    <td height="60" class="td_mgmt_right3_td1d">&nbsp;</td>

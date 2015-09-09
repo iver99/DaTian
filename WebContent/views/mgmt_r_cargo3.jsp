@@ -100,10 +100,10 @@
                                         <input name="type" type="radio" value="服装" hidefocus="true" />服装
                                     </td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">货物信息：</td>
                                     <td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="goodsinfo" required/></td>
-                                </tr>
+                                </tr> -->
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">重量：</td>
                                     <td><input type="text" class="input_mgmt1" style="width:300px;" value="${goodsdetail.weight }" name="weight" required/>

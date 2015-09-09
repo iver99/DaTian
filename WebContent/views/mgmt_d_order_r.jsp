@@ -90,7 +90,7 @@
                         <td width="100" class="td_mgmt_right3_head">订单编号</td>
                         <td width="60" class="td_mgmt_right3_head">类别</td>
                         <td class="td_mgmt_right3_head">名称</td>
-                        <td width="120" class="td_mgmt_right3_head">提交人</td>
+                        <td width="120" class="td_mgmt_right3_head">承运方</td>
                         <td width="88" class="td_mgmt_right3_head">订单运费(元)</td>
                         <td width="88" class="td_mgmt_right3_head">最终运费(元)</td>
                         <td width="80" class="td_mgmt_right3_head">提交时间</td>
@@ -187,7 +187,7 @@ function getUserOrderResource(display,currentPage,orderNum){
 						body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"getOrderDetail?orderid="+data[i].id+"\" hidefocus=\"true\">"+data[i].orderNum+"</a></td>");
 						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].resourceType+"</td>");
 						body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"javascript:;\" class=\"link1\" hidefocus=\"true\">"+data[i].resourceName+"</a></td>");
-						body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"javascript:;\" class=\"link1\" hidefocus=\"true\">"+data[i].carrierName+"</a></td>");
+						body.append("<td class=\"td_mgmt_right3_td1\"><a href=\"javascript:;\" class=\"link1\" hidefocus=\"true\">"+data[i].companyName+"</a></td>");
 						body.append("<td class=\"td_mgmt_right3_td1\">"+data[i].expectedPrice+"</td>");
 						if(data[i].actualPrice== undefined){
 							body.append("<td class=\"td_mgmt_right3_td1\">--</td>");
