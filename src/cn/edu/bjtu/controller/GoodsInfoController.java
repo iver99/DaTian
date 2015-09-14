@@ -115,16 +115,15 @@ public class GoodsInfoController {
 	public ModelAndView myGoodsDetail(@RequestParam String id,
 			@RequestParam int flag, HttpServletRequest request,
 			HttpServletResponse response) {
-		String clientId = (String) request.getSession().getAttribute(Constant.USER_ID);
 		GoodsClientView goodsformInfo = goodsInfoService.getAllGoodsDetail(id);
 		mv.addObject("goodsdetail", goodsformInfo);
 
 		if (flag == 1) {
-			mv.setViewName("mgmt_r_cargo4");
+			mv.setViewName("mgmt_r_cargo4");//查看
 		}
 
 		else if (flag == 2) {
-			mv.setViewName("mgmt_r_cargo3");
+			mv.setViewName("mgmt_r_cargo3");//更新操作
 		}
 
 		return mv;

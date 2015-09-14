@@ -395,6 +395,40 @@ public class SearchServiceImpl implements SearchService{
 		return jsonArray;
 	}
 
+
+	/* 搜索功能总记录数
+	 * @see cn.edu.bjtu.service.SearchService#searchLinetransportTotalRows(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public Integer searchLinetransportTotalRows(String resource_kind,
+			String search_content) {
+		String hql="";
+		Long count=0L;
+//		Map<String,Object> params=new HashMap<String,Object>();
+		if("线路".equals(resource_kind)){
+			hql="select count(*) from Linetransport t where t.startPlace like '%"+search_content+"%' or t.endPlace like '%"+search_content+"%' ";
+			count=linetransportDao.count(hql);
+		}else if("配送".equals(resource_kind)){
+			hql="select count(*) from Cityline t where t.name like '%"+search_content+"%'";
+			count=citylineDao.count(hql);
+		}else if("车辆".equals(resource_kind)){
+			hql="select count(*) from Carinfo t where t.carNum like '%"+search_content+"%'";
+			count=carDao.count(hql);
+		}else if ("仓库".equals(resource_kind)){
+			hql="select count(*) from Warehouse t where t.name like '%"+search_content+"%'";
+			count=warehouseDao.count(hql);
+		}else if("公司".equals(resource_kind)){
+			hql="select count(*) from Carrierinfo t where t.companyName like '%"+search_content+"%'";
+			count=companyDao.count(hql);
+		}else{//货物
+			hql="select count(*) from Goodsform t where t.name like '%"+search_content+"%'";
+			count=goodsDao.count(hql);
+		}
+		
+		return count.intValue();
+		
+	}
+
 	
 	
 

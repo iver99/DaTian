@@ -206,14 +206,68 @@
 <script type="text/javascript" charset="utf-8">
 	function OnLoad() {
 		loadFocus();
-		if(checkSearch()){//checkSearch返回true则不执行搜索功能
-			var display=$("#display").val();
-			var currentPage=$("#currentPage").val();
-		getSelectedLineAjax("中文或拼音","中文或拼音","All","All","All",display,currentPage);
-		getSelectedLineTotalRowsAjax("中文或拼音","中文或拼音","All","All","All",display,currentPage);
+		if(checkSearch()){//返回true执行if,返回false执行上方搜索
+			if(checkFind()){//返回trye执行if，返回false执行首页查询
+				var display=$("#display").val();
+				var currentPage=$("#currentPage").val();
+			getSelectedLineAjax("中文或拼音","中文或拼音","All","All","All",display,currentPage);
+			getSelectedLineTotalRowsAjax("中文或拼音","中文或拼音","All","All","All",display,currentPage);
+			}
 		}
+		//首页的查询功能
+		//checkFind();
 		//检查是否需要执行搜索功能
 		//checkSearch();
+	}
+	//用于topframe中菜单中推荐功能
+	/* function checkRecommendation(){
+		
+	} */
+	//用于首页查询干线资源
+	function checkFind(){
+		//alert("recommend");
+		var paraStr=window.location.search;
+		paraStr=UrlDecode(paraStr);//汉字解析
+		if(paraStr.indexOf("city1")>0 || paraStr.indexOf("city2")>0 || paraStr.indexOf("type")){//参数串中存在搜索信息
+			var para=new Array();
+			var city1;//存储搜索种类
+			var city2;//存储搜索内容
+			var type;//运输类型
+			//debugger;
+			para=paraStr.split("&");
+			for(var i=0;i<para.length;i++){
+				//alert(para[i]);
+				if(para[i].indexOf("city1")>=0){//解析搜索类型
+					var para_kind=new Array();
+					para_kind=para[i].split("=");
+					city1=para_kind[1];//第二个值为参数值
+				}
+				if(para[i].indexOf("city2")>=0){//解析搜索内容
+					var para_content=new Array();
+					para_content=para[i].split("=");
+					city2=para_content[1];//第二个值为参数值
+				}
+				if(para[i].indexOf("type")>=0){//解析运输类型
+					var para_content=new Array();
+					para_content=para[i].split("=");
+					type=para_content[1];//第二个值为参数值
+				}
+			}
+			//set value
+			$("#city1").val(city1);
+			$("#city2").val(city2);
+			//这里没有设置运输类型的显示效果
+			if(type == '整车'){
+				$("#select1_1").click(); 
+			}
+			if(type == '零担'){
+				$("#select1_2").click(); 
+			}
+			$("#btn1").click();
+			return false;
+		}
+		
+		return true;
 	}
 </script>
 <script type="text/javascript">

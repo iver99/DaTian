@@ -74,29 +74,29 @@
             <input id="city1" type="text" value="" class="input_city2" />
             &nbsp;&nbsp;&nbsp;&nbsp;—&nbsp;&nbsp;&nbsp;&nbsp;
             <input id="city2" type="text" value="" class="input_city2" />
-            <input type="button" id="btn1" value="查询" class="btn_index_2" onclick="search()" hidefocus="true" />
+            <input type="button" id="btn1" value="查询" class="btn_index_2" onclick="changeToLinePage()" hidefocus="true" />
         </li>
         <li class="li_index_2c">
-            <a href="linetransportselected?startPlace=北京&endPlace=All&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1" class="a_index_2c" hidefocus="true">北京</a>
-            <a href="linetransportselected?startPlace=天津&endPlace=All&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1" class="a_index_2c" hidefocus="true">天津</a>
-            <a href="linetransportselected?startPlace=上海&endPlace=All&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1" class="a_index_2c" hidefocus="true">上海</a>
-            <a href="linetransportselected?startPlace=广州&endPlace=All&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1" class="a_index_2c" hidefocus="true">广州</a>
-            <a href="linetransportselected?startPlace=深圳&endPlace=All&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1" class="a_index_2c" hidefocus="true">深圳</a>
-            <a href="linetransportselected?startPlace=武汉&endPlace=All&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1" class="a_index_2c" hidefocus="true">武汉</a>
-            <a href="linetransportselected?startPlace=南京&endPlace=All&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1" class="a_index_2c" hidefocus="true">南京</a>
-            <a href="linetransportselected?startPlace=沈阳&endPlace=All&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1" class="a_index_2c" hidefocus="true">沈阳</a>
-            <a href="linetransportselected?startPlace=西安&endPlace=All&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1" class="a_index_2c" hidefocus="true">西安</a>
-            <a href="linetransportselected?startPlace=长沙&endPlace=All&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1" class="a_index_2c" hidefocus="true">长沙</a>
-            <a href="linetransportselected?startPlace=大连&endPlace=All&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1" class="a_index_2c" hidefocus="true">大连</a>
-            <a href="linetransportselected?startPlace=成都&endPlace=All&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1" class="a_index_2c" hidefocus="true">成都</a>
+            <a href="linetransport?flag=0&resource_kind=线路&search_content=北京" class="a_index_2c" hidefocus="true">北京</a>
+            <a href="linetransport?flag=0&resource_kind=线路&search_content=天津" class="a_index_2c" hidefocus="true">天津</a>
+            <a href="linetransport?flag=0&resource_kind=线路&search_content=上海" class="a_index_2c" hidefocus="true">上海</a>
+            <a href="linetransport?flag=0&resource_kind=线路&search_content=广州" class="a_index_2c" hidefocus="true">广州</a>
+            <a href="linetransport?flag=0&resource_kind=线路&search_content=深圳" class="a_index_2c" hidefocus="true">深圳</a>
+            <a href="linetransport?flag=0&resource_kind=线路&search_content=武汉" class="a_index_2c" hidefocus="true">武汉</a>
+            <a href="linetransport?flag=0&resource_kind=线路&search_content=南京" class="a_index_2c" hidefocus="true">南京</a>
+            <a href="linetransport?flag=0&resource_kind=线路&search_content=沈阳" class="a_index_2c" hidefocus="true">沈阳</a>
+            <a href="linetransport?flag=0&resource_kind=线路&search_content=西安" class="a_index_2c" hidefocus="true">西安</a>
+            <a href="linetransport?flag=0&resource_kind=线路&search_content=长沙" class="a_index_2c" hidefocus="true">长沙</a>
+            <a href="linetransport?flag=0&resource_kind=线路&search_content=大连" class="a_index_2c" hidefocus="true">大连</a>
+            <a href="linetransport?flag=0&resource_kind=线路&search_content=成都" class="a_index_2c" hidefocus="true">成都</a>
         </li>
         <li class="li_index_2d">
-            <a href="linetransportselected?startPlace=北京&endPlace=上海&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1" class="a_index_2d" hidefocus="true">北京-上海</a>
-            <a href="linetransportselected?startPlace=北京&endPlace=天津&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1" class="a_index_2d" hidefocus="true">北京-天津</a>
-            <a href="linetransportselected?startPlace=西安&endPlace=上海&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1" class="a_index_2d" hidefocus="true">西安-上海</a>
-            <a href="linetransportselected?startPlace=沈阳&endPlace=广州&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1" class="a_index_2d" hidefocus="true">沈阳-广州</a>
-            <a href="linetransportselected?startPlace=上海&endPlace=武汉&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1" class="a_index_2d" hidefocus="true">上海-武汉</a>
-            <a href="linetransportselected?startPlace=北京&endPlace=广州&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1" class="a_index_2d" hidefocus="true">北京-广州</a>
+            <a href="linetransport?flag=0&city1=北京&city2=上海" class="a_index_2d" hidefocus="true">北京-上海</a>
+            <a href="linetransport?flag=0&city1=北京&city2=天津" class="a_index_2d" hidefocus="true">北京-天津</a>
+            <a href="linetransport?flag=0&city1=西安&city2=上海" class="a_index_2d" hidefocus="true">西安-上海</a>
+            <a href="linetransport?flag=0&city1=沈阳&city2=广州" class="a_index_2d" hidefocus="true">沈阳-广州</a>
+            <a href="linetransport?flag=0&city1=上海&city2=武汉" class="a_index_2d" hidefocus="true">上海-武汉</a>
+            <a href="linetransport?flag=0&city1=北京&city2=广州" class="a_index_2d" hidefocus="true">北京-广州</a>
         </li>
     </ul>
 </div>
@@ -195,17 +195,10 @@ function loadXMLDoc()
 }
 </script>
 <script type="text/javascript">
-	function search() {
-		var city1 = document.getElementById("city1").value;
-		var city2 = document.getElementById("city2").value;
-		if(city1 == "中文或拼音")
-			city1 = "All";
-		if(city2 == "中文或拼音")
-			city2 = "All";
-		var url = "linetransportselected?startPlace="+city1+"&endPlace="+city2+"&type=All&startPlace1=All&refPrice=All&Display=10&PageNow=1";
-		if((city1 == "All") && (city2 == "All"))
-			url = "linetransport?flag=0";
-		location.assign(url);
+	function changeToLinePage(){
+		var city1=$("#city1").val();
+		var city2=$("#city2").val();
+		window.location.href="linetransport?flag=0&city1="+city1+"&city2="+city2;
 	}
 </script>
 </html>

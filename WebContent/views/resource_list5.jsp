@@ -17,8 +17,8 @@
 		<script type="text/javascript" src="js/resource_select.js" charset="UTF-8"></script>
 		<script type="text/javascript" src="js/citylist.js"></script>
 		<script type="text/javascript" src="js/cityquery.js"></script>
-		<script type="text/javascript" src="js/jquery.tablesorter.pack.js"></script>
-		<script type="text/javascript" src="js/table_sort.js"></script>
+		<!-- <script type="text/javascript" src="js/jquery.tablesorter.pack.js"></script>
+		<script type="text/javascript" src="js/table_sort.js"></script> -->
 		<script type="text/javascript" src="js/popup.js"></script>
 		<script type="text/javascript" src="js/backtop.js"></script>
 		<script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
@@ -252,17 +252,90 @@
 	function OnLoad() {
 		//Rescreen();
 		loadFocus();
+		
 		//页面加载完成执行默认的筛选
 		if(checkSearch()){
-			var display = $("#display").val();
-			var currentPage = $("#currentPage").val();
-		getSelectedCompanyAjax("中文或拼音","All","All","All","All",display,currentPage);
-		getSelectedCompanyTotalRowsAjax("中文或拼音","All","All","All","All",display,currentPage);
+			//if(checkRecommend()){
+				
+				var display = $("#display").val();
+				var currentPage = $("#currentPage").val();
+			getSelectedCompanyAjax("中文或拼音","All","All","All","All",display,currentPage);
+			getSelectedCompanyTotalRowsAjax("中文或拼音","All","All","All","All",display,currentPage);
+		//	}
+		
 			
 		}
 		
 		//检查是否需要执行搜索功能
 		//checkSearch();
+	}
+	
+	//用于上方下拉页的链接
+	function checkRecommend(){
+		var paraStr=window.location.search;
+		paraStr=UrlDecode(paraStr);//汉字解析
+		if(paraStr.indexOf("resource_level")>0 || paraStr.indexOf("credit_rate") || paraStr.indexOf("business_kind")){//参数串中存在搜索信息
+			var para=new Array();
+			var resource_level;
+			var business_kind;
+			var credit_rate;
+			//debugger;
+			para=paraStr.split("&");
+			for(var i=0;i<para.length;i++){
+				//alert(para[i]);
+				if(para[i].indexOf("resource_level")>=0){//解析搜索类型
+					var para_kind=new Array();
+					para_kind=para[i].split("=");
+					resource_level=para_kind[1];//第二个值为参数值
+				}
+				if(para[i].indexOf("business_kind")>=0){//解析搜索类型
+					var para_kind=new Array();
+					para_kind=para[i].split("=");
+					business_kind=para_kind[1];//第二个值为参数值
+				}
+				
+				if(para[i].indexOf("credit_rate")>=0){//解析运输类型
+					var para_content=new Array();
+					para_content=para[i].split("=");
+					credit_rate=para_content[1];//第二个值为参数值
+				}
+			}
+			//set value
+			if(resource_level =='自由'){
+				$("#select1_1").click();
+			}
+			if(resource_level =='核心'){
+				$("#select1_2").click();
+			}
+			if(resource_level =='外围'){
+				$("#select1_3").click();
+			}
+			if(business_kind == '运输线路'){
+				$("#select4_1").click();
+			}
+			if(business_kind == '配送网络'){
+				$("#select4_2").click();	
+			}
+			if(business_kind == '仓储'){
+				$("#select4_3").click();
+			}
+			if(credit_rate == '1级'){
+				$("#select3_1").click();
+			}
+			if(credit_rate == '2级'){
+				$("#select3_2").click();			
+			}
+			if(credit_rate == '3级'){
+				$("#select3_3").click();
+			}
+
+
+
+			$("#btn1").click();
+			return false;
+		}
+		
+		return true;
 	}
 </script>
 
@@ -306,7 +379,7 @@ function getSelectedCompanyAjax(
 		currentPage){
 	//alert("ajax_post");
       var url="getSelectedCompanyAjax";
-	  $.post(url,{
+	  /* $.post(url,{
 		  city:city,
 		  resourceRate:resourceRate,
 		  serviceIndustry:serviceIndustry,
@@ -331,7 +404,38 @@ function getSelectedCompanyAjax(
 				$("#testbody").append("<td class=\"td_main_list_content\"><a href=\"javascript:;\" class=\"a_main_list_handle_icon1a\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('"+data[i].id+"')\"></a></td>");
 			$("#testbody").append("</tr>");
 		}
-	  },"json");
+	  },"json"); */
+	  $.ajax({
+		  url:url,
+		  data:{
+			  city:city,
+			  resourceRate:resourceRate,
+			  serviceIndustry:serviceIndustry,
+			  creditRate:creditRate,
+			  serviceKind:serviceKind,
+			  display:display,
+			  currentPage:currentPage 
+		  },
+		  dataType:"json",
+		  cache:false,
+		  success:function(data,status){
+			  $("#testbody").empty();
+				for(var i=0; i<data.length; i++) {
+					$("#testbody").append("<tr>");
+					$("#testbody").append("<td class=\"td_main_list_content\"></td>");
+					$("#testbody").append("<td class=\"td_main_list_content\"><a href=\"companyDetail?id="+data[i].id+"\" hidefocus=\"true\">"+data[i].companyName+"<img src=\"images/btn_level1a.png\" /></a></td>");
+					$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].resourceRate+"</td>");
+					$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].companyKind+"</td>");
+					$("#testbody").append("<td class=\"td_main_list_content\">"+data[i].creditRate+"</td>");
+					$("#testbody").append("<td class=\"td_main_list_content\">"+renderTime(data[i].relDate)+"</td>");
+					if(data[i].status == "有效")
+						$("#testbody").append("<td class=\"td_main_list_content\"><a href=\"javascript:;\" class=\"a_main_list_handle_icon1b\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('"+data[i].id+"')\"></a></td>");
+					else
+						$("#testbody").append("<td class=\"td_main_list_content\"><a href=\"javascript:;\" class=\"a_main_list_handle_icon1a\" hidefocus=\"true\" onclick=\"hide(this);loadXMLDoc('"+data[i].id+"')\"></a></td>");
+					$("#testbody").append("</tr>");
+				}
+		  }
+	  });
 }
 
 function renderTime(date){ 

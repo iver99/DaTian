@@ -36,21 +36,117 @@ function changeToSearchPage(){
 
 //搜索种类
 function searchKind(){
-	//debugger;
 	var resource_kind=$("#resource_choose").val();
 	var search_content=$("#search_content").val();
 	if(resource_kind == '线路'){
 		searchFunc_linetransport(search_content,resource_kind,10,1);
+		//页码信息
+//		debugger;
+		$.ajax({
+			url:"searchResourceTotalRowsAjax",
+			data:{
+				resource_kind:resource_kind,
+				search_content:search_content
+			},
+			dataType:"json",
+			cache:false,
+			success:function(data,status){
+				$('#div_resource_list_head1').text("共"+data+"条记录");
+				  $('#count').val(data);
+				  $("#page_layout").empty();
+				  pageLayout(data);//页面布局
+			}
+		});
 	}else if(resource_kind == '配送'){
 		searchFunc_city(search_content,resource_kind,10,1);
+		//页码信息
+		$.ajax({
+			url:"searchResourceTotalRowsAjax",
+			data:{
+				resource_kind:resource_kind,
+				search_content:search_content
+			},
+			dataType:"json",
+			cache:false,
+			success:function(data,status){
+				$('#div_resource_list_head1').text("共"+data+"条记录");
+				  $('#count').val(data);
+				  $("#page_layout").empty();
+				  pageLayout(data);//页面布局
+			}
+		});
 	}else if(resource_kind == '车辆'){
 		searchFunc_car(search_content,resource_kind,10,1);
+		//页码信息
+		$.ajax({
+			url:"searchResourceTotalRowsAjax",
+			data:{
+				resource_kind:resource_kind,
+				search_content:search_content
+			},
+			dataType:"json",
+			cache:false,
+			success:function(data,status){
+				$('#div_resource_list_head1').text("共"+data+"条记录");
+				  $('#count').val(data);
+				  $("#page_layout").empty();
+				  pageLayout(data);//页面布局
+			}
+		});
 	}else if(resource_kind == '仓库'){
 		searchFunc_warehouse(search_content,resource_kind,10,1);
+		//页码信息
+		$.ajax({
+			url:"searchResourceTotalRowsAjax",
+			data:{
+				resource_kind:resource_kind,
+				search_content:search_content
+			},
+			dataType:"json",
+			cache:false,
+			success:function(data,status){
+				$('#div_resource_list_head1').text("共"+data+"条记录");
+				  $('#count').val(data);
+				  $("#page_layout").empty();
+				  pageLayout(data);//页面布局
+			}
+		});
 	}else if(resource_kind == '公司'){
 		searchFunc_company(search_content,resource_kind,10,1);
+		//页码信息
+		$.ajax({
+			url:"searchResourceTotalRowsAjax",
+			data:{
+				resource_kind:resource_kind,
+				search_content:search_content
+			},
+			dataType:"json",
+			cache:false,
+			success:function(data,status){
+				$('#div_resource_list_head1').text("共"+data+"条记录");
+				  $('#count').val(data);
+				  $("#page_layout").empty();
+				  pageLayout(data);//页面布局
+			}
+		});
 	}else if(resource_kind == '货物'){
 		searchFunc_cargo(search_content,resource_kind,10,1);
+		//页码信息
+		$.ajax({
+			url:"searchResourceTotalRowsAjax",
+			data:{
+				resource_kind:resource_kind,
+				search_content:search_content
+			},
+			dataType:"json",
+			cache:false,
+			success:function(data,status){
+				$('#div_resource_list_head1').text("共"+data+"条记录");
+				  $('#count').val(data);
+				  $("#page_layout").empty();
+				  pageLayout(data);//页面布局
+			}
+		});
 	}
 }
 
@@ -87,8 +183,25 @@ function searchFunc_linetransport(search_content,resource_kind,display,currentPa
 		}
 		});
 	
-	//查询总记录数
-	var url_page="search";
+	/*//查询总记录数
+	$.ajax({
+		url:"",
+		dataType:"json",
+		data:{
+			"resource_kind":resource_kind,
+			"search_content":search_content,
+			"display":display,
+			"currentPage":currentPage
+		},
+		cache:false,
+		success:function(data,status){
+			 $('#div_resource_list_head1').text("共"+data+"条记录");
+			  $('#count').val(data);
+			  $("#page_layout").empty();
+			  pageLayout(data);//页面布局
+		}
+	
+	})*/
 }
 
 //搜索资源功能-城市配送

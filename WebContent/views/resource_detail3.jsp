@@ -17,18 +17,18 @@
 <script type="text/javascript" src="js/main_nav.js"></script>
 <script type="text/javascript" src="js/backtop.js"></script>
 <script type="text/javascript" src="js/popup.js"></script>
-<script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
+<!-- <script type="text/javascript" src="js/jquery.placeholder.min.js"></script> -->
 <script type="text/javascript" src="js/focus_load.js"></script>
 <script type="text/javascript" src="js/search_resource.js"></script><!-- 搜索资源 -->
 <script type="text/javascript" src="js/rating3.js"></script>
 <script type="text/javascript" src="js/jquery.raty.min.js"></script>
 <!-- 引入工具js -->
 <%@ include file="jsTool.jsp" %>
-<script type="text/javascript"> 
+<!-- <script type="text/javascript"> 
 	$(function() {
 		$('input, textarea').placeholder(); 
 	});
-</script>
+</script> -->
 </head>
 
 <body onload="OnLoad()">

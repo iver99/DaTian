@@ -78,8 +78,6 @@
 				<value>cn/edu/bjtu/vo/GoodsClientView.hbm.xml</value>
 				<value>cn/edu/bjtu/vo/Contract.hbm.xml</value>
 				<value>cn/edu/bjtu/vo/Businessclient.hbm.xml</value>
-				<!-- <value>cn/edu/bjtu/vo/FeedbackGoodsView.hbm.xml</value> -->
-				<!-- <value>cn/edu/bjtu/vo/Feedbackform.hbm.xml</value> -->
 				<value>cn/edu/bjtu/vo/OrderCarrierView.hbm.xml</value>
 				<value>cn/edu/bjtu/vo/SubAccount.hbm.xml</value> 
 				<value>cn/edu/bjtu/vo/Response.hbm.xml</value>
@@ -88,12 +86,6 @@
 				<value>cn/edu/bjtu/vo/SettlementCarrierView.hbm.xml</value> 
 				<value>cn/edu/bjtu/vo/ComplaintClientView.hbm.xml</value>
 				<value>cn/edu/bjtu/vo/Focus.hbm.xml</value>
-				<!-- <value>cn/edu/bjtu/vo/FocusCarView.hbm.xml</value>
-				<value>cn/edu/bjtu/vo/FocusCitylineView.hbm.xml</value>
-				<value>cn/edu/bjtu/vo/FocusCompanyView.hbm.xml</value>
-				<value>cn/edu/bjtu/vo/FocusGoodsView.hbm.xml</value>
-				<value>cn/edu/bjtu/vo/FocusLinetransportView.hbm.xml</value>
-				<value>cn/edu/bjtu/vo/FocusWarehouseView.hbm.xml</value> -->
 				<value>cn/edu/bjtu/vo/Message.hbm.xml</value>
 				<value>cn/edu/bjtu/vo/Track.hbm.xml</value>
 				<value>cn/edu/bjtu/vo/Companycertificate.hbm.xml</value>

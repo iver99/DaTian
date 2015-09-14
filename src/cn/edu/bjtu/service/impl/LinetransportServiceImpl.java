@@ -139,7 +139,7 @@ public class LinetransportServiceImpl implements LinetransportService {
 		String wheresql=whereSql(linetransportbean,params);
 		sql+=wheresql+" order by t1.relDate desc";
 		
-		JSONArray jsonArray = new JSONArray();
+		//JSONArray jsonArray = new JSONArray();
 		int page=pageUtil.getCurrentPage()==0?1:pageUtil.getCurrentPage();
 		int display=pageUtil.getDisplay()==0?10:pageUtil.getDisplay();
 		List<Object[]> objectList=linetransportDao.findBySql(sql, params,page,display);
@@ -183,12 +183,14 @@ public class LinetransportServiceImpl implements LinetransportService {
 		
 		String wheresql=" where 1=1 ";
 		if(linetransportBean.getStartPlace()!=null && !linetransportBean.getStartPlace().trim().equals("中文或拼音")&&
-				!linetransportBean.getStartPlace().trim().equals("全国") && !linetransportBean.getStartPlace().trim().equals("")){
+				!linetransportBean.getStartPlace().trim().equals("全国") && !linetransportBean.getStartPlace().trim().equals("")
+				&& !linetransportBean.getStartPlace().trim().equals("All")){
 			wheresql+=" and t1.startPlace=:startPlace";
 			params.put("startPlace", linetransportBean.getStartPlace());
 		}
 		if(linetransportBean.getEndPlace()!=null && !linetransportBean.getEndPlace().trim().equals("中文或拼音")&&
-				!linetransportBean.getEndPlace().trim().equals("全国") && !linetransportBean.getStartPlace().trim().equals("")){
+				!linetransportBean.getEndPlace().trim().equals("全国") && !linetransportBean.getEndPlace().trim().equals("")
+				&& !linetransportBean.getEndPlace().trim().equals("All")){
 			wheresql+=" and t1.endPlace=:endPlace";
 			params.put("endPlace", linetransportBean.getEndPlace());
 		}

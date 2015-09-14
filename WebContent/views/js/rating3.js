@@ -8,10 +8,10 @@ $(function() {
 		targetKeep: true,
 		readOnly : true,
 		score: function() { 
-			//alert($('#rating1').attr('id'));
-		    return $('#rating1').attr('data-score');
+		    return $(this).attr('data-score');
 		}
 	  });
+	  
 	  $('#rating2').raty({
 		half     : false,
 		size     : 16,
@@ -50,6 +50,64 @@ $(function() {
 		}
 	  });
 }); 
+
+function rating1(){
+	$('#rating1').raty({
+		half     : false,
+		size     : 16,
+		starOff  : 'images/star-off-small.png',
+		starOn   : 'images/star-on-small.png',
+		targetKeep: true,
+		readOnly : true,
+		score: function() { 
+			return $("#rate1").val();
+		}
+	  });
+}
+function rating2(){
+	$('#rating2').raty({
+		half     : false,
+		size     : 16,
+		starOff  : 'images/star-off-small.png',
+		starOn   : 'images/star-on-small.png',
+		starHalf : 'images/star-half-small.png',
+		halfShow : true,
+		targetKeep: true,
+		readOnly : true,
+		score: function() { 
+			return $("#rate2").val();
+		}
+	  });
+}
+function rating3(){
+	 $('#rating3').raty({
+			half     : false,
+			size     : 16,
+			starOff  : 'images/star-off-small.png',
+			starOn   : 'images/star-on-small.png',
+			starHalf : 'images/star-half-small.png',
+			halfShow : true,
+			targetKeep: true,
+			readOnly : true,
+			score: function() { 
+				return $("#rate3").val();
+			}
+		  });
+}
+function rating4(){
+	$('#rating4').raty({
+		half     : false,
+		size     : 16,
+		starOff  : 'images/star-off-small.png',
+		starOn   : 'images/star-on-small.png',
+		targetKeep: true,
+		readOnly : true,
+		score: function() { 
+			return $("#rate4").val();
+		}
+	  });
+}
+
 
 //以下为资源栏详情的评价显示函数
 function one_rate(item_id){

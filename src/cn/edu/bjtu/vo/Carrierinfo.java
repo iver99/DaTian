@@ -75,40 +75,6 @@ public class Carrierinfo implements java.io.Serializable {
 		this.phone = phone;
 	}
 
-	public Carrierinfo() {
-	}
-
-	public Carrierinfo(String id) {
-		this.id = id;
-	}
-
-	
-
-	public Carrierinfo(String id, String companyName, String companyAccount,
-			String resourceRate, Integer creditRate, Integer depositCondition,
-			String invoiceKind, String companyAddr, String companyScale,
-			String serviceIndustry, String companyType, Date relDate,
-			String remarks, String line, String city, String warehouse,
-			String phone) {
-		super();
-		this.id = id;
-		this.companyName = companyName;
-		this.companyAccount = companyAccount;
-		this.resourceRate = resourceRate;
-		this.creditRate = creditRate;
-		this.depositCondition = depositCondition;
-		this.invoiceKind = invoiceKind;
-		this.companyAddr = companyAddr;
-		this.companyScale = companyScale;
-		this.serviceIndustry = serviceIndustry;
-		this.companyType = companyType;
-		this.relDate = relDate;
-		this.remarks = remarks;
-		this.line = line;
-		this.city = city;
-		this.warehouse = warehouse;
-		this.phone = phone;
-	}
 
 	public String getId() {
 		return this.id;

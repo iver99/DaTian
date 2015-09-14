@@ -100,10 +100,10 @@
                                         <input name="type" type="radio" value="服装" hidefocus="true" />服装
                                     </td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">货物信息：</td>
                                     <td><input type="text" class="input_mgmt1" style="width:300px;" value="" name="goodsinfo" required/></td>
-                                </tr>
+                                </tr> -->
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">重量：</td>
                                     <td><input type="text" class="input_mgmt1" style="width:300px;" value="${goodsdetail.weight }" name="weight" required/>
@@ -144,7 +144,7 @@
                                             <option value="不需要" >不需要</option>
                                         </select>
                                         <div id="c_detail" style="display:none;">
-                                            <input name="VIPServiceDetail" type="text" class="input_mgmt1" style="width:186px;" placeholder="请输入内容..."/>
+                                            <input name="VIPServiceDetail" value="${goodsdetail.vipServiceDetail }" type="text" class="input_mgmt1" style="width:186px;" placeholder="请输入内容..."/>
                                         </div>
                                     </td>
                                 </tr>
@@ -156,7 +156,7 @@
                                             <option value="用户" >用户</option>
                                             <option value="平台">平台</option>
                                         </select>
-                                        <<!-- div id="v_detail" style="display:none;">
+                                        <!-- <div id="v_detail" style="display:none;">
                                             <select name="orientedUser" style="width:93px;">
                                                 <option value="" selected="selected">请选择</option>
                                                 <option value="全体用户">全体用户</option>
@@ -173,7 +173,7 @@
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">发票要求：</td>
                                     <td>
-                       				<select name="invoice" style="width:110px;" required>
+                       				<select name="invoice" id="invoice" style="width:110px;" required>
                                             <option value="" selected="selected">请选择</option>
                                             <option value="需要" >需要</option>
                                             <option value="不需要">不需要</option>
@@ -220,6 +220,17 @@
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
+		
+		//设置数据
+		setData();
+	}
+	//设置数据
+	function setData(){
+		//alert("${carInfo.startPlace}");
+		 $("#VIPService").attr("value","${goodsdetail.vipservice}"); 
+		$("#invoice").attr("value","${goodsdetail.invoice}");
+		$("#valueadd").attr("value","${goodsdetail.oriented}");
+		
 	}
 </script>
 </html>
