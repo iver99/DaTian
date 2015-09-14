@@ -1,6 +1,6 @@
 /*评价的星形效果*/
 $(function() {
-	 /* $('#rating1').raty({
+	  $('#rating1').raty({
 		half     : false,
 		size     : 16,
 		starOff  : 'images/star-off-small.png',
@@ -8,12 +8,10 @@ $(function() {
 		targetKeep: true,
 		readOnly : true,
 		score: function() { 
-			//alert($('#rating1').attr('id'));
-		    //return $('#rating1').attr('data-score');
-			alert($("#rate1").val());
-			return $("rate1").val();
+		    return $(this).attr('data-score');
 		}
 	  });
+	  
 	  $('#rating2').raty({
 		half     : false,
 		size     : 16,
@@ -50,7 +48,7 @@ $(function() {
 		score: function() { 
 		    return $(this).attr('data-score');
 		}
-	  });*/
+	  });
 }); 
 
 function rating1(){
@@ -62,9 +60,6 @@ function rating1(){
 		targetKeep: true,
 		readOnly : true,
 		score: function() { 
-			//alert($('#rating1').attr('id'));
-		    //return $('#rating1').attr('data-score');
-			alert($("#rate1").val()+"...");
 			return $("#rate1").val();
 		}
 	  });
@@ -80,7 +75,7 @@ function rating2(){
 		targetKeep: true,
 		readOnly : true,
 		score: function() { 
-		    return $(this).attr('data-score');
+			return $("#rate2").val();
 		}
 	  });
 }
@@ -95,7 +90,7 @@ function rating3(){
 			targetKeep: true,
 			readOnly : true,
 			score: function() { 
-			    return $(this).attr('data-score');
+				return $("#rate3").val();
 			}
 		  });
 }
@@ -108,7 +103,7 @@ function rating4(){
 		targetKeep: true,
 		readOnly : true,
 		score: function() { 
-		    return $(this).attr('data-score');
+			return $("#rate4").val();
 		}
 	  });
 }

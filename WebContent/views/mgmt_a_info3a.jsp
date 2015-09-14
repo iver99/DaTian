@@ -83,7 +83,7 @@
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">性别：</td>
 									<td>
-										<select style="width:120px;" name="sex" required>
+										<select style="width:120px;" id="sex" name="sex" required>
 											<option value="" selected="selected">请选择</option>
                                             <option value="男">男</option>
                                             <option value="女">女</option>
@@ -131,6 +131,15 @@
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
+		//设置数据
+		setData();
+	}
+	
+	//设置数据
+	function setData(){
+		//alert("${carInfo.startPlace}");
+		$("#sex").attr("value","${clientinfo.sex}");
+		
 	}
 </script>
 </html>

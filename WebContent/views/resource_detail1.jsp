@@ -25,12 +25,12 @@
 <script type="text/javascript" src="js/jquery.raty.min.js"></script>
 <!-- 引入工具js -->
 <%@ include file="jsTool.jsp" %>
-<script type="text/javascript"> 
+<!-- <script type="text/javascript"> 
 
 	$(function() {
 		$('input, textarea').placeholder(); 
 	});
-</script>
+</script> -->
 </head>
 
 <body onload="OnLoad()">
@@ -114,10 +114,13 @@
                                 	<input type="hidden" value="" id="rate1"/>
                                 <div class="div_rating_left1">运输时效</div>
                                 	<div id="rating2" class="div_rating_right1"	data-score="0"></div>
+                                	<input type="hidden" value="" id="rate2"/>
                                 <div class="div_rating_left1">货物安全</div>
                                 	<div id="rating3" class="div_rating_right1" data-score="0"></div>
+                                	<input type="hidden" value="" id="rate3"/>
                                 <div class="div_rating_left1">总体费用</div>
                                 	<div id="rating4" class="div_rating_right1" data-score="0"></div>
+                                	<input type="hidden" value="" id="rate4"/>
                             </div>
                             <br />
                         	<c:forEach var="comment" items="${commentList }">
@@ -143,18 +146,6 @@
 		loadFocus();
 		//加载评论星形效果
 		setStar();
-		/* $('#rating1').raty({
-			half     : false,
-			size     : 16,
-			starOff  : 'images/star-off-small.png',
-			starOn   : 'images/star-on-small.png',
-			targetKeep: true,
-			readOnly : true,
-			score: function() { 
-			    //return $('#rating1').attr('data-score');
-			    return 3;
-			}
-		  }); */
 	}
 </script>
 <script type="text/javascript">
@@ -179,54 +170,38 @@ function loadXMLDoc(id){
 //加载评论星形效果
 function setStar(){
 	//var serviceAttitude="${comment.serviceAttitude}";
-	var serviceAttitude="${comment.serviceAttitude}";
-	var transportEfficiency="${comment.transportEfficiency}";
-	var cargoSafety="${comment.cargoSafety}";
-	var totalMoney="${comment.totalMoney}";
-	
-	/* if(serviceAttitude == '很好'){
-		$("#rating1").attr("data-score","5");
+	var serviceAttitude="${avgComment.serviceAttitude}";
+	var transportEfficiency="${avgComment.transportEfficiency}";
+	var cargoSafety="${avgComment.cargoSafety}";
+	var totalMoney="${avgComment.totalMoney}";
+	  if(serviceAttitude == '很好'){
+		  $("#rating1").attr("data-score","5");
 	}else if(serviceAttitude =='好'){
-		$("#rating1").attr("data-score","4");
+		 $("#rating1").attr("data-score","4");
 	}else if(serviceAttitude == '一般'){
-		$("#rating1").attr("data-score","3");
+		 $("#rating1").attr("data-score","3");
 	}else if(serviceAttitude =='差'){
-		$("#rating1").attr("data-score","2");
+		 $("#rating1").attr("data-score","2");
 	}else{
-		$("#rating1").attr("data-score","1");
-	} */
-	//$("#rate1").attr("data-score","4");
-	$("#rate1").val(4);
-	alert($("#rate1").val());
-	//alert($("#rating1").attr("data-score"));
+		 $("#rating1").attr("data-score","1");
+	}  
 	//rating1();
-	$('#rating1').raty({
-		half     : false,
-		size     : 16,
-		starOff  : 'images/star-off-small.png',
-		starOn   : 'images/star-on-small.png',
-		targetKeep: true,
-		readOnly : true,
-		score: function() { 
-			//alert($('#rating1').attr('id'));
-		    //return $('#rating1').attr('data-score');
-			alert($("#rate1").val()+"...");
-			return $("#rate1").val();
-		}
-	  });
+	//$('#rating1').attr('data-score',3);
 	if(transportEfficiency == '很好'){
-		$("#rating2").attr("data-score","5");
+		 $("#rating2").attr("data-score","5");
 	}else if(transportEfficiency =='好'){
-		$("#rating2").attr("data-score","4");
+		 $("#rating2").attr("data-score","4");
 	}else if(transportEfficiency == '一般'){
-		$("#rating2").attr("data-score","3");
+		 $("#rating2").attr("data-score","3");
 	}else if(transportEfficiency =='差'){
-		$("#rating2").attr("data-score","2");
+		 $("#rating2").attr("data-score","2");
 	}else{
-		$("#rating2").attr("data-score","1");
+		 $("#rating2").attr("data-score","1");
 	}
-	if(cargoSafety == '很好'){
-		$("#rating3").attr("data-score","5");
+	//rating2();
+	//评价三
+	 if(cargoSafety == '很好'){
+		 $("#rating3").attr("data-score","5");
 	}else if(cargoSafety =='好'){
 		$("#rating3").attr("data-score","4");
 	}else if(cargoSafety == '一般'){
@@ -236,7 +211,8 @@ function setStar(){
 	}else{
 		$("#rating3").attr("data-score","1");
 	}
-	
+	//rating3();
+	//评价四
 	if(totalMoney == '很好'){
 		$("#rating4").attr("data-score","5");
 	}else if(totalMoney =='好'){
@@ -247,8 +223,8 @@ function setStar(){
 		$("#rating4").attr("data-score","2");
 	}else{
 		$("#rating4").attr("data-score","1");
-	}
-	
+	} 
+	//rating4();
 	
 }
 
