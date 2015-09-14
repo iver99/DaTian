@@ -72,7 +72,7 @@
                         </td>
                 	</tr>
             	</table>
-            	<form action="signBill?orderid=${orderId }" method="post" enctype="multipart/form-data">
+            	<form action="signBill?orderid=${orderId }" id="sign_bill" method="post" enctype="multipart/form-data">
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_mgmt_right3">
                     <tr>
                         <td class="td_mgmt_right3_td1a">
@@ -102,12 +102,12 @@
                                 </tr>
                                 <tr>
                                     <td height="40" class="td_mgmt_right3_td1b">最终运费：</td>
-                                    <td><input type="text" class="input_mgmt1" style="width:100px;" name="actualPrice" required/> (元)</td>
+                                    <td><input type="text" class="input_mgmt1" style="width:100px;" name="actualPrice" id="actualPrice" required/> (元)</td>
                                 </tr>
 								<tr>
 									<td height="40" class="td_mgmt_right3_td1b">说明：</td>
 									<td>
-                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="explainReason" required></textarea>
+                                    	<textarea class="textarea_rating" placeholder="请输入内容..." name="explainReason" id="explainReason" required></textarea>
                                     </td>
 								</tr>
 								<tr>
@@ -138,6 +138,25 @@
 <script type="text/javascript">
 	function OnLoad() {
 		loadFocus();
+		//表单验证
+		formValidate();
+	}
+	
+	//验证表单
+	function formValidate(){
+		$("#sign_bill").validate({
+			rules : {
+				//orderNum : "required",
+				explainReason : "required",
+				file : "required",
+				actualPrice : {
+					required : true,
+					number : true
+				}
+				
+
+			}
+		});
 	}
 </script>
 </html>
